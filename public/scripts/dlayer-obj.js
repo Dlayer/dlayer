@@ -670,7 +670,7 @@ var dlayer = {
                 {
                     // Can just take the supplied id and concatenamt to h1 to 
                     // generate the correct tag
-                }
+                },
                 
                 /**
                 * Preview function for content item content, updates the 
