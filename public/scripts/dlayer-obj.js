@@ -502,13 +502,10 @@ var dlayer = {
                         if(new_padding != NaN && new_padding >= 0) {
                             
                             // Check width value in designer in case 
-                            // it has been modified by other preview methods
-                            var client_width = parseInt(
-                            $(selector).css('width'));
-                            
-                            if(attributes.width != client_width) {
-                                attributes.width = client_width;
-                            }
+                            // it has been modified by other preview methods                            
+                            attributes.width = dlayer.preview.content.fn.
+                            check_client_attribute_value(selector, 'width', 
+                            attributes.width);
                             
                             var total_width = (new_padding * 2) +
                             attributes.margins.left +
@@ -528,11 +525,9 @@ var dlayer = {
                                 // Check width value in designer in case 
                                 // it has been modified by other preview 
                                 // methods
-                                var client_padding = parseInt(
-                                $(selector).css('padding'));
-                                if(padding != client_padding) {
-                                    padding = client_padding;
-                                }
+                                padding = dlayer.preview.content.fn.
+                                check_client_attribute_value(selector, 
+                                'padding', padding);
                                 
                                 // Trigger change event when value reset
                                 $('#params-padding').val(padding).
@@ -546,7 +541,7 @@ var dlayer = {
                 },
 
                 /**
-                * Prevuew function for content container padding changes where
+                * Preview function for content container padding changes where
                 * the width of the item doesn't need to be altered. Updates
                 * the padding of the content container to the selected value
                 *
@@ -687,18 +682,25 @@ var dlayer = {
                 },
                 
                 /**
-                * Preview function for changing heading tag, switches the h 
-                * tag for the element
+                * Check current client attribute value against the default 
+                * value passed into the preview functions
                 * 
-                * @param {integer} Content id
-                *
-                * 
-                * Working on this
-                * 
-                * 
-                * @returns {Void}
+                * @param {String} Jquery selector
+                * @param {String} Attribute to check
+                * @param {Integer} Current value, at page load
+                * @returns {Integer} Value to use for calcualtions
                 */
-                
+                check_client_attribute_value: function(selector, attribute, 
+                value) 
+                {
+                    var client_value = parseInt($(selector).css('width'));
+                    
+                    if(value != client_value) {
+                        return client_value;
+                    } else {
+                        return value;
+                    }
+                },       
 
                 /**
                 * Set the widths for a content item, container and the
