@@ -660,6 +660,19 @@ var dlayer = {
                 },
                 
                 /**
+                * Preview function for heading type, switches the heading tab 
+                * when the user changes the heading type in the select
+                * 
+                * @param {Integer} Content id
+                * @returns {Void}
+                */
+                heading_type: function(content_id) 
+                {
+                    // Can just take the supplied id and concatenamt to h1 to 
+                    // generate the correct tag
+                }
+                
+                /**
                 * Preview function for content item content, updates the 
                 * content on keyup, change and blur
                 * 
@@ -729,7 +742,7 @@ var dlayer = {
                     } else {
                         return value;
                     }
-                },       
+                },    
 
                 /**
                 * Set the widths for a content item, container and the
