@@ -50,8 +50,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         // Include js and css files in layout
         $this->layout = Zend_Layout::getMvcInstance();
-        $this->layout->assign('js_include', array('scripts/dlayer.js', 
-        'scripts/content/tools.js', 'scripts/content/preview.js'));
+        $this->layout->assign('js_include', array('scripts/dlayer-obj.js'));
         $this->layout->assign('css_include', array('styles/designer.css',
         'styles/designer/content.css', 
         'styles/designer/content-item-form.css', 'styles/ribbon.css',
