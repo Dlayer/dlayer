@@ -668,8 +668,21 @@ var dlayer = {
                 */
                 heading_type: function(content_id) 
                 {
-                    // Can just take the supplied id and concatenamt to h1 to 
-                    // generate the correct tag
+                    $('#params-heading_type').change(function() 
+                    {
+                        var selector = '.c_item_' + content_id;
+                        var h_tag = $(selector)[0].tagName;
+                        var heading = $('.c_selected').html();
+                        
+                        $('.c_selected').html(heading.replace('<' + 
+                        h_tag.toLowerCase(), '<h' + this.value)
+                        .replace('</' + h_tag.toLowerCase(), 
+                        '</h' + this.value));
+                        
+                        dlayer.preview.content.fn.highlight(selector);
+                        dlayer.preview.content.changed = true;
+                        dlayer.preview.content.fn.unsaved();
+                    });
                 },
                 
                 /**
