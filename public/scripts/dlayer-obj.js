@@ -381,8 +381,8 @@ var dlayer = {
                 
 				/**
 				* Preview function for content container margins, updates
-                * the margins in the Content manager design as the user
-                * modified the values. The input types are numbers so the
+                * the margins in the Content manager designer as the user
+                * modifies the values. The input types are numbers so the
                 * event fires onchange,
 				*
 				* There will always be a margin value for each container so
@@ -522,7 +522,7 @@ var dlayer = {
 
                                 dlayer.preview.content.fn.highlight(selector);
                             } else {
-                                // Check width value in designer in case 
+                                // Check padding value in designer in case 
                                 // it has been modified by other preview 
                                 // methods
                                 padding = dlayer.preview.content.fn.
@@ -599,8 +599,26 @@ var dlayer = {
                             var new_padding = parseInt(this.value, 10);
                             var selector = '.c_item_' + content_id;
                             
+                            // Check width value in designer in case 
+                            // it has been modified by other preview methods                            
+                            attributes.width = dlayer.preview.content.fn.
+                            check_client_attribute_value(selector, 'width', 
+                            attributes.width);
+                            
+                            // Fetch the horixzontal padding value not being 
+                            // altered by this preview method
+                            if(position == 'left') {
+                                sibling_position = 'right';
+                            } else {
+                                sibling_padding = 'left';
+                            }
+                            
+                            attributes.padding = parseInt($(selector).css(
+                            'padding-' + sibling_position), 10);
+                            
                             if(new_padding != NaN && new_padding >= 0) {
-                                var total_width = new_padding +
+                                var total_width = new_padding + 
+                                attributes.padding + 
                                 attributes.margins.left +
                                 attributes.margins.right +
                                 attributes.width;
@@ -617,6 +635,13 @@ var dlayer = {
                                     dlayer.preview.content.fn.highlight(
                                     selector);
                                 } else {
+                                    // Check padding value in designer in case 
+                                    // it has been modified by other preview 
+                                    // methods
+                                    padding = dlayer.preview.content.fn.
+                                    check_client_attribute_value(selector, 
+                                    'padding-' + position, padding);
+                                    
                                     // Trigger change event when value reset
                                     $('#params-padding_' + position).val(
                                     padding).trigger('change');

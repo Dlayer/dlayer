@@ -3,4 +3,8 @@ dlayer
 
 Dlayer.com: Web development simplified
 
-Required Zend framework 1 and MySQL
+Copyright: G3D Development Limited
+
+Author: Dean Blackborough <dean@g3d-development.com
+
+Required: Zend framework 1 and MySQL
