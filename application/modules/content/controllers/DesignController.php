@@ -10,7 +10,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: DesignController.php 1961 2014-06-17 00:01:52Z Dean.Blackborough $
 */
 class Content_DesignController extends Zend_Controller_Action
 {
