@@ -1,5 +1,16 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
+<?php if($this->edit_mode == TRUE) { ?>
+<script type="text/javascript">
+dlayer.preview.content.fn.container_width(8, 820, 600, { 
+paddings: { left: 10, right: 10 }, margins: { right: 100, left: 100 }});
+dlayer.preview.content.fn.container_padding(8, 820, 10, { width: 600, 
+margins: { right: 100, left: 100 }});
+</script>
+
+<p class="unsaved">Data has been modified!</p>
+<?php } ?>
+
 <?php 
 if($this->data != FALSE) {
     echo $this->data['form'];

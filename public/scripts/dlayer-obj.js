@@ -1,5 +1,6 @@
 /**
-* Dlayer javascript object, contains al the js required by the app.
+* Dlayer javascript object, contains all the custom js fucntions required 
+* by Dlayer
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development limited
