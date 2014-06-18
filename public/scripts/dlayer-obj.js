@@ -427,7 +427,7 @@ var dlayer = {
                                    the current value in designer incase another 
                                    preview method has modified it 
 				* @param {Object} Other attributes that affect container
-								  width, for example padding, borders and
+								  width, for example paddings, borders and
 								  margins
 				* @returns {Void}
 				*/
@@ -440,17 +440,26 @@ var dlayer = {
 
                         if(new_width != NaN && new_width > 0) {
                             
-                            // Check padding value in designer in case 
-                            // it has been modified by other preview methods
-                            var client_padding = parseInt(
-                            $(selector).css('padding'));
+                            // Check padding values in designer in case they 
+                            // have been modified by other preview methods
+                            var client_padding_left = parseInt(
+                            $(selector).css('padding-left'));
                             
-                            if(attributes.padding != client_padding) {
-                                attributes.padding = client_padding;
+                            if(attributes.paddings.left != client_padding_left) {
+                                attributes.paddings.left = client_padding_left;
+                            }
+                            var client_padding_right = parseInt(
+                            $(selector).css('padding-right'));
+                            
+                            if(attributes.paddings.right != 
+                            client_padding_right) {
+                                attributes.paddings.right = 
+                                client_padding_right;
                             }
                             
                             var total_width = new_width +
-                            (attributes.padding * 2) +
+                            attributes.paddings.left +
+                            attributes.paddings.right +
                             attributes.margins.left +
                             attributes.margins.right;
                             var container_width = new_width;
@@ -478,7 +487,10 @@ var dlayer = {
 				},
 
                 /**
-                * Prevuew function for content container padding changes.
+                * Preview function for content container padding changes, used 
+                * when the same padding value is being used around the entire 
+                * container.
+                * 
                 * Updates the padding of the content container to the selected
                 * values whilst also checking to ensure that the combined
                 * value of the padding and all other attrbiutes doesn't exceed
@@ -582,15 +594,15 @@ var dlayer = {
                 *
                 * @param {Integer} Content id
                 * @param {Integer} Page container width
-                * @paran {String} Margin position, either right or left
-                * @param {Integer} Current margin value
+                * @paran {String} Padding position, either right or left
+                * @param {Integer} Current padding value
                 * @param {Object} Other attributes that affect container
                 *                 width, for example width, borders and
                 *                 margins
                 * @returns {Void}
                 */
                 container_padding_horizontal: function(content_id, 
-                page_container_width, position, margin, attributes)
+                page_container_width, position, padding, attributes)
                 {
                     var positions = ['left', 'right'];
                     
@@ -608,9 +620,9 @@ var dlayer = {
                             // Fetch the horixzontal padding value not being 
                             // altered by this preview method
                             if(position == 'left') {
-                                sibling_position = 'right';
+                                var sibling_position = 'right';
                             } else {
-                                sibling_padding = 'left';
+                                var sibling_padding = 'left';
                             }
                             
                             attributes.padding = parseInt($(selector).css(

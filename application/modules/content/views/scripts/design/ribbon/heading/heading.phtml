@@ -1,5 +1,19 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
+<?php if($this->edit_mode == TRUE) { ?>
+<script type="text/javascript">
+dlayer.preview.content.fn.container_content(4, 'heading');
+dlayer.preview.content.fn.container_padding_vertical(4, 'top', 12);
+dlayer.preview.content.fn.container_padding_vertical(4, 'bottom', 12);
+dlayer.preview.content.fn.container_padding_horizontal(4, 820, 'left', 5, 
+{ width: 815, margins: { right: 0, left: 0 } });
+dlayer.preview.content.fn.container_width(4, 820, 815, { 
+paddings: { left: 10, right: 10 }, margins: { right: 50, left: 50 }});
+</script>
+
+<p class="unsaved">Data has been modified!</p>
+<?php } ?>
+
 <?php 
 if($this->data != FALSE) {
     echo $this->data['form'];
