@@ -442,21 +442,14 @@ var dlayer = {
                             
                             // Check padding values in designer in case they 
                             // have been modified by other preview methods
-                            var client_padding_left = parseInt(
-                            $(selector).css('padding-left'));
+                            attributes.paddings.left = dlayer.preview.
+                            content.fn.check_client_attribute_value(selector, 
+                            'padding-left', attributes.paddings.left);
                             
-                            if(attributes.paddings.left != client_padding_left) {
-                                attributes.paddings.left = client_padding_left;
-                            }
-                            var client_padding_right = parseInt(
-                            $(selector).css('padding-right'));
-                            
-                            if(attributes.paddings.right != 
-                            client_padding_right) {
-                                attributes.paddings.right = 
-                                client_padding_right;
-                            }
-                            
+                            attributes.paddings.right = dlayer.preview.
+                            content.fn.check_client_attribute_value(selector, 
+                            'padding-right', attributes.paddings.right);
+                           
                             var total_width = new_width +
                             attributes.paddings.left +
                             attributes.paddings.right +
@@ -474,11 +467,10 @@ var dlayer = {
                                 // Check width value in designer in case 
                                 // it has been modified by other preview 
                                 // methods
-                                var client_width = parseInt(
-                                $(selector).css('width'));
-                                if(width != client_width) {
-                                    width = client_width;
-                                }
+                                width = dlayer.preview.content.fn.
+                                check_client_attribute_value(selector, 
+                                'width', width);
+                                
                                 // Trigger change event when value reset
                                 $('#params-width').val(width).trigger('change');
                             }
@@ -730,7 +722,7 @@ var dlayer = {
                 check_client_attribute_value: function(selector, attribute, 
                 value) 
                 {
-                    var client_value = parseInt($(selector).css('width'));
+                    var client_value = parseInt($(selector).css(attribute));
                     
                     if(value != client_value) {
                         return client_value;
