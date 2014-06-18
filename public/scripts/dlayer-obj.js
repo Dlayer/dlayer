@@ -3,7 +3,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development limited
-* @version $Id$
 */
 var contents = null;
 
