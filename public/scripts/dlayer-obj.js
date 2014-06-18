@@ -390,11 +390,9 @@ var dlayer = {
 				*
 				* @param {Integer} Id of the content item
 				* @param {Integer} Margin position, top, right, left or bottom
-				* @param {Integer} Current margin value
 				* @returns {Void}
 				*/
-				container_margin: function(content_id, margin,
-				value)
+				container_margin: function(content_id, margin)
 				{
 					$('#params-' + margin).change(function()
 					{
