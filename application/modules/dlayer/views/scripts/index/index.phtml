@@ -1,0 +1,73 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<style>
+h1 {
+    font-size: 7em;
+    text-align: center;
+    margin: 1em 0 1em 0;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() 
+{
+    $('#identity').focus();
+});
+</script>
+
+<div id="content">
+	<section>
+	    <h1>Dlayer.com</h1>
+	    
+	    <?php echo $this->form; ?>
+	    
+	    <h2>Test usernames and passwords</h2>
+	    
+	    <ul>
+	        <?php foreach($this->test_identities as $identity) { ?>
+	        <li>
+	        <?php echo $this->escape($identity['identity']); ?> / 
+	        password-<?php echo $this->escape($identity['id']); ?> 
+	        <?php if($identity['logged_in'] == 1) { echo ' - Logged in'; } ?>
+	        </li>
+	        <?php } ?>
+	    </ul>
+    </section>
+    
+    <section>
+    
+    	<h2>Project goal</h2>
+    	
+    	<p>I have long term goals for <a href="/">Dlayer</a> which far exceed 
+    	this concept version, this version just scratches the surface.</p>
+    	
+    	<p>After many years of working on <a href="/">Dlayer</a> I've realised 
+    	that it will be better for my sanity to finish a concept version of 
+    	<a href="/">Dlayer</a> rather than try and complete the entire 
+    	project single handed.</p>
+    	
+    	<p>This project is being developed specifically as a proof of concept, 
+    	I'm aiming to write production quality code, I'm just very aware that 
+    	I'm a one man team and am developing <a href="/">Dlayer</a> in my 
+    	free time at my own cost.</p>
+    	
+    	<p>Ideally this version will allow me to get external parties 
+    	interested in investment so that I can build a team and realise the 
+    	<a href="/">Dlayer</a> that I imagined in 2008.</p>
+    	
+    	<p>As I am trying to showcase the concept I'm using the best 
+    	technology I can, this includes the new input types of 
+    	<a href="http://www.w3.org/TR/html5/forms.html">HTML5</a>, as of 
+    	writing 
+    	<a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> 
+    	supports more of the new input types than any other browsers.</p>
+    	
+    	<p class="note">If you are interested in seeing the full current 
+    	specification for Dlayer please contact me at dean (at) 
+    	g3d-development (dot) com or via my 
+    	<a href="http://www.g3d-development.com">blog</a>.</p>
+    
+	    <p><strong>Dean Blackborough</strong> - 
+	    <a href="http://www.g3d-development.com">G3D Development</a></p>
+    </section>
+</div>

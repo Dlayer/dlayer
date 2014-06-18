@@ -1,0 +1,101 @@
+/**
+* Styles for the base level forms
+* 
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+* @version $Id: forms.css 1914 2014-06-09 15:45:45Z Dean.Blackborough $
+*/
+
+/* Base styling for the forms */
+#content form {
+    width: 766px;
+}
+#content form fieldset {
+    margin: 0px;
+    border: none;
+    background-color: #f5f5f5;
+    padding: 10px 0px 0px 10px;
+    border: 1px solid #b4b4b4;
+    width: 754px;
+}
+#content form fieldset > legend {
+    font-weight: bold;
+    padding: 0.3em 0.5em 0.3em 0.5em;
+    color: #646464;
+    border: 1px solid #b4b4b4;
+    background-color: #ebebeb;
+    font-size: 1.2em;
+}
+#content form fieldset .hidden {
+    display: none;
+}
+#content form fieldset .input {
+    padding: 5px;
+}
+#content form fieldset .input label {
+    font-weight: bold;
+    color: #505050;
+    padding-right: 5px;
+}
+#content form fieldset .input input {
+    color: #666666;
+    border: 1px solid #b4b4b4;
+    padding: 2px;
+}
+#content form fieldset .input textarea {
+    color: #666666;
+    border: 1px solid #b4b4b4;
+    padding: 2px;
+}
+#content form fieldset .input input.tinyint {
+    width: 50px;
+}
+#content form fieldset .input input.mediumint {
+    width: 80px;
+}
+#content form fieldset .input input.color {
+    width: 80px;
+}
+#content form fieldset .input select {
+    color: #505050;
+    border: 1px solid #b4b4b4;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#content form fieldset .input select > option {
+    color: #505050;
+    padding: 2px;
+}
+#content form fieldset .input textarea {
+    color: #505050;
+    border: 1px solid #b4b4b4;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#content form fieldset .input > p.hint {
+    margin: 10px 0px 5px 0px;
+    font-size: 0.8em;
+}
+#content form fieldset .save {
+    float: right;
+    padding: 5px 5px 15px 5px;
+    width: 744px;
+}
+#content form fieldset .save > input {
+    display: block;
+    padding: 3px 5px 3px 5px;
+    margin: 0;
+    color: #505050;
+    background-color: #ebebeb;
+    border: 1px solid #b4b4b4;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#content form fieldset .save > input:hover {
+    background-color: #e1e1e1;
+    cursor: pointer;
+}
+#content form fieldset ul.errors {
+    padding: 0px 0px 0px 20px;
+    margin: 10px 0px 10px 0px;
+}
+#content form fieldset ul.errors > li {
+    color: #960505;
+}

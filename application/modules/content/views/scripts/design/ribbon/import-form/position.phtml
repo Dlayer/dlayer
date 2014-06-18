@@ -1,0 +1,35 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<?php if($this->edit_mode == TRUE) { ?>
+<script type="text/javascript">
+<?php foreach($this->data['preview_data']['margins'] as $margin=>$value) { ?>
+dlayer.preview.content.fn.container_margin(<?php echo $this->escape(
+$this->data['preview_data']['content_id']) ?>, '<?php echo $this->escape(
+$margin); ?>', <?php echo $this->escape($value); ?>);
+<?php } ?>
+</script>
+
+<p class="unsaved">Data has been modified!</p>
+<?php } ?>
+
+<p>The form below allows you to control the position of the imported 
+form within the page container, you can use the links below to preset the 
+values.</p>
+
+<ul>
+	<li><a href="#" id="set_position_left" class="set_position">Left aligned</a></li>
+	<li><a href="#" id="set_position_center" class="set_position">Centered</a></li>
+	<li><a href="#" id="set_position_right" class="set_position">Right aligned</a></li>
+</ul>
+
+<?php 
+if($this->data != FALSE) {
+    echo $this->data['form'];
+}
+?>
+
+<script type="text/javascript">
+dlayer.designers.set_position_presets(<?php echo $this->escape(
+$this->data['page_container_width']); ?>, <?php echo $this->escape(
+$this->data['content_container_width']); ?>);
+</script>

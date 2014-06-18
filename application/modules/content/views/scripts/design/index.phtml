@@ -1,0 +1,97 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<script type="text/javascript">
+
+/**
+* Moved the initial call into the viewscript, need to control when the
+* selector function is called, to do that need to read the url when means
+* passing a var down from the controller and acting based on it
+*/
+
+$(document).ready(function()
+{
+    <?php if($this->div_id == NULL && $this->tool == NULL) { ?>
+    dlayer.selectors.content();
+    <?php } ?>
+    
+    <?php if($this->div_id != NULL && $this->content_id == NULL && 
+    $this->tool == NULL) { ?>
+    dlayer.selectors.contentItem();
+    dlayer.movers.contentItem();
+    <?php } ?>
+    <?php if($this->div_id != NULL && $this->tool != NULL) { ?>
+    dlayer.designers.metrics.pageContainer();
+    <?php } ?>
+    <?php if($this->div_id != NULL && $this->tool != NULL && 
+    $this->content_id != NULL) { ?>
+    dlayer.designers.metrics.contentItems();
+    <?php } ?>
+});
+</script>
+
+<div id="designer">
+    <section id="page">
+        <?php echo $this->dlayer_page; ?>
+    </section>
+    <?php if(strlen($this->dlayer_toolbar) > 1) { ?>
+    <section id="tools">
+        <?php echo $this->dlayer_toolbar; ?>
+    </section>
+    <?php } ?>
+    <?php if($this->div_id != NULL && $this->tool != NULL) { ?>
+    <section id="page_container_metrics">
+    <section class="title">
+    <a href="#">Show page container metrics</a>
+    </section>
+    <section class="metrics">
+    <div class="title">Page container metrics</div>
+    <div class="height">Height: 
+    <?php echo $this->escape($this->page_container_metrics['height']); ?></div>
+    <div class="width">Container width: 
+    <?php echo $this->escape($this->page_container_metrics['width']); ?></div>
+    </section>
+    </section>
+    <?php } ?>
+    <?php if($this->div_id != NULL && $this->tool != NULL && 
+    $this->content_id != NULL) { ?>
+    <section id="content_item_metrics">
+	    <section class="title">
+	    	<a href="#">Show content item metrics</a>
+	    </section>
+	    <section class="metrics">
+	    	<div class="title">Content item metrics</div>
+	    	<div class="height">Height: <?php echo $this->escape(
+	    	$this->content_item_metrics['height']); ?></div>
+	    	<div class="border_top"><?php echo $this->escape(
+	    	$this->content_item_metrics['border']['top']); ?></div>
+	    	<div class="margin_top"><?php echo $this->escape(
+	    	$this->content_item_metrics['margin']['top']); ?></div>
+	    	<div class="border_right"><?php echo $this->escape(
+	    	$this->content_item_metrics['border']['right']); ?></div>
+	    	<div class="padding_top"><?php echo $this->escape(
+	    	$this->content_item_metrics['padding']['top']); ?></div>
+	    	<div class="margin_left"><?php echo $this->escape(
+	    	$this->content_item_metrics['margin']['left']); ?></div>
+	    	<div class="padding_left"><?php echo $this->escape(
+	    	$this->content_item_metrics['padding']['left']); ?></div>
+	    	<div class="width">Content width <?php echo $this->escape(
+	    	$this->content_item_metrics['width']); ?> pixels</div>
+	    	<div class="padding_right"><?php echo $this->escape(
+	    	$this->content_item_metrics['padding']['right']); ?></div>
+	    	<div class="margin_right"><?php echo $this->escape(
+	    	$this->content_item_metrics['margin']['right']); ?></div>
+	    	<div class="padding_bottom"><?php echo $this->escape(
+	    	$this->content_item_metrics['padding']['bottom']); ?></div>
+	    	<div class="border_left"><?php echo $this->escape(
+	    	$this->content_item_metrics['border']['left']); ?></div>
+	    	<div class="margin_bottom"><?php echo $this->escape(
+	    	$this->content_item_metrics['margin']['bottom']); ?></div>
+	    	<div class="border_bottom"><?php echo $this->escape(
+	    	$this->content_item_metrics['border']['bottom']); ?></div>
+	    </section>
+    </section>
+    <?php } ?>
+    <section id="ribbon">
+        <?php echo $this->dlayer_ribbon; ?>
+    </section>
+</div>

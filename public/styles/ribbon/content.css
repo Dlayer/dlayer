@@ -1,0 +1,114 @@
+/**
+* Custome css styles for the content module ribbon
+*
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+* @version $Id: content.css 1914 2014-06-09 15:45:45Z Dean.Blackborough $
+*/
+
+#ribbon form {
+    padding: 0px;
+    margin: 0px;
+}
+#ribbon dl.zend_form {
+    padding: 0px;
+    margin: 0px;
+    width: 320px;
+}
+#ribbon dl.zend_form > dt {
+    display: none;
+}
+#ribbon dl.zend_form fieldset {
+    width: 320px;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+#ribbon dl.zend_form fieldset > legend {
+    display: none;
+}
+#ribbon dl.zend_form fieldset > dl {
+    width: 320px;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+#ribbon dl.zend_form fieldset > dl > div.input {
+    width: 320px;
+}
+#ribbon dl.zend_form fieldset > dl label {
+    display: block;
+    float: left;
+    width: 315px;
+    padding: 5px 5px 5px 0px;
+    font-weight: bold;
+    color: #505050;
+}
+#ribbon dl.zend_form fieldset > dl input {
+    width: 300px;
+    padding: 3px;
+    color: #505050;
+    border: 1px solid #b4b4b4;
+}
+#ribbon dl.zend_form fieldset > dl select {
+    padding: 3px;
+    color: #505050;
+    border: 1px solid #b4b4b4;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#ribbon dl.zend_form fieldset > dl textarea {
+    width: 305px;
+    color: #505050;
+    border: 1px solid #b4b4b4;
+    padding: 3px;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#ribbon dl.zend_form fieldset > dl input.tinyint {
+    width: 50px;
+}
+#ribbon dl.zend_form fieldset > dl input.mediumint {
+    width: 80px;
+}
+#ribbon dl.zend_form fieldset > dl p.hint {
+    margin: 0px;
+    width: 320px;
+    float: left;
+    color: #505050;
+    font-size: 0.8em;
+}
+#ribbon dl.zend_form fieldset > dl > div.input_50 {
+    width: 160px;
+    padding-bottom: 5px;
+}
+#ribbon dl.zend_form fieldset > dl > div.input_50 > label {
+    display: block;
+    float: left;
+    width: 160px;
+    font-weight: bold;
+}
+#ribbon dl.zend_form fieldset > dl > div.input_50 > input.tinyint {
+    width: 50px;
+}
+#ribbon dl.zend_form fieldset > dl > div.input_50 > p.hint {
+    width: 160px;
+    font-size: 0.8em;
+}
+#ribbon dl.zend_form fieldset > dl > div.save {
+    width: 320px;
+    padding-top: 5px;
+}
+#ribbon dl.zend_form fieldset > dl > div.save .submit {
+    display: block;
+    width: 50px;
+    padding: 3px 5px 3px 5px;
+    margin: 0;
+    color: #505050;
+    background-color: #ebebeb;
+    border: 1px solid #b4b4b4;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#ribbon dl.zend_form fieldset > dl > div.save .submit:hover {
+    background-color: #e1e1e1;
+    color: #666666;
+    cursor: pointer;
+}

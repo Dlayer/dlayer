@@ -1,0 +1,22 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<?php if($this->edit_mode == TRUE) { ?>
+<script type="text/javascript">
+dlayer.preview.form.fn.row_background_color(<?php echo $this->escape(
+$this->data['preview_data']['field_id']); ?>, '<?php echo $this->escape(
+$this->data['preview_data']['background_color']); ?>');
+</script>
+
+<p class="unsaved">Data has been modified!</p>
+<?php } ?>
+
+<?php echo $this->colorPicker()->picker($this->color_picker_data['palettes'], 
+$this->color_picker_data['history'], TRUE, TRUE); ?>
+
+<?php 
+if($this->data != FALSE) {
+    echo $this->data['form'];
+}
+?>
+
+<?php echo $this->colorPicker()->javascript(); ?>

@@ -1,0 +1,145 @@
+/**
+* Custom css styles for the designer in the forms module
+* 
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+* @version $Id: form.css 1894 2014-06-03 00:10:11Z Dean.Blackborough $
+*/
+#designer > #form {
+    width: 1020px;
+    min-height: 400px;
+    margin: 10px 4px 0px 0px;
+}
+#designer > #tools {
+    margin-top: 23px;
+}
+
+/* Default styling for forms */
+#form form {
+    width: 1020px;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    float: left;
+}
+#form dl.zend_form {
+    width: 1020px;
+    float: left;
+    margin: 0px 0px 12px 0px;
+    border: 0;
+}
+#form dl.zend_form > dd {
+    margin: 0px;
+    padding: 0px;
+    width: 1020px;
+    float: left;
+    border: 0;
+}
+#form dl.zend_form > dd > fieldset {
+    padding: 0px;
+    margin: 0px;
+    width: 1018px;
+    border: 1px solid #b4b4b4;
+    display: block;
+    float: left;
+}
+#form dl.zend_form > dd > fieldset > legend {
+    padding: 4px;
+    margin: 0px 0px 5px 5px;
+    font-weight: bold;
+    background-color: #ebebeb;
+    border: 1px solid #b4b4b4;
+    color: #505050;
+}
+#form dl.zend_form > dd > fieldset > dl {
+    width: 1018px;
+    margin: 0px;
+    padding: 10px 0px 10px 0px;
+    float: left;
+    display: block;
+}
+#form dl.zend_form > dd > fieldset > dl > div.row {
+    width: 100%;
+}
+#form dl.zend_form > dd > fieldset > dl > div.selected {
+    background-color: #e1dc50;
+    border-top: 5px solid #e1dc50;
+    border-bottom: 5px solid #e1dc50;
+}
+#form dl.zend_form > dd > fieldset > dl > div.row > label {
+    display: block;
+    float: left;
+    padding: 5px;
+    font-weight: bold;
+    color: #505050;
+}
+#form dl.zend_form > dd > fieldset > dl > div.row > p.hint {
+    float: left;
+    width: 1018px;
+    padding: 0px 4px 0px 4px;
+    margin: 5px 0px 12px 0px;
+    font-size: 0.9em;
+}
+#form dl.zend_form > dd > fieldset > dl > div.row > textarea {
+    float: left;
+    padding: 3px;
+    border: 1px solid #b4b4b4;
+    font-size: 1em;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#form dl.zend_form > dd > fieldset > dl > div.row > input {
+    float: left;
+    padding: 3px;
+    border: 1px solid #b4b4b4;
+    font-size: 1em;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#form dl.zend_form > dd > fieldset > dl > div.save {
+    width: 1010px;
+    padding: 4px;
+}
+#form dl.zend_form > dd > fieldset > dl > div.save input {
+    display: block;
+    width: 50px;
+    padding: 3px 6px 3px 6px;
+    margin: 0;
+    color: #505050;
+    background-color: #ebebeb;
+    border: 1px solid #b4b4b4;
+    font-size: 1em;
+}
+#form dl.zend_form > dd > fieldset > dl > div.save input:hover {
+    background-color: #e1e1e1;
+    color: #666666;
+    cursor: pointer;
+}
+
+/* Movement controls */
+#form .move {
+    background-color: #f5f5f5;
+    border-top: 1px solid #b4b4b4;
+    border-bottom: 1px solid #b4b4b4;
+    color: #505050;
+    text-align: center;
+    padding: 3px 0px 3px 0px;
+    height: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    font-size: 0.70em;
+    width: 100%;
+    display: none;
+}
+#form .move:hover {
+    background-color: #ebebeb;
+    cursor: pointer;
+}
+
+/* Return link */
+#designer > .return_link {
+    width: 330px;
+	background-color: #e1e1e1;
+	border: 1px solid #b4b4b4;
+	padding: 5px;
+	text-align: center;
+	margin-bottom: 5px;
+}

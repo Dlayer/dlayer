@@ -1,0 +1,92 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<div id="content">
+    <h1>SVN & release policy</h1>
+    
+    <h2>Goals</h2>
+    
+    <p>Hopefully, by following this guidance four goals are met;</p>
+
+    <ul>
+    	<li>The trunk will always contain a stable version of the app.</li>
+    	<li>Always know specifically what version of the app the trunk sits 
+    	at, not just a vague version number, all the features that have been 
+    	added are easily visible.</li>
+    	<li>Reduces possible conflicts between team members.</li>
+    	<li>Releases all go smoothly.</li>
+    </ul>
+    
+    <h2>Rules</h2>
+    
+    <ul>
+    	<li>All development work, regardless of scale should be done in a 
+    	branch, absolutely no exceptions.</li>
+    	<li>The branch name should reflect what is being done, this could be a 
+    	short description of your task, ticket details or anything else 
+    	relevant.</li>
+    	<li><em>All development work, regardless of scale should be done in a 
+    	branch, absolutely no exceptions.</em></li>
+    	<li>There is nothing wrong with abandoning a branch, if you don't 
+    	need it fine, just leave it, you may need something from it later.</li>
+    	<li><em>All development work, regardless of scale should be done in a 
+    	branch, absolutely no exceptions.</em></li>
+    	<li>Commit often, in your branch you can commit as often as you like, 
+    	when you are happy with a fragment of code, commit it.</li>
+    	<li><em>All development work...you get the idea.</em></li>
+    	<li>All commits should have a comment, never commit without a comment, 
+    	the comment should describe what you have changed and the reason if 
+    	necessary.</li>
+    	<li>If the development requires database changes there should be a 
+    	patch file, there should also only be one patch file per branch. 
+    	The name of the patch file should be the same as the branch.</li>
+    	<li>If you database changes include entries that rely on an id that 
+    	isn't constant, for example an id from another table, the queries 
+    	should be written to ensure that required id is pulled in the query, 
+    	for example by using a sub query.</li>
+    	<li>One developer on the team should be considered the SVN master, 
+    	they will periodically review the repo to ensure consistency. The 
+    	SVN master will also be the go to person for conflicts and other 
+    	issues.</li>
+    	<li>When you commit before writing your comment review the changes 
+    	in each file to ensure that you aren't sending something you didn't 
+    	intend to and are sure about what is in the commit.</li>
+    	<li>Ensure each developer is working on their task, no point in two 
+    	developers both trying to solve the same problem.</li>
+    </ul>
+    
+    <h2>Development release</h2>
+    
+    <p>The development server should always be running the latest version of 
+    trunk, after merging in a branch the server should be updated.</p>
+    
+    <p>The patch file should be run manually to test it line by line, it is 
+    better to find patch file issues on the development server that live or 
+    stage.</p>
+    
+    <h2>Stage release</h2>
+    
+    <p>The staging server should get a new release according to an agreed 
+    schedule, weekly or bi-weekly are reasonable periods. The stage release 
+    will include all the development branches that the business agrees should 
+    be in the next release, this may not include all development branches.</p>
+    
+    <p>Stage should be switched to the new branch and the patch files run 
+    automatically, after testing each line during the development release 
+    the stage release ensures that the entire patch file is valid.</p>
+    
+    <h2>Testing and bug fixes</h2>
+    
+    <p>Testing should continually be done against the staging server, 
+    each bug, as per the rules above be fixed in its own development 
+    branch, it is up to the team whether they merge the fixes into stage 
+    and then trunk or trunk and then stage.</p>
+    
+    <h2>Live release</h2>
+    
+    <p>A live release should be made when the team is happy with the quality 
+    of a stage release.</p>
+
+	<p>A tag should be created when the team is happy with the quality of a 
+	stage release, a tag should be created, live switched and patch files 
+	run.</p>
+</div>

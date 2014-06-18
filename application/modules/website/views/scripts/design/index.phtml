@@ -1,0 +1,15 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<div id="designer">
+    <section id="website">
+        <?php echo $this->dlayer_website; ?>
+    </section>
+    <?php if(strlen($this->dlayer_toolbar) > 1) { ?>
+    <section id="tools">
+        <?php echo $this->dlayer_toolbar; ?>
+    </section>
+    <?php } ?>
+    <section id="ribbon">
+        <?php echo $this->dlayer_ribbon; ?>
+    </section>
+</div>

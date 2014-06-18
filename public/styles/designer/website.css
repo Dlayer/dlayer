@@ -1,0 +1,130 @@
+/**
+* Customer css styles for the designer in the web site manager
+*
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+* @version $Id: content.css 1568 2014-02-14 14:59:50Z Dean.Blackborough $
+*/
+#designer > #website {
+    width: 1020px;
+    min-height: 500px;
+    margin-right: 4px;
+    background-color: #FFFFFF;
+}
+
+/* Page containers */
+#website > .pages_container {
+    width: 1008px;
+    padding: 10px 0px 10px 10px;
+    overflow: auto;
+    border: 1px solid #b4b4b4;
+    margin-bottom: 20px;
+    height: 200px;
+}
+#website > .pages_container > h2 {
+    width: 1008px;
+    margin: 0px 0px 20px 0px;
+    color: #960505;
+}
+
+/* Specific containers */ 
+#website > #unassigned_pages {
+	background-color: #ebebeb;
+}
+#website > #selected_pages {
+	background-color: #f5f5f5;
+}
+
+/* Pages container */
+#website > #selected_pages .pages {
+    width: 1300px;
+}
+
+/* Page icons */
+#website > .pages_container .page {
+    width: 182px;
+    height: 137px;
+    margin: 0px 10px 10px 0px;
+}
+#website > .pages_container .selected {
+    background-color: #e1dc50;
+}
+#website > .pages_container .page:hover .page_details {
+    background-color: #e1dc50;
+	cursor: pointer;
+}
+#website > .pages_container .page > .control {
+    width: 180px;
+    border: 1px solid #b4b4b4;
+    text-align: center;
+    background-color: #f5f5f5;
+    border: 1px solid #b4b4b4;
+    color: #505050;
+    padding: 3px 0px 3px 0px;
+    height: 10px;
+    line-height: 10px;
+    font-size: 0.70em;
+}
+#website > .pages_container .page > .control:hover {
+    background-color: #ebebeb;
+}
+#website > .pages_container .page > .control > a {
+	color: #505050;
+}
+#website > .pages_container .page > .page_details {
+	font-size: 0.8em;
+    width: 160px;
+    height: 74px;
+    border-right: 1px solid #b4b4b4;
+    border-left: 1px solid #b4b4b4;
+    padding: 5px 10px 5px 10px;
+    background-color: #ffffff;
+}
+#website > .pages_container .page > .page_details > .row {
+    width: 160px;
+    padding-bottom: 2px;
+}
+#website > .pages_container .page > .page_details > .description {
+    width: 160px;
+    height: 36px;
+}
+
+/* Selected page icon */
+#website > .pages_container .selected {
+    background-color: #ebebeb;;
+}
+#website > .pages_container .selected strong {
+    color: #960505;
+}
+#website > .pages_container .selected > .control {
+    border: 1px solid #960505;
+}
+#website > .pages_container .selected > .control > a {
+    color: #000000;
+}
+#website > .pages_container .selected > .page_details {
+    border-right: 1px solid #960505;
+    border-left: 1px solid #960505;
+}
+
+/* Custom controls */
+#website > .pages_container .page > .cm_control {
+    border-top: none;
+}
+#website > .pages_container .selected > .cm_control {
+    border-top: none;
+}
+
+/* Mover icons for pages */
+.page > .mover {
+	height: 135px;
+	width: 9px;
+	border: 1px solid #b4b4b4;
+}
+.page > .left {
+	border-right: none;
+}
+.page > .right {
+	border-left: none;
+	float: right;
+}

@@ -1,0 +1,15 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<div id="content">
+    <h1>Form builder</h1>
+    
+    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
+    
+    <p>Edit the details for the selected form using the form below.</p>
+    
+    <p><em>At the moment whilst Dlayer is in early development all that needs 
+    to be defined for a form is the name, as the system evolves 
+    additional data will need to be defined.</em></p>
+    
+    <?php echo $this->form; ?>
+</div>

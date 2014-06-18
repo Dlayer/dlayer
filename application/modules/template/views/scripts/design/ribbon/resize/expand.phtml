@@ -1,0 +1,92 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<?php if($this->data['div']['edges']['top'] != 0) { ?>
+<div class="block">
+    <div class="image"><img src="/images/ribbon/template/resize-out-top.png" width="60" height="40" /></div>
+    <div class="content">
+        <div class="title">Top edge</div>
+        <div class="text">Move the top edge up, the blocks above will reduce in 
+        size to compensate.</div>
+    </div>
+    <form action="/template/process/auto-tool" method="post">
+        <input type="hidden" name="id" value="<?php echo $this->escape($this->div_id); ?>" />
+        <input type="hidden" name="tool" value="resize" />
+        <input type="hidden" name="params[decrease]" value="<?php echo implode(':', $this->data['top']['above']); ?>" />
+        <input type="hidden" name="params[increase]" value="<?php echo implode(':', $this->data['top']['below']); ?>" />
+        <input type="hidden" name="params[dimension]" value="height" />
+        <input type="hidden" name="params[combine]" value="1" />
+        <input type="hidden" name="params[mode]" value="larger" />
+        <input type="hidden" name="params[value]" value="10" />
+        <input type="hidden" name="params[multi_use]" value="<?php echo $this->escape($this->multi_use); ?>" />
+        <input type="submit" class="submit no_fields" name="submit" value="Go" />
+    </form>
+</div>
+<?php } ?>
+
+<?php if($this->data['div']['edges']['right'] != Dlayer_Config::DESIGNER_WIDTH) { ?>
+<div class="block">
+    <div class="image"><img src="/images/ribbon/template/resize-out-right.png" width="60" height="40" /></div>
+    <div class="content">
+        <div class="title">Right edge</div>
+        <div class="text">Move the right edge out, the blocks to the right will 
+        reduce in size to compensate.</div>
+    </div>    
+    <form action="/template/process/auto-tool" method="post">
+        <input type="hidden" name="id" value="<?php echo $this->escape($this->div_id); ?>" />
+        <input type="hidden" name="tool" value="resize" />
+        <input type="hidden" name="params[decrease]" value="<?php echo implode(':', $this->data['right']['right']); ?>" />
+        <input type="hidden" name="params[increase]" value="<?php echo implode(':', $this->data['right']['left']); ?>" />
+        <input type="hidden" name="params[dimension]" value="width" />
+        <input type="hidden" name="params[combine]" value="1" />
+        <input type="hidden" name="params[mode]" value="larger" />
+        <input type="hidden" name="params[value]" value="10" />
+        <input type="hidden" name="params[multi_use]" value="<?php echo $this->escape($this->multi_use); ?>" />
+        <input type="submit" class="submit no_fields" name="submit" value="Go" />
+    </form>
+</div>
+<?php } ?>
+
+<div class="block">
+    <div class="image"><img src="/images/ribbon/template/resize-out-bottom.png" width="60" height="40" /></div>
+    <div class="content">
+        <div class="title">Bottom edge</div>
+        <div class="text">Move the bottom edge down, the blocks below will 
+        reduce in size to compensate.</div>
+    </div>
+    
+    <form action="/template/process/auto-tool" method="post">
+        <input type="hidden" name="id" value="<?php echo $this->escape($this->div_id); ?>" />
+        <input type="hidden" name="tool" value="resize" />
+        <input type="hidden" name="params[decrease]" value="<?php echo implode(':', $this->data['bottom']['below']); ?>" />
+        <input type="hidden" name="params[increase]" value="<?php echo implode(':', $this->data['bottom']['above']); ?>" />
+        <input type="hidden" name="params[dimension]" value="height" />
+        <input type="hidden" name="params[combine]" value="1" />
+        <input type="hidden" name="params[mode]" value="larger" />
+        <input type="hidden" name="params[value]" value="10" />
+        <input type="hidden" name="params[multi_use]" value="<?php echo $this->escape($this->multi_use); ?>" />
+        <input type="submit" class="submit no_fields" name="submit" value="Go" />
+    </form>
+</div>
+
+<?php if($this->data['div']['edges']['left'] != 0) { ?>
+<div class="block">
+    <div class="image"><img src="/images/ribbon/template/resize-out-left.png" width="60" height="40" /></div>
+    <div class="content">
+        <div class="title">Left edge</div>
+        <div class="text">Move the left edge out, the blocks to the left will 
+        reduce in size to compensate.</div>
+    </div>
+    <form action="/template/process/auto-tool" method="post">
+        <input type="hidden" name="id" value="<?php echo $this->escape($this->div_id); ?>" />
+        <input type="hidden" name="tool" value="resize" />
+        <input type="hidden" name="params[decrease]" value="<?php echo implode(':', $this->data['left']['left']); ?>" />
+        <input type="hidden" name="params[increase]" value="<?php echo implode(':', $this->data['left']['right']); ?>" />
+        <input type="hidden" name="params[dimension]" value="width" />
+        <input type="hidden" name="params[combine]" value="1" />
+        <input type="hidden" name="params[mode]" value="larger" />
+        <input type="hidden" name="params[value]" value="10" />
+        <input type="hidden" name="params[multi_use]" value="<?php echo $this->escape($this->multi_use); ?>" />
+        <input type="submit" class="submit no_fields" name="submit" value="Go" />
+    </form>
+</div>
+<?php } ?>

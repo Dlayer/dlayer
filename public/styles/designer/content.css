@@ -1,0 +1,195 @@
+/**
+* Customer css styles for the designer in the content module
+*
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+* @version $Id: content.css 1861 2014-05-27 11:30:18Z Dean.Blackborough $
+*/
+#designer > #page {
+    width: 1020px;
+    margin-right: 2px;
+    background-color: #FFFFFF;
+    border: 1px solid #b4b4b4;
+}
+
+/* Page container metrics */
+#designer > #page_container_metrics {
+	width: 340px;
+}
+#designer > #page_container_metrics:hover {
+	cursor: pointer;
+}
+#designer > #page_container_metrics > .title {
+	width: 330px;
+	background-color: #e1e1e1;
+	border: 1px solid #b4b4b4;
+	padding: 5px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+/* Page container metrics block */
+#designer > #page_container_metrics > .metrics {
+    width: 340px;
+    height: 75px;
+    background-image: url("/images/designer/content/page-container-metrics.png");
+    background-repeat: no-repeat;
+    border: 1px solid #b4b4b4;
+    margin-bottom: 5px;
+    display: none;
+}
+#designer > #page_container_metrics > .metrics > .title {
+    width: 165px;
+    margin: 5px 0px 0px 5px;
+    color: #960505;
+    font-weight: bold;
+}
+#designer > #page_container_metrics > .metrics > .height {
+    width: 165px;
+    margin: 5px 5px 0px 0px;
+    color: #960505;
+    font-size: 0.8em;
+}
+#designer > #page_container_metrics > .metrics > .width {
+    color: #960505;
+    font-size: 0.8em;
+    width: 150px;
+    margin-top: 10px;
+    margin-left: 95px; 
+}
+
+/* Styling for selected template/page div */
+#designer > #page div.selected {
+    background-color: #e1dc50;
+}
+
+/* Styling for selected content item */
+#designer > #page .c_selected {
+    background-color: #f5f5f5;
+}
+#designer > #page .c_selectable {
+    cursor: pointer;
+}
+
+#designer > #page .c_selectable > .move {
+    background-color: #f5f5f5;
+    border: 1px solid #b4b4b4;
+    color: #505050;
+    text-align: center;
+    padding: 3px 0px 3px 0px;
+    height: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    font-size: 0.70em;
+}
+#designer > #page .c_selectable > .move:hover {
+    background-color: #ebebeb;
+}
+
+/* Content item metrics */
+#designer > #content_item_metrics {
+	width: 340px;
+}
+#designer > #content_item_metrics:hover {
+	cursor: pointer;
+}
+#designer > #content_item_metrics > .title {
+	width: 330px;
+	background-color: #e1e1e1;
+	border: 1px solid #b4b4b4;
+	padding: 5px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+/* Page container metrics block */
+#designer > #content_item_metrics > .metrics {
+    width: 340px;
+    height: 175px;
+    background-image: url("/images/designer/content/content-item-metrics.png");
+    background-repeat: no-repeat;
+    border: 1px solid #b4b4b4;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    color: #960505;
+    display: none;
+}
+#designer > #content_item_metrics > .metrics > .title {
+    width: 165px;
+    margin: 5px 0px 0px 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+#designer > #content_item_metrics > .metrics > .height {
+    width: 165px;
+    margin: 5px 5px 0px 0px;
+}
+#designer > #content_item_metrics > .metrics > .border_top {
+    width: 160px;
+    padding-left: 5px;
+    margin-top: 5px;
+}
+#designer > #content_item_metrics > .metrics > .margin_top {
+    width: 140px;
+    margin-top: 5px;
+    padding-left: 10px;
+}
+#designer > #content_item_metrics > .metrics > .border_right {
+    width: 25px;
+    margin-top: 5px;
+    text-align: center;
+}
+#designer > #content_item_metrics > .metrics > .padding_top {
+    width: 230px;
+    margin-top: 10px;
+    margin-left: 110px;
+    color: #ffffff;
+}
+#designer > #content_item_metrics > .metrics > .margin_left { 
+    width: 25px;
+    margin-top: 10px;
+    text-align: center;
+}
+#designer > #content_item_metrics > .metrics > .padding_left { 
+    width: 25px;
+    margin-top: 10px;
+    color: #ffffff;
+    text-align: center;
+}
+#designer > #content_item_metrics > .metrics > .margin_right { 
+    width: 25px;
+    margin-top: 10px;
+    text-align: center;
+}
+#designer > #content_item_metrics > .metrics > .padding_right { 
+    width: 25px;
+    margin-top: 10px;
+    color: #ffffff;
+    text-align: center;
+}
+#designer > #content_item_metrics > .metrics > .width { 
+    width: 240px;
+    margin-top: 10px;
+    text-align: center;
+}
+#designer > #content_item_metrics > .metrics > .padding_bottom {
+    width: 230px;
+    margin-top: 30px;
+    margin-left: 110px;
+    color: #ffffff;
+}
+#designer > #content_item_metrics > .metrics > .border_left {
+    width: 160px;
+    padding-left: 5px;
+    margin-top: 10px;
+}
+#designer > #content_item_metrics > .metrics > .margin_bottom {
+    width: 140px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+#designer > #content_item_metrics > .metrics > .border_bottom {
+    width: 25px;
+    margin-top: 10px;
+    text-align: center;
+}

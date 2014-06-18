@@ -1,0 +1,193 @@
+/**
+* Base styles for the application, just defines the global styles, 
+* easy of the modules will have their own content and layout style files
+* 
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+* @version $Id: app.css 1595 2014-02-20 00:38:26Z Dean.Blackborough $
+*/
+body {
+    font: 0.9em/1.2em "Segoe UI", Helvetica, Arial, "Sans-Serif";
+    margin: 0;
+    padding: 0;
+}
+nav, article, section, pre {
+    display: block;
+    float: left;
+}
+img {
+    border: 0;
+}
+a {
+    color: #960505;
+    font-weight: bold;
+    text-decoration: none;
+}
+a:hover {
+    color: #b40a0a;
+}
+h1 {
+    color: #960505;
+    display: block;
+    float: left;
+    width: 766px;
+    font-size: 2em;
+    margin: 1.5em 0 1em 0;
+}
+h2 {
+    color: #505050;
+    display: block;
+    float: left;
+    width: 766px;
+    font-size: 1.4em;
+    margin: 1em 0 0.8em 0;
+}
+h3, h4, h5, h6, h7 {
+    float: left;
+    width: 766px;
+    margin: 1em 0 0.5em 0;
+    font-size: 1.2em;
+}
+em {
+	color: #d20f0f;
+}
+ul,ol { 
+    float: left;
+}
+p.note {
+	color: #960505;
+	font-style: italic;
+}
+
+#container {
+    width: 766px;
+    margin: 0 auto;
+    padding: 10px 0px 50px 0px;
+    display: block;
+}
+#container div {
+    float: left;
+}
+
+/* Main navigation bar */
+.top_nav {
+    width: 766px;
+    background-color: #960505;
+}
+.top_nav > a {
+    display: block;
+    float: left;
+    padding: 10px 20px 10px 20px;
+    background-color: #960505;
+    border-right: 1px solid #EAEAEA;
+    color: #FFFFFF;
+}
+.top_nav > a:hover {
+    background-color: #b40a0a;
+}
+.top_nav > a.selected {
+    background-color: #d20f0f;
+}
+.top_nav > a.selected:hover {
+    background-color: #d20f0f;
+}
+
+/* Content pages */
+#content {
+    width: 766px;
+    color: #505050;
+}
+#content > p {
+    width: 766px;
+    margin: 10px 0px 10px 0px;
+    float: left;
+}
+#content > p.in_progress {
+    color: #00960a;
+    font-style: italic;
+}
+#content > ul {
+    width: 726px;
+    padding: 0px 0px 0px 40px;
+    float: left;
+}
+#content > ol {
+    width: 726px;
+    padding: 0px 0px 0px 40px;
+    float: left;
+}
+#content > p.i {
+    font-style: italic;
+}
+
+/* Base form styling */
+form,dl,dt,dd {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+form > dl > dt {
+    display: none;
+}
+
+/* General table title row styling */
+div.table {
+    width: 766px;
+}
+div.table > .title_row {
+    width: 766px;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-bottom: 2px solid #b4b4b4;
+    margin-bottom: 5px;
+}
+div.table .title {
+    font-weight: bold;
+}
+div.table > .row {
+    width: 766px;
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 5px;
+}
+div.table .cell {
+    padding: 5px;
+}
+
+/* Development log table styling */
+div.table div.timestamp {
+    width: 140px;
+}
+div.table div.change {
+    width: 606px;
+}
+div.table div.release {
+    color: #960505;
+    font-weight: bold;
+}
+
+/* Default pagination text styling */
+#content ul.pagination {
+    width: 766px;
+    float: left;
+    padding: 5px 0px 5px 0px;
+    list-style-type: none;
+    margin-bottom: 10px;
+    border-top: 1px solid #b4b4b4;
+    border-bottom: 1px solid #b4b4b4;
+    text-align: center;
+}
+#content ul.pagination li {
+    display: inline;
+    padding-right: 10px;
+}
+
+/* Footer styling */
+#footer {
+    width: 766px;
+    padding-top: 20px;
+}
+#footer > p {
+    text-align: center;
+    font-size: 0.8em;
+}

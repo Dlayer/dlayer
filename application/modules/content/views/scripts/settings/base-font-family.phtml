@@ -1,0 +1,67 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<script language="javascript">
+    <?php foreach($this->font_families as $k=>$values) { ?>
+        <?php echo 'dlayer.settings.content.font_families' . 
+        '[' . $k . '] = ' . '\'' . $values['css'] . '\'' . PHP_EOL; ?>
+    <?php } ?>
+    
+    $(document).ready(function() 
+    {
+        dlayer.settings.content.fn.preview_font_families(
+        <?php echo $this->escape($this->base_font_family['id']); ?>);
+        
+        $('.font_families').change(function() 
+        {
+            dlayer.settings.content.fn.preview_font_families(this.value);
+        });
+    });        
+</script>
+
+<div id="content">
+    <h1><?php echo $this->escape($this->setting['title']); ?></h1>
+    
+    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
+    
+    <?php echo $this->ulNavigation($this->setting_groups['class'], 
+    $this->setting_groups['items'], $this->setting_groups['active_url']); ?>
+    
+    <?php echo $this->ulNavigation($this->settings['class'], 
+    $this->settings['items'], $this->settings['active_url']); ?>
+    
+    <h2>Scope: <?php echo $this->escape($this->setting['scope']); ?> - 
+    <?php echo $this->escape($this->setting['scope_details']); ?></h2>
+    
+    <?php echo $this->setting['description']; ?>
+    
+    <div class="form">
+        <?php echo $this->form; ?>
+    </div>
+    
+    <div id="preview">
+        <h2>Font previews</h2>
+        
+        <p>The sentances below show what every letter of the alphabet looks 
+        like in both upper and lower case for the selected font family.</p>
+        
+        <div class="font_preview">
+        
+        <p class="switch">The quick brown fox jumps over the lazy dog. THE 
+        QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The quick brown fox jumps 
+        over the lazy dog. THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The 
+        quick brown fox jumps over the lazy dog. THE QUICK BROWN FOX JUMPS 
+        OVER THE LAZY DOG.</p>
+        
+        <p class="switch">The five boxing wizards jump quickly. THE FIVE 
+        BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump quickly. 
+        THE FIVE BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump 
+        quickly. THE FIVE BOXING WIZARDS JUMP QUICKLY.</p>
+        
+        <p class="switch">Fix problem quickly with galvanized jets. FIX PROBLEM 
+        QUICKLY WITH GALVANIZED JETS. Fix problem quickly with galvanized 
+        jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS. Fix problem quickly 
+        with galvanized jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS.</p>
+        
+        </div>
+    </div>
+</div>

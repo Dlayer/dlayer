@@ -1,0 +1,43 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<div class="block">
+    <div class="image"><img src="/images/ribbon/template/resize-stretch.png" width="60" height="40" /></div>
+    <div class="content">
+        <div class="title">Stretch</div>
+        <div class="text">Increase the height of the selected block, the 
+        blocks below will be nudged down.</div>
+    </div>
+    <form action="/template/process/auto-tool" method="post">
+        <input type="hidden" name="id" value="<?php echo $this->escape($this->div_id); ?>" />
+        <input type="hidden" name="tool" value="resize" />
+        <input type="hidden" name="params[decrease]" value="" />
+        <input type="hidden" name="params[increase]" value="" />
+        <input type="hidden" name="params[dimension]" value="height" />
+        <input type="hidden" name="params[combine]" value="0" />
+        <input type="hidden" name="params[mode]" value="larger" />
+        <input type="hidden" name="params[value]" value="10" />
+        <input type="hidden" name="params[multi_use]" value="<?php echo $this->escape($this->multi_use); ?>" />
+        <input type="submit" class="submit no_fields" name="submit" value="Go" />
+    </form>
+</div>
+
+<div class="block">
+    <div class="image"><img src="/images/ribbon/template/resize-shorten.png" width="60" height="40" /></div>
+    <div class="content">
+        <div class="title">Shorten</div>
+        <div class="text">Decrease the height of the selected block, the blocks 
+        below will be pulled up.</div>
+    </div>
+    <form action="/template/process/auto-tool" method="post">
+        <input type="hidden" name="id" value="<?php echo $this->escape($this->div_id); ?>" />
+        <input type="hidden" name="tool" value="resize" />
+        <input type="hidden" name="params[decrease]" value="" />
+        <input type="hidden" name="params[increase]" value="" />
+        <input type="hidden" name="params[dimension]" value="height" />
+        <input type="hidden" name="params[combine]" value="0" />
+        <input type="hidden" name="params[mode]" value="smaller" />
+        <input type="hidden" name="params[value]" value="10" />
+        <input type="hidden" name="params[multi_use]" value="<?php echo $this->escape($this->multi_use); ?>" />
+        <input type="submit" class="submit no_fields" name="submit" value="Go" />
+    </form>
+</div>

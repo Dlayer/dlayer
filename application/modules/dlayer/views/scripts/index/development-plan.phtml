@@ -1,0 +1,230 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<article id="content">
+    <h1>Development plan</h1>
+    
+    <p>The development plan for Dlayer exists in my head, the specification, 
+    OneNote and all over the white board in my man cave, it is structured 
+    initially towards getting Dlayer into a position where a user can create a 
+    simple multi-page web site with minor dynamic functionality.</p>
+    
+    <p>As soon as I have added enough functionality to the first four modules 
+    (Template designer, Content manager, Form builder and Web site manager) to 
+    achieve the above goal I will dedicate my time towards adding and 
+    completing the content based  modules, Content designer, Form builder and 
+    Question manager.</p>
+    
+    <p>The development of the Widget designer will always lag behind the other 
+    modules, the Widget designer is incredibly complicated because in addition 
+    to allowing dynamic functionality it is an amalgamation of all the other 
+    modules.</p>
+    
+    <p class="note">If you are interested in seeing the full current 
+    specification for Dlayer please contact me at dean (at) 
+    g3d-development (dot) com or via my 
+    <a href="http://www.g3d-development.com">blog</a>.</p>
+    
+    <h2>Text based content</h2>
+    
+    <p>Dynamic data in the modules is due to be attached by reference, 
+    examples include forms from the Form builder and images from the Image 
+    library.</p>
+    
+    <p>Currently text based content in the Content manager isn't being handled 
+    in this way, the system needs to be updated to assign content by 
+    reference, this way the same piece of text can be re-used without 
+    duplication.</p>
+    
+    <p class="in_progress">Text data for the text and heading tools is now 
+    assigned by reference, this allows multiple content items to use the 
+    same single piece of data.</p>
+    
+    <h2>Live addition and editing</h2>
+    
+    <p>When a user uses a tool to add or edit data, be it a form field in the 
+    Form builder or a text item in the Content manager the user is supposed to 
+    be able to manage the design directly.</p>
+    
+    <p>For example when adding a text item the user would create the text 
+    block and then type the text directing within the Content manager 
+    designer, not the tool section as the side, the tool section should be 
+    limited to the layout controls.</p>
+    
+    <p>This will be added very much later into development, initially the 
+    goal is base functionality</p>
+    
+    <h2>Live preview</h2>
+    
+    <p>All the content based designers should support live previews of 
+    changes.</p>
+    
+    <p>For example when a user is defining the background colour for a text 
+    item or adding a border to a form field row the designer should update to 
+    show a preview before the user clicks save.</p>
+    
+    <p>One of the later goals for Dlayer is full live editing, live preview 
+    is a stepping stone.</p>
+    
+    <p class="in_progress">The Form builder and Content manager now both 
+    support live previews when data is being edited, data being form fields 
+    and content item. When it makes sense an effect is added to the item 
+    that has just changed to notify the user.</p>
+    
+    <p class="in_progress">The live previews will be added to the template 
+    designer soon(tm), the Template designer is a little more complicated 
+    because when a page block is altered the chances are that sibling block 
+    will be affected along with other attributes.</p>
+        
+    <h2>Image library</h2>
+    
+    <p>I need to develop a site wide Image library, this will be accessible 
+    anytime a user needs to choose an image, it will include all the basic 
+    manipulation tools, for example crop.</p>
+    
+    <h2>Formatting tabs</h2>
+    
+    <p>Need to add formating tabs to some of the tools, obvious examples 
+    being the text tool and import form tool, a user should be able to 
+    define the background colour and border for the content container, 
+    useful for things like pull quotes.</p>
+    
+    <p class="in_progress">Added styling tab to tools in Content manager, 
+    initially it allows the user to define the background colour for the 
+    selected content item, more styling options will be added in the future</p>
+    
+    <h2>Modifier system</h2>
+    
+    <p>The modifier system is responsible for all back end communication 
+    between the the different modules in Dlayer.</p>
+    
+    <p>If a change is made in one module that may affect one or more items in 
+    another module the modifier system is called by the tool. The modifier 
+    system loads any relevant modifiers which then analyse any linked data. 
+    If the modifiers find anything that will be affected adversely by the 
+    change they automatically update the items to accommodate the original 
+    change.</p>
+    
+    <p class="in_progress">The base modifier system is now in place, there is 
+    a single modifier which acts upon data in the content manager, container 
+    width.</p>
+    
+    <p class="in_progress">The container width modifier is called anytime an 
+    active page template is updated. The modifier looks at all the pages 
+    that use the page template and then all the content items that could be 
+    affected the template change. The sizes of all the content item containers 
+    are compared against the original and then  updated to accommodate the 
+    template change, how a content item is resized  depends on its size 
+    relative to the page block it sits in.</p>
+    
+    <p class="in_progress">I need to develop additional modifiers as tools 
+    are added and/or their functionality updated.</p>
+    
+    <h2>Colour picker</h2>
+    
+    <p>Need to create the colour picker which will be called anytime a user 
+    needs to choose a colour. The colour picker needs to include all the 
+    colours defined in the three palettes for the site, the last last n 
+    colours and also a custom control allowing the user to create a new 
+    colour.</p>
+    
+    <p class="in_progress">Colour picker is now in place in the Template 
+    designer, Content manager and Form builder, anytime a user needs to 
+    choose a colour the picker pops open.</p>
+    
+    <p class="in_progress">A version of the colour picker needs to be 
+    implemented in the settings part of Dlayer</p>
+        
+    <h2>Import form </h2>
+    
+    <p>Allow a form to be imported from the Form builder into a content 
+    page.</p>
+    
+    <p>A user should be able to import a form in the Template manager, it 
+    should appear as a non editable content item in the Content manager.</p>
+    
+    <p class="in_progress">A form can now be imported in the content 
+    manager.</p>
+    
+    <p class="in_progress">Currently all the user defines is the size of the 
+    content container and the padding. As the form builder gains layout and 
+    styling functionality the import form tool will be updated the new 
+    features.</p>
+    
+    <p class="in_progress">The tool does not check the approximate width of a 
+    form, it is therefore possible to either add a form into a container in 
+    which it cannot fit or reduce the size of the form so as to not be 
+    useful, again, this will be updated as the form builder gains layout 
+    and styling functionality.</p>
+    
+    <h2>Move content</h2>
+    
+    <p>A user can move content items around within a page block. Need to also 
+    allow the user to move items from one content block to another.</p>
+    
+    <h2>Form fields</h2>
+    
+    <p>Add the missing form fields to the form builder, both static and 
+    dynamic.</p>
+    
+    <h2>Form display options</h2>
+    
+    <p>Allow the user to define the display options for a form, these are 
+    independent to styling options, using display options the user will be 
+    able to set if labels and inputs should appear on the same line and 
+    whether or not the field set should be displayed.</p>
+    
+    <h2>Form styling options</h2>
+    
+    <p>Allow the user to define styling options for the form, for example 
+    field set and legend styling and the styling for the submit button.</p>
+    
+    <p class="in_progress">Added row background colour as a styling option for 
+    form fields, more styling options will be added in the future.</p>
+    
+    <h2>Form field styling options</h2>
+    
+    <p>Allow the user to define the styling for form fields.</p>
+    
+    <h2>Form validation</h2>
+    
+    <p>Allow the user to define the validation options for form fields.</p>
+    
+    <h2>Tool validation</h2>
+    
+    <p>The tools in the modules all validate user data, currently though 
+    all the validation is silent, I need to develop the system to display 
+    the errors to the user.</p>
+    
+    <h2>Base template block</h2>
+    
+    <p>The base block for a template doesn't really exist, it currently just 
+    acts as a starting point for the user to break up the initial blank 
+    design, the base block should exist as a real block otherwise there is a 
+    limit to the designs that can be created.</p>
+    
+    <h2>Tools</h2>
+    
+    <p>There are only a limited number of tools in the enabled modules, the 
+    number and tools and functionality of existing tools needs to be 
+    updated.</p>
+    
+    <h2>Web site manager</h2>
+    
+    <p>The Web site manager allows the user to connect all their created 
+    pages. The Web site manager also allows the user to define site level data 
+    for widgets, an example being menu widgets.</p>
+    
+    <p class="in_progress">Initial preview of Web site manager in place, non 
+    functional, acting as a starting point for designing how the Web site 
+    manager needs to look and work.</p>
+    
+    <h2>Settings</h2>
+    
+    <p>There will be many app and module settings, settings need to be added 
+    and the current settings need to be updated, an example being the addition
+    of the colour picker tool when the user needs to choose a colour.</p>
+    
+    <h2>Working concept</h2>
+    
+    <p class="in_progress">Dlayer doesn't yet work, finish it!</p>
+</article>

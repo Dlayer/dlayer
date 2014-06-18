@@ -1,0 +1,49 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<article id="content">
+    <h1>Development log</h1>
+    
+    <p>The list below shows some of the development updates for Dlayer.com, it 
+    is far from exhaustive, it is just a few of the changes from the SVN 
+    log. (Not actual commit comments from the log but the result of one or 
+    more)</p>
+    
+    <p>I'm not hiding the rest of the updates, they just wouldn't mean anything 
+    to the reader, they are either trivial, house keeping, refactoring or 
+    changes to the base system or hidden parts of Dlayer.</p>
+    
+    <p>The list below is only intended to give an idea of how development is 
+    progressing.</p>
+    
+    <?php echo $this->pagination($this->per_page, $this->start, 
+    $this->updates_count, '/dlayer/index/development-log', 2); ?>
+    
+    <div class="table">
+        <div class="title_row">
+            <div class="title cell timestamp">Date/Time</div>
+            <div class="title cell change">Update/Fix</div>
+        </div>
+        
+        <?php foreach($this->updates as $update) { ?>
+        
+        <?php if($update['release'] == 0) {
+			$class = NULL;
+        } else {
+			$class = ' release';
+        }
+        ?>
+        
+        <div class="row">
+            <div class="cell timestamp">
+            <?php echo $this->escape($update['change_date']); ?>
+            </div>
+            <div class="cell change<?php echo $this->escape($class); ?>">
+            <?php echo $this->escape($update['change']); ?>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+    
+    <?php echo $this->pagination($this->per_page, $this->start, 
+    $this->updates_count, '/dlayer/index/development-log', 2); ?>
+</article>

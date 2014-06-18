@@ -1,0 +1,36 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<?php 
+foreach($this->tools as $group) {
+    
+    $html = '';
+    
+    foreach($group as $group_tool) {
+        
+        $selected = FALSE;
+        
+        // Check to see if selected tool
+        if($this->tool['tool'] == $group_tool['tool']) {
+            $selected = TRUE;
+        }
+                
+        if($selected == FALSE) {
+            $html .= '<div class="tool">';
+        } else {
+            $html .= '<div class="tool selected">';
+        }
+        
+        $html .= '<a href="/website/design/set-tool/tool/' . 
+        $this->escape($group_tool['tool']) . '">' . 
+        $this->escape($group_tool['name']) . '</a>';
+        
+        $html .= '</div>' . PHP_EOL;        
+    }
+    
+    if(strlen($html) > 0) {
+        echo '<div class="group">' . PHP_EOL;
+        echo $html;
+        echo '</div>' . PHP_EOL;
+    }
+} 
+?>

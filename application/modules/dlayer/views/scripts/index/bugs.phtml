@@ -1,0 +1,44 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<article id="content">
+    <h1>Known bugs</h1>
+    
+    <p>Dlayer is an alpha level product, although every intention is made to 
+    ensure nothing slips through there are going to bugs as I develop the 
+    system.</p>
+
+	<p>Listed below are the known open bugs with this and previous release, 
+	some will be because I failed to account for every possibility, some 
+	because I just made a mistake and some because I haven't yet finished the 
+	section in question.</p>
+	
+	<p>There will probably always be a few bugs, I will fix bugs either based 
+	on their severity or based on the development plan.</p>
+	
+	<h2>Content width modifier: Affects Template designer and Content 
+	manager.</h2>
+	
+	<p>The Template designer calls the modifier system when the page block 
+	being edited has active content on an page based upon the selected 
+	template.</p>
+	
+	<p>If a user modifies the width of a page block to the left or right of 
+	a page block that has content the size of the page block with content is 
+	affected. Even though the page block with content is altered the 
+	modifier system isn't currently being called. This will be rectified 
+	in a future update, I'll update the relevant tools to call the modifier 
+	when a sibling block could be affected.</p>
+	
+	<h2>Import form: Affects Content manager</h2>
+	
+	<p>The approximate or absolute width of a form isn't currently being 
+	calculated by Dlayer, as such it is possible to import a form into a 
+	page block that is not big enough to contain it.</p>
+	
+	<p>In a future update the tool will only display forms that can fit 
+	into the requested page block based on the layout options defined for 
+	the form.</p>
+		
+	<p>If you find any bugs not listed please let me know via my 
+    <a href="http://www.g3d-development.com/blog/">blog.</a></p>
+</article>

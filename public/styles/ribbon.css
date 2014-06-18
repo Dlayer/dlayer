@@ -1,0 +1,137 @@
+/**
+* Base css file for the ribbon, contains all the styles that are shared among 
+* the modules, custom styles sit in the ribbon sub folder
+* 
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+* @version $Id: ribbon.css 1961 2014-06-17 00:01:52Z Dean.Blackborough $
+*/
+
+/* Ribbon tab and content styling */
+#designer > #ribbon > .tabs {
+    width: 320px;
+    border-top: 1px solid #b4b4b4;
+    border-bottom: 1px solid #b4b4b4;
+    background-color: #f5f5f5;
+    margin-bottom: 5px;   
+}
+#designer > #ribbon > .tabs > .tab {
+    padding: 5px 10px 5px 10px;
+    border-right: 1px solid #b4b4b4;
+    cursor: pointer;
+    font-weight: bold;
+}
+#designer > #ribbon > .tabs > .tab:hover {
+    background-color: #ebebeb;
+}
+#designer > #ribbon > .tabs > .selected {
+    background-color: #e1e1e1;
+    color: #960505;
+}
+#designer > #ribbon > .content {
+    width: 320px;
+    display: none;
+}
+#designer > #ribbon > .open {
+    display: block;
+}
+
+/* Text content for ribbon */
+#designer > #ribbon > .content > h2 {
+    font-weight: bold;
+    margin: 10px 0px 10px 0px;
+    width: 320px;
+    color: #960505;
+    font-size: 1.2em;    
+}
+#designer > #ribbon > .content > p {
+    margin: 10px 0px 10px 0px;
+    width: 320px;
+    color: #505050;
+    float: left;
+}
+#designer > #ribbon > .content > ul {
+    margin: 10px 0px 10px 0px;
+    width: 280px;
+    padding-left: 40px;
+    color: #505050;
+}
+#designer > #ribbon > .content > ul {
+    width: 280px;
+}
+
+/* Color picker */
+#designer > #ribbon > .content .color_picker_tool {
+	width: 308px;
+	padding: 5px;
+	border: 1px solid #b4b4b4;
+	background-color: #f5f5f5;
+	display: none;
+}
+#designer > #ribbon > .content .color_picker_tool p {
+	width: 308px;
+}
+#designer > #ribbon > .content .color_picker_tool h2 {
+	width: 308px;
+}
+#designer > #ribbon > .content .color_picker_tool h3 {
+	width: 308px;
+	color: #960505;
+	font-size: 1em;
+	margin: 5px 0px 5px 0px;
+}
+#designer > #ribbon > .content .color_picker_tool > .palette {
+	width: 308px;
+	padding-bottom: 5px;
+}
+#designer > #ribbon > .content .color_picker_tool > .palette > .color {
+	width: 98px;
+	border: 1px solid #b4b4b4;
+	line-height: 20px;
+	margin: 0px 2px 2px 0px;
+}
+#designer > #ribbon > .content .color_picker_tool > .palette > .color:hover {
+	cursor: pointer;
+}
+#designer > #ribbon > .content .color_picker_tool > .palette > .label {
+	width: 100px;
+	text-align: center;
+	font-size: 0.8em;
+}
+#designer > #ribbon > .content .color_picker_tool > .history {
+	width: 308px;
+	padding-bottom: 5px;
+}
+#designer > #ribbon > .content .color_picker_tool > .history > .color {
+	width: 98px;
+	border: 1px solid #b4b4b4;
+	line-height: 20px;
+	margin: 0px 5px 2px 0px;
+}
+#designer > #ribbon > .content .color_picker_tool > .history > .color:hover {
+	cursor: pointer;
+}
+#designer > #ribbon > .content .color_picker_tool > .history > .label {
+	width: 203px;
+	line-height: 22px;
+	margin-bottom: 2px;
+	font-size: 0.8em;
+}
+#designer > #ribbon > .content .color_picker_tool > .custom > input {
+	width: 80px;
+}
+#designer > #ribbon > .content .color_picker_tool > .close {
+	width: 308px;
+	text-align: right;
+}
+
+/* Blocks to replace color inputs, invokes color pickers */
+#designer > #ribbon > .content .color_picker {
+	width: 98px;
+	border: 1px solid #b4b4b4;
+	line-height: 24px;
+	margin: 0px 5px 2px 0px;
+}
+#designer > #ribbon > .content .color_picker:hover {
+	cursor: pointer;
+}

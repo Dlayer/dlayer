@@ -1,0 +1,69 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<article id="content">
+    <h1>Dlayer</h1>
+    
+    <p>Dlayer has one simple goal, allow you the user to develop a web site 
+    with contol of every element without ever writing a single line of html, 
+    css or code. Dlayer is not a templating system, you are not limited in any 
+    way, there are widgets, templates, forms and a question manager to help 
+    you build the site you want..</p>
+    
+    <p>There are six modules to Dlayer, three that are based around content, 
+    <strong>Content manager</strong>, <strong>Form builder</strong> and 
+    <strong>Question manger</strong>, two that are used for designing your 
+    web site, <strong>Template designer</strong> and 
+    <strong>Widget designer</strong> and one which lets you bring it all 
+    together to create a working web site, the 
+    <strong>Web site manager</strong>.</p>
+    
+    <p><em>The entire app should be considered as a very early alpha</em></p>
+    
+    <h2>Enabled modules</h2>
+    
+    <p>The <?php echo count($this->modules_enabled); ?> modules listed below 
+    are all enabled, they are actively being developed and have some working 
+    tools.</p>
+    
+    <ol>
+    <?php foreach($this->modules_enabled as $module) { ?>
+        <li><a href="/<?php echo $this->escape($module['name']); ?>">
+        <?php echo $this->escape($module['title']); ?></a> - 
+        <?php echo $this->escape($module['description']); ?></li>
+    <?php } ?>
+    </ol>
+    
+    <h2>Disabled modules</h2>
+    
+    <p>The <?php echo count($this->modules_disabled); ?> modules listed below 
+    are currently disabled, the modules are in either planning mode or early 
+    development.</p>
+    
+    <ol>
+    <?php foreach($this->modules_disabled as $module) { ?>
+        <li><?php echo $this->escape($module['title']); ?> - 
+        <?php echo $this->escape($module['description']); ?></li>
+    <?php } ?>
+    </ol>
+    
+    <h2>Web site: <?php echo $this->escape($this->last_accessed_site); ?></h2>
+    
+    <p><strong><?php echo $this->escape($this->last_accessed_site); ?></strong> 
+    is currently selected, to work on another of your web sites or to create a 
+    new one please use the links below.</p>
+    
+    <ul>
+    	<?php foreach($this->sites as $site) { ?>    	
+    		<?php if($site['id'] == $this->site_id) { ?>
+    			<li><?php echo $this->escape($site['name']); ?> | 
+    			<?php if($site['name'] != 'Sample site 1') { ?>
+    			<a href="/dlayer/index/edit-site">Edit</a> | 
+    			<?php } ?>
+    			<a href="#">Copy</a> | Active</li>
+    		<?php } else { ?>
+    			<li><a href="/dlayer/index/activate/site/<?php echo $this->escape($site['id']); ?>"><?php echo $this->escape($site['name']); ?></a></li>
+    		<?php } ?>
+    	<?php } ?>
+        <li><a href="/dlayer/index/new-site">New web site</a></li>
+    </ul>
+</article>

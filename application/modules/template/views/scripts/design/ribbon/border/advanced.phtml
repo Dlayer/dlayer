@@ -1,0 +1,95 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<?php 
+$edges = array();
+$edges[] = array('icon'=>'border-top.png', 
+                 'title'=>'Top border', 
+                 'description'=>'Set the width, style and colour to use for the 
+                 top border.', 
+                 'position'=>'top');
+$edges[] = array('icon'=>'border-right.png', 
+                 'title'=>'Right border', 
+                 'description'=>'Set the width, style and colour to use for the 
+                 right border.', 
+                 'position'=>'right');
+$edges[] = array('icon'=>'border-bottom.png', 
+                 'title'=>'Bottom border', 
+                 'description'=>'Set the width, style and colour to use for the 
+                 bottom border.', 
+                 'position'=>'bottom');
+$edges[] = array('icon'=>'border-left.png', 
+                 'title'=>'Left border', 
+                 'description'=>'Set the width, style and colour to use for the 
+                 left border.', 
+                 'position'=>'left');
+?>
+
+<?php echo $this->colorPicker()->picker($this->color_picker_data['palettes'], 
+$this->color_picker_data['history']); ?>
+
+<?php foreach($edges as $k=>$edge) { ?>
+<div class="block">
+    <div class="image">
+    <img src="/images/ribbon/template/<?php echo $this->escape($edge['icon']); ?>" 
+    width="60" height="40" /></div>
+    <div class="content">
+        <div class="title"><?php echo $this->escape($edge['title']); ?></div>
+        <div class="text"><?php echo $this->escape($edge['description']); ?></div>
+    </div>
+    <form action="/template/process/tool" method="post">
+        <input type="hidden" name="id" value="<?php echo $this->escape($this->div_id); ?>" />
+        <input type="hidden" name="tool" value="border" />
+        <input type="hidden" name="params[multi_use]" value="<?php echo $this->escape($this->multi_use); ?>" />
+        <input type="hidden" name="params[position]" 
+        value="<?php echo $this->escape($edge['position']); ?>" />
+        <select name="params[style]">
+            <?php foreach($this->data['styles'] as $style=>$name) { ?>
+                <?php
+                if($style != 'none') {
+                    $selected = ''; 
+                    
+                    if(array_key_exists($edge['position'], $this->data['borders']) == TRUE) {
+                        if($this->data['borders'][$edge['position']]['style'] 
+                        == $style) {
+                            $selected = ' selected="selected"';
+                        }
+                    }
+                    ?>
+                    <option value="<?php echo $this->escape($style); ?>" 
+                    label="<?php echo $this->escape($name); ?>" 
+                    <?php echo $selected; ?>>
+                    <?php echo $this->escape($name); ?></option>
+                <?php } else { ?>
+                    <?php if(array_key_exists($edge['position'], $this->data['borders']) == TRUE) { ?>
+                    <option value="<?php echo $this->escape($style); ?>" label="<?php echo $this->escape($name); ?>"><?php echo $this->escape($name); ?></option>
+                    <?php } else { ?>
+                    <option value="<?php echo $this->escape($style); ?>" label="<?php echo $this->escape($name); ?>" selected="selected"><?php echo $this->escape($name); ?></option>
+                    <?php } ?>
+                <?php } ?>
+            <?php } ?>
+        </select>
+        
+        <?php 
+        $width = 1;
+        $color = '#000000';
+        if(array_key_exists($edge['position'], $this->data['borders']) == TRUE) { 
+            $width = $this->data['borders'][$edge['position']]['width'];
+            $color = $this->data['borders'][$edge['position']]['color_hex'];
+        }
+        ?>
+        
+        <input name="params[width]" class="int_3" type="number" size="3" 
+        min="0" max="100" maxlength="3" 
+        value="<?php echo $this->escape($width); ?>" />
+        <input type="hidden" id="color_hex_<?php echo $k; ?>" 
+        name="params[color_hex]" size="7" maxlength="7" 
+        value="<?php echo $this->escape($color); ?>" />
+        <div class="color_picker" id="picker_color_hex_<?php echo $k; ?>" 
+        style="background-color:<?php echo $this->escape($color); ?>;">&nbsp;</div>
+        
+        <input type="submit" class="submit" name="submit" value="Go" />
+    </form>
+</div>
+<?php } ?>
+
+<?php echo $this->colorPicker()->javascript(); ?>

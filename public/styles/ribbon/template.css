@@ -1,0 +1,89 @@
+/**
+* Custom css styles for the template designer module ribbon
+* 
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+* @version $Id: template.css 1914 2014-06-09 15:45:45Z Dean.Blackborough $
+*/
+
+/* Custom ribbon style for the splitter tools */
+#designer > #ribbon > .content > p.advanced_info {
+    display: none;
+}
+#designer > #ribbon > .content > p.advanced_info > .info {
+    font-weight: bold;
+    color: #960505;
+}
+
+/* Default styling for the template ribbon, 4 blocks per tab */
+#designer > #ribbon > .content > .block {
+    width: 320px;
+    padding-top: 5px;
+}
+#designer > #ribbon > .content > .block > .image {
+    width: 60px;
+    height: 40px;
+    margin: 0px 5px 0px 0px;
+    border: 1px solid #b4b4b4;
+}
+#designer > #ribbon > .content > .block > .content {
+    width: 253px;
+}
+#designer > #ribbon > .content > .block > .content > .title {
+    width: 253px;
+    font-weight: bold;
+    color: #960505;
+}
+#designer > #ribbon > .content > .block > .content > .text {
+    width: 253px;
+}
+
+/* Ribbon forms */
+#designer > #ribbon > .content > .block > form {
+    width: 320px;
+    padding: 5px 0px 5px 0px;
+}
+#designer > #ribbon > .content > .block > form > input {
+    display: block; 
+    float: left;
+    padding: 3px;
+    margin-right: 5px;
+    border: 1px solid #b4b4b4;
+}
+#designer > #ribbon > .content > .block > form > input.int_3 {
+    width: 35px;
+}
+#designer > #ribbon > .content > .block > form > input.color {
+    width: 80px;
+}
+#designer > #ribbon > .content > .block > form > select {
+    display: block; 
+    float: left;
+    margin-right: 5px;
+    padding: 3px;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#designer > #ribbon > .content > .block > form > label {
+    display: block;
+    float: left;
+    width: 50px;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: middle;
+    font-weight: bold;
+}
+#designer > #ribbon > .content > .block > form > .submit {
+	display: block;
+	float: right;
+    padding: 3px 5px 3px 5px;
+    margin: 0;
+    color: #505050;
+    background-color: #ebebeb;
+    border: 1px solid #b4b4b4;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+}
+#designer > #ribbon > .content > .block > form > .submit:hover {
+    background-color: #e1e1e1;
+    color: #666666;
+    cursor: pointer;
+}

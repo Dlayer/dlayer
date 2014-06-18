@@ -1,0 +1,98 @@
+/**
+* Styling to be used for form content items in the content manager
+* 
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+* @version $Id: content-item-form.css 1568 2014-02-14 14:59:50Z Dean.Blackborough $
+*/
+
+/* Styling for form content items */
+.item form {
+    width: 100%;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    float: left;
+}
+.item dl.zend_form {
+    width: 100%;
+    float: left;
+    margin: 0;
+    border: 0;
+}
+.item dl.zend_form > dd {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    float: left;
+    border: 0;
+}
+.item dl.zend_form > dd > fieldset {
+    padding: 0px;
+    margin: 0px;
+    width: 98%;
+    border: 1px solid #b4b4b4;
+    display: block;
+    float: left;
+}
+.item dl.zend_form > dd > fieldset > legend {
+    padding: 4px;
+    margin: 0px 0px 5px 5px;
+    font-weight: bold;
+    background-color: #ebebeb;
+    border: 1px solid #b4b4b4;
+    color: #505050;
+}
+.item dl.zend_form > dd > fieldset > dl {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    float: left;
+    display: block;
+}
+.item dl.zend_form > dd > fieldset > dl > div.row {
+    width: 100%;
+    padding: 1% 0 1% 0;
+}
+.item dl.zend_form > dd > fieldset > dl > div.selected {
+    background-color: #6490cc;
+}
+.item dl.zend_form > dd > fieldset > dl > div.row > label {
+    display: block;
+    float: left;
+    padding: 5px;
+    font-weight: bold;
+    color: #505050;
+}
+.item dl.zend_form > dd > fieldset > dl > div.row > p.hint {
+    float: left;
+    width: 98%;
+    padding: 1%;
+    margin: 0;
+    font-size: 0.9em;
+}
+.item dl.zend_form > dd > fieldset > dl > div.row > textarea {
+    float: left;
+    padding: 3px;
+    border: 1px solid #b4b4b4;
+    font-size: 1em;
+}
+.item dl.zend_form > dd > fieldset > dl > div.row > input {
+    float: left;
+    padding: 3px;
+    border: 1px solid #b4b4b4;
+    font-size: 1em;
+}
+.item dl.zend_form > dd > fieldset > dl > div.save {
+    width: 99%;
+    padding: 1% 0 1% 1%;
+}
+.item dl.zend_form > dd > fieldset > dl > div.save input {
+    display: block;
+    padding: 3px 6px 3px 6px;
+    margin: 0;
+    color: #505050;
+    background-color: #ebebeb;
+    border: 1px solid #b4b4b4;
+    font-size: 1em;
+}
