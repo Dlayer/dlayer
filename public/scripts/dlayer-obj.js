@@ -421,7 +421,11 @@ var dlayer = {
 				*
 				* @param {Integer} Id of the content item
 				* @param {Integer} Usable width of the page container
-				* @param {Integer} Current width of the content item
+				* @param {Integer} Current width of the content item, this 
+                                   is the value we reset to if invalid value 
+                                   supplied, this value will be checked against 
+                                   the current value in designer incase another 
+                                   preview method has modified it 
 				* @param {Object} Other attributes that affect container
 								  width, for example padding, borders and
 								  margins
@@ -435,6 +439,16 @@ var dlayer = {
                         var selector = '.c_item_' + content_id;
 
                         if(new_width != NaN && new_width > 0) {
+                            
+                            // Check padding value in designer in case 
+                            // it has been modified by other preview methods
+                            var client_padding = parseInt(
+                            $(selector).css('padding'));
+                            
+                            if(attributes.padding != client_padding) {
+                                attributes.padding = client_padding;
+                            }
+                            
                             var total_width = new_width +
                             (attributes.padding * 2) +
                             attributes.margins.left +
@@ -448,6 +462,14 @@ var dlayer = {
 
                                 dlayer.preview.content.fn.highlight(selector);
                             } else {
+                                // Check width value in designer in case 
+                                // it has been modified by other preview 
+                                // methods
+                                var client_width = parseInt(
+                                $(selector).css('width'));
+                                if(width != client_width) {
+                                    width = client_width;
+                                }
                                 // Trigger change event when value reset
                                 $('#params-width').val(width).trigger('change');
                             }
@@ -478,6 +500,16 @@ var dlayer = {
                         var selector = '.c_item_' + content_id;
 
                         if(new_padding != NaN && new_padding >= 0) {
+                            
+                            // Check width value in designer in case 
+                            // it has been modified by other preview methods
+                            var client_width = parseInt(
+                            $(selector).css('width'));
+                            
+                            if(attributes.width != client_width) {
+                                attributes.width = client_width;
+                            }
+                            
                             var total_width = (new_padding * 2) +
                             attributes.margins.left +
                             attributes.margins.right +
@@ -493,6 +525,15 @@ var dlayer = {
 
                                 dlayer.preview.content.fn.highlight(selector);
                             } else {
+                                // Check width value in designer in case 
+                                // it has been modified by other preview 
+                                // methods
+                                var client_padding = parseInt(
+                                $(selector).css('padding'));
+                                if(padding != client_padding) {
+                                    padding = client_padding;
+                                }
+                                
                                 // Trigger change event when value reset
                                 $('#params-padding').val(padding).
                                 trigger('change');
