@@ -38,6 +38,22 @@
 	<p>In a future update the tool will only display forms that can fit 
 	into the requested page block based on the layout options defined for 
 	the form.</p>
+    
+    <h2>Live preview: Affects Form builder and Content manager</h2>
+    
+    <p>Changes made by the live preview functions aren't reset when a user 
+    switches tool tabs.</p>
+    
+    <p>The tool tabs are loaded via AJAX and populated with the most 
+    current data in the database, they don't look at the current state of 
+    the designer and pull the current values.</p>
+    
+    <p>I can either update the tool tab AJAX to look at current designer 
+    data and update accordingly or reset preview function of tab switch.</p>
+    
+    <p>I will probably opt for the reset because there is lots of 
+    complexity behind each of the tool tabs, later when live editing is 
+    developed the tool tabs will work in unison.</p>
 		
 	<p>If you find any bugs not listed please let me know via my 
     <a href="http://www.g3d-development.com/blog/">blog.</a></p>

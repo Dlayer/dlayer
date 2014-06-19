@@ -30,7 +30,8 @@ class Dlayer_Ribbon_Content_ImportForm extends Dlayer_Ribbon_Module_Content
 
         return array('form'=>new Dlayer_Form_Content_ImportForm(
         $this->page_id, $this->div_id, $this->container(), 
-        $this->existingData(), $this->edit_mode));
+        $this->existingData(), $this->edit_mode), 
+        'preview_data'=>$this->previewData());
     }
 
     /**
@@ -89,5 +90,46 @@ class Dlayer_Ribbon_Content_ImportForm extends Dlayer_Ribbon_Module_Content
 		}
 		
 		return $data;
+    }
+    
+    /**
+    * Fetch the preview data requireed by the live editing preview functions
+    * 
+    * @return array
+    */
+    protected function previewData() 
+    {
+        $data = null;
+        
+        if($this->edit_mode == TRUE) {
+            $data = array('content_id'=>$this->content_id);
+            
+            $model_form = new Dlayer_Model_Page_Content_Items_Form();
+            $dimensions = $model_form->boxDimensions($this->content_id, 
+            $this->site_id, $this->page_id, $this->div_id);
+            
+            $model_position = new Dlayer_Model_Page_Content_Position();
+            $positions = $model_position->marginValues($this->site_id, 
+            $this->page_id, $this->div_id, $this->content_id, 'form');
+            
+            $model_template_div = new Dlayer_Model_Template_Div();
+            $page_container_width = $model_template_div->width(
+            $this->site_id, $this->div_id);
+            
+            $data['width'] = $dimensions['width'];
+            $data['padding']['right'] = $dimensions['padding'];
+            $data['padding']['left'] = $dimensions['padding'];
+            $data['padding']['width'] = $dimensions['padding'];
+            if($positions != FALSE) {
+                $data['margin']['right'] = $positions['right'];
+                $data['margin']['left'] = $positions['left'];
+            } else {
+                $data['margin']['right'] = 0;
+                $data['margin']['left'] = 0;
+            }
+            $data['page_container_width'] = $page_container_width;
+        }
+        
+        return $data;
     }
 }
