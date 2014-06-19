@@ -29,7 +29,7 @@ class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Module_Content
 
         return array('form'=>new Dlayer_Form_Content_Text($this->page_id,
         $this->div_id, $this->container(), $this->existingData(), 
-        $this->edit_mode));
+        $this->edit_mode), 'preview_data'=>$this->previewData());
     }
 
     /**
@@ -88,5 +88,41 @@ class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Module_Content
 		}
 		
 		return $data;
+    }
+    
+    /**
+    * Fetch the preview data requireed by the live editing preview functions
+    * 
+    * @return array
+    */
+    protected function previewData() 
+    {
+        $data = null;
+        
+        if($this->edit_mode == TRUE) {
+            $data = array('content_id'=>$this->content_id);
+            
+            $model_text = new Dlayer_Model_Page_Content_Items_Text();
+            $dimensions = $model_text->boxDimensions($this->content_id, 
+            $this->site_id, $this->page_id, $this->div_id);
+            
+            $model_position = new Dlayer_Model_Page_Content_Position();
+            $positions = $model_position->marginValues($this->site_id, 
+            $this->page_id, $this->div_id, $this->content_id, 'text');
+            
+            $model_templace_div = new Dlayer_Model_Template_Div();
+            $page_container_width = $model_templace_div->width(
+            $this->site_id, $this->div_id);
+            
+            $data['width'] = $dimensions['width'];
+            $data['padding']['right'] = $dimensions['padding'];
+            $data['padding']['left'] = $dimensions['padding'];
+            $data['padding']['width'] = $dimensions['padding'];
+            $data['margin']['right'] = $positions['right'];
+            $data['margin']['left'] = $positions['left'];
+            $data['page_container_width'] = $page_container_width;
+        }
+        
+        return $data;
     }
 }
