@@ -40,7 +40,7 @@ class Form_SettingsController extends Zend_Controller_Action
 
         // Include js and css files in layout
         $this->layout = Zend_Layout::getMvcInstance();
-        $this->layout->assign('js_include', array('scripts/dlayer-obj.js'));
+        $this->layout->assign('js_include', array('scripts/dlayer.js'));
         $this->layout->assign('css_include', array('styles/forms.css', 
         'styles/settings.css', 'styles/settings/form.css'));
     }

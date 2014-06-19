@@ -47,7 +47,7 @@ class Template_DesignController extends Zend_Controller_Action
 
         // Set the js and css files
         $this->layout = Zend_Layout::getMvcInstance();
-        $this->layout->assign('js_include', array('scripts/dlayer-obj.js'));
+        $this->layout->assign('js_include', array('scripts/dlayer.js'));
         $this->layout->assign('css_include', array('styles/ribbon.css',
         'styles/ribbon/template.css', 'styles/designer.css',
         'styles/designer/template.css'));
