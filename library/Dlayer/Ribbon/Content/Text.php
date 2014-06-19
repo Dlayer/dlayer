@@ -110,16 +110,21 @@ class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Module_Content
             $positions = $model_position->marginValues($this->site_id, 
             $this->page_id, $this->div_id, $this->content_id, 'text');
             
-            $model_templace_div = new Dlayer_Model_Template_Div();
-            $page_container_width = $model_templace_div->width(
+            $model_template_div = new Dlayer_Model_Template_Div();
+            $page_container_width = $model_template_div->width(
             $this->site_id, $this->div_id);
             
             $data['width'] = $dimensions['width'];
             $data['padding']['right'] = $dimensions['padding'];
             $data['padding']['left'] = $dimensions['padding'];
             $data['padding']['width'] = $dimensions['padding'];
-            $data['margin']['right'] = $positions['right'];
-            $data['margin']['left'] = $positions['left'];
+            if($positions != FALSE) {
+                $data['margin']['right'] = $positions['right'];
+                $data['margin']['left'] = $positions['left'];
+            } else {
+                $data['margin']['right'] = 0;
+                $data['margin']['left'] = 0;
+            }
             $data['page_container_width'] = $page_container_width;
         }
         

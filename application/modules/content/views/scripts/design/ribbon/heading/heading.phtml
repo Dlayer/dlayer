@@ -2,14 +2,33 @@
 
 <?php if($this->edit_mode == TRUE) { ?>
 <script type="text/javascript">
-dlayer.preview.content.fn.container_content(4, 'heading');
-dlayer.preview.content.fn.container_padding_vertical(4, 'top', 12);
-dlayer.preview.content.fn.container_padding_vertical(4, 'bottom', 12);
-dlayer.preview.content.fn.container_padding_horizontal(4, 820, 'left', 5, 
-{ width: 815, margins: { right: 0, left: 0 } });
-dlayer.preview.content.fn.container_width(4, 820, 815, { 
-paddings: { left: 5, right: 0 }, margins: { right: 0, left: 0 }});
-dlayer.preview.content.fn.heading_type(4);
+dlayer.preview.content.fn.container_content(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>, 'heading');
+dlayer.preview.content.fn.container_padding_vertical(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>, 'top', <?php echo $this->escape(
+$this->data['preview_data']['padding']['top']); ?>);
+dlayer.preview.content.fn.container_padding_vertical(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>, 'bottom', <?php echo $this->escape(
+$this->data['preview_data']['padding']['bottom']); ?>);
+dlayer.preview.content.fn.container_padding_horizontal(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>, <?php echo $this->escape(
+$this->data['preview_data']['page_container_width']); ?>, 'left', <?php echo $this->escape(
+$this->data['preview_data']['padding']['left']); ?>, 
+{ width: <?php echo $this->escape(
+$this->data['preview_data']['width']); ?>, margins: { right: <?php echo $this->escape(
+$this->data['preview_data']['margin']['right']); ?>, left: <?php echo $this->escape(
+$this->data['preview_data']['margin']['left']); ?> } });
+dlayer.preview.content.fn.container_width(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>, <?php echo $this->escape(
+$this->data['preview_data']['page_container_width']); ?>, <?php echo $this->escape(
+$this->data['preview_data']['width']); ?>, { 
+paddings: { left: <?php echo $this->escape(
+$this->data['preview_data']['padding']['left']); ?>, right: <?php echo $this->escape(
+$this->data['preview_data']['padding']['right']); ?> }, margins: { right: <?php echo $this->escape(
+$this->data['preview_data']['margin']['right']); ?>, left: <?php echo $this->escape(
+$this->data['preview_data']['margin']['left']); ?> }});
+dlayer.preview.content.fn.heading_type(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>);
 </script>
 
 <p class="unsaved">Data has been modified!</p>

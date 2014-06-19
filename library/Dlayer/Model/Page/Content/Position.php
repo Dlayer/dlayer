@@ -181,7 +181,7 @@ class Dlayer_Model_Page_Content_Position extends Zend_Db_Table_Abstract
     * @param integer $div_id
     * @param integer $content_id
     * @param string $content_type
-    * @return string|FALSE
+    * @return array|FALSE
     */
     public function marginValues($site_id, $page_id, $div_id, $content_id, 
     $content_type) 
