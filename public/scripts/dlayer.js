@@ -43,6 +43,9 @@ var dlayer = {
 			* Adds click events for the ribbon tabs, on click sets the
 			* selected tab as active and then calls a function to make an
 			* AJAX call for the tab content
+            * 
+            * @todo Need to clean this method up, duplication added when 
+            * updated to deal with tab switching after preview functions called
 			*
 			* @param {String} Module that the function is being called from
 			* @param {string} The name of the selected tool, used by the
@@ -53,20 +56,33 @@ var dlayer = {
 				$('#ribbon > .tabs > .tab').click(
 			        function() {
 			            /* Only switch if the tab is not already selected */
-			            if($(this).hasClass('selected') == false) {
-			                $('#ribbon > .tabs > .tab').removeClass('selected');
-			                $(this).addClass('selected');
+			            if($(this).hasClass('selected') == false) {			                
+                            if(dlayer.preview.changed == true) {
+                               $('#ribbon > .tabs > .tab').removeClass('selected');
+                               $(this).addClass('selected');
 
-			                var tab = this.id.replace('tab_', '');
+                               var tab = this.id.replace('tab_', '');
 
-			                $('#ribbon > .content').removeClass('open');
-			                $('#tab_content_' + tab).addClass('open');
-
-			                dlayer.ribbon.tabs.content(tab, tool, module);
-			            }
-			        }
-			    );
-			},
+                               $('#ribbon > .content').removeClass('open');
+                               $('#tab_content_' + tab).addClass('open');
+                               
+                               dlayer.ribbon.tabs.content(tab, tool, 
+                               module, true);
+                            } else {
+                               $('#ribbon > .tabs > .tab').removeClass('selected');
+                               $(this).addClass('selected');
+                               
+                               var tab = this.id.replace('tab_', '');
+                               
+                               $('#ribbon > .content').removeClass('open');
+                               $('#tab_content_' + tab).addClass('open');
+                            
+                               dlayer.ribbon.tabs.content(tab, tool, module);
+                            }
+                        }
+                    }
+                );
+            },
             
 			/**
 			* Load the content for the selected tool and tab
@@ -74,24 +90,26 @@ var dlayer = {
 			* @param {String} Name of the tool tab
 			* @param {String} Name of the tool
 			* @param {String} Name of the module, ribbon-tab-html is always
-							  part of the design controller in the requested
-							  module
+			*				  part of the design controller in the requested
+			*				  module
+            * @param {Boolean} Release
 			* @returns {Void}
 			*/
-			content: function(tab, tool, module)
+			content: function(tab, tool, module, reload)
 			{
+                if(typeof reload == 'undefined') { reload = false; }
+                
 			    $.post('/' + module + '/design/ribbon-tab-html',
 			           { tab: tab,
 			             tool: tool },
 			           function(data) {
-			               $('#tab_content_' + tab).html(data);
-			               $('#color_picker').hide();
-                           
-                           if(dlayer.preview.changed == true) {
+                           $('#tab_content_' + tab).html(data);
+                           $('#color_picker').hide();
+                           if(reload == true) {
                                window.location.replace(
-                               '/' + module + '/design/');
+                               '/' + module + '/design/');                               
                            }
-			           },
+                       },
 			           'html');
 			}
 		}
@@ -371,14 +389,13 @@ var dlayer = {
         },
         
         /**
-        * Add a hightlight to the content item that has just been
-        * changed
+        * Add a hightlight to the content item that has just been changed
         *
         * @param {String Element selector
         * @param {Integer} Length for effect, defaults to 500 if not set
         * @returns {Void}
         */
-        highlight: function(selector, time)
+        highlight_item: function(selector, time)
         {
             if(typeof time == 'undefined') { time = 400 }
 
@@ -453,7 +470,7 @@ var dlayer = {
 					    if(new_value != NaN && current_value != NaN &&
 					    new_value != current_value && new_value > 0) {
 					        $(selector).css('margin-' + margin, new_value + 'px');
-					        dlayer.preview.highlight(selector);
+					        dlayer.preview.highlight_item(selector);
 					        dlayer.preview.changed = true;
 					    }
 
@@ -511,7 +528,7 @@ var dlayer = {
                                 set_content_item_widths(selector, total_width,
                                 container_width);
 
-                                dlayer.preview.highlight(selector);
+                                dlayer.preview.highlight_item(selector);
                             } else {
                                 // Check width value in designer in case 
                                 // it has been modified by other preview 
@@ -573,7 +590,7 @@ var dlayer = {
                                 set_content_item_widths(selector, total_width,
                                 container_width);
 
-                                dlayer.preview.highlight(selector);
+                                dlayer.preview.highlight_item(selector);
                             } else {
                                 // Check padding value in designer in case 
                                 // it has been modified by other preview 
@@ -587,7 +604,7 @@ var dlayer = {
                                 trigger('change');
 
                                 // Add highlight effect
-                                dlayer.preview.highlight(selector);
+                                dlayer.preview.highlight_item(selector);
                             }
                         }
                     });
@@ -620,7 +637,7 @@ var dlayer = {
                                 set_content_item_padding_value(selector,
                                 position, new_padding);
 
-                                dlayer.preview.highlight(selector);
+                                dlayer.preview.highlight_item(selector);
                             }
                         });
                     }
@@ -685,7 +702,7 @@ var dlayer = {
                                     set_content_item_widths(selector, 
                                     total_width, container_width);
 
-                                    dlayer.preview.highlight(
+                                    dlayer.preview.highlight_item(
                                     selector);
                                 } else {
                                     // Check padding value in designer in case 
@@ -700,7 +717,7 @@ var dlayer = {
                                     padding).trigger('change');
 
                                     // Add highlight effect
-                                    dlayer.preview.highlight(
+                                    dlayer.preview.highlight_item(
                                     selector);
                                 }
                             }
@@ -728,7 +745,7 @@ var dlayer = {
                         .replace('</' + h_tag.toLowerCase(), 
                         '</h' + this.value));
                         
-                        dlayer.preview.highlight(selector);
+                        dlayer.preview.highlight_item(selector);
                         dlayer.preview.changed = true;
                         dlayer.preview.unsaved(); 
                     });
@@ -751,7 +768,7 @@ var dlayer = {
 
                         if(this.value.trim() != current_value) {
                             $(selector).html(this.value.trim());
-                            dlayer.preview.highlight(selector, 1500);
+                            dlayer.preview.highlight_item(selector, 1500);
                             dlayer.preview.highlight = false;
                             dlayer.preview.changed = true;
                         }
@@ -767,7 +784,7 @@ var dlayer = {
 
                         if(this.value.trim() != current_value) {
                             $(selector).html(this.value.trim());
-                            dlayer.preview.highlight(selector);
+                            dlayer.preview.highlight_item(selector);
                             dlayer.preview.changed = true;
                         }
 
@@ -780,7 +797,7 @@ var dlayer = {
                         var selector = '.c_item_' + content_id;
 
                         if(dlayer.preview.changed == true) {
-                            dlayer.preview.highlight(selector);
+                            dlayer.preview.highlight_item(selector);
                         }
                     });
                 },
@@ -892,7 +909,7 @@ var dlayer = {
 						if(this.value.trim().length > 0 &&
 						this.value.trim() != current_value) {
 							$(selector).html(this.value.trim());
-							dlayer.preview.highlight(selector, 1500);
+							dlayer.preview.highlight_item(selector, 1500);
 							dlayer.preview.highlight = false;
 							dlayer.preview.changed = true;
 						} else {
@@ -904,7 +921,7 @@ var dlayer = {
 									$(selector).html('');
 									$('#params-' + attribute).val('');
 									dlayer.preview.highlight = true;
-									dlayer.preview.highlight(selector);
+									dlayer.preview.highlight_item(selector);
 									dlayer.preview.changed = true;
 								}
 							}
@@ -922,7 +939,7 @@ var dlayer = {
 				        if(this.value.trim().length > 0 &&
 				        this.value.trim() != current_value) {
 				            $(selector).html(this.value.trim());
-				            dlayer.preview.highlight(selector);
+				            dlayer.preview.highlight_item(selector);
 				            dlayer.preview.changed = true;
 				        }
 
@@ -935,7 +952,7 @@ var dlayer = {
     					var selector = '.row_' + field_id + ' ' + element;
 
     					if(dlayer.preview.changed == true) {
-							dlayer.preview.highlight(selector);
+							dlayer.preview.highlight_item(selector);
     					}
 				    });
 				},
@@ -967,7 +984,7 @@ var dlayer = {
 						if(this.value.trim().length > 0 &&
 						this.value.trim() != current_value) {
 							$(selector).attr(field_attribute, this.value.trim());
-							dlayer.preview.highlight(selector, 1500);
+							dlayer.preview.highlight_item(selector, 1500);
 							dlayer.preview.highlight = false;
 							dlayer.preview.changed = true;
 						} else {
@@ -979,7 +996,7 @@ var dlayer = {
 									$(selector).attr(field_attribute, '');
 									$('#params-' + attribute).val('');
 									dlayer.preview.highlight = true;
-									dlayer.preview.highlight(selector);
+									dlayer.preview.highlight_item(selector);
 									dlayer.preview.changed = true;
 								}
 							}
@@ -997,7 +1014,7 @@ var dlayer = {
 				        if(this.value.trim().length > 0 &&
 				        this.value.trim() != current_value) {
 				            $(selector).attr(field_attribute, this.value.trim());
-				            dlayer.preview.highlight(selector);
+				            dlayer.preview.highlight_item(selector);
 				            dlayer.preview.changed = true;
 				        }
 
@@ -1010,7 +1027,7 @@ var dlayer = {
     					var selector = '#field_' + field_id;
 
     					if(dlayer.preview.changed == true) {
-							dlayer.preview.highlight(selector);
+							dlayer.preview.highlight_item(selector);
     					}
 				    });
 				},
@@ -1081,7 +1098,7 @@ var dlayer = {
 					    new_value != current_value &&
 					    new_value > 0) {
 					        $(selector).attr(field_attribute, new_value);
-					        dlayer.preview.highlight(selector);
+					        dlayer.preview.highlight_item(selector);
 					        dlayer.preview.changed = true;
 					    } else {
 							if(optional == false) {
@@ -1090,7 +1107,7 @@ var dlayer = {
 							} else {
 								$(selector).attr(field_attribute, '');
 								$('#params-' + attribute).val('');
-								dlayer.preview.highlight(selector);
+								dlayer.preview.highlight_item(selector);
 								dlayer.preview.changed = true;
 							}
 					    }
