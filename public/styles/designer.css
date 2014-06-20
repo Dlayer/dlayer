@@ -23,6 +23,7 @@
     border: 1px solid #b4b4b4;
     background-color: #f5f5f5;
     margin-bottom: 5px;
+    font-size: 0.9em;
 }
 #designer > #ribbon {
     width: 320px;
@@ -35,15 +36,15 @@
     width: 320px;
 }
 #designer > #tools .tool {
-    padding: 5px 10px 5px 10px;
+    padding: 5px;
     margin: 0px 5px 5px 0px;
     color: #505050;
-    background-color: #f5f5f5;
+    background-color: #ebebeb;
     border: 1px solid #b4b4b4;
     color: #505050;
 }
 #designer > #tools .tool:hover {
-    background-color: #ebebeb;
+    background-color: #f5f5f5;
 }
 #designer > #tools .selected {
     background-color: #e1e1e1;
@@ -59,6 +60,7 @@
 }
 #designer > #tools .selected a {
     color: #960505;
+    font-weight: bold;
 }
 
 #footer {

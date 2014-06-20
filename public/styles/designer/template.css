@@ -5,6 +5,12 @@
 * @copyright G3D Development Limited
 * @version $Id: template.css 1842 2014-05-19 14:59:09Z Dean.Blackborough $
 */
+#designer a:hover {
+    text-decoration: none;
+}
+#designer a:hover {
+    text-decoration: none;
+}
 #designer > #template {
     width: 1020px;
     margin-right: 2px;
@@ -31,6 +37,7 @@ div.vertical_splitter {
 /* Page container metrics */
 #designer > #page_container_metrics {
 	width: 340px;
+    font-size: 0.9em;
 }
 #designer > #page_container_metrics:hover {
 	cursor: pointer;
@@ -58,13 +65,12 @@ div.vertical_splitter {
     width: 165px;
     margin: 5px 0px 0px 5px;
     color: #960505;
-    font-weight: bold;
+    font-weight: 400;
 }
 #designer > #page_container_metrics > .metrics > .height {
     width: 165px;
     margin: 5px 5px 0px 0px;
     color: #960505;
-    font-size: 0.8em;
 }
 #designer > #page_container_metrics > .metrics > .border {
     color: #960505;
@@ -81,10 +87,10 @@ div.vertical_splitter {
     text-align: right;
 }
 #designer > #page_container_metrics > .metrics > .border_left {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 #designer > #page_container_metrics > .metrics > .border_bottom {
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: right;
 }
 #designer > #page_container_metrics > .metrics > .width {

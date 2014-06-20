@@ -5,6 +5,9 @@
 * @copyright G3D Development Limited
 * @version $Id: content.css 1568 2014-02-14 14:59:50Z Dean.Blackborough $
 */
+#designer a:hover {
+    text-decoration: none;
+}
 #designer > #website {
     width: 1020px;
     min-height: 500px;

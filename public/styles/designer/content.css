@@ -5,6 +5,9 @@
 * @copyright G3D Development Limited
 * @version $Id: content.css 1861 2014-05-27 11:30:18Z Dean.Blackborough $
 */
+#designer a:hover {
+    text-decoration: none;
+}
 #designer > #page {
     width: 1020px;
     margin-right: 2px;
@@ -15,6 +18,7 @@
 /* Page container metrics */
 #designer > #page_container_metrics {
 	width: 340px;
+    font-size: 0.9em;
 }
 #designer > #page_container_metrics:hover {
 	cursor: pointer;
@@ -42,13 +46,11 @@
     width: 165px;
     margin: 5px 0px 0px 5px;
     color: #960505;
-    font-weight: bold;
 }
 #designer > #page_container_metrics > .metrics > .height {
     width: 165px;
     margin: 5px 5px 0px 0px;
     color: #960505;
-    font-size: 0.8em;
 }
 #designer > #page_container_metrics > .metrics > .width {
     color: #960505;
@@ -89,6 +91,7 @@
 /* Content item metrics */
 #designer > #content_item_metrics {
 	width: 340px;
+    font-size: 0.9em;
 }
 #designer > #content_item_metrics:hover {
 	cursor: pointer;
@@ -117,8 +120,6 @@
 #designer > #content_item_metrics > .metrics > .title {
     width: 165px;
     margin: 5px 0px 0px 5px;
-    font-weight: bold;
-    font-size: 1.2em;
 }
 #designer > #content_item_metrics > .metrics > .height {
     width: 165px;
@@ -127,16 +128,16 @@
 #designer > #content_item_metrics > .metrics > .border_top {
     width: 160px;
     padding-left: 5px;
-    margin-top: 5px;
+    margin-top: 15px;
 }
 #designer > #content_item_metrics > .metrics > .margin_top {
     width: 140px;
-    margin-top: 5px;
+    margin-top: 15px;
     padding-left: 10px;
 }
 #designer > #content_item_metrics > .metrics > .border_right {
     width: 25px;
-    margin-top: 5px;
+    margin-top: 15px;
     text-align: center;
 }
 #designer > #content_item_metrics > .metrics > .padding_top {
@@ -174,22 +175,22 @@
 }
 #designer > #content_item_metrics > .metrics > .padding_bottom {
     width: 230px;
-    margin-top: 30px;
+    margin-top: 35px;
     margin-left: 110px;
     color: #ffffff;
 }
 #designer > #content_item_metrics > .metrics > .border_left {
     width: 160px;
     padding-left: 5px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 #designer > #content_item_metrics > .metrics > .margin_bottom {
     width: 140px;
-    margin-top: 10px;
+    margin-top: 15px;
     padding-left: 10px;
 }
 #designer > #content_item_metrics > .metrics > .border_bottom {
     width: 25px;
-    margin-top: 10px;
+    margin-top: 15px;
     text-align: center;
 }

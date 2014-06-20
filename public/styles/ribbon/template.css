@@ -28,10 +28,11 @@
 }
 #designer > #ribbon > .content > .block > .content {
     width: 253px;
+    font-size: 0.9em;
 }
 #designer > #ribbon > .content > .block > .content > .title {
     width: 253px;
-    font-weight: bold;
+    font-weight: 400;
     color: #960505;
 }
 #designer > #ribbon > .content > .block > .content > .text {
