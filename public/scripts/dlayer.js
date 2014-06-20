@@ -86,6 +86,11 @@ var dlayer = {
 			           function(data) {
 			               $('#tab_content_' + tab).html(data);
 			               $('#color_picker').hide();
+                           
+                           if(dlayer.preview.changed == true) {
+                               window.location.replace(
+                               '/' + module + '/design/');
+                           }
 			           },
 			           'html');
 			}
@@ -343,13 +348,46 @@ var dlayer = {
     
 	preview: {
         
+        changed: false,
+        
+        visible: false,
+        
+        hightlight: false,
+        
+        /**
+        * Display a message if any data has changed and not yet been
+        * saved
+        *
+        * @returns {Void}
+        */
+        unsaved: function()
+        {
+            if(dlayer.preview.visible == false) {
+                if(dlayer.preview.changed == true) {
+                    $('p.unsaved').show('medium');
+                    dlayer.preview.visible = true;
+                }
+            }
+        },
+        
+        /**
+        * Add a hightlight to the content item that has just been
+        * changed
+        *
+        * @param {String Element selector
+        * @param {Integer} Length for effect, defaults to 500 if not set
+        * @returns {Void}
+        */
+        highlight: function(selector, time)
+        {
+            if(typeof time == 'undefined') { time = 400 }
+
+            if(dlayer.preview.highlight == true) {
+                $(selector).effect("highlight", {}, time);
+            }
+        },
+        
 		content: {
-            
-			changed: false,
-            
-			visible: false,
-            
-			highlight: true,
             
 			fn: {
                 
@@ -378,15 +416,15 @@ var dlayer = {
 
 					    if(new_value.length == 7) {
 	    					$(selector).css('background-color', new_value);
-							dlayer.preview.content.changed = true;
+							dlayer.preview.changed = true;
 					    } else {
 	    					if(new_value.length == 0) {
 	    						$(selector).css('background-color', 'inherit');
-	    						dlayer.preview.content.changed = true;
+	    						dlayer.preview.changed = true;
 							}
 					    }
 
-					    dlayer.preview.content.fn.unsaved();
+					    dlayer.preview.unsaved();
 					});
 				},
                 
@@ -415,11 +453,11 @@ var dlayer = {
 					    if(new_value != NaN && current_value != NaN &&
 					    new_value != current_value && new_value > 0) {
 					        $(selector).css('margin-' + margin, new_value + 'px');
-					        dlayer.preview.content.fn.highlight(selector);
-					        dlayer.preview.content.changed = true;
+					        dlayer.preview.highlight(selector);
+					        dlayer.preview.changed = true;
 					    }
 
-					    dlayer.preview.content.fn.unsaved();
+					    dlayer.preview.unsaved();
 					});
 				},
 
@@ -473,7 +511,7 @@ var dlayer = {
                                 set_content_item_widths(selector, total_width,
                                 container_width);
 
-                                dlayer.preview.content.fn.highlight(selector);
+                                dlayer.preview.highlight(selector);
                             } else {
                                 // Check width value in designer in case 
                                 // it has been modified by other preview 
@@ -535,7 +573,7 @@ var dlayer = {
                                 set_content_item_widths(selector, total_width,
                                 container_width);
 
-                                dlayer.preview.content.fn.highlight(selector);
+                                dlayer.preview.highlight(selector);
                             } else {
                                 // Check padding value in designer in case 
                                 // it has been modified by other preview 
@@ -549,7 +587,7 @@ var dlayer = {
                                 trigger('change');
 
                                 // Add highlight effect
-                                dlayer.preview.content.fn.highlight(selector);
+                                dlayer.preview.highlight(selector);
                             }
                         }
                     });
@@ -582,7 +620,7 @@ var dlayer = {
                                 set_content_item_padding_value(selector,
                                 position, new_padding);
 
-                                dlayer.preview.content.fn.highlight(selector);
+                                dlayer.preview.highlight(selector);
                             }
                         });
                     }
@@ -647,7 +685,7 @@ var dlayer = {
                                     set_content_item_widths(selector, 
                                     total_width, container_width);
 
-                                    dlayer.preview.content.fn.highlight(
+                                    dlayer.preview.highlight(
                                     selector);
                                 } else {
                                     // Check padding value in designer in case 
@@ -662,7 +700,7 @@ var dlayer = {
                                     padding).trigger('change');
 
                                     // Add highlight effect
-                                    dlayer.preview.content.fn.highlight(
+                                    dlayer.preview.highlight(
                                     selector);
                                 }
                             }
@@ -690,9 +728,9 @@ var dlayer = {
                         .replace('</' + h_tag.toLowerCase(), 
                         '</h' + this.value));
                         
-                        dlayer.preview.content.fn.highlight(selector);
-                        dlayer.preview.content.changed = true;
-                        dlayer.preview.content.fn.unsaved(); 
+                        dlayer.preview.highlight(selector);
+                        dlayer.preview.changed = true;
+                        dlayer.preview.unsaved(); 
                     });
                 },
                 
@@ -713,36 +751,36 @@ var dlayer = {
 
                         if(this.value.trim() != current_value) {
                             $(selector).html(this.value.trim());
-                            dlayer.preview.content.fn.highlight(selector, 1500);
-                            dlayer.preview.content.highlight = false;
-                            dlayer.preview.content.changed = true;
+                            dlayer.preview.highlight(selector, 1500);
+                            dlayer.preview.highlight = false;
+                            dlayer.preview.changed = true;
                         }
 
-                        dlayer.preview.content.fn.unsaved();
+                        dlayer.preview.unsaved();
                     });
                     
                     $('#params-' + field).change(function()
                     {
-                        dlayer.preview.content.highlight = true;
+                        dlayer.preview.highlight = true;
                         var selector = '.c_item_' + content_id;
                         var current_value = $(selector).text();
 
                         if(this.value.trim() != current_value) {
                             $(selector).html(this.value.trim());
-                            dlayer.preview.content.fn.highlight(selector);
-                            dlayer.preview.content.changed = true;
+                            dlayer.preview.highlight(selector);
+                            dlayer.preview.changed = true;
                         }
 
-                        dlayer.preview.content.fn.unsaved();
+                        dlayer.preview.unsaved();
                     });
                     
                     $('#params-' + field).blur(function()
                     {
-                        dlayer.preview.content.highlight = true;
+                        dlayer.preview.highlight = true;
                         var selector = '.c_item_' + content_id;
 
-                        if(dlayer.preview.content.changed == true) {
-                            dlayer.preview.content.fn.highlight(selector);
+                        if(dlayer.preview.changed == true) {
+                            dlayer.preview.highlight(selector);
                         }
                     });
                 },
@@ -814,39 +852,6 @@ var dlayer = {
                 {
                     $(selector).css('padding-' + position, padding + 'px');
                 },
-
-				/**
-				* Display a message if any data has changed and not yet been
-                * saved
-				*
-				* @returns {Void}
-				*/
-				unsaved: function()
-				{
-					if(dlayer.preview.content.visible == false) {
-						if(dlayer.preview.content.changed == true) {
-							$('p.unsaved').show('medium');
-							dlayer.preview.content.visible = true;
-						}
-					}
-				},
-                
-				/**
-				* Add a hightlight to the content item that has just been
-                * changed
-				*
-				* @param {String Element selector
-				* @param {Integer} Length for effect, defaults to 500 if not set
-				* @returns {Void}
-				*/
-				highlight: function(selector, time)
-				{
-					if(typeof time == 'undefined') { time = 400 }
-
-					if(dlayer.preview.content.highlight == true) {
-						$(selector).effect("highlight", {}, time);
-					}
-				}
 			}
 		},
         
@@ -887,9 +892,9 @@ var dlayer = {
 						if(this.value.trim().length > 0 &&
 						this.value.trim() != current_value) {
 							$(selector).html(this.value.trim());
-							dlayer.preview.form.fn.highlight(selector, 1500);
-							dlayer.preview.form.highlight = false;
-							dlayer.preview.form.changed = true;
+							dlayer.preview.highlight(selector, 1500);
+							dlayer.preview.highlight = false;
+							dlayer.preview.changed = true;
 						} else {
 							if(this.value.trim().length == 0) {
 								if(optional == false) {
@@ -898,39 +903,39 @@ var dlayer = {
 								} else {
 									$(selector).html('');
 									$('#params-' + attribute).val('');
-									dlayer.preview.form.highlight = true;
-									dlayer.preview.form.fn.highlight(selector);
-									dlayer.preview.form.changed = true;
+									dlayer.preview.highlight = true;
+									dlayer.preview.highlight(selector);
+									dlayer.preview.changed = true;
 								}
 							}
 						}
 
-						dlayer.preview.form.fn.unsaved();
+						dlayer.preview.unsaved();
 					});
 
 				    $('#params-' + attribute).change(function()
 				    {
-    					dlayer.preview.form.highlight = true;
+    					dlayer.preview.highlight = true;
     					var selector = '.row_' + field_id + ' ' + element;
     					var current_value = $(selector).text();
 
 				        if(this.value.trim().length > 0 &&
 				        this.value.trim() != current_value) {
 				            $(selector).html(this.value.trim());
-				            dlayer.preview.form.fn.highlight(selector);
-				            dlayer.preview.form.changed = true;
+				            dlayer.preview.highlight(selector);
+				            dlayer.preview.changed = true;
 				        }
 
-				        dlayer.preview.form.fn.unsaved();
+				        dlayer.preview.unsaved();
 				    });
 
 				    $('#params-' + attribute).blur(function()
 				    {
-    					dlayer.preview.form.highlight = true;
+    					dlayer.preview.highlight = true;
     					var selector = '.row_' + field_id + ' ' + element;
 
-    					if(dlayer.preview.form.changed == true) {
-							dlayer.preview.form.fn.highlight(selector);
+    					if(dlayer.preview.changed == true) {
+							dlayer.preview.highlight(selector);
     					}
 				    });
 				},
@@ -962,9 +967,9 @@ var dlayer = {
 						if(this.value.trim().length > 0 &&
 						this.value.trim() != current_value) {
 							$(selector).attr(field_attribute, this.value.trim());
-							dlayer.preview.form.fn.highlight(selector, 1500);
-							dlayer.preview.form.highlight = false;
-							dlayer.preview.form.changed = true;
+							dlayer.preview.highlight(selector, 1500);
+							dlayer.preview.highlight = false;
+							dlayer.preview.changed = true;
 						} else {
 							if(this.value.trim().length == 0) {
 								if(optional == false) {
@@ -973,39 +978,39 @@ var dlayer = {
 								} else {
 									$(selector).attr(field_attribute, '');
 									$('#params-' + attribute).val('');
-									dlayer.preview.form.highlight = true;
-									dlayer.preview.form.fn.highlight(selector);
-									dlayer.preview.form.changed = true;
+									dlayer.preview.highlight = true;
+									dlayer.preview.highlight(selector);
+									dlayer.preview.changed = true;
 								}
 							}
 						}
 
-						dlayer.preview.form.fn.unsaved();
+						dlayer.preview.unsaved();
 					});
 
 				    $('#params-' + attribute).change(function()
 				    {
-    					dlayer.preview.form.highlight = true;
+    					dlayer.preview.highlight = true;
     					var selector = '#field_' + field_id;
 				        var current_value = $('#field_' + field_id).attr(field_attribute);
 
 				        if(this.value.trim().length > 0 &&
 				        this.value.trim() != current_value) {
 				            $(selector).attr(field_attribute, this.value.trim());
-				            dlayer.preview.form.fn.highlight(selector);
-				            dlayer.preview.form.changed = true;
+				            dlayer.preview.highlight(selector);
+				            dlayer.preview.changed = true;
 				        }
 
-				        dlayer.preview.form.fn.unsaved();
+				        dlayer.preview.unsaved();
 				    });
 
 				    $('#params-' + attribute).blur(function()
 				    {
-    					dlayer.preview.form.highlight = true;
+    					dlayer.preview.highlight = true;
     					var selector = '#field_' + field_id;
 
-    					if(dlayer.preview.form.changed == true) {
-							dlayer.preview.form.fn.highlight(selector);
+    					if(dlayer.preview.changed == true) {
+							dlayer.preview.highlight(selector);
     					}
 				    });
 				},
@@ -1032,15 +1037,15 @@ var dlayer = {
 
 					    if(new_value.length == 7) {
 	    					$('.row_' + field_id).css('background-color', new_value);
-							dlayer.preview.form.changed = true;
+							dlayer.preview.changed = true;
 					    } else {
 	    					if(new_value.length == 0) {
 	    						$('.row_' + field_id).css('background-color', 'inherit');
-	    						dlayer.preview.form.changed = true;
+	    						dlayer.preview.changed = true;
 							}
 					    }
 
-					    dlayer.preview.form.fn.unsaved();
+					    dlayer.preview.unsaved();
 					});
 				},
                 
@@ -1065,7 +1070,7 @@ var dlayer = {
 
 					$('#params-' + attribute).change(function()
 					{
-						dlayer.preview.form.highlight = true;
+						dlayer.preview.highlight = true;
 						var selector = '#field_' + field_id;
 					    var new_value = parseInt(this.value, 10);
 					    var current_value = parseInt(
@@ -1076,8 +1081,8 @@ var dlayer = {
 					    new_value != current_value &&
 					    new_value > 0) {
 					        $(selector).attr(field_attribute, new_value);
-					        dlayer.preview.form.fn.highlight(selector);
-					        dlayer.preview.form.changed = true;
+					        dlayer.preview.highlight(selector);
+					        dlayer.preview.changed = true;
 					    } else {
 							if(optional == false) {
 								$(selector).attr(field_attribute, value);
@@ -1085,45 +1090,14 @@ var dlayer = {
 							} else {
 								$(selector).attr(field_attribute, '');
 								$('#params-' + attribute).val('');
-								dlayer.preview.form.fn.highlight(selector);
-								dlayer.preview.form.changed = true;
+								dlayer.preview.highlight(selector);
+								dlayer.preview.changed = true;
 							}
 					    }
 
-					    dlayer.preview.form.fn.unsaved();
+					    dlayer.preview.unsaved();
 					});
 				},
-                
-				/**
-				* Display a message if any data has changed and not yet been saved
-				*
-				* @returns {Void}
-				*/
-				unsaved: function()
-				{
-					if(dlayer.preview.form.visible == false) {
-						if(dlayer.preview.form.changed == true) {
-							$('p.unsaved').show('medium');
-							dlayer.preview.form.visible = true;
-						}
-					}
-				},
-                
-				/**
-				* Add a hightlight to the element that has just been changed
-				*
-				* @param {String} Element selector
-				* @param {Integer} Length for effect, defaults to 500 if not set
-				* @returns {Void}
-				*/
-				highlight: function(selector, time)
-				{
-					if(typeof time == 'undefined') { time = 400 }
-
-					if(dlayer.preview.form.highlight == true) {
-						$(selector).effect("highlight", {}, time);
-					}
-				}
 			}
 		}
 	},
