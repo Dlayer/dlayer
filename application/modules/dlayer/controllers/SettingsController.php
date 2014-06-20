@@ -69,8 +69,8 @@ class Dlayer_SettingsController extends Zend_Controller_Action
     {
     	$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
         array('url'=>'/dlayer/settings/index', 'name'=>'Settings'), 
-        array('url'=>'/dlayer/index/development-plan', 'name'=>'Dev plan'), 
-        array('url'=>'/dlayer/index/development-log', 'name'=>'Dev log'), 
+        array('url'=>'/dlayer/index/development-plan', 'name'=>'Development plan'), 
+        array('url'=>'/dlayer/index/development-log', 'name'=>'Development log'), 
         array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs'), 
         array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
         $this->session_dlayer->identity() . ')'));

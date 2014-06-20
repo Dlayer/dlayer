@@ -37,7 +37,7 @@ class Dlayer_Form_Login extends Dlayer_Form
         
         $this->validationRules();
         
-        $this->addElementsToForm('login_form', 'Start building', 
+        $this->addElementsToForm('login_form', 'Start building a website', 
         $this->elements);
         
         $this->addDefaultElementDecorators();

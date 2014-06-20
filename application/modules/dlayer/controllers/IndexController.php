@@ -174,8 +174,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
     	
     	$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
     	array('url'=>'/dlayer/settings/index', 'name'=>'Settings'), 
-    	array('url'=>'/dlayer/index/development-plan', 'name'=>'Dev plan'), 
-    	array('url'=>'/dlayer/index/development-log', 'name'=>'Dev log'), 
+    	array('url'=>'/dlayer/index/development-plan', 'name'=>'Development plan'), 
+    	array('url'=>'/dlayer/index/development-log', 'name'=>'Development log'), 
     	array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs'), 
     	array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
         $session_dlayer->identity() . ')'));
@@ -196,8 +196,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
     	array('url'=>'/dlayer/index/dlayer', 'name'=>'What is Dlayer?'), 
     	array('url'=>'/dlayer/index/dlayer-history', 
         'name'=>'History of Dlayer'), 
-        array('url'=>'/dlayer/index/development-plan', 'name'=>'Dev plan'), 
-    	array('url'=>'/dlayer/index/development-log','name'=>'Dev log'), 
+        array('url'=>'/dlayer/index/development-plan', 'name'=>'Development plan'), 
+    	array('url'=>'/dlayer/index/development-log','name'=>'Development log'), 
     	array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs'));
     	
         $this->layout->assign('nav', array('class'=>'top_nav', 

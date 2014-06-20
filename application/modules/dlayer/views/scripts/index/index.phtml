@@ -1,13 +1,5 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<style>
-h1 {
-    font-size: 7em;
-    text-align: center;
-    margin: 1em 0 1em 0;
-}
-</style>
-
 <script type="text/javascript">
 $(document).ready(function() 
 {
@@ -17,11 +9,11 @@ $(document).ready(function()
 
 <div id="content">
 	<section>
-	    <h1>Dlayer.com</h1>
+	    <h1 class="title">Dlayer.com</h1>
 	    
 	    <?php echo $this->form; ?>
 	    
-	    <h2>Test usernames and passwords</h2>
+	    <h3>Test usernames and passwords</h3>
 	    
 	    <ul>
 	        <?php foreach($this->test_identities as $identity) { ?>

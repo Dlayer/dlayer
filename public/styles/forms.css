@@ -19,12 +19,11 @@
     width: 754px;
 }
 #content form fieldset > legend {
-    font-weight: bold;
-    padding: 0.3em 0.5em 0.3em 0.5em;
+    padding: 0.3em;
     color: #646464;
     border: 1px solid #b4b4b4;
     background-color: #ebebeb;
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 #content form fieldset .hidden {
     display: none;
