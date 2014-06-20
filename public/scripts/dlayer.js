@@ -2,16 +2,6 @@
 * Dlayer javascript object, contains all the custom js fucntions required 
 * by Dlayer
 * 
-* @todo
-* 
-* Form builder and content manager, when user swicthes tabs need to check the 
-* status of the preview.changed property for module and then based on the value 
-* do a window.replace (if possible), maybe chuck up a confirm prompt first. 
-* 
-* Before calling replace need to call a fucntion which resets the values for 
-* preview.changed and preview.visible
-* 
-*
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development limited
 */
