@@ -462,7 +462,20 @@ var dlayer = {
 					        $(selector).css('margin-' + margin, new_value + 'px');
 					        dlayer.preview.highlight_item(selector);
 					        dlayer.preview.changed = true;
-					    }
+					    } else {
+                            // Check margin value in designer in case 
+                            // it has been modified by other preview 
+                            // methods
+                            client_margin = dlayer.preview.content.fn.
+                            check_client_attribute_value(selector, 
+                            'width-' + margin, margin);
+                            
+                            // Trigger change event when value reset
+                            $('#params-' + margin).val(client_margin).trigger(
+                            'change');
+                            dlayer.preview.highlight_item(selector);
+                            dlayer.preview.changed = true;
+                        }
 
 					    dlayer.preview.unsaved();
 					});
@@ -517,8 +530,9 @@ var dlayer = {
                                 dlayer.preview.content.fn.
                                 set_content_item_widths(selector, total_width,
                                 container_width);
-
-                                dlayer.preview.highlight_item(selector);
+                                
+                                dlayer.preview.highlight_item(selector, 1500);
+                                dlayer.preview.changed = true;
                             } else {
                                 // Check width value in designer in case 
                                 // it has been modified by other preview 
@@ -529,8 +543,11 @@ var dlayer = {
                                 
                                 // Trigger change event when value reset
                                 $('#params-width').val(width).trigger('change');
+                                dlayer.preview.changed = true;
                             }
                         }
+                        
+                        dlayer.preview.unsaved();
 					});
 				},
 
@@ -581,6 +598,7 @@ var dlayer = {
                                 container_width);
 
                                 dlayer.preview.highlight_item(selector);
+                                dlayer.preview.changed = true;
                             } else {
                                 // Check padding value in designer in case 
                                 // it has been modified by other preview 
@@ -595,8 +613,11 @@ var dlayer = {
 
                                 // Add highlight effect
                                 dlayer.preview.highlight_item(selector);
+                                dlayer.preview.changed = true;
                             }
                         }
+                        
+                        dlayer.preview.unsaved();
                     });
                 },
 
@@ -628,7 +649,10 @@ var dlayer = {
                                 position, new_padding);
 
                                 dlayer.preview.highlight_item(selector);
+                                dlayer.preview.changed = true;
                             }
+                            
+                            dlayer.preview.unsaved();
                         });
                     }
                 },
@@ -694,6 +718,7 @@ var dlayer = {
 
                                     dlayer.preview.highlight_item(
                                     selector);
+                                    dlayer.preview.changed = true;
                                 } else {
                                     // Check padding value in designer in case 
                                     // it has been modified by other preview 
@@ -709,8 +734,11 @@ var dlayer = {
                                     // Add highlight effect
                                     dlayer.preview.highlight_item(
                                     selector);
+                                    dlayer.preview.changed = true;
                                 }
                             }
+                            
+                            dlayer.preview.unsaved();
                         });
                     }
                 },
@@ -789,6 +817,8 @@ var dlayer = {
                         if(dlayer.preview.changed == true) {
                             dlayer.preview.highlight_item(selector);
                         }
+                        
+                        dlayer.preview.unsaved();
                     });
                 },
                 
@@ -863,12 +893,6 @@ var dlayer = {
 		},
         
 		form: {
-            
-			changed: false,
-            
-			visible: false,
-            
-			highlight: true,
             
 			fn: {
                 
