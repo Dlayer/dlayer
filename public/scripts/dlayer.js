@@ -1,6 +1,6 @@
 /**
 * Dlayer javascript object, contains all the custom js fucntions required 
-* by Dlayer
+* by Dlayer 
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development limited
