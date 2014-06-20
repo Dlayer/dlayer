@@ -360,7 +360,7 @@ var dlayer = {
         
         visible: false,
         
-        hightlight: false,
+        highlight: false,
         
         /**
         * Display a message if any data has changed and not yet been
@@ -379,7 +379,7 @@ var dlayer = {
         },
         
         /**
-        * Add a hightlight to the content item that has just been changed
+        * Add a highlight to the content item that has just been changed
         *
         * @param {String Element selector
         * @param {Integer} Length for effect, defaults to 500 if not set
