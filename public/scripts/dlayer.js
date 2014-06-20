@@ -1,6 +1,16 @@
 /**
 * Dlayer javascript object, contains all the custom js fucntions required 
 * by Dlayer
+* 
+* @todo
+* 
+* Form builder and content manager, when user swicthes tabs need to check the 
+* status of the preview.changed property for module and then based on the value 
+* do a window.replace (if possible), maybe chuck up a confirm prompt first. 
+* 
+* Before calling replace need to call a fucntion which resets the values for 
+* preview.changed and preview.visible
+* 
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development limited
@@ -682,7 +692,7 @@ var dlayer = {
                         
                         dlayer.preview.content.fn.highlight(selector);
                         dlayer.preview.content.changed = true;
-                        dlayer.preview.content.fn.unsaved();
+                        dlayer.preview.content.fn.unsaved(); 
                     });
                 },
                 
@@ -737,14 +747,14 @@ var dlayer = {
                     });
                 },
                 
-                /**
+                /** 
                 * Check current client attribute value against the default 
                 * value passed into the preview functions
                 * 
                 * @param {String} Jquery selector
                 * @param {String} Attribute to check
                 * @param {Integer} Current value, at page load
-                * @returns {Integer} Value to use for calcualtions
+                * @returns {Integer} Value to use for calculations
                 */
                 check_client_attribute_value: function(selector, attribute, 
                 value) 
@@ -755,7 +765,7 @@ var dlayer = {
                         return client_value;
                     } else {
                         return value;
-                    }
+                    } 
                 },    
 
                 /**
@@ -780,7 +790,7 @@ var dlayer = {
                 },
 
                 /**
-                * Set the padding for a content item
+                * Set the padding for a content item 
                 *
                 * @param {String} Jquery selector
                 * @param {Integer} New padding value
@@ -796,7 +806,7 @@ var dlayer = {
                 *
                 * @param {String} Jquery selector
                 * @param {String} Padding position
-                * @param {Integer} New padding value
+                * @param {Integer} New padding value 
                 * @returns {Void}
                 */
                 set_content_item_padding_value: function(selector, position,
