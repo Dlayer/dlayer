@@ -2,11 +2,8 @@
 
 <?php if($this->edit_mode == TRUE) { ?>
 <script type="text/javascript">
-<?php foreach($this->data['preview_data']['margins'] as $margin=>$value) { ?>
-dlayer.preview.content.fn.container_margin(<?php echo $this->escape(
-$this->data['preview_data']['content_id']) ?>, '<?php echo $this->escape(
-$margin); ?>', <?php echo $this->escape($value); ?>);
-<?php } ?>
+dlayer.preview.content.fn.container_margin_vertical(6, 'top', 0);
+dlayer.preview.content.fn.container_margin_vertical(6, 'bottom', 0);
 </script>
 
 <p class="unsaved">Data has been modified!</p>

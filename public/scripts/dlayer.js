@@ -420,6 +420,7 @@ var dlayer = {
 					{
 					    var selector = '.c_item_' + content_id;
 					    var new_value = this.value;
+                        dlayer.preview.highlight = true;
 
 					    if(new_value.length == 7) {
 	    					$(selector).css('background-color', new_value);
@@ -435,52 +436,6 @@ var dlayer = {
 					});
 				},
                 
-				/**
-				* Preview function for content container margins, updates
-                * the margins in the Content manager designer as the user
-                * modifies the values. The input types are numbers so the
-                * event fires onchange,
-				*
-				* There will always be a margin value for each container so
-                * we don't need to be concerned with optional values.
-				*
-				* @param {Integer} Id of the content item
-				* @param {Integer} Margin position, top, right, left or bottom
-				* @returns {Void}
-				*/
-				container_margin: function(content_id, margin)
-				{
-					$('#params-' + margin).change(function()
-					{
-						var selector = '#page .c_item_' + content_id;
-					    var new_value = parseInt(this.value, 10);
-					    var current_value = parseInt($(selector).css(
-                        'margin-' + margin), 10);
-
-					    if(new_value != NaN && current_value != NaN &&
-					    new_value != current_value && new_value > 0) {
-					        $(selector).css('margin-' + margin, new_value + 'px');
-					        dlayer.preview.highlight_item(selector);
-					        dlayer.preview.changed = true;
-					    } else {
-                            // Check margin value in designer in case 
-                            // it has been modified by other preview 
-                            // methods
-                            client_margin = dlayer.preview.content.fn.
-                            check_client_attribute_value(selector, 
-                            'width-' + margin, margin);
-                            
-                            // Trigger change event when value reset
-                            $('#params-' + margin).val(client_margin).trigger(
-                            'change');
-                            dlayer.preview.highlight_item(selector);
-                            dlayer.preview.changed = true;
-                        }
-
-					    dlayer.preview.unsaved();
-					});
-				},
-
 				/**
 				* Preview function for content container width changes.
 				* Updates the width of the content container to the selected
@@ -504,8 +459,10 @@ var dlayer = {
                 width, attributes)
 				{
 					$('#params-width').change(function() {
+                        
 						var new_width = parseInt(this.value, 10);
                         var selector = '.c_item_' + content_id;
+                        dlayer.preview.highlight = true;
 
                         if(new_width != NaN && new_width > 0) {
                             
@@ -573,8 +530,10 @@ var dlayer = {
                 padding, attributes)
                 {
                     $('#params-padding').change(function() {
+                        
                         var new_padding = parseInt(this.value, 10);
                         var selector = '.c_item_' + content_id;
+                        dlayer.preview.highlight = true;
 
                         if(new_padding != NaN && new_padding >= 0) {
                             
@@ -628,8 +587,7 @@ var dlayer = {
                 *
                 * @param {Integer} Id of the content item
                 * @param {String} Padding position, either top or bottom
-                * @param {Integer} Current top padding value for the content
-                                   item
+                * @param {Integer} Current padding value for the content item
                 * @returns {Void}
                 */
                 container_padding_vertical: function(content_id, position,
@@ -639,14 +597,52 @@ var dlayer = {
 
                     if(positions.indexOf(position) > -1) {
                         $('#params-padding_' + position).change(function() {
+                            
                             var new_padding = parseInt(this.value, 10);
                             var selector = '.c_item_' + content_id;
+                            dlayer.preview.highlight = true;
 
-                            if(new_padding != NaN &&
-                            new_padding >= 0) {
+                            if(new_padding != NaN && new_padding >= 0) {
                                 dlayer.preview.content.fn.
                                 set_content_item_padding_value(selector,
                                 position, new_padding);
+
+                                dlayer.preview.highlight_item(selector);
+                                dlayer.preview.changed = true;
+                            }
+                            
+                            dlayer.preview.unsaved();
+                        });
+                    }
+                },
+                
+                /**
+                * Preview function for content container margin (position) 
+                * changes, the width of the item doesn't need to be altered. 
+                * Updates the margin of the content container to the 
+                * selected value
+                *
+                * @param {Integer} Id of the content item
+                * @param {String} Margin position, either top or bottom
+                * @param {Integer} Current margin value for the content item
+                * @returns {Void}
+                */
+                container_margin_vertical: function(content_id, position,
+                margin)
+                {
+                    var positions = ['top', 'bottom'];
+
+                    if(positions.indexOf(position) > -1) {
+                        $('#params-' + position).change(function() {
+                            
+                            var new_margin = parseInt(this.value, 10);
+                            var selector = '.c_item_' + content_id;
+                            dlayer.preview.highlight = true;
+
+                            if(new_margin != NaN && new_margin >= 0) {
+                                dlayer.preview.content.fn.
+                                set_content_item_margin_value(selector,
+                                position, new_margin);
 
                                 dlayer.preview.highlight_item(selector);
                                 dlayer.preview.changed = true;
@@ -680,8 +676,10 @@ var dlayer = {
                     
                     if(positions.indexOf(position) > -1) {
                         $('#params-padding_' + position).change(function() {
+                            
                             var new_padding = parseInt(this.value, 10);
                             var selector = '.c_item_' + content_id;
+                            dlayer.preview.highlight = true;
                             
                             // Check width value in designer in case 
                             // it has been modified by other preview methods                            
@@ -716,8 +714,7 @@ var dlayer = {
                                     set_content_item_widths(selector, 
                                     total_width, container_width);
 
-                                    dlayer.preview.highlight_item(
-                                    selector);
+                                    dlayer.preview.highlight_item(selector);
                                     dlayer.preview.changed = true;
                                 } else {
                                     // Check padding value in designer in case 
@@ -757,6 +754,7 @@ var dlayer = {
                         var selector = '.c_item_' + content_id;
                         var h_tag = $(selector)[0].tagName;
                         var heading = $('.c_selected').html();
+                        dlayer.preview.highlight = true;
                         
                         $('.c_selected').html(heading.replace('<' + 
                         h_tag.toLowerCase(), '<h' + this.value)
@@ -783,6 +781,7 @@ var dlayer = {
                     {
                         var selector = '.c_item_' + content_id;
                         var current_value = $(selector).text();
+                        dlayer.preview.highlight = true;
 
                         if(this.value.trim() != current_value) {
                             $(selector).html(this.value.trim());
@@ -888,6 +887,20 @@ var dlayer = {
                 padding)
                 {
                     $(selector).css('padding-' + position, padding + 'px');
+                },
+                
+                /**
+                * Set a specific margin value for a content item
+                *
+                * @param {String} Jquery selector
+                * @param {String} Margin position
+                * @param {Integer} New margin value 
+                * @returns {Void}
+                */
+                set_content_item_margin_value: function(selector, position,
+                margin)
+                {
+                    $(selector).css('margin-' + position, margin + 'px');
                 },
 			}
 		},
