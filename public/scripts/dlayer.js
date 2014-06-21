@@ -1596,8 +1596,8 @@ var dlayer = {
         				}
         			}
 
-        			$('#params-left').val(left);
-        			$('#params-right').val(right);
+        			$('#params-left').val(left).trigger('change');
+        			$('#params-right').val(right).trigger('change');;
 
         			return false;
 		        }
