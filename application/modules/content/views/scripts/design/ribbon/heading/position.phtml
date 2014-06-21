@@ -2,11 +2,28 @@
 
 <?php if($this->edit_mode == TRUE) { ?>
 <script type="text/javascript">
-<?php foreach($this->data['preview_data']['margins'] as $margin=>$value) { ?>
-dlayer.preview.content.fn.container_margin(<?php echo $this->escape(
-$this->data['preview_data']['content_id']) ?>, '<?php echo $this->escape(
-$margin); ?>', <?php echo $this->escape($value); ?>);
-<?php } ?>
+dlayer.preview.content.fn.container_margin_vertical(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>, 'top', <?php echo $this->escape(
+$this->data['preview_data']['margin']['top']); ?>);
+dlayer.preview.content.fn.container_margin_vertical(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>, 'bottom', <?php echo $this->escape(
+$this->data['preview_data']['margin']['bottom']); ?>);
+dlayer.preview.content.fn.container_margin_horizontal(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>, <?php echo $this->escape(
+$this->data['preview_data']['page_container_width']); ?>, 'right', <?php echo $this->escape(
+$this->data['preview_data']['margin']['right']); ?>, 
+{ width: <?php echo $this->escape(
+$this->data['preview_data']['width']); ?>, paddings: { 'right': <?php echo $this->escape(
+$this->data['preview_data']['padding']['right']); ?>, 'left': <?php echo $this->escape(
+$this->data['preview_data']['padding']['left']); ?> }});
+dlayer.preview.content.fn.container_margin_horizontal(<?php echo $this->escape(
+$this->data['preview_data']['content_id']); ?>, <?php echo $this->escape(
+$this->data['preview_data']['page_container_width']); ?>, 'left', <?php echo $this->escape(
+$this->data['preview_data']['margin']['left']); ?>, 
+{ width: <?php echo $this->escape(
+$this->data['preview_data']['width']); ?>, paddings: { 'right': <?php echo $this->escape(
+$this->data['preview_data']['padding']['right']); ?>, 'left': <?php echo $this->escape(
+$this->data['preview_data']['padding']['left']); ?> }});
 </script>
 
 <p class="unsaved">Data has been modified!</p>

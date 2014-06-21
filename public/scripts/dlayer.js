@@ -698,6 +698,10 @@ var dlayer = {
                             attributes.padding = parseInt($(selector).css(
                             'padding-' + sibling_position), 10);
                             
+                            if(isNaN(attributes.padding) == true) {
+                                attributes.padding = 0;
+                            }
+                            
                             if(new_padding != NaN && new_padding >= 0) {
                                 var total_width = new_padding + 
                                 attributes.padding + 
@@ -727,6 +731,97 @@ var dlayer = {
                                     // Trigger change event when value reset
                                     $('#params-padding_' + position).val(
                                     padding).trigger('change');
+
+                                    // Add highlight effect
+                                    dlayer.preview.highlight_item(
+                                    selector);
+                                    dlayer.preview.changed = true;
+                                }
+                            }
+                            
+                            dlayer.preview.unsaved();
+                        });
+                    }
+                },
+                
+                /**
+                * Preview function for content container margin changes where
+                * the width of the content item needs to be altered. Updates
+                * the margin value and also checks to ensure that the new
+                * margin value along with other width attributes doesn't
+                * exceed the page container.
+                *
+                * @param {Integer} Content id
+                * @param {Integer} Page container width
+                * @paran {String} Margin position, either right or left
+                * @param {Integer} Current margin value
+                * @param {Object} Other attributes that affect container
+                *                 width, for example width, borders and
+                *                 padding
+                * @returns {Void}
+                */
+                container_margin_horizontal: function(content_id, 
+                page_container_width, position, margin, attributes)
+                {
+                    var positions = ['left', 'right'];
+                    
+                    if(positions.indexOf(position) > -1) {
+                        $('#params-' + position).change(function() {
+                            
+                            var new_margin = parseInt(this.value, 10);
+                            var selector = '.c_item_' + content_id;
+                            dlayer.preview.highlight = true;
+                            
+                            // Check width value in designer in case 
+                            // it has been modified by other preview methods                            
+                            attributes.width = dlayer.preview.content.fn.
+                            check_client_attribute_value(selector, 'width', 
+                            attributes.width);
+                            
+                            // Fetch the horizontal margin value not being 
+                            // altered by this preview method
+                            if(position == 'left') {
+                                var sibling_position = 'right';
+                            } else {
+                                var sibling_position = 'left';
+                            }
+                            
+                            attributes.margin_sibling = parseInt($(selector).
+                            css('margin-' + sibling_position), 10);
+                            
+                            if(isNaN(attributes.margin_sibling) == true) {
+                                attributes.margin_sibling = 0;
+                            }
+                            
+                            if(new_margin != NaN && new_margin >= 0) {
+                                var total_width = new_margin + 
+                                attributes.margin_sibling + 
+                                attributes.paddings.left +
+                                attributes.paddings.right +
+                                attributes.width;
+                                var container_width = attributes.width;
+
+                                if(total_width <= page_container_width) {
+                                    dlayer.preview.content.fn.
+                                    set_content_item_margin_value(selector, 
+                                    position, new_margin);
+                                    dlayer.preview.content.fn.
+                                    set_content_item_widths(selector, 
+                                    total_width, container_width);
+
+                                    dlayer.preview.highlight_item(selector);
+                                    dlayer.preview.changed = true;
+                                } else {
+                                    // Check margin value in designer in case 
+                                    // it has been modified by other preview 
+                                    // methods
+                                    client_margin = dlayer.preview.content.fn.
+                                    check_client_attribute_value(selector, 
+                                    'margin-' + position, margin);
+                                    
+                                    // Trigger change event when value reset
+                                    $('#params-' + position).val(
+                                    client_margin).trigger('change');
 
                                     // Add highlight effect
                                     dlayer.preview.highlight_item(

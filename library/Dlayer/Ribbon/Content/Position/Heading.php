@@ -28,29 +28,12 @@ Dlayer_Ribbon_Module_Content
     {
         $this->writeParams($site_id, $page_id, $div_id, $tool, $tab,
         $content_id, $edit_mode);
-        
-        $existing_data = $this->existingData();
-        $preview_data = NULL;
-        
-        if($this->edit_mode == TRUE) {
-        	foreach($existing_data as $k=>$v) {
-        		if($k == 'content_id') { 
-					$preview_data[$k] = $v;
-        		} else {
-					if($v != FALSE) {
-						$preview_data['margins'][$k] = $v;
-					} else {
-						$preview_data['margins'][$k] = 0;
-					}
-				}
-        	}
-		}
 
         return array('form'=>new Dlayer_Form_Content_Position_Heading(
-        $this->page_id, $this->div_id, array(), $existing_data, 
+        $this->page_id, $this->div_id, array(), $this->existingData(), 
         $this->edit_mode), 'page_container_width'=>$this->pageContainerWidth(), 
         'content_container_width'=>$this->contentContainerWidth(), 
-        'preview_data'=>$preview_data);
+        'preview_data'=>$this->previewData());
     }
 
     /**
@@ -113,4 +96,48 @@ Dlayer_Ribbon_Module_Content
     }
     
     protected function container() { }
+    
+    /**
+    * Fetch the preview data requireed by the live editing preview functions
+    * 
+    * @return array
+    */
+    protected function previewData() 
+    {
+        $data = null;
+        
+        if($this->edit_mode == TRUE) {
+            $data = array('content_id'=>$this->content_id);
+            
+            $model_heading = new Dlayer_Model_Page_Content_Items_Heading();
+            $dimensions = $model_heading->boxDimensions($this->content_id, 
+            $this->site_id, $this->page_id, $this->div_id);
+            
+            $model_position = new Dlayer_Model_Page_Content_Position();
+            $positions = $model_position->marginValues($this->site_id, 
+            $this->page_id, $this->div_id, $this->content_id, 'heading');
+            
+            $model_template_div = new Dlayer_Model_Template_Div();
+            $page_container_width = $model_template_div->width(
+            $this->site_id, $this->div_id);
+            
+            $data['width'] = $dimensions['width'];
+            $data['padding']['right'] = 0;
+            $data['padding']['left'] = $dimensions['padding_left'];
+            if($positions != FALSE) {
+                $data['margin']['top'] = $positions['top'];
+                $data['margin']['right'] = $positions['right'];
+                $data['margin']['bottom'] = $positions['bottom'];
+                $data['margin']['left'] = $positions['left'];
+            } else {
+                $data['margin']['top'] = 0;
+                $data['margin']['right'] = 0;
+                $data['margin']['left'] = 0;
+                $data['margin']['bottom'] = 0;
+            }
+            $data['page_container_width'] = $page_container_width;
+        }
+        
+        return $data;
+    }
 }
