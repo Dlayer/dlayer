@@ -9,7 +9,7 @@
 * @copyright G3D Development Limited
 * @version $Id: Pagination.php 1568 2014-02-14 14:59:50Z Dean.Blackborough $
 */
-class DLayer_View_Pagination extends Zend_View_Helper_Abstract 
+class Dlayer_View_Pagination extends Zend_View_Helper_Abstract 
 {
     private $per_page;
     private $start;
