@@ -79,7 +79,7 @@ class Dlayer_Designer_Website
     public function parentPages() 
     {
 		return array(
-    	array('id'=>1, 'name'=>'Home', 'title'=>'Our website',
+    	array('id'=>1, 'name'=>'Home', 'title'=>'Our web site',
     	'description'=>'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum...', 
     	'children'=>6, 'parent_id'=>0));
     }

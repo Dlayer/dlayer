@@ -134,27 +134,38 @@ class Content_IndexController extends Zend_Controller_Action
         $this->layout->assign('title', 'Dlayer.com - New page');
         
         $model_sites = new Dlayer_Model_Site();
+        $model_templates = new Dlayer_Model_Template();
         
-        $form = new Dlayer_Form_Site_NewPage($this->session_dlayer->siteId());
+        $templates = $model_templates->templateNames(
+        $this->session_dlayer->siteId());
         
-        // Validate and save the posted data
-        if($this->getRequest()->isPost()) {
+        $form = NULL;
+        
+        if(count($templates) > 0) {
+        
+            $form = new Dlayer_Form_Site_NewPage(
+            $this->session_dlayer->siteId(), $templates);
             
-            $post = $this->getRequest()->getPost();
-        
-            if($form->isValid($post)) {
-                $model_pages = new Dlayer_Model_Page();
-                $page_id = $model_pages->addPage(
-                $this->session_dlayer->siteId(), $post['name'], 
-                $post['template'], $post['title']);
-                $this->session_content->clearAll(TRUE);
-                $this->session_content->setPageId($page_id);
-                $this->session_content->setTemplateId($post['template']);
-                $this->_redirect('/content');
+            // Validate and save the posted data
+            if($this->getRequest()->isPost()) {
+                
+                $post = $this->getRequest()->getPost();
+            
+                if($form->isValid($post)) {
+                    $model_pages = new Dlayer_Model_Page();
+                    $page_id = $model_pages->addPage(
+                    $this->session_dlayer->siteId(), $post['name'], 
+                    $post['template'], $post['title']);
+                    $this->session_content->clearAll(TRUE);
+                    $this->session_content->setPageId($page_id);
+                    $this->session_content->setTemplateId($post['template']);
+                    $this->_redirect('/content');
+                }
             }
+            
+            $this->view->form = $form;
         }
         
-        $this->view->form = $form;
         $this->view->site = $model_sites->site($this->session_dlayer->siteId());
         $this->dlayerMenu('/content/index/index');
     }

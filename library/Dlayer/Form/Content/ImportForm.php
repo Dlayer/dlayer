@@ -72,6 +72,8 @@ class Dlayer_Form_Content_ImportForm extends Dlayer_Form_Module_Content
         $model_forms = new Dlayer_Model_Form();
         $session_dlayer = new Dlayer_Session();
         
+        $this->elements_data[] = 'Choose form';
+        
         foreach($model_forms->forms($session_dlayer->siteId()) as $form) {
             $this->elements_data[$form['id']] = $form['name'];
         }

@@ -5,12 +5,19 @@
     
     <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
     
-    <p>Use the form below to add a new page to your webs ite. Once you have 
+    <p>Use the form below to add a new page to your web site. Once you have 
     added the new page you can immediately start working on it.</p>
     
-    <p><em>At the moment whilst Dlayer is in early development all that needs 
-    to be defined for a page is the name and the template to use, as the 
-    system evolves additional data will need to be defined.</em></p>
+    <p class="dev">At the moment whilst Dlayer is in early development 
+    all that needs to be defined for a page is the name and the template 
+    to use, as the system evolves additional data will need to be defined.</p>
     
-    <?php echo $this->form; ?>
+    <?php 
+    if($this->form != NULL) {
+        echo $this->form;
+    } else {
+    ?>
+    <p class="notice">To create a new page you first need a template, you can 
+    create a template in the <a href="/template">Template designer</a>.</p>
+    <?php } ?>
 </div>

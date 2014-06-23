@@ -18,12 +18,15 @@ class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App
     * Pass in any values that are needed to set up the form
     * 
     * @param integer $site_id
+    * @param array $templates Array of templates for site
     * @param array|NULL Options for form
     * @return void
     */
-    public function __construct($site_id, $options=NULL)
+    public function __construct($site_id, array $templates=array(), 
+    $options=NULL)
     {
     	$this->site_id = $site_id;
+        $this->data['templates'] = $templates;
     	
         parent::__construct($options=NULL);
     }
@@ -40,8 +43,6 @@ class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App
         
         $this->setMethod('post');
         
-        $this->formElementsData();
-        
         $this->setUpFormElements();
         
         $this->validationRules();
@@ -52,19 +53,6 @@ class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App
         $this->addDefaultElementDecorators();
         
         $this->addCustomElementDecorators();
-    }
-    
-    /**
-    * Fetch the data required for the inputs
-    * 
-    * @return void Writes the data to the $this->data property
-    */
-    private function formElementsData() 
-    {
-        $model_templates = new Dlayer_Model_Template();
-        
-        $this->data['templates'] = $model_templates->templateNames(
-        $this->site_id);
     }
     
     /** 
