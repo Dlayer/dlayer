@@ -147,8 +147,16 @@ class Dlayer_Model_Template extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
 		$stmt->execute();
-		
-		return $this->_db->lastInsertId('user_site_templates');
+        
+        $template_id = $this->_db->lastInsertId('user_site_templates');
+        
+        // Create the base div        
+        $model_template_div = new Dlayer_Model_Template_Div();
+        $div_id = $model_template_div->add($site_id, $template_id, 0, 1);
+        $model_template_div->setSizes($site_id, $template_id, $div_id, 1020, 
+        700);
+        
+        return $template_id;
     }
     
     /**
