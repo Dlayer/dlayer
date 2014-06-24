@@ -65,6 +65,10 @@ class Dlayer_Ribbon_Data_Form
             case 'password':
                 $data = $this->password();
             break;
+            
+            case 'form-settings':
+                $data = FALSE;
+            break;
 
             default:
                 $data = FALSE;
