@@ -33,7 +33,7 @@ class Dlayer_Model_View_Form_Settings extends Zend_Db_Table_Abstract
         if($result != FALSE) {
             return intval($result['width']);
         } else {
-            return 600;
+            return Dlayer_Config::FORM_MINIMUM_WIDTH;
         }
     }
 }

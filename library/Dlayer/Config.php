@@ -10,5 +10,7 @@ abstract class Dlayer_Config
 {
 	CONST DESIGNER_WIDTH = 1020;
 	CONST DESIGNER_HEIGHT = 700;
+    
+    CONST FORM_MINIMUM_WIDTH = 600;
 
 }

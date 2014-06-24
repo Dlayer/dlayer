@@ -149,7 +149,7 @@ class Dlayer_Model_Page_Content_Items_Form extends Dlayer_Model_Page_Content_Ite
         if($result != FALSE) {
             return intval($result['width']);
         } else {
-            return 600;
+            return Dlayer_Config::FORM_MINIMUM_WIDTH;
         }
     }
     
