@@ -32,7 +32,28 @@ class Dlayer_Ribbon_Form_FormSettings extends Dlayer_Ribbon_Module_Form
         $edit_mode);
 
         return array('form'=>new Dlayer_Form_Form_FormSettings(
-        $this->form_id, array()), 'field_id'=>$field_id, 
+        $this->form_id, $this->existingData()), 'field_id'=>$field_id, 
         'preview_data'=>array());
+    }
+    
+    /**
+    * Fetch the existing data to preset the values on the form
+    * 
+    * @param integer $site_id
+    * @param integer $form_id
+    * @return array
+    */
+    private function existingData() 
+    {
+        $model_settings = new Dlayer_Model_Form_Settings();
+        $settings = $model_settings->settings($this->site_id, $this->form_id);
+        
+        $existing = array();
+        
+        if($settings != FALSE) {
+            $existing['width'] = intval($settings['width']);
+        }
+        
+        return $existing;
     }
 }

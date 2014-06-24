@@ -116,6 +116,11 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
     */
     private function manageSettings($site_id, $form_id) 
     {
-        var_dump($this->params); die('hfhfhfhfhf');
+        /**
+        * @todo Once there are more settings move these into individual 
+        * methods
+        */        
+        $model_settings = new Dlayer_Model_Form_Settings();
+        $model_settings->setWidth($site_id, $form_id, $this->params['width']);
     }
 }

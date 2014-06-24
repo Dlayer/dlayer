@@ -376,7 +376,7 @@ CREATE TABLE `dlayer_identities` (
 
 LOCK TABLES `dlayer_identities` WRITE;
 
-insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-06-24 11:36:37','2014-06-24 13:09:02',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-20 15:39:49','2014-06-20 16:01:53',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-06-03 13:04:40','2014-06-03 13:23:23',1);
+insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-06-24 13:24:02','2014-06-24 15:01:12',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-20 15:39:49','2014-06-20 16:01:53',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-06-03 13:04:40','2014-06-03 13:23:23',1);
 
 UNLOCK TABLES;
 
@@ -488,7 +488,7 @@ CREATE TABLE `dlayer_sessions` (
 
 LOCK TABLES `dlayer_sessions` WRITE;
 
-insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('89b19qb524ssft32d8117uld43','','PHPSESSID',1403611824,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403615424;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1403615423;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1403615423;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1403615423;}}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:12:\"FormSettings\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}'),('a5nm0m09hrof7pgonf02fg5cf0','','PHPSESSID',1403310119,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403313719;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1403313197;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1403313197;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1403313197;}}dlayer_session_content|a:7:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:4:\"Text\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}'),('nd4ojnjud4895vt6cdg7sj40a0','','PHPSESSID',1403359689,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403363289;}}'),('oiqk76f8rps5emhc061fs2o1c4','','PHPSESSID',1403359331,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403362931;}}'),('turujscuqm61tpca6ok4lp2l45','','PHPSESSID',1403276970,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403280570;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1403280359;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1403280359;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1403280359;}}dlayer_session_template|a:6:{s:11:\"template_id\";N;s:4:\"tool\";N;s:6:\"div_id\";N;s:3:\"tab\";N;s:10:\"tool_model\";s:15:\"BackgroundColor\";s:16:\"tool_destructive\";s:1:\"0\";}dlayer_session_content|a:7:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:4:\"Text\";}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}');
+insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('89b19qb524ssft32d8117uld43','','PHPSESSID',1403618474,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403622074;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1403622073;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1403622073;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1403622073;}}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:12:\"FormSettings\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}'),('a5nm0m09hrof7pgonf02fg5cf0','','PHPSESSID',1403310119,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403313719;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1403313197;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1403313197;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1403313197;}}dlayer_session_content|a:7:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:4:\"Text\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}'),('nd4ojnjud4895vt6cdg7sj40a0','','PHPSESSID',1403359689,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403363289;}}'),('oiqk76f8rps5emhc061fs2o1c4','','PHPSESSID',1403359331,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403362931;}}'),('turujscuqm61tpca6ok4lp2l45','','PHPSESSID',1403276970,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403280570;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1403280359;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1403280359;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1403280359;}}dlayer_session_template|a:6:{s:11:\"template_id\";N;s:4:\"tool\";N;s:6:\"div_id\";N;s:3:\"tab\";N;s:10:\"tool_model\";s:15:\"BackgroundColor\";s:16:\"tool_destructive\";s:1:\"0\";}dlayer_session_content|a:7:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:4:\"Text\";}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}');
 
 UNLOCK TABLES;
 
@@ -847,17 +847,19 @@ CREATE TABLE `user_site_form_settings` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `site_id` int(11) unsigned NOT NULL,
   `form_id` int(11) unsigned NOT NULL,
-  `width` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'Minimum form display width',
+  `width` int(3) unsigned NOT NULL DEFAULT '0' COMMENT 'Minimum form display width',
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `form_id` (`form_id`),
   CONSTRAINT `user_site_form_settings_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_site_form_settings_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_forms` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form_settings` */
 
 LOCK TABLES `user_site_form_settings` WRITE;
+
+insert  into `user_site_form_settings`(`id`,`site_id`,`form_id`,`width`) values (1,1,1,600),(2,2,2,600),(3,3,3,600);
 
 UNLOCK TABLES;
 

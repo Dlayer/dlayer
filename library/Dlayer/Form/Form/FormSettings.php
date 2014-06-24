@@ -106,7 +106,7 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
         the form will not be able to be imported into any container smaller 
         than the set minimum width');
         $width->setAttribs(array('maxlength'=>3, 'class'=>'tinyint', 'min'=>0));
-        $width->setValue(600);
+        $width->setValue($this->field_data['width']);
         $width->setBelongsTo('params');
 
         $this->elements['width'] = $width;
