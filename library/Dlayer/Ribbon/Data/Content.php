@@ -244,11 +244,11 @@ class Dlayer_Ribbon_Data_Content
             	$model_content_form = new 
             	Dlayer_Model_Page_Content_Items_Form();
             	
-            	$form = $model_content_form->formId($this->site_id, 
+            	$form_id = $model_content_form->formId($this->site_id, 
             	$this->content_id);
             	
-            	if($form != FALSE) {
-					$data = $form;
+            	if($form_id != FALSE) {
+					$data = $form_id;
             	} else {
 					$data = FALSE;
             	}

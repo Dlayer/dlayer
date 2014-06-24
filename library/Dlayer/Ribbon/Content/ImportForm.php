@@ -80,12 +80,17 @@ class Dlayer_Ribbon_Content_ImportForm extends Dlayer_Ribbon_Module_Content
     	$data = array('id'=>FALSE, 'width'=>FALSE, 'padding'=>FALSE);
     	
         if($this->content_id != NULL) {
-        	$model_form = new Dlayer_Model_Page_Content_Items_Form();
+        	
+            $model_form = new Dlayer_Model_Page_Content_Items_Form();
             $set_data = $model_form->formParams($this->content_id, 
             $this->site_id,$this->page_id, $this->div_id);
+            
+            $form_id = $model_form->formId($this->site_id, $this->content_id);
         	
-            if($set_data != FALSE) {
+            if($set_data != FALSE && $form_id != FALSE) {
 				$data = $set_data;
+                $data['minimum_width'] = $model_form->minimumWidth(
+                $this->site_id, $form_id);
             }
 		}
 		

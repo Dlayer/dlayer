@@ -127,6 +127,33 @@ class Dlayer_Model_Page_Content_Items_Form extends Dlayer_Model_Page_Content_Ite
     }
     
     /**
+    * Fetch the width for the requested form
+    * 
+    * @param integer $site_id
+    * @param integer $form_id
+    * @return integer Minimum width for form
+    */
+    public function minimumWidth($site_id, $form_id) 
+    {
+        $sql = "SELECT width 
+                FROM user_site_form_settings 
+                WHERE site_id = :site_id 
+                AND form_id = :form_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $result = $stmt->fetch();
+        
+        if($result != FALSE) {
+            return intval($result['width']);
+        } else {
+            return 600;
+        }
+    }
+    
+    /**
     * Fetch the id of the form in the Form builder by the content id
     * 
     * @param integer $site_id
@@ -143,7 +170,13 @@ class Dlayer_Model_Page_Content_Items_Form extends Dlayer_Model_Page_Content_Ite
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->execute();
-		
-		return $stmt->fetch();
+        
+        $result = $stmt->fetch();
+        
+        if($result != FALSE) {
+            return intval($result['form_id']);
+        } else {
+            return FALSE;
+        }
     }
 }

@@ -106,6 +106,8 @@ class Dlayer_Tool_Content_ImportForm extends Dlayer_Tool_Module_Content
     * 3. The padding needs to be greater than or equal to 0
     * 4. The width and padding values need to be less that or equal to the
     * page div width
+    * 5. The container width must be greater than or equal to form minimum 
+    * width
     * 
     * @todo Add the check to check the width of a form
     * 5. The complete form should be able to fit into the page block
@@ -120,14 +122,17 @@ class Dlayer_Tool_Content_ImportForm extends Dlayer_Tool_Module_Content
     $div_id)
     {
         $model_forms = new Dlayer_Model_Form();
+        $model_content_form = new Dlayer_Model_Page_Content_Items_Form();
         $model_divs = new Dlayer_Model_Template_Div();
         
         $div_width = $model_divs->width($site_id, $div_id);
+        $minimum_width = $model_content_form->minimumWidth($site_id, 
+        $params['form_id']);
 
         if($model_forms->valid($params['form_id'], $site_id) == TRUE && 
         intval($params['width']) > 0 && intval($params['padding']) >= 0 &&
         (intval($params['width']) + (intval($params['padding']) * 2)) 
-        <= $div_width) {
+        <= $div_width && $params['width'] >= $minimum_width) {
             return TRUE;
         } else {
             return FALSE;

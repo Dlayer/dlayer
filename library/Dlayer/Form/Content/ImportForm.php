@@ -159,12 +159,20 @@ class Dlayer_Form_Content_ImportForm extends Dlayer_Form_Module_Content
         $this->elements['form_id'] = $form;
         
         $width = new Dlayer_Form_Element_Number('width');
-        $width->setLabel('Width');
-        $width->setAttribs(array('maxlength'=>4, 'min'=>0, 
-        'class'=>'mediumint'));
+        if($this->edit_mode == FALSE) {
+            $width->setLabel('Width');
+        } else {
+            $width->setLabel('Width - Minimum width: ' . 
+            $this->existing_data['minimum_width']);
+        }
+        $width->setAttribs(array('maxlength'=>4, 'class'=>'mediumint'));
+        if($this->edit_mode == TRUE) {
+            $width->setAttrib('min', $this->existing_data['minimum_width']);
+        }
         $width->setDescription('Set the width for the form container, it
         can be no larger than the page block it sits in, the submitted value
-        will be checked by the tool.');
+        will be checked by the tool. The minimum width for the selected form 
+        can be managed in the Form builder.');
         $width->setBelongsTo('params');
         $width->setValue($this->container['width']);
 
