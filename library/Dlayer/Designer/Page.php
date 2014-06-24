@@ -151,12 +151,12 @@ class Dlayer_Designer_Page
     */
     private function contentMargins() 
     {
-		$margins = $this->model_content_styles->margins($this->site_id, 
-		$this->page_id);
-		
-		if($margins != FALSE) {
-			$this->content_styles['margins'] = $margins;
-		}
+        $margins = $this->model_content_styles->margins($this->site_id, 
+        $this->page_id);
+        
+        if($margins != FALSE) {
+            $this->content_styles['margins'] = $margins;
+        }
     }
 
     /**
@@ -199,9 +199,9 @@ class Dlayer_Designer_Page
     * 
     * @return array
     */
-    public function formStyles() 
+    public function formFieldStyles() 
     {
-    	return $this->model_form_styles->styles($this->site_id, 
-    	$this->page_id);
+        return $this->model_form_styles->fieldStyles($this->site_id, 
+        $this->page_id);
     }
 }

@@ -70,14 +70,14 @@ class Dlayer_Designer_Form
     * 
     * @return array
     */
-    public function styles() 
+    public function fieldStyles() 
     {
-    	$this->styles = $this->model_form->fieldIds($this->site_id, 
-    	$this->form_id);
-    	
-    	$this->rowBackgroundColors();
-							  
-		return $this->styles;
+        $this->styles = $this->model_form->fieldIds($this->site_id, 
+        $this->form_id);
+        
+        $this->rowBackgroundColors();
+                              
+        return $this->styles;
     }
     
     /**
@@ -88,16 +88,16 @@ class Dlayer_Designer_Form
     */
     private function rowBackgroundColors() 
     {
-		$background_colors = $this->model_styles->rowBackgroundColors(
-		$this->site_id, $this->form_id, $this->field_id);
-		
-		if($background_colors != FALSE) {
-			foreach($background_colors as $field_id => $color_hex) {
-				if(array_key_exists($field_id, $this->styles) == TRUE) {
-					$this->styles[$field_id][] = 'background-color: ' . 
-					$color_hex . ';';
-				}
-			}
-		}
+        $background_colors = $this->model_styles->rowBackgroundColors(
+        $this->site_id, $this->form_id, $this->field_id);
+        
+        if($background_colors != FALSE) {
+            foreach($background_colors as $field_id => $color_hex) {
+                if(array_key_exists($field_id, $this->styles) == TRUE) {
+                    $this->styles[$field_id][] = 'background-color: ' . 
+                    $color_hex . ';';
+                }
+            }
+        }
     }
 }

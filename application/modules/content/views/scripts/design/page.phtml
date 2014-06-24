@@ -22,7 +22,7 @@
 <?php } ?>
 
 <?php 
-foreach ($this->form_styles as $form_id => $form_styles) {
+foreach ($this->form_field_styles as $form_id => $form_styles) {
 	foreach($form_styles as $field_id => $field_styles) {
 		if(count($field_styles) > 0) {
 			echo '.form_' . $form_id . ' .row_' . $field_id . " {\r\n";

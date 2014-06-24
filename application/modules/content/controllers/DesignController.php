@@ -34,15 +34,15 @@ class Content_DesignController extends Zend_Controller_Action
     */
     public function init()
     {
-    	$this->_helper->authenticate();
+        $this->_helper->authenticate();
 
         $this->_helper->setModule();
 
-    	$this->_helper->validateSiteId();
+        $this->_helper->validateSiteId();
 
-    	$this->_helper->validateTemplateId(TRUE);
+        $this->_helper->validateTemplateId(TRUE);
 
-    	$this->_helper->validateContentId();
+        $this->_helper->validateContentId();
 
         $this->session_dlayer = new Dlayer_Session();
         $this->session_content = new Dlayer_Session_Content();
@@ -85,7 +85,7 @@ class Content_DesignController extends Zend_Controller_Action
     */
     private function dlayerMenu($url) 
     {
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
+        $items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
         array('url'=>'/content/index/index', 'name'=>'Content manager'), 
         array('url'=>'/content/settings/index', 
         'name'=>'Settings'), 
@@ -162,7 +162,7 @@ class Content_DesignController extends Zend_Controller_Action
         $edit_mode = FALSE;
         
         if($this->session_content->contentId() != NULL) {
-			$edit_mode = TRUE;
+            $edit_mode = TRUE;
         }
         
         $tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool, 
@@ -188,21 +188,21 @@ class Content_DesignController extends Zend_Controller_Action
     */
     private function pageContainerMetrics() 
     {
-		$metrics = array('width'=>0, 'height'=>'Dynamic');
+        $metrics = array('width'=>0, 'height'=>'Dynamic');
         
         if($this->session_content->divId() != NULL && 
         $this->session_content->tool() != FALSE) {
-        	$model_template_div = new Dlayer_Model_Template_Div();
-        	$site_id = $this->session_dlayer->siteId();
-        	$div_id = $this->session_content->divId();
-        	
-			$metrics['width'] = $model_template_div->width($site_id, 
-			$div_id);
-			
-			$height = $model_template_div->height($site_id, $div_id);
-			if($height['fixed'] == TRUE) {
-				$metrics['height'] = $height['height'] . ' pixels';
-			}
+            $model_template_div = new Dlayer_Model_Template_Div();
+            $site_id = $this->session_dlayer->siteId();
+            $div_id = $this->session_content->divId();
+            
+            $metrics['width'] = $model_template_div->width($site_id, 
+            $div_id);
+            
+            $height = $model_template_div->height($site_id, $div_id);
+            if($height['fixed'] == TRUE) {
+                $metrics['height'] = $height['height'] . ' pixels';
+            }
         }
         
         return $metrics;
@@ -212,26 +212,26 @@ class Content_DesignController extends Zend_Controller_Action
     * Fetch the content item metrics for the selected content item
     * 
     * @return array An array containing the metrics for the selected 
-    * 				content item 
+    *                 content item 
     */
     private function contentItemMetrics() 
     {
-		$metrics = array('width'=>0, 'height'=>'Dynamic', 
-		'border'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0), 
-		'margin'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0), 
-		'padding'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0));
-		
-		$model_metrics = new Dlayer_Model_Page_Content_Metrics();
-		
-		$item_metrics = $model_metrics->data(
-		$this->session_dlayer->siteId(), $this->session_content->pageId(), 
-		$this->session_content->divId(), $this->session_content->contentId());
-		
-		if($item_metrics != FALSE) {
-			$metrics = $item_metrics;
-		}
-		
-		return $metrics;
+        $metrics = array('width'=>0, 'height'=>'Dynamic', 
+        'border'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0), 
+        'margin'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0), 
+        'padding'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0));
+        
+        $model_metrics = new Dlayer_Model_Page_Content_Metrics();
+        
+        $item_metrics = $model_metrics->data(
+        $this->session_dlayer->siteId(), $this->session_content->pageId(), 
+        $this->session_content->divId(), $this->session_content->contentId());
+        
+        if($item_metrics != FALSE) {
+            $metrics = $item_metrics;
+        }
+        
+        return $metrics;
     }    
     
     /**
@@ -246,12 +246,12 @@ class Content_DesignController extends Zend_Controller_Action
     */
     private function colorPickerData() 
     {
-		$model_palettes = new Dlayer_Model_Palette();
-		
-		$site_id = $this->session_dlayer->siteId();
-		
-		return array('palettes'=>$model_palettes->palettes($site_id), 
-		'history'=>$model_palettes->lastNColors($site_id));
+        $model_palettes = new Dlayer_Model_Palette();
+        
+        $site_id = $this->session_dlayer->siteId();
+        
+        return array('palettes'=>$model_palettes->palettes($site_id), 
+        'history'=>$model_palettes->lastNColors($site_id));
     }
 
     /**
@@ -285,7 +285,7 @@ class Content_DesignController extends Zend_Controller_Action
                 
                 $edit_mode = FALSE;
                 if($this->session_content->contentId() != NULL) {
-					$edit_mode = TRUE;
+                    $edit_mode = TRUE;
                 }
 
                 $this->view->color_picker_data = $this->colorPickerData();
@@ -341,12 +341,12 @@ class Content_DesignController extends Zend_Controller_Action
         $this->view->template_styles = $designer_page->templateStyles();
         $this->view->content_styles = $designer_page->contentStyles();
         $this->view->content = $designer_page->content();
-        $this->view->form_styles = $designer_page->formStyles();
+        $this->view->form_field_styles = $designer_page->formFieldStyles();
         $this->view->div_id = $this->session_content->divId();
         $this->view->page_container_metrics = $this->pageContainerMetrics();
         if($this->session_content->divId() != NULL) {
-        	$this->view->content_item_metrics = $this->contentItemMetrics();
-		}
+            $this->view->content_item_metrics = $this->contentItemMetrics();
+        }
         $this->view->content_id = $this->session_content->contentId();
 
         return $this->view->render("design/page.phtml");
@@ -443,7 +443,7 @@ class Content_DesignController extends Zend_Controller_Action
         if($tool != NULL && strlen($tool) > 0) {
             if($tool != 'cancel') {
                 if($this->session_content->setTool($tool) == TRUE) {
-                	$reset = $this->getRequest()->getParam('reset');
+                    $reset = $this->getRequest()->getParam('reset');
                     if($reset != NULL && $reset == 1) {
                         $this->session_content->clearContentId();
                     }

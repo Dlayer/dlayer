@@ -34,14 +34,14 @@ class Form_DesignController extends Zend_Controller_Action
     */
     public function init()
     {
-    	$this->_helper->authenticate();
-    	
+        $this->_helper->authenticate();
+        
         $this->_helper->setModule();
         
-    	$this->_helper->validateSiteId();
-    	
-    	$this->_helper->validateFormId();
-    	
+        $this->_helper->validateSiteId();
+        
+        $this->_helper->validateFormId();
+        
         $this->session_dlayer = new Dlayer_Session();
         $this->session_form = new Dlayer_Session_Form();
 
@@ -132,7 +132,7 @@ class Form_DesignController extends Zend_Controller_Action
         $edit_mode = FALSE;
         
         if($this->session_form->fieldId() != NULL) {
-			$edit_mode = TRUE;
+            $edit_mode = TRUE;
         }
 
         $tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool, 
@@ -182,7 +182,7 @@ class Form_DesignController extends Zend_Controller_Action
                 
                 $edit_mode = FALSE;
                 if($this->session_form->fieldId() != NULL) {
-					$edit_mode = TRUE;
+                    $edit_mode = TRUE;
                 }
 
                 $this->view->color_picker_data = $this->colorPickerData();
@@ -213,7 +213,7 @@ class Form_DesignController extends Zend_Controller_Action
     */
     private function dlayerForm()
     {
-    	$designer_form = new Dlayer_Designer_Form(
+        $designer_form = new Dlayer_Designer_Form(
         $this->session_dlayer->siteId(), $this->session_form->formId(),
         FALSE, $this->session_form->fieldId());
         
@@ -223,9 +223,8 @@ class Form_DesignController extends Zend_Controller_Action
         $this->session_dlayer->siteId(), 'form');
 
         $this->view->form = $designer_form->form();
-        $this->view->field_id = $this->session_form->fieldId();
-        
-        $this->view->styles = $designer_form->styles();
+        $this->view->field_id = $this->session_form->fieldId();        
+        $this->view->field_styles = $designer_form->fieldStyles();
 
         return $this->view->render("design/form.phtml");
     }
@@ -322,9 +321,9 @@ class Form_DesignController extends Zend_Controller_Action
         $this->session_dlayer->siteId(), $this->session_form->formId(), 
         $field_type) == TRUE && 
         in_array($direction, array('up', 'down')) == TRUE) {
-        	$model_form_field->moveFormField($direction, $field_type, 
-        	$field_id, $this->session_form->formId(), 
-        	$this->session_dlayer->siteId());
+            $model_form_field->moveFormField($direction, $field_type, 
+            $field_id, $this->session_form->formId(), 
+            $this->session_dlayer->siteId());
         }
         
         $this->_redirect('/form/design/');
@@ -338,7 +337,7 @@ class Form_DesignController extends Zend_Controller_Action
     */
     private function dlayerMenu($url) 
     {
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
+        $items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
         array('url'=>'/form/index/index', 'name'=>'Form builder'), 
         array('url'=>'/form/settings/index', 
         'name'=>'Settings'), 
@@ -361,11 +360,11 @@ class Form_DesignController extends Zend_Controller_Action
     */
     private function colorPickerData() 
     {
-		$model_palettes = new Dlayer_Model_Palette();
-		
-		$site_id = $this->session_dlayer->siteId();
-		
-		return array('palettes'=>$model_palettes->palettes($site_id), 
-		'history'=>$model_palettes->lastNColors($site_id));
+        $model_palettes = new Dlayer_Model_Palette();
+        
+        $site_id = $this->session_dlayer->siteId();
+        
+        return array('palettes'=>$model_palettes->palettes($site_id), 
+        'history'=>$model_palettes->lastNColors($site_id));
     }
 }

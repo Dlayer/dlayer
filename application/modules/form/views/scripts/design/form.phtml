@@ -4,7 +4,7 @@
     font-family: <?php echo $this->base_font_family; ?>;
 }
 
-<?php foreach ($this->styles as $field_id => $styles) {
+<?php foreach ($this->field_styles as $field_id => $styles) {
 	if(count($styles) > 0) {
 		echo '#form .row_' . $field_id . " {\r\n";
 		foreach($styles as $style) {
