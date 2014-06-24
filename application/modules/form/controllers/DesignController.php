@@ -218,10 +218,13 @@ class Form_DesignController extends Zend_Controller_Action
         FALSE, $this->session_form->fieldId());
         
         $model_settings = new Dlayer_Model_View_Settings();
+        $model_form_settings = new Dlayer_Model_View_Form_Settings();
 
         $this->view->base_font_family = $model_settings->baseFontFamily(
         $this->session_dlayer->siteId(), 'form');
 
+        $this->view->minimum_width = $model_form_settings->minimumWidth(
+        $this->session_dlayer->siteId(), $this->session_form->formId());
         $this->view->form = $designer_form->form();
         $this->view->field_id = $this->session_form->fieldId();        
         $this->view->field_styles = $designer_form->fieldStyles();

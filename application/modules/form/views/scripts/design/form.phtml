@@ -1,8 +1,15 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 <style>
+#form form {
+    width: <?php echo $this->escape($this->minimum_width); ?>px;
+}
 #form dl.zend_form * {
     font-family: <?php echo $this->base_font_family; ?>;
 }
+#form dl.zend_form > dd > fieldset {
+    width: <?php echo $this->escape($this->minimum_width-2); ?>px;
+
+<?php var_dump($this->minimum_width); ?>
 
 <?php foreach ($this->field_styles as $field_id => $styles) {
 	if(count($styles) > 0) {

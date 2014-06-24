@@ -18,15 +18,14 @@
 }
 
 /* Default styling for forms */
-#form form {
-    width: 1020px;
+#form form {    
     margin: 0px;
     border: 0px;
     padding: 0px;
     float: left;
 }
 #form dl.zend_form {
-    width: 1020px;
+    width: 100%;
     float: left;
     margin: 0px 0px 12px 0px;
     border: 0;
@@ -34,14 +33,14 @@
 #form dl.zend_form > dd {
     margin: 0px;
     padding: 0px;
-    width: 1020px;
+    width: 100%;
     float: left;
     border: 0;
 }
 #form dl.zend_form > dd > fieldset {
     padding: 0px;
     margin: 0px;
-    width: 1018px;
+    width: 100%;
     border: 1px solid #b4b4b4;
     display: block;
     float: left;
@@ -55,7 +54,7 @@
     font-size: 1.1em;
 }
 #form dl.zend_form > dd > fieldset > dl {
-    width: 1018px;
+    width: 100%;
     margin: 0px;
     padding: 10px 0px 10px 0px;
     float: left;
@@ -78,7 +77,7 @@
 }
 #form dl.zend_form > dd > fieldset > dl > div.row > p.hint {
     float: left;
-    width: 1018px;
+    width: 95%;
     padding: 0px 4px 0px 4px;
     margin: 5px 0px 12px 0px;
     font-size: 0.9em;
@@ -98,7 +97,7 @@
     font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
 }
 #form dl.zend_form > dd > fieldset > dl > div.save {
-    width: 1010px;
+    width: 95%;
     padding: 4px;
 }
 #form dl.zend_form > dd > fieldset > dl > div.save input {
