@@ -94,7 +94,8 @@ class Dlayer_Form_Site_EditPage extends Dlayer_Form_Module_App
         if(array_key_exists('name', $this->data['data']) == TRUE) {
         	$name->setValue($this->data['data']['name']);
 		}
-    	$this->elements['name'] = $name;
+    	
+        $this->elements['name'] = $name;
         
         $title = new Zend_Form_Element_Text('title');
         $title->setLabel('Title');
@@ -104,7 +105,21 @@ class Dlayer_Form_Site_EditPage extends Dlayer_Form_Module_App
         if(array_key_exists('title', $this->data['data']) == TRUE) {
             $title->setValue($this->data['data']['title']);
         }
+        
         $this->elements['title'] = $title;
+        
+        $description = new Zend_Form_Element_Textarea('description');
+        $description->setLabel('Description');
+        $description->setDescription('Enter a description for the page, 
+        currently the description is only shown within Dlayer, it will not 
+        be public.');
+        $description->setAttribs(array('cols'=>50, 'rows'=>4, 
+        'placeholder'=>'e.g., Displays the top five news items'));
+        if(array_key_exists('description', $this->data['data']) == TRUE) {
+            $description->setValue($this->data['data']['description']);
+        }
+        
+        $this->elements['description'] = $description;
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save');

@@ -155,7 +155,7 @@ class Content_IndexController extends Zend_Controller_Action
                     $model_pages = new Dlayer_Model_Page();
                     $page_id = $model_pages->addPage(
                     $this->session_dlayer->siteId(), $post['name'], 
-                    $post['template'], $post['title']);
+                    $post['template'], $post['title'], $post['description']);
                     $this->session_content->clearAll(TRUE);
                     $this->session_content->setPageId($page_id);
                     $this->session_content->setTemplateId($post['template']);
@@ -194,7 +194,7 @@ class Content_IndexController extends Zend_Controller_Action
                 $model_pages = new Dlayer_Model_Page();
                 $model_pages->editPage($this->session_dlayer->siteId(), 
                 $this->session_content->pageId(), $post['name'], 
-                $post['title']);
+                $post['title'], $post['description']);
                 $this->_redirect('/content');
             }
         }

@@ -34,7 +34,8 @@
 #content form fieldset .input label {
     font-weight: bold;
     color: #505050;
-    padding-right: 5px;
+    padding: 0px 5px 0px 0px;
+    vertical-align: top;
 }
 #content form fieldset .input input {
     color: #666666;

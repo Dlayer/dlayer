@@ -142,7 +142,7 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
     */
     public function page($page_id)
     {
-        $sql = "SELECT template_id, `name`, title
+        $sql = "SELECT template_id, `name`, title, description 
                 FROM user_site_pages
                 WHERE id = :page_id";
         $stmt = $this->_db->prepare($sql);
@@ -198,19 +198,23 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
     *
     * @param integer $site_id
     * @param string $name Name for the new page
+    * @param integer $template Template id 
+    * @param string $title Title for page
+    * @param string $description Description of page
     * @return integer New page id
     */
-    public function addPage($site_id, $name, $template, $title)
+    public function addPage($site_id, $name, $template, $title, $description)
     {
         $sql = "INSERT INTO user_site_pages
-                (site_id, template_id, `name`, title)
+                (site_id, template_id, `name`, title, description)
                 VALUES
-                (:site_id, :template_id, :name, :title)";
+                (:site_id, :template_id, :name, :title, :description)";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
         $stmt->bindValue(':template_id', $template, PDO::PARAM_INT);
         $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
         $stmt->execute();
         
         return $this->_db->lastInsertId('user_site_pages');
@@ -223,18 +227,21 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
     * @param integer $page_id
     * @param string $name
     * @param string $title
+    * @param string $description
     * @return void
     */
-    public function editPage($site_id, $page_id, $name, $title)
+    public function editPage($site_id, $page_id, $name, $title, $description)
     {
         $sql = "UPDATE user_site_pages
                 SET `name` = :name,
-                title = :title
+                title = :title, 
+                description = :description 
                 WHERE site_id = :site_id
                 AND id = :page_id";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':name', $name, PDO::PARAM_STR);
         $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
         $stmt->execute();

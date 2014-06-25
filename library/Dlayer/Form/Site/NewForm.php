@@ -64,7 +64,8 @@ class Dlayer_Form_Site_NewForm extends Dlayer_Form_Module_App
     	only display within Dlayer, not on your site.');
         $name->setAttribs(array('size'=>50, 'maxlength'=>255, 
         'placeholder'=>'e.g., Contact form'));
-    	$this->elements['name'] = $name;
+    	
+        $this->elements['name'] = $name;
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save');

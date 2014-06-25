@@ -86,6 +86,16 @@ class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App
         'placeholder'=>"e.g., All the news for 'My new site'"));
         $this->elements['title'] = $title;
         
+        $description = new Zend_Form_Element_Textarea('description');
+        $description->setLabel('Description');
+        $description->setDescription('Enter a description for the page, 
+        currently the description is only shown within Dlayer, it will not 
+        be public.');
+        $description->setAttribs(array('cols'=>50, 'rows'=>4, 
+        'placeholder'=>'e.g., Displays the top five news items'));
+        
+        $this->elements['description'] = $description;
+        
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save');
         $this->elements['submit'] = $submit;
@@ -102,6 +112,8 @@ class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App
     	$this->elements['name']->setRequired();
         $this->elements['name']->addValidator(
         new Dlayer_Validate_PageNameUnique($this->site_id));
+        
+        $this->elements['description']->setRequired();
         
         $this->elements['title']->setRequired();
     }
