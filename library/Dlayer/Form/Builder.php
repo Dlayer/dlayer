@@ -121,7 +121,7 @@ class Dlayer_Form_Builder extends Zend_Form
         }
 
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Save');
+        $submit->setLabel($this->settings['button']);
         $this->elements['submit'] = $submit;
     }
     

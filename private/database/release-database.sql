@@ -376,7 +376,7 @@ CREATE TABLE `dlayer_identities` (
 
 LOCK TABLES `dlayer_identities` WRITE;
 
-insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-06-25 13:34:52','2014-06-25 15:05:57',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-20 15:39:49','2014-06-20 16:01:53',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-06-03 13:04:40','2014-06-03 13:23:23',1);
+insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-06-25 15:51:52','2014-06-25 16:09:42',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:08:51','2014-06-25 16:09:35',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-06-03 13:04:40','2014-06-03 13:23:23',1);
 
 UNLOCK TABLES;
 
@@ -488,7 +488,7 @@ CREATE TABLE `dlayer_sessions` (
 
 LOCK TABLES `dlayer_sessions` WRITE;
 
-insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('a8nge9r0lkp4ms6ek26nli3qn2','','PHPSESSID',1403705171,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403708771;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1403708771;}s:22:\"dlayer_session_website\";a:1:{s:3:\"ENT\";i:1403708018;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1403708771;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1403708771;}}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_website|a:2:{s:7:\"page_id\";N;s:4:\"tool\";N;}dlayer_session_form|a:5:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;}dlayer_session_content|a:7:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:10:\"ImportForm\";}');
+insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('4qd6l79fb3romeek51peta5b27','','PHPSESSID',1403708979,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403712579;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1403712578;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1403712578;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1403712578;}}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:12:\"FormSettings\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}'),('a8nge9r0lkp4ms6ek26nli3qn2','','PHPSESSID',1403708998,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1403712598;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1403712598;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1403712598;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1403712598;}}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:12:\"FormSettings\";}dlayer_session_content|a:6:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}');
 
 UNLOCK TABLES;
 
@@ -848,7 +848,8 @@ CREATE TABLE `user_site_form_settings` (
   `site_id` int(11) unsigned NOT NULL,
   `form_id` int(11) unsigned NOT NULL,
   `width` int(3) unsigned NOT NULL DEFAULT '0' COMMENT 'Minimum form display width',
-  `legend` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `legend` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Fieldset legend text for form',
+  `button` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Text for the submit button',
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `form_id` (`form_id`),
@@ -860,7 +861,7 @@ CREATE TABLE `user_site_form_settings` (
 
 LOCK TABLES `user_site_form_settings` WRITE;
 
-insert  into `user_site_form_settings`(`id`,`site_id`,`form_id`,`width`,`legend`) values (1,1,1,600,'My form'),(2,2,2,600,'My form'),(3,3,3,600,'My form');
+insert  into `user_site_form_settings`(`id`,`site_id`,`form_id`,`width`,`legend`,`button`) values (1,1,1,600,'My form','Save'),(2,2,2,600,'My form','Save'),(3,3,3,600,'My form','Save');
 
 UNLOCK TABLES;
 

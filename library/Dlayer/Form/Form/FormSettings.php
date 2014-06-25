@@ -121,6 +121,16 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
 
         $this->elements['legend'] = $legend;
         
+        $button = new Zend_Form_Element_Text('button');
+        $button->setLabel('Button text');
+        $button->setDescription("Set the text for the submit button, the 
+        default value is 'save'.");
+        $button->setAttribs(array('maxlength'=>255, 'size'=>50));
+        $button->setValue($this->field_data['button']);
+        $button->setBelongsTo('params');
+
+        $this->elements['button'] = $button;
+        
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('class', 'submit');
         $submit->setLabel('Save');

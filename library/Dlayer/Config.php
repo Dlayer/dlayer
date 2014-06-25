@@ -13,5 +13,5 @@ abstract class Dlayer_Config
     
     CONST FORM_MINIMUM_WIDTH = 600;
     CONST FORM_LEGEND = 'My form';
-
+    CONST FORM_BUTTON = 'Save';
 }

@@ -70,7 +70,8 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
     private function validateValues(array $params = array())
     {
         if(array_key_exists('width', $params) == TRUE && 
-        array_key_exists('legend', $params) == TRUE) {
+        array_key_exists('legend', $params) == TRUE && 
+        array_key_exists('button', $params) == TRUE) {
             return TRUE;
         } else {
             return FALSE;
@@ -88,7 +89,8 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
     private function validateData(array $params = array())
     {
         if(intval($params['width']) > 0 && intval($params['width']) < 1000 && 
-        strlen(trim($params['legend'])) > 0) {
+        strlen(trim($params['legend'])) > 0 && 
+        strlen(trim($params['button'])) > 0) {
             return TRUE;
         } else {
             return FALSE;
@@ -106,7 +108,7 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
     protected function prepare(array $params)
     {
         return array('width'=>intval($params['width']), 
-        'legend'=>trim($params['legend']));
+        'legend'=>trim($params['legend']), 'button'=>trim($params['button']));
     }
     
     /**
@@ -123,5 +125,6 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
         
         $model_settings->setWidth($site_id, $form_id, $this->params['width']);
         $model_settings->setLegend($site_id, $form_id, $this->params['legend']);
+        $model_settings->setButton($site_id, $form_id, $this->params['button']);
     }
 }

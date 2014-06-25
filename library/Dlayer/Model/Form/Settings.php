@@ -57,12 +57,35 @@ class Dlayer_Model_Form_Settings extends Zend_Db_Table_Abstract
     }
     
     /**
+    * Set the new button text for the selected form
+    * 
+    * @param integer $site_id
+    * @param integer $form_id
+    * @param string $button Save button text
+    * @return void
+    */
+    public function setButton($site_id, $form_id, $button) 
+    {
+        if($this->existingButton($site_id, $form_id) != $button) {
+            $sql = "UPDATE user_site_form_settings 
+                    SET button = :button 
+                    WHERE site_id = :site_id 
+                    AND form_id = :form_id";
+            $stmt = $this->_db->prepare($sql);
+            $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+            $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+            $stmt->bindValue(':button', $button, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+    }
+    
+    /**
     * Fetch the existing width for the form, we only update the value if 
     * the new width is different to the existing width
     * 
     * @param integer $site_id
     * @param integer $form_id
-    * @return integer $width
+    * @return integer Existing form width
     */
     private function existingWidth($site_id, $form_id) 
     {
@@ -90,7 +113,7 @@ class Dlayer_Model_Form_Settings extends Zend_Db_Table_Abstract
     * 
     * @param integer $site_id
     * @param integer $form_id
-    * @return string $legend
+    * @return string Legend text
     */
     private function existingLegend($site_id, $form_id) 
     {
@@ -113,6 +136,34 @@ class Dlayer_Model_Form_Settings extends Zend_Db_Table_Abstract
     }
     
     /**
+    * Fetch the existing save button text for the form, we only update the 
+    * value if the button text is different to the existing text
+    * 
+    * @param integer $site_id
+    * @param integer $form_id
+    * @return string Button text
+    */
+    private function existingButton($site_id, $form_id) 
+    {
+        $sql = "SELECT button 
+                FROM user_site_form_settings 
+                WHERE site_id = :site_id 
+                AND form_id = :form_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $result = $stmt->fetch();
+        
+        if($result != FALSE) {
+            return $result['button'];
+        } else {
+            return Dlayer_Config::FORM_BUTTON;
+        }
+    }
+    
+    /**
     * Fetch all the setting for a form
     * 
     * @param integer $site_id
@@ -121,7 +172,7 @@ class Dlayer_Model_Form_Settings extends Zend_Db_Table_Abstract
     */
     public function settings($site_id, $form_id) 
     {
-        $sql = "SELECT usfs.width, usfs.legend 
+        $sql = "SELECT usfs.width, usfs.legend, usfs.button  
                 FROM user_site_form_settings usfs 
                 WHERE usfs.site_id = :site_id 
                 AND usfs.form_id = :form_id";
@@ -141,7 +192,7 @@ class Dlayer_Model_Form_Settings extends Zend_Db_Table_Abstract
     */
     public function formBuilderSettings($form_id) 
     {
-        $sql = "SELECT usfs.legend 
+        $sql = "SELECT usfs.legend, usfs.button 
                 FROM user_site_form_settings usfs 
                 WHERE usfs.form_id = :form_id";
         $stmt = $this->_db->prepare($sql);

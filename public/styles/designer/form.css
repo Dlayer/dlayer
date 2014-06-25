@@ -18,11 +18,10 @@
 }
 
 /* Default styling for forms */
-#form form {    
-    margin: 0px;
+#form form {
     border: 0px;
     padding: 0px;
-    float: left;
+    display: block;
 }
 #form dl.zend_form {
     width: 100%;
@@ -102,7 +101,6 @@
 }
 #form dl.zend_form > dd > fieldset > dl > div.save input {
     display: block;
-    width: 50px;
     padding: 3px 6px 3px 6px;
     margin: 0;
     color: #505050;
