@@ -7,10 +7,14 @@
 */
 
 /* Settings section bar */
+nav.settings {
+    border-bottom: 1px solid #b4b4b4;
+    padding-bottom: 5px;
+}
 ul.settings {
     width: 766px;
     padding: 0px;
-    margin: 5px 0px 10px 0px;
+    margin: 5px 0px 0px 0px;
     list-style-type: none;
     float: left;
     background-color: #f5f5f5;
@@ -44,10 +48,14 @@ ul.settings > li a:hover {
 }
 
 /* Setting groups bar */
+nav.setting_groups {
+    border-bottom: 1px solid #b4b4b4;
+    padding-bottom: 5px;
+}
 ul.setting_groups {
     width: 766px;
     padding: 0px;
-    margin: 5px 0px 10px 0px;
+    margin: 5px 0px 0px 0px;
     list-style-type: none;
     float: left;
     background-color: #960505;
