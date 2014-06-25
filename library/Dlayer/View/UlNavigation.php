@@ -65,7 +65,7 @@ class Dlayer_View_UlNavigation extends Zend_View_Helper_Abstract
         
         if(count($this->items) > 0) {
             
-            $html = '<nav>';
+            $html = '<nav class="' . $this->class . '">';
             $html .= '<ul class="' . $this->class . '">';
             
             foreach($this->items as $item) {

@@ -172,13 +172,18 @@ class Dlayer_IndexController extends Zend_Controller_Action
     {
     	$session_dlayer = new Dlayer_Session();
     	
-    	$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
-    	array('url'=>'/dlayer/settings/index', 'name'=>'Settings'), 
-    	array('url'=>'/dlayer/index/development-plan', 'name'=>'Development plan'), 
-    	array('url'=>'/dlayer/index/development-log', 'name'=>'Development log'), 
-    	array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs'), 
+    	$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
+        'title'=>'Dlayer.com: Web development simplified'), 
+    	array('url'=>'/dlayer/settings/index', 'name'=>'Settings', 
+        'title'=>'Dlayer settings'), 
+    	array('url'=>'/dlayer/index/development-plan', 
+        'name'=>'Development plan', 'title'=>'Dlayer development plan'), 
+    	array('url'=>'/dlayer/index/development-log', 
+        'name'=>'Development log', 'title'=>'Dlayer development log'), 
+    	array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
+        'title'=>'Dlayer known bugs'), 
     	array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
-        $session_dlayer->identity() . ')'));
+        $session_dlayer->identity() . ')', 'title'=>'Logout of site'));
         
         $this->layout->assign('nav', array('class'=>'top_nav', 
         'items'=>$items, 'active_url'=>$url));
@@ -192,13 +197,18 @@ class Dlayer_IndexController extends Zend_Controller_Action
     */
     private function dlayerMenuPublic($url)
     {
-		$items = array(array('url'=>'/dlayer/index/index', 'name'=>'Dlayer'), 
-    	array('url'=>'/dlayer/index/dlayer', 'name'=>'What is Dlayer?'), 
-    	array('url'=>'/dlayer/index/dlayer-history', 
-        'name'=>'History of Dlayer'), 
-        array('url'=>'/dlayer/index/development-plan', 'name'=>'Development plan'), 
-    	array('url'=>'/dlayer/index/development-log','name'=>'Development log'), 
-    	array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs'));
+        $items = array(array('url'=>'/dlayer/index/index', 'name'=>'Dlayer', 
+        'title'=>'Dlayer.com: Web development simplified'), 
+        array('url'=>'/dlayer/index/dlayer', 'name'=>'What is Dlayer?', 
+        'title'=>'What is Dlayer'), 
+        array('url'=>'/dlayer/index/dlayer-history', 
+        'name'=>'History of Dlayer', 'title'=>'How Dlayer came to be'), 
+        array('url'=>'/dlayer/index/development-plan', 
+        'name'=>'Development plan', 'title'=>'Dlayer development plan'), 
+        array('url'=>'/dlayer/index/development-log', 
+        'name'=>'Development log', 'title'=>'Dlayer development log'), 
+        array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
+        'title'=>'Dlayer known bugs'));
     	
         $this->layout->assign('nav', array('class'=>'top_nav', 
         'items'=>$items, 'active_url'=>$url));
