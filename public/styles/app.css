@@ -189,7 +189,6 @@ p.dev {
 /* Base form styling */
 form,dl,dt,dd {
     display: block;
-    float: left;
     margin: 0;
     padding: 0;
 }
