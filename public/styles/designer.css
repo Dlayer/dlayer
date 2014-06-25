@@ -9,9 +9,12 @@
     width: 1366px;
 }
 /* Main navigation bar */
-.top_nav {
+nav.top_nav {
+    border-bottom: 1px solid #b4b4b4;
+    margin-bottom: 5px;
+}
+ul.top_nav {
     width: 1366px;
-    margin-bottom: 10px;
 }
 #designer {
     width: 1366px;

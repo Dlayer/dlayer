@@ -133,6 +133,7 @@ ul.top_nav ul.children > li {
     display: block;
     padding: 10px;
     border-bottom: 1px solid #EAEAEA;
+    font-weight: normal;
 }
 ul.top_nav ul.children > li > a {
     color: #FFFFFF;

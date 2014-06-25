@@ -78,7 +78,20 @@ class Dlayer_View_UlNavigation extends Zend_View_Helper_Abstract
                 $html .= '<li' . $class . '><a  href="' . 
                 $this->view->escape($item['url']) . '" title="' . 
                 $this->view->escape($item['title']) . '">' . 
-                $this->view->escape($item['name']) . '</a></li>';
+                $this->view->escape($item['name']) . '</a>'; 
+                
+                if(array_key_exists('children', $item) == TRUE) {
+                    $html .= '<ul class="children"">';
+                    foreach($item['children'] as $child) {
+                        $html .= '<li><a  href="' . 
+                        $this->view->escape($child['url']) . '" title="' . 
+                        $this->view->escape($child['title']) . '">' . 
+                        $this->view->escape($child['name']) . '</a>'; 
+                    }
+                    $html .= '</ul>';
+                }
+                
+                $html .= '</li>';
             }
             
             $html .= '</ul>';
