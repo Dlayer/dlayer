@@ -52,6 +52,7 @@ class Dlayer_Ribbon_Form_FormSettings extends Dlayer_Ribbon_Module_Form
         
         if($settings != FALSE) {
             $existing['width'] = intval($settings['width']);
+            $existing['legend'] = $settings['legend'];
         }
         
         return $existing;

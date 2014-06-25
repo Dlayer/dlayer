@@ -126,15 +126,17 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
         
         $form_id = $this->_db->lastInsertId('user_site_forms');
         
+        // Insert initial settings
         $sql = "INSERT INTO user_site_form_settings 
-                (site_id, form_id, width) 
+                (site_id, form_id, width, legend) 
                 VALUES 
-                (:site_id, :form_id, :width)";
+                (:site_id, :form_id, :width, :legend)";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
         $stmt->bindValue(':width', Dlayer_Config::FORM_MINIMUM_WIDTH, 
         PDO::PARAM_INT);
+        $stmt->bindValue(':legend', Dlayer_Config::FORM_LEGEND, PDO::PARAM_STR);
         $stmt->execute();
                 
         return $form_id;

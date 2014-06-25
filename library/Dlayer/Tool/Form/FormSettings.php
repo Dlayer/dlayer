@@ -17,14 +17,14 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
     * @param integer $site_id Site id
     * @param integer $form_id Form id
     * @param integer|NULL $field_id Not used by this tool
-    * @return integer Form id
+    * @return integer|NULL Field id
     */
     public function process($site_id, $form_id, $field_id=NULL)
     {
         if($this->validated == TRUE) {            
             $this->manageSettings($site_id, $form_id);
             
-            return $form_id;
+            return NULL;
         }
     }
 
@@ -69,7 +69,8 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
     */
     private function validateValues(array $params = array())
     {
-        if(array_key_exists('width', $params) == TRUE) {
+        if(array_key_exists('width', $params) == TRUE && 
+        array_key_exists('legend', $params) == TRUE) {
             return TRUE;
         } else {
             return FALSE;
@@ -86,7 +87,8 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
     */
     private function validateData(array $params = array())
     {
-        if(intval($params['width']) > 0 && intval($params['width']) < 1000) {
+        if(intval($params['width']) > 0 && intval($params['width']) < 1000 && 
+        strlen(trim($params['legend'])) > 0) {
             return TRUE;
         } else {
             return FALSE;
@@ -103,7 +105,8 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
     */
     protected function prepare(array $params)
     {
-        return array('width'=>intval($params['width']));
+        return array('width'=>intval($params['width']), 
+        'legend'=>trim($params['legend']));
     }
     
     /**
@@ -116,11 +119,9 @@ class Dlayer_Tool_Form_FormSettings extends Dlayer_Tool_Module_Form
     */
     private function manageSettings($site_id, $form_id) 
     {
-        /**
-        * @todo Once there are more settings move these into individual 
-        * methods
-        */        
         $model_settings = new Dlayer_Model_Form_Settings();
+        
         $model_settings->setWidth($site_id, $form_id, $this->params['width']);
+        $model_settings->setLegend($site_id, $form_id, $this->params['legend']);
     }
 }

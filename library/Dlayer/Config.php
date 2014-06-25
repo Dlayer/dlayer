@@ -12,5 +12,6 @@ abstract class Dlayer_Config
 	CONST DESIGNER_HEIGHT = 700;
     
     CONST FORM_MINIMUM_WIDTH = 600;
+    CONST FORM_LEGEND = 'My form';
 
 }

@@ -38,6 +38,13 @@ class Dlayer_Form_Builder extends Zend_Form
     private $form_fields;
     
     /**
+    * Form builder settings
+    * 
+    * @var array
+    */
+    private $settings;
+    
+    /**
     * View mode, if TRUE don't add ids to form field rows
     * 
     * @var boolean
@@ -61,13 +68,14 @@ class Dlayer_Form_Builder extends Zend_Form
         $this->field_id = $field_id;
         $this->form_fields = $form_fields;
         $this->view = $view;
+        $this->settings = $this->settings();
 
         $this->setMethod('post');
 
         $this->setUpFormElements();
 
         $this->addElementsToForm('form_' . $this->form_id,
-        'Form builder form', $this->elements);
+        $this->settings['legend'], $this->elements);
 
         $this->addCustomElementDecorators();
 
@@ -115,6 +123,17 @@ class Dlayer_Form_Builder extends Zend_Form
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save');
         $this->elements['submit'] = $submit;
+    }
+    
+    /**
+    * Fetch the settings for the form
+    * 
+    * @return array
+    */
+    private function settings() 
+    {
+        $model_form = new Dlayer_Model_Form_Settings();
+        return $model_form->formBuilderSettings($this->form_id);
     }
 
     /**

@@ -105,8 +105,11 @@ class Form_ProcessController extends Zend_Controller_Action
             $field_id = $this->tool_class->process(
             $this->session_dlayer->siteId(), $this->session_form->formId(),
             $field_id);
-
-            $this->session_form->setFieldId($field_id, $_POST['field_type']);
+            
+            if($field_id != NULL) {
+                $this->session_form->setFieldId($field_id, 
+                $_POST['field_type']);
+            }
 
             $this->returnToDesigner(TRUE);
         } else {

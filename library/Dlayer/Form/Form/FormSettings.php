@@ -105,11 +105,21 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
         $width->setDescription('Set the minimum display width for the form, 
         the form will not be able to be imported into any container smaller 
         than the set minimum width');
-        $width->setAttribs(array('maxlength'=>3, 'class'=>'tinyint', 'min'=>0));
+        $width->setAttribs(array('maxlength'=>3, 'class'=>'tinyint', 
+        'min'=>0));
         $width->setValue($this->field_data['width']);
         $width->setBelongsTo('params');
 
         $this->elements['width'] = $width;
+        
+        $legend = new Zend_Form_Element_Text('legend');
+        $legend->setLabel('Legend');
+        $legend->setDescription('Set the legend text for the form fieldset.');
+        $legend->setAttribs(array('maxlength'=>255, 'size'=>50));
+        $legend->setValue($this->field_data['legend']);
+        $legend->setBelongsTo('params');
+
+        $this->elements['legend'] = $legend;
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('class', 'submit');
