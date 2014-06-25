@@ -75,12 +75,14 @@ class Form_IndexController extends Zend_Controller_Action
     */
     private function dlayerMenu($url) 
     {
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
-    	array('url'=>'/form/index/index', 'name'=>'Form builder'), 
-    	array('url'=>'/form/settings/index', 
-    	'name'=>'Settings'), 
-    	array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
-        $this->session_dlayer->identity() . ')'));
+		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
+        'title'=>'Dlayer.com: Web development simplified'), 
+        array('url'=>'/form/index/index', 'name'=>'Form builder', 
+        'title'=>'Dlayer Form builder'), 
+        array('url'=>'/form/settings/index', 
+        'name'=>'Settings', 'title'=>'Form builder settings'), 
+        array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
+        $this->session_dlayer->identity() . ')', 'title'=>'Logout'));
     	
     	$this->layout->assign('nav', array('class'=>'top_nav', 
         'items'=>$items, 'active_url'=>$url));

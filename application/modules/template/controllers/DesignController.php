@@ -195,12 +195,14 @@ class Template_DesignController extends Zend_Controller_Action
     */
     private function dlayerMenu($url) 
     {
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
-        array('url'=>'/template/index/index', 'name'=>'Template designer'), 
+		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
+        'title'=>'Dlayer.com: Web development simplified'), 
+        array('url'=>'/template/index/index', 'name'=>'Template designer', 
+        'title'=>'Dlayer Template designer'), 
         array('url'=>'/template/settings/index', 
-        'name'=>'Settings'), 
+        'name'=>'Settings', 'title'=>'Template designer settings'), 
         array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
-        $this->session_dlayer->identity() . ')'));
+        $this->session_dlayer->identity() . ')', 'title'=>'Logout'));
         
         $this->layout->assign('nav', array('class'=>'top_nav', 
         'items'=>$items, 'active_url'=>$url));

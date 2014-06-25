@@ -75,11 +75,14 @@ class Website_DesignController extends Zend_Controller_Action
     */
     private function dlayerMenu($url) 
     {
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer'), 
-        array('url'=>'/website/index/index', 'name'=>'Web site manager'), 
-        array('url'=>'/website/settings/index', 'name'=>'Settings'), 
+        $items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
+        'title'=>'Dlayer.com: Web development simplified'), 
+        array('url'=>'/website/index/index', 'name'=>'Web site manager', 
+        'title'=>'Dlayer Web site manager'), 
+        array('url'=>'/website/settings/index', 
+        'name'=>'Settings', 'title'=>'Web site manager settings'), 
         array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
-        $this->session_dlayer->identity() . ')'));
+        $this->session_dlayer->identity() . ')', 'title'=>'Logout'));
         
         $this->layout->assign('nav', array('class'=>'top_nav', 
         'items'=>$items, 'active_url'=>$url));
