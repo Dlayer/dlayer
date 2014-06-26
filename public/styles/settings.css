@@ -39,6 +39,9 @@ ul.settings > li:hover {
     background-color: #f5f5f5;
     border-right: 1px solid #e0e0e0;
 }
+ul.settings > li a {
+    color: #424242;
+}
 ul.settings > li a:hover {
     text-decoration: none;
 }
