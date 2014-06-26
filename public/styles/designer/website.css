@@ -27,7 +27,7 @@
 #website > .pages_container > h2 {
     width: 1008px;
     margin: 0px 0px 20px 0px;
-    color: #960505;
+    color: #d01716;
 }
 
 /* Specific containers */ 
@@ -97,17 +97,17 @@
     background-color: #ebebeb;;
 }
 #website > .pages_container .selected strong {
-    color: #960505;
+    color: #d01716;
 }
 #website > .pages_container .selected > .control {
-    border: 1px solid #960505;
+    border: 1px solid #d01716;
 }
 #website > .pages_container .selected > .control > a {
     color: #000000;
 }
 #website > .pages_container .selected > .page_details {
-    border-right: 1px solid #960505;
-    border-left: 1px solid #960505;
+    border-right: 1px solid #d01716;
+    border-left: 1px solid #d01716;
 }
 
 /* Custom controls */

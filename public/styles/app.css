@@ -11,6 +11,7 @@ body {
     font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
     margin: 0;
     padding: 0;
+    color: #424242;
 }
 nav, article, section, pre {
     display: block;
@@ -20,14 +21,13 @@ img {
     border: 0;
 }
 a {
-    color: #960505;
+    color: #b0120a;
     text-decoration: none;
 }
 a:hover {
-    color: #b40a0a;
-    text-decoration: underline
+    color: #e51c23;
 }
-h1, h2, h3, h4, h5, h6, h7 {
+h1, h2, h3, h4, h5, h6 {
     width: 100%;
     float: left;    
 }
@@ -38,20 +38,20 @@ h1.title {
     font-weight: 700;
 }
 h1 {
-    color: #960505;
+    color: #d01716;
     font-size: 1.8em;
     margin: 0.6em 0em 0.3em 0em;
     font-weight: 400;
 }
 h2 {
-    color: #000000;
+    color: #424242;
     font-size: 1.5em;
     margin: 0.3em 0em;
     font-weight: 400;
 }
 h3 {
     font-size: 1.3em;
-    color: #505050;
+    color: #616161;
     margin: 0.5em 0em;
     font-weight: 400;
     text-decoration: underline;
@@ -64,10 +64,6 @@ ul {
 }
 ul,ol { 
     float: left;
-}
-p.note {
-	color: #960505;
-	font-style: italic;
 }
 
 #container {
@@ -85,11 +81,11 @@ p.note {
 * Top navigation bar
 */
 nav.top_nav {
-    border-bottom: 1px solid #b4b4b4;
+    border-bottom: 1px solid #e0e0e0;
 }
 ul.top_nav {
     width: 766px;
-    background-color: #960505;
+    background-color: #b0120a;
     font-size: 0.9em;
     padding: 0;
     margin: 0px 0px 5px 0px;
@@ -101,17 +97,17 @@ ul.top_nav > li {
     float: left;
     padding: 10px;
     height: 20px;
-    border-right: 1px solid #EAEAEA;
+    border-right: 1px solid #eeeeee;
 }
 ul.top_nav > li.selected {
-    font-weight: bold;
-    background-color: #d20f0f;
+    font-weight: 700;
+    background-color: #dd191d;
 }
 ul.top_nav > li.selected:hover {
-    background-color: #d20f0f;
+    background-color: #dd191d;
 }
 ul.top_nav > li:hover {
-    background-color: #b40a0a;
+    background-color: #d01716;
 }
 ul.top_nav > li > a {
     color: #FFFFFF;
@@ -122,17 +118,17 @@ ul.top_nav ul.children {
     margin: 0;
     position: absolute;
     top: 40px;
-    background-color: #960505;
+    background-color: #d01716;
     display: none;
-    border-top: 1px solid #FFFFFF;
+    border-top: 1px solid #eeeeee;
 }
 ul.top_nav > li:hover ul.children {
     display: block;
 }
 ul.top_nav ul.children > li {
     display: block;
-    padding: 10px;
-    border-bottom: 1px solid #EAEAEA;
+    padding: 5px 10px 5px 10px;
+    border-bottom: 1px solid #eeeeee;
     font-weight: normal;
 }
 ul.top_nav ul.children > li > a {
@@ -140,31 +136,23 @@ ul.top_nav ul.children > li > a {
     text-decoration: none;
 }
 ul.top_nav ul.children > li:hover {
-    background-color: #b40a0a;
+    background-color: #e51c23;
 }
 
 /* Content pages */
 #content {
     width: 766px;
-    color: #505050;
+    color: #424242;
 }
 #content > p {
     margin: 1em 0em;
     line-height: 1.5em;
 }
-#content > p.notice {
-    border: 4px double #960505;
-    padding: 2em;
-    margin: 2em 5em 0em 5em;
-    background-color: #f5f5f5;
-    font-style: italic;
-    font-size: 1.2em;
-}
-p.dev {
-    border: 4px double #960505;
+#content p.dev {
+    border: 1px solid #dd191d;
     padding: 1em;
-    margin: 0em 3em;
-    background-color: #f5f5f5;
+    margin: 0em 3em 1em 3em;
+    background-color: #fafafa;
     font-style: italic;
     font-size: 0.9em;
 }
@@ -204,7 +192,7 @@ div.table > .title_row {
     width: 766px;
     font-weight: bold;
     font-size: 1.2em;
-    border-bottom: 2px solid #b4b4b4;
+    border-bottom: 2px solid #bdbdbd;
     margin-bottom: 5px;
 }
 div.table .title {
@@ -212,7 +200,7 @@ div.table .title {
 }
 div.table > .row {
     width: 766px;
-    border-bottom: 1px solid #e1e1e1;
+    border-bottom: 1px solid #eeeeee;
     margin-bottom: 5px;
 }
 div.table .cell {
@@ -227,7 +215,7 @@ div.table div.change {
     width: 606px;
 }
 div.table div.release {
-    color: #960505;
+    color: #d01716;
     font-weight: bold;
 }
 
@@ -238,8 +226,8 @@ div.table div.release {
     padding: 5px 0px 5px 0px;
     list-style-type: none;
     margin-bottom: 10px;
-    border-top: 1px solid #b4b4b4;
-    border-bottom: 1px solid #b4b4b4;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
     text-align: center;
 }
 #content ul.pagination li {

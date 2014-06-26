@@ -10,7 +10,7 @@
 }
 /* Main navigation bar */
 nav.top_nav {
-    border-bottom: 1px solid #b4b4b4;
+    border-bottom: 1px solid #e0e0e0;
     margin-bottom: 5px;
 }
 ul.top_nav {
@@ -23,15 +23,14 @@ ul.top_nav {
 #designer > #tools {
     width: 320px;
     padding: 10px 10px 5px 10px;
-    border: 1px solid #b4b4b4;
-    background-color: #f5f5f5;
+    border: 1px solid #eeeeee;
     margin-bottom: 5px;
     font-size: 0.9em;
 }
 #designer > #ribbon {
     width: 320px;
     padding: 10px;
-    border: 1px solid #b4b4b4;
+    border: 1px solid #eeeeee;
 }
 
 /* Tool styles */
@@ -41,29 +40,22 @@ ul.top_nav {
 #designer > #tools .tool {
     padding: 5px;
     margin: 0px 5px 5px 0px;
-    color: #505050;
-    background-color: #ebebeb;
-    border: 1px solid #b4b4b4;
-    color: #505050;
+    background-color: #fafafa;
+    border: 1px solid #eeeeee;
 }
 #designer > #tools .tool:hover {
     background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
 }
 #designer > #tools .selected {
-    background-color: #e1e1e1;
-}
-#designer > #tools .selected:hover {
-    background-color: #e1e1e1;
+    background-color: #eeeeee;
+    border: 1px solid #e0e0e0;
 }
 #designer > #tools .destructive {
     text-decoration: line-through;
 }
 #designer > #tools .tool a {
-    color: #505050;
-}
-#designer > #tools .selected a {
-    color: #960505;
-    font-weight: bold;
+    color: #424242;
 }
 
 #footer {
@@ -72,15 +64,14 @@ ul.top_nav {
 }
 
 /** Unsaved preview message */
-#designer > #ribbon > .content > p.unsaved 
-{
+#designer > #ribbon > .content > p.unsaved {
 	width: 318px;
-	background-color: #b40a0a;
+	background-color: #d01716;
 	color: #FFFFFF;
 	text-align: center;
 	padding: 5px 0px 5px 0px;
 	margin: 0px 0px 5px 0px;
-	border: 1px solid #b4b4b4;
+	border: 1px solid #eeeeee;
 	display: none;
     font-size: 0.8em;
 }

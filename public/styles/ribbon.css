@@ -10,25 +10,29 @@
 /* Ribbon tab and content styling */
 #designer > #ribbon > .tabs {
     width: 320px;
-    border-top: 1px solid #b4b4b4;
-    border-bottom: 1px solid #b4b4b4;
-    background-color: #f5f5f5;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+    background-color: #fafafa;
     margin-bottom: 5px;
     font-size: 0.9em;
 }
 #designer > #ribbon > .tabs > .tab {
     padding: 5px 10px 5px 10px;
-    border-right: 1px solid #b4b4b4;
+    border-right: 1px solid #eeeeee;
     cursor: pointer;
     font-weight: 400;
 }
 #designer > #ribbon > .tabs > .tab:hover {
-    background-color: #ebebeb;
+    background-color: #f5f5f5;
+    border-right: 1px solid #e0e0e0;
 }
 #designer > #ribbon > .tabs > .selected {
-    background-color: #e1e1e1;
-    color: #960505;
-    font-weight: bold;
+    background-color: #eeeeee;
+    border-right: 1px solid #e0e0e0;
+}
+#designer > #ribbon > .tabs > .selected:hover {
+    background-color: #eeeeee;
+    border-right: 1px solid #e0e0e0;
 }
 #designer > #ribbon > .content {
     width: 320px;
@@ -43,18 +47,16 @@
     margin: 0.3em 0em;
     font-weight: 400;
     width: 320px;
-    color: #960505;
+    color: #d01716;
 }
 #designer > #ribbon > .content > p {
     margin: 1em 0em;
     line-height: 1.5em;
-    color: #505050;
 }
 #designer > #ribbon > .content > ul {
     margin: 0px;
     width: 280px;
     padding-left: 40px;
-    color: #505050;
 }
 #designer > #ribbon > .content > ul {
     width: 280px;
@@ -64,8 +66,8 @@
 #designer > #ribbon > .content .color_picker_tool {
 	width: 308px;
 	padding: 5px;
-	border: 1px solid #b4b4b4;
-	background-color: #f5f5f5;
+	border: 1px solid #eeeeee;
+	background-color: #fafafa;
 	display: none;
 }
 #designer > #ribbon > .content .color_picker_tool p {
@@ -73,7 +75,6 @@
 }
 #designer > #ribbon > .content .color_picker_tool h2 {
 	font-size: 1.3em;
-    color: #505050;
     margin: 0.5em 0em;
 }
 #designer > #ribbon > .content .color_picker_tool h3 {
@@ -88,7 +89,7 @@
 }
 #designer > #ribbon > .content .color_picker_tool > .palette > .color {
 	width: 98px;
-	border: 1px solid #b4b4b4;
+	border: 1px solid #e0e0e0;
 	line-height: 20px;
 	margin: 0px 2px 2px 0px;
 }
@@ -106,7 +107,7 @@
 }
 #designer > #ribbon > .content .color_picker_tool > .history > .color {
 	width: 98px;
-	border: 1px solid #b4b4b4;
+	border: 1px solid #e0e0e0;
 	line-height: 20px;
 	margin: 0px 5px 2px 0px;
 }
@@ -121,6 +122,7 @@
 }
 #designer > #ribbon > .content .color_picker_tool > .custom > input {
 	width: 80px;
+    border: 1px solid #e0e0e0;
 }
 #designer > #ribbon > .content .color_picker_tool > .close {
 	width: 308px;

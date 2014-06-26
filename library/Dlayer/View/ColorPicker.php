@@ -176,7 +176,7 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		if($custom == TRUE) {
 			$html .= '<div class="custom">
 			<h3>New custom colour</h3>
-			<label><strong>Choose colour</strong></label>
+			<label>Choose colour</label>
 			<input type="color" name="color" class="color" size="7" 
 			maxlength="7" value="000000"> 
 			</div>';

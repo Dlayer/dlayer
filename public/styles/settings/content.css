@@ -14,9 +14,9 @@
 #content > .headings > .heading form fieldset {
     margin: 0px;
     border: none;
-    background-color: #f5f5f5;
+    background-color: #fafafa;
     padding: 10px 0px 0px 10px;
-    border: 1px solid #b4b4b4;
+    border: 1px solid #eeeeee;
     width: 554px;
 }
 #content > .headings > .heading form fieldset .save {

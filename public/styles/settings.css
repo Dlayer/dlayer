@@ -8,7 +8,7 @@
 
 /* Settings section bar */
 nav.settings {
-    border-bottom: 1px solid #b4b4b4;
+    border-bottom: 1px solid #e0e0e0;
     padding-bottom: 5px;
 }
 ul.settings {
@@ -17,31 +17,27 @@ ul.settings {
     margin: 5px 0px 0px 0px;
     list-style-type: none;
     float: left;
-    background-color: #f5f5f5;
-    border-top: 1px solid #b4b4b4;
-    border-bottom: 1px solid #b4b4b4;
+    background-color: #fafafa;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
     font-size: 0.9em;
 }
 ul.settings > li {
     display: block;
     float: left;
     padding: 5px 10px;
-    border-right: 1px solid #b4b4b4;
+    border-right: 1px solid #eeeeee;
 }
 ul.settings > li.selected {
-    background-color: #e1e1e1;
-}
-ul.settings > li.selected a {
-    font-weight: bold;
+    background-color: #eeeeee;
+    border-right: 1px solid #e0e0e0;
 }
 ul.settings > li.selected:hover {
-    background-color: #e1e1e1;
+    background-color: #eeeeee;
 }
 ul.settings > li:hover {
-    background-color: #ebebeb;
-}
-ul.settings > li a {
-    color: #505050;
+    background-color: #f5f5f5;
+    border-right: 1px solid #e0e0e0;
 }
 ul.settings > li a:hover {
     text-decoration: none;
@@ -49,7 +45,7 @@ ul.settings > li a:hover {
 
 /* Setting groups bar */
 nav.setting_groups {
-    border-bottom: 1px solid #b4b4b4;
+    border-bottom: 1px solid #e0e0e0;
     padding-bottom: 5px;
 }
 ul.setting_groups {
@@ -58,28 +54,25 @@ ul.setting_groups {
     margin: 5px 0px 0px 0px;
     list-style-type: none;
     float: left;
-    background-color: #960505;
-    border-top: 1px solid #b4b4b4;
-    border-bottom: 1px solid #b4b4b4;
+    background-color: #b0120a;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
     font-size: 0.9em;
 }
 ul.setting_groups > li {
     display: block;
     float: left;
     padding: 5px 10px;
-    border-right: 1px solid #EAEAEA;
+    border-right: 1px solid #eeeeee;
 }
 ul.setting_groups > li.selected {
-    background-color: #d20f0f;
-}
-ul.setting_groups > li.selected a {
-    font-weight: bold;
+    background-color: #dd191d;
 }
 ul.setting_groups > li.selected:hover {
-    background-color: #d20f0f;
+    background-color: #dd191d;
 }
 ul.setting_groups > li:hover {
-    background-color: #b40a0a;
+    background-color: #d01716;
 }
 ul.setting_groups > li a {
     color: #FFFFFF;

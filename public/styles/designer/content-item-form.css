@@ -40,7 +40,6 @@
     margin: 0.3em;
     background-color: #ebebeb;
     border: 1px solid #b4b4b4;
-    color: #505050;
     font-size: 1.1em;
 }
 .item dl.zend_form > dd > fieldset > dl {
@@ -61,8 +60,6 @@
     display: block;
     float: left;
     padding: 5px;
-    font-weight: bold;
-    color: #505050;
 }
 .item dl.zend_form > dd > fieldset > dl > div.row > p.hint {
     float: left;
@@ -91,7 +88,6 @@
     display: block;
     padding: 3px 6px 3px 6px;
     margin: 0;
-    color: #505050;
     background-color: #ebebeb;
     border: 1px solid #b4b4b4;
     font-size: 1em;
