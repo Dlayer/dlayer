@@ -97,6 +97,10 @@ class Dlayer_Ribbon_Tab
             case 'website':
                 $data = NULL;
             break;
+            
+            case 'image':
+                $data = NULL;
+            break;
 
             default:
                 throw new Exception('Module "' . $module . '"not set in ' .

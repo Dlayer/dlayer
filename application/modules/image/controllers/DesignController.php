@@ -40,7 +40,7 @@ class Image_DesignController extends Zend_Controller_Action
 
         // Include js and css files in layout
         $this->layout = Zend_Layout::getMvcInstance();
-        $this->layout->assign('js_include', array());
+        $this->layout->assign('js_include', array('scripts/dlayer.js'));
         $this->layout->assign('css_include', array('styles/designer.css',
         'styles/designer/image.css', 'styles/ribbon.css'));
     }
@@ -75,18 +75,18 @@ class Image_DesignController extends Zend_Controller_Action
     {
         $items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
         'title'=>'Dlayer.com: Web development simplified'), 
-        array('url'=>'/content/index/index', 'name'=>'Content manager', 
-        'title'=>'Dlayer Content manager', 
+        array('url'=>'/image/index/index', 'name'=>'Image Library', 
+        'title'=>'Dlayer Image library', 
         'children'=>array(array('url'=>'/template/index/index', 
         'name'=>'Template designer', 'title'=>'Dlayer Template designer'), 
+        array('url'=>'/content/index/index', 
+        'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
         array('url'=>'/form/index/index', 
         'name'=>'Form builder', 'title'=>'Dlayer Form builder'), 
         array('url'=>'/website/index/index', 
-        'name'=>'Web site manager', 'title'=>'Dlayer Website manager'), 
-        array('url'=>'/image/index/index', 
-        'name'=>'Image library', 'title'=>'Dlayer Image library'))), 
-        array('url'=>'/content/settings/index', 
-        'name'=>'Settings', 'title'=>'Content manager settings'), 
+        'name'=>'Web site manager', 'title'=>'Dlayer Website manager'))), 
+        array('url'=>'/image/settings/index', 
+        'name'=>'Settings', 'title'=>'Image library settings'), 
         array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
         $this->session_dlayer->identity() . ')', 'title'=>'Logout'));
         
@@ -105,11 +105,10 @@ class Image_DesignController extends Zend_Controller_Action
     {
         $model_module = new Dlayer_Model_Module();
 
-        $this->view->div_id = $this->session_content->divId();
-        $this->view->content_id = $this->session_content->contentId();
+        $this->view->image_id = $this->session_image->imageId();
         $this->view->tools = $model_module->tools(
         $this->getRequest()->getModuleName());
-        $this->view->tool = $this->session_content->tool();
+        $this->view->tool = $this->session_image->tool();
 
         return $this->view->render("design/toolbar.phtml");
     }
@@ -125,14 +124,14 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerRibbon()
     {
-        $tool = $this->session_content->tool();
+        $tool = $this->session_image->tool();
 
         if($tool != FALSE) {
             $html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab']);
         } else {
             $ribbon = new Dlayer_Ribbon();
 
-            if($this->session_content->divId() != NULL) {
+            if($this->session_image->imageId() != NULL) {
                 $html = $this->view->render($ribbon->selectedViewScriptPath());
             } else {
                 $html = $this->view->render($ribbon->defaultViewScriptPath());
@@ -159,7 +158,7 @@ class Image_DesignController extends Zend_Controller_Action
         
         $edit_mode = FALSE;
         
-        if($this->session_content->contentId() != NULL) {
+        if($this->session_image->imageId() != NULL) {
             $edit_mode = TRUE;
         }
         
@@ -177,80 +176,7 @@ class Image_DesignController extends Zend_Controller_Action
         }
 
         return $html;
-    }
-    
-    /**
-    * Fetch the page container metrics
-    * 
-    * @return array Contains the usable height and width for the page container
-    */
-    private function pageContainerMetrics() 
-    {
-        $metrics = array('width'=>0, 'height'=>'Dynamic');
-        
-        if($this->session_content->divId() != NULL && 
-        $this->session_content->tool() != FALSE) {
-            $model_template_div = new Dlayer_Model_Template_Div();
-            $site_id = $this->session_dlayer->siteId();
-            $div_id = $this->session_content->divId();
-            
-            $metrics['width'] = $model_template_div->width($site_id, 
-            $div_id);
-            
-            $height = $model_template_div->height($site_id, $div_id);
-            if($height['fixed'] == TRUE) {
-                $metrics['height'] = $height['height'] . ' pixels';
-            }
-        }
-        
-        return $metrics;
-    }
-    
-    /**
-    * Fetch the content item metrics for the selected content item
-    * 
-    * @return array An array containing the metrics for the selected 
-    *                 content item 
-    */
-    private function contentItemMetrics() 
-    {
-        $metrics = array('width'=>0, 'height'=>'Dynamic', 
-        'border'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0), 
-        'margin'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0), 
-        'padding'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0));
-        
-        $model_metrics = new Dlayer_Model_Page_Content_Metrics();
-        
-        $item_metrics = $model_metrics->data(
-        $this->session_dlayer->siteId(), $this->session_content->pageId(), 
-        $this->session_content->divId(), $this->session_content->contentId());
-        
-        if($item_metrics != FALSE) {
-            $metrics = $item_metrics;
-        }
-        
-        return $metrics;
-    }    
-    
-    /**
-    * Fetch the data for the color picker, passed to the ribbon tab view 
-    * so color picker can be pre populated for all tabs.
-    * 
-    * Returns an array with two indexs, palettes and history, if there was a 
-    * problem fetching data FALSE will be returned for the index that failed, 
-    * the view will display a friendly error message
-    * 
-    * @return array
-    */
-    private function colorPickerData() 
-    {
-        $model_palettes = new Dlayer_Model_Palette();
-        
-        $site_id = $this->session_dlayer->siteId();
-        
-        return array('palettes'=>$model_palettes->palettes($site_id), 
-        'history'=>$model_palettes->lastNColors($site_id));
-    }
+    }  
 
     /**
     * Generate the html for the requested tool tab, called via AJAX by the
@@ -279,15 +205,14 @@ class Image_DesignController extends Zend_Controller_Action
 
             if($view_script != FALSE) {
 
-                $this->session_content->setRibbonTab($tab);
+                $this->session_image->setRibbonTab($tab);
                 
                 $edit_mode = FALSE;
-                if($this->session_content->contentId() != NULL) {
+                if($this->session_image->imageId() != NULL) {
                     $edit_mode = TRUE;
                 }
 
-                $this->view->color_picker_data = $this->colorPickerData();
-                $this->view->div_id = $this->session_content->divId();
+                $this->view->image_id = $this->session_image->imageId();
                 $this->view->data = $ribbon_tab->viewData($module, $tool,
                 $tab, $edit_mode);
                 $this->view->multi_use = $ribbon_tab->multiUse($module, $tool,
@@ -319,73 +244,22 @@ class Image_DesignController extends Zend_Controller_Action
     }
 
     /**
-    * Sets the selected div and returns the user back to the designer so that
-    * they can choose a content tool, this is a sister method to
-    * setSelectedContentAction(), this sets the selected div, the other sets
-    * the content block.
+    * Set the selected image and returns the user back to the designer
+    * with the image selected
     *
     * @return void
     */
-    public function setSelectedDivAction()
+    public function setSelectedImageAction()
     {
         $this->_helper->disableLayout(FALSE);
 
         $id = $this->getRequest()->getParam('selected');
-        $this->session_content->setDivId($id);
-        $this->_redirect('/content/design');
-    }
 
-    /**
-    * Set the selected content item and returns the user back to the designer
-    * with the content item selected and the ribbon showing the options and
-    * data for the corresponding tool
-    *
-    * @return void
-    */
-    public function setSelectedContentAction()
-    {
-        $this->_helper->disableLayout(FALSE);
-
-        $id = $this->getRequest()->getParam('selected');
-        $tool = $this->getRequest()->getParam('tool');
-        $content_type = $this->getRequest()->getParam('content-type');
-
-        if($this->session_content->setContentId($id, $content_type) == TRUE && 
-        $this->session_content->setTool($tool) == TRUE) {
-            $this->_redirect('/content/design');
+        if($this->session_image->setImageId($id) == TRUE) {
+            $this->_redirect('/image/design');
         } else {
             $this->cancelTool();
         }
-    }
-    
-    /**
-    * Move the selected content item, before passing the request to the model
-    * we check to ensure that the item can be moved in the requested direction 
-    * and also that the content item is valid for the requested content type and 
-    * page div
-    * 
-    * @return div
-    */
-    public function moveContentAction() 
-    {
-        $this->_helper->disableLayout(FALSE);
-        
-        $direction = $this->getRequest()->getParam('direction');
-        $content_type = $this->getRequest()->getParam('type');
-        $content_id = $this->getRequest()->getParam('content-id');
-        $div_id = $this->getRequest()->getParam('div-id');
-        $page_id = $this->getRequest()->getParam('page-id');
-        
-        $model_page_content = new Dlayer_Model_Page_Content();
-        
-        if($model_page_content->valid($content_id, 
-        $this->session_dlayer->siteId(), $page_id, $div_id, $content_type) && 
-        in_array($direction, array('up', 'down')) == TRUE) {
-            $model_page_content->moveContentItem($direction, $content_type, 
-            $content_id, $div_id, $page_id, $this->session_dlayer->siteId());
-        }
-        
-        $this->_redirect('/content/design/');
     }
 
     /**
@@ -408,12 +282,8 @@ class Image_DesignController extends Zend_Controller_Action
 
         if($tool != NULL && strlen($tool) > 0) {
             if($tool != 'cancel') {
-                if($this->session_content->setTool($tool) == TRUE) {
-                    $reset = $this->getRequest()->getParam('reset');
-                    if($reset != NULL && $reset == 1) {
-                        $this->session_content->clearContentId();
-                    }
-                    $this->_redirect('/content/design');
+                if($this->session_image->setTool($tool) == TRUE) {
+                    $this->_redirect('/image/design');
                 } else {
                     $this->cancelTool();
                 }
@@ -433,7 +303,7 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function cancelTool()
     {
-        $this->session_content->clearAll();
-        $this->_redirect('/content/design');
+        $this->session_image->clearAll();
+        $this->_redirect('/image/design');
     }
 }

@@ -1,0 +1,12 @@
+/**
+* Custom CSS styles for the image library module
+* 
+* @author Dean Blackborough <dean@g3d-development.com>
+* @copyright G3D Development Limited
+*/
+#designer > #library {
+    width: 1020px;
+    margin-right: 2px;
+    background-color: #fafafa;
+    border: 1px solid #eeeeee;
+}

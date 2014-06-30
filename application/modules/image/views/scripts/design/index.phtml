@@ -1,0 +1,18 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<script type="text/javascript">
+</script>
+
+<div id="designer">
+    <section id="library">
+        <?php echo $this->dlayer_library; ?>
+    </section>
+    <?php if(strlen($this->dlayer_toolbar) > 1) { ?>
+    <section id="tools">
+        <?php echo $this->dlayer_toolbar; ?>
+    </section>
+    <?php } ?>
+    <section id="ribbon">
+        <?php echo $this->dlayer_ribbon; ?>
+    </section>
+</div>

@@ -27,11 +27,13 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     *
     * @todo Need to check that the image id is valid
     * @param integer $id
-    * @return void
+    * @return boolean
     */
     public function setImageId($id)
     {
         $this->image_id = intval($id);
+        
+        return true;
     }
 
     /**
@@ -103,8 +105,8 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     }
     
     /**
-    * Clears the session values for the web site manager, these are the vars 
-    * that relate to the current state of the designer, selected page, 
+    * Clears the session values for the image library, these are the vars 
+    * that relate to the current state of the designer, selected image, 
     * tool and tool tab.
     * 
     * @return void
