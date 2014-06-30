@@ -16,14 +16,15 @@
     border: none;
     background-color: #fafafa;
     padding: 10px 0px 0px 10px;
-    border: 1px solid #eeeeee;
+    border: 1px solid #b0120a;
     width: 754px;
 }
 #content form fieldset > legend {
     padding: 0.3em 1em;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #e51c23;
     background-color: #f5f5f5;
     font-size: 1.1em;
+    color: #424242;
 }
 #content form fieldset .hidden {
     display: none;
@@ -81,12 +82,12 @@
     padding: 3px 5px 3px 5px;
     margin: 0;
     background-color: #f5f5f5;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #b0120a;
     font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
 }
 #content form fieldset .save > input:hover {
     background-color: #eeeeee;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #b0120a;
     cursor: pointer;
 }
 #content form fieldset ul.errors {
