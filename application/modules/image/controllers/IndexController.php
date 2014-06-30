@@ -50,6 +50,8 @@ class Image_IndexController extends Zend_Controller_Action
     */
     public function indexAction()
     {
+        $this->_redirect('/image/design/index');
+        
     	$model_sites = new Dlayer_Model_Site();
     	
     	$this->dlayerMenu('/image/index/index');
