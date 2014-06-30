@@ -84,7 +84,9 @@ class Website_DesignController extends Zend_Controller_Action
         array('url'=>'/content/index/index', 
         'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
         array('url'=>'/form/index/index', 
-        'name'=>'Form builder', 'title'=>'Dlayer Form builder'))), 
+        'name'=>'Form builder', 'title'=>'Dlayer Form builder'), 
+        array('url'=>'/image/index/index', 
+        'name'=>'Image library', 'title'=>'Dlayer Image library'))), 
         array('url'=>'/website/settings/index', 
         'name'=>'Settings', 'title'=>'Web site manager settings'), 
         array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 

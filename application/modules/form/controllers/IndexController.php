@@ -84,7 +84,9 @@ class Form_IndexController extends Zend_Controller_Action
         array('url'=>'/content/index/index', 
         'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
         array('url'=>'/website/index/index', 
-        'name'=>'Web site manager', 'title'=>'Dlayer Website manager'))), 
+        'name'=>'Web site manager', 'title'=>'Dlayer Website manager'), 
+        array('url'=>'/image/index/index', 
+        'name'=>'Image library', 'title'=>'Dlayer Image library'))), 
         array('url'=>'/form/settings/index', 
         'name'=>'Settings', 'title'=>'Form builder settings'), 
         array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 

@@ -1,16 +1,13 @@
 <?php
 /**
-* Root controller for the module. 
+* Root controller for the image library. 
 * 
-* The web site manager allows their user tro build u[p a picturwe of their site, 
-* iniitally the index page should show a few stats for the web site, they can 
-* then move into the areas, sitemap, activity, logging etc
+* The image library is where the user manages all their images
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: IndexController.php 1568 2014-02-14 14:59:50Z Dean.Blackborough $
 */
-class Website_IndexController extends Zend_Controller_Action
+class Image_IndexController extends Zend_Controller_Action
 {
     /**
     * Type hinting for action helpers, hints the property to the code 
@@ -55,10 +52,10 @@ class Website_IndexController extends Zend_Controller_Action
     {
     	$model_sites = new Dlayer_Model_Site();
     	
-    	$this->dlayerMenu('/website/index/index');
+    	$this->dlayerMenu('/image/index/index');
         $this->view->site = $model_sites->site($this->session_dlayer->siteId());
     	
-        $this->layout->assign('title', 'Dlayer.com - Web site manager');
+        $this->layout->assign('title', 'Dlayer.com - Image library');
     }
     
     /**
@@ -71,22 +68,22 @@ class Website_IndexController extends Zend_Controller_Action
     {
 		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
         'title'=>'Dlayer.com: Web development simplified'), 
-        array('url'=>'/website/index/index', 'name'=>'Web site manager', 
-        'title'=>'Dlayer Web site manager', 
+        array('url'=>'/image/index/index', 'name'=>'Image library', 
+        'title'=>'Dlayer Image library', 
         'children'=>array(array('url'=>'/template/index/index', 
         'name'=>'Template designer', 'title'=>'Dlayer Template designer'), 
         array('url'=>'/content/index/index', 
         'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
         array('url'=>'/form/index/index', 
         'name'=>'Form builder', 'title'=>'Dlayer Form builder'), 
-        array('url'=>'/image/index/index', 
-        'name'=>'Image library', 'title'=>'Dlayer Image library'))), 
-        array('url'=>'/website/settings/index', 
-        'name'=>'Settings', 'title'=>'Web site manager settings'), 
+        array('url'=>'/website/index/index', 
+        'name'=>'Web site manager', 'title'=>'Dlayer Website manager'))), 
+        array('url'=>'/content/settings/index', 
+        'name'=>'Settings', 'title'=>'Content manager settings'), 
         array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
         $this->session_dlayer->identity() . ')', 'title'=>'Logout'));
-    	
-    	$this->layout->assign('nav', array('class'=>'top_nav', 
+        
+        $this->layout->assign('nav', array('class'=>'top_nav', 
         'items'=>$items, 'active_url'=>$url));
     }
 }
