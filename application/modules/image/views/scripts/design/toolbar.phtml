@@ -10,21 +10,22 @@ foreach($this->tools as $group) {
         $show = FALSE;
         $selected = FALSE;
         
-        // No image selected, show base tools
-        if($this->image_id == NULL && $tool['base'] == 1) {
+        if($this->image_id == NULL) { 
+            if($tool['tool'] != 'cancel' && $tool['base'] == 1) {
+                $show = TRUE;
+            } else {
+                if($this->tool != FALSE && $tool['tool'] == 'cancel') {
+                    $show = TRUE;
+                }
+            }
+        } else {
             $show = TRUE;
         }
         
-        // Image selected
-        if($this->image_id != NULL) {
-            $show = TRUE;
-        }
-        
-        // Check to see if selected tool
         if($this->tool['tool'] == $tool['tool']) {
             $selected = TRUE;
         }
-        
+                        
         if($show == TRUE) {            
             if($selected == FALSE) {
                 $html .= '<div class="tool">';
