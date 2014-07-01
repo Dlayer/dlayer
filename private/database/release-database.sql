@@ -376,7 +376,7 @@ CREATE TABLE `dlayer_identities` (
 
 LOCK TABLES `dlayer_identities` WRITE;
 
-insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',1,'2014-06-30 16:14:11','2014-06-30 16:48:23',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-06-03 13:04:40','2014-06-03 13:23:23',1);
+insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-07-01 13:28:10','2014-07-01 13:39:57',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-06-03 13:04:40','2014-06-03 13:23:23',1);
 
 UNLOCK TABLES;
 
@@ -488,7 +488,7 @@ CREATE TABLE `dlayer_sessions` (
 
 LOCK TABLES `dlayer_sessions` WRITE;
 
-insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('4lsa61f2pu4jp62h8e64nn8cr2','','PHPSESSID',1404143303,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1404146903;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1404145117;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1404146892;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1404145123;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}dlayer_session_template|a:4:{s:11:\"template_id\";i:1;s:4:\"tool\";N;s:6:\"div_id\";N;s:3:\"tab\";N;}dlayer_session_image|a:5:{s:8:\"image_id\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:3:\"Add\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_form|a:6:{s:7:\"form_id\";i:1;s:8:\"field_id\";N;s:4:\"tool\";s:4:\"name\";s:3:\"tab\";s:4:\"name\";s:6:\"return\";N;s:10:\"tool_model\";s:4:\"Name\";}');
+insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('4lsa61f2pu4jp62h8e64nn8cr2','','PHPSESSID',1404143303,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1404146903;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1404145117;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1404146892;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1404145123;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}dlayer_session_template|a:4:{s:11:\"template_id\";i:1;s:4:\"tool\";N;s:6:\"div_id\";N;s:3:\"tab\";N;}dlayer_session_image|a:5:{s:8:\"image_id\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:3:\"Add\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_form|a:6:{s:7:\"form_id\";i:1;s:8:\"field_id\";N;s:4:\"tool\";s:4:\"name\";s:3:\"tab\";s:4:\"name\";s:6:\"return\";N;s:10:\"tool_model\";s:4:\"Name\";}'),('aanni0lcg3nn0orqrpqb7t5352','','PHPSESSID',1404218418,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1404222018;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1404221909;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1404222018;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1404222018;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1404222018;}}dlayer_session_image|a:2:{s:8:\"image_id\";N;s:4:\"tool\";N;}dlayer_session_template|a:4:{s:11:\"template_id\";N;s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}');
 
 UNLOCK TABLES;
 
@@ -544,13 +544,13 @@ CREATE TABLE `dlayer_settings_groups` (
   KEY `enabled` (`enabled`),
   KEY `module_id` (`module_id`),
   CONSTRAINT `dlayer_settings_groups_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `dlayer_modules` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dlayer_settings_groups` */
 
 LOCK TABLES `dlayer_settings_groups` WRITE;
 
-insert  into `dlayer_settings_groups`(`id`,`name`,`module_id`,`title`,`url`,`sort_order`,`enabled`) values (1,'App',7,'Dlayer settings','/dlayer/settings/index',1,1),(2,'Template',1,'Template designer settings','/template/settings/index',2,1),(3,'Content',4,'Content designer settings','/content/settings/index',3,1),(4,'Form',3,'Form builder settings','/form/settings/index',4,1),(5,'Widget',2,'Widget designer settings','/widget/settings/index',5,1),(6,'Web site',5,'Web site designer settings','/website/settings/index',7,1),(7,'Question',6,'Question manager settings','/question/settings/index',6,1);
+insert  into `dlayer_settings_groups`(`id`,`name`,`module_id`,`title`,`url`,`sort_order`,`enabled`) values (1,'App',7,'Dlayer settings','/dlayer/settings/index',1,1),(2,'Template',1,'Template designer settings','/template/settings/index',2,1),(3,'Content',4,'Content designer settings','/content/settings/index',3,1),(4,'Form',3,'Form builder settings','/form/settings/index',4,1),(5,'Widget',2,'Widget designer settings','/widget/settings/index',5,1),(6,'Web site',5,'Web site designer settings','/website/settings/index',7,1),(7,'Question',6,'Question manager settings','/question/settings/index',6,1),(8,'Image',8,'Image library settings','/image/settings/index',8,1);
 
 UNLOCK TABLES;
 
