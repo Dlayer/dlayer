@@ -9,6 +9,12 @@
 */
 class Dlayer_Session_Image extends Zend_Session_Namespace
 {
+    CONST IMAGE = 'image';
+    CONST CATEGORY = 'category';
+    CONST SUBCATEGORY = 'subcategory';
+    
+    public $id = array();
+    
     /**
     * @param string $namespace
     * @param bool $singleInstance
@@ -23,27 +29,35 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     }
 
     /**
-    * Set the id for the image that the user is currently working with
+    * Set the id for the image, category or sub category that the user is 
+    * currently working with
     *
-    * @todo Need to check that the image id is valid
+    * @todo, Check type and also then check validity of id
     * @param integer $id
+    * @param string $type Use the constants to set type
     * @return boolean
     */
-    public function setImageId($id)
+    public function setId($id, $type=Dlayer_Session_Image::IMAGE)
     {
-        $this->image_id = intval($id);
+        $this->id[$type] = intval($id);
         
         return true;
     }
 
     /**
-    * Get the id of the image that the user is currently working on
+    * Get the id of the image, category or subcategory
     *
+    * @param string $type Use constants to define type
     * @return integer|NULL
+    * 
     */
-    public function imageId()
+    public function id($type=Dlayer_Session_Image::IMAGE)
     {
-        return $this->image_id;
+        if(array_key_exists($type, $this->id) == TRUE) {
+            return $this->id[$type];
+        } else {
+            return NULL;
+        }
     }
 
 
@@ -115,6 +129,6 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     {
         $this->tool = NULL;
         $this->tab = NULL;
-        $this->image_id = NULL;
+        $this->id = array();
     }
 }

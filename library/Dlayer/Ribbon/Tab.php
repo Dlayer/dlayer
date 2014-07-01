@@ -99,7 +99,14 @@ class Dlayer_Ribbon_Tab
             break;
             
             case 'image':
-                $data = NULL;
+                $image_ribbon = new Dlayer_Ribbon_Data_Image();
+                $session_image  = new Dlayer_Session_Image();
+
+                $data = $image_ribbon->viewData($session_dlayer->siteId(),
+                $tool, $tab, $session_image->id(), 
+                $session_image->id(Dlayer_Session_Image::CATEGORY), 
+                $session_image->id(Dlayer_Session_Image::SUBCATEGORY), 
+                $edit_mode);
             break;
 
             default:

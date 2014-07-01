@@ -59,7 +59,7 @@ class Image_DesignController extends Zend_Controller_Action
         $this->view->dlayer_ribbon = $this->dlayerRibbon();
 
         $this->view->module = $this->getRequest()->getModuleName();
-        $this->view->image_id = $this->session_image->imageId();
+        $this->view->image_id = $this->session_image->id();
         $this->view->tool = $this->session_image->tool();
 
         $this->layout->assign('title', 'Dlayer.com - Image library');
@@ -105,7 +105,7 @@ class Image_DesignController extends Zend_Controller_Action
     {
         $model_module = new Dlayer_Model_Module();
 
-        $this->view->image_id = $this->session_image->imageId();
+        $this->view->image_id = $this->session_image->id();
         $this->view->tools = $model_module->tools(
         $this->getRequest()->getModuleName());
         $this->view->tool = $this->session_image->tool();
@@ -131,7 +131,7 @@ class Image_DesignController extends Zend_Controller_Action
         } else {
             $ribbon = new Dlayer_Ribbon();
 
-            if($this->session_image->imageId() != NULL) {
+            if($this->session_image->Id() != NULL) {
                 $html = $this->view->render($ribbon->selectedViewScriptPath());
             } else {
                 $html = $this->view->render($ribbon->defaultViewScriptPath());
@@ -158,7 +158,7 @@ class Image_DesignController extends Zend_Controller_Action
         
         $edit_mode = FALSE;
         
-        if($this->session_image->imageId() != NULL) {
+        if($this->session_image->id() != NULL) {
             $edit_mode = TRUE;
         }
         
@@ -208,11 +208,11 @@ class Image_DesignController extends Zend_Controller_Action
                 $this->session_image->setRibbonTab($tab);
                 
                 $edit_mode = FALSE;
-                if($this->session_image->imageId() != NULL) {
+                if($this->session_image->id() != NULL) {
                     $edit_mode = TRUE;
                 }
 
-                $this->view->image_id = $this->session_image->imageId();
+                $this->view->image_id = $this->session_image->id();
                 $this->view->data = $ribbon_tab->viewData($module, $tool,
                 $tab, $edit_mode);
                 $this->view->multi_use = $ribbon_tab->multiUse($module, $tool,
@@ -255,7 +255,7 @@ class Image_DesignController extends Zend_Controller_Action
 
         $id = $this->getRequest()->getParam('selected');
 
-        if($this->session_image->setImageId($id) == TRUE) {
+        if($this->session_image->setId($id) == TRUE) {
             $this->_redirect('/image/design');
         } else {
             $this->cancelTool();

@@ -43,6 +43,7 @@
     width: 315px;
     padding: 5px 5px 5px 0px;
     color: #505050;
+    font-weight: bold;
 }
 #ribbon dl.zend_form fieldset > dl input {
     width: 300px;
@@ -86,6 +87,7 @@
     display: block;
     float: left;
     width: 160px;
+    font-weight: bold;
 }
 #ribbon dl.zend_form fieldset > dl > div.input_50 > input.tinyint {
     width: 50px;

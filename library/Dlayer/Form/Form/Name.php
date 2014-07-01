@@ -119,7 +119,7 @@ class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
     private function userElements()
     {
     	$label = new Zend_Form_Element_Text('label');
-        $label->setLabel('Label *');
+        $label->setLabel('Label');
         $label->setAttribs(array('maxlength'=>255, 
         'placeholder'=>'Your name'));
         $label->setDescription("Enter the label for the name field, defaulted 
@@ -136,7 +136,7 @@ class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
         $this->elements['label'] = $label;
 
         $description = new Zend_Form_Element_Textarea('description');
-        $description->setLabel('Description *');
+        $description->setLabel('Description');
         $description->setAttribs(array('rows'=>2, 'cols'=>30, 
         'placeholder'=>'Please enter your name'));
         $description->setDescription("Enter the description for the name field, 
