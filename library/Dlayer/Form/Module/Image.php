@@ -2,7 +2,7 @@
 /**
 * Base form class for all the image library ribbon forms
 *
-* @author Dean Blackborough
+* @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
 abstract class Dlayer_Form_Module_Image extends Dlayer_Form
@@ -33,7 +33,6 @@ abstract class Dlayer_Form_Module_Image extends Dlayer_Form
     {
         $this->existing_data = $existing_data;
         $this->edit_mode = $edit_mode;
-        $this->field_data = $field_data;
 
         parent::__construct($options=NULL);
     }
@@ -61,40 +60,5 @@ abstract class Dlayer_Form_Module_Image extends Dlayer_Form
     {
         $this->elements['submit']->setDecorators(array(array('ViewHelper'),
         array('HtmlTag', array('tag' => 'div', 'class'=>'save'))));
-    }
-    
-    /**
-    * Check field array for field value, either return assigned value or FALSE
-    * if field value not set in data array
-    * 
-    * @param string $field
-    * @return string|FALSE
-    */
-    protected function fieldValue($field) 
-    {
-		if(array_key_exists($field, $this->field_data) == TRUE 
-        && $this->field_data[$field] != FALSE) {
-        	return $this->field_data[$field];
-		} else {
-			return FALSE;
-		}
-    }
-    
-    /**
-    * Check field array for field attribute value, either return assigned 
-    * attribute value or FALSE if field attribute value not set in data array
-    * 
-    * @param string $attribute
-    * @return string|FALSE
-    */
-    protected function fieldAttributeValue($attribute) 
-    {
-		if(array_key_exists('attributes', $this->field_data) == TRUE
-		&& array_key_exists($attribute, $this->field_data['attributes']) == TRUE 
-		&& $this->field_data['attributes'][$attribute] != FALSE) {
-        	return $this->field_data['attributes'][$attribute];
-		} else {
-			return FALSE;
-		}
     }
 }
