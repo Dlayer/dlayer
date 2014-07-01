@@ -21,7 +21,8 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
     * @param array|NULL $options Zend form options data array
     * @return void
     */
-    public function __construct(array $existing_data, $edit_mode)
+    public function __construct(array $existing_data, $edit_mode, 
+    $options=NULL)
     {
         parent::__construct($existing_data, $edit_mode, $options);
     }
@@ -103,7 +104,7 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
         $name->setLabel('Category name');
         $name->setAttribs(array('maxlength'=>255, 
         'placeholder'=>'e.g., Backgrounds'));
-        $name->setDescription('Enter the name for a new image category.');
+        $name->setDescription('Enter a name for the image category.');
         $name->setBelongsTo('params');
         if($this->edit_mode == TRUE && 
         array_key_exists('name', $this->existing_data) == TRUE) {

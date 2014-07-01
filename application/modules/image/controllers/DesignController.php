@@ -42,7 +42,8 @@ class Image_DesignController extends Zend_Controller_Action
         $this->layout = Zend_Layout::getMvcInstance();
         $this->layout->assign('js_include', array('scripts/dlayer.js'));
         $this->layout->assign('css_include', array('styles/designer.css',
-        'styles/designer/image.css', 'styles/ribbon.css'));
+        'styles/designer/image.css', 'styles/ribbon.css', 
+        'styles/ribbon/image.css'));
     }
 
     /**

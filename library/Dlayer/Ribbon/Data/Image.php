@@ -47,6 +47,35 @@ class Dlayer_Ribbon_Data_Image
         $this->edit_mode = $edit_mode;
         
         switch($this->tool) {
+            case 'category':
+                $data = $this->category();
+            break;
+            
+            default:
+                $data = FALSE;
+            break;
+        }
+        
+        return $data;
+    }
+    
+    /**
+    * Fetch the view tab data for the category tool, in this case typically the 
+    * form for the tool tab, if there is any existing data (edit mode) the 
+    * form will show the current values
+    * 
+    * @return array|FALSE 
+    */
+    private function category() 
+    {
+        switch($this->tab) {
+            case 'category':
+                $ribbon_category = new Dlayer_Ribbon_Image_Category();
+                $data = $ribbon_category->viewData($this->site_id, $this->tool, 
+                $this->tab, $this->image_id, $this->category_id, 
+                $this->subcategory_id, $this->edit_mode);
+            break;
+            
             default:
                 $data = FALSE;
             break;

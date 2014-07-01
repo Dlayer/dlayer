@@ -98,7 +98,7 @@
 }
 #ribbon dl.zend_form fieldset > dl > div.save {
     width: 320px;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 #ribbon dl.zend_form fieldset > dl > div.save .submit {
     display: block;
