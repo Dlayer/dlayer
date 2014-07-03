@@ -9,20 +9,20 @@
 /* Base styling for the forms */
 #content form {
     width: 766px;
-    color: #616161;
+    color: #424242;
 }
 #content form fieldset {
     margin: 0px;
     border: none;
-    background-color: #fafafa;
+    background-color: #f5f5f5;
     padding: 10px 0px 0px 10px;
     border: 1px solid #b0120a;
     width: 754px;
 }
 #content form fieldset > legend {
     padding: 0.3em 1em;
-    border: 1px solid #e51c23;
-    background-color: #f5f5f5;
+    border: 1px solid #b0120a;
+    background-color: #eeeeee;
     font-size: 1.1em;
     color: #424242;
 }
