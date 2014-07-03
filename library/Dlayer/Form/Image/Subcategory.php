@@ -1,15 +1,15 @@
 <?php
 /**
-* Form for the category tool
+* Form for the subcategory tool
 * 
-* Allows the user to add a new category to the image library
+* Allows the user to add a new sub category to the image library
 * 
 * This form is only used for both the add and edit category forms
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
+class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
 {
 	/**
     * Set the initial properties for the form
@@ -43,7 +43,8 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
 
         $this->validationRules();
         
-        $this->addElementsToForm('category', 'Category', $this->elements);
+        $this->addElementsToForm('subcategory', 'Sub category', 
+        $this->elements);
 
         $this->addDefaultElementDecorators();
 
@@ -81,9 +82,9 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
         if($this->edit_mode == TRUE && 
         array_key_exists('id', $this->existing_data) == TRUE && 
         $this->existing_data['id'] != FALSE) {
-            $category_id = new Zend_Form_Element_Hidden('category_id');
-            $category_id->setValue($this->existing_data['id']);
-            $this->elements['category_id'] = $category_id;
+            $sub_category_id = new Zend_Form_Element_Hidden('sub_category_id');
+            $sub_category_id->setValue($this->existing_data['sub_category_id']);
+            $this->elements['sub_category_id'] = $sub_category_id;
         }
         
         $multi_use = new Zend_Form_Element_Hidden('multi_use');
@@ -101,17 +102,28 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
     */
     private function userElements()
     {
+        $category = new Zend_Form_Element_Select('category');
+        $category->setLabel('Category');
+        $category->setDescription('Select the base category for the image 
+        sub category');
+        $category->setMultiOptions(array(1=>'Backgrounds', 2=>'News'));
+        $category->setBelongsTo('params');
+        
+        if($this->edit_mode == TRUE && 
+        array_key_exists('category_id', $this->existing_data) == TRUE && 
+        $this->existing_data['category_id'] != FALSE) {
+            $category->setValue($this->existing_data['category_id']);
+        }
+        
+        $this->elements['category'] = $category;
+        
     	$name = new Zend_Form_Element_Text('name');
-        $name->setLabel('Category name');
+        $name->setLabel('Sub category name');
         $name->setAttribs(array('maxlength'=>255, 
-        'placeholder'=>'e.g., Backgrounds'));
-        $name->setDescription('Enter a name for the image category.');
+        'placeholder'=>'e.g., Gradients'));
+        $name->setDescription('Enter a name for the image sub category.');
         $name->setBelongsTo('params');
         
-        /**
-        * @todo Need to move these simple checks into a method in the base 
-        * class, stop the duplication
-        */
         if($this->edit_mode == TRUE && 
         array_key_exists('name', $this->existing_data) == TRUE && 
         $this->existing_data['name'] != FALSE) {

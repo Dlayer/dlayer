@@ -51,6 +51,10 @@ class Dlayer_Ribbon_Data_Image
                 $data = $this->category();
             break;
             
+            case 'subcategory':
+                $data = $this->subcategory();
+            break;
+            
             default:
                 $data = FALSE;
             break;
@@ -73,6 +77,31 @@ class Dlayer_Ribbon_Data_Image
                 $ribbon_category = new Dlayer_Ribbon_Image_Category();
                 $data = $ribbon_category->viewData($this->site_id, $this->tool, 
                 $this->tab, $this->image_id, $this->category_id, 
+                $this->subcategory_id, $this->edit_mode);
+            break;
+            
+            default:
+                $data = FALSE;
+            break;
+        }
+        
+        return $data;
+    }
+    
+    /**
+    * Fetch the view tab data for the sub category tool, in this case 
+    * typically the form for the tool tab, if there is any existing data 
+    * (edit mode) the form will show the current values
+    * 
+    * @return array|FALSE 
+    */
+    private function subcategory() 
+    {
+        switch($this->tab) {
+            case 'subcategory':
+                $ribbon_subcategory = new Dlayer_Ribbon_Image_Subcategory();
+                $data = $ribbon_subcategory->viewData($this->site_id, 
+                $this->tool, $this->tab, $this->image_id, $this->category_id, 
                 $this->subcategory_id, $this->edit_mode);
             break;
             
