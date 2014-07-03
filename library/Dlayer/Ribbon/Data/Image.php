@@ -47,6 +47,10 @@ class Dlayer_Ribbon_Data_Image
         $this->edit_mode = $edit_mode;
         
         switch($this->tool) {
+            case 'add':
+                $data = $this->add();
+            break;
+            
             case 'category':
                 $data = $this->category();
             break;
@@ -102,6 +106,30 @@ class Dlayer_Ribbon_Data_Image
                 $ribbon_subcategory = new Dlayer_Ribbon_Image_Subcategory();
                 $data = $ribbon_subcategory->viewData($this->site_id, 
                 $this->tool, $this->tab, $this->image_id, $this->category_id, 
+                $this->subcategory_id, $this->edit_mode);
+            break;
+            
+            default:
+                $data = FALSE;
+            break;
+        }
+        
+        return $data;
+    }
+    
+    /**
+    * Fetch the view tab data for the add new image tool, in this case 
+    * the form for the tool tab
+    * 
+    * @return array|FALSE 
+    */
+    private function add() 
+    {
+        switch($this->tab) {
+            case 'add':
+                $ribbon_add = new Dlayer_Ribbon_Image_Add();
+                $data = $ribbon_add->viewData($this->site_id, $this->tool, 
+                $this->tab, $this->image_id, $this->category_id, 
                 $this->subcategory_id, $this->edit_mode);
             break;
             

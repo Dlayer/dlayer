@@ -87,7 +87,7 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
         }
         
         $multi_use = new Zend_Form_Element_Hidden('multi_use');
-        $multi_use->setValue(1);
+        $multi_use->setValue(0);
         $multi_use->setBelongsTo('params');
 
         $this->elements['multi_use'] = $multi_use;

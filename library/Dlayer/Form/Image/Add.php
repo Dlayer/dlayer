@@ -1,15 +1,14 @@
 <?php
 /**
-* Form for the subcategory tool
+* Form for the add new image tool
 * 
-* Allows the user to add a new sub category to the image library
-* 
-* This form is only used for both the add and edit category forms
+* Allows the user to add a new image to the library, there is an independant 
+* edit version of the tool
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
+class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
 {
 	/**
     * Set the initial properties for the form
@@ -43,8 +42,7 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
 
         $this->validationRules();
         
-        $this->addElementsToForm('subcategory', 'Sub category', 
-        $this->elements);
+        $this->addElementsToForm('add', 'Add image', $this->elements);
 
         $this->addDefaultElementDecorators();
 
@@ -79,14 +77,6 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
 
         $this->elements['tool'] = $tool;
         
-        if($this->edit_mode == TRUE && 
-        array_key_exists('id', $this->existing_data) == TRUE && 
-        $this->existing_data['id'] != FALSE) {
-            $sub_category_id = new Zend_Form_Element_Hidden('sub_category_id');
-            $sub_category_id->setValue($this->existing_data['sub_category_id']);
-            $this->elements['sub_category_id'] = $sub_category_id;
-        }
-        
         $multi_use = new Zend_Form_Element_Hidden('multi_use');
         $multi_use->setValue(0);
         $multi_use->setBelongsTo('params');
@@ -104,33 +94,37 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
     {
         $category = new Zend_Form_Element_Select('category');
         $category->setLabel('Category');
-        $category->setDescription('Select the base category for the image 
-        sub category');
+        $category->setDescription('Select the base category for the new image');
         $category->setMultiOptions(array(1=>'Backgrounds', 2=>'News'));
         $category->setBelongsTo('params');
         
-        if($this->edit_mode == TRUE && 
-        array_key_exists('category_id', $this->existing_data) == TRUE && 
-        $this->existing_data['category_id'] != FALSE) {
-            $category->setValue($this->existing_data['category_id']);
-        }
-        
         $this->elements['category'] = $category;
         
+        $sub_category = new Zend_Form_Element_Select('sub_category');
+        $sub_category->setLabel('Sub category');
+        $sub_category->setDescription('Select the sub category to use for the 
+        new image');
+        $sub_category->setMultiOptions(array(1=>'Pictures', 2=>'Gradients'));
+        $sub_category->setBelongsTo('params');
+        
+        $this->elements['sub_category'] = $sub_category;
+        
     	$name = new Zend_Form_Element_Text('name');
-        $name->setLabel('Sub category name');
+        $name->setLabel('Name');
         $name->setAttribs(array('maxlength'=>255, 
-        'placeholder'=>'e.g., Gradients'));
-        $name->setDescription('Enter a name for the image sub category.');
+        'placeholder'=>'e.g., Site background'));
+        $name->setDescription('Enter a name for the new image, this will be 
+        shown when you need to choose the image from a list.');
         $name->setBelongsTo('params');
         
-        if($this->edit_mode == TRUE && 
-        array_key_exists('name', $this->existing_data) == TRUE && 
-        $this->existing_data['name'] != FALSE) {
-            $name->setValue($this->existing_data['name']);
-        }
-
         $this->elements['name'] = $name;
+        
+        $image = new Zend_Form_Element_File('image');
+        $image->setLabel('Image');
+        $image->setDescription('Choose an image to add to the Image library.');
+        $image->setBelongsTo('params');
+        
+        $this->elements['image'] = $image;
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('class', 'submit');
@@ -149,5 +143,20 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
     protected function validationRules()
     {
 
+    }
+    
+    /**
+    * Add any custom decorators, these are inputs where we need a little more
+    * control over the html, an example being the submit button
+    *
+    * @return void
+    */
+    protected function addCustomElementDecorators()
+    {
+        $this->elements['image']->setDecorators(array('File','Description',
+        'Errors', array('Label'), array(array('row'=>'HtmlTag'), 
+        array('tag'=>'div', 'class'=>'input'))));
+        
+        parent::addCustomElementDecorators();
     }
 }
