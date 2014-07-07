@@ -50,6 +50,9 @@ class Image_IndexController extends Zend_Controller_Action
     */
     public function indexAction()
     {
+        $session_image = new Dlayer_Session_Image();
+        $session_image->setTool('add');
+        
         $this->_redirect('/image/design/index');
         
     	$model_sites = new Dlayer_Model_Site();

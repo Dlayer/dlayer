@@ -13,6 +13,49 @@
     padding-left: 12px;
 }
 
+/* Filter form */
+#designer > #filter {
+    width: 320px;
+    padding: 10px 10px 5px 10px;
+    border: 1px solid #eeeeee;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+#designer > #filter > form {
+    width: 320px;
+    color: #616161;
+}
+#designer > #filter > form > label {
+    width: 320px;
+    display: block;
+    font-weight: bold;
+    padding-bottom: 3px;
+}
+#designer > #filter > form > select {
+    padding: 3px;
+    border: 1px solid #eeeeee;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+    color: #616161;
+}
+#designer > #filter > form > .submit {
+    display: block;
+    float: right;
+    width: 50px;
+    padding: 3px 5px 3px 5px;
+    margin: 0;
+    background-color: #f5f5f5;
+    border: 1px solid #b0120a;
+    font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
+    color: #666666;
+}
+#designer > #filter > form > .submit:hover {
+    background-color: #eeeeee;
+    border: 1px solid #b0120a;
+    color: #666666;
+    cursor: pointer;
+}
+
+/* Image library thumbnails */
 #library > .row {
     width: 1008px;
     padding-bottom: 5px;

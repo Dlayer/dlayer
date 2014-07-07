@@ -7,6 +7,22 @@
     <section id="library">
         <?php echo $this->dlayer_library; ?>
     </section>
+    <section id="filter">
+        <form action="/image/design/index" method="post">
+            <label for="filter-category">Category</label>
+            <select name="filter-category">
+                <option value="1">Backgrounds</option>
+                <option value="2">News</option>
+            </select>
+            <label for="filter-subcategory">Sub category</label>
+            <select name="filter-subcategory">
+                <option value="1">Misc.</option>
+                <option value="2">Pictures</option>
+                <option value="3">Gradients</option>
+            </select>
+            <input type="submit" name="filter" class="submit" value="Filter">
+        </form>
+    </section>
     <?php if(strlen($this->dlayer_toolbar) > 1) { ?>
     <section id="tools">
         <?php echo $this->dlayer_toolbar; ?>
