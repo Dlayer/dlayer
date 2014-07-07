@@ -53,6 +53,15 @@
     margin: 1em 0em;
     line-height: 1.5em;
 }
+#designer > #ribbon > .content > p.dev {
+    border: 1px solid #dd191d;
+    padding: 1em;
+    margin: 0em 2em 1em 2em;
+    background-color: #fafafa;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
 #designer > #ribbon > .content > ul {
     margin: 0px;
     width: 280px;
