@@ -16,16 +16,18 @@ class Dlayer_Form_Form_Styling_Email extends Dlayer_Form_Module_Form
     * @param array $field_data Field data array, either an array with all the 
     * 						   attrubutes and their current value or an array 
     * 						   with FALSE as the value for each attribute
+    * @param boolean $edit_mode Is the tool currently in edit mode
     * @param array|NULL $options Zend form options data array
     * @return void
     */
-    public function __construct($form_id, array $field_data, $options=NULL)
+    public function __construct($form_id, array $field_data, $edit_mode=FALSE,
+    $options=NULL)
     {
         $this->tool = 'email';
         $this->field_type = 'text';
         $this->sub_tool_model = 'Styling_Email';
 
-        parent::__construct($form_id, $field_data, $options);
+        parent::__construct($form_id, $field_data, $edit_mode, $options);
     }
     
     /**

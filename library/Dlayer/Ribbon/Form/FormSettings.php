@@ -32,8 +32,8 @@ class Dlayer_Ribbon_Form_FormSettings extends Dlayer_Ribbon_Module_Form
         $edit_mode);
 
         return array('form'=>new Dlayer_Form_Form_FormSettings(
-        $this->form_id, $this->existingData()), 'field_id'=>$field_id, 
-        'preview_data'=>array());
+        $this->form_id, $this->existingData(), $this->edit_mode), 
+        'field_id'=>$field_id, 'preview_data'=>array());
     }
     
     /**

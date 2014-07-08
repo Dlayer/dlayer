@@ -39,7 +39,7 @@ class Dlayer_Ribbon_Form_Textarea extends Dlayer_Ribbon_Module_Form
         }
 
         return array('form'=>new Dlayer_Form_Form_Textarea($this->form_id,
-        $this->fieldData()), 'field_id'=>$field_id, 
+        $this->fieldData(), $this->edit_mode), 'field_id'=>$field_id, 
         'preview_data'=>$preview_data);
     }
 }

@@ -41,7 +41,7 @@ class Dlayer_Ribbon_Form_Styling_Name extends Dlayer_Ribbon_Module_Form
 		}
 
         return array('form'=>new Dlayer_Form_Form_Styling_Name($this->form_id,
-        $existing_data), 'preview_data'=>$preview_data);
+        $existing_data, $this->edit_mode), 'preview_data'=>$preview_data);
     }
     
     /**
