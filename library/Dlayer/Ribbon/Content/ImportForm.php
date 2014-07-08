@@ -18,15 +18,16 @@ class Dlayer_Ribbon_Content_ImportForm extends Dlayer_Ribbon_Module_Content
     * @param integer $div_id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multi use value for tool tab
     * @param integer|NULL $content_id Selected content item
     * @param boolean $edit_mode Is the tool tab in edit mode
     * @return array|FALSE
     */
     public function viewData($site_id, $page_id, $div_id, $tool, $tab,
-    $content_id=NULL, $edit_mode=FALSE)
+    $multi_use, $content_id=NULL, $edit_mode=FALSE)
     {
         $this->writeParams($site_id, $page_id, $div_id, $tool, $tab,
-        $content_id, $edit_mode);
+        $multi_use, $content_id, $edit_mode);
 
         return array('form'=>new Dlayer_Form_Content_ImportForm(
         $this->page_id, $this->div_id, $this->container(), 

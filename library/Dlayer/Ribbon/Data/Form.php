@@ -19,6 +19,7 @@ class Dlayer_Ribbon_Data_Form
     private $tab;
     private $field_id;
     private $edit_mode;
+    private $multi_use;
 
     /**
     * Fetch the data for the tool and tool tab using the supplied params,
@@ -29,19 +30,21 @@ class Dlayer_Ribbon_Data_Form
     * @param integer $form_id Current form id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multi use value for tool tab
     * @param integer|NULL $field_id Selected form field
     * @param boolean $edit_mode Is the tool tab in edit mode
     * @return array|FALSE Either an array of data for the tool tab view script
     *                     or FALSE if no data is found or required, up to the
     *                     view script how to handle the return value
     */
-    public function viewData($site_id, $form_id, $tool, $tab, $field_id=NULL, 
-    $edit_mode=FALSE)
+    public function viewData($site_id, $form_id, $tool, $tab, $multi_use, 
+    $field_id=NULL, $edit_mode=FALSE)
     {
         $this->site_id = $site_id;
         $this->form_id = $form_id;
         $this->tool = $tool;
         $this->tab = $tab;
+        $this->multi_use = $multi_use;
         $this->field_id = $field_id;
         $this->edit_mode = $edit_mode;
 

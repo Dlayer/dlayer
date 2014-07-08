@@ -20,6 +20,7 @@ class Dlayer_Ribbon_Data_Content
     private $tab;
     private $content_id;
     private $edit_mode;
+    private $multi_use;
     
     /**
     * Fetches all the data that is needed by the views to generate the 
@@ -30,6 +31,7 @@ class Dlayer_Ribbon_Data_Content
     * @param integer $div_id Id of the selected div
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multi use value for tool tab
     * @param integer|NULL $content_id Id of the selected content
     * @param boolean $edit_mode Is the tool tab in edit mode
     * @return array|FALSE Either an array of data for the tool tab view script 
@@ -37,13 +39,14 @@ class Dlayer_Ribbon_Data_Content
     *                    view script how to handle the return value
     */
     public function viewData($site_id, $page_id, $div_id, $tool, $tab, 
-    $content_id=NULL, $edit_mode=FALSE) 
+    $multi_use, $content_id=NULL, $edit_mode=FALSE) 
     {
         $this->site_id = $site_id;
         $this->page_id = $page_id;
         $this->div_id = $div_id;
         $this->tool = $tool;
         $this->tab = $tab;
+        $this->multi_use = $multi_use;
         $this->content_id = $content_id;
         $this->edit_mode = $edit_mode;
         

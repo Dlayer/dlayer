@@ -22,6 +22,7 @@ abstract class Dlayer_Ribbon_Module_Content
     protected $div_id;
     protected $tool;
     protected $tab;
+    protected $multi_use;
     protected $content_id;
     protected $edit_mode;
 
@@ -34,12 +35,13 @@ abstract class Dlayer_Ribbon_Module_Content
     * @param integer $div_id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multi use value for tool tab
     * @param integer|NULL $content_id Selected content item
     * @param boolean $edit_mode Is the tool tab in edit mode
     * @return array|FALSE
     */
     abstract public function viewData($site_id, $page_id, $div_id, $tool, 
-    $tab, $content_id=NULL, $edit_mode=FALSE);
+    $tab, $multi_use, $content_id=NULL, $edit_mode=FALSE);
 
     /**
     * Take the supplied params and write them to the private properties
@@ -49,11 +51,13 @@ abstract class Dlayer_Ribbon_Module_Content
     * @param integer $div_id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multi use value for tool tab
     * @param integer|NULL $content_id Selected content item
+    * @param boolean $edit_mode Is the tool tab in edit mode
     * @return array|FALSE
     */
     protected function writeParams($site_id, $page_id, $div_id, $tool, $tab, 
-    $content_id, $edit_mode)
+    $multi_use, $content_id, $edit_mode)
     {
         $this->site_id = $site_id;
         $this->page_id = $page_id;

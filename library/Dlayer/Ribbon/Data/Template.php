@@ -18,6 +18,7 @@ class Dlayer_Ribbon_Data_Template
     private $div_id;
     private $tool;
     private $tab;
+    private $multi_use;
     
     /**
     * Fetch the data for the tool and tab using the supplied params, the 
@@ -29,17 +30,20 @@ class Dlayer_Ribbon_Data_Template
     * @param integer $div_id Id of the selected div
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multi use value for tool tab
     * @return array|FALSE Either an array of data for the tool tab view script 
     *                    or FALSE if no data is found or required, up to the 
     *                    view script how to handle the return value
     */
-    public function viewData($site_id, $template_id, $div_id, $tool, $tab) 
+    public function viewData($site_id, $template_id, $div_id, $tool, $tab,
+    $multi_use) 
     {
         $this->site_id = $site_id;
         $this->template_id = $template_id;
         $this->div_id = $div_id;
         $this->tool = $tool;
         $this->tab = $tab;
+        $this->multi_use = $multi_use;
         
         switch($this->tool) {
             case 'background-color':

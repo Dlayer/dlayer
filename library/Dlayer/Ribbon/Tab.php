@@ -75,7 +75,7 @@ class Dlayer_Ribbon_Tab
 
                 $data = $template_ribbon->viewData($session_dlayer->siteId(),
                 $session_template->templateId(), $session_template->divId(),
-                $tool, $tab);
+                $tool, $tab, $multi_use);
             break;
 
             case 'content':
@@ -84,7 +84,8 @@ class Dlayer_Ribbon_Tab
 
                 $data = $content_ribbon->viewData($session_dlayer->siteId(),
                 $session_content->pageId(), $session_content->divId(),
-                $tool, $tab, $session_content->contentId(), $edit_mode);
+                $tool, $tab, $multi_use, $session_content->contentId(), 
+                $edit_mode);
             break;
 
             case 'form':
@@ -92,7 +93,7 @@ class Dlayer_Ribbon_Tab
                 $session_form = new Dlayer_Session_Form();
 
                 $data = $form_ribbon->viewData($session_dlayer->siteId(),
-                $session_form->formId(), $tool, $tab,
+                $session_form->formId(), $tool, $tab, $multi_use, 
                 $session_form->fieldId(), $edit_mode);
             break;
             
@@ -105,7 +106,7 @@ class Dlayer_Ribbon_Tab
                 $session_image  = new Dlayer_Session_Image();
 
                 $data = $image_ribbon->viewData($session_dlayer->siteId(),
-                $tool, $tab, $session_image->id(), 
+                $tool, $tab, $multi_use, $session_image->id(), 
                 $session_image->id(Dlayer_Session_Image::CATEGORY), 
                 $session_image->id(Dlayer_Session_Image::SUBCATEGORY), 
                 $edit_mode);

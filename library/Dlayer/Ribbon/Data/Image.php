@@ -19,6 +19,7 @@ class Dlayer_Ribbon_Data_Image
     private $category_id;
     private $subcategory_id;
     private $edit_mode;
+    private $multi_use;
     
     /**
     * Fetches all the data that is needed by the views to generate the 
@@ -27,6 +28,7 @@ class Dlayer_Ribbon_Data_Image
     * @param integer $site_id Current site id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multi use value for tool tab
     * @param integer|NULL $image_id Id of the selected image
     * @param integer|NULL $category_id Id of the selected category
     * @param integer|NULL $subcategory_id Id of the selected subcategory
@@ -35,12 +37,13 @@ class Dlayer_Ribbon_Data_Image
     *                    or FALSE if no data is found or required, up to the 
     *                    view script how to handle the return value
     */
-    public function viewData($site_id, $tool, $tab, $image_id=NULL, 
+    public function viewData($site_id, $tool, $tab, $multi_use, $image_id=NULL, 
     $category_id=NULL, $subcategory_id=NULL, $edit_mode=FALSE) 
     {
         $this->site_id = $site_id;
         $this->tool = $tool;
         $this->tab = $tab;
+        $this->multi_use = $multi_use;
         $this->image_id = $image_id;
         $this->category_id = $category_id;
         $this->subcategory_id = $subcategory_id;
