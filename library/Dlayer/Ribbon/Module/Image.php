@@ -19,6 +19,7 @@ abstract class Dlayer_Ribbon_Module_Image
     protected $site_id;
     protected $tool;
     protected $tab;
+    protected $multi_use;
     protected $image_id;
     protected $category_id;
     protected $subcategory_id;
@@ -31,6 +32,7 @@ abstract class Dlayer_Ribbon_Module_Image
     * @param integer $site_id Current site id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multu use setting for tool tab
     * @param integer|NULL $image_id Id of the selected image
     * @param integer|NULL $category_id Id of the selected category
     * @param integer|NULL $subcategory_id Id of the selected subcategory
@@ -39,8 +41,8 @@ abstract class Dlayer_Ribbon_Module_Image
     *                    or FALSE if no data is found or required, up to the 
     *                    view script how to handle the return value
     */
-    abstract public function viewData($site_id, $tool, $tab, $image_id=NULL, 
-    $category_id=NULL, $subcategory_id=NULL, $edit_mode=FALSE);
+    abstract public function viewData($site_id, $tool, $tab, $multi_use, 
+    $image_id=NULL, $category_id=NULL, $subcategory_id=NULL, $edit_mode=FALSE);
 
     /**
     * Take the supplied params and write them to the class properties
@@ -48,18 +50,20 @@ abstract class Dlayer_Ribbon_Module_Image
     * @param integer $site_id Current site id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multu use setting for tool tab
     * @param integer|NULL $image_id Id of the selected image
     * @param integer|NULL $category_id Id of the selected category
     * @param integer|NULL $subcategory_id Id of the selected subcategory
     * @param boolean $edit_mode Is the tool tab in edit mode
     * @return array|FALSE
     */
-    protected function writeParams($site_id, $tool, $tab, $image_id, 
-    $category_id, $subcategory_id, $edit_mode)
+    protected function writeParams($site_id, $tool, $tab, $multi_use, 
+    $image_id, $category_id, $subcategory_id, $edit_mode)
     {
         $this->site_id = $site_id;
         $this->tool = $tool;
         $this->tab = $tab;
+        $this->multi_use = $multi_use;
         $this->image_id = $image_id;
         $this->category_id = $category_id;
         $this->subcategory_id = $subcategory_id;

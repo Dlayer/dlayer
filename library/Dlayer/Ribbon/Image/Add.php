@@ -20,6 +20,7 @@ class Dlayer_Ribbon_Image_Add extends Dlayer_Ribbon_Module_Image
     * @param integer $site_id Current site id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Multi use setting for tool tab
     * @param integer|NULL $image_id Id of the selected image
     * @param integer|NULL $category_id Id of the selected category
     * @param integer|NULL $subcategory_id Id of the selected subcategory
@@ -28,14 +29,14 @@ class Dlayer_Ribbon_Image_Add extends Dlayer_Ribbon_Module_Image
     *                    or FALSE if no data is found or required, up to the 
     *                    view script how to handle the return value
     */
-    public function viewData($site_id, $tool, $tab, $image_id=NULL, 
+    public function viewData($site_id, $tool, $tab, $multi_use, $image_id=NULL, 
     $category_id=NULL, $subcategory_id=NULL, $edit_mode=FALSE)
     {
-        $this->writeParams($site_id, $tool, $tab, $image_id, $category_id, 
-        $subcategory_id, $edit_mode);
+        $this->writeParams($site_id, $tool, $tab, $multi_use, $image_id, 
+        $category_id, $subcategory_id, $edit_mode);
 
         return array('form'=>new Dlayer_Form_Image_Add(
-        $this->existingData(), $this->edit_mode));
+        $this->existingData(), $this->edit_mode, $this->multi_use));
     }
     
     /**

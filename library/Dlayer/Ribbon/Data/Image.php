@@ -83,8 +83,8 @@ class Dlayer_Ribbon_Data_Image
             case 'category':
                 $ribbon_category = new Dlayer_Ribbon_Image_Category();
                 $data = $ribbon_category->viewData($this->site_id, $this->tool, 
-                $this->tab, $this->image_id, $this->category_id, 
-                $this->subcategory_id, $this->edit_mode);
+                $this->tab, $this->multi_use, $this->image_id, 
+                $this->category_id, $this->subcategory_id, $this->edit_mode);
             break;
             
             default:
@@ -108,8 +108,8 @@ class Dlayer_Ribbon_Data_Image
             case 'subcategory':
                 $ribbon_subcategory = new Dlayer_Ribbon_Image_Subcategory();
                 $data = $ribbon_subcategory->viewData($this->site_id, 
-                $this->tool, $this->tab, $this->image_id, $this->category_id, 
-                $this->subcategory_id, $this->edit_mode);
+                $this->tool, $this->tab, $this->multi_use, $this->image_id, 
+                $this->category_id, $this->subcategory_id, $this->edit_mode);
             break;
             
             default:
@@ -132,8 +132,8 @@ class Dlayer_Ribbon_Data_Image
             case 'add':
                 $ribbon_add = new Dlayer_Ribbon_Image_Add();
                 $data = $ribbon_add->viewData($this->site_id, $this->tool, 
-                $this->tab, $this->image_id, $this->category_id, 
-                $this->subcategory_id, $this->edit_mode);
+                $this->tab, $this->multi_use, $this->image_id, 
+                $this->category_id, $this->subcategory_id, $this->edit_mode);
             break;
             
             default:
