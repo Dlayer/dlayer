@@ -30,7 +30,8 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Module_Content
 
         return array('form'=>new Dlayer_Form_Content_Heading($this->page_id,
         $this->div_id, $this->container(), $this->existingData(), 
-        $this->edit_mode), 'preview_data'=>$this->previewData()); 
+        $this->edit_mode, $this->multi_use), 
+        'preview_data'=>$this->previewData()); 
     }
     
     /**

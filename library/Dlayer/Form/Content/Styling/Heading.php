@@ -23,18 +23,19 @@ class Dlayer_Form_Content_Styling_Heading extends Dlayer_Form_Module_Content
     * @param array $existing_data Exisitng form data array, array values will 
     * 							  be FALSE if there is no data for the field
     * @param boolean $edit_mode Is the tool in edit mode
+    * @param integer $multi_use Tool tab multi use param
     * @param array|NULL $options Zend form options data array
     * @return void
     */
     public function __construct($page_id, $div_id, array $container, 
-    array $existing_data, $edit_mode=FALSE, $options=NULL)
+    array $existing_data, $edit_mode=FALSE, $multi_use, $options=NULL)
     {
         $this->tool = 'heading';
         $this->content_type = 'heading';
         $this->sub_tool_model = 'Styling_Heading';
 
         parent::__construct($page_id, $div_id, $container, $existing_data, 
-        $edit_mode, $options=NULL);
+        $edit_mode, $multi_use, $options=NULL);
     }
 
     /**
@@ -115,7 +116,7 @@ class Dlayer_Form_Content_Styling_Heading extends Dlayer_Form_Module_Content
         $this->elements['content_id'] = $content_id;
 
         $multi_use = new Zend_Form_Element_Hidden('multi_use');
-        $multi_use->setValue(1);
+        $multi_use->setValue($this->multi_use);
         $multi_use->setBelongsTo('params');
 
         $this->elements['multi_use'] = $multi_use;

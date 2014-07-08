@@ -93,21 +93,21 @@ class Dlayer_Ribbon_Data_Content
                 $ribbon_heading = new Dlayer_Ribbon_Content_Heading();
                 $data = $ribbon_heading->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             case 'styling':            
                 $ribbon_styling = new Dlayer_Ribbon_Content_Styling_Heading();
                 $data = $ribbon_styling->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             case 'position':            
                 $ribbon_position = new Dlayer_Ribbon_Content_Position_Heading();
                 $data = $ribbon_position->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             default:
@@ -132,21 +132,21 @@ class Dlayer_Ribbon_Data_Content
                 $ribbon_text = new Dlayer_Ribbon_Content_Text();
                 $data = $ribbon_text->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             case 'styling':            
                 $ribbon_styling = new Dlayer_Ribbon_Content_Styling_Text();
                 $data = $ribbon_styling->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             case 'position':            
                 $ribbon_position = new Dlayer_Ribbon_Content_Position_Text();
                 $data = $ribbon_position->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             default:
@@ -170,7 +170,7 @@ class Dlayer_Ribbon_Data_Content
                 $ribbon_import_text = new Dlayer_Ribbon_Content_ImportText();
                 $data = $ribbon_import_text->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             default:
@@ -195,7 +195,7 @@ class Dlayer_Ribbon_Data_Content
                 new Dlayer_Ribbon_Content_ImportHeading();
                 $data = $ribbon_import_heading->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             default:
@@ -220,7 +220,7 @@ class Dlayer_Ribbon_Data_Content
                 $ribbon_form = new Dlayer_Ribbon_Content_ImportForm();
                 $data = $ribbon_form->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             case 'styling':            
@@ -228,7 +228,7 @@ class Dlayer_Ribbon_Data_Content
                 new Dlayer_Ribbon_Content_Styling_ImportForm();
                 $data = $ribbon_styling->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             case 'position':            
@@ -236,7 +236,7 @@ class Dlayer_Ribbon_Data_Content
                 new Dlayer_Ribbon_Content_Position_ImportForm();
                 $data = $ribbon_position->viewData($this->site_id, 
                 $this->page_id, $this->div_id, $this->tool, $this->tab, 
-                $this->content_id, $this->edit_mode);
+                $this->multi_use, $this->content_id, $this->edit_mode);
             break;
             
             case 'edit':

@@ -24,6 +24,7 @@ class Dlayer_Ribbon_Form_Name extends Dlayer_Ribbon_Module_Form
     * @param string $tab Name of the selected tool tab
     * @param integer|NULL $field_id Id of the form field if in edit mode
     * @param boolean $edit_mode Is the tool tab in edit mode
+    * @param integer $multi_use Tool tab multi use param
     * @param return array
     */
     public function viewData($site_id, $form_id, $tool, $tab,

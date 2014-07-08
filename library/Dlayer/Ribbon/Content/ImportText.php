@@ -29,7 +29,7 @@ class Dlayer_Ribbon_Content_ImportText extends Dlayer_Ribbon_Module_Content
 
         return array('form'=>new Dlayer_Form_Content_ImportText(
         $this->page_id, $this->div_id, $this->container(), 
-        $this->existingData(), $this->edit_mode));
+        $this->existingData(), $this->edit_mode, $this->multi_use));
     }
 
     /**

@@ -13,6 +13,7 @@ abstract class Dlayer_Form_Module_Content extends Dlayer_Form
     protected $container = array();
     protected $existing_data = array();
     protected $edit_mode;
+    protected $multi_use;
     
     protected $elements_data;
 
@@ -30,17 +31,19 @@ abstract class Dlayer_Form_Module_Content extends Dlayer_Form
     * @param array $existing_data Exisitng form data array, array values will 
     * 							  be FALSE if there is no data for the field
     * @param boolean $edit_mode Is the tool in edit mode
+    * @param integer $multi_use Tool tab multi use param
     * @param array|NULL $options Zend form options data array
     * @return void
     */
     public function __construct($page_id, $div_id, array $container, 
-    array $existing_data, $edit_mode=FALSE, $options=NULL)
+    array $existing_data, $edit_mode=FALSE, $multi_use, $options=NULL)
     {
         $this->page_id = $page_id;
         $this->div_id = $div_id;
         $this->container = $container;
         $this->existing_data = $existing_data;
         $this->edit_mode = $edit_mode;
+        $this->multi_use = $multi_use;
 
         parent::__construct($options=NULL);
     }
