@@ -11,6 +11,7 @@ abstract class Dlayer_Form_Module_Form extends Dlayer_Form
 	protected $form_id;
     protected $field_data = array();
     protected $edit_mode;
+    protected $multi_use;
     
     protected $elements_data;
 
@@ -26,15 +27,17 @@ abstract class Dlayer_Form_Module_Form extends Dlayer_Form
     * 						   attrubutes and their current value or an array 
     * 						   with FALSE as the value for each attribute
     * @param boolean $edit_mode Is the tool in edit mode
+    * @param integer $multi_use Tool tab multi use param
     * @param array|NULL $options Zend form options data array
     * @return void
     */
     public function __construct($form_id, array $field_data, $edit_mode=FALSE, 
-    $options=NULL)
+    $mutli_use, $options=NULL)
     {
         $this->form_id = $form_id;
         $this->field_data = $field_data;
         $this->edit_mode = $edit_mode;
+        $this->multi_use = $mutli_use;
 
         parent::__construct($options=NULL);
     }

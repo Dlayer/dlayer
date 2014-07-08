@@ -21,6 +21,7 @@ abstract class Dlayer_Ribbon_Module_Form
     protected $form_id;
     protected $tool;
     protected $tab;
+    protected $multi_use;
     protected $field_id;
     protected $edit_mode;
 
@@ -32,12 +33,13 @@ abstract class Dlayer_Ribbon_Module_Form
     * @param integer $form_id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Tool tab multi use param
     * @param integer|NULL $field_id Selected form field
     * @param boolean $edit_mode Is the tool tab in edit mode
     * @return array|FALSE
     */
     abstract public function viewData($site_id, $form_id, $tool, $tab,
-    $field_id=NULL, $edit_mode=FALSE);
+    $multi_use, $field_id=NULL, $edit_mode=FALSE);
 
     /**
     * Take the supplied params and write them to the private properties
@@ -46,17 +48,19 @@ abstract class Dlayer_Ribbon_Module_Form
     * @param integer $form_id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Tool tab multi use param
     * @param integer|NULL $field_id Selected form field
     * @param boolean $edit_mode Is the tool tab in edit mode
     * @return array|FALSE
     */
-    protected function writeParams($site_id, $form_id, $tool, $tab, $field_id, 
-    $edit_mode)
+    protected function writeParams($site_id, $form_id, $tool, $tab, 
+    $multi_use, $field_id, $edit_mode)
     {
         $this->site_id = $site_id;
         $this->form_id = $form_id;
         $this->tool = $tool;
         $this->tab = $tab;
+        $this->multi_use = $multi_use;
         $this->field_id = $field_id;
         $this->edit_mode = $edit_mode;
     }

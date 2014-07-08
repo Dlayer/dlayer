@@ -92,15 +92,15 @@ class Dlayer_Ribbon_Data_Form
             case 'text':
                 $ribbon_text = new Dlayer_Ribbon_Form_Text();
                 $data = $ribbon_text->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use, 
+                $this->field_id, $this->edit_mode);
             break;
             
             case 'styling':
                 $ribbon_styling = new Dlayer_Ribbon_Form_Styling_Text();
                 $data = $ribbon_styling->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use, 
+                $this->field_id, $this->edit_mode);
             break;
 
             default:
@@ -122,8 +122,8 @@ class Dlayer_Ribbon_Data_Form
             case 'form-settings':
                 $ribbon_settings = new Dlayer_Ribbon_Form_FormSettings();
                 $data = $ribbon_settings->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use,
+                $this->field_id, $this->edit_mode);
             break;
             
             default:
@@ -145,15 +145,15 @@ class Dlayer_Ribbon_Data_Form
             case 'name':
                 $ribbon_name = new Dlayer_Ribbon_Form_Name();
                 $data = $ribbon_name->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use, 
+                $this->field_id, $this->edit_mode);
             break;
             
             case 'styling':
                 $ribbon_styling = new Dlayer_Ribbon_Form_Styling_Name();
                 $data = $ribbon_styling->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use, 
+                $this->field_id, $this->edit_mode);
             break;
 
             default:
@@ -175,15 +175,15 @@ class Dlayer_Ribbon_Data_Form
             case 'email':
                 $ribbon_email = new Dlayer_Ribbon_Form_Email();
                 $data = $ribbon_email->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use, 
+                $this->field_id, $this->edit_mode);
             break;
             
             case 'styling':
                 $ribbon_styling = new Dlayer_Ribbon_Form_Styling_Email();
                 $data = $ribbon_styling->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use,
+                $this->field_id, $this->edit_mode);
             break;
 
             default:
@@ -205,15 +205,15 @@ class Dlayer_Ribbon_Data_Form
             case 'password':
                 $ribbon_password = new Dlayer_Ribbon_Form_Password();
                 $data = $ribbon_password->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use, 
+                $this->field_id, $this->edit_mode);
             break;
             
             case 'styling':
                 $ribbon_styling = new Dlayer_Ribbon_Form_Styling_Password();
                 $data = $ribbon_styling->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use, 
+                $this->field_id, $this->edit_mode);
             break;
 
             default:
@@ -235,15 +235,15 @@ class Dlayer_Ribbon_Data_Form
             case 'textarea':
                 $ribbon_textarea = new Dlayer_Ribbon_Form_Textarea();
                 $data = $ribbon_textarea->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use, 
+                $this->field_id, $this->edit_mode);
             break;
             
             case 'styling':
                 $ribbon_styling = new Dlayer_Ribbon_Form_Styling_Textarea();
                 $data = $ribbon_styling->viewData($this->site_id,
-                $this->form_id, $this->tool, $this->tab, $this->field_id, 
-                $this->edit_mode);
+                $this->form_id, $this->tool, $this->tab, $this->multi_use, 
+                $this->field_id, $this->edit_mode);
             break;
 
             default:

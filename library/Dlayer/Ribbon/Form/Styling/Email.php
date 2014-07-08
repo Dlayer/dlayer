@@ -18,16 +18,16 @@ class Dlayer_Ribbon_Form_Styling_Email extends Dlayer_Ribbon_Module_Form
     * @param integer $form_id
     * @param string $tool Name of the selected tool
     * @param string $tab Name of the selected tool tab
+    * @param integer $multi_use Tool tab multi use param
     * @param integer|NULL $field_id Id of the form field if in edit mode
     * @param boolean $edit_mode Is the tool tab in edit mode
-    * @param integer $multi_use Tool tab multi use param
     * @param return array
     */
     public function viewData($site_id, $form_id, $tool, $tab,
-    $field_id=NULL, $edit_mode=FALSE)
+    $multi_use, $field_id=NULL, $edit_mode=FALSE)
     {
-        $this->writeParams($site_id, $form_id, $tool, $tab, $field_id, 
-        $edit_mode);
+        $this->writeParams($site_id, $form_id, $tool, $tab, $multi_use, 
+        $field_id, $edit_mode);
         
         $existing_data = $this->existingData();
         $preview_data = NULL;
@@ -42,7 +42,7 @@ class Dlayer_Ribbon_Form_Styling_Email extends Dlayer_Ribbon_Module_Form
 		}
 
         return array('form'=>new Dlayer_Form_Form_Styling_Email(
-        $this->form_id, $existing_data, $this->edit_mode), 
+        $this->form_id, $existing_data, $this->edit_mode, $this->multi_use), 
         'preview_data'=>$preview_data);
     }
     

@@ -19,15 +19,17 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
     * 						   attrubutes and their current value or an array 
     * 						   with FALSE as the value for each attribute
     * @param boolean $edit_mode Is the tool currently in edit mode
+    * @param integer $multi_use Multi use param for tool tab
     * @param array|NULL $options Zend form options data array
     * @return void
     */
     public function __construct($form_id, array $field_data, $edit_mode=FALSE,
-    $options=NULL)
+    $multi_use, $options=NULL)
     {
         $this->tool = 'form-settings';
 
-        parent::__construct($form_id, $field_data, $edit_mode, $options);
+        parent::__construct($form_id, $field_data, $edit_mode, $multi_use, 
+        $options);
     }
     
     /**
@@ -88,7 +90,7 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
         $this->elements['tool'] = $tool;
         
         $multi_use = new Zend_Form_Element_Hidden('multi_use');
-        $multi_use->setValue(1);
+        $multi_use->setValue($this->multi_use);
         $multi_use->setBelongsTo('params');
 
         $this->elements['multi_use'] = $multi_use;
