@@ -18,13 +18,14 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
     *                             always preset, will have FALSE values if there 
     *                             is no existing data value
     * @param boolean $edit_mode Is the tool in edit mode
+    * @param integer $multi_use Tool tab multi use param
     * @param array|NULL $options Zend form options data array
     * @return void
     */
     public function __construct(array $existing_data, $edit_mode, 
-    $options=NULL)
+    $multi_use, $options=NULL)
     {
-        parent::__construct($existing_data, $edit_mode, $options);
+        parent::__construct($existing_data, $edit_mode, $multi_use, $options);
     }
     
     /**
@@ -87,7 +88,7 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
         }
         
         $multi_use = new Zend_Form_Element_Hidden('multi_use');
-        $multi_use->setValue(0);
+        $multi_use->setValue($this->multi_use);
         $multi_use->setBelongsTo('params');
 
         $this->elements['multi_use'] = $multi_use;
