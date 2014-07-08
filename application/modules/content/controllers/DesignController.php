@@ -288,6 +288,7 @@ class Content_DesignController extends Zend_Controller_Action
 
             $view_script = $ribbon_tab->viewScript(
             $this->getRequest()->getModuleName(), $tool, $tab);
+            $multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
 
             if($view_script != FALSE) {
 
@@ -301,9 +302,7 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->color_picker_data = $this->colorPickerData();
                 $this->view->div_id = $this->session_content->divId();
                 $this->view->data = $ribbon_tab->viewData($module, $tool,
-                $tab, $edit_mode);
-                $this->view->multi_use = $ribbon_tab->multiUse($module, $tool,
-                $tab);
+                $tab, $multi_use, $edit_mode);
                 $this->view->edit_mode = $edit_mode;
 
                 $html = $this->view->render(

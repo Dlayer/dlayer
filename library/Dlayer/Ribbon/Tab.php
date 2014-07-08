@@ -45,7 +45,7 @@ class Dlayer_Ribbon_Tab
     * @param string $module
     * @param string $tool
     * @param string $tab
-    * @return boolean
+    * @return integer 1 for multi use, 0 otherwise
     */
     public function multiUse($module, $tool, $tab)
     {
@@ -59,10 +59,12 @@ class Dlayer_Ribbon_Tab
     * @param string $module
     * @param string $tool
     * @param string $tab
+    * @param integer $multi_use Multi use setting, either 1 or 0
     * @param boolean $edit_mode If the current tool in edit mode
     * @return array
     */
-    public function viewData($module, $tool, $tab, $edit_mode=FALSE)
+    public function viewData($module, $tool, $tab, $multi_use, 
+    $edit_mode=FALSE)
     {
         $session_dlayer = new Dlayer_Session();
 

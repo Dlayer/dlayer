@@ -364,6 +364,7 @@ class Template_DesignController extends Zend_Controller_Action
 
             $view_script = $ribbon_tab->viewScript(
             $this->getRequest()->getModuleName(), $tool, $tab);
+            $multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
 
             if($view_script != FALSE) {
 
@@ -372,9 +373,8 @@ class Template_DesignController extends Zend_Controller_Action
                 $this->view->color_picker_data = $this->colorPickerData();
                 $this->view->div_id = $this->session_template->divId();
                 $this->view->data = $ribbon_tab->viewData($module, $tool,
-                $tab);
-                $this->view->multi_use = $ribbon_tab->multiUse($module, $tool,
-                $tab);
+                $tab, $multi_use);
+                $this->view->multi_use = $multi_use;
 
                 $html = $this->view->render(
                 $ribbon->viewScriptPath($view_script));
