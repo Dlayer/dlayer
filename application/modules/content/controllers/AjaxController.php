@@ -90,4 +90,29 @@ class Content_AjaxController extends Zend_Controller_Action
 		
 		echo Zend_Json::encode($json);
     }
+    
+    /**
+    * Returns the minimum width for the selected form, required so that we 
+    * can disable the save button if the form won't fit and put up a message.
+    * 
+    * @return void
+    */
+    public function formMinimumWidthAction() 
+    {
+        $this->getResponse()->setHeader('Content-Type', 'application/json');
+        
+        $model_form_data = new Dlayer_Model_Page_Content_Items_Form();
+        $minimum_width = $model_form_data->minimumWidth(
+        $this->session_dlayer->siteId(), 
+        $this->getRequest()->getParam('data-id'), FALSE);
+        
+        $json = array('data'=>FALSE);
+        
+        if($minimum_width != FALSE) {
+            $json['data'] = TRUE;
+            $json['width'] = intval($minimum_width);
+        }
+        
+        echo Zend_Json::encode($json);
+    }
 }
