@@ -16,6 +16,8 @@
 	
 	<p>There will probably always be a few bugs, I will fix bugs either based 
 	on their severity or based on the development plan.</p>
+    
+    <hr />
 	
 	<h3>Content width modifier: Affects Template designer and Content 
 	manager.</h3>
@@ -31,7 +33,10 @@
 	in a future update, I'll update the relevant tools to call the modifier 
 	when a sibling block could be affected.</p>
 	
-	<h3>Import form: Affects Content manager</h3>
+	<h3 style="text-decoration: line-through;">
+    Import form: Affects Content manager</h3>
+    
+    <p class="in_progress">(Fixed in release v0.41)</p>
 	
 	<p>The approximate or absolute width of a form isn't currently being 
 	calculated by Dlayer, as such it is possible to import a form into a 
@@ -42,10 +47,12 @@
 	the form.</p>
     
     <p class="in_progress">The import form tool has been updated to stop a 
-    form being imported into a content block that is too small. The bug is 
-    not however yet "fixed" because I need to stop the user being able to 
-    submit the tool in the first place when it will fail validation 
-    because of the minimum width.</p>
+    user importing a form into a page container which is too small for it.</p>
+    
+    <p class="in_progress">The submit button on the import form is disabled 
+    when the selected form won't fit, a message is also shown to the user. 
+    When submitted the tool checks the page container against the current 
+    minimum width of the form and also the requested padding.</p>
     
     <h3 style="text-decoration: line-through;">
     Live preview: Affects Form builder and Content manager</h3>
@@ -65,6 +72,19 @@
     <p>I will probably opt for the reset because there is lots of 
     complexity behind each of the tool tabs, later when live editing is 
     developed the tool tabs will work in unison.</p>
+    
+    <p class="in_progress">Unsaved changes are reset when the user switches 
+    tool tabs.</p>
+    
+    <h3>Content width modifier: Affects Template designer and Content 
+    manager.</h3>
+    
+    <p>The content width modifier needs to be updated to honour the 
+    validation rules used by the import form tool, currently although you 
+    can't import a form into a container that is too small for it you can 
+    resize the container below the forms set minimum width.</p>
+        
+    <hr />
 		
 	<p>If you find any bugs not listed please let me know via my 
     <a href="http://www.g3d-development.com/blog/">blog.</a></p>
