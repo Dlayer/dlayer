@@ -106,9 +106,17 @@
     border: 1px solid #b0120a;
     font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
 }
+#ribbon dl.zend_form fieldset > dl > div.save .submit[disabled="disabled"] {
+    text-decoration: line-through;
+    border: 1px solid #eeeeee;
+}
 #ribbon dl.zend_form fieldset > dl > div.save .submit:hover {
     background-color: #eeeeee;
     border: 1px solid #b0120a;
     color: #666666;
     cursor: pointer;
+}
+#ribbon dl.zend_form fieldset > dl > div.save .submit:hover[disabled="disabled"] {
+    background-color: #f5f5f5;
+    border: 1px solid #eeeeee;
 }

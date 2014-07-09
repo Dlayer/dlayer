@@ -104,7 +104,7 @@ class Content_AjaxController extends Zend_Controller_Action
         $model_form_data = new Dlayer_Model_Page_Content_Items_Form();
         $minimum_width = $model_form_data->minimumWidth(
         $this->session_dlayer->siteId(), 
-        $this->getRequest()->getParam('data-id'), FALSE);
+        $this->getRequest()->getParam('data_id'), FALSE);
         
         $json = array('data'=>FALSE);
         

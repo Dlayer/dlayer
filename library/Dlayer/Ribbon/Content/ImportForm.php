@@ -28,11 +28,16 @@ class Dlayer_Ribbon_Content_ImportForm extends Dlayer_Ribbon_Module_Content
     {
         $this->writeParams($site_id, $page_id, $div_id, $tool, $tab,
         $multi_use, $content_id, $edit_mode);
+        
+         $model_template_div = new Dlayer_Model_Template_Div();
+         $page_container_width = $model_template_div->width($this->site_id, 
+         $this->div_id);
 
         return array('form'=>new Dlayer_Form_Content_ImportForm(
         $this->page_id, $this->div_id, $this->container(), 
         $this->existingData(), $this->edit_mode, $this->multi_use), 
-        'preview_data'=>$this->previewData());
+        'preview_data'=>$this->previewData(), 
+        'page_container_width'=>$page_container_width);
     }
 
     /**
@@ -49,11 +54,7 @@ class Dlayer_Ribbon_Content_ImportForm extends Dlayer_Ribbon_Module_Content
         $width = $model_div->width($this->site_id, $this->div_id);
 
         if($this->content_id == NULL) {
-            if($width > 20) {
-                return array('width'=>($width-20), 'padding'=>10);
-            } else {
-                return array('width'=>$width, 'padding'=>0);
-            }
+            return array('width'=>$width, 'padding'=>0);
         } else {
             $model_form = new Dlayer_Model_Page_Content_Items_Form();
             $dimensions = $model_form->boxDimensions($this->content_id,

@@ -349,7 +349,42 @@ var dlayer = {
 							$('form #params-heading').val('Select an option above.');
 						}
 					});
-				}
+				},
+                
+                /**
+                * AJAX for the import form tool, fetches the minimum width for 
+                * the selected form and then depending on the result and 
+                * the width of the content container updates the tool form
+                * 
+                * @param {Integer} Page container width
+                * @returns {Void}
+                */
+                import_form: function(page_container_width) 
+                {
+                    console.log(page_container_width);
+                    
+                    $('form #params-form_id').change(function()
+                    {
+                        var data_id = $('form #params-form_id').val();
+
+                        if(data_id != 0) {
+                            $.getJSON('/content/ajax/form-minimum-width',
+                            { data_id: data_id },
+                            function(data) {
+                                
+                                console.log(data.data);
+                                
+                                if(data.data == true) {
+                                    $('form #submit').removeAttr('disabled');
+                                } else {
+                                    $('form #submit').attr('disabled', 'disabled');
+                                }
+                            });
+                        } else {
+                            $('form #submit').attr('disabled', 'disabled');
+                        }
+                    });
+                }
 			}
 		}
 	},

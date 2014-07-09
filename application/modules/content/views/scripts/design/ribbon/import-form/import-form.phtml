@@ -1,7 +1,11 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<?php if($this->edit_mode == TRUE) { ?>
 <script type="text/javascript">
+
+dlayer.tools.content.fn.import_form(<?php echo $this->escape(
+$this->data['page_container_width']); ?>);
+
+<?php if($this->edit_mode == TRUE) { ?>
 dlayer.preview.content.fn.container_width(<?php echo $this->escape(
 $this->data['preview_data']['content_id']); ?>, <?php echo $this->escape(
 $this->data['preview_data']['page_container_width']); ?>, <?php echo $this->escape(
@@ -19,8 +23,10 @@ $this->data['preview_data']['width']); ?>,
 margins: { right: <?php echo $this->escape(
 $this->data['preview_data']['margin']['right']); ?>, left: <?php echo $this->escape(
 $this->data['preview_data']['margin']['left']); ?> }});
+<?php } ?>
 </script>
 
+<?php if($this->edit_mode == TRUE) { ?>
 <p class="unsaved">Data has been modified!</p>
 <?php } ?>
 

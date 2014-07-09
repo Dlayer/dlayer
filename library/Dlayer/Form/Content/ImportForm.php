@@ -204,6 +204,7 @@ class Dlayer_Form_Content_ImportForm extends Dlayer_Form_Module_Content
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('class', 'submit');
+        $submit->setAttrib('disabled', 'disabled');
         $submit->setLabel('Save');
 
         $this->elements['submit'] = $submit;
