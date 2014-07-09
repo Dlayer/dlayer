@@ -64,6 +64,7 @@ abstract class Dlayer_Ribbon_Module_Content
         $this->div_id = $div_id;
         $this->tool = $tool;
         $this->tab = $tab;
+        $this->multi_use = $multi_use;
         $this->content_id = $content_id;
         $this->edit_mode = $edit_mode;
     }

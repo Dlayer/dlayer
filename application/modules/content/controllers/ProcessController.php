@@ -117,16 +117,7 @@ class Content_ProcessController extends Zend_Controller_Action
         $this->session_dlayer->siteId(), $page_id, $div_id) == TRUE) {
             $content_id = $this->tool_class->process(
             $this->session_dlayer->siteId(), $page_id, $div_id, $content_id);
-            
-            $this->session_content->clearAll();
-            $this->session_content->setDivId($div_id);
-            
-            /**
-            * @todo If the tool is a multi use tool the user should be 
-            * returned to designer with content item still selected???
-            */
-
-            $this->returnToDesigner(TRUE, FALSE);
+            $this->returnToDesigner(TRUE);
         } else {
             $this->returnToDesigner(FALSE);
         }
@@ -140,11 +131,9 @@ class Content_ProcessController extends Zend_Controller_Action
     * @todo Put in error redirect, need to log messages
     *
     * @param boolean $success Whether the request is considered successful
-    * @param boolean $clear For the non multi use tools should all session values 
-    *                       be cleared
     * @return void
     */
-    public function returnToDesigner($success=TRUE, $clear=TRUE)
+    public function returnToDesigner($success=TRUE)
     {
         $multi_use = FALSE;
 
@@ -156,11 +145,7 @@ class Content_ProcessController extends Zend_Controller_Action
 
         if($this->debug == 0) {
             if($multi_use == FALSE) {
-                if($clear == TRUE) {
-                    $this->_redirect('content/design/set-tool/tool/cancel');
-                } else {
-                    $this->_redirect('content/design/');
-                }
+                $this->_redirect('content/design/set-tool/tool/cancel');
             } else {
                 $this->_redirect('content/design/');
             }
