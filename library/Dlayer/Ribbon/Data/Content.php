@@ -9,7 +9,6 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Content.php 1949 2014-06-16 00:34:49Z Dean.Blackborough $
 */
 class Dlayer_Ribbon_Data_Content 
 {

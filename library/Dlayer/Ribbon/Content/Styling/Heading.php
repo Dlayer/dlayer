@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Heading.php 1961 2014-06-17 00:01:52Z Dean.Blackborough $
 */
 class Dlayer_Ribbon_Content_Styling_Heading extends Dlayer_Ribbon_Module_Content
 {

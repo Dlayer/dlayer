@@ -9,7 +9,6 @@
 *
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: Heading.php 1928 2014-06-12 13:53:38Z Dean.Blackborough $
 */
 class Dlayer_Form_Content_Styling_Heading extends Dlayer_Form_Module_Content
 {
