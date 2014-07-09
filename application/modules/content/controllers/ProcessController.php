@@ -128,7 +128,8 @@ class Content_ProcessController extends Zend_Controller_Action
     * request was successful. The redirect method is mainly for the auto tools,
     * the manual tools just need to clear the session values
     *
-    * @todo Put in error redirect, need to log messages
+    * @todo Maybe update this for when we don't want to keep everything 
+    * selected, maybe just the selected div
     *
     * @param boolean $success Whether the request is considered successful
     * @return void
