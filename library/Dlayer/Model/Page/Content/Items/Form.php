@@ -131,9 +131,10 @@ class Dlayer_Model_Page_Content_Items_Form extends Dlayer_Model_Page_Content_Ite
     * 
     * @param integer $site_id
     * @param integer $form_id
-    * @return integer Minimum width for form
+    * @param boolean $default Return the deafult value if no width value found
+    * @return integer|FALSE Minimum width for form
     */
-    public function minimumWidth($site_id, $form_id) 
+    public function minimumWidth($site_id, $form_id, $default=TRUE) 
     {
         $sql = "SELECT width 
                 FROM user_site_form_settings 
@@ -149,7 +150,11 @@ class Dlayer_Model_Page_Content_Items_Form extends Dlayer_Model_Page_Content_Ite
         if($result != FALSE) {
             return intval($result['width']);
         } else {
-            return Dlayer_Config::FORM_MINIMUM_WIDTH;
+            if($default == TRUE) {
+                return Dlayer_Config::FORM_MINIMUM_WIDTH;
+            } else {
+                return FALSE;
+            }
         }
     }
     
