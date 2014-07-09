@@ -30,6 +30,9 @@ $this->data['preview_data']['margin']['left']); ?> }});
 <p class="unsaved">Data has been modified!</p>
 <?php } ?>
 
+<p class="validation">Selected form will not fit into page container, the 
+minimum width of the selected form is greater than the page container.</p>
+
 <?php 
 if($this->data != FALSE) {
     echo $this->data['form'];

@@ -301,7 +301,6 @@ var dlayer = {
 							function(data) {
 
 								if(data.data == true) {
-									console.log(data);
 									$('form #params-content').val(
                                     data.content);
 									$('form #params-name').val(data.name);
@@ -336,7 +335,6 @@ var dlayer = {
 							function(data) {
 
 								if(data.data == true) {
-									console.log(data);
 									$('form #params-heading').val(data.content);
 									$('form #params-name').val(data.name);
 								} else {
@@ -361,27 +359,34 @@ var dlayer = {
                 */
                 import_form: function(page_container_width) 
                 {
-                    console.log(page_container_width);
-                    
                     $('form #params-form_id').change(function()
                     {
                         var data_id = $('form #params-form_id').val();
+                        $('form p.validation').hide();
 
                         if(data_id != 0) {
                             $.getJSON('/content/ajax/form-minimum-width',
                             { data_id: data_id },
                             function(data) {
-                                
-                                console.log(data.data);
+                                var enable = false;
                                 
                                 if(data.data == true) {
+                                    if(data.width <= page_container_width) {
+                                        enable = true;
+                                    }
+                                }
+                                
+                                if(enable == true) {
                                     $('form #submit').removeAttr('disabled');
                                 } else {
-                                    $('form #submit').attr('disabled', 'disabled');
-                                }
+                                    $('form #submit').attr('disabled', 
+                                    'disabled');
+                                    $('p.validation').show();
+                                }                                
                             });
                         } else {
                             $('form #submit').attr('disabled', 'disabled');
+                            $('p.validation').hide();
                         }
                     });
                 }

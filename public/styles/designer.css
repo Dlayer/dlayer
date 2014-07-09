@@ -75,3 +75,15 @@ ul.top_nav {
 	display: none;
     font-size: 0.8em;
 }
+
+/* Validation  errors */
+#designer > #ribbon > .content > p.validation {
+    width: 318px;
+    background-color: #d01716;
+    color: #FFFFFF;
+    padding: 5px;
+    margin: 0px 0px 5px 0px;
+    border: 1px solid #eeeeee;
+    display: none;
+    font-size: 0.8em;
+}
