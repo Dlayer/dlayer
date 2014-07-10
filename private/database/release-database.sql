@@ -376,7 +376,7 @@ CREATE TABLE `dlayer_identities` (
 
 LOCK TABLES `dlayer_identities` WRITE;
 
-insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-07-11 00:08:26','2014-07-11 00:10:30',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-06-03 13:04:40','2014-06-03 13:23:23',1);
+insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-07-11 00:08:26','2014-07-11 00:10:30',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-07-11 00:30:47','2014-07-11 00:30:52',1);
 
 UNLOCK TABLES;
 
@@ -488,7 +488,7 @@ CREATE TABLE `dlayer_sessions` (
 
 LOCK TABLES `dlayer_sessions` WRITE;
 
-insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('aanni0lcg3nn0orqrpqb7t5352','','PHPSESSID',1404778832,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1404782432;}}'),('dqm1aqqiokc4grk7gi1m1p9dv4','','PHPSESSID',1405034971,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405038571;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1405038570;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1405038570;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1405038570;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1405038570;}}dlayer_session_image|a:4:{s:4:\"tool\";N;s:10:\"tool_model\";s:3:\"Add\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}'),('g8eikvjulpnckd7rtq5b8kssk0','','PHPSESSID',1404923811,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1404927411;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1404926775;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1404926775;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1404926775;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1404926775;}}dlayer_session_content|a:7:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:7:\"Heading\";}dlayer_session_template|a:6:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:15:\"BackgroundColor\";s:16:\"tool_destructive\";s:1:\"0\";}dlayer_session_form|a:6:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;s:10:\"tool_model\";s:12:\"FormSettings\";}dlayer_session_image|a:2:{s:4:\"tool\";N;s:3:\"tab\";N;}'),('ilg6v8mptg05hca26d0mebcpa0','','PHPSESSID',1404986442,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1404990042;}}');
+insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('aanni0lcg3nn0orqrpqb7t5352','','PHPSESSID',1404778832,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1404782432;}}'),('dqm1aqqiokc4grk7gi1m1p9dv4','','PHPSESSID',1405035767,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405039367;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1405039366;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1405039366;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1405039366;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1405039366;}}dlayer_session_image|a:4:{s:4:\"tool\";N;s:10:\"tool_model\";s:3:\"Add\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}'),('g8eikvjulpnckd7rtq5b8kssk0','','PHPSESSID',1404923811,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1404927411;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1404926775;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1404926775;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1404926775;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1404926775;}}dlayer_session_content|a:7:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:7:\"Heading\";}dlayer_session_template|a:6:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:15:\"BackgroundColor\";s:16:\"tool_destructive\";s:1:\"0\";}dlayer_session_form|a:6:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;s:10:\"tool_model\";s:12:\"FormSettings\";}dlayer_session_image|a:2:{s:4:\"tool\";N;s:3:\"tab\";N;}'),('ilg6v8mptg05hca26d0mebcpa0','','PHPSESSID',1404986442,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1404990042;}}');
 
 UNLOCK TABLES;
 
@@ -972,11 +972,13 @@ CREATE TABLE `user_site_image_library_links` (
   CONSTRAINT `user_site_image_library_links_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_site_image_library_links_ibfk_2` FOREIGN KEY (`library_id`) REFERENCES `user_site_image_library` (`id`),
   CONSTRAINT `user_site_image_library_links_ibfk_3` FOREIGN KEY (`version_id`) REFERENCES `user_site_image_library_versions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_links` */
 
 LOCK TABLES `user_site_image_library_links` WRITE;
+
+insert  into `user_site_image_library_links`(`id`,`site_id`,`library_id`,`version_id`) values (1,1,1,1),(2,1,2,2),(3,1,3,3),(4,1,4,4),(5,1,5,5),(6,1,6,6),(7,1,7,7);
 
 UNLOCK TABLES;
 
@@ -1012,17 +1014,20 @@ CREATE TABLE `user_site_image_library_versions` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `site_id` int(11) unsigned NOT NULL,
   `uploaded` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `extension` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '.jpg',
   `width` smallint(6) NOT NULL DEFAULT '0',
   `height` smallint(6) NOT NULL DEFAULT '0',
   `size` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   CONSTRAINT `user_site_image_library_versions_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_versions` */
 
 LOCK TABLES `user_site_image_library_versions` WRITE;
+
+insert  into `user_site_image_library_versions`(`id`,`site_id`,`uploaded`,`extension`,`width`,`height`,`size`) values (1,1,'2014-07-11 00:34:07','.jpg',960,720,'12000'),(2,1,'2014-07-11 00:34:28','.jpg',960,720,'12000'),(3,1,'2014-07-11 00:35:38','.jpg',960,720,'12000'),(4,1,'2014-07-11 00:35:44','.jpg',960,720,'12000'),(5,1,'2014-07-11 00:36:01','.jpg',960,720,'12000'),(6,1,'2014-07-11 00:36:15','.jpg',960,720,'12000'),(7,1,'2014-07-11 00:36:26','.jpg',950,720,'12000');
 
 UNLOCK TABLES;
 
