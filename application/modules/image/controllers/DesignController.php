@@ -240,6 +240,12 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerLibrary()
     {
+        $designer_image_library = new Dlayer_Designer_ImageLibrary(
+        $this->session_dlayer->siteId(), 
+        $this->session_image->id(Dlayer_Session_Image::IMAGE), 
+        $this->session_image->id(Dlayer_Session_Image::CATEGORY), 
+        $this->session_image->id(Dlayer_Session_Image::SUBCATEGORY));
+        
         return $this->view->render("design/library.phtml");
     }
 

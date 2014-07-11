@@ -12,6 +12,13 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     CONST IMAGE = 'image';
     CONST CATEGORY = 'category';
     CONST SUBCATEGORY = 'subcategory';
+        
+    CONST SORT_NAME = 'name';
+    CONST SORT_UPLOADED = 'uploaded';
+    CONST SORT_SIZE = 'size';
+    
+    private $sort_options = array(SELF::SORT_NAME, 
+    SELF::SORT_UPLOADED, SELF::SORT_SIZE);
     
     public $id = array();
     
@@ -59,7 +66,45 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
             return NULL;
         }
     }
-
+    
+    /**
+    * Set the sort method for the image library, the defined constants can 
+    * be used for sorting, initially name, uploaded and size
+    * 
+    * If incorrect values are used the sort properties default to name and 
+    * ascending
+    *
+    * @param string $sort Use the constants to set sort type
+    * @param string $order Sort order, either asc or desc
+    * @return void
+    */
+    public function setSort($sort=Dlayer_Session_Image::SORT_NAME, 
+    $order='asc')
+    {
+        if(in_array($sort, $this->sort_options) == TRUE && 
+        in_array($order, array('asc', 'desc')) == TRUE) {
+            $this->sort = $sort;
+            $this->sort_order = $order;
+        } else {
+            $this->sort = SELF::SORT_NAME;
+            $this->sort_order = 'asc';
+        }
+    }
+    
+    /**
+    * Fetch the sort order and sort direction, if the values haven't been 
+    * previousl;y set the default is returned, name and ascending
+    * 
+    * @return array Two indexes, sort and order
+    */
+    public function sortOrder() 
+    {
+        if($this->sort != NULL & $this->sort_order != NULL) {
+            return array('sort'=>$this->sort, 'order'=>$this->sort_order);
+        } else {
+            return array('sort'=>SELF::SORT_NAME, 'order'=>'asc');
+        }
+    }
 
     /**
     * Set the selected tool, before setting we check to see if the requested
