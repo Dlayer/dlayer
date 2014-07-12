@@ -253,7 +253,7 @@ class Image_DesignController extends Zend_Controller_Action
         $sort_ordering['sort'], $sort_ordering['order'], 
         $this->session_image->id(Dlayer_Session_Image::IMAGE));
         
-        var_dump($designer_image_library->images());
+        $this->view->images = $designer_image_library->images();
         
         return $this->view->render("design/library.phtml");
     }

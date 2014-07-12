@@ -27,7 +27,8 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
     {
         $sql = "SELECT usil.`name`, usil.id AS image_id, 
                 usilv.id AS version_id, usilv.extension, 
-                usilv.size, usilv.uploaded 
+                usilv.size, 
+                DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded 
                 FROM user_site_image_library usil 
                 JOIN user_site_image_library_links usill 
                     ON usil.id = usill.library_id 
