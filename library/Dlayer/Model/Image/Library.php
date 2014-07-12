@@ -31,13 +31,20 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
                 FROM user_site_image_library usil 
                 JOIN user_site_image_library_links usill 
                     ON usil.id = usill.library_id 
-                    AND usill.site_id = 1 
+                    AND usill.site_id = :site_id 
                 JOIN user_site_image_library_versions usilv 
                     ON usill.version_id = usilv.id 
-                    AND usilv.site_id = 1 
-                WHERE usil.site_id = 1 
-                AND usil.category_id = 1 
-                AND usil.sub_category_id = 4 
-                ORDER BY usil.`name` ASC";
+                    AND usilv.site_id = :site_id 
+                WHERE usil.site_id = :site_id 
+                AND usil.category_id = :category_id 
+                AND usil.sub_category_id = :sub_category_id 
+                ORDER BY usil.`" . $sort . "` " . $order;
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->bindValue(':sub_category_id', $sub_category_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchAll();
     }
 }

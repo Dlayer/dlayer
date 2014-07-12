@@ -11,7 +11,7 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
 {
     CONST IMAGE = 'image';
     CONST CATEGORY = 'category';
-    CONST SUBCATEGORY = 'subcategory';
+    CONST SUB_CATEGORY = 'sub_category';
         
     CONST SORT_NAME = 'name';
     CONST SORT_UPLOADED = 'uploaded';
@@ -19,8 +19,6 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     
     private $sort_options = array(SELF::SORT_NAME, 
     SELF::SORT_UPLOADED, SELF::SORT_SIZE);
-    
-    public $id = array();
     
     /**
     * @param string $namespace
@@ -46,7 +44,7 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     */
     public function setId($id, $type=Dlayer_Session_Image::IMAGE)
     {
-        $this->id[$type] = intval($id);
+        $this->ids[$type] = intval($id);
         
         return true;
     }
@@ -60,8 +58,9 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     */
     public function id($type=Dlayer_Session_Image::IMAGE)
     {
-        if(array_key_exists($type, $this->id) == TRUE) {
-            return $this->id[$type];
+        if(is_array($this->ids) == TRUE && 
+        array_key_exists($type, $this->ids) == TRUE) {
+            return $this->ids[$type];
         } else {
             return NULL;
         }

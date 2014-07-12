@@ -60,7 +60,6 @@ class Image_DesignController extends Zend_Controller_Action
         $this->view->dlayer_ribbon = $this->dlayerRibbon();
 
         $this->view->module = $this->getRequest()->getModuleName();
-        $this->view->image_id = $this->session_image->id();
         $this->view->tool = $this->session_image->tool();
 
         $this->layout->assign('title', 'Dlayer.com - Image library');
@@ -106,7 +105,6 @@ class Image_DesignController extends Zend_Controller_Action
     {
         $model_module = new Dlayer_Model_Module();
 
-        $this->view->image_id = $this->session_image->id();
         $this->view->tools = $model_module->tools(
         $this->getRequest()->getModuleName());
         $this->view->tool = $this->session_image->tool();
@@ -131,8 +129,10 @@ class Image_DesignController extends Zend_Controller_Action
             $html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab']);
         } else {
             $ribbon = new Dlayer_Ribbon();
+            
+            $image_id = $this->session_image->id(Dlayer_Session_Image::IMAGE);
 
-            if($this->session_image->Id() != NULL) {
+            if($image_id != NULL) {
                 $html = $this->view->render($ribbon->selectedViewScriptPath());
             } else {
                 $html = $this->view->render($ribbon->defaultViewScriptPath());
@@ -159,7 +159,9 @@ class Image_DesignController extends Zend_Controller_Action
         
         $edit_mode = FALSE;
         
-        if($this->session_image->id() != NULL) {
+        $image_id = $this->session_image->id(Dlayer_Session_Image::IMAGE);
+        
+        if($image_id != NULL) {
             $edit_mode = TRUE;
         }
         
@@ -210,11 +212,13 @@ class Image_DesignController extends Zend_Controller_Action
                 $this->session_image->setRibbonTab($tab);
                 
                 $edit_mode = FALSE;
-                if($this->session_image->id() != NULL) {
+                $image_id = $this->session_image->id(
+                Dlayer_Session_Image::IMAGE);
+                
+                if($image_id != NULL) {
                     $edit_mode = TRUE;
                 }
 
-                $this->view->image_id = $this->session_image->id();
                 $this->view->data = $ribbon_tab->viewData($module, $tool,
                 $tab, $multi_use, $edit_mode);
                 $this->view->edit_mode = $edit_mode;
@@ -240,11 +244,16 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerLibrary()
     {
+        $sort_ordering = $this->session_image->sortOrder();
+        
         $designer_image_library = new Dlayer_Designer_ImageLibrary(
         $this->session_dlayer->siteId(), 
-        $this->session_image->id(Dlayer_Session_Image::IMAGE), 
         $this->session_image->id(Dlayer_Session_Image::CATEGORY), 
-        $this->session_image->id(Dlayer_Session_Image::SUBCATEGORY));
+        $this->session_image->id(Dlayer_Session_Image::SUB_CATEGORY), 
+        $sort_ordering['sort'], $sort_ordering['order'], 
+        $this->session_image->id(Dlayer_Session_Image::IMAGE));
+        
+        var_dump($designer_image_library->images());
         
         return $this->view->render("design/library.phtml");
     }

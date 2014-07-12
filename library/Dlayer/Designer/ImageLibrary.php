@@ -11,26 +11,32 @@ class Dlayer_Designer_ImageLibrary
     private $site_id;
 
     private $image_id = NULL;
-    private $category_id = NULL;
-    private $sub_category_id = NULL;
+    
+    private $category_id;
+    private $sub_category_id;
+    private $sort;
+    private $order;
 
     /**
     * Initialise the object, run setup methods and set initial properties
     *
     * @param integer $site_id
-    * @param integer|NULL $image_id Id of the selected library image
-    * @param integer|NULL $category_id Id of the selected filter category
-    * @param integer|NULL $sub_category_id Id of the selected filter 
-    *                                      sub category
+    * @param integer $category_id Id of the selected filter category
+    * @param integer $sub_category_id Id of the selected filter sub category
+    * @param string $sort Current sort method
+    * @param string $order Current sort order
+    * @param integer|NULL $image_id Id of the selected library image, if any
     * @return void
     */
-    public function __construct($site_id, $image_id=NULL, $category_id=NULL, 
-    $sub_category_id=NULL)
+    public function __construct($site_id, $category_id, $sub_category_id, 
+    $sort, $order, $image_id=NULL)
     {
         $this->site_id = $site_id;
-        $this->image_id = $image_id;
         $this->category_id = $category_id;
         $this->sub_category_id = $sub_category_id;
+        $this->sort = $sort;
+        $this->order = $order;
+        $this->image_id = $image_id;
     }
     
     /**
@@ -48,5 +54,10 @@ class Dlayer_Designer_ImageLibrary
     public function images() 
     {
         $model_image_library = new Dlayer_Model_Image_Library();
+        
+        $images = $model_image_library->images($this->site_id, 
+        $this->category_id, $this->sub_category_id, $this->sort, $this->order);
+        
+        return $images;
     }
 }

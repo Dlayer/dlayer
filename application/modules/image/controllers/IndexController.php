@@ -53,6 +53,9 @@ class Image_IndexController extends Zend_Controller_Action
         $session_image = new Dlayer_Session_Image();
         $session_image->setTool('add');
         
+        $session_image->setId(1, Dlayer_Session_Image::CATEGORY);
+        $session_image->setId(4, Dlayer_Session_Image::SUB_CATEGORY);
+        
         $this->_redirect('/image/design/index');
         
     	$model_sites = new Dlayer_Model_Site();

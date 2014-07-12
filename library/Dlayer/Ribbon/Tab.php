@@ -108,7 +108,7 @@ class Dlayer_Ribbon_Tab
                 $data = $image_ribbon->viewData($session_dlayer->siteId(),
                 $tool, $tab, $multi_use, $session_image->id(), 
                 $session_image->id(Dlayer_Session_Image::CATEGORY), 
-                $session_image->id(Dlayer_Session_Image::SUBCATEGORY), 
+                $session_image->id(Dlayer_Session_Image::SUB_CATEGORY), 
                 $edit_mode);
             break;
 
