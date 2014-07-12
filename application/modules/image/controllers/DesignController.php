@@ -18,6 +18,8 @@ class Image_DesignController extends Zend_Controller_Action
 
     private $session_dlayer;
     private $session_image;
+    
+    private $designer_image_library;
 
     private $layout;
 
@@ -44,6 +46,25 @@ class Image_DesignController extends Zend_Controller_Action
         $this->layout->assign('css_include', array('styles/designer.css',
         'styles/designer/image.css', 'styles/ribbon.css', 
         'styles/ribbon/image.css'));
+        
+        $this->designer();
+    }
+    
+    /**
+    * Instantiate the designer class
+    * 
+    * @return void
+    */
+    private function designer() 
+    {
+        $sort_ordering = $this->session_image->sortOrder();
+        
+        $this->designer_image_library = new Dlayer_Designer_ImageLibrary(
+        $this->session_dlayer->siteId(), 
+        $this->session_image->id(Dlayer_Session_Image::CATEGORY), 
+        $this->session_image->id(Dlayer_Session_Image::SUB_CATEGORY), 
+        $sort_ordering['sort'], $sort_ordering['order'], 
+        $this->session_image->id(Dlayer_Session_Image::IMAGE));
     }
 
     /**
@@ -244,17 +265,8 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerLibrary()
     {
-        $sort_ordering = $this->session_image->sortOrder();
-        
-        $designer_image_library = new Dlayer_Designer_ImageLibrary(
-        $this->session_dlayer->siteId(), 
-        $this->session_image->id(Dlayer_Session_Image::CATEGORY), 
-        $this->session_image->id(Dlayer_Session_Image::SUB_CATEGORY), 
-        $sort_ordering['sort'], $sort_ordering['order'], 
-        $this->session_image->id(Dlayer_Session_Image::IMAGE));
-        
-        $this->view->images = $designer_image_library->images();
-        $this->view->title = $designer_image_library->titleData();
+        $this->view->images = $this->designer_image_library->images();
+        $this->view->title = $this->designer_image_library->titleData();
         
         return $this->view->render("design/library.phtml");
     }

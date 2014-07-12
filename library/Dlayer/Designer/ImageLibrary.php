@@ -16,6 +16,9 @@ class Dlayer_Designer_ImageLibrary
     private $sub_category_id;
     private $sort;
     private $order;
+    
+    private $model_library;
+    private $model_categories;
 
     /**
     * Initialise the object, run setup methods and set initial properties
@@ -37,6 +40,9 @@ class Dlayer_Designer_ImageLibrary
         $this->sort = $sort;
         $this->order = $order;
         $this->image_id = $image_id;
+        
+        $this->model_library = new Dlayer_Model_Image_Library();
+        $this->model_categories = new Dlayer_Model_Image_Categories();
     }
     
     /**
@@ -104,5 +110,16 @@ class Dlayer_Designer_ImageLibrary
         $this->site_id, $this->category_id, $this->sub_category_id);
         
         return array('category'=>$catgeory, 'sub_category'=>$sub_category);
+    }
+    
+    /**
+    * Fetch the categories and sub categories for the selected category so 
+    * the filter form can be created
+    * 
+    * @return array Array contains category and sub category data arrays
+    */
+    public function filterFormData() 
+    {
+        
     }
 }
