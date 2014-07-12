@@ -59,10 +59,8 @@ class Dlayer_Designer_ImageLibrary
     */
     public function images() 
     {
-        $model_library = new Dlayer_Model_Image_Library();
-        
-        $images = $model_library->images($this->site_id, $this->category_id, 
-        $this->sub_category_id, $this->sort, $this->order);
+        $images = $this->model_library->images($this->site_id, 
+        $this->category_id, $this->sub_category_id, $this->sort, $this->order);
         
         return $this->sortIntoRows($images);
     }
@@ -101,12 +99,10 @@ class Dlayer_Designer_ImageLibrary
     */
     public function titleData() 
     {
-        $model_library_categories = new Dlayer_Model_Image_Categories();
-        
-        $catgeory = $model_library_categories->category($this->site_id, 
+        $catgeory = $this->model_categories->category($this->site_id, 
         $this->category_id);
         
-        $sub_category = $model_library_categories->subCategory(
+        $sub_category = $this->model_categories->subCategory(
         $this->site_id, $this->category_id, $this->sub_category_id);
         
         return array('category'=>$catgeory, 'sub_category'=>$sub_category);
