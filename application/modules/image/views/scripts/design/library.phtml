@@ -1,6 +1,7 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<h1>Image library - Filter: Backgrounds/Misc.</h1>
+<h1><?php echo $this->escape($this->title['category']['name']); ?>/
+<?php echo $this->escape($this->title['sub_category']['name']); ?></h1>
 
 <?php foreach($this->images as $row) { ?>
 <div class="row">

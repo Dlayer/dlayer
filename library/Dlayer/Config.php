@@ -14,4 +14,9 @@ abstract class Dlayer_Config
     CONST FORM_MINIMUM_WIDTH = 600;
     CONST FORM_LEGEND = 'My form';
     CONST FORM_BUTTON = 'Save';
+    
+    CONST IMAGE_LIBRARY_DEFAULT_CATEGORY = 'Backgrounds';
+    CONST IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY = 'Misc.';
+    
+    CONST IMAGE_LIBRARY_ALL_SUB_CATEGORY = 'All';
 }

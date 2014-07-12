@@ -53,10 +53,10 @@ class Dlayer_Designer_ImageLibrary
     */
     public function images() 
     {
-        $model_image_library = new Dlayer_Model_Image_Library();
+        $model_library = new Dlayer_Model_Image_Library();
         
-        $images = $model_image_library->images($this->site_id, 
-        $this->category_id, $this->sub_category_id, $this->sort, $this->order);
+        $images = $model_library->images($this->site_id, $this->category_id, 
+        $this->sub_category_id, $this->sort, $this->order);
         
         return $this->sortIntoRows($images);
     }
@@ -76,15 +76,33 @@ class Dlayer_Designer_ImageLibrary
         $count = 0;
         
         foreach($images as $image) {
-            $count++;
-            
+            $count++;            
             if($count % ($per_row + 1) == 0) {
                 $row++;
-            }
+            }            
             
             $rows[$row][] = $image;
         }
         
         return $rows;
+    }
+    
+    /**
+    * Fetch the data to generate the title, we need to the id for the category, 
+    * as well as the name for the category and sub category
+    * 
+    * @return string
+    */
+    public function titleData() 
+    {
+        $model_library_categories = new Dlayer_Model_Image_Categories();
+        
+        $catgeory = $model_library_categories->category($this->site_id, 
+        $this->category_id);
+        
+        $sub_category = $model_library_categories->subCategory(
+        $this->site_id, $this->category_id, $this->sub_category_id);
+        
+        return array('category'=>$catgeory, 'sub_category'=>$sub_category);
     }
 }

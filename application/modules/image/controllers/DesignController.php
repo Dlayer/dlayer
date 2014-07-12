@@ -254,6 +254,7 @@ class Image_DesignController extends Zend_Controller_Action
         $this->session_image->id(Dlayer_Session_Image::IMAGE));
         
         $this->view->images = $designer_image_library->images();
+        $this->view->title = $designer_image_library->titleData();
         
         return $this->view->render("design/library.phtml");
     }
