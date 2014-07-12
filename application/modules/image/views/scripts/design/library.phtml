@@ -1,8 +1,9 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<h1><?php echo $this->escape($this->title['category']['name']); ?>/
+<h1><?php echo $this->escape($this->title['category']['name']); ?> /
 <?php echo $this->escape($this->title['sub_category']['name']); ?></h1>
 
+<?php if(count($this->images) > 0) { ?>
 <?php foreach($this->images as $row) { ?>
 <div class="row">
     <?php foreach($row as $image) { ?>
@@ -22,4 +23,9 @@
     </div>
     <?php } ?>
 </div>
+<?php } ?>
+<?php } else { ?>
+<p>There are no images to display, add an image to your Image 
+library using the 
+'<a href="/image/design/set-tool/tool/add">Add to library</a>' tool.</p>
 <?php } ?>
