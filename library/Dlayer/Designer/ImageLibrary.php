@@ -32,4 +32,21 @@ class Dlayer_Designer_ImageLibrary
         $this->category_id = $category_id;
         $this->sub_category_id = $sub_category_id;
     }
+    
+    /**
+    * Fetch the images for the selected category and sub category, sorted 
+    * by the currently set sort, the results array is already sorted into 
+    * rows so the view doesn't need to do too much work - There are 7 
+    * thumbnails per row
+    * 
+    * @todo Need to add pagination
+    * @todo The thumbnail size and as a consequence the number per row needs 
+    * to be configurable, the user shousl be able to view the images at 2/3 
+    * different view sizes
+    * @return array If there are no images we still return and empty array
+    */
+    public function images() 
+    {
+        $model_image_library = new Dlayer_Model_Image_Library();
+    }
 }
