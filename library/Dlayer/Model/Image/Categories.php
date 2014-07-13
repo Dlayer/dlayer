@@ -264,4 +264,34 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
         
         return $sub_categories;
     }
+    
+    /**
+    * Check to see if the category exists
+    * 
+    * @param integer $site_id
+    * @param string $category Name of category to check
+    * @param integer|NULL $ignore_id Category to exclude from query if 
+    *                                doing a check on an edit form
+    * @return boolean
+    */
+    public function categoryExists($site_id, $category, $ignore_id=NULL) 
+    {
+        $sql = "SELECT id 
+                FROM user_site_image_library_categories 
+                WHERE site_id = :site_id 
+                AND UPPER(`name`) = :category 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category', strtoupper($category), PDO::PARAM_STR);
+        $stmt->execute();
+        
+        $result = $stmt->fetch();
+        
+        if($result == FALSE) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
 }

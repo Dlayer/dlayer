@@ -7,22 +7,19 @@
 */
 class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
 {
+    private $model_categories;
+    
     /**
     * Add or edit the selected image category, uses the data in the params 
     * array, this data will have already been both validated and prepared 
     * by the tool class
     *
-    * @param integer $site_id
-    * @param integer|NULL $category_id
-    * @param integer|NULL $sub_category_id
-    * @param integer|NULL $image_id 
     * @return array Contains relevant id and type of id
     */
-    public function process($site_id, $category_id=NULL, $sub_category_id=NULL, 
-    $image_id=NULL)
+    public function process()
     {
         if($this->validated == TRUE) {
-            if($category_id == NULL) {
+            if($this->category_id == NULL) {
                 die('add category');                
             } else {
                 die('edit category');
@@ -35,10 +32,20 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     * are valid the values are written to the $this->params property
     *
     * @param array $params Params post array
+    * @param integer $site_id
+    * @param integer|NULL $category_id
+    * @param integer|NULL $sub_category_id
+    * @param integer|NULL $image_id 
     * @return boolean
     */
-    public function validate(array $params = array())
+    public function validate(array $params = array(), $site_id, 
+    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL)
     {
+        $this->site_id = $site_id;
+        $this->category_id = $category_id;
+        $this->sub_category_id = $sub_category_id;
+        $this->image_id = $image_id;
+        
         if($this->validateValues($params) == TRUE &&
         $this->validateData($params) == TRUE) {
             $this->params = $this->prepare($params);
@@ -51,14 +58,14 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
         return FALSE;
     }
 
-    public function autoValidate(array $params = array())
+    public function autoValidate(array $params = array(), $site_id, 
+    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL)
     {
         // Not currently used by tool, may be used by the presets later
         return FALSE;
     }
 
-    public function autoProcess($site_id, $category_id, $sub_category_id, 
-    $image_id=NULL)
+    public function autoProcess()
     {
         // Not currently used by tool, may be used by the presets later
     }
@@ -88,7 +95,11 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     */
     private function validateData(array $params = array())
     {
-        if(strlen(trim($params['name'])) > 0) {
+        $this->model_categories = new Dlayer_Model_Image_Categories();
+        
+        if(strlen(trim($params['name'])) > 0 && 
+        $this->model_categories->categoryExists($this->site_id, 
+        trim($params['name'])) == FALSE) {
             return TRUE;
         } else {
             return FALSE;

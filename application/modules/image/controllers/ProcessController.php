@@ -80,7 +80,7 @@ class Image_ProcessController extends Zend_Controller_Action
         $sub_category_id = NULL;
         
         // Check to see if any of the id params exist, if so pass them into 
-        // the tool process methods
+        // the tool 
         if(array_key_exists('image_id', $_POST) == TRUE) {
             $image_id = $_POST['image_id'];
         }
@@ -104,10 +104,13 @@ class Image_ProcessController extends Zend_Controller_Action
                         
         $this->tool_class = new $tool_class();
         
-        if($this->tool_class->validate($_POST['params']) == TRUE) {
-            $return_id = $this->tool_class->process(
-            $this->session_dlayer->siteId(), $category_id, $sub_category_id, 
-            $image_id);
+        if($this->tool_class->validate($_POST['params'], 
+        $this->session_dlayer->siteId(), $category_id, $sub_category_id, 
+        $image_id) == TRUE) {
+            
+            die('passed validation');
+            
+            $return_id = $this->tool_class->process();
             
             if(is_array($return_id) && 
             array_key_exists('id', $return_id) == TRUE && 
@@ -118,6 +121,9 @@ class Image_ProcessController extends Zend_Controller_Action
 
             $this->returnToDesigner(TRUE);
         } else {
+            
+            die('failed validation');
+            
             $this->returnToDesigner(FALSE);
         }
     }
