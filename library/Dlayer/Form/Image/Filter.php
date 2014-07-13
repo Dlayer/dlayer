@@ -67,13 +67,13 @@ class Dlayer_Form_Image_Filter extends Dlayer_Form
     */
     protected function setUpFormElements()
     {
-        $category = new Zend_Form_Element_Select('category');
+        $category = new Zend_Form_Element_Select('category_filter');
         $category->setLabel('Category');
         $category->setMultiOptions($this->categories);
         
         $this->elements['category'] = $category;
         
-        $sub_category = new Zend_Form_Element_Select('sub_category');
+        $sub_category = new Zend_Form_Element_Select('sub_category_filter');
         $sub_category->setLabel('Sub category');
         $sub_category->setMultiOptions($this->sub_categories);
         

@@ -391,7 +391,40 @@ var dlayer = {
                     });
                 }
 			}
-		}
+		}, 
+        
+        image: {
+            
+            fn: {
+                
+                /**
+                * AJAX for filter selected, updates the sub categories select
+                * based on the selected category
+                *
+                * @returns {Void}
+                */
+                sub_categories: function()
+                {
+                    console.log('herde');
+                    
+                    $('#category_filter').change(function()
+                    {
+                        var data_id = $('#category_filter').val();
+
+                        $.getJSON('/image/ajax/sub-categories',
+                        { category_id: data_id },
+                        function(data) {
+                            
+                            $('#sub_category_filter').empty(); 
+                            
+                            $.each(data.sub_categories, function(i, value) {
+                                $('#sub_category_filter').append($('<option>').text(value).attr('value', value));
+                            });
+                        });
+                    });
+                }
+            }
+        }
 	},
     
 	preview: {
