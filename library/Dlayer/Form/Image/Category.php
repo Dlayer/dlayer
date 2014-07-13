@@ -4,7 +4,7 @@
 * 
 * Allows the user to add a new category to the image library
 * 
-* This form is only used for both the add and edit category forms
+* This form is used for both the add and edit category forms
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
@@ -25,6 +25,8 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
     public function __construct(array $existing_data, $edit_mode, 
     $multi_use, $options=NULL)
     {
+        $this->tool = 'category';
+        
         parent::__construct($existing_data, $edit_mode, $multi_use, $options);
     }
     
@@ -123,7 +125,6 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('class', 'submit');
-        $submit->setAttrib('disabled', 'disabled');
         $submit->setLabel('Save');
 
         $this->elements['submit'] = $submit;
