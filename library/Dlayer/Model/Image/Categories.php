@@ -205,4 +205,63 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
         return $this->_db->lastInsertId(
         'user_site_image_library_sub_categories');
     }
+    
+    /**
+    * Fetch the image library categories for the selected site
+    * 
+    * @param integer $site_id
+    * @return array Array containing all the image library categories for the 
+    *               selected site
+    */
+    public function categories($site_id) 
+    {
+        $sql = "SELECT id, `name` 
+                FROM user_site_image_library_categories 
+                WHERE site_id = :site_id 
+                ORDER BY `name` ASC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $result = $stmt->fetchAll();
+        
+        $categories = array();
+        
+        foreach($result as $row) {
+            $categories[$row['id']] = $row['name'];
+        }
+        
+        return $categories;
+    }
+    
+    /**
+    * Fetch the image library sub categories for the selected site and category
+    * 
+    * @param integer $site_id
+    * @param integer $category_id
+    * @return array Array containing all the image library sub categories for 
+    *               the selected category and site
+    */
+    public function subCategories($site_id, $category_id) 
+    {
+        $sql = "SELECT id, `name` 
+                FROM user_site_image_library_sub_categories 
+                WHERE site_id = :site_id 
+                AND category_id = :category_id 
+                ORDER BY `name` ASC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $result = $stmt->fetchAll();
+        
+        $sub_categories = array();
+        
+        foreach($result as $row) {
+            $sub_categories[$row['id']] = $row['name'];
+        }
+        
+        return $sub_categories;
+    }
 }

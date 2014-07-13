@@ -82,6 +82,7 @@ class Image_DesignController extends Zend_Controller_Action
 
         $this->view->module = $this->getRequest()->getModuleName();
         $this->view->tool = $this->session_image->tool();
+        $this->view->filter_form = $this->designer_image_library->filterForm();
 
         $this->layout->assign('title', 'Dlayer.com - Image library');
     }

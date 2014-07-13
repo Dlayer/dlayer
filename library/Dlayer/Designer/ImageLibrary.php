@@ -112,10 +112,15 @@ class Dlayer_Designer_ImageLibrary
     * Fetch the categories and sub categories for the selected category so 
     * the filter form can be created
     * 
-    * @return array Array contains category and sub category data arrays
+    * @return Dlayer_Form_Image_Filter
     */
-    public function filterFormData() 
+    public function filterForm() 
     {
+        $form = new Dlayer_Form_Image_Filter(
+        $this->model_categories->categories($this->site_id), 
+        $this->model_categories->subCategories($this->site_id, 
+        $this->category_id), $this->category_id, $this->sub_category_id);
         
+        return $form;
     }
 }

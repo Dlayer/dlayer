@@ -25,19 +25,29 @@
     width: 320px;
     color: #616161;
 }
-#designer > #filter > form > label {
+#designer > #filter > form > .filter {
+    width: 320px;
+}
+#designer > #filter > form > .filter > .input {
+    width: 320px;
+}
+#designer > #filter > form > .filter > .save {
+    width: 320px;
+    text-align: right;
+}
+#designer > #filter > form > .filter > .input > label {
     width: 320px;
     display: block;
     font-weight: bold;
     padding-bottom: 3px;
 }
-#designer > #filter > form > select {
+#designer > #filter > form > .filter > .input > select {
     padding: 3px;
     border: 1px solid #eeeeee;
     font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
     color: #616161;
 }
-#designer > #filter > form > .submit {
+#designer > #filter > form > .filter > .save > .submit {
     display: block;
     float: right;
     width: 50px;
@@ -48,7 +58,7 @@
     font-family: "Segoe UI", Helvetica, Arial, "Sans-Serif";
     color: #666666;
 }
-#designer > #filter > form > .submit:hover {
+#designer > #filter > form > .filter > .save > .submit:hover {
     background-color: #eeeeee;
     border: 1px solid #b0120a;
     color: #666666;
