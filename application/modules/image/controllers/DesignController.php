@@ -335,4 +335,23 @@ class Image_DesignController extends Zend_Controller_Action
         $this->session_image->clearAll();
         $this->_redirect('/image/design');
     }
+    
+    /**
+    * Set the filter
+    * 
+    * @todo Need to chjeck that the submitted values are valid values
+    * @return void
+    */
+    public function filterAction() 
+    {
+        if(array_key_exists('category_filter', $_POST) == TRUE && 
+        array_key_exists('sub_category_filter', $_POST) == TRUE) {
+            $this->session_image->setId(intval($_POST['category_filter']), 
+            Dlayer_Session_Image::CATEGORY);
+            $this->session_image->setId(intval($_POST['sub_category_filter']), 
+            Dlayer_Session_Image::SUB_CATEGORY);
+        }
+        
+        $this->_redirect('/image/design');
+    }
 }

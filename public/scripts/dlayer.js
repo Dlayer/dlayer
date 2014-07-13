@@ -418,7 +418,7 @@ var dlayer = {
                             $('#sub_category_filter').empty(); 
                             
                             $.each(data.sub_categories, function(i, value) {
-                                $('#sub_category_filter').append($('<option>').text(value).attr('value', value));
+                                $('#sub_category_filter').append($('<option>').text(value).attr('value', i));
                             });
                         });
                     });

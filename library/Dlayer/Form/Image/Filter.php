@@ -42,7 +42,7 @@ class Dlayer_Form_Image_Filter extends Dlayer_Form
     */
     public function init()
     {
-        $this->setAction('/image/designer/filter');
+        $this->setAction('/image/design/filter');
 
         $this->setMethod('post');
 
@@ -70,12 +70,14 @@ class Dlayer_Form_Image_Filter extends Dlayer_Form
         $category = new Zend_Form_Element_Select('category_filter');
         $category->setLabel('Category');
         $category->setMultiOptions($this->categories);
+        $category->setValue($this->category_id);
         
         $this->elements['category'] = $category;
         
         $sub_category = new Zend_Form_Element_Select('sub_category_filter');
         $sub_category->setLabel('Sub category');
         $sub_category->setMultiOptions($this->sub_categories);
+        $sub_category->setValue($this->sub_category_id);
         
         $this->elements['sub_category'] = $sub_category;
         
