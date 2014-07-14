@@ -376,7 +376,7 @@ CREATE TABLE `dlayer_identities` (
 
 LOCK TABLES `dlayer_identities` WRITE;
 
-insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-07-15 00:14:28','2014-07-15 00:14:28',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-07-12 16:32:09','2014-07-12 16:32:28',1);
+insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-07-15 00:16:12','2014-07-15 00:58:40',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-07-12 16:32:09','2014-07-12 16:32:28',1);
 
 UNLOCK TABLES;
 
@@ -488,7 +488,7 @@ CREATE TABLE `dlayer_sessions` (
 
 LOCK TABLES `dlayer_sessions` WRITE;
 
-insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('dqm1aqqiokc4grk7gi1m1p9dv4','','PHPSESSID',1405379681,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405383281;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1405383281;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1405383281;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1405383281;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1405383281;}}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:3:\"ids\";a:0:{}}');
+insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('dqm1aqqiokc4grk7gi1m1p9dv4','','PHPSESSID',1405382370,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405385969;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1405385969;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1405385969;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1405385969;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1405385969;}}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session_image|a:8:{s:4:\"tool\";N;s:3:\"tab\";N;s:3:\"ids\";a:0:{}s:4:\"sort\";N;s:10:\"sort_order\";N;s:10:\"tool_model\";s:8:\"Category\";s:16:\"tool_destructive\";s:1:\"0\";s:9:\"edit_mode\";i:1;}');
 
 UNLOCK TABLES;
 

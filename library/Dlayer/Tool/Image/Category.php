@@ -100,6 +100,15 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     {
         $this->model_categories = new Dlayer_Model_Image_Categories();
         
+        
+        /**
+        * @todo
+        * 
+        * Working on category exists validation methid, need to exclude id 
+        * in edit mode, if in edit mode 'category_id' will exist in params 
+        * array
+        */
+        
         if(strlen(trim($params['name'])) > 0 && 
         $this->model_categories->categoryExists($this->site_id, 
         trim($params['name'])) == FALSE) {
