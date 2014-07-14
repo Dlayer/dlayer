@@ -50,27 +50,6 @@ class Image_IndexController extends Zend_Controller_Action
     */
     public function indexAction()
     {
-        $session_image = new Dlayer_Session_Image();
-        
-        // Set category and sub category values if currently NULL
-        $category_id = $session_image->id(Dlayer_Session_Image::CATEGORY);
-        $sub_category_id = $session_image->id(
-        Dlayer_Session_Image::SUB_CATEGORY);
-        
-        if($category_id == NULL || $sub_category_id == NULL) {
-            $model_image_categories = new Dlayer_Model_Image_Categories();
-            
-            $default_category = $model_image_categories->category(
-            $this->session_dlayer->site_id, 0);
-            $default_sub_category = $model_image_categories->subCategory(
-            $this->session_dlayer->site_id, $default_category['id'], 0);
-            
-            $session_image->setId($default_category['id'], 
-            Dlayer_Session_Image::CATEGORY);
-            $session_image->setId($default_sub_category['id'], 
-            Dlayer_Session_Image::SUB_CATEGORY);
-        }
-        
         $this->_redirect('/image/design/index');
         
     	$model_sites = new Dlayer_Model_Site();

@@ -108,8 +108,6 @@ class Image_ProcessController extends Zend_Controller_Action
         $this->session_dlayer->siteId(), $category_id, $sub_category_id, 
         $image_id) == TRUE) {
             
-            die('passed validation');
-            
             $return_id = $this->tool_class->process();
             
             if(is_array($return_id) && 
@@ -120,10 +118,7 @@ class Image_ProcessController extends Zend_Controller_Action
             }
 
             $this->returnToDesigner(TRUE);
-        } else {
-            
-            die('failed validation');
-            
+        } else {            
             $this->returnToDesigner(FALSE);
         }
     }

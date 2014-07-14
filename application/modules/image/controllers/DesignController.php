@@ -47,6 +47,25 @@ class Image_DesignController extends Zend_Controller_Action
         'styles/designer/image.css', 'styles/ribbon.css', 
         'styles/ribbon/image.css'));
         
+        // Set category and sub category values if currently NULL
+        $category_id = $this->session_image->id(Dlayer_Session_Image::CATEGORY);
+        $sub_category_id = $this->session_image->id(
+        Dlayer_Session_Image::SUB_CATEGORY);
+        
+        if($category_id == NULL || $sub_category_id == NULL) {
+            $model_image_categories = new Dlayer_Model_Image_Categories();
+            
+            $default_category = $model_image_categories->category(
+            $this->session_dlayer->site_id, 0);
+            $default_sub_category = $model_image_categories->subCategory(
+            $this->session_dlayer->site_id, $default_category['id'], 0);
+            
+            $this->session_image->setId($default_category['id'], 
+            Dlayer_Session_Image::CATEGORY);
+            $this->session_image->setId($default_sub_category['id'], 
+            Dlayer_Session_Image::SUB_CATEGORY);
+        }
+        
         $this->designer();
     }
     
