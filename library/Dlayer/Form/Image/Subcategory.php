@@ -1,10 +1,10 @@
 <?php
 /**
-* Form for the subcategory tool
+* Form for the sub category tool
 * 
 * Allows the user to add a new sub category to the image library
 * 
-* This form is only used for both the add and edit category forms
+* This form is used for both the add and edit category forms
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
@@ -25,6 +25,8 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
     public function __construct(array $existing_data, $edit_mode, 
     $multi_use, $options=NULL)
     {
+        $this->tool = 'subcategory';
+        
         parent::__construct($existing_data, $edit_mode, $multi_use, $options);
     }
     
@@ -39,17 +41,33 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
         $this->setAction('/image/process/tool');
 
         $this->setMethod('post');
+        
+        $this->formElementsData();
 
         $this->setUpFormElements();
 
         $this->validationRules();
         
-        $this->addElementsToForm('subcategory', 'Sub category', 
+        $this->addElementsToForm('sub_category', 'Sub Category', 
         $this->elements);
 
         $this->addDefaultElementDecorators();
 
         $this->addCustomElementDecorators();
+    }
+    
+    /**
+    * Fetch any data required to generate the form fields
+    *
+    * @return void Writes the data to the $this->element_data property ready 
+    *              to be used by the form field objects
+    */
+    private function formElementsData()
+    {
+        $model_categories = new Dlayer_Model_Image_Categories();
+        
+        $this->elements_data['categories'] = $model_categories->categories(
+        $this->existing_data['site_id']);
     }
 
 	/**
@@ -84,7 +102,7 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
         array_key_exists('id', $this->existing_data) == TRUE && 
         $this->existing_data['id'] != FALSE) {
             $sub_category_id = new Zend_Form_Element_Hidden('sub_category_id');
-            $sub_category_id->setValue($this->existing_data['sub_category_id']);
+            $sub_category_id->setValue($this->existing_data['id']);
             $this->elements['sub_category_id'] = $sub_category_id;
         }
         
@@ -105,10 +123,10 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
     {
         $category = new Zend_Form_Element_Select('category');
         $category->setLabel('Category');
-        $category->setDescription('Select the base category for the image 
-        sub category');
-        $category->setMultiOptions(array(1=>'Backgrounds', 2=>'News'));
+        $category->setDescription('Select the category that the new sub 
+        category should be created in.');
         $category->setBelongsTo('params');
+        $category->setMultiOptions($this->elements_data['categories']);
         
         if($this->edit_mode == TRUE && 
         array_key_exists('category_id', $this->existing_data) == TRUE && 
@@ -135,7 +153,6 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('class', 'submit');
-        $submit->setAttrib('disabled', 'disabled');
         $submit->setLabel('Save');
 
         $this->elements['submit'] = $submit;
