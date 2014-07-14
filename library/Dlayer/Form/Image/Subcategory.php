@@ -129,9 +129,9 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
         $category->setMultiOptions($this->elements_data['categories']);
         
         if($this->edit_mode == TRUE && 
-        array_key_exists('category_id', $this->existing_data) == TRUE && 
-        $this->existing_data['category_id'] != FALSE) {
-            $category->setValue($this->existing_data['category_id']);
+        array_key_exists('category', $this->existing_data) == TRUE && 
+        $this->existing_data['category'] != FALSE) {
+            $category->setValue($this->existing_data['category']);
         }
         
         $this->elements['category'] = $category;

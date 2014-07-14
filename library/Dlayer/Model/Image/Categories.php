@@ -59,7 +59,7 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
     */
     public function subCategory($site_id, $category_id, $sub_category_id) 
     {
-        $sql = "SELECT id, `name` 
+        $sql = "SELECT id, category_id, `name` 
                 FROM user_site_image_library_sub_categories 
                 WHERE site_id = :site_id 
                 AND category_id = :category_id 

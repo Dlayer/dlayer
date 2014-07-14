@@ -1,7 +1,9 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<h1><?php echo $this->escape($this->title['category']['name']); ?> /
-<?php echo $this->escape($this->title['sub_category']['name']); ?></h1>
+<h1><?php echo $this->escape($this->title['category']['name']); ?> 
+<span class="link"><a title="Edit category" href="/image/design/set-tool/tool/category/edit/1">[Edit]</a></span> /
+<?php echo $this->escape($this->title['sub_category']['name']); ?> 
+<span class="link"><a title="Edit sub category" href="/image/design/set-tool/tool/subcategory/edit/1">[Edit]</a></span></h1>
 
 <?php if(count($this->images) > 0) { ?>
 <?php foreach($this->images as $row) { ?>

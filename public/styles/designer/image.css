@@ -13,6 +13,14 @@
     padding-left: 12px;
 }
 
+/* Category and sub category titles */
+#designer > #library > h1 > span.link {
+    font-size: 0.5em;
+}
+#designer > #library > h1 > span.link > a {
+    color: #000000;
+}
+
 /* Filter form */
 #designer > #filter {
     width: 320px;

@@ -48,6 +48,32 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
         
         return true;
     }
+    
+    /**
+    * Set if we are in edit mode, used for category and sub category editing, 
+    * only tools that doesn't require an image to be selected
+    * 
+    * @param integer $edit_mode Defaults to 0 for FALSE
+    * @return void
+    */
+    public function setEditMode($edit_mode=0) 
+    {
+        $this->edit_mode = $edit_mode;
+    }
+    
+    /**
+    * Check to see if we are in edit mode for categories and sub categories
+    * 
+    * @return integer
+    */
+    public function editMode() 
+    {
+        if(isset($this->edit_mode) == TRUE) {
+            return $this->edit_mode;
+        } else {
+            return 0;
+        }
+    }
 
     /**
     * Get the id of the image, category or subcategory

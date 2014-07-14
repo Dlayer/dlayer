@@ -60,6 +60,7 @@ class Image_DesignController extends Zend_Controller_Action
             $default_sub_category = $model_image_categories->subCategory(
             $this->session_dlayer->site_id, $default_category['id'], 0);
             
+            $this->session_image->setEditMode();
             $this->session_image->setId($default_category['id'], 
             Dlayer_Session_Image::CATEGORY);
             $this->session_image->setId($default_sub_category['id'], 
@@ -197,12 +198,10 @@ class Image_DesignController extends Zend_Controller_Action
     private function dlayerRibbonHtml($tool, $tab)
     {
         $ribbon = new Dlayer_Ribbon();
-        
+                
         $edit_mode = FALSE;
-        
-        $image_id = $this->session_image->id(Dlayer_Session_Image::IMAGE);
-        
-        if($image_id != NULL) {
+                
+        if($this->session_image->editMode() == 1) {
             $edit_mode = TRUE;
         }
         
@@ -253,10 +252,8 @@ class Image_DesignController extends Zend_Controller_Action
                 $this->session_image->setRibbonTab($tab);
                 
                 $edit_mode = FALSE;
-                $image_id = $this->session_image->id(
-                Dlayer_Session_Image::IMAGE);
                 
-                if($image_id != NULL) {
+                if($this->session_image->editMode() == 1) {
                     $edit_mode = TRUE;
                 }
 
@@ -302,7 +299,7 @@ class Image_DesignController extends Zend_Controller_Action
         $this->_helper->disableLayout(FALSE);
 
         $id = $this->getRequest()->getParam('selected');
-
+        
         if($this->session_image->setId($id) == TRUE) {
             $this->_redirect('/image/design');
         } else {
@@ -327,10 +324,16 @@ class Image_DesignController extends Zend_Controller_Action
         $this->_helper->disableLayout(FALSE);
 
         $tool = $this->getRequest()->getParam('tool');
+        $edit = $this->getRequest()->getParam('edit', 0);
+        
+        $this->session_image->setEditMode();
 
         if($tool != NULL && strlen($tool) > 0) {
             if($tool != 'cancel') {
-                if($this->session_image->setTool($tool) == TRUE) {
+                if($this->session_image->setTool($tool) == TRUE) {                    
+                    if($edit == 1) {
+                        $this->session_image->setEditMode(1);
+                    }
                     $this->_redirect('/image/design');
                 } else {
                     $this->cancelTool();
@@ -369,6 +372,8 @@ class Image_DesignController extends Zend_Controller_Action
             Dlayer_Session_Image::CATEGORY);
             $this->session_image->setId(intval($_POST['sub_category_filter']), 
             Dlayer_Session_Image::SUB_CATEGORY);
+            
+            $this->session_image->setEditMode();
         }
         
         $this->_redirect('/image/design');

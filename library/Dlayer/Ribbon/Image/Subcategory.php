@@ -46,7 +46,17 @@ class Dlayer_Ribbon_Image_Subcategory extends Dlayer_Ribbon_Module_Image
     */
     protected function existingData() 
     {
-        return array('id'=>FALSE, 'category'=>FALSE, 'name'=>FALSE, 
-        'site_id'=>$this->site_id);
+        if($this->edit_mode == FALSE) {
+            return array('id'=>FALSE, 'category'=>FALSE, 'name'=>FALSE, 
+            'site_id'=>$this->site_id);
+        } else {
+            $model_categories = new Dlayer_Model_Image_Categories();
+            $sub_category = $model_categories->subCategory($this->site_id, 
+            $this->category_id, $this->subcategory_id);
+            
+            return array('id'=>intval($sub_category['category_id']), 
+            'category'=>intval($sub_category['category_id']), 
+            'name'=>$sub_category['name'], 'site_id'=>$this->site_id);
+        }
     }
 }
