@@ -1,1 +1,3 @@
 public/index.php
+*.db
+Thumbs.db
