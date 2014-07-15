@@ -22,6 +22,7 @@ class Dlayer_Ribbon_Image_Category extends Dlayer_Ribbon_Module_Image
     * @param string $tab Name of the selected tool tab
     * @param integer $multi_use Multi use setting for tool tab
     * @param integer|NULL $image_id Id of the selected image
+    * @param integer|NULL $version_id Id of the selected image version
     * @param integer|NULL $category_id Id of the selected category
     * @param integer|NULL $subcategory_id Id of the selected subcategory
     * @param boolean $edit_mode Is the tool tab in edit mode
@@ -30,10 +31,11 @@ class Dlayer_Ribbon_Image_Category extends Dlayer_Ribbon_Module_Image
     *                    view script how to handle the return value
     */
     public function viewData($site_id, $tool, $tab, $multi_use, $image_id=NULL, 
-    $category_id=NULL, $subcategory_id=NULL, $edit_mode=FALSE)
+    $version_id=NULL, $category_id=NULL, $subcategory_id=NULL, 
+    $edit_mode=FALSE)
     {
         $this->writeParams($site_id, $tool, $tab, $multi_use, $image_id, 
-        $category_id, $subcategory_id, $edit_mode);
+        $version_id, $category_id, $subcategory_id, $edit_mode);
 
         return array('form'=>new Dlayer_Form_Image_Category(
         $this->existingData(), $this->edit_mode, $this->multi_use));

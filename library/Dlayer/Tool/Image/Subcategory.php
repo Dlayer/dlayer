@@ -39,15 +39,17 @@ class Dlayer_Tool_Image_Subcategory extends Dlayer_Tool_Module_Image
     * @param integer|NULL $category_id
     * @param integer|NULL $sub_category_id
     * @param integer|NULL $image_id 
+    * @param integer|NULL $version_id
     * @return boolean
     */
     public function validate(array $params = array(), $site_id, 
-    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL)
+    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL, $version_id=NULL)
     {
         $this->site_id = $site_id;
         $this->category_id = $category_id;
         $this->sub_category_id = $sub_category_id;
         $this->image_id = $image_id;
+        $this->version_id = $version_id;
         
         if($this->validateValues($params) == TRUE &&
         $this->validateData($params) == TRUE) {
@@ -62,7 +64,7 @@ class Dlayer_Tool_Image_Subcategory extends Dlayer_Tool_Module_Image
     }
 
     public function autoValidate(array $params = array(), $site_id, 
-    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL)
+    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL, $version_id=NULL)
     {
         // Not currently used by tool, may be used by the presets later
         return FALSE;

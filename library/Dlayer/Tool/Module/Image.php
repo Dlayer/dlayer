@@ -12,6 +12,7 @@ abstract class Dlayer_Tool_Module_Image extends Dlayer_Tool
     protected $category_id;
     protected $sub_category_id;
     protected $image_id;
+    protected $version_id;
     
     /**
     * Process the request for a manual tool
@@ -47,10 +48,11 @@ abstract class Dlayer_Tool_Module_Image extends Dlayer_Tool
     * @param integer|NULL $category_id
     * @param integer|NULL $sub_category_id
     * @param integer|NULL $image_id 
+    * @param integer|NULL $version_id
     * @return boolean
     */
     abstract public function validate(array $params = array(), $site_id, 
-    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL);
+    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL, $version_id=NULL);
     
     /**
     * Validate the supplied params, run before we call the autoProcess()
@@ -64,8 +66,9 @@ abstract class Dlayer_Tool_Module_Image extends Dlayer_Tool
     * @param integer|NULL $category_id
     * @param integer|NULL $sub_category_id
     * @param integer|NULL $image_id 
+    * @param integer|NULL $version_id
     * @return boolean Is the request valid
     */
     abstract public function autoValidate(array $params = array(), $site_id, 
-    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL);
+    $category_id=NULL, $sub_category_id=NULL, $image_id=NULL, $version_id=NULL);
 }

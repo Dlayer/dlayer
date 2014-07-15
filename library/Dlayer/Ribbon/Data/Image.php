@@ -16,6 +16,7 @@ class Dlayer_Ribbon_Data_Image
     private $tool;
     private $tab;
     private $image_id;
+    private $version_id;
     private $category_id;
     private $subcategory_id;
     private $edit_mode;
@@ -30,6 +31,7 @@ class Dlayer_Ribbon_Data_Image
     * @param string $tab Name of the selected tool tab
     * @param integer $multi_use Multi use value for tool tab
     * @param integer|NULL $image_id Id of the selected image
+    * @param integer|NULL $version_id Id of the selected image version
     * @param integer|NULL $category_id Id of the selected category
     * @param integer|NULL $subcategory_id Id of the selected subcategory
     * @param boolean $edit_mode Is the tool tab in edit mode
@@ -38,13 +40,14 @@ class Dlayer_Ribbon_Data_Image
     *                    view script how to handle the return value
     */
     public function viewData($site_id, $tool, $tab, $multi_use, $image_id=NULL, 
-    $category_id=NULL, $subcategory_id=NULL, $edit_mode=FALSE) 
+    $version_id=NULL, $category_id=NULL, $subcategory_id=NULL, $edit_mode=FALSE) 
     {
         $this->site_id = $site_id;
         $this->tool = $tool;
         $this->tab = $tab;
         $this->multi_use = $multi_use;
         $this->image_id = $image_id;
+        $this->version_id = $version_id;
         $this->category_id = $category_id;
         $this->subcategory_id = $subcategory_id;
         $this->edit_mode = $edit_mode;
@@ -84,7 +87,8 @@ class Dlayer_Ribbon_Data_Image
                 $ribbon_category = new Dlayer_Ribbon_Image_Category();
                 $data = $ribbon_category->viewData($this->site_id, $this->tool, 
                 $this->tab, $this->multi_use, $this->image_id, 
-                $this->category_id, $this->subcategory_id, $this->edit_mode);
+                $this->version_id, $this->category_id, $this->subcategory_id, 
+                $this->edit_mode);
             break;
             
             default:
@@ -109,7 +113,8 @@ class Dlayer_Ribbon_Data_Image
                 $ribbon_subcategory = new Dlayer_Ribbon_Image_Subcategory();
                 $data = $ribbon_subcategory->viewData($this->site_id, 
                 $this->tool, $this->tab, $this->multi_use, $this->image_id, 
-                $this->category_id, $this->subcategory_id, $this->edit_mode);
+                $this->version_id, $this->category_id, $this->subcategory_id, 
+                $this->edit_mode);
             break;
             
             default:
@@ -133,7 +138,8 @@ class Dlayer_Ribbon_Data_Image
                 $ribbon_add = new Dlayer_Ribbon_Image_Add();
                 $data = $ribbon_add->viewData($this->site_id, $this->tool, 
                 $this->tab, $this->multi_use, $this->image_id, 
-                $this->category_id, $this->subcategory_id, $this->edit_mode);
+                $this->version_id, $this->category_id, $this->subcategory_id, 
+                $this->edit_mode);
             break;
             
             default:
