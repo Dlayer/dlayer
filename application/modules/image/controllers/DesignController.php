@@ -289,8 +289,8 @@ class Image_DesignController extends Zend_Controller_Action
     }
 
     /**
-    * Set the selected image and returns the user back to the designer
-    * with the image selected
+    * Set the selected image and versionn, after setting the properties the 
+    * user is sent to the detyail page for an image
     *
     * @return void
     */
@@ -298,7 +298,8 @@ class Image_DesignController extends Zend_Controller_Action
     {
         $this->_helper->disableLayout(FALSE);
 
-        $id = $this->getRequest()->getParam('selected');
+        $image_id = $this->getRequest()->getParam('image');
+        $version_id = $this->getRequest()->getParam('version');
         
         if($this->session_image->setId($id) == TRUE) {
             $this->_redirect('/image/design');

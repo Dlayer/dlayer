@@ -10,6 +10,7 @@
 class Dlayer_Session_Image extends Zend_Session_Namespace
 {
     CONST IMAGE = 'image';
+    CONST VERSION = 'version';
     CONST CATEGORY = 'category';
     CONST SUB_CATEGORY = 'sub_category';
         

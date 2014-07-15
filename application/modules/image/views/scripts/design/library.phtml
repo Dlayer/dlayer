@@ -16,7 +16,18 @@
     <?php foreach($row as $image) { ?>
     <div id="image_<?php echo $this->escape($image['image_id']); ?>" 
     class="container">
-        <div class="image"></div>
+        <div class="image">
+            <a href="/image/design/set-selected-image/image/<?php echo $this->escape(
+            $image['image_id']); ?>/version/<?php echo $this->escape(
+            $image['version_id']); ?>">
+            <img src="/images/library/<?php echo $this->escape(
+            $image['image_id']); ?>/<?php echo $this->escape(
+            $image['version_id']); ?><?php echo $this->escape(
+            $image['extension']); ?>" title="<?php echo $this->escape(
+            $image['name']); ?>" alt="Image library image" 
+            width="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_WIDTH; ?>" 
+            height="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_HEIGHT; ?>" /></a>
+        </div>
         <div class="row">
             <div class="title"><?php echo $this->escape(
             $image['name']); ?></div>
