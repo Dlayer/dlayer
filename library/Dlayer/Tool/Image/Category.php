@@ -20,13 +20,13 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     {
         if($this->validated == TRUE) {
             if($this->category_id == NULL) {
-                $category_id = $this->addCategory();
+                $this->category_id = $this->addCategory();
             } else {
-                die('edit category');
+                $this->editCategory();
             }
         }
         
-        return array('id'=>$category_id, 
+        return array('id'=>$this->category_id, 
         'type'=>Dlayer_Session_Image::CATEGORY);
     }
 
@@ -145,5 +145,16 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
         Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY);
         
         return $category_id;
+    }
+    
+    /**
+    * Edit the selected category
+    * 
+    * @return void
+    */
+    public function editCategory() 
+    {
+        $this->model_categories->editCategory($this->site_id, 
+        $this->category_id, $this->params['name']);
     }
 }

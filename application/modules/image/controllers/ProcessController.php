@@ -88,7 +88,7 @@ class Image_ProcessController extends Zend_Controller_Action
             $category_id = $_POST['category_id'];
         }
         if(array_key_exists('sub_category_id', $_POST) == TRUE) {
-            $sub_category_id = $_POST['category_id'];
+            $sub_category_id = $_POST['sub_category_id'];
         }
         
         // Instantiate base tool or sub tool

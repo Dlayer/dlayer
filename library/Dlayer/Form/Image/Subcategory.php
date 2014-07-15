@@ -106,6 +106,14 @@ class Dlayer_Form_Image_Subcategory extends Dlayer_Form_Module_Image
             $this->elements['sub_category_id'] = $sub_category_id;
         }
         
+        if($this->edit_mode == TRUE && 
+        array_key_exists('category_id', $this->existing_data) == TRUE && 
+        $this->existing_data['category_id'] != FALSE) {
+            $category_id = new Zend_Form_Element_Hidden('category_id');
+            $category_id->setValue($this->existing_data['category_id']);
+            $this->elements['category_id'] = $category_id;
+        }
+        
         $multi_use = new Zend_Form_Element_Hidden('multi_use');
         $multi_use->setValue($this->multi_use);
         $multi_use->setBelongsTo('params');

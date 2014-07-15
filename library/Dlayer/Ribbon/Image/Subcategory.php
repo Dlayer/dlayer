@@ -54,8 +54,9 @@ class Dlayer_Ribbon_Image_Subcategory extends Dlayer_Ribbon_Module_Image
             $sub_category = $model_categories->subCategory($this->site_id, 
             $this->category_id, $this->subcategory_id);
             
-            return array('id'=>intval($sub_category['category_id']), 
+            return array('id'=>intval($this->subcategory_id), 
             'category'=>intval($sub_category['category_id']), 
+            'category_id'=>intval($sub_category['category_id']), 
             'name'=>$sub_category['name'], 'site_id'=>$this->site_id);
         }
     }

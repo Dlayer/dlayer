@@ -96,7 +96,8 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
             }
             
              return array('id'=>$default_sub_category_id, 
-            'name'=>Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY);
+             'category_id'=>$category_id,
+             'name'=>Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY);
         }
     }
     
@@ -180,6 +181,50 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
         $stmt->execute();
         
         return $this->_db->lastInsertId('user_site_image_library_categories');
+    }
+    
+    /**
+    * Edit the details for the selected image library category
+    * 
+    * @param integer $site_id
+    * @param integer $category_id 
+    * @param integer $category New category name
+    * @return void
+    */
+    public function editCategory($site_id, $category_id, $category) 
+    {
+        $sql = "UPDATE user_site_image_library_categories 
+                SET `name` = :category 
+                WHERE id = :category_id 
+                AND site_id = :site_id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':category', $category, PDO::PARAM_STR);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+    
+    /**
+    * Edit the details for the selected image library sub category
+    * 
+    * @param integer $site_id
+    * @param integer $sub_category_id 
+    * @param integer $sub_category New sub category name
+    * @return void
+    */
+    public function editSubCategory($site_id, $sub_category_id, $sub_category) 
+    {
+        $sql = "UPDATE user_site_image_library_sub_categories 
+                SET `name` = :sub_category 
+                WHERE id = :sub_category_id 
+                AND site_id = :site_id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':sub_category', $sub_category, PDO::PARAM_STR);
+        $stmt->bindValue(':sub_category_id', $sub_category_id, PDO::PARAM_INT);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->execute();
     }
     
     /**
@@ -279,11 +324,17 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
         $sql = "SELECT id 
                 FROM user_site_image_library_categories 
                 WHERE site_id = :site_id 
-                AND UPPER(`name`) = :category 
-                LIMIT 1";
+                AND UPPER(`name`) = :category ";
+        if($ignore_id != NULL) {
+            $sql .= "AND id <> :ignore_id ";
+        }
+        $sql .= "LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':category', strtoupper($category), PDO::PARAM_STR);
+        if($ignore_id != NULL) {
+            $stmt->bindValue(':ignore_id', $ignore_id, PDO::PARAM_INT);
+        }
         $stmt->execute();
         
         $result = $stmt->fetch();
@@ -312,13 +363,19 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
                 FROM user_site_image_library_sub_categories 
                 WHERE site_id = :site_id 
                 AND category_id = :category_id 
-                AND UPPER(`name`) = :sub_category 
-                LIMIT 1";
+                AND UPPER(`name`) = :sub_category ";
+        if($ignore_id != NULL) {
+            $sql .= "AND id <> :ignore_id ";
+        }
+        $sql .= "LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
         $stmt->bindValue(':sub_category', strtoupper($sub_category), 
         PDO::PARAM_STR);
+        if($ignore_id != NULL) {
+            $stmt->bindValue(':ignore_id', $ignore_id, PDO::PARAM_INT);
+        }
         $stmt->execute();
         
         $result = $stmt->fetch();

@@ -19,14 +19,14 @@ class Dlayer_Tool_Image_Subcategory extends Dlayer_Tool_Module_Image
     public function process()
     {
         if($this->validated == TRUE) {
-            if($this->category_id == NULL) {
-                $sub_category_id = $this->addSubCategory();
+            if($this->sub_category_id == NULL) {
+                $this->sub_category_id = $this->addSubCategory();
             } else {
-                die('edit sub category');
+                $this->editSubCategory();
             }
         }
         
-        return array('id'=>$sub_category_id, 
+        return array('id'=>$this->sub_category_id, 
         'type'=>Dlayer_Session_Image::SUB_CATEGORY);
     }
 
@@ -125,7 +125,7 @@ class Dlayer_Tool_Image_Subcategory extends Dlayer_Tool_Module_Image
     }
     
     /**
-    * Add the new category
+    * Add the new sub category
     * 
     * @return integer Id of the newly created sub category
     */
@@ -135,5 +135,16 @@ class Dlayer_Tool_Image_Subcategory extends Dlayer_Tool_Module_Image
         $this->site_id, $this->params['category_id'], $this->params['name']);
         
         return $sub_category_id;
+    }
+    
+    /**
+    * Edit the selected sub category
+    * 
+    * @return void
+    */
+    public function editSubCategory() 
+    {
+        $this->model_categories->editSubCategory($this->site_id, 
+        $this->sub_category_id, $this->params['name']);
     }
 }
