@@ -29,8 +29,12 @@
             height="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_HEIGHT; ?>" /></a>
         </div>
         <div class="row">
-            <div class="title"><?php echo $this->escape(
-            $image['name']); ?></div>
+            <div class="title">
+            <a href="/image/design/set-selected-image/image/<?php echo $this->escape(
+            $image['image_id']); ?>/version/<?php echo $this->escape(
+            $image['version_id']); ?>">
+            <?php echo $this->escape(
+            $image['name']); ?></a></div>
         </div>
         <div class="row">
             <div class="size"><?php echo $this->escape(
