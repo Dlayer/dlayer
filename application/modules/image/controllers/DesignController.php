@@ -150,6 +150,7 @@ class Image_DesignController extends Zend_Controller_Action
         $this->view->tools = $model_module->tools(
         $this->getRequest()->getModuleName());
         $this->view->tool = $this->session_image->tool();
+        $this->view->image_id = $this->session_image->id();
 
         return $this->view->render("design/toolbar.phtml");
     }
@@ -276,16 +277,37 @@ class Image_DesignController extends Zend_Controller_Action
 
     /**
     * Generate the html for the library, list of thumbnails for the selected 
-    * category and subcategory
+    * category and subcategory or if an image is selected the detail page 
+    * for the image
     *
     * @return string
     */
     private function dlayerLibrary()
     {
+        if($this->session_image->id() == NULL) {
+            return $this->dlayerLibraryThumbnails();
+        } else {
+            return $this->dlayerLibraryDetail();
+        }
+    }
+    
+    /**
+    * Display thumbnails
+    */
+    private function dlayerLibraryThumbnails() 
+    {
         $this->view->images = $this->designer_image_library->images();
         $this->view->title = $this->designer_image_library->titleData();
         
         return $this->view->render("design/library.phtml");
+    }
+    
+    /**
+    * Display detail
+    */
+    private function dlayerLibraryDetail() 
+    {
+        return $this->view->render("design/detail.phtml");
     }
 
     /**
@@ -301,7 +323,10 @@ class Image_DesignController extends Zend_Controller_Action
         $image_id = $this->getRequest()->getParam('image');
         $version_id = $this->getRequest()->getParam('version');
         
-        if($this->session_image->setId($id) == TRUE) {
+        if($this->session_image->setId($image_id) == TRUE && 
+        $this->session_image->setId($version_id, 
+        Dlayer_Session_Image::VERSION) == TRUE) {
+            $this->session_image->clearTool();
             $this->_redirect('/image/design');
         } else {
             $this->cancelTool();

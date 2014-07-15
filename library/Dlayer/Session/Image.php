@@ -190,6 +190,14 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     }
     
     /**
+    * Clear the set tool
+    */
+    public function clearTool() 
+    {
+        $this->tool = NULL;
+    }
+    
+    /**
     * Clears the session values for the image library, these are the vars 
     * that relate to the current state of the designer, selected image, 
     * tool and tool tab.
