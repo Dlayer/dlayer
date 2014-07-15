@@ -104,3 +104,26 @@
     width: 91px;
     text-align: right;
 }
+
+/* Image detail page */
+#library > .image {
+    width: 960px;
+    height: 720px;
+    border: 1px solid #9e9e9e;
+    margin-top: 12px;
+}
+#library > .details {
+    width: 995px;
+    padding-right: 13px;
+}
+#library > .details > .col_1 {
+    width: 275px;
+    padding-right: 5px;
+}
+#library > .details > .col_2 {
+    width: 300px;
+    padding-right: 5px;
+}
+#library > .details > .col_3 {
+    width: 410px;
+}
