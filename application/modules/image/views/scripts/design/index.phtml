@@ -4,9 +4,11 @@
     <section id="library">
         <?php echo $this->dlayer_library; ?>
     </section>
+    <?php if($this->image_id == NULL) { ?>
     <section id="filter">
         <?php echo $this->filter_form; ?>
     </section>
+    <?php } ?>
     <?php if(strlen($this->dlayer_toolbar) > 1) { ?>
     <section id="tools">
         <?php echo $this->dlayer_toolbar; ?>
