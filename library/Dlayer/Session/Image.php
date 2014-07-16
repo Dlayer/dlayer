@@ -21,7 +21,7 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     private $sort_options = array(Dlayer_Session_Image::SORT_NAME, 
     Dlayer_Session_Image::SORT_UPLOADED, Dlayer_Session_Image::SORT_SIZE);
     
-    public $image_ids = array();
+    //public $image_ids = array();
     
     /**
     * @param string $namespace
@@ -87,7 +87,8 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     */
     public function imageId($type=Dlayer_Session_Image::IMAGE)
     {
-        if(is_array($this->image_ids) == TRUE && 
+        if(isset($this->image_ids) == TRUE && 
+        is_array($this->image_ids) == TRUE && 
         array_key_exists($type, $this->image_ids) == TRUE) {
             return $this->image_ids[$type];
         } else {
