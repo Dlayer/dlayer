@@ -18,8 +18,7 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     CONST SORT_UPLOADED = 'uploaded';
     CONST SORT_SIZE = 'size';
     
-    private $sort_options = array(SELF::SORT_NAME, 
-    SELF::SORT_UPLOADED, SELF::SORT_SIZE);
+    private $sort_options = array(SORT_NAME, SORT_UPLOADED, SORT_SIZE);
     
     /**
     * @param string $namespace
