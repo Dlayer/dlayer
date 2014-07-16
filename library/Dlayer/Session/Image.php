@@ -18,7 +18,8 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     CONST SORT_UPLOADED = 'uploaded';
     CONST SORT_SIZE = 'size';
     
-    private $sort_options = array(SORT_NAME, SORT_UPLOADED, SORT_SIZE);
+    private $sort_options = array(Dlayer_Session_Image::SORT_NAME, 
+    Dlayer_Session_Image::SORT_UPLOADED, Dlayer_Session_Image::SORT_SIZE);
     
     public $image_ids = array();
     
@@ -113,7 +114,7 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
             $this->sort = $sort;
             $this->sort_order = $order;
         } else {
-            $this->sort = SELF::SORT_NAME;
+            $this->sort = Dlayer_Session_Image::SORT_NAME;
             $this->sort_order = 'asc';
         }
     }
@@ -129,7 +130,8 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
         if($this->sort != NULL & $this->sort_order != NULL) {
             return array('sort'=>$this->sort, 'order'=>$this->sort_order);
         } else {
-            return array('sort'=>SELF::SORT_NAME, 'order'=>'asc');
+            return array('sort'=>Dlayer_Session_Image::SORT_NAME, 
+            'order'=>'asc');
         }
     }
 
