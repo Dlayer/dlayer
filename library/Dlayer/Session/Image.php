@@ -42,7 +42,7 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     * @param string $type Use the constants to set type
     * @return boolean
     */
-    public function setId($id, $type=Dlayer_Session_Image::IMAGE)
+    public function setImageId($id, $type=Dlayer_Session_Image::IMAGE)
     {
         $this->ids[$type] = intval($id);
         
@@ -82,7 +82,7 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     * @return integer|NULL
     * 
     */
-    public function id($type=Dlayer_Session_Image::IMAGE)
+    public function imageId($type=Dlayer_Session_Image::IMAGE)
     {
         if(is_array($this->ids) == TRUE && 
         array_key_exists($type, $this->ids) == TRUE) {

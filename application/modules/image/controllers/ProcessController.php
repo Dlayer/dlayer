@@ -40,11 +40,11 @@ class Image_ProcessController extends Zend_Controller_Action
     */
     public function init()
     {
-    	$this->_helper->authenticate();
+        $this->_helper->authenticate();
 
         $this->_helper->setModule();
 
-    	$this->_helper->validateSiteId();
+        $this->_helper->validateSiteId();
 
         $this->_helper->disableLayout(FALSE);
 
@@ -100,9 +100,9 @@ class Image_ProcessController extends Zend_Controller_Action
         if(array_key_exists('sub_tool_model', $_POST) == TRUE 
         && $model_tools->subToolValid($this->getRequest()->getModuleName(),
         $tool['tool'], $_POST['sub_tool_model']) == TRUE) {
-			$tool_class = 'Dlayer_Tool_Image_' . $_POST['sub_tool_model'];
+            $tool_class = 'Dlayer_Tool_Image_' . $_POST['sub_tool_model'];
         } else {
-			$tool_class = 'Dlayer_Tool_Image_' . $tool['model'];
+            $tool_class = 'Dlayer_Tool_Image_' . $tool['model'];
         }
                         
         $this->tool_class = new $tool_class();
@@ -116,7 +116,7 @@ class Image_ProcessController extends Zend_Controller_Action
             if(is_array($return_id) && 
             array_key_exists('id', $return_id) == TRUE && 
             array_key_exists('type', $return_id) == TRUE) {
-                $this->session_image->setId($return_id['id'], 
+                $this->session_image->setImageId($return_id['id'], 
                 $return_id['type']);
             }
 

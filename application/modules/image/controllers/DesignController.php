@@ -48,8 +48,8 @@ class Image_DesignController extends Zend_Controller_Action
         'styles/ribbon/image.css'));
         
         // Set category and sub category values if currently NULL
-        $category_id = $this->session_image->id(Dlayer_Session_Image::CATEGORY);
-        $sub_category_id = $this->session_image->id(
+        $category_id = $this->session_image->imageId(Dlayer_Session_Image::CATEGORY);
+        $sub_category_id = $this->session_image->imageId(
         Dlayer_Session_Image::SUB_CATEGORY);
         
         if($category_id == NULL || $sub_category_id == NULL) {
@@ -61,9 +61,9 @@ class Image_DesignController extends Zend_Controller_Action
             $this->session_dlayer->site_id, $default_category['id'], 0);
             
             $this->session_image->setEditMode();
-            $this->session_image->setId($default_category['id'], 
+            $this->session_image->setImageId($default_category['id'], 
             Dlayer_Session_Image::CATEGORY);
-            $this->session_image->setId($default_sub_category['id'], 
+            $this->session_image->setImageId($default_sub_category['id'], 
             Dlayer_Session_Image::SUB_CATEGORY);
         }
         
@@ -81,10 +81,10 @@ class Image_DesignController extends Zend_Controller_Action
         
         $this->designer_image_library = new Dlayer_Designer_ImageLibrary(
         $this->session_dlayer->siteId(), 
-        $this->session_image->id(Dlayer_Session_Image::CATEGORY), 
-        $this->session_image->id(Dlayer_Session_Image::SUB_CATEGORY), 
+        $this->session_image->imageId(Dlayer_Session_Image::CATEGORY), 
+        $this->session_image->imageId(Dlayer_Session_Image::SUB_CATEGORY), 
         $sort_ordering['sort'], $sort_ordering['order'], 
-        $this->session_image->id(Dlayer_Session_Image::IMAGE));
+        $this->session_image->imageId(Dlayer_Session_Image::IMAGE));
     }
 
     /**
@@ -104,7 +104,7 @@ class Image_DesignController extends Zend_Controller_Action
         $this->view->tool = $this->session_image->tool();
         $this->view->filter_form = $this->designer_image_library->filterForm();
         
-        $this->view->image_id = $this->session_image->id();
+        $this->view->image_id = $this->session_image->imageId();
 
         $this->layout->assign('title', 'Dlayer.com - Image library');
     }
@@ -152,7 +152,7 @@ class Image_DesignController extends Zend_Controller_Action
         $this->view->tools = $model_module->tools(
         $this->getRequest()->getModuleName());
         $this->view->tool = $this->session_image->tool();
-        $this->view->image_id = $this->session_image->id();
+        $this->view->image_id = $this->session_image->imageId();
 
         return $this->view->render("design/toolbar.phtml");
     }
@@ -175,7 +175,7 @@ class Image_DesignController extends Zend_Controller_Action
         } else {
             $ribbon = new Dlayer_Ribbon();
             
-            $image_id = $this->session_image->id(Dlayer_Session_Image::IMAGE);
+            $image_id = $this->session_image->imageId(Dlayer_Session_Image::IMAGE);
 
             if($image_id != NULL) {
                 $html = $this->view->render($ribbon->selectedViewScriptPath());
@@ -286,7 +286,7 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerLibrary()
     {
-        if($this->session_image->id() == NULL) {
+        if($this->session_image->imageId() == NULL) {
             return $this->dlayerLibraryThumbnails();
         } else {
             return $this->dlayerLibraryDetail();
@@ -325,8 +325,8 @@ class Image_DesignController extends Zend_Controller_Action
         $image_id = $this->getRequest()->getParam('image');
         $version_id = $this->getRequest()->getParam('version');
         
-        if($this->session_image->setId($image_id) == TRUE && 
-        $this->session_image->setId($version_id, 
+        if($this->session_image->setImageId($image_id) == TRUE && 
+        $this->session_image->setImageId($version_id, 
         Dlayer_Session_Image::VERSION) == TRUE) {
             $this->session_image->clearTool();
             $this->_redirect('/image/design');
@@ -396,9 +396,9 @@ class Image_DesignController extends Zend_Controller_Action
     {
         if(array_key_exists('category_filter', $_POST) == TRUE && 
         array_key_exists('sub_category_filter', $_POST) == TRUE) {
-            $this->session_image->setId(intval($_POST['category_filter']), 
+            $this->session_image->setImageId(intval($_POST['category_filter']), 
             Dlayer_Session_Image::CATEGORY);
-            $this->session_image->setId(intval($_POST['sub_category_filter']), 
+            $this->session_image->setImageId(intval($_POST['sub_category_filter']), 
             Dlayer_Session_Image::SUB_CATEGORY);
             
             $this->session_image->setEditMode();
