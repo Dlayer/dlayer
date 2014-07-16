@@ -212,6 +212,6 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     {
         $this->tool = NULL;
         $this->tab = NULL;
-        $this->ids = array();
+        $this->image_ids = array();
     }
 }
