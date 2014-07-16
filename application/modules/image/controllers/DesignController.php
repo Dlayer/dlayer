@@ -105,8 +105,6 @@ class Image_DesignController extends Zend_Controller_Action
         $this->view->filter_form = $this->designer_image_library->filterForm();
         
         $this->view->image_id = $this->session_image->imageId();
-        
-        var_dump($this->session_image->imageId());
 
         $this->layout->assign('title', 'Dlayer.com - Image library');
     }
@@ -327,18 +325,11 @@ class Image_DesignController extends Zend_Controller_Action
         $image_id = $this->getRequest()->getParam('image');
         $version_id = $this->getRequest()->getParam('version');
         
-        var_dump($image_id);
-        var_dump($version_id);
-        
         if($this->session_image->setImageId($image_id) == TRUE && 
         $this->session_image->setImageId($version_id, 
         Dlayer_Session_Image::VERSION) == TRUE) {
             $this->session_image->clearTool();
-            //$this->_redirect('/image/design');
-            
-            
-            var_dump($this->session_image->imageId());
-            
+            $this->_redirect('/image/design');            
         } else {
             $this->cancelTool();
         }
