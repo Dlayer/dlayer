@@ -327,11 +327,18 @@ class Image_DesignController extends Zend_Controller_Action
         $image_id = $this->getRequest()->getParam('image');
         $version_id = $this->getRequest()->getParam('version');
         
+        var_dump($image_id);
+        var_dump($version_id);
+        
         if($this->session_image->setImageId($image_id) == TRUE && 
         $this->session_image->setImageId($version_id, 
         Dlayer_Session_Image::VERSION) == TRUE) {
             $this->session_image->clearTool();
-            $this->_redirect('/image/design');
+            //$this->_redirect('/image/design');
+            
+            
+            var_dump($this->session_image->imageId());
+            
         } else {
             $this->cancelTool();
         }
