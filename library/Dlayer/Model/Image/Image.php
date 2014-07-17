@@ -20,7 +20,7 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     public function detail($site_id, $image_id, $version_id) 
     {
         $sql = "SELECT usil.`name`, usilc.`name` AS category, 
-                usilsc.`name` AS sub_category, 
+                usilsc.`name` AS sub_category, usil.description, 
                 usilv.width, usilv.height, usilv.size, 
                 DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded, 
                 di.identity AS email 

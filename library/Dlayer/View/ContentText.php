@@ -138,7 +138,7 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 
         $html .= '<div style="' . $styles . '" class="item c_item_' . 
         $this->view->escape($this->data['content_id']) . 
-        '" id="' . $id . '">' . $this->data['content'] . '</div>';
+        '" id="' . $id . '">' . nl2br($this->data['content']) . '</div>';
         
         if($this->selectable == TRUE) {
             if($this->items != $this->data['sort_order']) {                
