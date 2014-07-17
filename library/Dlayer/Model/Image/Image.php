@@ -36,10 +36,18 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
                 JOIN user_site_image_library_sub_categories usilsc 
                     ON usil.sub_category_id = usilsc.id 
                     AND usilc.id = usilsc.category_id 
-                    AND usilsc.site_id = 1 
+                    AND usilsc.site_id = :site_id 
                 JOIN dlayer_identities di 
                     ON usilv.identity_id = di.id 
-                WHERE usil.site_id = 1 
-                AND usil.id = 1;";
+                WHERE usil.site_id = :site_id 
+                AND usil.id = :image_id 
+                AND usilv.id = :version_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+        $stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetch();
     }
 }

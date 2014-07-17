@@ -10,7 +10,8 @@ class Dlayer_Designer_ImageLibrary
 {
     private $site_id;
 
-    private $image_id = NULL;
+    private $image_id;
+    private $version_id;
     
     private $category_id;
     private $sub_category_id;
@@ -30,10 +31,11 @@ class Dlayer_Designer_ImageLibrary
     * @param string $sort Current sort method
     * @param string $order Current sort order
     * @param integer|NULL $image_id Id of the selected library image, if any
+    * @param integer|NULL $version_id Id of the selected library image version
     * @return void
     */
     public function __construct($site_id, $category_id, $sub_category_id, 
-    $sort, $order, $image_id=NULL)
+    $sort, $order, $image_id=NULL, $version_id=NULL)
     {
         $this->site_id = $site_id;
         $this->category_id = $category_id;
@@ -41,6 +43,7 @@ class Dlayer_Designer_ImageLibrary
         $this->sort = $sort;
         $this->order = $order;
         $this->image_id = $image_id;
+        $this->version_id = $version_id;
         
         $this->model_library = new Dlayer_Model_Image_Library();
         $this->model_categories = new Dlayer_Model_Image_Categories();
@@ -73,9 +76,17 @@ class Dlayer_Designer_ImageLibrary
     * @return array|FALSE Returns all the details for the selected image and 
     *                     version
     */
-    public function imageDetail() 
+    public function detail() 
     {
-        return FALSE;
+        $detail = $this->model_image->detail($this->site_id, $this->image_id, 
+        $this->version_id);
+        
+        if($detail != FALSE) {
+            $detail['size'] = $this->model_library->readableFilesize(
+            $detail['size']);
+        }
+        
+        return $detail;
     }
     
     /**

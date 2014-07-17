@@ -46,6 +46,32 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
         $stmt->bindValue(':sub_category_id', $sub_category_id, PDO::PARAM_INT);
         $stmt->execute();
         
-        return $stmt->fetchAll();
+        $result = $stmt->fetchAll();
+        
+        $images = array();
+        
+        foreach($result as $row) {
+            $row['size'] = $this->readableFilesize($row['size']);
+            $images[] = $row;
+        }
+        
+        return $images;
+    }
+    
+    /**
+    * Convert filesize into readable format
+    * 
+    * @param integer $bytes 
+    * @return string More human readable version of filesize
+    */
+    public function readableFilesize($bytes=0) 
+    {
+        if($bytes < 1024) {
+            return $bytes . ' bytes';
+        } else if($bytes < 1024*1024) {
+            return number_format($bytes/(1024), 1) . ' kb';
+        } else {
+            return number_format($bytes/(1024*1024), 2) . ' mb';
+        }
     }
 }

@@ -84,7 +84,8 @@ class Image_DesignController extends Zend_Controller_Action
         $this->session_image->imageId(Dlayer_Session_Image::CATEGORY), 
         $this->session_image->imageId(Dlayer_Session_Image::SUB_CATEGORY), 
         $sort_ordering['sort'], $sort_ordering['order'], 
-        $this->session_image->imageId(Dlayer_Session_Image::IMAGE));
+        $this->session_image->imageId(Dlayer_Session_Image::IMAGE), 
+        $this->session_image->imageId(Dlayer_Session_Image::VERSION));
     }
 
     /**
@@ -309,7 +310,7 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerLibraryDetail() 
     {
-        $detail = $this->designer_image_library->imageDetail();
+        $detail = $this->designer_image_library->detail();
         
         // Unable to correctly fetch data, clear all session data and return 
         // the user to the library
