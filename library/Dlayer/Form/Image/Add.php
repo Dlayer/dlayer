@@ -120,6 +120,15 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
         
         $this->elements['name'] = $name;
         
+        $description = new Zend_Form_Element_Textarea('description');
+        $description->setLabel('Description');
+        $description->setAttribs(array('rows'=>3, 'cols'=>50, 
+        'placeholder'=>'e.g., Site background for the news page'));
+        $description->setDescription('Enter a description of the new image.');
+        $description->setBelongsTo('params');
+        
+        $this->elements['description'] = $description;
+        
         $image = new Zend_Form_Element_File('image');
         $image->setLabel('Image');
         $image->setDescription('Choose an image to add to the Image library.');
