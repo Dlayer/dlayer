@@ -309,6 +309,15 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerLibraryDetail() 
     {
+        $detail = $this->designer_image_library->imageDetail();
+        
+        // Unable to correctly fetch data, clear all session data and return 
+        // the user to the library
+        if($detail == FALSE) {
+            $this->session_image->clearAll();
+            $this->_redirect('/image');
+        }
+        
         return $this->view->render("design/detail.phtml");
     }
 

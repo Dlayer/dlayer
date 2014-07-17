@@ -19,6 +19,7 @@ class Dlayer_Designer_ImageLibrary
     
     private $model_library;
     private $model_categories;
+    private $model_image;
 
     /**
     * Initialise the object, run setup methods and set initial properties
@@ -43,6 +44,7 @@ class Dlayer_Designer_ImageLibrary
         
         $this->model_library = new Dlayer_Model_Image_Library();
         $this->model_categories = new Dlayer_Model_Image_Categories();
+        $this->model_image = new Dlayer_Model_Image_Image();
     }
     
     /**
@@ -63,6 +65,17 @@ class Dlayer_Designer_ImageLibrary
         $this->category_id, $this->sub_category_id, $this->sort, $this->order);
         
         return $this->sortIntoRows($images);
+    }
+    
+    /**
+    * Fetch all the data for the image detail page
+    * 
+    * @return array|FALSE Returns all the details for the selected image and 
+    *                     version
+    */
+    public function imageDetail() 
+    {
+        return FALSE;
     }
     
     /**
