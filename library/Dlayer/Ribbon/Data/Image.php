@@ -65,6 +65,10 @@ class Dlayer_Ribbon_Data_Image
                 $data = $this->subcategory();
             break;
             
+            case 'copy':
+                $data = $this->copy();
+            break;
+            
             default:
                 $data = FALSE;
             break;
@@ -137,6 +141,31 @@ class Dlayer_Ribbon_Data_Image
             case 'add':
                 $ribbon_add = new Dlayer_Ribbon_Image_Add();
                 $data = $ribbon_add->viewData($this->site_id, $this->tool, 
+                $this->tab, $this->multi_use, $this->image_id, 
+                $this->version_id, $this->category_id, $this->subcategory_id, 
+                $this->edit_mode);
+            break;
+            
+            default:
+                $data = FALSE;
+            break;
+        }
+        
+        return $data;
+    }
+    
+    /**
+    * Fetch the view tab data for the copy image tool, in this case the form 
+    * for the tool tab
+    * 
+    * @return array|FALSE 
+    */
+    private function copy() 
+    {
+        switch($this->tab) {
+            case 'copy':
+                $ribbon_copy = new Dlayer_Ribbon_Image_Copy();
+                $data = $ribbon_copy->viewData($this->site_id, $this->tool, 
                 $this->tab, $this->multi_use, $this->image_id, 
                 $this->version_id, $this->category_id, $this->subcategory_id, 
                 $this->edit_mode);
