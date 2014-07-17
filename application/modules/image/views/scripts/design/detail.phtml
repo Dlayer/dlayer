@@ -5,18 +5,18 @@
 </div>
 
 <div class="details">
-    <h1>Gradient 1</h1>
+    <h1><?php echo $this->escape($this->detail['name']); ?></h1>
     
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam varius purus et dui cursus, sit amet dapibus justo facilisis. Nullam bibendum erat at vestibulum mollis. Quisque leo quam, sodales non arcu sed, eleifend blandit nisi. Aenean facilisis posuere lacus, ut blandit ante tempor lacinia. Maecenas et purus eu dui consectetur lobortis sed sed neque. Etiam varius erat iaculis vestibulum malesuada.</p>
     
     <div class="col_1">
     <h2>Details</h2>
-    <p><strong>Category</strong>: Backgrounds</p>
-    <p><strong>Sub category</strong>: Gradients</p>
-    <p><strong>Dimensions</strong>: 960 x 720 pixels</p>
-    <p><strong>Size</strong>: 12000 bytes</p>
-    <p><strong>Uploaded</strong>: 15th July 2014 15:43</p>
-    <p><strong>Uploaded by</strong>: user-1@dlayer.com</p>
+    <p><strong>Category</strong>: <?php echo $this->escape($this->detail['category']); ?></p>
+    <p><strong>Sub category</strong>: <?php echo $this->escape($this->detail['sub_category']); ?></p>
+    <p><strong>Dimensions</strong>: <?php echo $this->escape($this->detail['width']); ?> x <?php echo $this->escape($this->detail['height']); ?> pixels</p>
+    <p><strong>Size</strong>: <?php echo $this->escape($this->detail['size']); ?></p>
+    <p><strong>Uploaded</strong>: <?php echo $this->escape($this->detail['uploaded']); ?></p>
+    <p><strong>Uploaded by</strong>: <?php echo $this->escape($this->detail['email']); ?></p>
     </div>
     <div class="col_2">
     <h2>Version history</h2>

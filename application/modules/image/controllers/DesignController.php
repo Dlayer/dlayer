@@ -319,6 +319,8 @@ class Image_DesignController extends Zend_Controller_Action
             $this->_redirect('/image');
         }
         
+        $this->view->detail = $detail;
+        
         return $this->view->render("design/detail.phtml");
     }
 
