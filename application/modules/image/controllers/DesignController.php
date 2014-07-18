@@ -310,9 +310,9 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerLibraryDetail() 
     {
-        $detail = $this->designer_image_library->detail();
-        
+        $detail = $this->designer_image_library->detail();        
         $versions = $this->designer_image_library->versions();
+        $usage = $this->designer_image_library->usage();
         
         // Unable to correctly fetch data, clear all session data and return 
         // the user to the library
@@ -323,6 +323,7 @@ class Image_DesignController extends Zend_Controller_Action
         
         $this->view->detail = $detail;
         $this->view->versions = $versions;
+        $this->view->usage = $usage;
         $this->view->image_id = $this->session_image->imageId();
         $this->view->version_id = $this->session_image->imageId(
         Dlayer_Session_Image::VERSION);

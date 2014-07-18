@@ -103,6 +103,17 @@ class Dlayer_Designer_ImageLibrary
     }
     
     /**
+    * Fetch the usage history for the selected image and version, displays 
+    * in the third column on the image detail page
+    * 
+    * @return array|FALSE
+    */
+    public function usage() 
+    {
+        return FALSE;
+    }
+    
+    /**
     * Sort the images into rows
     * 
     * @param array $imagges Array of images for selected category and 

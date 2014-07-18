@@ -34,7 +34,9 @@
     </div>
     <div class="col_3">
     <h2>Usage</h2>
+    <?php if($this->usage == FALSE) { ?>
     <p>This version of the selected image is not currently in use by any 
     templates, widgets or content items.</p>
+    <?php } ?>
     </div>
 </div>
