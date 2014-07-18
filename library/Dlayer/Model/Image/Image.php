@@ -59,11 +59,47 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     * to an item
     * 
     * @param integer $site_id
-    * @param integer $library_id
-    * @return array
+    * @param integer $image_id
+    * @return array|FALSE There should always be at least 1 version, FALSE is 
+    *                     returned if for somereason there isn't at least one 
+    *                     row in the result set
+    *                     The result array is indexed by version_id
     */
-    public function versions() 
+    public function versions($site_id, $image_id) 
     {
+        $sql = "SELECT usilv.library_id AS image_id, usilv.id AS version_id, 
+                usilv.width, usilv.height, 
+                DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded, 
+                dmt.`name` AS tool 
+                FROM user_site_image_library_versions usilv 
+                JOIN dlayer_module_tools dmt 
+                    ON usilv.tool_id = dmt.id 
+                    AND dmt.module_id = 8 
+                WHERE usilv.site_id = :site_id 
+                AND usilv.library_id = :library_id 
+                ORDER BY usilv.uploaded DESC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':library_id', $image_id, PDO::PARAM_INT);#
+        $stmt->execute();
         
+        $result = $stmt->fetchAll();
+        
+        if(count($result) > 0) {
+            $images = array();
+            
+            $i = 1;
+            
+            foreach($result as $row) {
+                $row['version'] = "Version " . $i;
+                $images[$row['version_id']] = $row;
+                
+                $i++;
+            }
+            
+            return $images;
+        } else {
+            return FALSE;
+        }
     }
 }

@@ -71,22 +71,36 @@ class Dlayer_Designer_ImageLibrary
     }
     
     /**
-    * Fetch all the data for the image detail page
+    * Fetch all the base details for the details column of the image 
+    * detail page
     * 
-    * @return array|FALSE Returns all the details for the selected image and 
-    *                     version
+    * @return array|FALSE
     */
     public function detail() 
     {
         $detail = $this->model_image->detail($this->site_id, $this->image_id, 
         $this->version_id);
-        
+                
         if($detail != FALSE) {
             $detail['size'] = $this->model_library->readableFilesize(
             $detail['size']);
         }
         
         return $detail;
+    }
+    
+    /**
+    * Fetch the versions listing data for the vesions column of the image 
+    * detail page
+    * 
+    * @return array|FALSE
+    */    
+    public function versions() 
+    {
+        $versions = $this->model_image->versions($this->site_id, 
+        $this->image_id);
+        
+        return $versions;
     }
     
     /**
