@@ -51,4 +51,19 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         
         return $stmt->fetch();
     }
+    
+    /**
+    * Fetch the version info for the requested library images, data array 
+    * contains all the versions of an image in chronological order, these 
+    * include the shallow versions created each time an image is attached
+    * to an item
+    * 
+    * @param integer $site_id
+    * @param integer $library_id
+    * @return array
+    */
+    public function versions() 
+    {
+        
+    }
 }
