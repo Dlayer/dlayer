@@ -95,7 +95,7 @@ class Image_DesignController extends Zend_Controller_Action
     * @return void
     */
     public function indexAction()
-    {
+    {        
         $this->dlayerMenu('/image/index/index');
         $this->view->dlayer_toolbar = $this->dlayerToolbar();
         $this->view->dlayer_library = $this->dlayerLibrary();
@@ -311,6 +311,7 @@ class Image_DesignController extends Zend_Controller_Action
     private function dlayerLibraryDetail() 
     {
         $detail = $this->designer_image_library->detail();
+        
         $versions = $this->designer_image_library->versions();
         
         // Unable to correctly fetch data, clear all session data and return 
@@ -320,9 +321,11 @@ class Image_DesignController extends Zend_Controller_Action
             $this->_redirect('/image');
         }
         
-        var_dump($versions);
-        
         $this->view->detail = $detail;
+        $this->view->versions = $versions;
+        $this->view->image_id = $this->session_image->imageId();
+        $this->view->version_id = $this->session_image->imageId(
+        Dlayer_Session_Image::VERSION);
         
         return $this->view->render("design/detail.phtml");
     }

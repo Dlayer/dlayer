@@ -61,4 +61,21 @@ class Dlayer_Helper
             return FALSE;
         }
     }
+    
+    /**
+    * Convert filesize into readable format
+    * 
+    * @param integer $bytes 
+    * @return string More human readable version of filesize
+    */
+    public static function readableFilesize($bytes=0) 
+    {
+        if($bytes < 1024) {
+            return $bytes . ' bytes';
+        } else if($bytes < 1024*1024) {
+            return number_format($bytes/(1024), 1) . ' kb';
+        } else {
+            return number_format($bytes/(1024*1024), 2) . ' mb';
+        }
+    }
 }

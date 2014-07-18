@@ -82,8 +82,7 @@ class Dlayer_Designer_ImageLibrary
         $this->version_id);
                 
         if($detail != FALSE) {
-            $detail['size'] = $this->model_library->readableFilesize(
-            $detail['size']);
+            $detail['size'] = Dlayer_Helper::readableFilesize($detail['size']);
         }
         
         return $detail;

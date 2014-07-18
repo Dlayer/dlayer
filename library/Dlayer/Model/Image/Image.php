@@ -24,24 +24,21 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
                 usilv.width, usilv.height, usilv.size, 
                 DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded, 
                 di.identity AS email 
-                FROM user_site_image_library usil 
-                JOIN user_site_image_library_links usill 
-                    ON usil.id = usill.library_id 
-                    AND usill.site_id = :site_id 
-                JOIN user_site_image_library_versions usilv 
-                    ON usill.version_id = usilv.id 
-                    AND usilv.site_id = :site_id 
+                FROM user_site_image_library_versions usilv 
+                JOIN user_site_image_library usil 
+                    ON usilv.library_id = usil.id 
+                    AND usil.site_id = :site_id 
+                JOIN dlayer_identities di 
+                    ON usilv.identity_id = di.id 
                 JOIN user_site_image_library_categories usilc 
                     ON usil.category_id = usilc.id 
                     AND usilc.site_id = :site_id 
                 JOIN user_site_image_library_sub_categories usilsc 
                     ON usil.sub_category_id = usilsc.id 
-                    AND usilc.id = usilsc.category_id 
+                    AND usilsc.category_id = usilc.id 
                     AND usilsc.site_id = :site_id 
-                JOIN dlayer_identities di 
-                    ON usilv.identity_id = di.id 
-                WHERE usil.site_id = :site_id 
-                AND usil.id = :image_id 
+                WHERE usilv.site_id = :site_id 
+                AND usilv.library_id = :image_id 
                 AND usilv.id = :version_id";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
@@ -70,7 +67,7 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         $sql = "SELECT usilv.library_id AS image_id, usilv.id AS version_id, 
                 usilv.width, usilv.height, 
                 DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded, 
-                dmt.`name` AS tool 
+                dmt.`name` AS tool, usilv.size 
                 FROM user_site_image_library_versions usilv 
                 JOIN dlayer_module_tools dmt 
                     ON usilv.tool_id = dmt.id 
@@ -88,13 +85,14 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         if(count($result) > 0) {
             $images = array();
             
-            $i = 1;
+            $n = count($result);
             
             foreach($result as $row) {
-                $row['version'] = "Version " . $i;
+                $row['version'] = "Version " . $n;
+                $row['size'] = Dlayer_Helper::readableFilesize($row['size']);
                 $images[$row['version_id']] = $row;
                 
-                $i++;
+                $n--;
             }
             
             return $images;

@@ -20,9 +20,17 @@
     </div>
     <div class="col_2">
     <h2>Version history</h2>
-    <p><strong>Selected version</strong>: 1 </p>
-    <p><strong>Number of versions</strong>: 1</p>
-    <p><strong>Version 1</strong>:15th Jul 2014 / Add to library</p>
+    <p><strong>Selected</strong>: <?php echo $this->escape($this->versions[$this->version_id]['version']); ?></p>
+    <p><strong>Number of versions</strong>: <?php echo count($this->versions); ?></p>
+    <?php foreach($this->versions as $version) { ?>
+    <p><a href="/image/design/set-selected-image/image/<?php echo $this->escape($version['image_id']); ?>/version/<?php echo $this->escape($version['version_id']); ?>"><?php echo $this->escape($version['version']); ?></a>: 
+    <?php echo $this->escape($version['width']); ?> x 
+    <?php echo $this->escape($version['height']); ?> / 
+    <?php echo $this->escape($version['size']); ?> / 
+    <?php echo $this->escape($version['uploaded']); ?> / 
+    <?php echo $this->escape($version['tool']); ?></p>
+    <?php } ?>
+    
     </div>
     <div class="col_3">
     <h2>Usage</h2>
