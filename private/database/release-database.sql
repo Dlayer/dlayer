@@ -376,7 +376,7 @@ CREATE TABLE `dlayer_identities` (
 
 LOCK TABLES `dlayer_identities` WRITE;
 
-insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-07-18 00:36:12','2014-07-18 00:57:22',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-07-12 16:32:09','2014-07-12 16:32:28',1);
+insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-07-18 00:59:20','2014-07-18 01:03:35',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-07-12 16:32:09','2014-07-12 16:32:28',1);
 
 UNLOCK TABLES;
 
@@ -488,7 +488,7 @@ CREATE TABLE `dlayer_sessions` (
 
 LOCK TABLES `dlayer_sessions` WRITE;
 
-insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('dqm1aqqiokc4grk7gi1m1p9dv4','','PHPSESSID',1405641445,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405645045;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1405645045;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1405645045;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1405645045;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1405645045;}}dlayer_session_image|a:8:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:0:{}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:4:\"Copy\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_content|a:6:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}');
+insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('dqm1aqqiokc4grk7gi1m1p9dv4','','PHPSESSID',1405641886,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405645486;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1405645486;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1405645486;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1405645486;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1405645486;}}dlayer_session_image|a:8:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:0:{}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:4:\"Copy\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_content|a:6:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}');
 
 UNLOCK TABLES;
 
@@ -1014,6 +1014,7 @@ DROP TABLE IF EXISTS `user_site_image_library_versions`;
 CREATE TABLE `user_site_image_library_versions` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `site_id` int(11) unsigned NOT NULL,
+  `library_id` int(11) unsigned NOT NULL,
   `uploaded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `extension` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '.jpg',
   `width` smallint(6) NOT NULL DEFAULT '0',
@@ -1023,15 +1024,17 @@ CREATE TABLE `user_site_image_library_versions` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `identity_id` (`identity_id`),
-  CONSTRAINT `user_site_image_library_versions_ibfk_2` FOREIGN KEY (`identity_id`) REFERENCES `dlayer_identities` (`id`),
-  CONSTRAINT `user_site_image_library_versions_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`)
+  KEY `library_id` (`library_id`),
+  CONSTRAINT `user_site_image_library_versions_ibfk_3` FOREIGN KEY (`library_id`) REFERENCES `user_site_image_library` (`id`),
+  CONSTRAINT `user_site_image_library_versions_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
+  CONSTRAINT `user_site_image_library_versions_ibfk_2` FOREIGN KEY (`identity_id`) REFERENCES `dlayer_identities` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_versions` */
 
 LOCK TABLES `user_site_image_library_versions` WRITE;
 
-insert  into `user_site_image_library_versions`(`id`,`site_id`,`uploaded`,`extension`,`width`,`height`,`size`,`identity_id`) values (1,1,'2014-07-15 14:37:58','.jpg',960,720,12000,1),(2,1,'2014-07-15 14:38:08','.jpg',960,720,12000,1),(3,1,'2014-07-15 14:38:15','.jpg',960,720,12000,1),(4,1,'2014-07-15 14:38:26','.jpg',960,720,12000,1),(5,1,'2014-07-15 14:38:37','.jpg',960,720,12000,1),(6,1,'2014-07-15 14:38:45','.jpg',960,720,12000,1),(7,1,'2014-07-15 14:39:20','.jpg',960,720,12000,1),(8,1,'2014-07-18 00:36:37','.jpg',960,720,15000,1);
+insert  into `user_site_image_library_versions`(`id`,`site_id`,`library_id`,`uploaded`,`extension`,`width`,`height`,`size`,`identity_id`) values (1,1,1,'2014-07-15 14:37:58','.jpg',960,720,12000,1),(2,1,2,'2014-07-15 14:38:08','.jpg',960,720,12000,1),(3,1,3,'2014-07-15 14:38:15','.jpg',960,720,12000,1),(4,1,4,'2014-07-15 14:38:26','.jpg',960,720,12000,1),(5,1,5,'2014-07-15 14:38:37','.jpg',960,720,12000,1),(6,1,6,'2014-07-15 14:38:45','.jpg',960,720,12000,1),(7,1,7,'2014-07-15 14:39:20','.jpg',960,720,12000,1),(8,1,1,'2014-07-18 00:36:37','.jpg',960,720,15000,1);
 
 UNLOCK TABLES;
 
