@@ -51,13 +51,18 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
                     ON usill.version_id = usilv.id 
                     AND usilv.site_id = :site_id 
                 WHERE usil.site_id = :site_id 
-                AND usil.category_id = :category_id 
-                AND usil.sub_category_id = :sub_category_id 
-                ORDER BY " . $sort_field . " " . $order;
+                AND usil.category_id = :category_id ";
+        if($sub_category_id != 0) {
+            $sql .= "AND usil.sub_category_id = :sub_category_id ";
+        }    
+        $sql .= "ORDER BY " . $sort_field . " " . $order;
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
-        $stmt->bindValue(':sub_category_id', $sub_category_id, PDO::PARAM_INT);
+        if($sub_category_id != 0) {
+            $stmt->bindValue(':sub_category_id', $sub_category_id, 
+            PDO::PARAM_INT);
+        }
         $stmt->execute();
         
         $result = $stmt->fetchAll();
