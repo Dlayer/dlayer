@@ -299,6 +299,10 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerLibraryThumbnails() 
     {
+        $sort_order = $this->session_image->sortOrder();
+        
+        $this->view->sort = $sort_order['sort'];
+        $this->view->sort_order = $sort_order['order'];
         $this->view->images = $this->designer_image_library->images();
         $this->view->title = $this->designer_image_library->titleData();
         

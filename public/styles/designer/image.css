@@ -14,11 +14,22 @@
 }
 
 /* Category and sub category titles */
+#designer > #library > h1 {
+    width: 808px;
+}
 #designer > #library > h1 > span.link {
     font-size: 0.5em;
 }
 #designer > #library > h1 > span.link > a {
     color: #000000;
+}
+
+/* Sort options */
+#designer > #library > .sort {
+    font-size: 0.8em;
+    width: 200px;
+    margin-top: 40px;
+    float: right;
 }
 
 /* Filter form */
