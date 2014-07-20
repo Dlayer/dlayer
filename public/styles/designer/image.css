@@ -32,6 +32,11 @@
     float: right;
 }
 
+#designer > #library > p {
+    width: 1008px;
+    float: left;
+}
+
 /* Filter form */
 #designer > #filter {
     width: 320px;

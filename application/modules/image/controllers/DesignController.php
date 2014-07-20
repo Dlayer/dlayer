@@ -48,7 +48,8 @@ class Image_DesignController extends Zend_Controller_Action
         'styles/ribbon/image.css'));
         
         // Set category and sub category values if currently NULL
-        $category_id = $this->session_image->imageId(Dlayer_Session_Image::CATEGORY);
+        $category_id = $this->session_image->imageId(
+        Dlayer_Session_Image::CATEGORY);
         $sub_category_id = $this->session_image->imageId(
         Dlayer_Session_Image::SUB_CATEGORY);
         
@@ -419,9 +420,9 @@ class Image_DesignController extends Zend_Controller_Action
     {
         if(array_key_exists('category_filter', $_POST) == TRUE && 
         array_key_exists('sub_category_filter', $_POST) == TRUE) {
-            $this->session_image->setImageId(intval($_POST['category_filter']), 
+            $this->session_image->setImageId($_POST['category_filter'], 
             Dlayer_Session_Image::CATEGORY);
-            $this->session_image->setImageId(intval($_POST['sub_category_filter']), 
+            $this->session_image->setImageId($_POST['sub_category_filter'], 
             Dlayer_Session_Image::SUB_CATEGORY);
             
             $this->session_image->setEditMode();

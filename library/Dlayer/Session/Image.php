@@ -47,7 +47,7 @@ class Dlayer_Session_Image extends Zend_Session_Namespace
     */
     public function setImageId($id, $type=Dlayer_Session_Image::IMAGE)
     {
-        $this->image_ids[$type] = intval($id);
+        $this->image_ids[$type] = $id;
         
         return true;
     }

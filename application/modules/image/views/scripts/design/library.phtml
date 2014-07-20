@@ -6,6 +6,7 @@ Dlayer_Config::IMAGE_LIBRARY_DEFAULT_CATEGORY) { ?><span class="link"><a title="
 $this->title['sub_category']['name']); ?> <?php if($this->title['sub_category']['name'] != 
 Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY) { ?> <span class="link"><a title="Edit sub category" href="/image/design/set-tool/tool/subcategory/edit/1">[Edit]</a></span><?php } ?></h1>
 
+<?php if(count($this->images) > 0) { ?>
 <div class="sort">
 <?php if($this->sort != 'name') { ?>
 <a href="/image/design/set-sort/sort/name">Name</a>
@@ -22,6 +23,7 @@ Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY) { ?> <span class="link"><a ti
 <a href="/image/design/set-sort/order/desc">Desc</a>
 <?php } else { ?>Desc<?php } ?>
 </div>
+<?php } ?>
 
 <?php if(count($this->images) > 0) { ?>
 <?php foreach($this->images as $row) { ?>

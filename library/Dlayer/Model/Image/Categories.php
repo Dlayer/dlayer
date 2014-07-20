@@ -280,14 +280,16 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
     }
     
     /**
-    * Fetch the image library sub categories for the selected site and category
+    * Fetch the image library sub categories for the selected site and 
+    * category, an all option can be added to the end of the array if required
     * 
     * @param integer $site_id
     * @param integer $category_id
+    * @param boolean $all Add an all option
     * @return array Array containing all the image library sub categories for 
     *               the selected category and site
     */
-    public function subCategories($site_id, $category_id) 
+    public function subCategories($site_id, $category_id, $all=TRUE) 
     {
         $sql = "SELECT id, `name` 
                 FROM user_site_image_library_sub_categories 
@@ -305,6 +307,10 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
         
         foreach($result as $row) {
             $sub_categories[$row['id']] = $row['name'];
+        }
+        
+        if($all == TRUE) {
+            $sub_categories[0] = 'All';
         }
         
         return $sub_categories;
