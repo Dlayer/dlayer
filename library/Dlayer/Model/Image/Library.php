@@ -25,6 +25,20 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
     public function images($site_id, $category_id, $sub_category_id, 
     $sort='name', $order='asc')
     {
+        switch($sort) {
+            case 'size':
+                $sort_field = 'usilv.`size`';
+            break;
+            
+            case 'uploaded':
+                $sort_field = 'usilv.`uploaded`';
+            break;
+            
+            default:
+                $sort_field = 'usil.`name`';
+            break;
+        }
+        
         $sql = "SELECT usil.`name`, usil.id AS image_id, 
                 usilv.id AS version_id, usilv.extension, 
                 usilv.size, 
@@ -39,7 +53,7 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
                 WHERE usil.site_id = :site_id 
                 AND usil.category_id = :category_id 
                 AND usil.sub_category_id = :sub_category_id 
-                ORDER BY usil.`" . $sort . "` " . $order;
+                ORDER BY " . $sort_field . " " . $order;
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);

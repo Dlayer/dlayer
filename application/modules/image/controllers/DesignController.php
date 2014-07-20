@@ -429,4 +429,32 @@ class Image_DesignController extends Zend_Controller_Action
         
         $this->_redirect('/image/design');
     }
+    
+    /**
+    * Set the sort options, sets the values in the session and them returns the 
+    * user to the designer
+    * 
+    * @return void
+    */
+    public function setSortAction() 
+    {
+        $sort = $this->getRequest()->getParam('sort');
+        $order = $this->getRequest()->getParam('order');
+        
+        $sort_order = $this->session_image->sortOrder();
+        
+        // User only needs to set one param at a time so we pull the current 
+        // values from the session if noi values are submitted for ether sort 
+        // or order
+        if($sort == NULL) {
+            $sort = $sort_order['sort'];
+        }
+        if($order == NULL) {
+            $order = $sort_order['order'];
+        }
+        
+        $this->session_image->setSort($sort, $order);
+        
+        $this->_redirect('/image/design/index');
+    }
 }
