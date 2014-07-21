@@ -100,4 +100,47 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
             return FALSE;
         }
     }
+    
+    /**
+    * Add image to database
+    * 
+    * @param integer $site_id
+    * @param array $params
+    * @return array Contains the image id and version id for the newly created 
+    *               image
+    */
+    public function addImage($site_id, $params) 
+    {
+        var_dump($params); die;
+    }
+    
+    /**
+    * Add to library table
+    * 
+    * @return integer Library id for new image
+    */
+    private function addToLibrary() 
+    {
+        
+    }
+    
+    /**
+    * Add to versions table
+    * 
+    * @return integer Versions id for new image
+    */
+    private function addToVersions() 
+    {
+        
+    }
+    
+    /**
+    * Add to links table
+    * 
+    * @return void
+    */
+    private function addToLinks() 
+    {
+        
+    }
 }

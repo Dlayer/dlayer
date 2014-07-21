@@ -18,7 +18,7 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
     public function process()
     {
         if($this->validated == TRUE) {
-            die('Validated');
+            $ids = $this->addImage();
         }
         
         return array('image_id'=>1, 'version_id'=>8);
@@ -126,5 +126,17 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
         'description'=>trim($params['description']), 
         'category_id'=>intval($params['category']), 
         'sub_category_id'=>intval($params['sub_category']));
+    }
+    
+    /**
+    * Add the new image to the database
+    * 
+    * @return array Contains the image id and version id
+    */
+    private function addImage() 
+    {
+        $model_image = new Dlayer_Model_Image_Image();
+        
+        $ids = $model_image->addImage($this->site_id, $this->params);
     }
 }
