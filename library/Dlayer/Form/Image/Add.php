@@ -139,7 +139,6 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('class', 'submit');
-        $submit->setAttrib('disabled', 'disabled');
         $submit->setLabel('Save');
 
         $this->elements['submit'] = $submit;
