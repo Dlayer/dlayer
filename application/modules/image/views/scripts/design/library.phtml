@@ -26,6 +26,11 @@ Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY) { ?> <span class="link"><a ti
 <?php } ?>
 
 <?php if(count($this->images) > 0) { ?>
+
+<?php echo $this->pagination($this->per_page, $this->start, 
+$this->images_count, '/image/design/index', 1, 'Previous', 'Next', 'Image', 
+'Images'); ?>
+
 <?php foreach($this->images as $row) { ?>
 <div class="row">
     <?php foreach($row as $image) { ?>

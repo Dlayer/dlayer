@@ -20,10 +20,12 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
     * @param integer $sub_category_id
     * @param string $sort
     * @param string $order
+    * @param integer $per_page
+    * @param integer $start
     * @return array
     */
     public function images($site_id, $category_id, $sub_category_id, 
-    $sort='name', $order='asc')
+    $sort='name', $order='asc', $per_page, $start=0)
     {
         switch($sort) {
             case 'size':
@@ -39,7 +41,7 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
             break;
         }
         
-        $sql = "SELECT usil.`name`, usil.id AS image_id, 
+        $sql = "SELECT SQL_CALC_FOUND_ROWS usil.`name`, usil.id AS image_id, 
                 usilv.id AS version_id, usilv.extension, 
                 usilv.size, 
                 DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded 
@@ -56,6 +58,11 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
             $sql .= "AND usil.sub_category_id = :sub_category_id ";
         }    
         $sql .= "ORDER BY " . $sort_field . " " . $order;
+        if($start == 0) {
+            $sql .= " LIMIT :limit";
+        } else {
+            $sql .= " LIMIT :start, :limit";
+        }
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
@@ -63,9 +70,18 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
             $stmt->bindValue(':sub_category_id', $sub_category_id, 
             PDO::PARAM_INT);
         }
+        $stmt->bindValue(':limit', $per_page, PDO::PARAM_INT);
+        if($start > 0) {
+            $stmt->bindValue(':start', $start, PDO::PARAM_INT);
+        }
         $stmt->execute();
         
         $result = $stmt->fetchAll();
+        
+        $stmt = $this->_db->prepare("SELECT FOUND_ROWS()");
+        $stmt->execute();
+        
+        $count = $stmt->fetch();
         
         $images = array();
         
@@ -74,6 +90,6 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
             $images[] = $row;
         }
         
-        return $images;
+        return array('results'=>$images, 'count'=>$count['FOUND_ROWS()']);
     }
 }

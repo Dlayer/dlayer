@@ -32,7 +32,7 @@ class Dlayer_View_Pagination extends Zend_View_Helper_Abstract
     * @param integer $total Total number of results in the full recordset
     * @param string $url URL to use for pagination links, typically the url 
     *                    of the current page
-    * @param integer $text_style Text style for text between links, 
+    * @param integer $text_style Text style for text between links,  
     *                            1 = item based, 2 = page based
     * @param string $previous Previous page link text
     * @param string $next Next page link text
