@@ -106,7 +106,8 @@ class Dlayer_Tool_Image_Subcategory extends Dlayer_Tool_Module_Image
         if(strlen(trim($params['name'])) > 0 && 
         $this->model_categories->subCategoryExists($this->site_id, 
         intval($params['category']), trim($params['name'])) == FALSE && 
-        trim(strtoupper($params['name'])) != 'ALL') {
+        trim(strtoupper($params['name'])) != strtoupper(
+        Dlayer_Config::IMAGE_LIBRARY_ALL_SUB_CATEGORY)) {
             return TRUE;
         } else {
             return FALSE;

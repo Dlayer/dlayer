@@ -310,7 +310,7 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
         }
         
         if($all == TRUE) {
-            $sub_categories[0] = 'All';
+            $sub_categories[0] = Dlayer_Config::IMAGE_LIBRARY_ALL_SUB_CATEGORY;
         }
         
         return $sub_categories;
