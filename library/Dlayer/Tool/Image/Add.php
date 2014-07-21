@@ -18,9 +18,7 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
     public function process()
     {
         if($this->validated == TRUE) {
-            echo 'Not validated';
-        } else {
-            echo 'validation';
+            die('Validated');
         }
         
         return array('image_id'=>1, 'version_id'=>8);
@@ -104,10 +102,10 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
         if(strlen(trim($params['name'])) > 0 && 
         strlen(trim($params['description'])) > 0 && 
         $model_categories->categoryIdExists($this->site_id, 
-        intval($params['category'])) == FALSE && 
+        intval($params['category'])) == TRUE && 
         $model_categories->subCategoryIdExists($this->site_id, 
         intval($params['category']), 
-        intval($params['sub_category'])) == FALSE) {
+        intval($params['sub_category'])) == TRUE) {
             return TRUE;
         } else {
             return FALSE;
@@ -127,6 +125,6 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
         return array('name'=>trim($params['name']), 
         'description'=>trim($params['description']), 
         'category_id'=>intval($params['category']), 
-        'sub_category_id'=>intval($params['sub_category_id']));
+        'sub_category_id'=>intval($params['sub_category']));
     }
 }

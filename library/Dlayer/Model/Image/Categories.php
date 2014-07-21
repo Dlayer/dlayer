@@ -373,10 +373,10 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
         
         $result = $stmt->fetch();
         
-        if($result != FALSE) {
-            return TRUE;
-        } else {
+        if($result == FALSE) {
             return FALSE;
+        } else {
+            return TRUE;
         }
     }
     
@@ -406,10 +406,10 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
         
         $result = $stmt->fetch();
         
-        if($result != FALSE) {
-            return TRUE;
-        } else {
+        if($result == FALSE) {
             return FALSE;
+        } else {
+            return TRUE;
         }
     }
     

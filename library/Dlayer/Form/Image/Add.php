@@ -24,6 +24,8 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
     public function __construct(array $existing_data, $edit_mode, 
     $multi_use, $options=NULL)
     {
+        $this->tool = 'add';
+        
         parent::__construct($existing_data, $edit_mode, $multi_use, $options);
     }
     
