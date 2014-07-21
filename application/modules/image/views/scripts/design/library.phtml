@@ -25,12 +25,13 @@ Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY) { ?> <span class="link"><a ti
 </div>
 <?php } ?>
 
-<?php if(count($this->images) > 0) { ?>
-
+<?php if($this->images_count > Dlayer_Config::IMAGE_LIBRARY_THUMB_PER_PAGE) { ?>
 <?php echo $this->pagination($this->per_page, $this->start, 
 $this->images_count, '/image/design/index', 1, 'Previous', 'Next', 'Image', 
 'Images'); ?>
+<?php } ?>
 
+<?php if(count($this->images) > 0) { ?>
 <?php foreach($this->images as $row) { ?>
 <div class="row">
     <?php foreach($row as $image) { ?>
