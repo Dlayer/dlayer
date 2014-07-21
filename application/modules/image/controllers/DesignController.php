@@ -300,12 +300,22 @@ class Image_DesignController extends Zend_Controller_Action
     */
     private function dlayerLibraryThumbnails() 
     {
+        $per_page = Dlayer_Config::IMAGE_LIBRARY_THUMB_PER_PAGE;
+        $start = Dlayer_Helper::getInteger('start', 0);
+        
         $sort_order = $this->session_image->sortOrder();
+        $images = $this->designer_image_library->images(
+        $per_page, $start);
         
         $this->view->sort = $sort_order['sort'];
         $this->view->sort_order = $sort_order['order'];
-        $this->view->images = $this->designer_image_library->images();
+        $this->view->images = $images['results'];
         $this->view->title = $this->designer_image_library->titleData();
+        
+        // Pagination params
+        $this->view->images_count = $images['count'];
+        $this->view->per_page = $per_page;
+        $this->view->start = $start;
         
         return $this->view->render("design/library.phtml");
     }

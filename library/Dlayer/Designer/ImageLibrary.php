@@ -56,18 +56,21 @@ class Dlayer_Designer_ImageLibrary
     * rows so the view doesn't need to do too much work - In the default view 
     * there are 6 thumbnails per row
     * 
-    * @todo Need to add pagination
-    * @todo The thumbnail size and as a consequence the number per row needs 
-    * to be configurable, the user should be able to view the images at 2/3 
-    * different view sizes
-    * @return array If there are no images we still return and empty array
+    * @param integer $per_page Number of thumbnails per page
+    * @param integer $start Defaul;t start position 0
+    * @return array If there are no images we still return an array it is just 
+    *               that the count value is set to 0 and the results array is 
+    *               empty
     */
-    public function images() 
+    public function images($per_page, $start) 
     {
         $images = $this->model_library->images($this->site_id, 
-        $this->category_id, $this->sub_category_id, $this->sort, $this->order);
+        $this->category_id, $this->sub_category_id, $this->sort, $this->order, 
+        $per_page, $start);
         
-        return $this->sortIntoRows($images);
+        $images['results'] = $this->sortIntoRows($images['results']);
+        
+        return $images;
     }
     
     /**
