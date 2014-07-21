@@ -110,13 +110,26 @@ class Image_ProcessController extends Zend_Controller_Action
         if($this->tool_class->validate($_POST['params'], 
         $this->session_dlayer->siteId(), $category_id, $sub_category_id, 
         $image_id) == TRUE) {
-            $return_id = $this->tool_class->process();
+            $return_ids = $this->tool_class->process();
             
-            if(is_array($return_id) && 
-            array_key_exists('id', $return_id) == TRUE && 
-            array_key_exists('type', $return_id) == TRUE) {
-                $this->session_image->setImageId($return_id['id'], 
-                $return_id['type']);
+            if(is_array($return_ids) == TRUE) {
+                if(array_key_exists('multiple', $return_ids) == TRUE) {
+                    if(array_key_exists('ids', $return_ids) == TRUE) {
+                        foreach($return_ids['ids'] as $id) {
+                            if(array_key_exists('id', $id) == TRUE && 
+                            array_key_exists('type', $id) == TRUE) {
+                                $this->session_image->setImageId($id['id'], 
+                                $id['type']);
+                            }
+                        }
+                    }
+                } else {
+                    if(array_key_exists('id', $return_ids) == TRUE && 
+                    array_key_exists('type', $return_ids) == TRUE) {
+                        $this->session_image->setImageId($return_ids['id'], 
+                        $return_ids['type']);
+                    }
+                }
             }
 
             $this->returnToDesigner(TRUE);

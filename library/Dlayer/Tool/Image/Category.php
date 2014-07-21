@@ -20,14 +20,18 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     {
         if($this->validated == TRUE) {
             if($this->category_id == NULL) {
-                $this->category_id = $this->addCategory();
+                $ids = $this->addCategory();
+                $this->category_id = $ids['category_id'];
+                $this->sub_category_id = $ids['sub_category_id'];
             } else {
                 $this->editCategory();
             }
         }
         
-        return array('id'=>$this->category_id, 
-        'type'=>Dlayer_Session_Image::CATEGORY);
+        return array('multiple'=>'', 'ids'=>array(array('id'=>$this->category_id, 
+        'type'=>Dlayer_Session_Image::CATEGORY), array(
+        'id'=>$this->sub_category_id, 
+        'type'=>Dlayer_Session_Image::SUB_CATEGORY)));
     }
 
     /**
@@ -102,18 +106,9 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     {
         $this->model_categories = new Dlayer_Model_Image_Categories();
         
-        
-        /**
-        * @todo
-        * 
-        * Working on category exists validation methid, need to exclude id 
-        * in edit mode, if in edit mode 'category_id' will exist in params 
-        * array
-        */
-        
         if(strlen(trim($params['name'])) > 0 && 
         $this->model_categories->categoryExists($this->site_id, 
-        trim($params['name'])) == FALSE) {
+        trim($params['name']), $this->category_id) == FALSE) {
             return TRUE;
         } else {
             return FALSE;
@@ -136,17 +131,19 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     /**
     * Add the new category
     * 
-    * @return integer Id of the newly created category
+    * @return array Ids for the newly created category and sub category
     */
     public function addCategory() 
     {
         $category_id =  $this->model_categories->addCategory($this->site_id, 
         $this->params['name']);
         
-        $this->model_categories->addSubCategory($this->site_id, $category_id, 
+        $sub_category_id = $this->model_categories->addSubCategory(
+        $this->site_id, $category_id, 
         Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY);
         
-        return $category_id;
+        return array('category_id'=>$category_id, 
+        'sub_category_id'=>$sub_category_id);
     }
     
     /**
