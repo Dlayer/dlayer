@@ -23,7 +23,7 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
                 usilsc.`name` AS sub_category, usil.description, 
                 usilvm.width, usilvm.height, usilvm.size, usilvm.extension, 
                 DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded, 
-                di.identity AS email 
+                di.identity AS email, usilvm.type 
                 FROM user_site_image_library_versions usilv 
                 JOIN user_site_image_library_versions_meta usilvm 
                     ON usilv.id = usilvm.version_id 
@@ -162,7 +162,8 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         'height'=>$image[1], 'size'=>$upload_info['image']['size']);
         
         $this->addToVersionsMeta($site_id, $library_id, $version_id, 
-        $meta['extension'], $meta['width'], $meta['height'], $meta['size']);
+        $meta['extension'], $upload_info['image']['type'], $meta['width'], 
+        $meta['height'], $meta['size']);
         
         $this->addToLinks($site_id, $library_id, $version_id);
         
@@ -231,25 +232,27 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     * @param integer $library_id 
     * @param integer $version_id 
     * @param string $extension
+    * @param string $type
     * @param integer $width
     * @param integer $height
     * @param integer $size
     * @return void
     */
     private function addToVersionsMeta($site_id, $library_id, $version_id, 
-    $extension, $width, $height, $size) 
+    $extension, $type, $width, $height, $size) 
     {
         $sql = "INSERT INTO user_site_image_library_versions_meta 
-                (site_id, library_id, version_id, extension, width, height, 
-                size) 
+                (site_id, library_id, version_id, extension, type, width, 
+                height, size) 
                 VALUES 
-                (:site_id, :library_id, :version_id, :extension, :width, 
-                :height, :size)";
+                (:site_id, :library_id, :version_id, :extension, :type, 
+                :width, :height, :size)";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':library_id', $library_id, PDO::PARAM_INT);
         $stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
         $stmt->bindValue(':extension', $extension, PDO::PARAM_STR);
+        $stmt->bindValue(':type', $type, PDO::PARAM_STR);
         $stmt->bindValue(':width', $width, PDO::PARAM_INT);
         $stmt->bindValue(':height', $height, PDO::PARAM_INT);
         $stmt->bindValue(':size', $size, PDO::PARAM_INT);
