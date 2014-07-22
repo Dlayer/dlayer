@@ -111,7 +111,7 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     * @return array Contains the image id and version id for the newly created 
     *               image
     */
-    public function addImage($site_id, $tool_id, $identity_id, $params) 
+    public function addImage($site_id, $tool_id, $identity_id, array $params) 
     {
         $library_id = $this->addToLibrary($site_id, $params['name'], 
         $params['description'], $params['category_id'], 
@@ -119,6 +119,11 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         
         $version_id = $this->addToVersions($site_id, $library_id, '.jpg', 
         960, 720, $size, $identity_id, $tool_id);
+        
+        // Update version table with correct data
+        
+        // Delete if there was a problem moving the image and don't process 
+        // the below
         
         $this->addToLinks($site_id, $library_id, $version_id);
         
