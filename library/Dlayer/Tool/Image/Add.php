@@ -102,13 +102,18 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
     {
         $model_categories = new Dlayer_Model_Image_Categories();
         
+        $upload = new Zend_File_Transfer_Adapter_Http();
+        $upload->addValidator('Count', false, array('min' =>1, 'max' => 1))
+        ->addValidator('IsImage', false, array('jpeg', 'png'));
+        
         if(strlen(trim($params['name'])) > 0 && 
         strlen(trim($params['description'])) > 0 && 
         $model_categories->categoryIdExists($this->site_id, 
         intval($params['category'])) == TRUE && 
         $model_categories->subCategoryIdExists($this->site_id, 
         intval($params['category']), 
-        intval($params['sub_category'])) == TRUE) {
+        intval($params['sub_category'])) == TRUE && 
+        $upload->isValid() == TRUE) {
             return TRUE;
         } else {
             return FALSE;

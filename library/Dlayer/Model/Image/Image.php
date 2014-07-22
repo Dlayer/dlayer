@@ -120,6 +120,30 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         $version_id = $this->addToVersions($site_id, $library_id, '.jpg', 
         960, 720, 12000, $identity_id, $tool_id);
         
+        $destination = '../public/images/library/' . $library_id;
+        mkdir($destination, 0777); 
+        
+        //var_dump($destination);
+        //var_dump(mkdir($destination, 0777, true)); die;
+        
+        $upload = new Zend_File_Transfer_Adapter_Http();
+        //$upload->addValidator('IsImage', false, array('jpeg', 'png'));
+        //$upload->setDestination($destination);
+        
+        //var_dump($upload->getFileInfo());
+        /*$upload->setDestination('/public/images/library/' . $library_id . 
+        '/' . $version_id);*/
+        
+              
+        $upload->setDestination($destination);
+        $upload->addFilter('Rename', $destination . '/' . $version_id . '.jpg');
+        
+        
+        $upload->receive();
+        //var_dump($upload->getType());
+        
+         //die;
+        
         // Update version table with correct data
         
         // Delete if there was a problem moving the image and don't process 
@@ -127,7 +151,10 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         
         $this->addToLinks($site_id, $library_id, $version_id);
         
-        return array('image_id'=>$library_id, 'version_id'=>$version_id);
+        die;
+        
+        //return array('image_id'=>1, 'version_id'=>1);
+        //return array('image_id'=>$library_id, 'version_id'=>$version_id);
     }
     
     /**
