@@ -1,7 +1,12 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <div class="image">
-<img src="/images/library/1/1.jpg" width="960" height="720" title="Gradient 1" alt="Library image">
+<img src="/images/library/<?php echo $this->escape(
+$this->image_id); ?>/<?php echo $this->escape(
+$this->version_id); ?>.jpg" width="<?php echo $this->escape(
+$this->detail['width']); ?>" height="<?php echo $this->escape(
+$this->detail['height']); ?>" title="<?php echo $this->escape(
+$this->detail['name']); ?>" alt="Library image">
 </div>
 
 <div class="details">

@@ -118,7 +118,7 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         $params['sub_category_id']);
         
         $version_id = $this->addToVersions($site_id, $library_id, '.jpg', 
-        960, 720, $size, $identity_id, $tool_id);
+        960, 720, 12000, $identity_id, $tool_id);
         
         // Update version table with correct data
         
@@ -205,7 +205,7 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     */
     private function addToLinks($site_id, $library_id, $version_id) 
     {
-        $sql = "INSERT INTO user_site_library_links 
+        $sql = "INSERT INTO user_site_image_library_links 
                 (site_id, library_id, version_id) 
                 VALUES 
                 (:site_id, :library_id, :version_id)";
