@@ -21,7 +21,9 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
             $ids = $this->addImage();
         }
         
-        return array('image_id'=>1, 'version_id'=>8);
+        return array('multiple'=>'', 'ids'=>array(array('id'=>$ids['image_id'], 
+        'type'=>Dlayer_Session_Image::IMAGE), array(
+        'id'=>$ids['version_id'], 'type'=>Dlayer_Session_Image::VERSION)));
     }
 
     /**
@@ -44,6 +46,7 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
         $this->sub_category_id = $sub_category_id;
         $this->image_id = $image_id;
         $this->version_id = $version_id;
+        $this->session_dlayer = new Dlayer_Session();
         
         if($this->validateValues($params) == TRUE &&
         $this->validateData($params) == TRUE) {
@@ -137,6 +140,9 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
     {
         $model_image = new Dlayer_Model_Image_Image();
         
-        $ids = $model_image->addImage($this->site_id, $this->params);
+        $ids = $model_image->addImage($this->site_id, 25, 
+        $this->session_dlayer->siteId(), $this->params);
+        
+        return $ids;
     }
 }

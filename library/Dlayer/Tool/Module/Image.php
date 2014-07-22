@@ -14,6 +14,8 @@ abstract class Dlayer_Tool_Module_Image extends Dlayer_Tool
     protected $image_id;
     protected $version_id;
     
+    protected $session_dlayer;
+    
     /**
     * Process the request for a manual tool
     * 

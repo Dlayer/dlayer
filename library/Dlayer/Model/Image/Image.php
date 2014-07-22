@@ -105,42 +105,109 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     * Add image to database
     * 
     * @param integer $site_id
-    * @param array $params
+    * @param integer $tool_id
+    * @param integer $identity_id
+    * @param array $params Tool form params array
     * @return array Contains the image id and version id for the newly created 
     *               image
     */
-    public function addImage($site_id, $params) 
+    public function addImage($site_id, $tool_id, $identity_id, $params) 
     {
-        var_dump($params); die;
+        $library_id = $this->addToLibrary($site_id, $params['name'], 
+        $params['description'], $params['category_id'], 
+        $params['sub_category_id']);
+        
+        $version_id = $this->addToVersions($site_id, $library_id, '.jpg', 
+        960, 720, $size, $identity_id, $tool_id);
+        
+        $this->addToLinks($site_id, $library_id, $version_id);
+        
+        return array('image_id'=>$library_id, 'version_id'=>$version_id);
     }
     
     /**
     * Add to library table
     * 
+    * @param integer $site_id
+    * @param string $name
+    * @param string $description
+    * @param integer $category_id
+    * @param integer $sub_category_id
     * @return integer Library id for new image
     */
-    private function addToLibrary() 
+    private function addToLibrary($site_id, $name, $description, $category_id, 
+    $sub_category_id) 
     {
+        $sql = "INSERT INTO user_site_image_library 
+                (site_id, `name`, description, category_id, sub_category_id) 
+                VALUES 
+                (:site_id, :name, :description, :category_id, 
+                :sub_category_id)";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->bindValue(':sub_category_id', $sub_category_id, PDO::PARAM_INT);
+        $stmt->execute();
         
+        return $this->_db->lastInsertId('user_site_image_library');
     }
     
     /**
-    * Add to versions table
+    * Add to image data to the versions table
     * 
+    * @param integer $site_id
+    * @param integer $library_id
+    * @param string $extension
+    * @param integer $width
+    * @param integer $height
+    * @param integer $size
+    * @param integer $identity_id
+    * @param integer $tool_id
     * @return integer Versions id for new image
     */
-    private function addToVersions() 
+    private function addToVersions($site_id, $library_id, $extension, $width, 
+    $height, $size, $identity_id, $tool_id) 
     {
+        $sql = "INSERT INTO user_site_image_library_versions 
+                (site_id, library_id, extension, width, height, size, tool_id, 
+                identity_id) 
+                VALUES 
+                (:site_id, :library_id, :extension, :width, :height, :size, 
+                :tool_id, :identity_id)";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':library_id', $library_id, PDO::PARAM_INT);
+        $stmt->bindValue(':extension', $extension, PDO::PARAM_STR);
+        $stmt->bindValue(':width', $width, PDO::PARAM_INT);
+        $stmt->bindValue(':height', $height, PDO::PARAM_INT);
+        $stmt->bindValue(':size', $size, PDO::PARAM_INT);
+        $stmt->bindValue(':tool_id', $tool_id, PDO::PARAM_INT);
+        $stmt->bindValue(':identity_id', $identity_id, PDO::PARAM_INT);
+        $stmt->execute();
         
+        return $this->_db->lastInsertId('user_site_image_library_versions');
     }
     
     /**
     * Add to links table
     * 
+    * @param integer $site_id
+    * @param integer $library_id
+    * @param integer $version_id
     * @return void
     */
-    private function addToLinks() 
+    private function addToLinks($site_id, $library_id, $version_id) 
     {
-        
+        $sql = "INSERT INTO user_site_library_links 
+                (site_id, library_id, version_id) 
+                VALUES 
+                (:site_id, :library_id, :version_id)";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':library_id', $library_id, PDO::PARAM_INT);
+        $stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+        $stmt->execute();
     }
 }
