@@ -21,10 +21,14 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     {
         $sql = "SELECT usil.`name`, usilc.`name` AS category, 
                 usilsc.`name` AS sub_category, usil.description, 
-                usilv.width, usilv.height, usilv.size, 
+                usilvm.width, usilvm.height, usilvm.size, usilvm.extension, 
                 DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded, 
                 di.identity AS email 
                 FROM user_site_image_library_versions usilv 
+                JOIN user_site_image_library_versions_meta usilvm 
+                    ON usilv.id = usilvm.version_id 
+                    AND usilv.library_id = usilvm.library_id 
+                    AND usilvm.site_id = :site_id 
                 JOIN user_site_image_library usil 
                     ON usilv.library_id = usil.id 
                     AND usil.site_id = :site_id 
@@ -65,10 +69,14 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     public function versions($site_id, $image_id) 
     {
         $sql = "SELECT usilv.library_id AS image_id, usilv.id AS version_id, 
-                usilv.width, usilv.height, 
+                usilvm.width, usilvm.height, 
                 DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded, 
-                dmt.`name` AS tool, usilv.size 
+                dmt.`name` AS tool, usilvm.size 
                 FROM user_site_image_library_versions usilv 
+                JOIN user_site_image_library_versions_meta usilvm 
+                    ON usilv.id = usilvm.version_id 
+                    AND usilv.library_id = usilvm.library_id 
+                    AND usilvm.site_id = :site_id 
                 JOIN dlayer_module_tools dmt 
                     ON usilv.tool_id = dmt.id 
                     AND dmt.module_id = 8 
@@ -117,16 +125,32 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         $params['description'], $params['category_id'], 
         $params['sub_category_id']);
         
-        $version_id = $this->addToVersions($site_id, $library_id, '.jpg', 
-        960, 720, 12000, $identity_id, $tool_id);
+        $version_id = $this->addToVersions($site_id, $library_id, 
+        $identity_id, $tool_id);
+                
+        /*$destination = '../public/images/library/' . $library_id;
+        mkdir($destination, 0777); */
         
-        $destination = '../public/images/library/' . $library_id;
-        mkdir($destination, 0777); 
+        //$upload = new Zend_File_Transfer_Adapter_Http();
+        //$upload->setDestination($destination);
+        //$upload->addFilter('Rename', $destination . '/' . $version_id . '.jpg');
         
-        $upload = new Zend_File_Transfer_Adapter_Http();
-        $upload->setDestination($destination);
-        $upload->addFilter('Rename', $destination . '/' . $version_id . '.jpg');
-        $upload->receive();
+        /*$info = $upload->getFileInfo();
+        var_dump($info['image']['type']);
+        var_dump($info['image']['size']);
+        die;*/
+        
+        // image/jpeg
+        // image/gif
+        // image/png
+        
+        $meta = array('extension'=>'.jpg', 'width'=>960, 'height'=>720, 
+        'size'=>12000);
+        
+        $this->addToVersionsMeta($site_id, $library_id, $version_id, 
+        $meta['extension'], $meta['width'], $meta['height'], $meta['size']);
+        
+        //$upload->receive();
         
         $this->addToLinks($site_id, $library_id, $version_id);
         
@@ -167,35 +191,57 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     * 
     * @param integer $site_id
     * @param integer $library_id
-    * @param string $extension
-    * @param integer $width
-    * @param integer $height
-    * @param integer $size
     * @param integer $identity_id
     * @param integer $tool_id
     * @return integer Versions id for new image
     */
-    private function addToVersions($site_id, $library_id, $extension, $width, 
-    $height, $size, $identity_id, $tool_id) 
+    private function addToVersions($site_id, $library_id, $identity_id, 
+    $tool_id) 
     {
         $sql = "INSERT INTO user_site_image_library_versions 
-                (site_id, library_id, extension, width, height, size, tool_id, 
-                identity_id) 
+                (site_id, library_id, tool_id, identity_id) 
                 VALUES 
-                (:site_id, :library_id, :extension, :width, :height, :size, 
-                :tool_id, :identity_id)";
+                (:site_id, :library_id, :tool_id, :identity_id)";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':library_id', $library_id, PDO::PARAM_INT);
-        $stmt->bindValue(':extension', $extension, PDO::PARAM_STR);
-        $stmt->bindValue(':width', $width, PDO::PARAM_INT);
-        $stmt->bindValue(':height', $height, PDO::PARAM_INT);
-        $stmt->bindValue(':size', $size, PDO::PARAM_INT);
         $stmt->bindValue(':tool_id', $tool_id, PDO::PARAM_INT);
         $stmt->bindValue(':identity_id', $identity_id, PDO::PARAM_INT);
         $stmt->execute();
         
         return $this->_db->lastInsertId('user_site_image_library_versions');
+    }
+    
+    /**
+    * Add the details to the versions meta table
+    * 
+    * @param integer $site_id
+    * @param integer $library_id 
+    * @param integer $version_id 
+    * @param string $extension
+    * @param integer $width
+    * @param integer $height
+    * @param integer $size
+    * @return void
+    */
+    private function addToVersionsMeta($site_id, $library_id, $version_id, 
+    $extension, $width, $height, $size) 
+    {
+        $sql = "INSERT INTO user_site_image_library_versions_meta 
+                (site_id, library_id, version_id, extension, width, height, 
+                size) 
+                VALUES 
+                (:site_id, :library_id, :version_id, :extension, :width, 
+                :height, :size)";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':library_id', $library_id, PDO::PARAM_INT);
+        $stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+        $stmt->bindValue(':extension', $extension, PDO::PARAM_STR);
+        $stmt->bindValue(':width', $width, PDO::PARAM_INT);
+        $stmt->bindValue(':height', $height, PDO::PARAM_INT);
+        $stmt->bindValue(':size', $size, PDO::PARAM_INT);
+        $stmt->execute();
     }
     
     /**

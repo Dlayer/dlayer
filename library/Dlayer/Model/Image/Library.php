@@ -42,8 +42,7 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
         }
         
         $sql = "SELECT SQL_CALC_FOUND_ROWS usil.`name`, usil.id AS image_id, 
-                usilv.id AS version_id, usilv.extension, 
-                usilv.size, 
+                usilv.id AS version_id, usilvm.extension, usilvm.size, 
                 DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded 
                 FROM user_site_image_library usil 
                 JOIN user_site_image_library_links usill 
@@ -52,6 +51,10 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
                 JOIN user_site_image_library_versions usilv 
                     ON usill.version_id = usilv.id 
                     AND usilv.site_id = :site_id 
+                JOIN user_site_image_library_versions_meta usilvm 
+                    ON usilv.id = usilvm.version_id 
+                    AND usil.id = usilvm.library_id 
+                    AND usilvm.site_id = :site_id 
                 WHERE usil.site_id = :site_id 
                 AND usil.category_id = :category_id ";
         if($sub_category_id != 0) {

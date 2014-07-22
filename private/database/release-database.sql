@@ -376,7 +376,7 @@ CREATE TABLE `dlayer_identities` (
 
 LOCK TABLES `dlayer_identities` WRITE;
 
-insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-07-21 14:53:37','2014-07-21 15:29:19',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-07-12 16:32:09','2014-07-12 16:32:28',1);
+insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2014-07-22 15:07:21','2014-07-22 15:08:01',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2014-06-25 16:23:58','2014-06-25 16:25:03',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-07-12 16:32:09','2014-07-12 16:32:28',1);
 
 UNLOCK TABLES;
 
@@ -488,7 +488,7 @@ CREATE TABLE `dlayer_sessions` (
 
 LOCK TABLES `dlayer_sessions` WRITE;
 
-insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('5npe80qq4qcge0auj7vn4drd10','','PHPSESSID',1405990865,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405994465;}}'),('9802ed7imgm5laivqm7dc2su71','','PHPSESSID',1405868145,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405871744;}}'),('dqm1aqqiokc4grk7gi1m1p9dv4','','PHPSESSID',1405699338,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405702938;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1405702936;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1405702166;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1405702166;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1405702166;}}dlayer_session_image|a:8:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:2:{s:8:\"category\";i:1;s:12:\"sub_category\";i:1;}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:4:\"Copy\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}');
+insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('5npe80qq4qcge0auj7vn4drd10','','PHPSESSID',1406038083,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1406041682;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1406041682;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1406041682;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1406041682;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1406041682;}}dlayer_session_image|a:8:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:0:{}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:3:\"Add\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}'),('9802ed7imgm5laivqm7dc2su71','','PHPSESSID',1405868145,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405871744;}}'),('dqm1aqqiokc4grk7gi1m1p9dv4','','PHPSESSID',1405699338,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1405702938;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1405702936;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1405702166;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1405702166;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1405702166;}}dlayer_session_image|a:8:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:2:{s:8:\"category\";i:1;s:12:\"sub_category\";i:1;}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:4:\"Copy\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}');
 
 UNLOCK TABLES;
 
@@ -1016,10 +1016,6 @@ CREATE TABLE `user_site_image_library_versions` (
   `site_id` int(11) unsigned NOT NULL,
   `library_id` int(11) unsigned NOT NULL,
   `uploaded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `extension` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '.jpg',
-  `width` smallint(6) NOT NULL DEFAULT '0',
-  `height` smallint(6) NOT NULL DEFAULT '0',
-  `size` int(11) unsigned NOT NULL,
   `tool_id` int(11) unsigned NOT NULL DEFAULT '25' COMMENT 'Tool used to create version',
   `identity_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
@@ -1027,17 +1023,47 @@ CREATE TABLE `user_site_image_library_versions` (
   KEY `identity_id` (`identity_id`),
   KEY `library_id` (`library_id`),
   KEY `tool_id` (`tool_id`),
-  CONSTRAINT `user_site_image_library_versions_ibfk_4` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tools` (`id`),
   CONSTRAINT `user_site_image_library_versions_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_site_image_library_versions_ibfk_2` FOREIGN KEY (`identity_id`) REFERENCES `dlayer_identities` (`id`),
-  CONSTRAINT `user_site_image_library_versions_ibfk_3` FOREIGN KEY (`library_id`) REFERENCES `user_site_image_library` (`id`)
+  CONSTRAINT `user_site_image_library_versions_ibfk_3` FOREIGN KEY (`library_id`) REFERENCES `user_site_image_library` (`id`),
+  CONSTRAINT `user_site_image_library_versions_ibfk_4` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tools` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_versions` */
 
 LOCK TABLES `user_site_image_library_versions` WRITE;
 
-insert  into `user_site_image_library_versions`(`id`,`site_id`,`library_id`,`uploaded`,`extension`,`width`,`height`,`size`,`tool_id`,`identity_id`) values (1,1,1,'2014-07-15 14:37:58','.jpg',960,720,12000,25,1),(2,1,2,'2014-07-15 14:38:08','.jpg',960,720,12000,25,1),(3,1,3,'2014-07-15 14:38:15','.jpg',960,720,12000,25,1),(4,1,4,'2014-07-15 14:38:26','.jpg',960,720,12000,25,1),(5,1,5,'2014-07-15 14:38:37','.jpg',960,720,12000,25,1),(6,1,6,'2014-07-15 14:38:45','.jpg',960,720,12000,25,1),(7,1,7,'2014-07-15 14:39:20','.jpg',960,720,12000,25,1),(8,1,1,'2014-07-18 00:36:37','.jpg',960,720,15000,30,1);
+insert  into `user_site_image_library_versions`(`id`,`site_id`,`library_id`,`uploaded`,`tool_id`,`identity_id`) values (1,1,1,'2014-07-15 14:37:58',25,1),(2,1,2,'2014-07-15 14:38:08',25,1),(3,1,3,'2014-07-15 14:38:15',25,1),(4,1,4,'2014-07-15 14:38:26',25,1),(5,1,5,'2014-07-15 14:38:37',25,1),(6,1,6,'2014-07-15 14:38:45',25,1),(7,1,7,'2014-07-15 14:39:20',25,1),(8,1,1,'2014-07-18 00:36:37',30,1);
+
+UNLOCK TABLES;
+
+/*Table structure for table `user_site_image_library_versions_meta` */
+
+DROP TABLE IF EXISTS `user_site_image_library_versions_meta`;
+
+CREATE TABLE `user_site_image_library_versions_meta` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `site_id` int(11) unsigned NOT NULL,
+  `library_id` int(11) unsigned NOT NULL,
+  `version_id` int(11) unsigned NOT NULL,
+  `extension` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '.jpg',
+  `width` smallint(5) NOT NULL DEFAULT '1',
+  `height` smallint(5) NOT NULL DEFAULT '1',
+  `size` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `site_id` (`site_id`),
+  KEY `library_id` (`library_id`),
+  KEY `version_id` (`version_id`),
+  CONSTRAINT `user_site_image_library_versions_meta_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
+  CONSTRAINT `user_site_image_library_versions_meta_ibfk_2` FOREIGN KEY (`library_id`) REFERENCES `user_site_image_library` (`id`),
+  CONSTRAINT `user_site_image_library_versions_meta_ibfk_3` FOREIGN KEY (`version_id`) REFERENCES `user_site_image_library_versions` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `user_site_image_library_versions_meta` */
+
+LOCK TABLES `user_site_image_library_versions_meta` WRITE;
+
+insert  into `user_site_image_library_versions_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`width`,`height`,`size`) values (1,1,1,1,'.jpg',960,720,12000),(2,1,2,2,'.jpg',960,720,12000),(3,1,3,3,'.jpg',960,720,12000),(4,1,4,4,'.jpg',960,720,12000),(5,1,5,5,'.jpg',960,720,12000),(6,1,6,6,'.jpg',960,720,12000),(7,1,7,7,'.jpg',960,720,12000),(8,1,1,8,'.jpg',960,720,15000);
 
 UNLOCK TABLES;
 
