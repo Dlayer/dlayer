@@ -128,29 +128,41 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         $version_id = $this->addToVersions($site_id, $library_id, 
         $identity_id, $tool_id);
                 
-        /*$destination = '../public/images/library/' . $library_id;
-        mkdir($destination, 0777); */
+        $destination = '../public/images/library/' . $library_id;
+        mkdir($destination, 0777); 
         
-        //$upload = new Zend_File_Transfer_Adapter_Http();
-        //$upload->setDestination($destination);
-        //$upload->addFilter('Rename', $destination . '/' . $version_id . '.jpg');
+        $upload = new Zend_File_Transfer_Adapter_Http();
+        $upload->setDestination($destination);
         
-        /*$info = $upload->getFileInfo();
-        var_dump($info['image']['type']);
-        var_dump($info['image']['size']);
-        die;*/
+        $upload_info = $upload->getFileInfo();
         
-        // image/jpeg
-        // image/gif
-        // image/png
+        switch($upload_info['image']['type']) {
+            case 'image/png';
+                $extension = '.png';
+            break;
+            
+            case 'image/gif';
+                $extension = '.gif';
+            break;
+            
+            default:
+                $extension = '.jpg';
+            break;
+        }
         
-        $meta = array('extension'=>'.jpg', 'width'=>960, 'height'=>720, 
-        'size'=>12000);
+        $upload->addFilter('Rename', $destination . '/' . $version_id . 
+        $extension);
+        
+        $upload->receive();
+        
+        $image = getimagesize('../public/images/library/' . $library_id . 
+        '/' . $version_id . $extension);
+                
+        $meta = array('extension'=>$extension, 'width'=>$image[0], 
+        'height'=>$image[1], 'size'=>$upload_info['image']['size']);
         
         $this->addToVersionsMeta($site_id, $library_id, $version_id, 
         $meta['extension'], $meta['width'], $meta['height'], $meta['size']);
-        
-        //$upload->receive();
         
         $this->addToLinks($site_id, $library_id, $version_id);
         
