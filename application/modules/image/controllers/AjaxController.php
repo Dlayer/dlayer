@@ -48,10 +48,16 @@ class Image_AjaxController extends Zend_Controller_Action
     {
         $this->getResponse()->setHeader('Content-Type', 'application/json');
         
+        if($this->getRequest()->getParam('all', 1) == 1) {
+            $append_all = TRUE;
+        } else {
+            $append_all = FALSE;
+        }
+        
         $model_categories = new Dlayer_Model_Image_Categories();
         $sub_categories = $model_categories->subCategories(
         $this->session_dlayer->siteId(), 
-        $this->getRequest()->getParam('category_id'));
+        $this->getRequest()->getParam('category_id'), $append_all);
         
         $json = array('data'=>FALSE);
         

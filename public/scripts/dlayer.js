@@ -403,10 +403,8 @@ var dlayer = {
                 *
                 * @returns {Void}
                 */
-                sub_categories: function()
+                sub_categories_filter: function()
                 {
-                    console.log('herde');
-                    
                     $('#category_filter').change(function()
                     {
                         var data_id = $('#category_filter').val();
@@ -419,6 +417,32 @@ var dlayer = {
                             
                             $.each(data.sub_categories, function(i, value) {
                                 $('#sub_category_filter').append($('<option>').text(value).attr('value', i));
+                            });
+                        });
+                    });
+                },
+                
+                /**
+                * AJAX for categories selecte on Add to library tool, populates 
+                * the sub categories select based on category selected
+                *
+                * @returns {Void}
+                */
+                sub_categories: function()
+                {
+                    $('#params-category').change(function()
+                    {
+                        var data_id = $('#params-category').val();
+                        
+                        $.getJSON('/image/ajax/sub-categories',
+                        { category_id: data_id, 
+                          all: 0 },
+                        function(data) {
+                            
+                            $('#params-sub_category').empty(); 
+                            
+                            $.each(data.sub_categories, function(i, value) {
+                                $('#params-sub_category').append($('<option>').text(value).attr('value', i));
                             });
                         });
                     });
