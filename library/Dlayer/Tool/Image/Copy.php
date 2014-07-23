@@ -1,18 +1,18 @@
 <?php
 /**
-* Add to library
+* Copy image tool
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
+class Dlayer_Tool_Image_Copy extends Dlayer_Tool_Module_Image
 {
     /**
-    * Add a new image to the library, validates data and image and then 
-    * creates a thubnail for the library view
+    * Copy the selected image, creates a brank new library entry in the 
+    * requested category and sub category
     *
-    * @return array image id and version id for the newly added image, user is 
-    *               sent to the detail page afer uploading an image
+    * @return array Image id and version id for the copy, user is sent to 
+    *               the detail page after making a copy
     */
     public function process()
     {
@@ -101,18 +101,13 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
     {
         $model_categories = new Dlayer_Model_Image_Categories();
         
-        $upload = new Zend_File_Transfer_Adapter_Http();
-        $upload->addValidator('Count', false, array('min' =>1, 'max' => 1))
-        ->addValidator('IsImage', false, array('jpeg', 'png', 'gif'));
-        
         if(strlen(trim($params['name'])) > 0 && 
         strlen(trim($params['description'])) > 0 && 
         $model_categories->categoryIdExists($this->site_id, 
         intval($params['category'])) == TRUE && 
         $model_categories->subCategoryIdExists($this->site_id, 
         intval($params['category']), 
-        intval($params['sub_category'])) == TRUE && 
-        $upload->isValid() == TRUE) {
+        intval($params['sub_category'])) == TRUE) {
             return TRUE;
         } else {
             return FALSE;
@@ -140,9 +135,11 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
     * 
     * @return array Contains the image id and version id
     */
-    private function addImage() 
+    private function copyImage() 
     {
         $model_image = new Dlayer_Model_Image_Image();
+        
+        
         
         $ids = $model_image->addImage($this->site_id, 25, 
         $this->session_dlayer->siteId(), $this->params);
