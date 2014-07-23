@@ -40,6 +40,8 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
         $this->setAction('/image/process/tool');
 
         $this->setMethod('post');
+        
+        $this->formElementsData();
 
         $this->setUpFormElements();
 
@@ -50,6 +52,22 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
         $this->addDefaultElementDecorators();
 
         $this->addCustomElementDecorators();
+    }
+    
+    /**
+    * Fetch the data requuired to populate the selected menu, specifically 
+    * the category select as the sub category select will be populate via 
+    * AJAX on category select change
+    *
+    * @return void Writes the data to the $this->element_data property
+    */
+    private function formElementsData()
+    {
+        $session_dlayer = new Dlayer_Session();
+        $model_categories = new Dlayer_Model_Image_Categories();
+        
+        $this->elements_data['categories'] = $model_categories->categories(
+        $session_dlayer->siteId(), TRUE);
     }
 
 	/**
@@ -98,7 +116,7 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
         $category = new Zend_Form_Element_Select('category');
         $category->setLabel('Category');
         $category->setDescription('Select the base category for the new image');
-        $category->setMultiOptions(array(1=>'Backgrounds', 2=>'News'));
+        $category->setMultiOptions($this->elements_data['categories']);
         $category->setBelongsTo('params');
         
         $this->elements['category'] = $category;
@@ -107,7 +125,7 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
         $sub_category->setLabel('Sub category');
         $sub_category->setDescription('Select the sub category to use for the 
         new image');
-        $sub_category->setMultiOptions(array(1=>'Pictures', 2=>'Gradients'));
+        $sub_category->setMultiOptions(array(0=>'Select category first'));
         $sub_category->setBelongsTo('params');
         
         $this->elements['sub_category'] = $sub_category;

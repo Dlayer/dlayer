@@ -255,10 +255,11 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
     * Fetch the image library categories for the selected site
     * 
     * @param integer $site_id
+    * @param boolean $select Add Select as initial option
     * @return array Array containing all the image library categories for the 
     *               selected site
     */
-    public function categories($site_id) 
+    public function categories($site_id, $select=FALSE) 
     {
         $sql = "SELECT id, `name` 
                 FROM user_site_image_library_categories 
@@ -271,6 +272,10 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
         $result = $stmt->fetchAll();
         
         $categories = array();
+        
+        if($select == TRUE) {
+            $categories[0] = 'Please select';
+        }
         
         foreach($result as $row) {
             $categories[$row['id']] = $row['name'];
