@@ -139,10 +139,9 @@ class Dlayer_Tool_Image_Copy extends Dlayer_Tool_Module_Image
     {
         $model_image = new Dlayer_Model_Image_Image();
         
-        
-        
-        $ids = $model_image->addImage($this->site_id, 25, 
-        $this->session_dlayer->siteId(), $this->params);
+        $ids = $model_image->copyImage($this->site_id, $this->image_id, 
+        $this->version_id, 29, $this->session_dlayer->identityId(), 
+        $this->params);
         
         return $ids;
     }

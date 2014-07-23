@@ -279,4 +279,66 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         $stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
         $stmt->execute();
     }
+    
+    /**
+    * Copy an existing image id
+    * 
+    * @param integer $site_id
+    * @param integer $image_id
+    * @param integer $version_id
+    * @param integer $tool_id
+    * @param integer $identity_id
+    * @param array $params Tool form params array
+    * @return array Contains the image id and version id for the new image copy
+    */
+    public function copyImage($site_id, $image_id, $version_id, $tool_id, 
+    $identity_id, array $params) 
+    {
+        $new_image_id = $this->addToLibrary($site_id, $params['name'], 
+        $params['description'], $params['category_id'], 
+        $params['sub_category_id']);
+        
+        $new_version_id = $this->addToVersions($site_id, $new_image_id, 
+        $identity_id, $tool_id);
+                
+        $destination = '../public/images/library/' . $new_image_id;
+        mkdir($destination, 0777); 
+        
+        $version_meta = $this->versionMeta($site_id, $image_id, $version_id);
+        
+        $this->addToVersionsMeta($site_id, $new_image_id, $new_version_id, 
+        $version_meta['extension'], $version_meta['type'], 
+        $version_meta['width'], $version_meta['height'], 
+        $version_meta['size']);
+        
+        $this->addToLinks($site_id, $new_image_id, $new_version_id);
+        
+        return array('image_id'=>$new_image_id, 'version_id'=>$new_version_id);
+    }
+    
+    /**
+    * Fetch the current version meta data, will be used to insert new 
+    * row
+    * 
+    * @param integer $site_id
+    * @param integer $library_id
+    * @param integer $version_id
+    * @return array
+    */
+    private function versionMeta($site_id, $library_id, $version_id) 
+    {
+        $sql = "SELECT extension, type, width, height, size 
+                FROM user_site_image_library_versions_meta 
+                WHERE site_id = :site_id 
+                AND library_id = :library_id 
+                AND version_id = :version_id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':library_id', $library_id, PDO::PARAM_INT);
+        $stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetch();
+    }
 }
