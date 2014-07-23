@@ -101,8 +101,18 @@ class Dlayer_Form_Image_Copy extends Dlayer_Form_Module_Image
         $multi_use = new Zend_Form_Element_Hidden('multi_use');
         $multi_use->setValue($this->multi_use);
         $multi_use->setBelongsTo('params');
-
+        
         $this->elements['multi_use'] = $multi_use;
+        
+        $image_id = new Zend_Form_Element_Hidden('image_id');
+        $image_id->setValue($this->existing_data['image_id']);
+        
+        $this->elements['image_id'] = $image_id;
+        
+        $version_id = new Zend_Form_Element_Hidden('version_id');
+        $version_id->setValue($this->existing_data['version_id']);
+
+        $this->elements['version_id'] = $version_id;
     }
 
     /**

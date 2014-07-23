@@ -42,12 +42,14 @@ class Dlayer_Ribbon_Image_Copy extends Dlayer_Ribbon_Module_Image
     }
     
     /**
-    * Fetch the existing data array
+    * Fetch the existing data array, contains data for edit version of tool 
+    * or data required by tool
     * 
     * @return array
     */
     protected function existingData() 
     {
-        return array('category'=>FALSE, 'sub_category'=>FALSE, 'name'=>FALSE);
+        return array('image_id'=>$this->image_id, 
+        'version_id'=>$this->version_id);
     }
 }

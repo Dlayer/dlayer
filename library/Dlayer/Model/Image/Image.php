@@ -306,6 +306,11 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         
         $version_meta = $this->versionMeta($site_id, $image_id, $version_id);
         
+        copy('../public/images/library/' . $image_id . '/' . $version_id . 
+        $version_meta['extension'], 
+        '../public/images/library/' . $new_image_id . '/' . $new_version_id . 
+        $version_meta['extension']);
+        
         $this->addToVersionsMeta($site_id, $new_image_id, $new_version_id, 
         $version_meta['extension'], $version_meta['type'], 
         $version_meta['width'], $version_meta['height'], 

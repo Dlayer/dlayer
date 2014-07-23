@@ -109,7 +109,7 @@ class Image_ProcessController extends Zend_Controller_Action
         
         if($this->tool_class->validate($_POST['params'], 
         $this->session_dlayer->siteId(), $category_id, $sub_category_id, 
-        $image_id) == TRUE) {
+        $image_id, $version_id) == TRUE) {
             $return_ids = $this->tool_class->process();
             
             if(is_array($return_ids) == TRUE) {

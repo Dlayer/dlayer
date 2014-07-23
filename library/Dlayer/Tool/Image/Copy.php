@@ -17,7 +17,7 @@ class Dlayer_Tool_Image_Copy extends Dlayer_Tool_Module_Image
     public function process()
     {
         if($this->validated == TRUE) {
-            $ids = $this->addImage();
+            $ids = $this->copyImage();
         }
         
         return array('multiple'=>'', 'ids'=>array(array('id'=>$ids['image_id'], 
