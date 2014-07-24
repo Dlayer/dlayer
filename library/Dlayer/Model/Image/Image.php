@@ -368,4 +368,32 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         
         return $stmt->fetch();
     }
+    
+    /**
+    * Edit the library details for the selected image
+    * 
+    * @param integer $site_id
+    * @param integer $library_id
+    * @param array $params New data
+    * @return void
+    */
+    public function editLibraryDetails($site_id, $library_id, array $params) 
+    {
+        $sql = "UPDATE user_site_image_library 
+                SET `name` = :name, description = :description, 
+                category_id = :category_id, sub_category_id = :sub_category_id 
+                WHERE site_id = :site_id 
+                AND id = :library_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':name', $params['name'], PDO::PARAM_STR);
+        $stmt->bindValue(':description', $params['description'], 
+        PDO::PARAM_STR);
+        $stmt->bindValue(':category_id', $params['category_id'], 
+        PDO::PARAM_INT);
+        $stmt->bindValue(':sub_category_id', $params['sub_category_id'], 
+        PDO::PARAM_INT);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':library_id', $library_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 }
