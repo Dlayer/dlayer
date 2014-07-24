@@ -54,6 +54,28 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     }
     
     /**
+    * Fetch the library details for the selected image, name, category, 
+    * description and sub category
+    * 
+    * @param integer $site_id
+    * @param integer $image_id
+    * @return array|FALSE
+    */
+    public function libraryDetails($site_id, $image_id) 
+    {
+        $sql = "SELECT `name`, description, category_id, sub_category_id 
+                FROM user_site_image_library 
+                WHERE site_id = :site_id 
+                AND id = :image_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetch();
+    }
+    
+    /**
     * Fetch the version info for the requested library images, data array 
     * contains all the versions of an image in chronological order, these 
     * include the shallow versions created each time an image is attached

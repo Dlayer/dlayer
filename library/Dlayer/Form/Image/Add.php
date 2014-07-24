@@ -142,7 +142,7 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
         
         $description = new Zend_Form_Element_Textarea('description');
         $description->setLabel('Description');
-        $description->setAttribs(array('rows'=>3, 'cols'=>50, 
+        $description->setAttribs(array('rows'=>6, 'cols'=>50, 
         'placeholder'=>'e.g., Site background for the news page'));
         $description->setDescription('Enter a description of the new image.');
         $description->setBelongsTo('params');

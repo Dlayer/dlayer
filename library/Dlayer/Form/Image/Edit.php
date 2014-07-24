@@ -122,8 +122,12 @@ class Dlayer_Form_Image_Edit extends Dlayer_Form_Module_Image
         $category->setLabel('Category');
         $category->setDescription(' Select a new category for the image');
         $category->setMultiOptions($this->elements_data['categories']);
-        $category->setValue($this->elements_data['category_id']);
         $category->setBelongsTo('params');
+        
+        if(array_key_exists('category_id', $this->existing_data) == TRUE && 
+        $this->existing_data['category_id'] != FALSE) {
+            $category->setValue($this->existing_data['category_id']);
+        }
         
         $this->elements['category'] = $category;
         
@@ -132,8 +136,12 @@ class Dlayer_Form_Image_Edit extends Dlayer_Form_Module_Image
         $sub_category->setDescription('Select a new sub category for the 
         image');
         $sub_category->setMultiOptions($this->elements_data['sub_categories']);
-        $sub_category->setValue($this->existing_data['sub_category_id']);
         $sub_category->setBelongsTo('params');
+        
+        if(array_key_exists('sub_category_id', $this->existing_data) == TRUE && 
+        $this->existing_data['sub_category_id'] != FALSE) {
+            $sub_category->setValue($this->existing_data['sub_category_id']);
+        }
         
         $this->elements['sub_category'] = $sub_category;
         
@@ -142,20 +150,28 @@ class Dlayer_Form_Image_Edit extends Dlayer_Form_Module_Image
         $name->setAttribs(array('maxlength'=>255, 
         'placeholder'=>'e.g., Site background'));
         $name->setDescription('Enter a new name for the image, this will be 
-        shown when you need to choose the image from a list.');
-        $name->setValue($this->existing_data['name']);
+        shown when you need to choose the image from a list.');        
         $name->setBelongsTo('params');
+        
+        if(array_key_exists('name', $this->existing_data) == TRUE && 
+        $this->existing_data['name'] != FALSE) {
+            $name->setValue($this->existing_data['name']);
+        }
         
         $this->elements['name'] = $name;
         
         $description = new Zend_Form_Element_Textarea('description');
         $description->setLabel('Description');
-        $description->setAttribs(array('rows'=>3, 'cols'=>50, 
+        $description->setAttribs(array('rows'=>6, 'cols'=>50, 
         'placeholder'=>'e.g., Site background for the news page'));
         $description->setDescription('Enter a new description of 
-        the new image.');
-        $description->setValue($this->existing_data['description']);
+        the new image.');        
         $description->setBelongsTo('params');
+        
+        if(array_key_exists('description', $this->existing_data) == TRUE && 
+        $this->existing_data['description'] != FALSE) {
+            $description->setValue($this->existing_data['description']);
+        }
         
         $this->elements['description'] = $description;
                 
