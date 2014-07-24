@@ -60,7 +60,8 @@ class Dlayer_Ribbon_Image_Edit extends Dlayer_Ribbon_Module_Image
             // fails the form won't fail as a consequence
             return array('name'=>FALSE, 'description'=>FALSE, 
             'category_id'=>$this->category_id, 
-            'sub_category_id'=>$this->subcategory_id);
+            'sub_category_id'=>$this->subcategory_id, 
+            'image_id'=>$this->image_id);
         }
     }
 }

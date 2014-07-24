@@ -78,6 +78,7 @@ class Image_ProcessController extends Zend_Controller_Action
         $image_id = NULL;
         $category_id = NULL;
         $sub_category_id = NULL;
+        $version_id = NULL;
         
         // Check to see if any of the id params exist, if so pass them into 
         // the tool 

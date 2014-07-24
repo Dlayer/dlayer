@@ -63,7 +63,8 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
     */
     public function libraryDetails($site_id, $image_id) 
     {
-        $sql = "SELECT `name`, description, category_id, sub_category_id 
+        $sql = "SELECT id AS image_id, `name`, description, category_id, 
+                sub_category_id 
                 FROM user_site_image_library 
                 WHERE site_id = :site_id 
                 AND id = :image_id";
