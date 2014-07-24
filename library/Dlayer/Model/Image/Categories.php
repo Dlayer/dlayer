@@ -286,6 +286,44 @@ class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
     
     /**
     * Fetch the image library sub categories for the selected site and 
+    * category, used by the ajax calls
+    * 
+    * @param integer $site_id
+    * @param integer $category_id
+    * @param boolean $all Add an all option
+    * @return array Array containing all the image library sub categories for 
+    *               the selected category and site
+    */
+    public function subCategoriesAjaxCalls($site_id, $category_id, $all=TRUE) 
+    {
+        $sql = "SELECT id, `name` AS value 
+                FROM user_site_image_library_sub_categories 
+                WHERE site_id = :site_id 
+                AND category_id = :category_id 
+                ORDER BY `name` ASC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $result = $stmt->fetchAll();
+        
+        $sub_categories = array();
+        
+        if($all == TRUE) {
+            $sub_categories[] = array('id'=>0, 
+            'value'=>Dlayer_Config::IMAGE_LIBRARY_ALL_SUB_CATEGORY);
+        }
+        
+        foreach($result as $row) {
+            $sub_categories[] = $row;
+        }
+        
+        return $sub_categories;
+    }
+    
+    /**
+    * Fetch the image library sub categories for the selected site and 
     * category, an all option can be added to the end of the array if required
     * 
     * @param integer $site_id

@@ -416,7 +416,7 @@ var dlayer = {
                             $('#sub_category_filter').empty(); 
                             
                             $.each(data.sub_categories, function(i, value) {
-                                $('#sub_category_filter').append($('<option>').text(value).attr('value', i));
+                                $('#sub_category_filter').append($('<option>').text(value.value).attr('value', value.id));
                             });
                         });
                     });
@@ -442,7 +442,7 @@ var dlayer = {
                             $('#params-sub_category').empty(); 
                             
                             $.each(data.sub_categories, function(i, value) {
-                                $('#params-sub_category').append($('<option>').text(value).attr('value', i));
+                                $('#params-sub_category').append($('<option>').text(value.value).attr('value', value.id));
                             });
                         });
                     });

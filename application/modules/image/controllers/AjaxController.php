@@ -55,7 +55,7 @@ class Image_AjaxController extends Zend_Controller_Action
         }
         
         $model_categories = new Dlayer_Model_Image_Categories();
-        $sub_categories = $model_categories->subCategories(
+        $sub_categories = $model_categories->subCategoriesAjaxCalls(
         $this->session_dlayer->siteId(), 
         $this->getRequest()->getParam('category_id'), $append_all);
         
