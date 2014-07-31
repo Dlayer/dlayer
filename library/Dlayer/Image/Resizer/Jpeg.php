@@ -1,12 +1,12 @@
 <?php
 /**
-* Creates a thunmail of the requested image, thumbnails can be set to respect 
-* the aspect ratiopn of the orioinal image added padding as necessary
+* Resizes the requested jpeg image, typically to create a thumbnail, the aspect 
+* ratio of the image will be maintained adding white space as required
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Image_ThumbnailGenerator extends Zend_Form 
+class Dlayer_Image_Resizer_Jpeg extends Dlayer_Image_Resizer 
 {
     /**
     * Add a development controller to test this code, use an image that sits 
