@@ -40,7 +40,7 @@ class Dev_ThumbnailController extends Zend_Controller_Action
     */
     public function indexAction()
     {
-        
+        $resizer = new Dlayer_Image_Resizer_Jpeg(10, 10);
     }
     
     /**
