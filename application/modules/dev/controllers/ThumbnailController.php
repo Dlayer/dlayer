@@ -40,7 +40,7 @@ class Dev_ThumbnailController extends Zend_Controller_Action
     */
     public function indexAction()
     {
-        $resizer = new Dlayer_Image_Resizer_Jpeg(10, 10);
+        // Add in code to see if thumbnail exists
     }
     
     /**
@@ -50,7 +50,15 @@ class Dev_ThumbnailController extends Zend_Controller_Action
     */
     public function processAction()
     {
+        $error = "None";
         
+        try {
+            $resizer = new Dlayer_Image_Resizer_Jpeg(10, 10);
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+        } 
+        
+        $this->view->error = $error;
     }
     
     /**
