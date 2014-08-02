@@ -72,7 +72,7 @@ class Dev_ThumbnailController extends Zend_Controller_Action
     {
         $error = "None";
         
-        if(file_exists('images/testing/thumbnaildd/test-thumb.jpg') == TRUE) {
+        if(file_exists('images/testing/thumbnail/test-thumb.jpg') == TRUE) {
             $result = unlink('images/testing/thumbnail/test-thumb.jpg');
             
             if($result == TRUE) {
