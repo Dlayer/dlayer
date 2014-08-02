@@ -1,16 +1,16 @@
 <?php
 /**
-* Jpeg image resizer
+* Gif image resizer
 * 
 * @see Dlayer_Image_Resizer
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Image_Resizer_Jpeg extends Dlayer_Image_Resizer 
+class Dlayer_Image_Resizer_Gif extends Dlayer_Image_Resizer 
 {
-    protected $mime = 'image/jpeg';
-    protected $extension = '.jpg';
+    protected $mime = 'image/gif';
+    protected $extension = '.gif';
     
     /**
     * Constructor, set base resizing options, only set base options to allow 
@@ -35,16 +35,16 @@ class Dlayer_Image_Resizer_Jpeg extends Dlayer_Image_Resizer
         $this->canvas_color['b']);
         imagefill($this->canvas, 0, 0, $fill_color);
         
-        $this->copy = imagecreatefromjpeg($this->path . $this->file);
+        $this->copy = imagecreatefromgif($this->path . $this->file);
         
         $result = imagecopyresampled($this->canvas, $this->copy, 
         $this->spacing_x, $this->spacing_y, 0 ,0, $this->dest_width, 
         $this->dest_height, $this->src_width, $this->src_height);
         
         if($result == TRUE) {
-            $result = imagejpeg($this->canvas, $this->path . 
+            $result = imagegif($this->canvas, $this->path . 
             str_replace($this->extension, $this->suffix . $this->extension, 
-            $this->file), 100);
+            $this->file));
             
             if($result == FALSE) {
                 throw new RuntimeException("Unable to save new image");
