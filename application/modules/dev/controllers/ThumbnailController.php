@@ -53,8 +53,9 @@ class Dev_ThumbnailController extends Zend_Controller_Action
         $error = "None";
         
         try {
-            $resizer = new Dlayer_Image_Resizer_Jpeg(10, 10);
+            $resizer = new Dlayer_Image_Resizer_Jpeg(200, 120);
             $resizer->loadImage('test.jpg', 'images/testing/thumbnail/');
+            $resizer->resize();
         } catch (Exception $e) {
             $error = $e->getMessage();
         } 
@@ -67,8 +68,23 @@ class Dev_ThumbnailController extends Zend_Controller_Action
     * 
     * @return void
     */
-    public function viewAction() 
+    public function deleteAction() 
     {
+        $error = "None";
         
+        if(file_exists('images/testing/thumbnaildd/test-thumb.jpg') == TRUE) {
+            $result = unlink('images/testing/thumbnail/test-thumb.jpg');
+            
+            if($result == TRUE) {
+                $this->_redirect('/dev/thumbnail/index');
+            } else {
+                 $error = "Delete failed";
+            }
+        } else {
+            $error = "File doesn't exist, expected 
+            'images/testing/thumbnail/test-thumb.jpg'";
+        }
+        
+        $this->view->error = $error;
     }
 }
