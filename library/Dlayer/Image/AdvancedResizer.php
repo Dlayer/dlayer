@@ -27,12 +27,18 @@ abstract class Dlayer_Image_AdvancedResizer
     protected $canvas;
     protected $copy;
     
+    protected $maintain_aspect;
+    
     protected $canvas_color = array('r'=>255, 'g'=>255, 'b'=>0);
+    protected $quality;
     
     protected $mime;    
     protected $extension;
     
     protected $suffix = '-thumb';
+    
+    protected $invalid;
+    protected $errors  = array();
     
     /**
     * Set base resizing options, only setting the base resizing option here 
@@ -41,18 +47,63 @@ abstract class Dlayer_Image_AdvancedResizer
     * 
     * @param integer $width Canvas width
     * @param integer $height Canvas height
+    * @param integer $quality Quality or compression level for new image
+    * @param array $canvas_color Canvas background color
+    * @param boolean $maintain_aspect Maintain aspect ratio of image
     * @return void|Exception
     */
-    public function __construct($width, $height) 
+    public function __construct($width, $height, $quality, 
+    array $canvas_color=array('r'=>255, 'g'=>255, 'b'=>255), 
+    $maintain_aspect=TRUE) 
     {
-        if(is_int($width) == TRUE && is_int($height) == TRUE && 
-        $width > 0 && $height > 0) {
-            $this->width = intval($width);
-            $this->height = intval($height);
+        if(is_int($width) == FALSE || $width < 1) {            
+            $this->invalid++;
+            $this->errors[] = 'Width not valid, must be an integer above 0';
+        }
+        
+        if(is_int($height) == FALSE || $height < 1) {
+            $this->invalid++;
+            $this->errors[] = 'Height not valid, must be an integer above 0';
+        }
+        
+        if($this->colorIndexValid('r', $canvas_color) == FALSE || 
+        $this->colorIndexValid('g', $canvas_color) == FALSE || 
+        $this->colorIndexValid('b', $canvas_color) == FALSE) {
+            $this->invalid++;
+            $this->errors[] = 'Canvas color array invalid, must contain three 
+            indexes, r, g and b each with values between 0 and 255';
+        }
+        
+        if($this->invalid == 0) { 
+            $this->width = $width;
+            $this->height = $height;
+            $this->quality = $quality;
+            $this->canvas_color = $canvas_color;
+            if($maintain_aspect == TRUE) {
+                $this->maintain_aspect == TRUE;
+            } else {
+                $this->maintain_aspect == FALSE;
+            }
         } else {
-            throw new InvalidArgumentException("Width and height not valid, 
-            must be integers with values above 0, supplied width and height 
-            were, width: '" . $width . "' height: '" . $height . "'");
+            throw new InvalidArgumentException("Error(s) creating resizer: " . 
+            implode(' - ', $this->errors));
+        }
+    }
+    
+    /**
+    * Check to see if the supplied color index is valid
+    * 
+    * @param string $index
+    * @param array Color array to check
+    * @return boolean
+    */
+    private function colorIndexValid($index, array $canvas_color) 
+    {
+        if(array_key_exists($index, $canvas_color) == TRUE && 
+        $canvas_color[$index] >= 0 && $canvas_color[$index] <= 255) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
     

@@ -53,7 +53,8 @@ class Dev_ThumbnailAdvancedController extends Zend_Controller_Action
         $error = "None";
         
         try {
-            $resizer = new Dlayer_Image_AdvancedResizer_Jpeg(200, 120);
+            $resizer = new Dlayer_Image_AdvancedResizer_Jpeg(200, 120, 100, 
+            array('r'=>0, 'g'=>0, 'b'=>255));
             $resizer->loadImage('test.jpg', 
             'images/testing/thumbnail-advanced/');
             $resizer->resize();
@@ -79,7 +80,7 @@ class Dev_ThumbnailAdvancedController extends Zend_Controller_Action
             'images/testing/thumbnail-advanced/test-thumb.jpg');
             
             if($result == TRUE) {
-                $this->_redirect('/dev/thumbnail/index');
+                $this->_redirect('/dev/thumbnail-advanced/index');
             } else {
                  $error = "Delete failed";
             }
