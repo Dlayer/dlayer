@@ -49,7 +49,10 @@ abstract class Dlayer_Image_AdvancedResizer
     * @param integer $height Canvas height
     * @param integer $quality Quality or compression level for new image
     * @param array $canvas_color Canvas background color
-    * @param boolean $maintain_aspect Maintain aspect ratio of image
+    * @param boolean $maintain_aspect Maintain aspect ratio of image, if set 
+    *                                 to TRUE padding is added around best fit 
+    *                                 resampled image otherwise image is 
+    *                                 stretched to fit
     * @return void|Exception
     */
     public function __construct($width, $height, $quality, 
@@ -80,9 +83,9 @@ abstract class Dlayer_Image_AdvancedResizer
             $this->quality = $quality;
             $this->canvas_color = $canvas_color;
             if($maintain_aspect == TRUE) {
-                $this->maintain_aspect == TRUE;
+                $this->maintain_aspect = TRUE;
             } else {
-                $this->maintain_aspect == FALSE;
+                $this->maintain_aspect = FALSE;
             }
         } else {
             throw new InvalidArgumentException("Error(s) creating resizer: " . 
@@ -200,9 +203,14 @@ abstract class Dlayer_Image_AdvancedResizer
             $this->resizePortrait();
         }
         
-        $this->spacingX();
+        if($this->maintain_aspect == TRUE) {
+            $this->spacingX();
         
-        $this->spacingY();
+            $this->spacingY();
+        } else {
+            $this->dest_width = $this->width;
+            $this->dest_height = $this->height;
+        }
         
         $this->create();
     }

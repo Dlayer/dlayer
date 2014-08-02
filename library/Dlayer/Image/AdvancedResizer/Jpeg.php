@@ -21,7 +21,10 @@ class Dlayer_Image_AdvancedResizer_Jpeg extends Dlayer_Image_AdvancedResizer
     * @param integer $height Canvas height
     * @param integer $quality Quality or compression level for new image
     * @param array $canvas_color Canvas background color
-    * @param boolean $maintain_aspect Maintain aspect ratio of image
+    * @param boolean $maintain_aspect Maintain aspect ratio of image, if set 
+    *                                 to TRUE padding is added around best fit 
+    *                                 resampled image otherwise image is 
+    *                                 stretched to fit
     * @return void|Exception
     */
     public function __construct($width, $height, $quality, 
@@ -54,7 +57,7 @@ class Dlayer_Image_AdvancedResizer_Jpeg extends Dlayer_Image_AdvancedResizer
         $this->canvas_color['b']);
         imagefill($this->canvas, 0, 0, $fill_color);
         
-        $this->copy = imagecreatefromjpeg($this->path . $this->file);
+        $this->copy = imagecreatefromjpeg($this->path . $this->file);     
         
         $result = imagecopyresampled($this->canvas, $this->copy, 
         $this->spacing_x, $this->spacing_y, 0 ,0, $this->dest_width, 
