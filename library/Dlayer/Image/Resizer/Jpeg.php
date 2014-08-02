@@ -12,6 +12,8 @@ class Dlayer_Image_Resizer_Jpeg extends Dlayer_Image_Resizer
     protected $mime = 'image/jpeg';
     protected $extension = '.jpg';
     
+    private $quality = 100;
+    
     /**
     * Constructor, set base resizing options, only set base options to allow 
     * batch processing by just loading an image and then resizing with set 
@@ -44,7 +46,7 @@ class Dlayer_Image_Resizer_Jpeg extends Dlayer_Image_Resizer
         if($result == TRUE) {
             $result = imagejpeg($this->canvas, $this->path . 
             str_replace($this->extension, $this->suffix . $this->extension, 
-            $this->file), 100);
+            $this->file), $this->quality);
             
             if($result == FALSE) {
                 throw new RuntimeException("Unable to save new image");

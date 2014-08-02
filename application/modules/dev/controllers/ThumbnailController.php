@@ -53,8 +53,8 @@ class Dev_ThumbnailController extends Zend_Controller_Action
         $error = "None";
         
         try {
-            $resizer = new Dlayer_Image_Resizer_Gif(200, 120);
-            $resizer->loadImage('test.gif', 'images/testing/thumbnail/');
+            $resizer = new Dlayer_Image_Resizer_Jpeg(200, 120);
+            $resizer->loadImage('test.jpg', 'images/testing/thumbnail/');
             $resizer->resize();
         } catch (Exception $e) {
             $error = $e->getMessage();

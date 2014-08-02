@@ -12,6 +12,8 @@ class Dlayer_Image_Resizer_Png extends Dlayer_Image_Resizer
     protected $mime = 'image/png';
     protected $extension = '.png';
     
+    private $comnpression = 0;
+    
     /**
     * Constructor, set base resizing options, only set base options to allow 
     * batch processing by just loading an image and then resizing with set 
@@ -44,7 +46,7 @@ class Dlayer_Image_Resizer_Png extends Dlayer_Image_Resizer
         if($result == TRUE) {
             $result = imagepng($this->canvas, $this->path . 
             str_replace($this->extension, $this->suffix . $this->extension, 
-            $this->file), 0);
+            $this->file), $this->comnpression);
             
             if($result == FALSE) {
                 throw new RuntimeException("Unable to save new image");
