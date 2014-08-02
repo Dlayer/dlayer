@@ -40,7 +40,7 @@ class Dev_ThumbnailAdvancedController extends Zend_Controller_Action
     */
     public function indexAction()
     {
-        
+        // Add in code to see if thumbnail exists
     }
     
     /**
@@ -50,7 +50,18 @@ class Dev_ThumbnailAdvancedController extends Zend_Controller_Action
     */
     public function processAction()
     {
+        $error = "None";
         
+        try {
+            $resizer = new Dlayer_Image_AdvancedResizer_Jpeg(200, 120);
+            $resizer->loadImage('test.jpg', 
+            'images/testing/thumbnail-advanced/');
+            $resizer->resize();
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+        } 
+        
+        $this->view->error = $error;
     }
     
     /**
@@ -58,8 +69,25 @@ class Dev_ThumbnailAdvancedController extends Zend_Controller_Action
     * 
     * @return void
     */
-    public function viewAction() 
+    public function deleteAction() 
     {
+        $error = "None";
         
+        if(file_exists(
+        'images/testing/thumbnail-advanced/test-thumb.jpg') == TRUE) {
+            $result = unlink(
+            'images/testing/thumbnail-advanced/test-thumb.jpg');
+            
+            if($result == TRUE) {
+                $this->_redirect('/dev/thumbnail/index');
+            } else {
+                 $error = "Delete failed";
+            }
+        } else {
+            $error = "File doesn't exist, expected 
+            'images/testing/thumbnail-advanced/test-thumb.jpg'";
+        }
+        
+        $this->view->error = $error;
     }
 }
