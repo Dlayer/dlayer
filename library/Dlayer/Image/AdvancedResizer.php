@@ -174,12 +174,24 @@ abstract class Dlayer_Image_AdvancedResizer
     
     /**
     * Resize, calculate the size for the resized image maintaing aspect ratio 
-    * whilst attempting to get to the requested canvas size
+    * whilst attempting to get to the requested canvas size. 
     * 
+    * Although the suffix for the new image can be defined the path cannot be 
+    * changed, that is outside the scope of this class, it is down to the 
+    * client developer to create directories and then oevrride the save method
+    * 
+    * @param string $suffix Suffix for newly created image 
     * @return void|Exception
     */
-    public function resize() 
+    public function resize($suffix='-thumb') 
     {
+        if(strlen(trim($suffix)) > 0) {
+            $this->suffix = trim($suffix);
+        } else {
+            throw new InvalidArgumentException("Suffix must be defined 
+            otherwise newly created image conflit with source image");
+        }
+        
         if($this->src_aspect_ratio > 1) {
             $this->resizeLandscape();
         } else if($this->src_aspect_ratio == 1) {
@@ -301,7 +313,18 @@ abstract class Dlayer_Image_AdvancedResizer
     */
     public function __destruct() 
     {
-        imagedestroy($this->canvas);
-        imagedestroy($this->copy); 
+        if(isset($this->canvas) == TRUE) {
+            imagedestroy($this->canvas);
+        }
+        if(isset($this->copy) == TRUE) {
+            imagedestroy($this->copy); 
+        }
     }
+    
+    /**
+    * Required method in child classes which creates the requested image
+    * 
+    * @return void|Exception
+    */
+    abstract protected function create();
 }

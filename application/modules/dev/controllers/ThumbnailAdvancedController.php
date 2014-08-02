@@ -57,7 +57,7 @@ class Dev_ThumbnailAdvancedController extends Zend_Controller_Action
             array('r'=>0, 'g'=>0, 'b'=>255));
             $resizer->loadImage('test.jpg', 
             'images/testing/thumbnail-advanced/');
-            $resizer->resize();
+            $resizer->resize('-thumb');
         } catch (Exception $e) {
             $error = $e->getMessage();
         } 

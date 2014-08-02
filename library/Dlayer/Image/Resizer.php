@@ -260,4 +260,11 @@ abstract class Dlayer_Image_Resizer
         imagedestroy($this->canvas);
         imagedestroy($this->copy); 
     }
+    
+    /**
+    * Required method in child classes which creates the requested image
+    * 
+    * @return void|Exception
+    */
+    abstract protected function create();
 }

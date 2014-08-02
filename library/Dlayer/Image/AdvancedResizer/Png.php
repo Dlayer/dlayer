@@ -1,16 +1,16 @@
 <?php
 /**
-* Jpeg image resizer
+* Png image resizer
 * 
 * @see Dlayer_Image_AdvancedResizer
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Image_AdvancedResizer_Jpeg extends Dlayer_Image_AdvancedResizer 
+class Dlayer_Image_AdvancedResizer_Png extends Dlayer_Image_AdvancedResizer 
 {
-    protected $mime = 'image/jpeg';
-    protected $extension = '.jpg';
+    protected $mime = 'image/png';
+    protected $extension = '.png';
     
     /**
     * Set base resizing options, only setting the base resizing option here 
@@ -30,10 +30,10 @@ class Dlayer_Image_AdvancedResizer_Jpeg extends Dlayer_Image_AdvancedResizer
     {
         $this->invalid = 0;
         
-        if(is_int($quality) == FALSE || $quality < 1 || $quality > 100) {
+        if(is_int($quality) == FALSE || $quality < 0 || $quality > 9) {
             $this->invalid++;
-            $this->errors[] = 'Quality must be an integer value between 1 
-            and 100';
+            $this->errors[] = 'Quality must be an integer value between 0 and 
+            9, 0 being no compression';
         }
         
         parent::__construct($width, $height, $quality, $canvas_color, 
@@ -54,7 +54,7 @@ class Dlayer_Image_AdvancedResizer_Jpeg extends Dlayer_Image_AdvancedResizer
         $this->canvas_color['b']);
         imagefill($this->canvas, 0, 0, $fill_color);
         
-        $this->copy = imagecreatefromjpeg($this->path . $this->file);
+        $this->copy = imagecreatefrompng($this->path . $this->file);
         
         $result = imagecopyresampled($this->canvas, $this->copy, 
         $this->spacing_x, $this->spacing_y, 0 ,0, $this->dest_width, 
@@ -79,7 +79,7 @@ class Dlayer_Image_AdvancedResizer_Jpeg extends Dlayer_Image_AdvancedResizer
     */
     protected function save() 
     {
-        return imagejpeg($this->canvas, $this->path . 
+        return imagepng($this->canvas, $this->path . 
         str_replace($this->extension, $this->suffix . $this->extension, 
         $this->file), $this->quality);
     }

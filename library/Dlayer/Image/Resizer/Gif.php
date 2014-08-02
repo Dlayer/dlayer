@@ -26,6 +26,11 @@ class Dlayer_Image_Resizer_Gif extends Dlayer_Image_Resizer
         parent::__construct($width, $height);
     }
     
+    /**
+    * Create canvas, copy image onto canvas and then save the image
+    * 
+    * @return void|Exception
+    */
     protected function create() 
     {
         $this->canvas = imagecreatetruecolor($this->width, $this->height);
