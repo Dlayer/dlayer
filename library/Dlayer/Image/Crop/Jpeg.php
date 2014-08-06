@@ -71,7 +71,7 @@ class Dlayer_Image_Crop_Jpeg extends Dlayer_Image_Crop
     */
     protected function save() 
     {
-        return imagejpeg($this->canvas, $this->path . 
+        return imagejpeg($this->cropped_image, $this->path . 
         str_replace($this->extension, $this->suffix . $this->extension, 
         $this->file), $this->quality);
     }

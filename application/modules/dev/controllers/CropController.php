@@ -50,12 +50,43 @@ class Dev_CropController extends Zend_Controller_Action
     */
     public function processAction()
     {
-        $image = imagecreatefromjpeg('images/testing/crop/test.jpg');
+        $error = "None";
         
-        $crop_settings = array('x'=>0, 'y'=>0, 'width'=>300, 'height'=>300);
+        try {
+            $copper = new Dlayer_Image_Crop_Jpeg(601, 0, 300, 300, 100);
+            $copper->loadImage('test.jpg', 'images/testing/crop/');
+            $copper->crop('-cropped');
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+        } 
         
-        $cropped_image = imagecrop($image, $crop_settings);
+        $this->view->error = $error;
+    }
+    
+    /**
+    * Delete the thumbnail
+    * 
+    * @return void
+    */
+    public function deleteAction() 
+    {
+        $error = "None";
         
-        imagejpeg($cropped_image, 'images/testing/crop/test-crop.jpg', 100);
+        if(file_exists(
+        'images/testing/crop/test-cropped.jpg') == TRUE) {
+            $result = unlink(
+            'images/testing/crop/test-cropped.jpg');
+            
+            if($result == TRUE) {
+                $this->_redirect('/dev/crop/index');
+            } else {
+                 $error = "Delete failed";
+            }
+        } else {
+            $error = "File doesn't exist, expected 
+            ''images/testing/crop/test-cropped.jpg''";
+        }
+        
+        $this->view->error = $error;
     }
 }

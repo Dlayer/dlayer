@@ -134,7 +134,7 @@ abstract class Dlayer_Image_Crop
             source image, combined crop width: " . 
             ($this->crop_x + $this->crop_width) . ' height: ' . 
             ($this->crop_y + $this->crop_height) . 
-            ' source image dimesions - width: ' . $this->src_width . 
+            ' source image dimensions - width: ' . $this->src_width . 
             ' height: ' . $this->src_height);
         }
     }

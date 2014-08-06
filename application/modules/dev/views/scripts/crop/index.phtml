@@ -3,20 +3,20 @@
 <div id="content">
     <h1>Library development</h1>
     
-    <h2>Crop image</h2>
+    <h2>Image cropper</h2>
     
-    <p>Crop an image, development code, not yet creating a class, just getting 
-    crop to work.</p>
+    <p>Crop an image, this class crops an image checking to ensure that the 
+    image is valid and all the supplied params are valid, for example the crop 
+    selection measured from its position can't be larger than the cource image.</p>
     
     <ul>
         <li><a href="/images/testing/crop/test.jpg">Test image</a> 900 * 600</li>
-        <li><a href="/images/testing/crop/test-crop.jpg">Cropped image</a></li>
     </ul>
         
     <ul>
         <li><a href="/dev/crop/process">Process</a> - Call the crop code.</li>
-        <?php if(file_exists('images/testing/crop/test-crop.jpg') == TRUE) { ?>
-        <li><a href="/images/testing/crop/test-crop.jpg">View</a> - View cropped image</li>
+        <?php if(file_exists('images/testing/crop/test-cropped.jpg') == TRUE) { ?>
+        <li><a href="/images/testing/crop/test-cropped.jpg">View</a> - View cropped image</li>
         <li><a href="/dev/crop/delete">Delete</a> - Delete the cropped image.</li>
         <?php } ?>
     </ul>
