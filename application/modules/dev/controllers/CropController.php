@@ -50,16 +50,12 @@ class Dev_CropController extends Zend_Controller_Action
     */
     public function processAction()
     {
-        $error = "None";
+        $image = imagecreatefromjpeg('images/testing/crop/test.jpg');
         
-        try {
-            $resizer = new Dlayer_Image_Resizer_Jpeg(200, 120);
-            $resizer->loadImage('test.jpg', 'images/testing/thumbnail/');
-            $resizer->resize();
-        } catch (Exception $e) {
-            $error = $e->getMessage();
-        } 
+        $crop_settings = array('x'=>0, 'y'=>0, 'width'=>300, 'height'=>300);
         
-        $this->view->error = $error;
+        $cropped_image = imagecrop($image, $crop_settings);
+        
+        imagejpeg($cropped_image, 'images/testing/crop/test-crop.jpg', 100);
     }
 }
