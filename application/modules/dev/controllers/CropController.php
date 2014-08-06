@@ -53,7 +53,7 @@ class Dev_CropController extends Zend_Controller_Action
         $error = "None";
         
         try {
-            $copper = new Dlayer_Image_Crop_Jpeg(601, 0, 300, 300, 100);
+            $copper = new Dlayer_Image_Crop_Jpeg(0, 0, 300, 300, 100);
             $copper->loadImage('test.jpg', 'images/testing/crop/');
             $copper->crop('-cropped');
         } catch (Exception $e) {
