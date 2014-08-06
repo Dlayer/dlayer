@@ -1,6 +1,8 @@
 <?php
 /**
-* Crops the source image based on the selection area and position,  configured.
+* Crops the source image based on the selection area and position, all params 
+* will be validated including ensuring that the crop selection fits within the 
+* source image
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
@@ -32,13 +34,14 @@ abstract class Dlayer_Image_Crop
     
     /**
     * Set the crop options, set here to allow batch processing by repeatedly 
-    * calling the loadImapge and crop method
+    * calling the loadImage and crop methods
     * 
-    * @param integer $x_position X position of selection rectangle
-    * @param integer $y_position Y position of selection rectangle
-    * @param integer $width Width of selection rectangle
-    * @param integer $height Height of selected rectangle
-    * @param integer $quality Quality or compression level for new image
+    * @param integer $x_position X position of crop selection rectangle
+    * @param integer $y_position Y position of crop selection rectangle
+    * @param integer $width Width of crop selection rectangle
+    * @param integer $height Height of crop selected rectangle
+    * @param integer $quality Quality or compression level for new image if 
+    *                         required by format
     * @return void|Exception
     */
     public function __construct($x_position, $y_position, $width, $height, 
@@ -46,13 +49,13 @@ abstract class Dlayer_Image_Crop
     {
         if(is_int($x_position) == FALSE || $x_position < 0) {            
             $this->invalid++;
-            $this->errors[] = 'X position not valid, must be a positive 
+            $this->errors[] = 'X crop position not valid, must be a positive 
             integer';
         }
         
         if(is_int($y_position) == FALSE || $y_position < 0) {            
             $this->invalid++;
-            $this->errors[] = 'Y position not valid, must be a positive 
+            $this->errors[] = 'Y crop position not valid, must be a positive 
             integer';
         }
         
@@ -79,10 +82,12 @@ abstract class Dlayer_Image_Crop
     }
     
     /**
-    * Load the image
+    * Load the image, image is validated, source dimensions are fetched and the 
+    * the previouslt defined crop selections are validated against the source 
+    * image
     * 
     * @param string $file File name and extension
-    * @param string $path Full patch to image
+    * @param string $path Full path to image
     * @return void|Exception 
     */
     public function loadImage($file, $path='') 
@@ -186,6 +191,29 @@ abstract class Dlayer_Image_Crop
         }
         if(isset($this->src_image) == TRUE) {
             imagedestroy($this->src_image); 
+        }
+    }
+    
+    /**
+    * Crop image
+    * 
+    * @return void|Exception
+    */
+    protected function cropImage() 
+    {
+        $crop_settings = array('x'=>$this->crop_x, 'y'=>$this->crop_y, 
+        'width'=>$this->crop_width, 'height'=>$this->crop_height);
+        
+        $this->cropped_image = imagecrop($this->src_image, $crop_settings);
+        
+        if($this->cropped_image != FALSE) {
+            $result = $this->save();
+            
+            if($result == FALSE) {
+                throw new RuntimeException("Unable to save new image");
+            }
+        } else {
+            throw new RuntimeException("Unable to crop the requested image.");
         }
     }
     

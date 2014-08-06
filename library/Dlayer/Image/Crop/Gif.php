@@ -9,10 +9,10 @@
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Image_Crop_Jpeg extends Dlayer_Image_Crop 
+class Dlayer_Image_Crop_Gif extends Dlayer_Image_Crop 
 {
-    protected $mime = 'image/jpeg';
-    protected $extension = '.jpg';
+    protected $mime = 'image/gif';
+    protected $extension = '.gif';
     
     /**
     * Set the crop options, set here to allow batch processing by repeatedly 
@@ -23,7 +23,7 @@ class Dlayer_Image_Crop_Jpeg extends Dlayer_Image_Crop
     * @param integer $width Width of crop selection rectangle
     * @param integer $height Height of crop selected rectangle
     * @param integer $quality Quality or compression level for new image, must 
-    *                         be a value between 0 and 100
+    *                         be 0 for gifs as not used
     * @return void|Exception
     */
     public function __construct($x_position, $y_position, $width, $height, 
@@ -31,10 +31,10 @@ class Dlayer_Image_Crop_Jpeg extends Dlayer_Image_Crop
     {
         $this->invalid = 0;
         
-        if(is_int($quality) == FALSE || $quality < 1 || $quality > 100) {
+        if(is_int($quality) == FALSE || $quality != 0) {
             $this->invalid++;
-            $this->errors[] = 'Quality must be an integer value between 1 
-            and 100';
+            $this->errors[] = 'Quality must be set to 0, not used for gif 
+            images, only here because sibling classes use value';
         }
         
         parent::__construct($x_position, $y_position, $width, $height, 
@@ -48,7 +48,7 @@ class Dlayer_Image_Crop_Jpeg extends Dlayer_Image_Crop
     */
     protected function create() 
     {
-        $this->src_image = imagecreatefromjpeg($this->path . $this->file);
+        $this->src_image = imagecreatefromgif($this->path . $this->file);
         
         $this->cropImage();
     }
@@ -61,7 +61,7 @@ class Dlayer_Image_Crop_Jpeg extends Dlayer_Image_Crop
     */
     protected function save() 
     {
-        return imagejpeg($this->cropped_image, $this->path . 
+        return imagegif($this->cropped_image, $this->path . 
         str_replace($this->extension, $this->suffix . $this->extension, 
         $this->file), $this->quality);
     }
