@@ -47,6 +47,7 @@ abstract class Dlayer_Image_LibraryResizer
     * to allow some simple batch processing by repeatedly calling the loadImage 
     * and resize method
     * 
+    * @param integer $quality Quality or compression level for new image
     * @param integer $width Canvas width
     * @param integer $height Canvas height
     * @param array $canvas_color Canvas background color
@@ -54,16 +55,15 @@ abstract class Dlayer_Image_LibraryResizer
     *                                 to TRUE padding is added around best fit 
     *                                 resampled image otherwise image is 
     *                                 stretched to fit
-    * @param integer $quality Quality or compression level for new image
     * @return void|Exception
     */
-    public function __construct(
+    public function __construct($quality, 
     $width=Dlayer_Config::IMAGE_LIBRARY_THUMB_WIDTH, 
     $height=Dlayer_Config::IMAGE_LIBRARY_THUMB_HEIGHT,
     array $canvas_color=array('r'=>Dlayer_Config::IMAGE_LIBRARY_CANVAS_R, 
     'g'=>Dlayer_Config::IMAGE_LIBRARY_CANVAS_G, 
     'b'=>Dlayer_Config::IMAGE_LIBRARY_CANVAS_B), 
-    $maintain_aspect=TRUE, $quality) 
+    $maintain_aspect=TRUE) 
     {
         if(is_int($width) == FALSE || $width < 1) {            
             $this->invalid++;
