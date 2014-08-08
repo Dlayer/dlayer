@@ -155,14 +155,14 @@ abstract class Dlayer_Image_Resizer
     {
         // Set width and then calculate height
         $this->dest_width = $this->width;
-        $this->dest_height = number_format(
-        $this->dest_width / $this->src_aspect_ratio, 0);
+        $this->dest_height = intval(round(
+        $this->dest_width / $this->src_aspect_ratio, 0));
         
         // If height larger than requested, set and calculate new width
         if($this->dest_height > $this->height) {
             $this->dest_height = $this->height;
-            $this->dest_width = number_format(
-            $this->dest_height * $this->src_aspect_ratio, 0);
+            $this->dest_width = intval(round(
+            $this->dest_height * $this->src_aspect_ratio, 0));
         }
     }
     
@@ -189,14 +189,14 @@ abstract class Dlayer_Image_Resizer
     {
         // Set height and then calculate width
         $this->dest_height = $this->height;
-        $this->dest_width = number_format(
-        $this->dest_height * $this->src_aspect_ratio, 0);
+        $this->dest_width = intval(round(
+        $this->dest_height * $this->src_aspect_ratio, 0));
         
         // If width larger than requested, set and calculate new height
         if($this->dest_width > $this->width) {
             $this->dest_width = $this->width;
-            $this->dest_height = number_format(
-            $this->dest_width / $this->src_aspect_ratio, 0);
+            $this->dest_height = intval(round(
+            $this->dest_width / $this->src_aspect_ratio, 0));
         }
     }
     
@@ -236,7 +236,8 @@ abstract class Dlayer_Image_Resizer
         $this->spacing_y = 0;
         
         if($this->dest_height < $this->height) {
-            $height_difference = $this->width - $this->dest_width;
+            
+            $height_difference = $this->height - $this->dest_height;
             
             if($height_difference % 2 == 0) {
                 $this->spacing_y = $height_difference / 2;
