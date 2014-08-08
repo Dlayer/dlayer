@@ -173,11 +173,11 @@ abstract class Dlayer_Image_LibraryResizer
     }
     
     /**
-    * Calculate the size for the resized image maintaing aspect ratio 
+    * Calculate the size for the resized image maintaining aspect ratio 
     * if required.
     * 
     * @param string $path Destination path
-    * @param string $file Destination filename
+    * @param string $file Destination filename (no extension)
     * @return void|Exception
     */
     public function resize($path, $file) 
