@@ -84,8 +84,8 @@ abstract class Dlayer_Image_LibraryResizer
         }
         
         if($this->invalid == 0) { 
-            $this->width = $width;
-            $this->height = $height;
+            $this->width = intval($width);
+            $this->height = intval($height);
             $this->quality = $quality;
             $this->canvas_color = $canvas_color;
             if($maintain_aspect == TRUE) {
@@ -167,8 +167,8 @@ abstract class Dlayer_Image_LibraryResizer
     {
         $dimensions = getimagesize($this->path . $this->file);
         
-        $this->src_width = $dimensions[0];
-        $this->src_height = $dimensions[1];
+        $this->src_width = intval($dimensions[0]);
+        $this->src_height = intval($dimensions[1]);
         $this->src_aspect_ratio = $this->src_width / $this->src_height;
     }
     
@@ -222,15 +222,15 @@ abstract class Dlayer_Image_LibraryResizer
             // Set width to requested size and calculate the corresponding 
             // height using the current aspect ration.
             $this->dest_width = $this->width;
-            $this->dest_height = number_format(
-            $this->dest_width / $this->src_aspect_ratio, 0);
+            $this->dest_height = intval(round(
+            $this->dest_width / $this->src_aspect_ratio, 0));
             
             if($this->dest_height > $this->height) {
                 // Newly calculated height is larger than requested height, 
                 // set height and then recalculate the width
                 $this->dest_height = $this->height;
-                $this->dest_width = number_format(
-                $this->dest_height * $this->src_aspect_ratio, 0);
+                $this->dest_width = intval(round(
+                $this->dest_height * $this->src_aspect_ratio, 0));
             }
         } else {
             $this->dest_width = $this->src_width;
@@ -240,8 +240,8 @@ abstract class Dlayer_Image_LibraryResizer
             // against requested height and modify width accordingly
             if($this->src_height > $this->height) {
                 $this->dest_height = $this->height;
-                $this->dest_width = number_format(
-                $this->dest_height * $this->src_aspect_ratio, 0);
+                $this->dest_width = intval(round(
+                $this->dest_height * $this->src_aspect_ratio, 0));
             }
         }
     }
@@ -281,15 +281,15 @@ abstract class Dlayer_Image_LibraryResizer
             // Set height to requested size and calculate the corresponding 
             // width using the current aspect ratio.
             $this->dest_height = $this->height;
-            $this->dest_width = number_format(
-            $this->dest_height * $this->src_aspect_ratio, 0);
+            $this->dest_width = intval(round(
+            $this->dest_height * $this->src_aspect_ratio, 0));
             
             if($this->dest_width > $this->width) {
                 // Newly calculated width is larger than requested width, 
                 // set width and then recalculate the height
                 $this->dest_width = $this->width;
-                $this->dest_height = number_format(
-                $this->dest_width / $this->src_aspect_ratio, 0);
+                $this->dest_height = intval(round(
+                $this->dest_width / $this->src_aspect_ratio, 0));
             }
         } else {
             $this->dest_width = $this->src_width;
@@ -299,8 +299,8 @@ abstract class Dlayer_Image_LibraryResizer
             // against requested width and modify width accordingly
             if($this->src_width > $this->width) {
                 $this->dest_width = $this->width;
-                $this->dest_height = number_format(
-                $this->dest_width / $this->src_aspect_ratio, 0);
+                $this->dest_height = intval(round(
+                $this->dest_width / $this->src_aspect_ratio, 0));
             }
         }
     }
@@ -340,8 +340,14 @@ abstract class Dlayer_Image_LibraryResizer
     {
         $this->spacing_y = 0;
         
+        var_dump($this->dest_height);
+        var_dump($this->height);
+        
         if($this->dest_height < $this->height) {
+            
             $height_difference = $this->width - $this->dest_width;
+            
+            die($height_difference);
             
             if($height_difference % 2 == 0) {
                 $this->spacing_y = $height_difference / 2;
