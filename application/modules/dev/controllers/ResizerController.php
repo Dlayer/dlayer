@@ -53,8 +53,7 @@ class Dev_ResizerController extends Zend_Controller_Action
         $error = "None";
         
         try {
-            $resizer = new Dlayer_Image_LibraryResizer_Jpeg(200, 120, 100, 
-            array('r'=>0, 'g'=>0, 'b'=>255));
+            $resizer = new Dlayer_Image_LibraryResizer_Jpeg();
             $resizer->loadImage('test.jpg', 
             'images/testing/resizer/');
             $resizer->resize('images/testing/resizer/', 'test-resized');
