@@ -1,8 +1,8 @@
 <?php
 /**
-* Custom version of the library resizer, creates the 160 * 120 thumbnail for the 
-* library, unlike original class this path and destination file name can be 
-* defined
+* Custom resizer class for the Dlayer Image library, additional functionality 
+* includes setting a custom save location and name and also placing images 
+* that are smaller than than the desired thumbnail onto a canvas
 *  
 * @author Dean Blackborough
 * @copyright G3D Development Limited
@@ -14,6 +14,8 @@ abstract class Dlayer_Image_LibraryResizer
     
     protected $dest_width;
     protected $dest_height;
+    protected $dest_file;
+    protected $dest_path;
     
     protected $spacing_x;
     protected $spacing_y;
@@ -27,35 +29,18 @@ abstract class Dlayer_Image_LibraryResizer
     protected $canvas;
     protected $copy;
     
-    /**
-    * These colours need to be define in config
-    * 
-    * @var mixed
-    */
-    
-    
-    /**
-    * Along with the thumbnail width and height
-    * 
-    * @var mixed
-    */
-    
-    
-    /**
-    * If an exception happens with this class all the previously inserted data 
-    * needs to be deleted as it can't be valid if the thumbnail has failed to 
-    * be created
-    * 
-    * @var mixed
-    */
-    
+    protected $maintain_aspect;
     
     protected $canvas_color = array('r'=>255, 'g'=>255, 'b'=>0);
+    protected $quality;
     
     protected $mime;    
     protected $extension;
     
     protected $suffix = '-thumb';
+    
+    protected $invalid;
+    protected $errors  = array();
     
     /**
     * Set base resizing options, only setting the base resizing option here 
@@ -64,18 +49,70 @@ abstract class Dlayer_Image_LibraryResizer
     * 
     * @param integer $width Canvas width
     * @param integer $height Canvas height
+    * @param integer $quality Quality or compression level for new image
+    * @param array $canvas_color Canvas background color
+    * @param boolean $maintain_aspect Maintain aspect ratio of image, if set 
+    *                                 to TRUE padding is added around best fit 
+    *                                 resampled image otherwise image is 
+    *                                 stretched to fit
     * @return void|Exception
     */
-    public function __construct($width, $height) 
+    public function __construct(
+    $width=Dlayer_Config::IMAGE_LIBRARY_THUMB_WIDTH, 
+    $height=Dlayer_Config::IMAGE_LIBRARY_THUMB_HEIGHT, $quality, 
+    array $canvas_color=array('r'=>Dlayer_Config::IMAGE_LIBRARY_CANVAS_R, 
+    'g'=>Dlayer_Config::IMAGE_LIBRARY_CANVAS_G, 
+    'b'=>Dlayer_Config::IMAGE_LIBRARY_CANVAS_B), 
+    $maintain_aspect=TRUE) 
     {
-        if(is_int($width) == TRUE && is_int($height) == TRUE && 
-        $width > 0 && $height > 0) {
-            $this->width = intval($width);
-            $this->height = intval($height);
+        if(is_int($width) == FALSE || $width < 1) {            
+            $this->invalid++;
+            $this->errors[] = 'Width not valid, must be an integer above 0';
+        }
+        
+        if(is_int($height) == FALSE || $height < 1) {
+            $this->invalid++;
+            $this->errors[] = 'Height not valid, must be an integer above 0';
+        }
+        
+        if($this->colorIndexValid('r', $canvas_color) == FALSE || 
+        $this->colorIndexValid('g', $canvas_color) == FALSE || 
+        $this->colorIndexValid('b', $canvas_color) == FALSE) {
+            $this->invalid++;
+            $this->errors[] = 'Canvas color array invalid, must contain three 
+            indexes, r, g and b each with values between 0 and 255';
+        }
+        
+        if($this->invalid == 0) { 
+            $this->width = $width;
+            $this->height = $height;
+            $this->quality = $quality;
+            $this->canvas_color = $canvas_color;
+            if($maintain_aspect == TRUE) {
+                $this->maintain_aspect = TRUE;
+            } else {
+                $this->maintain_aspect = FALSE;
+            }
         } else {
-            throw new InvalidArgumentException("Width and height not valid, 
-            must be integers with values above 0, supplied width and height 
-            were, width: '" . $width . "' height: '" . $height . "'");
+            throw new InvalidArgumentException("Error(s) creating resizer: " . 
+            implode(' - ', $this->errors));
+        }
+    }
+    
+    /**
+    * Check to see if the supplied color index is valid
+    * 
+    * @param string $index
+    * @param array Color array to check
+    * @return boolean
+    */
+    private function colorIndexValid($index, array $canvas_color) 
+    {
+        if(array_key_exists($index, $canvas_color) == TRUE && 
+        $canvas_color[$index] >= 0 && $canvas_color[$index] <= 255) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
     
@@ -122,9 +159,7 @@ abstract class Dlayer_Image_LibraryResizer
     }
     
     /**
-    * Fetch the dimensions for the source image and the aspect ratio. Also 
-    * checks to ensure that the requested sizes aren't larger than the supplied 
-    * image, the resizer does not upscale images
+    * Fetch the dimensions for the source image and the aspect ratio.
     * 
     * @return void|Exceptioon Writes the values to the src properties
     */
@@ -135,23 +170,26 @@ abstract class Dlayer_Image_LibraryResizer
         $this->src_width = $dimensions[0];
         $this->src_height = $dimensions[1];
         $this->src_aspect_ratio = $this->src_width / $this->src_height;
-        
-        if($this->width > $this->src_width || 
-        $this->height > $this->src_height) {
-            throw new InvalidArgumentException("Set resizer width or height 
-            are larger then source width or height, the resizer does not 
-            upscale images.");
-        }
     }
     
     /**
-    * Resize, calculate the size for the resized image maintaing aspect ratio 
-    * whilst attempting to get to the requested canvas size
+    * Calculate the size for the resized image maintaing aspect ratio 
+    * if required.
     * 
+    * @param string $path Destination path
+    * @param string $file Destination filename
     * @return void|Exception
     */
-    public function resize() 
+    public function resize($path, $file) 
     {
+        if(strlen(trim($path)) > 0 && strlen(trim($file)) > 0) {
+            $this->dest_path = trim($path);
+            $this->dest_file = $file;
+        } else {
+            throw new InvalidArgumentException("Destination path and filename 
+            not defined.");
+        }
+        
         if($this->src_aspect_ratio > 1) {
             $this->resizeLandscape();
         } else if($this->src_aspect_ratio == 1) {
@@ -160,59 +198,110 @@ abstract class Dlayer_Image_LibraryResizer
             $this->resizePortrait();
         }
         
-        $this->spacingX();
+        if($this->maintain_aspect == TRUE) {
+            $this->spacingX();
         
-        $this->spacingY();
+            $this->spacingY();
+        } else {
+            $this->dest_width = $this->width;
+            $this->dest_height = $this->height;
+        }
         
         $this->create();
     }
     
+    /**
+    * Calculate new destination width and height for a landscape based image
+    * 
+    * @return void
+    */
     protected function resizeLandscape() 
     {
-        // Set width and then calculate height
-        $this->dest_width = $this->width;
-        $this->dest_height = number_format(
-        $this->dest_width / $this->src_aspect_ratio, 0);
-        
-        // If height larger than requested, set and calculate new width
-        if($this->dest_height > $this->height) {
-            $this->dest_height = $this->height;
-            $this->dest_width = number_format(
-            $this->dest_height * $this->src_aspect_ratio, 0);
-        }
-    }
-    
-    protected function resizeSquare() 
-    {
-        if($this->height == $this->width) {
-            // Requesting a sqaure image, set destination sizes, no spacing
-            $this->dest_width = $this->width;
-            $this->dest_height = $this->height;
-        } else if($this->width > $this->height) {
-            // Requested landscapoe image, set height as dimension, will need 
-            // horizontal spacing
-            $this->dest_width = $this->height;
-            $this->dest_height = $this->height;            
-        } else {
-            // Requested portrait image, set width as dimension, will need 
-            // vertical spacing
-            $this->dest_height = $this->width;
-            $this->dest_width = $this->width;
-        }
-    }
-    
-    protected function resizePortrait() 
-    {
-        // Set height and then calculate width
-        $this->dest_height = $this->height;
-        $this->dest_width = number_format(
-        $this->dest_height * $this->src_aspect_ratio, 0);
-        
-        // If width larger than requested, set and calculate new height
-        if($this->dest_width > $this->width) {
+        if($this->src_width >= $this->width) {
+            // Source width is greater than or equal to requested width.            
+            // Set width to requested size and calculate the corresponding 
+            // height using the current aspect ration.
             $this->dest_width = $this->width;
             $this->dest_height = number_format(
             $this->dest_width / $this->src_aspect_ratio, 0);
+            
+            if($this->dest_height > $this->height) {
+                // Newly calculated height is larger than requested height, 
+                // set height and then recalculate the width
+                $this->dest_height = $this->height;
+                $this->dest_width = number_format(
+                $this->dest_height * $this->src_aspect_ratio, 0);
+            }
+        } else {
+            $this->dest_width = $this->src_width;
+            $this->dest_height = $this->src_height;
+            
+            // Source width smaller than requested width, check source height 
+            // against requested height and modify width accordingly
+            if($this->src_height > $this->height) {
+                $this->dest_height = $this->height;
+                $this->dest_width = number_format(
+                $this->dest_height * $this->src_aspect_ratio, 0);
+            }
+        }
+    }
+    
+    /**
+    * Calculate new destination width and height for a square image
+    */
+    protected function resizeSquare() 
+    {
+        if($this->height == $this->width) {
+            // Requested a square destination image
+            if($this->src_width >= $this->width) {
+                // Source image larger than or equal to requested image
+                $this->dest_width = $this->width;
+                $this->dest_height = $this->height;
+            } else {
+                // Source image smaller than requested image
+                $this->dest_width = $this->src_width;
+                $this->dest_height = $this->src_height;
+            }
+        } else if($this->width > $this->height) {
+            $this->resizeLandscape();
+        } else {
+            $this->resizePortrait();
+        }
+    }
+    
+    /**
+    * Calculate new destination width and height for a portrait based image
+    * 
+    * @return void
+    */
+    protected function resizePortrait() 
+    {
+        if($this->src_height >= $this->height) {
+            // Source height is greater than or equal to requested height.            
+            // Set height to requested size and calculate the corresponding 
+            // width using the current aspect ratio.
+            $this->dest_height = $this->height;
+            $this->dest_width = number_format(
+            $this->dest_height * $this->src_aspect_ratio, 0);
+            
+            if($this->dest_width > $this->width) {
+                // Newly calculated width is larger than requested width, 
+                // set width and then recalculate the height
+                $this->dest_width = $this->width;
+                $this->dest_height = number_format(
+                $this->dest_width / $this->src_aspect_ratio, 0);
+            }
+        } else {
+            $this->dest_width = $this->src_width;
+            $this->dest_height = $this->src_height;
+            
+            // Source height smaller than requested height, check source width 
+            // against requested width and modify width accordingly
+            if($this->src_width > $this->width) {
+                $this->dest_width = $this->width;
+                $this->dest_height = number_format(
+                $this->dest_width / $this->src_aspect_ratio, 0);
+            }
         }
     }
     
@@ -273,8 +362,12 @@ abstract class Dlayer_Image_LibraryResizer
     */
     public function __destruct() 
     {
-        imagedestroy($this->canvas);
-        imagedestroy($this->copy); 
+        if(isset($this->canvas) == TRUE) {
+            imagedestroy($this->canvas);
+        }
+        if(isset($this->copy) == TRUE) {
+            imagedestroy($this->copy); 
+        }
     }
     
     /**
