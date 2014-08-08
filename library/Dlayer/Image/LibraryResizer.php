@@ -340,14 +340,9 @@ abstract class Dlayer_Image_LibraryResizer
     {
         $this->spacing_y = 0;
         
-        var_dump($this->dest_height);
-        var_dump($this->height);
-        
         if($this->dest_height < $this->height) {
             
-            $height_difference = $this->width - $this->dest_width;
-            
-            die($height_difference);
+            $height_difference = $this->height - $this->dest_height;
             
             if($height_difference % 2 == 0) {
                 $this->spacing_y = $height_difference / 2;
