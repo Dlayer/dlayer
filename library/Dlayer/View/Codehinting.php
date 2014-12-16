@@ -284,4 +284,20 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     * @return Dlayer_View_ContentStylesMargins
     */
     public function contentStylesMargins() { }
+    
+    /**
+	* Generates a simple boiotstrap navbar, brand name, nav bar items and 
+	* drop down navbar items
+	* 
+	* @param string $brand Brand name, appears to let of navbar
+	* @param array $navbar_items Array containing the navbar items, each item in 
+	* 							 should be an array with url and name fields, 
+	* 							 drop dowsn are defined by supplying a 
+	* 							 multi-dimensional array
+	* @param string $active_url The URL of the active item, not always the 
+	* 							current URL
+	* @return Dlayer_View_BootstrapNavbar
+	*/
+	public function bootstrapNavbar($brand, array $navbar_items, 
+	$active_url='') { }
 }

@@ -6,10 +6,10 @@
     <head>
         <title><?php echo $this->escape($this->layout()->title); ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="<?php echo $this->baseUrl('plugins/bootstrap-3.3.1/css/bootstrap.min.css'); ?>" rel="stylesheet">
         <script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/jquery-1.10.2.min.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/js/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
         <link href="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.custom.min.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
-        <link href="<?php echo $this->baseUrl('styles/app.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
         <script type="text/javascript">
         var debug = <?php echo $this->layout()->debug; ?>;
         </script>
@@ -32,6 +32,9 @@
     </head>
     <body>
         <div id="container">
+        <?php echo $this->bootstrapNavbar('Dlayer.com', 
+        $this->layout()->nav['items'],  $this->layout()->nav['active_url']); ?>
+        
         <?php echo $this->ulNavigation($this->layout()->nav['class'], 
         $this->layout()->nav['items'], $this->layout()->nav['active_url']); ?>
         
