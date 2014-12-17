@@ -286,9 +286,9 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     public function contentStylesMargins() { }
     
     /**
-	* Generates a simple bootstrap navbar, brand name, nav bar items and 
-	* drop down navbar items, currently the navbar method is not recursive, 
-	* only a single level drop down menu can be created
+	* Generate the html for a bootstrap navbar, allows the developer to define 
+	* the brand name, navbar items including dropdowns and allow the inverted 
+	* style to be selected
 	* 
 	* @param string $brand Brand name, appears to let of navbar
 	* @param array $navbar_items Array containing the navbar items, each item 

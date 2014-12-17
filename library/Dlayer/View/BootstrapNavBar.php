@@ -1,11 +1,11 @@
 <?php
 /**
 * Generate the html for a bootstrap navbar, allows the developer to define 
-* the brand name, navbar items including dropdowns, set a fixed position for the 
-* navbar or switch to the inverted style
+* the brand name, navbar items including dropdowns and allow the inverted 
+* style to be selected
 * 
 * @todo Create another viewhelper to support all the options for a bootstrap 
-* navbar, forms, brand images etc
+* navbar, forms, brand images, fixed etc
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
@@ -179,7 +179,7 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 	* 
 	* @return Dlayer_View_BootstrapNavbar
 	*/
-	public function invertedNavbar() 
+	public function inverted() 
 	{
 		$this->navbar_class = 'navbar-inverse';
 		
