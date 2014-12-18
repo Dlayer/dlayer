@@ -6,6 +6,7 @@
     <head>
         <title><?php echo $this->escape($this->layout()->title); ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
         <script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/jquery-1.10.2.min.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/js/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
         <link href="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.custom.min.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
@@ -33,24 +34,29 @@
     </head>
     <body>
         <div class="container-fixed">
-        <?php echo $this->bootstrapNavbar('Dlayer.com', 
-        $this->layout()->nav['items'],  
-        $this->layout()->nav['active_url'])->inverted(); ?>
-                
-        <?php echo $this->ulNavigation($this->layout()->nav['class'], 
-        $this->layout()->nav['items'], $this->layout()->nav['active_url']); ?>
-        
-        <?php echo $this->layout()->content; ?>
-        
-	        <div id="footer">
-	        	<p>Version 0.48 - Copyright &copy; G3D Development Limited 2010-<?php echo date('Y'); ?></p>
+	        <?php echo $this->bootstrapNavbar('Dlayer.com', 
+	        $this->layout()->nav['items'],  
+	        $this->layout()->nav['active_url'])->inverted(); ?>
 	        
-        		<p><a href="http://www.g3d-development.com/blog">G3D Development Blog</a> - 
-        		<a href="/dlayer/index/development-plan">Development plan</a> - 
-        		<a href="/dlayer/index/development-log">Development log</a> - 
-        		<a href="/dlayer/index/svn-release-policy">SVN & release policy</a>
-        		</p>
-	        </div>
-        </div>
+	        <?php echo $this->layout()->content; ?>
+	        
+	        <div class="row">
+	        	<div class="col-lg-12">
+	        		<p class="text-center"><small>Version 0.48 - Copyright &copy; 
+	        		G3D Development Limited 2010-<?php echo date('Y'); ?></small></p>
+	        	</div>
+	        	
+	        	<div class="col-lg-12">
+	        		<p class="text-center">
+	        			<small>
+	        			<a href="http://www.g3d-development.com/blog">G3D Development Blog</a> - 
+        				<a href="/dlayer/index/development-plan">Development plan</a> - 
+        				<a href="/dlayer/index/development-log">Development log</a> - 
+        				<a href="/dlayer/index/svn-release-policy">SVN & release policy</a>
+        				</small>
+        			</p>
+	        	</div>
+			</div>
+	    </div>
     </body>
 </html>
