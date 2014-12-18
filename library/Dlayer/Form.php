@@ -70,6 +70,6 @@ abstract class Dlayer_Form extends Zend_Form
     {
         $this->addElements($elements);
         
-        $this->addDisplayGroup($elements, $id, array('legend'=>$label));
+        //$this->addDisplayGroup($elements, $id, array('legend'=>$label));
     }
 }

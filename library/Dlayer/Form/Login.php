@@ -58,18 +58,20 @@ class Dlayer_Form_Login extends Dlayer_Form
     	$identity->setDescription('Please enter a username, try one of the 
         combinations below.');
         $identity->setAttribs(array('size'=>30, 'maxlength'=>255, 
-        'placeholder'=>'e.g., user-1@dlayer.com'));
+        'placeholder'=>'e.g., user-1@dlayer.com', 'class'=>'form-control'));
     	$this->elements['identity'] = $identity;
         
         $credentials = new Zend_Form_Element_Password('credentials');
         $credentials->setLabel('Passsword');
         $credentials->setDescription('Please enter a password, try one of the 
         combinations below.');
-        $credentials->setAttribs(array('placeholder'=>'********'));
+        $credentials->setAttribs(array('placeholder'=>'********', 
+        'class'=>'form-control'));
         $this->elements['credentials'] = $credentials;
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Login');
+        $submit->setAttrib('class', 'btn btn-default');
         $this->elements['submit'] = $submit;
     }
     
@@ -96,7 +98,7 @@ class Dlayer_Form_Login extends Dlayer_Form
     protected function addCustomElementDecorators() 
     {
         $this->elements['submit']->setDecorators(array(array('ViewHelper'),
-        array('HtmlTag', array('tag' => 'div', 'class'=>'save'))));
+        array('HtmlTag', array('tag' => 'div', 'class'=>'form-group'))));
     }
     
     /**
@@ -106,9 +108,13 @@ class Dlayer_Form_Login extends Dlayer_Form
     */
     protected function addDefaultElementDecorators()
     {
-        $this->setElementDecorators(array(array('ViewHelper',
-        array('tag' => 'div', 'class'=>'input')), array('Description'),
-        array('Errors'), array('Label'), array('HtmlTag',
-        array('tag' => 'div', 'class'=>'input'))));
+    	$this->setDecorators(array('FormElements',array('Form', array('class'=>'form'))));
+    	
+        $this->setElementDecorators(array(
+        array('ViewHelper', array('tag' => 'div', 'class'=>'form-group')), 
+        array('Description', array('tag' => 'p', 'class'=>'help-block')),
+        array('Errors'), 
+        array('Label'), 
+        array('HtmlTag', array('tag' => 'div', 'class'=>'form-group'))));
     }
 }

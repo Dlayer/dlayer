@@ -11,27 +11,9 @@ $(document).ready(function()
 	<div class="col-lg-12">
 		<h1>Dlayer.com <small>Web development simplified</small></h1>
 	</div>
-</div>
-
-<div class="row">
+	
 	<div class="col-lg-12">
-		<?php echo $this->form; ?>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-lg-12">
-		<h2>Test usernames and passwords <small>Login using a free account</small></h2>
-		
-		<ul>
-		<?php foreach($this->test_identities as $identity) { ?>
-			<li>
-			<?php echo $this->escape($identity['identity']); ?> / 
-			password-<?php echo $this->escape($identity['id']); ?> 
-			<?php if($identity['logged_in'] == 1) { echo ' - Logged in'; } ?>
-			</li>
-		<?php } ?>
-		</ul>
+		<p>A development project I have been working on for a number of years.</p>
 	</div>
 </div>
 
@@ -67,5 +49,31 @@ $(document).ready(function()
 
 		<h4><strong>Dean Blackborough</strong> - 
 		<a href="http://www.g3d-development.com">G3D Development Limited</a></h4>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<h2>Login <small>Start testing the app</small></h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-6">
+		<?php echo $this->form; ?>
+	</div>
+	
+	<div class="col-lg-6">
+		<h3>Test usernames and passwords</h3>
+		
+		<ul>
+		<?php foreach($this->test_identities as $identity) { ?>
+			<li>
+			<?php echo $this->escape($identity['identity']); ?> / 
+			password-<?php echo $this->escape($identity['id']); ?> 
+			<?php if($identity['logged_in'] == 1) { echo ' - Logged in'; } ?>
+			</li>
+		<?php } ?>
+		</ul>
 	</div>
 </div>
