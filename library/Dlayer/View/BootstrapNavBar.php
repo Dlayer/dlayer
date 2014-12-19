@@ -5,7 +5,7 @@
 * style to be selected
 * 
 * @todo Create another viewhelper to support all the options for a bootstrap 
-* navbar, forms, brand images, fixed etc
+* navbar, forms, brand images, fixed etc 
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
