@@ -71,8 +71,7 @@ class Dlayer_Form_Login extends Dlayer_Form
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Login');
-        $submit->setAttribs(array('class'=>'btn btn-primary', 
-        'disabled'=>'disabled'));
+        $submit->setAttribs(array('class'=>'btn btn-primary'));
         $this->elements['submit'] = $submit;
     }
     
