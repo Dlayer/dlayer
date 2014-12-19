@@ -163,7 +163,7 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 	{
 		$html = '<nav class="navbar ' . $this->navbar_class . 
 		'" role="navigation">' . PHP_EOL;
-		$html .= '<div class="container">' . PHP_EOL;
+		$html .= '<div class="container-fixed">' . PHP_EOL;
 		
 		$html .= $this->brandAndToggle();
 		$html .= $this->navbarItems();
