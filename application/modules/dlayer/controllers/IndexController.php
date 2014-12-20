@@ -128,6 +128,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$this->view->site_id = $session_dlayer->siteId();
 		$this->view->last_accessed_site = $last_accessed['name'];
 
+		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Web site development
 		simplified');
 	}
@@ -180,7 +181,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 				'name'=>'Development log', 'title'=>'Dlayer development log'), 
 			array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
 				'title'=>'Dlayer known bugs'), 
-			array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
+			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout (' . 
 				$session_dlayer->identity() . ')', 'title'=>'Logout of site'));
 
 		$this->layout->assign('nav', array('class'=>'top_nav', 

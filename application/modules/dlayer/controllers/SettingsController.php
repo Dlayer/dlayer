@@ -77,8 +77,8 @@ class Dlayer_SettingsController extends Zend_Controller_Action
         'name'=>'Development log', 'title'=>'Dlayer development log'), 
         array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
         'title'=>'Known bugs'), 
-        array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
-        $this->session_dlayer->identity() . ')', 'title'=>'Logout'));
+        array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Logout of site'));
         
         $this->layout->assign('nav', array('class'=>'top_nav', 
         'items'=>$items, 'active_url'=>$url));
@@ -131,6 +131,7 @@ class Dlayer_SettingsController extends Zend_Controller_Action
         $this->view->site = $model_sites->site(
         $this->session_dlayer->siteId());
         
+        $this->layout->assign('css_include', array('css/dlayer.css'));
         $this->layout->assign('title', 'Dlayer.com - Colour palettes');
     }
 }
