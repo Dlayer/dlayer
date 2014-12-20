@@ -5,12 +5,14 @@
 		<h1>Dlayer settings <small><?php echo $this->escape($this->setting['title']); ?></small></h1>
 		
 		<h2>Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h2>
-		
-		<?php echo $this->ulNavigation($this->setting_groups['class'], 
-	    $this->setting_groups['items'], $this->setting_groups['active_url']); ?>
+		    
+	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
+	    $this->setting_groups['active_url']); ?>
 	    
-	    <?php echo $this->ulNavigation($this->settings['class'], 
-	    $this->settings['items'], $this->settings['active_url']); ?>
+	    <hr />
+	    
+	    <?php echo $this->bootstrapNav($this->settings['items'], 
+	    $this->settings['active_url'], 'nav nav-pills'); ?>
 		
 		<h3>Scope: <?php echo $this->escape($this->setting['scope']); ?> 
 	    <small><?php echo $this->escape($this->setting['scope_details']); ?></small></h3>

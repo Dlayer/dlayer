@@ -300,5 +300,18 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_BootstrapNavbar
 	*/
 	public function bootstrapNavbar($brand, array $navbar_items, 
-	$active_url='') 
+	$active_url='') { }
+	
+	/**
+	* Generates the HTML for a bootstrap nav item
+	* 
+	* @param string $class Class for UL, defauilts to 'nav nav-tabs'
+	* @param array $items Array of menu links, each item should be an array 
+	*                     with url, name and title fields for the data
+	* @param string $active_url The active URL, used to assign the active 
+	*                           class
+	* @return Dlayer_View_BootstrapNav
+	*/
+	public function bootstrapNav(array $items, $active_url='', 
+	$class='nav nav-tabs') { }
 }

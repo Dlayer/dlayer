@@ -19,7 +19,7 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 	* @var Dlayer_View_Codehinting
 	*/
 	public $view;
-	
+
 	private $navbar_id = NULL;
 	private $navbar_class;
 
@@ -40,14 +40,14 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_BootstrapNavbar
 	*/
 	public function bootstrapNavbar($brand, array $navbar_items, 
-	$active_url='') 
+		$active_url='') 
 	{
 		$this->resetParams();
 
 		$this->brand = $brand;
 		$this->navbar_items = $navbar_items;
 		$this->active_url = $active_url;
-		
+
 		if($this->navbar_id == NULL) {
 			$this->navbar_id = 1;
 		} else {
@@ -71,10 +71,10 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 		$this->brand = '';
 		$this->navbar_items = array();
 		$this->active_url = '';
-		
+
 		$this->navbar_class = 'navbar-default';
 	}
-	
+
 	/**
 	* Brand and toggle html
 	* 
@@ -94,10 +94,10 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 		$html .= '<a class="navbar-brand" href="/">' . $this->brand . 
 		'</a>' . PHP_EOL;
 		$html .= '</div>' . PHP_EOL;
-		
+
 		return $html;
 	}
-	
+
 	/**
 	* Navigation items
 	* 
@@ -108,7 +108,7 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 		$html = '<div class="collapse navbar-collapse" 
 		id="bs-navbar-collapse-' . $this->navbar_id . '">' . PHP_EOL;
 		$html .= '<ul class="nav navbar-nav">' . PHP_EOL;
-		
+
 		foreach($this->navbar_items as $item) {
 			if(array_key_exists('children', $item) == FALSE) {
 				if($this->active_url !== $item['url']) {
@@ -125,7 +125,7 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 				title="'. $item['title'] . '">' . $item['name'] . 
 				'<span class="caret"></span></a>' . PHP_EOL;
 				$html .= '<ul class="dropdown-menu" role="menu">' . PHP_EOL;
-				
+
 				foreach($item['children'] as $item) {
 					$html .= $this->item($item);
 				}
@@ -134,14 +134,14 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 				$html .= '</li>' . PHP_EOL;
 			}
 		}
-					
+
 		$html .= '</ul>' . PHP_EOL;
 
 		$html .= '</div><!-- /.navbar-collapse -->' . PHP_EOL;
-		
+
 		return $html;
 	}
-	
+
 	/**
 	* Create html for a single LI
 	* 
@@ -164,16 +164,16 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 		$html = '<nav class="navbar ' . $this->navbar_class . 
 		'" role="navigation">' . PHP_EOL;
 		$html .= '<div class="container-fixed">' . PHP_EOL;
-		
+
 		$html .= $this->brandAndToggle();
 		$html .= $this->navbarItems();
-		
+
 		$html .= '</div><!-- /.container-fluid -->' . PHP_EOL;
 		$html .= '</nav>' . PHP_EOL;
-		
+
 		return $html;
 	}
-	
+
 	/**
 	* Switch the navbar style to the inverted style
 	* 
@@ -182,7 +182,7 @@ class Dlayer_View_BootstrapNavbar extends Zend_View_Helper_Abstract
 	public function inverted() 
 	{
 		$this->navbar_class = 'navbar-inverse';
-		
+
 		return $this;
 	}
 
