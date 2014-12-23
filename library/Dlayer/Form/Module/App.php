@@ -31,11 +31,22 @@ abstract class Dlayer_Form_Module_App extends Dlayer_Form
         	array('Form', array('class'=>'form'))));
     	
         $this->setElementDecorators(array(
-        	array('ViewHelper', array('tag' => 'div', 'class'=>'form-group')), 
+        	array('ViewHelper'), 
         	array('Description', array('tag' => 'p', 'class'=>'help-block')),
-        	array('Errors'), 
+        	array('Errors', array('class'=> 'alert alert-danger')), 
         	array('Label'), 
-        	array('HtmlTag', array('tag' => 'div', 'class'=>'form-group'))));
+        	array('HtmlTag', array(
+        		'tag' => 'div', 
+        		'class'=> array(
+        			'callback' => function($decorator) {
+                        if($decorator->getElement()->hasErrors()) {
+                            return 'form-group has-error';
+                        } else {
+							return 'form-group';
+                        }
+                    })
+                ))
+        	));
     }
 
     /**
