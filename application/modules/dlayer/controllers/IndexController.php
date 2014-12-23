@@ -342,11 +342,11 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	{
 		$this->_helper->authenticate();
 
-		$this->layout->assign('css_include', array('styles/forms.css'));
+		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Create site');
 
 		$session_dlayer = new Dlayer_Session();
-		$form = new Dlayer_Form_Site_CreateSite($session_dlayer->identityId());
+		$form = new Dlayer_Form_Site_NewSite($session_dlayer->identityId());
 
 		// Validate and save the posted data
 		if($this->getRequest()->isPost()) {
