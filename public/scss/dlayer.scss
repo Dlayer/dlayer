@@ -23,3 +23,21 @@ ul.alert-danger {
 		
 	}
 }
+
+div.heading-styles {
+	border-bottom: 1px solid;
+	margin-top: 15px;
+
+	div.form-group {
+		margin-right: 15px;
+		margin-bottom: 15px;
+		
+		input.font_sizes {
+			width: 90px;
+		}
+		
+		input.font_colors {
+			width: 50px;
+		}
+	}
+}

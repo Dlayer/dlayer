@@ -28,7 +28,7 @@ abstract class Dlayer_Form_Module_App extends Dlayer_Form
     {
         $this->setDecorators(array(
         	'FormElements', 
-        	array('Form', array('class'=>'form'))));
+        	array('Form', array('class'=>'form-inline'))));
     	
         $this->setElementDecorators(array(
         	array('ViewHelper'), 
