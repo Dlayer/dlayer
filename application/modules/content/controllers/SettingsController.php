@@ -59,9 +59,8 @@ class Content_SettingsController extends Zend_Controller_Action
 
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
+		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Content manager settings');
-
-		$this->_redirect('/content/settings/base-font-family');
 	}
 
 	/**
@@ -128,6 +127,7 @@ class Content_SettingsController extends Zend_Controller_Action
 		$this->settingsMenus('Content', '/content/settings/index', 
 			'/content/settings/headings');
 
+		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Heading styles');
 	}
 
@@ -180,6 +180,7 @@ class Content_SettingsController extends Zend_Controller_Action
 		$this->settingsMenus('Content', '/content/settings/index', 
 			'/content/settings/base-font-family');
 
+		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Base font family - 
 		Content manager');
 	}
