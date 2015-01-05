@@ -162,8 +162,7 @@ class Template_IndexController extends Zend_Controller_Action
 	* @return void
 	*/
 	public function editTemplateAction() 
-	{
-		
+	{		
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Edit web site template');
 

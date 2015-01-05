@@ -1,15 +1,27 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content">
-    <h1>Form builder</h1>
-    
-    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
-    
-    <p>Edit the details for the selected page using the form below.</p>
-    
-    <p class="dev">At the moment whilst Dlayer is in early development all 
-    that needs to be defined for a page is the name, template to use and 
-    title, as the system evolves additional data will need to be defined.</p>
-    
-    <?php echo $this->form; ?>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Content management <small>Edit the selected content page</small></h1>
+
+		<p>Edit the details for the selected content page using the form 
+			below.</p>
+			
+		<p class="dev-note bg-info">At the moment whilst Dlayer is in early 
+			development all that needs to be defined for a page is the name 
+			and the template to use, as the system evolves additional data 
+			will need to be defined.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h2>Edit content page</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<?php echo $this->form; ?>
+	</div>
 </div>

@@ -1,47 +1,56 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content"> 
-    <h1>Content manager</h1>
-    
-    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
-    
-    <p>Using the content manager you can either create new pages for your 
-    web site or manage existing content, content is anything from text and 
-    images all the way up forms and widgets.</p>
-    
-    <p>You create a content page by either starting from one of your 
-    templates or copying an exists content page.</p>
-    
-    <p>You don't manage the relationship between pages here, that is done in 
-    the web site manager, the content manager is purely for adding content and 
-    editing existing content.</p>
-    
-    <p>Select a page from the list below, once a page has been activated you 
-    can continue designing it, edit it or copy the structure and content to 
-    create a new page.</p>
-    
-    <p class="dev">The Content manager tools are the furthest from my final 
-    design, as it stands today when adding or editing content everything 
-    needs to be defined in the side panel. In a later version I will update 
-    all the Content manager tools, the side panel will only be for 
-    controlling data that cannot easily be managed directly in the designer 
-    view.</p>
-    
-    <h2>Pages</h2> 
-    
-    <ul>
-    	<?php foreach($this->pages as $page) { ?>
-    		<?php if($page['id'] == $this->page_id) { ?>
-    			<li><?php echo $this->escape($page['name']); ?> 
-                (<?php echo $this->escape($page['template']); ?>) : 
-    			<a href="/content/design/">Design</a> | 
-                <a href="/content/index/edit-page">Edit</a> | 
-    			<a href="#">Copy</a> | Active</li>
-    		<?php } else { ?>
-    			<li><a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>">
-                <?php echo $this->escape($page['name']); ?> (<?php echo $this->escape($page['template']); ?>)</a></li>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Content manager <small>Web site content management</small></h1>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Web site 
+		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
+	</div>
+
+	<div class="col-md-12">
+		<p>Using the content manager you can either create new pages for your 
+			web site or manage the existing content, content is classed as 
+			anything from text and images all the way up to forms 
+			and widgets.</p>
+			
+		<p>You can create a content page by either creating a new one using 
+			one of the web site templates or copying and existing 
+			content page.</p>
+			
+		<p>You don't manage the relationship between pages here, that is 
+			done using the Web site manager, the Content manager is purely for 
+			adding content and editing existing content.</p>
+			
+		<p>Select a page from the list below, once a page has been activated 
+			you can open it in the designer, edit the base detials or 
+			create a new page by copying it.</p>
+			
+		<p class="dev-note bg-info">The Content manager tools are not as per my 
+			final design, as it stands today when adding or editing content 
+			everything needs to be defined in the side panel. As development 
+			continues I will update all the Content manager tools, the side 
+			panel will only be for controlling data that cannot easily be 
+			managed directly in the designer view.</p>
+			
+		<h2>Pages <small>Pages for this web site</small></h2>
+		
+		<ul>
+    		<?php foreach($this->pages as $page) { ?>
+    			<?php if($page['id'] == $this->page_id) { ?>
+    				<li><?php echo $this->escape($page['name']); ?> 
+	                (<?php echo $this->escape($page['template']); ?>) : 
+    				<a href="/content/design/">Design</a> | 
+	                <a href="/content/index/edit-page">Edit</a> | 
+    				<a href="#">Copy</a> | Active</li>
+    			<?php } else { ?>
+    				<li><a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>">
+	                <?php echo $this->escape($page['name']); ?> (<?php echo $this->escape($page['template']); ?>)</a></li>
+    			<?php } ?>
     		<?php } ?>
-    	<?php } ?>
-        <li><a href="/content/index/new-page">New page</a></li>
-    </ul>
+	        <li><a href="/content/index/new-page">New page</a></li>
+	    </ul>
+	</div>
 </div>
