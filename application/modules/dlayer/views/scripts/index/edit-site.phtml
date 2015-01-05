@@ -1,13 +1,25 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content">
-    <h1>Dlayer</h1>
-    
-    <p>You can edit the details for the current site using the form below.</p>
-    
-    <p class="dev">At the moment whilst Dlayer is in early development all 
-    that needs to be defined for a site is the name, as the system evolves 
-    additional data will need to be defined.</p>
-    
-    <?php echo $this->form; ?>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Web site management <small>Edit web site details</small></h1>
+
+		<p>You can create edit the web site using the form below.</p>
+		
+		<p class="bg-info dev-note">At the moment whilst Dlayer is in early 
+		development all that needs to be defined for a site is the name, 
+		as the system evolves additional data will need to be defined.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h2>Edit web site</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<?php echo $this->form; ?>
+	</div>
 </div>

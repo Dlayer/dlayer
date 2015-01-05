@@ -343,7 +343,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$this->_helper->authenticate();
 
 		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Create site');
+		$this->layout->assign('title', 'Dlayer.com - Create web site');
 
 		$session_dlayer = new Dlayer_Session();
 		$form = new Dlayer_Form_Site_NewSite($session_dlayer->identityId());
@@ -373,9 +373,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	public function editSiteAction()
 	{
 		$this->_helper->authenticate();
-
-		$this->layout->assign('css_include', array('styles/forms.css'));
-		$this->layout->assign('title', 'Dlayer.com - Edit site');
+		
+		$this->layout->assign('css_include', array('css/dlayer.css'));
+		$this->layout->assign('title', 'Dlayer.com - Edit web site');
 
 		$session_dlayer = new Dlayer_Session();
 		$form = new Dlayer_Form_Site_EditSite($session_dlayer->identityId(),
