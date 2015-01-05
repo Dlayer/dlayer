@@ -1,12 +1,9 @@
 <?php
 /**
-* Edit template
-* 
 * Allows the user to edit the details for the currently selected site template
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: EditTemplate.php 1724 2014-04-13 15:12:59Z Dean.Blackborough $
 */
 class Dlayer_Form_Site_EditTemplate extends Dlayer_Form_Module_App 
 {
@@ -84,7 +81,8 @@ class Dlayer_Form_Site_EditTemplate extends Dlayer_Form_Module_App
     	$name->setLabel('Name');
     	$name->setDescription('Enter the new name for your template, this will 
     	only display within Dlayer.');
-        $name->setAttribs(array('size'=>50, 'maxlength'=>255));
+        $name->setAttribs(array('size'=>50, 'maxlength'=>255, 
+        	'class'=>'form-control'));
         if(array_key_exists('name', $this->data) == TRUE) {
         	$name->setValue($this->data['name']);
 		}
@@ -92,6 +90,7 @@ class Dlayer_Form_Site_EditTemplate extends Dlayer_Form_Module_App
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save');
+        $submit->setAttribs(array('class'=>'btn btn-primary'));
         $this->elements['submit'] = $submit;
     }
     

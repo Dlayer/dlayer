@@ -334,7 +334,8 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 				JOIN dlayer_modules dm ON dsg.module_id = dm.id 
 					AND dm.enabled = 1 
 				WHERE ds.enabled = 1 
-				AND dsg.`name` = :group";
+				AND dsg.`name` = :group 
+				ORDER BY ds.sort_order ASC";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':group', $group, PDO::PARAM_STR);
 		$stmt->execute();

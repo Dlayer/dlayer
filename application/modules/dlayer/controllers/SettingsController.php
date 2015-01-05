@@ -54,9 +54,10 @@ class Dlayer_SettingsController extends Zend_Controller_Action
         
         $this->view->site = $model_sites->site($this->session_dlayer->siteId());
         
+        $this->layout->assign('css_include', array('css/dlayer.css'));
         $this->layout->assign('title', 'Dlayer.com - Settings');
         
-        $this->_redirect('/dlayer/settings/palettes');
+        //$this->_redirect('/dlayer/settings/palettes');
     }
     
     /**

@@ -1,16 +1,26 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content">
-    <h1>Template designer</h1>
-    
-    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
-    
-    <p>Use the form below to add a new template, once you have added the 
-    template you can immediately begin working on it.</p>
-    
-    <p class="dev">At the moment whilst Dlayer is in early development all 
-    that needs to be defined for a template is the name, as the system evolves 
-    additional data will need to be defined.</p>
-    
-    <?php echo $this->form; ?>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Template management <small>Create a new blank template</small></h1>
+
+		<p>Use the form below to add a new template, once you have added the 
+			template you can immediately begin working on it.</p>
+		
+		<p class="bg-info dev-note">At the moment whilst Dlayer is in early 
+		development all that needs to be defined for a template is the name, 
+		as the system evolves additional data will need to be defined.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h2>New template</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<?php echo $this->form; ?>
+	</div>
 </div>
