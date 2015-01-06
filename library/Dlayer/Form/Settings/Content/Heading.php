@@ -165,6 +165,10 @@ class Dlayer_Form_Settings_Content_Heading extends Dlayer_Form_Module_App
 	{
 		$this->elements['heading_id']->setDecorators(array(array('ViewHelper'),
 			array('HtmlTag', array('tag' => 'div', 'class'=>'hidden'))));
+			
+		$this->setDecorators(array(
+        	'FormElements', 
+        	array('Form', array('class'=>'form-inline'))));
 
 		parent::addCustomElementDecorators();
 	}

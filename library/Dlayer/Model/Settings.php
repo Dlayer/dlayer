@@ -306,7 +306,7 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
     */
     public function settingGroups() 
     {
-		$sql = "SELECT dsg.`name`, dsg.title, dsg.url 
+		$sql = "SELECT dsg.title, dsg.tab_title as `name`, dsg.url 
 				FROM dlayer_settings_groups dsg 
 				JOIN dlayer_modules dm ON dsg.module_id = dm.id 
 					AND dm.enabled = 1 

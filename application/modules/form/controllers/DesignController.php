@@ -13,370 +13,370 @@
 */
 class Form_DesignController extends Zend_Controller_Action
 {
-    /**
-    * Type hinting for action helpers, hints the property to the code
-    * hinting class which exists in the library
-    *
-    * @var Dlayer_Action_CodeHinting
-    */
-    protected $_helper;
+	/**
+	* Type hinting for action helpers, hints the property to the code
+	* hinting class which exists in the library
+	*
+	* @var Dlayer_Action_CodeHinting
+	*/
+	protected $_helper;
 
-    private $session_dlayer;
-    private $session_form;
+	private $session_dlayer;
+	private $session_form;
 
-    private $layout;
+	private $layout;
 
-    /**
-    * Initialise the controller, run any required set up code and set
-    * properties required by controller actions
-    *
-    * @return void
-    */
-    public function init()
-    {
-        $this->_helper->authenticate();
-        
-        $this->_helper->setModule();
-        
-        $this->_helper->validateSiteId();
-        
-        $this->_helper->validateFormId();
-        
-        $this->session_dlayer = new Dlayer_Session();
-        $this->session_form = new Dlayer_Session_Form();
+	/**
+	* Initialise the controller, run any required set up code and set
+	* properties required by controller actions
+	*
+	* @return void
+	*/
+	public function init()
+	{
+		$this->_helper->authenticate();
 
-        // Include js and css files in layout
-        $this->layout = Zend_Layout::getMvcInstance();
-        $this->layout->assign('js_include', array('scripts/dlayer.js'));
-        $this->layout->assign('css_include', array('styles/ribbon.css',
-        'styles/ribbon/form.css', 'styles/designer.css',
-        'styles/designer/form.css'));
-    }
+		$this->_helper->setModule();
 
-    /**
-    * Base action for the design controller, loads in the html for the menu,
-    * ribbon, modes, toolbar and form
-    *
-    * @return void
-    */
-    public function indexAction()
-    {
-        $this->dlayerMenu('/form/index/index');
-        $this->view->dlayer_toolbar = $this->dlayerToolbar();
-        $this->view->dlayer_form = $this->dlayerForm();
-        $this->view->dlayer_ribbon = $this->dlayerRibbon();
-        $this->view->return = $this->session_form->returnModule();
+		$this->_helper->validateSiteId();
 
-        $this->view->module = $this->getRequest()->getModuleName();
+		$this->_helper->validateFormId();
 
-        $this->layout->assign('title', 'Dlayer.com - Form builder');
-    }
+		$this->session_dlayer = new Dlayer_Session();
+		$this->session_form = new Dlayer_Session_Form();
 
-    /**
-    * Generate the html for the tool bar, the enabled tools for the module are
-    * selected and then passed to a view file. The view is generated using
-    * the tools array and then the result is passed back to the index action
-    *
-    * @return string
-    */
-    private function dlayerToolbar()
-    {
-        $model_module = new Dlayer_Model_Module();
+		// Include js and css files in layout
+		$this->layout = Zend_Layout::getMvcInstance();
+		$this->layout->assign('js_include', array('scripts/dlayer.js'));
+		$this->layout->assign('css_include', array('styles/ribbon.css',
+			'styles/ribbon/form.css', 'styles/designer.css',
+			'styles/designer/form.css'));
+	}
 
-        $this->view->tools = $model_module->tools(
-        $this->getRequest()->getModuleName());
-        $this->view->tool = $this->session_form->tool();
-        $this->view->field_id = $this->session_form->fieldId();
+	/**
+	* Base action for the design controller, loads in the html for the menu,
+	* ribbon, modes, toolbar and form
+	*
+	* @return void
+	*/
+	public function indexAction()
+	{
+		$this->dlayerMenu('/form/index/index');
+		$this->view->dlayer_toolbar = $this->dlayerToolbar();
+		$this->view->dlayer_form = $this->dlayerForm();
+		$this->view->dlayer_ribbon = $this->dlayerRibbon();
+		$this->view->return = $this->session_form->returnModule();
 
-        return $this->view->render("design/toolbar.phtml");
-    }
+		$this->view->module = $this->getRequest()->getModuleName();
 
-    /**
-    * Generate the html for the ribbon, there are two ribbon states,
-    * the initial state and then when a tool or field is selected. The contents
-    * of the ribbon are loaded via AJAX, this method just generates the
-    * container html for when a tool is selected and then the html for the
-    * two base states
-    *
-    * @return string
-    */
-    private function dlayerRibbon()
-    {
-        $tool = $this->session_form->tool();
+		$this->layout->assign('title', 'Dlayer.com - Form builder');
+	}
 
-        if($tool != FALSE) {
-            $html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab']);
-        } else {
-            $ribbon = new Dlayer_Ribbon();
-            $html = $this->view->render($ribbon->defaultViewScriptPath());
-        }
+	/**
+	* Generate the html for the tool bar, the enabled tools for the module are
+	* selected and then passed to a view file. The view is generated using
+	* the tools array and then the result is passed back to the index action
+	*
+	* @return string
+	*/
+	private function dlayerToolbar()
+	{
+		$model_module = new Dlayer_Model_Module();
 
-        $this->view->html = $html;
+		$this->view->tools = $model_module->tools(
+			$this->getRequest()->getModuleName());
+		$this->view->tool = $this->session_form->tool();
+		$this->view->field_id = $this->session_form->fieldId();
 
-        return $this->view->render('design/ribbon.phtml');
-    }
+		return $this->view->render("design/toolbar.phtml");
+	}
 
-    /**
-    * Generate the container html for a tool ribbon tab, view pulls the
-    * tabs for the tool and then generates the tab bar and container. The
-    * contents of the ribbon are loaded via AJAX
-    *
-    * @param string $tool
-    * @param string $tab
-    * @return string
-    */
-    private function dlayerRibbonHtml($tool, $tab)
-    {
-        $ribbon = new Dlayer_Ribbon();
-        
-        $edit_mode = FALSE;
-        
-        if($this->session_form->fieldId() != NULL) {
-            $edit_mode = TRUE;
-        }
+	/**
+	* Generate the html for the ribbon, there are two ribbon states,
+	* the initial state and then when a tool or field is selected. The contents
+	* of the ribbon are loaded via AJAX, this method just generates the
+	* container html for when a tool is selected and then the html for the
+	* two base states
+	*
+	* @return string
+	*/
+	private function dlayerRibbon()
+	{
+		$tool = $this->session_form->tool();
 
-        $tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool, 
-        $edit_mode);
+		if($tool != FALSE) {
+			$html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab']);
+		} else {
+			$ribbon = new Dlayer_Ribbon();
+			$html = $this->view->render($ribbon->defaultViewScriptPath());
+		}
 
-        if($tabs != FALSE) {
-            $this->view->tab = $tab;
-            $this->view->tool = $tool;
-            $this->view->tabs = $tabs;
-            $this->view->module = $this->getRequest()->getModuleName();
-            $html = $this->view->render($ribbon->dynamicViewScriptPath());
-        } else {
-            $html = $this->view->render($ribbon->defaultViewScriptPath());
-        }
+		$this->view->html = $html;
 
-        return $html;
-    }
+		return $this->view->render('design/ribbon.phtml');
+	}
 
-    /**
-    * Generate the html for the requested tool tab, called via AJAX by the
-    * base view.
-    *
-    * The tool and tab are checked to see if they are valid and then the
-    * data required to generate the tab is pulled and passed to the view.
-    *
-    * @return string
-    */
-    public function ribbonTabHtmlAction()
-    {
-        $this->_helper->disableLayout();
+	/**
+	* Generate the container html for a tool ribbon tab, view pulls the
+	* tabs for the tool and then generates the tab bar and container. The
+	* contents of the ribbon are loaded via AJAX
+	*
+	* @param string $tool
+	* @param string $tab
+	* @return string
+	*/
+	private function dlayerRibbonHtml($tool, $tab)
+	{
+		$ribbon = new Dlayer_Ribbon();
 
-        $tool = $this->getRequest()->getParam('tool');
-        $tab = $this->getRequest()->getParam('tab');
-        $module = $this->getRequest()->getModuleName();
+		$edit_mode = FALSE;
 
-        if($tab != NULL && $tool != NULL) {
+		if($this->session_form->fieldId() != NULL) {
+			$edit_mode = TRUE;
+		}
 
-            $ribbon = new Dlayer_Ribbon();
-            $ribbon_tab = new Dlayer_Ribbon_Tab();
+		$tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool, 
+			$edit_mode);
 
-            $view_script = $ribbon_tab->viewScript(
-            $this->getRequest()->getModuleName(), $tool, $tab);
-            $multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
+		if($tabs != FALSE) {
+			$this->view->tab = $tab;
+			$this->view->tool = $tool;
+			$this->view->tabs = $tabs;
+			$this->view->module = $this->getRequest()->getModuleName();
+			$html = $this->view->render($ribbon->dynamicViewScriptPath());
+		} else {
+			$html = $this->view->render($ribbon->defaultViewScriptPath());
+		}
 
-            if($view_script != FALSE) {
+		return $html;
+	}
 
-                $this->session_form->setRibbonTab($tab);
-                
-                $edit_mode = FALSE;
-                if($this->session_form->fieldId() != NULL) {
-                    $edit_mode = TRUE;
-                }
+	/**
+	* Generate the html for the requested tool tab, called via AJAX by the
+	* base view.
+	*
+	* The tool and tab are checked to see if they are valid and then the
+	* data required to generate the tab is pulled and passed to the view.
+	*
+	* @return string
+	*/
+	public function ribbonTabHtmlAction()
+	{
+		$this->_helper->disableLayout();
 
-                $this->view->color_picker_data = $this->colorPickerData();
-                $this->view->data = $ribbon_tab->viewData($module, $tool,
-                $tab, $multi_use, $edit_mode);
-                $this->view->edit_mode = $edit_mode;
-                                
-                $html = $this->view->render(
-                $ribbon->viewScriptPath($view_script));
-            } else {
-                $html = $this->view->render(
-                $ribbon->defaultViewScriptPath());
-            }
-        } else {
-            $html = $this->view->render($ribbon->defaultViewScriptPath());
-        }
+		$tool = $this->getRequest()->getParam('tool');
+		$tab = $this->getRequest()->getParam('tab');
+		$module = $this->getRequest()->getModuleName();
 
-        $this->view->html = $html;
-    }
+		if($tab != NULL && $tool != NULL) {
 
-    /**
-    * Generate the form html. This method fetches all the elements that have
-    * been added to the form and renders a working version of the form
-    *
-    * @return string Html
-    */
-    private function dlayerForm()
-    {
-        $designer_form = new Dlayer_Designer_Form(
-        $this->session_dlayer->siteId(), $this->session_form->formId(),
-        FALSE, $this->session_form->fieldId());
-        
-        $model_settings = new Dlayer_Model_View_Settings();
-        $model_form_settings = new Dlayer_Model_View_Form_Settings();
+			$ribbon = new Dlayer_Ribbon();
+			$ribbon_tab = new Dlayer_Ribbon_Tab();
 
-        $this->view->base_font_family = $model_settings->baseFontFamily(
-        $this->session_dlayer->siteId(), 'form');
+			$view_script = $ribbon_tab->viewScript(
+				$this->getRequest()->getModuleName(), $tool, $tab);
+			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
 
-        $this->view->minimum_width = $model_form_settings->minimumWidth(
-        $this->session_dlayer->siteId(), $this->session_form->formId());
-        $this->view->form = $designer_form->form();
-        $this->view->field_id = $this->session_form->fieldId();        
-        $this->view->field_styles = $designer_form->fieldStyles();
+			if($view_script != FALSE) {
 
-        return $this->view->render("design/form.phtml");
-    }
+				$this->session_form->setRibbonTab($tab);
 
-    /**
-    * Set the tool for the tool bar, validates that the tool is valid, sets
-    * the params and then redirects the user with the tool selected. The
-    * ribbon will be updated to show the details for the selected tool.
-    *
-    * The cancel tool processes and then returns the user back to the base of
-    * the designer with nothing selected.
-    *
-    * @return void
-    */
-    public function setToolAction()
-    {
-        $this->_helper->disableLayout(FALSE);
+				$edit_mode = FALSE;
+				if($this->session_form->fieldId() != NULL) {
+					$edit_mode = TRUE;
+				}
 
-        $tool = $this->getRequest()->getParam('tool');
+				$this->view->color_picker_data = $this->colorPickerData();
+				$this->view->data = $ribbon_tab->viewData($module, $tool,
+					$tab, $multi_use, $edit_mode);
+				$this->view->edit_mode = $edit_mode;
 
-        if($tool != NULL && strlen($tool) > 0) {
-            if($tool != 'cancel') {
-                if($this->session_form->setTool($tool) == TRUE) {
-                    $reset = $this->getRequest()->getParam('reset');
-                    if($reset != NULL && $reset == 1) {
-                        $this->session_form->clearFieldId();
-                    }
-                    $this->_redirect('/form/design');
-                } else {
-                    $this->cancelTool();
-                }
-            } else {
-                $this->cancelTool();
-            }
-        } else {
-            $this->cancelTool();
-        }
-    }
+				$html = $this->view->render(
+					$ribbon->viewScriptPath($view_script));
+			} else {
+				$html = $this->view->render(
+					$ribbon->defaultViewScriptPath());
+			}
+		} else {
+			$html = $this->view->render($ribbon->defaultViewScriptPath());
+		}
 
-    /**
-    * Cancel tool, clears the currently set content module vars, user is
-    * returned to the base of the content manager with no tools, divs or
-    * content items selected.
-    *
-    * @return void
-    */
-    private function cancelTool()
-    {
-        $this->session_form->clearAll();
-        $this->_redirect('/form/design');
-    }
+		$this->view->html = $html;
+	}
 
-    /**
-    * Sets the selected field and returns the user back to the designer so that
-    * they can edit the selected field
-    *
-    * @return void
-    */
-    public function setSelectedFieldAction()
-    {
-        $this->_helper->disableLayout(FALSE);
+	/**
+	* Generate the form html. This method fetches all the elements that have
+	* been added to the form and renders a working version of the form
+	*
+	* @return string Html
+	*/
+	private function dlayerForm()
+	{
+		$designer_form = new Dlayer_Designer_Form(
+			$this->session_dlayer->siteId(), $this->session_form->formId(),
+			FALSE, $this->session_form->fieldId());
 
-        $id = $this->getRequest()->getParam('selected');
-        $tool = $this->getRequest()->getParam('tool');
-        $type = $this->getRequest()->getParam('type');
-        
-        if($this->session_form->setFieldId($id, $type) == TRUE &&
-        $this->session_form->setTool($tool) == TRUE) {
-            $this->_redirect('/form/design');
-        } else {
-            $this->cancelTool();
-        }
-    }
-    
-    /**
-    * Move the selected field, before passing the request to the model
-    * we check to ensure that the field can be moved in the requested 
-    * direction and also that the field is valid, as in the type matches and 
-    * the field belongs to the current form
-    * 
-    * @return div
-    */
-    public function moveFieldAction() 
-    {
-        $this->_helper->disableLayout(FALSE);
-        
-        $direction = $this->getRequest()->getParam('direction');
-        $field_type = $this->getRequest()->getParam('type');
-        $field_id = $this->getRequest()->getParam('field-id');
-        
-        $model_form_field = new Dlayer_Model_Form_Field();
-        
-        if($model_form_field->valid($field_id, 
-        $this->session_dlayer->siteId(), $this->session_form->formId(), 
-        $field_type) == TRUE && 
-        in_array($direction, array('up', 'down')) == TRUE) {
-            $model_form_field->moveFormField($direction, $field_type, 
-            $field_id, $this->session_form->formId(), 
-            $this->session_dlayer->siteId());
-        }
-        
-        $this->_redirect('/form/design/');
-    }
+		$model_settings = new Dlayer_Model_View_Settings();
+		$model_form_settings = new Dlayer_Model_View_Form_Settings();
 
-    /**
-    * Generate the base menu bar for the application.
-    * 
-    * @param string $url Selected url
-    * @return string Html
-    */
-    private function dlayerMenu($url) 
-    {
-        $items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
-        'title'=>'Dlayer.com: Web development simplified'), 
-        array('url'=>'/form/index/index', 'name'=>'Form builder', 
-        'title'=>'Dlayer Form builder', 
-        'children'=>array(array('url'=>'/template/index/index', 
-        'name'=>'Template designer', 'title'=>'Dlayer Template designer'), 
-        array('url'=>'/content/index/index', 
-        'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
-        array('url'=>'/website/index/index', 
-        'name'=>'Web site manager', 'title'=>'Dlayer Website manager'), 
-        array('url'=>'/image/index/index', 
-        'name'=>'Image library', 'title'=>'Dlayer Image library'))), 
-        array('url'=>'/form/settings/index', 
-        'name'=>'Settings', 'title'=>'Form builder settings'), 
-        array('url'=>'/dlayer/index/logout', 'name'=>'Logout (' . 
-        $this->session_dlayer->identity() . ')', 'title'=>'Logout'));
-        
-        $this->layout->assign('nav', array('class'=>'top_nav', 
-        'items'=>$items, 'active_url'=>$url));
-    }
-    
-    /**
-    * Fetch the data for the color picker, passed to the ribbon tab view 
-    * so color picker can be pre populated for all tabs.
-    * 
-    * Returns an array with two indexs, palettes and history, if there was a 
-    * problem fetching data FALSE will be returned for the index that failed, 
-    * the view will display a friendly error message
-    * 
-    * @return array
-    */
-    private function colorPickerData() 
-    {
-        $model_palettes = new Dlayer_Model_Palette();
-        
-        $site_id = $this->session_dlayer->siteId();
-        
-        return array('palettes'=>$model_palettes->palettes($site_id), 
-        'history'=>$model_palettes->lastNColors($site_id));
-    }
+		$this->view->base_font_family = $model_settings->baseFontFamily(
+			$this->session_dlayer->siteId(), 'form');
+
+		$this->view->minimum_width = $model_form_settings->minimumWidth(
+			$this->session_dlayer->siteId(), $this->session_form->formId());
+		$this->view->form = $designer_form->form();
+		$this->view->field_id = $this->session_form->fieldId();        
+		$this->view->field_styles = $designer_form->fieldStyles();
+
+		return $this->view->render("design/form.phtml");
+	}
+
+	/**
+	* Set the tool for the tool bar, validates that the tool is valid, sets
+	* the params and then redirects the user with the tool selected. The
+	* ribbon will be updated to show the details for the selected tool.
+	*
+	* The cancel tool processes and then returns the user back to the base of
+	* the designer with nothing selected.
+	*
+	* @return void
+	*/
+	public function setToolAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$tool = $this->getRequest()->getParam('tool');
+
+		if($tool != NULL && strlen($tool) > 0) {
+			if($tool != 'cancel') {
+				if($this->session_form->setTool($tool) == TRUE) {
+					$reset = $this->getRequest()->getParam('reset');
+					if($reset != NULL && $reset == 1) {
+						$this->session_form->clearFieldId();
+					}
+					$this->_redirect('/form/design');
+				} else {
+					$this->cancelTool();
+				}
+			} else {
+				$this->cancelTool();
+			}
+		} else {
+			$this->cancelTool();
+		}
+	}
+
+	/**
+	* Cancel tool, clears the currently set content module vars, user is
+	* returned to the base of the content manager with no tools, divs or
+	* content items selected.
+	*
+	* @return void
+	*/
+	private function cancelTool()
+	{
+		$this->session_form->clearAll();
+		$this->_redirect('/form/design');
+	}
+
+	/**
+	* Sets the selected field and returns the user back to the designer so that
+	* they can edit the selected field
+	*
+	* @return void
+	*/
+	public function setSelectedFieldAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$id = $this->getRequest()->getParam('selected');
+		$tool = $this->getRequest()->getParam('tool');
+		$type = $this->getRequest()->getParam('type');
+
+		if($this->session_form->setFieldId($id, $type) == TRUE &&
+		$this->session_form->setTool($tool) == TRUE) {
+			$this->_redirect('/form/design');
+		} else {
+			$this->cancelTool();
+		}
+	}
+
+	/**
+	* Move the selected field, before passing the request to the model
+	* we check to ensure that the field can be moved in the requested 
+	* direction and also that the field is valid, as in the type matches and 
+	* the field belongs to the current form
+	* 
+	* @return div
+	*/
+	public function moveFieldAction() 
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$direction = $this->getRequest()->getParam('direction');
+		$field_type = $this->getRequest()->getParam('type');
+		$field_id = $this->getRequest()->getParam('field-id');
+
+		$model_form_field = new Dlayer_Model_Form_Field();
+
+		if($model_form_field->valid($field_id, 
+		$this->session_dlayer->siteId(), $this->session_form->formId(), 
+		$field_type) == TRUE && 
+		in_array($direction, array('up', 'down')) == TRUE) {
+			$model_form_field->moveFormField($direction, $field_type, 
+				$field_id, $this->session_form->formId(), 
+				$this->session_dlayer->siteId());
+		}
+
+		$this->_redirect('/form/design/');
+	}
+
+	/**
+	* Generate the base menu bar for the application.
+	* 
+	* @param string $url Selected url
+	* @return string Html
+	*/
+	private function dlayerMenu($url) 
+	{
+		$items = array(array('url'=>'/form/index/index', 
+			'name'=>'Form builder', 'title'=>'Dlayer Form builder'), 
+			array('url'=>'', 'name'=>'Designers', 'title'=>'Choose a designer', 
+				'children'=>array(
+					array('url'=>'/template/index/index', 
+						'name'=>'Template designer', 'title'=>'Dlayer Template designer'), 
+					array('url'=>'/form/index/index', 
+						'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
+					array('url'=>'/website/index/index', 
+						'name'=>'Web site manager', 'title'=>'Dlayer Website manager'), 
+					array('url'=>'/image/index/index', 
+						'name'=>'Image library', 'title'=>'Dlayer Image library'))), 
+			array('url'=>'/form/settings/index', 
+				'name'=>'Settings', 'title'=>'Form builder settings'), 
+			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Logout'));
+
+		$this->layout->assign('nav', array('class'=>'top_nav', 
+			'items'=>$items, 'active_url'=>$url));
+	}
+
+	/**
+	* Fetch the data for the color picker, passed to the ribbon tab view 
+	* so color picker can be pre populated for all tabs.
+	* 
+	* Returns an array with two indexs, palettes and history, if there was a 
+	* problem fetching data FALSE will be returned for the index that failed, 
+	* the view will display a friendly error message
+	* 
+	* @return array
+	*/
+	private function colorPickerData() 
+	{
+		$model_palettes = new Dlayer_Model_Palette();
+
+		$site_id = $this->session_dlayer->siteId();
+
+		return array('palettes'=>$model_palettes->palettes($site_id), 
+			'history'=>$model_palettes->lastNColors($site_id));
+	}
 }

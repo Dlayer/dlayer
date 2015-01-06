@@ -1,16 +1,27 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content">
-    <h1>Form builder</h1>
-    
-    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
-    
-    <p>Use the form below to add a new form to use within your site. Once you 
-    have added the new form you can immediately begin working on it.</p>
-    
-    <p class="dev">At the moment whilst Dlayer is in early development all 
-    that needs to be defined for a form is the name, as the system evolves 
-    additional data will need to be defined.</p>
-    
-    <?php echo $this->form; ?>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Form management <small>Create a new form</small></h1>
+
+		<p>Use the form below to add a new form to use within your site. 
+			Once you have added the new form you can immediately begin 
+			working on it in the Form builder.</p>
+			
+		<p class="dev-note bg-info">At the moment whilst Dlayer is in early 
+			development all that needs to be defined for a form is the name, 
+			as the system evolves additional data will need to be defined.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h2>New form</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<?php echo $this->form; ?>
+	</div>
 </div>

@@ -1,38 +1,47 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content">
-    <h1>Form builder</h1>
-    
-    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
-    
-    <p>Using the form builder you create forms which you can add to 
-    templates, widgets or directly to content pages. The core use of forms is 
-    in gathering information from your visitors but as both the form builder 
-    and widget designer increase in functionality the forms can be used for 
-    many other purposes.</p>
-    
-    <p>There is no enforced limit to the number of forms you can create for a
-    single web site. In addition, it doesn't matter how you modify a form once 
-    it has gone live on your site, submitted form data is never lost and will 
-    always be accessible in its original form.</p>
-    
-    <p>Select a form from the list below, once a form has been activated you 
-    can continue managing it, edit it or copy the structure to create a new 
-    form.</p>
-    
-    <h2>Forms</h2> 
-    
-    <ul>
-    	<?php foreach($this->forms as $form) { ?>
-    		<?php if($form['id'] == $this->form_id) { ?>
-    			<li><?php echo $this->escape($form['name']); ?>: 
-    			<a href="/form/design/">Manage</a> | 
-    			<a href="/form/index/edit-form">Edit</a> | 
-    			<a href="#">Copy structure</a> | Active</li>
-    		<?php } else { ?>
-    			<li><a href="/form/index/activate/form-id/<?php echo $this->escape($form['id']); ?>"><?php echo $this->escape($form['name']); ?></a></li>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Form builder <small>Form management</small></h1>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Web site 
+		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
+	</div>
+
+	<div class="col-md-12">
+		<p>Using the form builder you create forms which you can add to 
+			templates, widgets or directly to content pages. The core use of 
+			forms is for gathering information from your visitors but as 
+			both the Form builder and Widget designer increase in 
+			functionality the forms will be able to be used for other 
+			purposes.</p>
+			
+		<p>There is no enforced limit to the number of forms you can create 
+			for a single web site. In addition, it doesn't matter how you 
+			modify a form once it has gone live on your site, submitted form 
+			data is never lost and will always be accessible in its 
+			original format.</p>
+			
+		<p>Select a form from the list below, once a form has been activated 
+			you work on it in the Form builder, edit the base details or 
+			copy the structure to create a new form.</p>
+			
+		<h2>Forms <small>Forms for this web site</small></h2>
+		
+		<ul>
+    		<?php foreach($this->forms as $form) { ?>
+    			<?php if($form['id'] == $this->form_id) { ?>
+    				<li><?php echo $this->escape($form['name']); ?>: 
+    				<a href="/form/design/">Manage</a> | 
+    				<a href="/form/index/edit-form">Edit</a> | 
+    				<a href="#">Copy structure</a> | Active</li>
+    			<?php } else { ?>
+    				<li><a href="/form/index/activate/form-id/<?php echo $this->escape($form['id']); ?>"><?php echo $this->escape($form['name']); ?></a></li>
+    			<?php } ?>
     		<?php } ?>
-    	<?php } ?>
-        <li><a href="/form/index/new-form">New form</a></li>
-    </ul>
+	        <li><a href="/form/index/new-form">New form</a></li>
+	    </ul>
+	</div>
 </div>
