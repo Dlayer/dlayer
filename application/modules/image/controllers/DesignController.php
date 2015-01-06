@@ -108,6 +108,7 @@ class Image_DesignController extends Zend_Controller_Action
 
 		$this->view->image_id = $this->session_image->imageId();
 
+		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Image library');
 	}
 

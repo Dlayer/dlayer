@@ -56,6 +56,7 @@ class Image_SettingsController extends Zend_Controller_Action
 
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
+		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Image library settings');
 	}
 

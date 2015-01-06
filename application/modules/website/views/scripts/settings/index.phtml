@@ -1,19 +1,25 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content">
-    <h1>Web site manager settings</h1>
-    
-    <h2>Setting group</h2>
-    
-    <h3>Web site: <?php echo $this->escape($this->site['name']); ?></h3>
-       
-    <?php echo $this->ulNavigation($this->setting_groups['class'], 
-    $this->setting_groups['items'], $this->setting_groups['active_url']); ?>
-    
-    <?php echo $this->ulNavigation($this->settings['class'], 
-    $this->settings['items'], $this->settings['active_url']); ?>
-    
-    <h3>Setting</h3>
-    
-    <p>No configurable settings yet.</p>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Web site manager settings</h1>
+		
+		<h2>Web site: 
+		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
+		    
+	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
+	    $this->setting_groups['active_url']); ?>
+	    
+	    <hr />
+	    
+	    <?php echo $this->bootstrapNav($this->settings['items'], 
+	    $this->settings['active_url'], 'nav nav-pills'); ?>
+	    
+	    <h3>Overview <small>What can you manage in this section?</small></h3>
+	    
+	    <p>This section allows you to manage settings for the tools in the 
+	    	Web site manager and set the defaults for the module.</p>
+	    	
+	    <p class="dev-note bg-info">No configurable settings yet.</p>
+	</div>
 </div>
