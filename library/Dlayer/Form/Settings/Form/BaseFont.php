@@ -80,11 +80,12 @@ class Dlayer_Form_Settings_Form_BaseFont extends Dlayer_Form_Module_App
         $font_family->setLabel('Font family:');
         $font_family->setMultiOptions($this->font_families);
         $font_family->setValue($this->font_family_id);
-        $font_family->setAttribs(array('class'=>'font_families'));
+        $font_family->setAttribs(array('class'=>'font_families form-control'));
         $this->elements['font_family'] = $font_family;
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save');
+        $submit->setAttribs(array('class'=>'btn btn-primary'));
         $this->elements['submit'] = $submit;
     }
     

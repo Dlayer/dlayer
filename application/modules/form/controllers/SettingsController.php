@@ -4,7 +4,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: SettingsController.php 1942 2014-06-15 12:52:34Z Dean.Blackborough $
 */
 class Form_SettingsController extends Zend_Controller_Action
 {
@@ -60,9 +59,8 @@ class Form_SettingsController extends Zend_Controller_Action
 
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
+		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Form builder settings');
-
-		$this->_redirect('/form/settings/base-font-family');
 	}
 
 	/**
@@ -143,6 +141,7 @@ class Form_SettingsController extends Zend_Controller_Action
 		$this->settingsMenus('Form', '/form/settings/index', 
 			'/form/settings/base-font-family');
 
+		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Base font family -
 		form builder');
 	}

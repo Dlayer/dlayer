@@ -18,52 +18,64 @@
     });        
 </script>
 
-<div id="content">
-    <h1>Form builder settings</h1>
-
-    <h2><?php echo $this->escape($this->setting['title']); ?></h2>
-    
-    <h3>Web site: <?php echo $this->escape($this->site['name']); ?></h3>
-    
-    <?php echo $this->ulNavigation($this->setting_groups['class'], 
-    $this->setting_groups['items'], $this->setting_groups['active_url']); ?>
-    
-    <?php echo $this->ulNavigation($this->settings['class'], 
-    $this->settings['items'], $this->settings['active_url']); ?>
-    
-    <h3>Scope: <?php echo $this->escape($this->setting['scope']); ?> - 
-    <?php echo $this->escape($this->setting['scope_details']); ?></h3>
-    
-    <?php echo $this->setting['description']; ?>
-    
-    <div class="form">
-        <?php echo $this->form; ?>
-    </div>
-    
-    <div id="preview">
-        <h2>Font previews</h2>
-        
-        <p>The sentances below show what every letter of the alphabet looks 
-        like in both upper and lower case for the selected font family.</p>
-        
-        <div class="font_preview">
-        
-        <p class="switch">The quick brown fox jumps over the lazy dog. THE 
-        QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The quick brown fox jumps 
-        over the lazy dog. THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The 
-        quick brown fox jumps over the lazy dog. THE QUICK BROWN FOX JUMPS 
-        OVER THE LAZY DOG.</p>
-        
-        <p class="switch">The five boxing wizards jump quickly. THE FIVE 
-        BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump quickly. 
-        THE FIVE BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump 
-        quickly. THE FIVE BOXING WIZARDS JUMP QUICKLY.</p>
-        
-        <p class="switch">Fix problem quickly with galvanized jets. FIX PROBLEM 
-        QUICKLY WITH GALVANIZED JETS. Fix problem quickly with galvanized 
-        jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS. Fix problem quickly 
-        with galvanized jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS.</p>
-        
-        </div>
-    </div>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Form builder settings
+		<small><?php echo $this->escape($this->setting['title']); ?></small></h1>
+		
+		<h2>Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h2>
+		    
+	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
+	    $this->setting_groups['active_url']); ?>
+	    
+	    <hr />
+	    
+	    <?php echo $this->bootstrapNav($this->settings['items'], 
+	    $this->settings['active_url'], 'nav nav-pills'); ?>
+		
+		<h3>Scope: <?php echo $this->escape($this->setting['scope']); ?> 
+	    <small><?php echo $this->escape($this->setting['scope_details']); ?></small></h3>
+	    
+	    <?php echo $this->setting['description']; ?>
+	</div>
+	
+	<div class="col-md-12">
+		<h3>Base font family <small>Default font for text on forms</small></h3>
+	</div>
+	
+	<div class="col-md-8">
+		<?php echo $this->form; ?>
+	</div>
+	
+	<div class="col-md-12">
+		<div id="preview">
+	        <h2>Font previews</h2>
+	        
+	        <p>The sentances below show what every letter of the alphabet looks 
+	        like in both upper and lower case for the selected font family.</p>
+	        
+	        <div class="font_preview">
+	        
+	        <p class="switch dev-note bg-warning">
+	        The quick brown fox jumps over the lazy dog. THE 
+	        QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The quick brown fox jumps 
+	        over the lazy dog. THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The 
+	        quick brown fox jumps over the lazy dog. THE QUICK BROWN FOX JUMPS 
+	        OVER THE LAZY DOG.</p>
+	        
+	        <p class="switch dev-note bg-warning">
+	        The five boxing wizards jump quickly. THE FIVE 
+	        BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump quickly. 
+	        THE FIVE BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump 
+	        quickly. THE FIVE BOXING WIZARDS JUMP QUICKLY.</p>
+	        
+	        <p class="switch dev-note bg-warning">
+	        Fix problem quickly with galvanized jets. FIX PROBLEM 
+	        QUICKLY WITH GALVANIZED JETS. Fix problem quickly with galvanized 
+	        jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS. Fix problem quickly 
+	        with galvanized jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS.</p>
+	        
+	        </div>
+	    </div>
+	</div>
 </div>
