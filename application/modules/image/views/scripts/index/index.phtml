@@ -1,7 +1,49 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content">
-    <h1>Image library</h1>
-    
-    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Image library <small>Image management</small></h1>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Web site 
+		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
+	</div>
+
+	<div class="col-md-12">
+		<p>The Image library is the base for all image management, the 
+			Image library is site wide.</p>
+		
+		<p>Image assets can be categorised using any number of categories and 
+			sub categories, the only hard rules being that a Misc. sub 
+			category is automatically created when a new category is added and a 
+			backgrounds category will be created on first visit to the Image 
+			library.</p>
+			
+		<p>Anytime an image is manipulated using a tool a new version is 
+			created and the tool used to create the new version is recorded. 
+			All older versions of images are always accessible, recoverable 
+			and usable by of the tools in the designers. A background tool 
+			can use the cropped version of an original image without 
+			affecting the original version of the image.</p>
+			
+		<p>When you use an image in the designers the system automatically 
+			creates a new version of the image which is then assigned to the 
+			content item, although a new version is created from your 
+			perspective these are really shallow copies (links) to the 
+			selected image version.</p>
+			
+		<p>The Image library includes all the standard adjustment and 
+			manipulation tools, for example cropping and resizing.</p>
+			
+		<p>When you neec to choose an image you will be presented with an 
+			Image picker that allows you to filter down your selection by 
+			category, subcategory, image and then version.</p>
+			
+		<h2>Options <small>Image library management options</small></h2>
+		
+		<ul>
+			<li><a href="/image/design/index/" class="disabled">Go to Image library</a></li>
+	    </ul>
+	</div>
 </div>

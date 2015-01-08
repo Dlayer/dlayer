@@ -10,16 +10,17 @@
 			way, there are widgets, templates, forms and a question manager to help 
 			you build the site you want..</p>
 
-		<p>There are six modules to Dlayer, three that are based around content, 
+		<p>There are seven modules in Dlayer, three that are based around content, 
 			<strong>Content manager</strong>, <strong>Form builder</strong> and 
 			<strong>Question manger</strong>, two that are used for designing your 
 			web site, <strong>Template designer</strong> and 
-			<strong>Widget designer</strong> and one which lets you bring it all 
+			<strong>Widget designer</strong>, one which lets you bring it all 
 			together to create a working web site, the 
-			<strong>Web site manager</strong>.</p>
-			
+			<strong>Web site manager</strong> and an 
+			<strong>Image library</strong>.</p>
+
 		<p class="bg-info dev-note">The entire app should be considered as a 
-		very early alpha.</p>
+			very early alpha.</p>
 	</div>
 </div>
 
@@ -38,7 +39,7 @@
 				<?php echo $this->escape($module['description']); ?></li>
 				<?php } ?>
 		</ol>
-		
+
 		<h2>Disabled modules <small>Not yet working correctly</small></h2>
 
 		<p>The <?php echo count($this->modules_disabled); ?> modules listed below 
@@ -62,19 +63,23 @@
 			is currently selected, to work on another of your web sites or to create a 
 			new one please use the links below.</p>
 
-		<ul>
-			<?php foreach($this->sites as $site) { ?>    	
-				<?php if($site['id'] == $this->site_id) { ?>
-					<li><?php echo $this->escape($site['name']); ?> | 
-						<?php if($site['name'] != 'Sample site 1') { ?>
-							<a href="/dlayer/index/edit-site">Edit</a> | 
-							<?php } ?>
-						<a href="#">Copy</a> | Active</li>
-					<?php } else { ?>
-					<li><a href="/dlayer/index/activate/site/<?php echo $this->escape($site['id']); ?>"><?php echo $this->escape($site['name']); ?></a></li>
+		<?php foreach($this->sites as $site) { ?>
+			<?php if($site['id'] == $this->site_id) { ?>
+				<p>
+					<button type="button" class="btn btn-info btn-xs"><?php echo $this->escape($site['name']); ?></button> | 
+					<?php if($site['name'] != 'Sample site 1') { ?>
+						<a href="/dlayer/index/edit-site" class="btn btn-default btn-xs">Edit</a> | 
 					<?php } ?>
+					<a href="#" class="btn btn-default btn-xs disabled">Copy</a> | 
+					<span class="label label-success">Active</span>
+				</p>
+				<?php } else { ?>
+				<p>
+					<a href="/dlayer/index/activate/site/<?php echo $this->escape($site['id']); ?>" class="btn btn-default btn-xs">
+					<?php echo $this->escape($site['name']); ?></a>
+				</p>
 				<?php } ?>
-			<li><a href="/dlayer/index/new-site">New web site</a></li>
-		</ul>
+			<?php } ?>
+		<p><a href="/dlayer/index/new-site" class="btn btn-primary btn-xs">New web site</a></p>
 	</div>
 </div>

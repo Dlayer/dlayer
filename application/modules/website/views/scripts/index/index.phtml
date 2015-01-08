@@ -1,22 +1,35 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content">
-    <h1>Web site manager</h1>
-    
-    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
-    
-    <p>Using the Web site manager you define the relationships between your 
-    content pages, this builds your site map.</p>
-    
-    <p>In addition to defining the site structure you can also manage any site 
-    level data that can be used by widgets, an exmaple being the pages and 
-    titles used by a meni widget.</p>
-    
-    <p class="dev">The Web site manager is currently just a preview, I'm 
-    still working on the design and functionality, this just gives an idea 
-    of how it is intended to work.</p>
-    
-    <ul>
-        <li><a href="/website/design/index">Manage site structure</a></li>
-    </ul>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Web site manager <small>Relationship and Data management</small></h1>
+	</div>
+
+	<div class="col-md-12">
+		<h2>Web site 
+		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
+	</div>
+
+	<div class="col-md-12">
+		<p>Using the Web site manager you define the relationships between your 
+			content pages, this builds your site map.</p>
+
+		<p>In addition to defining the structure for your web site you can 
+			also manage any site level data that can be used by widgets, one 
+			example being the pages and titles used to create the menu 
+			widget.</p>
+
+		<p class="dev-note bg-info">The Web site manager is currently just a 
+			preview, I'm still working on the design and functionality, I need 
+			to complete more of the Template designer, Content manager and 
+			Form builder before I can fully concentrate on the Web site 
+			manager. The preview is just here to give you an idea of how I 
+			intend it to work.</p>
+			
+		<h2>Options <small>Web site management options</small></h2>
+		
+		<ul>
+			<li><a href="/website/design/index/">Manage site structure</a></li>
+	    </ul>
+	</div>
 </div>
