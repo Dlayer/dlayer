@@ -33,18 +33,26 @@
 			
 		<h2>Templates <small>Templates for this web site</small></h2>
 		
-		<ul>
-			<?php foreach($this->templates as $template) { ?>    	
-				<?php if($template['id'] == $this->template_id) { ?>
-					<li><?php echo $this->escape($template['name']); ?>: 
-						<a href="/template/design/">Design</a> | 
-						<a href="/template/index/edit-template">Edit</a> | 
-						<a href="#">Copy</a> | Active</li>
-					<?php } else { ?>
-					<li><a href="/template/index/activate/template-id/<?php echo $this->escape($template['id']); ?>"><?php echo $this->escape($template['name']); ?></a></li>
-					<?php } ?>
+		<?php foreach($this->templates as $template) { ?>    	
+			<?php if($template['id'] == $this->template_id) { ?>
+				<p>
+					<button type="button" class="btn btn-default btn-xs">
+					<?php echo $this->escape($template['name']); ?></button>  
+					<a href="/template/design/" class="btn btn-default btn-xs">Design</a>  
+					<a href="/template/index/edit-template" class="btn btn-default btn-xs">Edit</a>  					<a href="#" class="btn btn-default btn-xs disabled">Copy</a>  
+					<span class="label label-success">Selected</span>
+				</p>
+				<?php } else { ?>
+				<p>
+					<a href="/template/index/activate/template-id/<?php echo $this->escape($template['id']); ?>" 
+					class="btn btn-default btn-xs">
+					<?php echo $this->escape($template['name']); ?></a>
+				</p>
 				<?php } ?>
-			<li><a href="/template/index/new-template">New template</a></li>
-		</ul>
+			<?php } ?>
+		<p>
+			<a href="/template/index/new-template" 
+			class="btn btn-primary">New template</a>
+		</p>
 	</div>
 </div>

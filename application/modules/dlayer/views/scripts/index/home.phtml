@@ -66,12 +66,12 @@
 		<?php foreach($this->sites as $site) { ?>
 			<?php if($site['id'] == $this->site_id) { ?>
 				<p>
-					<button type="button" class="btn btn-info btn-xs"><?php echo $this->escape($site['name']); ?></button> | 
+					<button type="button" class="btn btn-default btn-xs"><?php echo $this->escape($site['name']); ?></button>  
 					<?php if($site['name'] != 'Sample site 1') { ?>
-						<a href="/dlayer/index/edit-site" class="btn btn-default btn-xs">Edit</a> | 
+						<a href="/dlayer/index/edit-site" class="btn btn-default btn-xs">Edit</a> 
 					<?php } ?>
-					<a href="#" class="btn btn-default btn-xs disabled">Copy</a> | 
-					<span class="label label-success">Active</span>
+					<a href="#" class="btn btn-default btn-xs disabled">Copy</a> 
+					<span class="label label-success">Selected</span>
 				</p>
 				<?php } else { ?>
 				<p>
@@ -80,6 +80,6 @@
 				</p>
 				<?php } ?>
 			<?php } ?>
-		<p><a href="/dlayer/index/new-site" class="btn btn-primary btn-xs">New web site</a></p>
+		<p><a href="/dlayer/index/new-site" class="btn btn-primary btn">New web site</a></p>
 	</div>
 </div>
