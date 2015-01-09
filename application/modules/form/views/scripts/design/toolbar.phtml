@@ -29,22 +29,26 @@ foreach($this->tools as $group) {
                 $reset = '/reset/1';
             }
             
-            if($selected == FALSE) {
-                $html .= '<div class="tool">';
-            } else {
-                $html .= '<div class="tool selected">';
+            $class = "btn btn-default btn-xs";
+            
+            if($selected == TRUE) {
+                $class = "btn btn-primary btn-xs";
+            }
+            
+            if($tool['tool'] == 'cancel') {
+                $class = "btn btn-danger btn-xs";
             }
             
             $html .= '<a href="/form/design/set-tool/tool/' . 
-            $tool['tool'] . $reset . '">' . $tool['name'] . '</a></div>' . 
-            PHP_EOL;
+            $tool['tool'] . $reset . '"class="' . $class . '">' . 
+            $tool['name'] . '</a> ';
         }
     }
     
     if(strlen($html) > 0) {
-        echo '<div class="group">' . PHP_EOL;
+        echo '<p>' . PHP_EOL;
         echo $html;
-        echo '</div>' . PHP_EOL;
+        echo '</p>' . PHP_EOL;
     }
 }  
 ?>

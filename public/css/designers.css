@@ -1,5 +1,19 @@
 .container-fixed {
   margin: 0 auto;
-  max-width: 960px; }
+  max-width: 1366px; }
+
+div#designer {
+  width: 1366px; }
+  div#designer #design {
+    width: 1026px;
+    float: left; }
+  div#designer #tools {
+    width: 320px;
+    margin: 0px 10px;
+    float: left; }
+  div#designer #ribbon {
+    width: 320px;
+    margin: 0px 10px;
+    float: left; }
 
 /*# sourceMappingURL=designers.css.map */

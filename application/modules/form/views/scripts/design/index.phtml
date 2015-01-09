@@ -12,18 +12,18 @@ $(document).ready(function()
 </script>
 
 <div id="designer">
-    <section id="form">
+    <div id="design">
         <?php echo $this->dlayer_form; ?>
-    </section>
-    <section id="tools">
+    </div>
+    <div id="tools">
         <?php echo $this->dlayer_toolbar; ?>
-    </section>
+    </div>
     <?php if($this->return != NULL) { ?>
-    <section class="return_link">
+    <div class="return_link">
     <a href="#"><a href="/<?php echo $this->escape($this->return); ?>/design">Return to previous designer</a></a>
-    </section>
+    </div>
     <?php } ?>
-    <section id="ribbon">
+    <div id="ribbon">
         <?php echo $this->dlayer_ribbon; ?>
-    </section>
+    </div>
 </div>
