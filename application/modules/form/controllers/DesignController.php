@@ -48,9 +48,7 @@ class Form_DesignController extends Zend_Controller_Action
 		// Include js and css files in layout
 		$this->layout = Zend_Layout::getMvcInstance();
 		$this->layout->assign('js_include', array('scripts/dlayer.js'));
-		$this->layout->assign('css_include', array('styles/ribbon.css',
-			'styles/ribbon/form.css', 'styles/designer.css',
-			'styles/designer/form.css'));
+		$this->layout->assign('css_include', array());
 	}
 
 	/**
@@ -69,6 +67,8 @@ class Form_DesignController extends Zend_Controller_Action
 
 		$this->view->module = $this->getRequest()->getModuleName();
 
+		$this->layout->assign('css_include', array('css/dlayer.css'));
+		$this->layout->assign('css_include', array('css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Form builder');
 	}
 
