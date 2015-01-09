@@ -345,7 +345,7 @@ class Form_DesignController extends Zend_Controller_Action
 				'children'=>array(
 					array('url'=>'/template/index/index', 
 						'name'=>'Template designer', 'title'=>'Dlayer Template designer'), 
-					array('url'=>'/form/index/index', 
+					array('url'=>'/content/index/index', 
 						'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
 					array('url'=>'/website/index/index', 
 						'name'=>'Web site manager', 'title'=>'Dlayer Website manager'), 
