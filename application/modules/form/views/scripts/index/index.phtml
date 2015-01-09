@@ -30,18 +30,25 @@
 			
 		<h2>Forms <small>Forms for this web site</small></h2>
 		
-		<ul>
-    		<?php foreach($this->forms as $form) { ?>
-    			<?php if($form['id'] == $this->form_id) { ?>
-    				<li><?php echo $this->escape($form['name']); ?>: 
-    				<a href="/form/design/">Manage</a> | 
-    				<a href="/form/index/edit-form">Edit</a> | 
-    				<a href="#">Copy structure</a> | Active</li>
-    			<?php } else { ?>
-    				<li><a href="/form/index/activate/form-id/<?php echo $this->escape($form['id']); ?>"><?php echo $this->escape($form['name']); ?></a></li>
-    			<?php } ?>
+    	<?php foreach($this->forms as $form) { ?>
+    		<?php if($form['id'] == $this->form_id) { ?>
+    			<p>
+    				<button type="button" class="btn btn-default btn-xs">
+    					<?php echo $this->escape($form['name']); ?> 
+    				</button>
+    				<a href="/form/design/" class="btn btn-default btn-xs">Manage</a> 
+    				<a href="/form/index/edit-form" class="btn btn-default btn-xs">Edit</a> 
+    				<a href="#" class="btn btn-default btn-xs disabled">Copy structure</a> 
+    				<span class="label label-success">Selected</span>
+    			</p>
+    		<?php } else { ?>
+    			<p>
+    				<a href="/form/index/activate/form-id/<?php echo $this->escape($form['id']); ?>" 
+    				class="btn btn-default btn-xs">
+    				<?php echo $this->escape($form['name']); ?></a>
+    			</p>
     		<?php } ?>
-	        <li><a href="/form/index/new-form">New form</a></li>
-	    </ul>
+    	<?php } ?>
+	    <p><a href="/form/index/new-form" class="btn btn-primary">New form</a></p>
 	</div>
 </div>
