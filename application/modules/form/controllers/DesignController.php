@@ -67,8 +67,8 @@ class Form_DesignController extends Zend_Controller_Action
 
 		$this->view->module = $this->getRequest()->getModuleName();
 
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('css_include', array('css/designers.css'));
+		$this->layout->assign('css_include', 
+			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Form builder');
 	}
 

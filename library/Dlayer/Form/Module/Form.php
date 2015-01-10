@@ -49,10 +49,32 @@ abstract class Dlayer_Form_Module_Form extends Dlayer_Form
     */
     protected function addDefaultElementDecorators()
     {
-        $this->setElementDecorators(array(array('ViewHelper',
-        array('tag' => 'div', 'class'=>'input')), array('Description'),
-        array('Errors'), array('Label'), array('HtmlTag',
-        array('tag' => 'div', 'class'=>'input'))));
+       $this->setDecorators(array(
+        	'FormElements', 
+        	array('Form', array('class'=>'form'))));
+    	
+        $this->setElementDecorators(array(
+        	array('ViewHelper'), 
+        	array('Description', array('tag' => 'p', 'class'=>'help-block')),
+        	array('Errors', array('class'=> 'alert alert-danger')), 
+        	array('Label'), 
+        	array('HtmlTag', array(
+        		'tag' => 'div', 
+        		'class'=> array(
+        			'callback' => function($decorator) {
+                        if($decorator->getElement()->hasErrors()) {
+                            return 'form-group has-error';
+                        } else {
+							return 'form-group';
+                        }
+                    })
+                ))
+        	));
+        	
+        $this->setDisplayGroupDecorators(array(
+            'FormElements',
+            'Fieldset',
+		));
     }
 
     /**
@@ -64,7 +86,7 @@ abstract class Dlayer_Form_Module_Form extends Dlayer_Form
     protected function addCustomElementDecorators()
     {
         $this->elements['submit']->setDecorators(array(array('ViewHelper'),
-        array('HtmlTag', array('tag' => 'div', 'class'=>'save'))));
+        array('HtmlTag', array('tag' => 'div', 'class'=>'form-group'))));
     }
     
     /**

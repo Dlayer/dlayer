@@ -29,6 +29,7 @@ abstract class Dlayer_Form_Module_App extends Dlayer_Form
         $this->setDecorators(array(
         	'FormElements', 
         	array('Form', array('class'=>'form'))));
+        	
     	
         $this->setElementDecorators(array(
         	array('ViewHelper'), 
@@ -47,6 +48,12 @@ abstract class Dlayer_Form_Module_App extends Dlayer_Form
                     })
                 ))
         	));
+        	
+        $this->setDisplayGroupDecorators(array(
+            'FormElements',
+            'Fieldset',
+		));
+
     }
 
     /**

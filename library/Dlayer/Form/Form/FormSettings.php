@@ -48,7 +48,7 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
 
         $this->validationRules();
 
-        $this->addElementsToForm('form_settings', 'Form settings', 
+        $this->addElementsToForm('form_settings', 'Form settings <small>text</small>', 
         $this->elements);
 
         $this->addDefaultElementDecorators();
@@ -104,7 +104,7 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
     */
     private function userElements()
     {
-        $width = new Dlayer_Form_Element_Number('width');
+    	$width = new Dlayer_Form_Element_Number('width');
         $width->setLabel('Minimum width');
         $width->setDescription('Set the minimum display width for the form, 
         the form will not be able to be imported into any container smaller 
