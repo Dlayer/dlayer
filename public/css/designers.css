@@ -15,5 +15,13 @@ div#designer {
     width: 320px;
     margin: 0px 10px;
     float: left; }
+    div#designer #ribbon div.content {
+      display: none; }
+    div#designer #ribbon div.open {
+      display: block; }
+    div#designer #ribbon fieldset legend {
+      margin-bottom: 10px; }
+    div#designer #ribbon fieldset div.form-group {
+      margin-bottom: 5px; }
 
 /*# sourceMappingURL=designers.css.map */

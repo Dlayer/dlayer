@@ -18,5 +18,5 @@ $(document).ready(function()
 
 <?php foreach($this->tabs as $tab) { ?>
     <?php if($tab['tab'] == $this->tab) { $class = ' open'; } else { $class = NULL; } ?>
-    <div id="tab_content_<?php echo $this->escape($tab['tab']); ?>" class="content<?php echo $class; ?>"></div>
+    <div id="tab_content_<?php echo $this->escape($tab['tab']); ?>" class="row content<?php echo $class; ?>"></div>
 <?php } ?>

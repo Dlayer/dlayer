@@ -21,5 +21,25 @@ div#designer {
 		width: 320px;
 		margin: 0px 10px;
 		float: left;
+		
+		div.content {
+			display: none;
+		}
+		
+		div.open {
+			display: block;
+		}
+		
+		fieldset {
+		
+			legend {
+				margin-bottom: 10px;
+			
+			}
+			
+			div.form-group {
+				margin-bottom: 5px;
+			}
+		}
 	}
 }
