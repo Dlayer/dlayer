@@ -41,7 +41,8 @@ class Dlayer_Form_Site_NewTemplate extends Dlayer_Form_Module_App
 
 		$this->validationRules();
 
-		$this->addElementsToForm('new_template', 'New template', 
+		$this->addElementsToForm('new_template', 
+			'New template <small>Create new template</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();

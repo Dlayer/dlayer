@@ -46,7 +46,8 @@ class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App
 
 		$this->validationRules();
 
-		$this->addElementsToForm('new_page', 'New page', 
+		$this->addElementsToForm('new_page', 
+			'New content page <small>Create new page</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();

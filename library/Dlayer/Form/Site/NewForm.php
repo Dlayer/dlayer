@@ -40,7 +40,8 @@ class Dlayer_Form_Site_NewForm extends Dlayer_Form_Module_App
 
 		$this->validationRules();
 
-		$this->addElementsToForm('new_form', 'New form', 
+		$this->addElementsToForm('new_form', 
+			'New form <small>Create new form</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();

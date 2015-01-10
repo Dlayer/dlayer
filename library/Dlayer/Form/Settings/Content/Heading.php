@@ -45,7 +45,9 @@ class Dlayer_Form_Settings_Content_Heading extends Dlayer_Form_Module_App
 
 		$this->validationRules();
 
-		$this->addElementsToForm('heading', $this->heading['name'], 
+		$this->addElementsToForm('heading', 
+			$this->heading['name'] . 
+				' <small>Current styles for this heading</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();

@@ -43,7 +43,8 @@ class Dlayer_Form_Settings_Content_BaseFont extends Dlayer_Form_Module_App
 
 		$this->validationRules();
 
-		$this->addElementsToForm('font_families', 'Base font family', 
+		$this->addElementsToForm('font_families', 
+			'Base font family <small>Default font for all content</small>',
 			$this->elements);
 
 		$this->addDefaultElementDecorators();

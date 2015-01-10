@@ -45,7 +45,8 @@ class Dlayer_Form_Site_EditSite extends Dlayer_Form_Module_App
 
 		$this->validationRules();
 
-		$this->addElementsToForm('edit_site', 'Edit site', 
+		$this->addElementsToForm('edit_site', 
+			'Edit web site <small>Edit selected web site</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();

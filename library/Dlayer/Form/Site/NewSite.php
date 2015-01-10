@@ -39,8 +39,8 @@ class Dlayer_Form_Site_NewSite extends Dlayer_Form_Module_App
 
 		$this->validationRules();
 
-		$this->addElementsToForm('new_site', 'New site', 
-			$this->elements);
+		$this->addElementsToForm('new_site', 
+			'New web site <small>Create new site</small>', $this->elements);
 
 		$this->addDefaultElementDecorators();
 

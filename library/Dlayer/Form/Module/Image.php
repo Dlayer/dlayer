@@ -7,61 +7,83 @@
 */
 abstract class Dlayer_Form_Module_Image extends Dlayer_Form
 {
-    protected $existing_data = array();
-    protected $edit_mode;
-    protected $multi_use;
-    
-    /**
-    * @var array Data array for any data that needs to be passed to form 
-    *            fields, an example being select options
-    */
-    protected $elements_data;
+	protected $existing_data = array();
+	protected $edit_mode;
+	protected $multi_use;
 
-    protected $tool;
+	/**
+	* @var array Data array for any data that needs to be passed to form 
+	*            fields, an example being select options
+	*/
+	protected $elements_data;
 
-    /**
-    * Set the initial properties for the form
-    * 
-    * @param array $existing_data Exisitng data array for form, array values 
-    *                             always preset, will have FALSE values if there 
-    *                             is no existing data value
-    * @param boolean $edit_mode Is the tool in edit mode
-    * @param integer $multi_use Tool tab multi use param
-    * @param array|NULL $options Zend form options data array
-    * @return void
-    */
-    public function __construct(array $existing_data, $edit_mode=FALSE, 
-    $multi_use, $options=NULL)
-    {
-        $this->existing_data = $existing_data;
-        $this->edit_mode = $edit_mode;
-        $this->multi_use = $multi_use;
+	protected $tool;
 
-        parent::__construct($options=NULL);
-    }
-    
-    /**
-    * Add the default decorators to use for the form inputs
-    *
-    * @return void
-    */
-    protected function addDefaultElementDecorators()
-    {
-        $this->setElementDecorators(array(array('ViewHelper',
-        array('tag' => 'div', 'class'=>'input')), array('Description'),
-        array('Errors'), array('Label'), array('HtmlTag',
-        array('tag' => 'div', 'class'=>'input'))));
-    }
+	/**
+	* Set the initial properties for the form
+	* 
+	* @param array $existing_data Exisitng data array for form, array values 
+	*                             always preset, will have FALSE values if there 
+	*                             is no existing data value
+	* @param boolean $edit_mode Is the tool in edit mode
+	* @param integer $multi_use Tool tab multi use param
+	* @param array|NULL $options Zend form options data array
+	* @return void
+	*/
+	public function __construct(array $existing_data, $edit_mode=FALSE, 
+		$multi_use, $options=NULL)
+	{
+		$this->existing_data = $existing_data;
+		$this->edit_mode = $edit_mode;
+		$this->multi_use = $multi_use;
 
-    /**
-    * Add any custom decorators, these are inputs where we need a little more
-    * control over the html, an example being the submit button
-    *
-    * @return void
-    */
-    protected function addCustomElementDecorators()
-    {
-        $this->elements['submit']->setDecorators(array(array('ViewHelper'),
-        array('HtmlTag', array('tag' => 'div', 'class'=>'save'))));
-    }
+		parent::__construct($options=NULL);
+	}
+
+	/**
+	* Add the default decorators to use for the form inputs
+	*
+	* @return void
+	*/
+	protected function addDefaultElementDecorators()
+	{
+		$this->setDecorators(array(
+        	'FormElements', 
+        	array('Form', array('class'=>'form'))));
+    	
+        $this->setElementDecorators(array(
+        	array('ViewHelper'), 
+        	array('Description', array('tag' => 'p', 'class'=>'help-block')),
+        	array('Errors', array('class'=> 'alert alert-danger')), 
+        	array('Label'), 
+        	array('HtmlTag', array(
+        		'tag' => 'div', 
+        		'class'=> array(
+        			'callback' => function($decorator) {
+                        if($decorator->getElement()->hasErrors()) {
+                            return 'form-group has-error';
+                        } else {
+							return 'form-group';
+                        }
+                    })
+                ))
+        	));
+        	
+        $this->setDisplayGroupDecorators(array(
+            'FormElements',
+            'Fieldset',
+		));
+	}
+
+	/**
+	* Add any custom decorators, these are inputs where we need a little more
+	* control over the html, an example being the submit button
+	*
+	* @return void
+	*/
+	protected function addCustomElementDecorators()
+	{
+		$this->elements['submit']->setDecorators(array(array('ViewHelper'),
+			array('HtmlTag', array('tag' => 'div', 'class'=>'save'))));
+	}
 }
