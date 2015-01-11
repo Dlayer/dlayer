@@ -33,7 +33,7 @@ class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
 	{
 		$this->tool = 'name';
 		$this->field_type = 'text';
-
+		
 		parent::__construct($form_id, $field_data, $edit_mode, $multi_use, 
 			$options);
 	}
@@ -122,7 +122,7 @@ class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
 	* @return void Writes the elements to the private $this->elements array
 	*/
 	private function userElements()
-	{
+	{		
 		$label = new Zend_Form_Element_Text('label');
 		$label->setLabel('Label');
 		$label->setAttribs(array('maxlength'=>255, 

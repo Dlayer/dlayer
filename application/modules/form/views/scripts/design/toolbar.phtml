@@ -29,14 +29,14 @@ foreach($this->tools as $group) {
                 $reset = '/reset/1';
             }
             
-            $class = "btn btn-default btn-xs";
+            $class = "btn btn-default";
             
             if($selected == TRUE) {
-                $class = "btn btn-primary btn-xs";
+                $class = "btn btn-primary";
             }
             
             if($tool['tool'] == 'cancel') {
-                $class = "btn btn-danger btn-xs";
+                $class = "btn btn-danger";
             }
             
             $html .= '<a href="/form/design/set-tool/tool/' . 
@@ -46,9 +46,13 @@ foreach($this->tools as $group) {
     }
     
     if(strlen($html) > 0) {
-        echo '<p>' . PHP_EOL;
+    	echo '<div class="row">' . PHP_EOL;
+    	echo '<div class="col-xs-12">' . PHP_EOL;
+        echo '<div class="btn-group btn-group-sm" role="group">' . PHP_EOL;
         echo $html;
-        echo '</p>' . PHP_EOL;
+        echo '</div>' . PHP_EOL;
+        echo '</div>' . PHP_EOL;
+        echo '</div>' . PHP_EOL;
     }
 }  
 ?>
