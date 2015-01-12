@@ -1,29 +1,28 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <script type="text/javascript">
-
-$(document).ready(function() 
-{
-    <?php if($this->field_id == NULL && $this->tool == NULL) { ?>
-    dlayer.selectors.form();
-    dlayer.movers.formFields();
-    <?php } ?>
-});
+	$(document).ready(function() 
+		{
+			<?php if($this->field_id == NULL && $this->tool == NULL) { ?>
+				dlayer.selectors.form();
+				dlayer.movers.formFields();
+				<?php } ?>
+	});
 </script>
 
 <div id="designer">
-    <div id="design">
-        <?php echo $this->dlayer_form; ?>
-    </div>
-    <div id="tools">
-        <?php echo $this->dlayer_toolbar; ?>
-    </div>
-    <?php if($this->return != NULL) { ?>
-    <div class="return_link">
-    <a href="#"><a href="/<?php echo $this->escape($this->return); ?>/design">Return to previous designer</a></a>
-    </div>
-    <?php } ?>
-    <div id="ribbon">
-        <?php echo $this->dlayer_ribbon; ?>
-    </div>
+	<div id="design" class="row">
+		<?php echo $this->dlayer_form; ?>
+	</div>
+	<div id="tools">
+		<?php echo $this->dlayer_toolbar; ?>
+	</div>
+	<?php if($this->return != NULL) { ?>
+		<div class="return_link">
+			<a href="#"><a href="/<?php echo $this->escape($this->return); ?>/design">Return to previous designer</a></a>
+		</div>
+	<?php } ?>
+	<div id="ribbon">
+		<?php echo $this->dlayer_ribbon; ?>
+	</div>
 </div>

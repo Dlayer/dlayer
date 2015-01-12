@@ -1437,7 +1437,7 @@ var dlayer = {
 		*/
 		form: function()
 		{
-		    $('#form div.row').hover(
+		    $('#design div.field_row').hover(
 		        function() {
 		            background_color = $(this).css('background-color');
 		            $(this).css('background-color', '#e1dc50');
@@ -1448,7 +1448,7 @@ var dlayer = {
 		            $(this).find('.move').hide();
 		        }
 		    );
-		    $('#form div.row').click(
+		    $('#design div.field_row').click(
 		        function() {
 		            $(this).css('background-color','#c3be50');
 
