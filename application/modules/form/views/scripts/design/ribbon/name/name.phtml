@@ -4,17 +4,22 @@
 
 	<?php if($this->data['field_id'] == NULL) { ?>
 		<style>
-			/*#ribbon form .form-group {
+			#ribbon form legend {
+				display: none;
+			}
+			#ribbon form .form-group {
 				display: none;
 			}
 			#ribbon form .form-group-submit {
 				display: block;
-			}*/
+			}
 		</style>
-
-		<p class="dev-note bg-info">Click 'save' to add a name field to your 
-			form, the options have all been preset, if you need to change 
-			any of the options you can edit the field after it has been added.</p>
+		
+		<h3>Add <small>Add a preset name field</small></h3>
+		
+		<p>Click <mark>save</mark> to add a name field to your form, the 
+			options have all been preset, if you need to change any of the 
+			options you can edit the field after it has been added.</p>
 	<?php } ?>
 
 	<?php if($this->edit_mode == TRUE && $this->data['preview_data'] != FALSE) { ?>
@@ -39,7 +44,7 @@
 			});
 		</script>
 
-		<p class="unsaved">Data has been modified!</p>
+		<p class="dev-note bg-danger unsaved">Data has been modified!</p>
 
 	<?php } ?>
 	

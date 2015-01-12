@@ -21,6 +21,8 @@ div#designer {
       margin-bottom: 10px; }
     div#designer #ribbon div.content {
       display: none; }
+      div#designer #ribbon div.content p.unsaved {
+        display: none; }
     div#designer #ribbon div.open {
       display: block; }
     div#designer #ribbon fieldset legend {

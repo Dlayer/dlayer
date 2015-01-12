@@ -32,6 +32,10 @@ div#designer {
 		
 		div.content {
 			display: none;
+			
+			p.unsaved {
+				display: none;
+			}
 		}
 		
 		div.open {
