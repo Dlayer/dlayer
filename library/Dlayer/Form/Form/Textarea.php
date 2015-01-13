@@ -14,204 +14,216 @@
 */
 class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 {
-    /**
-    * Set the initial properties for the form
-    *
-    * @param integer $form_id
-    * @param array $field_data Field data array, either an array with all the 
-    * 						   attrubutes and their current value or an array 
-    * 						   with FALSE as the value for each attribute
-    * @param boolean $edit_mode Is the tool currently in edit mode
-    * @param integer $multi_use Multi use param for tool tab
-    * @param array|NULL $options Zend form options data array
-    * @return void
-    */
-    public function __construct($form_id, array $field_data, $edit_mode=FALSE, 
-    $multi_use, $options=NULL)
-    {
-        $this->tool = 'textarea';
-        $this->field_type = 'textarea';
+	/**
+	* Set the initial properties for the form
+	*
+	* @param integer $form_id
+	* @param array $field_data Field data array, either an array with all the 
+	* 						   attrubutes and their current value or an array 
+	* 						   with FALSE as the value for each attribute
+	* @param boolean $edit_mode Is the tool currently in edit mode
+	* @param integer $multi_use Multi use param for tool tab
+	* @param array|NULL $options Zend form options data array
+	* @return void
+	*/
+	public function __construct($form_id, array $field_data, $edit_mode=FALSE, 
+		$multi_use, $options=NULL)
+	{
+		$this->tool = 'textarea';
+		$this->field_type = 'textarea';
 
-        parent::__construct($form_id, $field_data, $edit_mode, $multi_use, 
-        $options);
-    }
-    
-    /**
-    * Initialuse the form, sers the url and submit method and then calls the
-    * methods that set up the form
-    *
-    * @return void
-    */
-    public function init()
-    {
-        $this->setAction('/form/process/tool');
-
-        $this->setMethod('post');
-
-        $this->setUpFormElements();
-
-        $this->validationRules();
-
-        $this->addElementsToForm('textarea_field', 'Add a textarea field', 
-        $this->elements);
-
-        $this->addDefaultElementDecorators();
-
-        $this->addCustomElementDecorators();
-    }
+		parent::__construct($form_id, $field_data, $edit_mode, $multi_use, 
+			$options);
+	}
 
 	/**
-    * Set up all the elements required for the form, these are broken down 
-    * into two sections, hidden elements for the tool and then visible 
-    * elements for the user
-    *
-    * @return void The form elements are written to the private $this->elemnets
-    * 			   array
-    */
-    protected function setUpFormElements()
-    {
-        $this->toolElements();
+	* Initialuse the form, sers the url and submit method and then calls the
+	* methods that set up the form
+	*
+	* @return void
+	*/
+	public function init()
+	{
+		$this->setAction('/form/process/tool');
 
-        $this->userElements();
-    }
+		$this->setMethod('post');
 
-    /**
-    * Set up the tool elements, these are the elements that define the tool and 
-    * store the session values for the designer
-    *
-    * @return void Writes the elements to the private $this->elements array
-    */
-    private function toolElements()
-    {
-        $form_id = new Zend_Form_Element_Hidden('form_id');
-        $form_id->setValue($this->form_id);
+		$this->setUpFormElements();
 
-        $this->elements['form_id'] = $form_id;
+		$this->validationRules();
+			
+		if($this->edit_mode == FALSE) {
+			$legend = 'Add <small>Add a textarea field</small>'; 
+		} else {
+			$legend = 'Edit <small>Edit the textarea field</small>';
+		}
 
-        $tool = new Zend_Form_Element_Hidden('tool');
-        $tool->setValue($this->tool);
+		$this->addElementsToForm('textarea_field', $legend, $this->elements);
 
-        $this->elements['tool'] = $tool;
+		$this->addDefaultElementDecorators();
 
-        if(array_key_exists('id', $this->field_data) == TRUE 
-        && $this->field_data['id'] != FALSE) {
-            $field_id = new Zend_Form_Element_Hidden('field_id');
-            $field_id->setValue($this->field_data['id']);
-            $this->elements['field_id'] = $field_id;
-        }
+		$this->addCustomElementDecorators();
+	}
 
-        $field_type = new Zend_Form_Element_Hidden('field_type');
-        $field_type->setValue($this->field_type);
+	/**
+	* Set up all the elements required for the form, these are broken down 
+	* into two sections, hidden elements for the tool and then visible 
+	* elements for the user
+	*
+	* @return void The form elements are written to the private $this->elemnets
+	* 			   array
+	*/
+	protected function setUpFormElements()
+	{
+		$this->toolElements();
 
-        $this->elements['field_type'] = $field_type;
+		$this->userElements();
+	}
 
-        $multi_use = new Zend_Form_Element_Hidden('multi_use');
-        $multi_use->setValue($this->multi_use);
-        $multi_use->setBelongsTo('params');
+	/**
+	* Set up the tool elements, these are the elements that define the tool and 
+	* store the session values for the designer
+	*
+	* @return void Writes the elements to the private $this->elements array
+	*/
+	private function toolElements()
+	{
+		$form_id = new Zend_Form_Element_Hidden('form_id');
+		$form_id->setValue($this->form_id);
 
-        $this->elements['multi_use'] = $multi_use;
-    }
+		$this->elements['form_id'] = $form_id;
 
-    /**
-    * Set up the user elements, these are the elements that the user interacts 
-    * with to use the tool
-    * 
-    * @return void Writes the elements to the private $this->elements array
-    */
-    private function userElements()
-    {
-    	$label = new Zend_Form_Element_Text('label');
-        $label->setLabel('Label');
-        $label->setAttribs(array('maxlength'=>255, 
-        'placeholder'=>'e.g., Comment'));
-        $label->setDescription('Enter the label for the textarea, this will
-        appear to the left of the textarea.');
-        $label->setBelongsTo('params');
-        
-        $value = $this->fieldValue('label');
-        if($value != FALSE) {
+		$tool = new Zend_Form_Element_Hidden('tool');
+		$tool->setValue($this->tool);
+
+		$this->elements['tool'] = $tool;
+
+		if(array_key_exists('id', $this->field_data) == TRUE 
+		&& $this->field_data['id'] != FALSE) {
+			$field_id = new Zend_Form_Element_Hidden('field_id');
+			$field_id->setValue($this->field_data['id']);
+			$this->elements['field_id'] = $field_id;
+		}
+
+		$field_type = new Zend_Form_Element_Hidden('field_type');
+		$field_type->setValue($this->field_type);
+
+		$this->elements['field_type'] = $field_type;
+
+		$multi_use = new Zend_Form_Element_Hidden('multi_use');
+		$multi_use->setValue($this->multi_use);
+		$multi_use->setBelongsTo('params');
+
+		$this->elements['multi_use'] = $multi_use;
+	}
+
+	/**
+	* Set up the user elements, these are the elements that the user interacts 
+	* with to use the tool
+	* 
+	* @return void Writes the elements to the private $this->elements array
+	*/
+	private function userElements()
+	{
+		$label = new Zend_Form_Element_Text('label');
+		$label->setLabel('Label');
+		$label->setAttribs(array('maxlength'=>255, 
+			'placeholder'=>'e.g., Comment', 
+			'class'=>'form-control input-sm'));
+		$label->setDescription('Enter the label for the textarea, this will
+			appear to the left of the textarea.');
+		$label->setBelongsTo('params');
+
+		$value = $this->fieldValue('label');
+		if($value != FALSE) {
 			$label->setValue($value);
-        }
+		}
 
-        $this->elements['label'] = $label;
+		$this->elements['label'] = $label;
 
-        $description = new Zend_Form_Element_Textarea('description');
-        $description->setLabel('Description');
-        $description->setAttribs(array('rows'=>2, 'cols'=>30, 
-        'placeholder'=>'e.g., Please enter your comment'));
-        $description->setDescription('Enter a description, this should indicate
-        to the user what they should enter in the textarea.');
-        $description->setBelongsTo('params');
-        
-        $value = $this->fieldValue('description');
-        if($value != FALSE) {
+		$description = new Zend_Form_Element_Textarea('description');
+		$description->setLabel('Description');
+		$description->setAttribs(array('rows'=>2, 'cols'=>30, 
+			'placeholder'=>'e.g., Please enter your comment', 
+			'class'=>'form-control input-sm'));
+		$description->setDescription('Enter a description, this should indicate
+			to the user what they should enter in the textarea.');
+		$description->setBelongsTo('params');
+
+		$value = $this->fieldValue('description');
+		if($value != FALSE) {
 			$description->setValue($value);
-        }
+		}
 
-        $this->elements['description'] = $description;
-        
-        $placeholder = new Zend_Form_Element_Text('placeholder');
-        $placeholder->setLabel('Placeholder text');
-        $placeholder->setAttribs(array('maxlength'=>255, 
-        'placeholder'=>'e.g., I love your app, thank you :)'));
-        $placeholder->setDescription('Set the help text to display in the 
-        field before any user input.');
-        $placeholder->setBelongsTo('params');
-        
-        $value = $this->fieldAttributeValue('placeholder');
-        if($value != FALSE) {
+		$this->elements['description'] = $description;
+
+		$placeholder = new Zend_Form_Element_Text('placeholder');
+		$placeholder->setLabel('Placeholder text');
+		$placeholder->setAttribs(array('maxlength'=>255, 
+			'placeholder'=>'e.g., I love your app, thank you :)', 
+			'class'=>'form-control input-sm'));
+		$placeholder->setDescription('Set the help text to display in the 
+			field before any user input.');
+		$placeholder->setBelongsTo('params');
+
+		$value = $this->fieldAttributeValue('placeholder');
+		if($value != FALSE) {
 			$placeholder->setValue($value);
-        }
-        
-        $this->elements['placeholder'] = $placeholder;
-        
-        $cols = new Dlayer_Form_Element_Number('cols');
-        $cols->setLabel('Width');
-        $cols->setValue(40);
-        $cols->setAttribs(array('maxlength'=>3, 'class'=>'tinyint', 
-        'min'=>0));
-        $cols->setDescription('Set the width of the textarea in characters,
-        we default to 40 characters.');
-        $cols->setBelongsTo('params');
-        
-        $value = $this->fieldAttributeValue('cols');
-        if($value != FALSE) {
+		}
+
+		$this->elements['placeholder'] = $placeholder;
+
+		$cols = new Dlayer_Form_Element_Number('cols');
+		$cols->setLabel('Width');
+		$cols->setValue(40);
+		$cols->setAttribs(array('maxlength'=>3, 'min'=>0, 
+			'class'=>'form-control input-sm'));
+		$cols->setDescription('Set the width of the textarea in characters,
+			we default to 40 characters.');
+		$cols->setBelongsTo('params');
+
+		$value = $this->fieldAttributeValue('cols');
+		if($value != FALSE) {
 			$cols->setValue($value);
-        }
+		}
 
-        $this->elements['cols'] = $cols;
+		$this->elements['cols'] = $cols;
 
-        $rows = new Dlayer_Form_Element_Number('rows');
-        $rows->setLabel('Rows');
-        $rows->setValue(3);
-        $rows->setAttribs(array('maxlength'=>3, 'class'=>'tinyint', 
-        'min'=>0));
-        $rows->setDescription('Set the number of rows for the textarea,
-        we default to three rows.');
-        $rows->setBelongsTo('params');
-        
-        $value = $this->fieldAttributeValue('rows');
-        if($value != FALSE) {
+		$rows = new Dlayer_Form_Element_Number('rows');
+		$rows->setLabel('Rows');
+		$rows->setValue(3);
+		$rows->setAttribs(array('maxlength'=>3, 'min'=>0, 
+			'class'=>'form-control input-sm'));
+		$rows->setDescription('Set the number of rows for the textarea,
+			we default to three rows.');
+		$rows->setBelongsTo('params');
+
+		$value = $this->fieldAttributeValue('rows');
+		if($value != FALSE) {
 			$rows->setValue($value);
-        }
+		}
 
-        $this->elements['rows'] = $rows;
-        
-        $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setAttrib('class', 'submit');
-        $submit->setLabel('Save');
+		$this->elements['rows'] = $rows;
 
-        $this->elements['submit'] = $submit;
-    }
+		$submit = new Zend_Form_Element_Submit('submit');
+		$submit->setAttribs(array('class'=>'btn btn-primary'));
+		if($this->edit_mode == FALSE) {
+			$submit->setLabel('Add');
+		} else {
+			$submit->setLabel('Save');
+		}
 
-    /**
-    * Add the validation rules for the form elements and set the custom error
-    * messages
-    *
-    * @return void
-    */
-    protected function validationRules()
-    {
+		$this->elements['submit'] = $submit;
+	}
 
-    }
+	/**
+	* Add the validation rules for the form elements and set the custom error
+	* messages
+	*
+	* @return void
+	*/
+	protected function validationRules()
+	{
+
+	}
 }

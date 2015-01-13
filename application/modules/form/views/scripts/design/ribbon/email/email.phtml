@@ -1,48 +1,59 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<?php if($this->data['field_id'] == NULL) { ?>
-<style>
-form .input {
-	display: none;
-}
-</style>
+<div class="col-xs-12">
 
-<h2>Add email field</h2>
+	<?php if($this->data['field_id'] == NULL) { ?>
+		<style>
+			#ribbon form legend {
+				display: none;
+			}
+			#ribbon form .form-group {
+				display: none;
+			}
+			#ribbon form .form-group-submit {
+				display: block;
+			}
+		</style>
 
-<p>Click 'save' to add an email field to your form, the options have all been 
-preset, if you need to change any of the options you can edit the field after 
-it has been added.</p>
-<?php } ?>
+		<h3>Add <small>Add a preset email field</small></h3>
 
-<?php if($this->edit_mode == TRUE && $this->data['preview_data'] != FALSE) { ?>
-<script type="text/javascript">
+		<p>Click <mark>add</mark> to add an email field to your form, the 
+			options have all been preset, if you need to change any of the 
+			options you can edit the field after it has been added.</p>
+	<?php } ?>
 
-$(document).ready(function() 
-{
-    dlayer.preview.form.fn.row_attribute(<?php echo $this->escape(
-    $this->data['preview_data']['field']['id']); ?>, 'label', 'label', '<?php echo $this->escape(
-    $this->data['preview_data']['field']['label']); ?>');
-    dlayer.preview.form.fn.row_attribute(<?php echo $this->escape(
-    $this->data['preview_data']['field']['id']); ?>, 'description', 'p.hint', '<?php echo $this->escape(
-    $this->data['preview_data']['field']['description']); ?>');
-    <?php foreach($this->data['preview_data']['preview_js'] as $preview) { ?>
-    dlayer.preview.form.fn.<?php echo $this->escape(
-    $preview['method']); ?>(<?php echo $this->escape(
-    $preview['field_id']); ?>, '<?php echo $this->escape(
-    $preview['attribute']); ?>', '<?php echo $this->escape(
-    $preview['attribute']); ?>', '<?php echo $this->escape(
-    $preview['attribute_value']); ?>');
-    <?php } ?>
-});
-</script>
+	<?php if($this->edit_mode == TRUE && $this->data['preview_data'] != FALSE) { ?>
+		<script type="text/javascript">
 
-<p class="unsaved">Data has been modified!</p>
+			$(document).ready(function() 
+			{
+				dlayer.preview.form.fn.row_attribute(<?php echo $this->escape(
+					$this->data['preview_data']['field']['id']); ?>, 'label', 'label', '<?php echo $this->escape(
+					$this->data['preview_data']['field']['label']); ?>');
+				dlayer.preview.form.fn.row_attribute(<?php echo $this->escape(
+					$this->data['preview_data']['field']['id']); ?>, 'description', 'p.hint', '<?php echo $this->escape(
+					$this->data['preview_data']['field']['description']); ?>');
+				<?php foreach($this->data['preview_data']['preview_js'] as $preview) { ?>
+					dlayer.preview.form.fn.<?php echo $this->escape(
+						$preview['method']); ?>(<?php echo $this->escape(
+						$preview['field_id']); ?>, '<?php echo $this->escape(
+							$preview['attribute']); ?>', '<?php echo $this->escape(
+							$preview['attribute']); ?>', '<?php echo $this->escape(
+							$preview['attribute_value']); ?>');
+						<?php } ?>
+			});
+		</script>
 
-<?php } ?>
+		<p class="dev-note bg-danger unsaved">Data has been modified!</p>
 
-<?php 
-if($this->data != FALSE) {
-    echo $this->data['form'];
-}
-?>
+	<?php } ?>
+</div>
+
+<div class="col-xs-12 small">
+	<?php 
+	if($this->data != FALSE) {
+		echo $this->data['form'];
+	}
+	?>
+</div>
 

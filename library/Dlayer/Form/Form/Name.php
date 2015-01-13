@@ -53,10 +53,14 @@ class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
 		$this->setUpFormElements();
 
 		$this->validationRules();
+		
+		if($this->edit_mode == FALSE) {
+			$legend = 'Add <small>Add a preset name field</small>'; 
+		} else {
+			$legend = 'Edit <small>Edit the name field</small>';
+		}
 
-		$this->addElementsToForm('name_field', 
-			'Add <small>Add a preset name field</small>', 
-			$this->elements);
+		$this->addElementsToForm('name_field', $legend, $this->elements);
 
 		$this->addDefaultElementDecorators();
 
@@ -208,7 +212,11 @@ class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		$submit->setLabel('Save');
+		if($this->edit_mode == FALSE) {
+			$submit->setLabel('Add');
+		} else {
+			$submit->setLabel('Save');
+		}
 
 		$this->elements['submit'] = $submit;
 	}

@@ -52,14 +52,12 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$this->validationRules();
 		
 		if($this->edit_mode == FALSE) {
-			$this->addElementsToForm('text_field', 
-				'Add <small>Add a text field</small>', 
-				$this->elements);
+			$legend = 'Add <small>Add a text field</small>'; 
 		} else {
-			$this->addElementsToForm('text_field', 
-				'Edit <small>Edit the selected text field</small>', 
-				$this->elements);
+			$legend = 'Edit <small>Edit the text field</small>';
 		}
+
+		$this->addElementsToForm('text_field', $legend, $this->elements);
 			
 		$this->addDefaultElementDecorators();
 
@@ -209,7 +207,11 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttrib('class', 'submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		$submit->setLabel('Save');
+		if($this->edit_mode == FALSE) {
+			$submit->setLabel('Add');
+		} else {
+			$submit->setLabel('Save');
+		}
 
 		$this->elements['submit'] = $submit;
 	}
