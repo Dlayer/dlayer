@@ -19,19 +19,33 @@
 </script>
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-12 col-xs-12">
 		<h1>Form builder settings
 		<small><?php echo $this->escape($this->setting['title']); ?></small></h1>
 		
 		<h2>Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h2>
 		    
+	    <nav class="visible-md-block visible-lg-block">
 	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
 	    $this->setting_groups['active_url']); ?>
+	    </nav>
+	    
+	    <nav class="visible-xs-block visible-sm-block">
+	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
+	    $this->setting_groups['active_url'], 'nav nav-pills nav-stacked'); ?>
+	    </nav>
 	    
 	    <hr />
 	    
+	    <nav class="visible-md-block visible-lg-block">
 	    <?php echo $this->bootstrapNav($this->settings['items'], 
 	    $this->settings['active_url'], 'nav nav-pills'); ?>
+	    </nav>
+	    
+	    <nav class="visible-xs-block visible-sm-block">
+	    <?php echo $this->bootstrapNav($this->settings['items'], 
+	    $this->settings['active_url'], 'nav nav-pills nav-stacked'); ?>
+	    </nav>
 		
 		<h3>Scope: <?php echo $this->escape($this->setting['scope']); ?> 
 	    <small><?php echo $this->escape($this->setting['scope_details']); ?></small></h3>
@@ -39,11 +53,11 @@
 	    <?php echo $this->setting['description']; ?>
 	</div>
 	
-	<div class="col-md-8">
+	<div class="col-md-8 col-xs-12">
 		<?php echo $this->form; ?>
 	</div>
 	
-	<div class="col-md-12">
+	<div class="col-md-12 col-xs-12">
 		<div id="preview">
 	        <h2>Font previews</h2>
 	        

@@ -59,19 +59,33 @@
 
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-12 col-xs-12">
 		<h1>Content manager settings 
 			<small><?php echo $this->escape($this->setting['title']); ?></small></h1>
 
 		<h2>Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h2>
 
-		<?php echo $this->bootstrapNav($this->setting_groups['items'], 
-			$this->setting_groups['active_url']); ?>
-
-		<hr />
-
-		<?php echo $this->bootstrapNav($this->settings['items'], 
-			$this->settings['active_url'], 'nav nav-pills'); ?>
+		<nav class="visible-md-block visible-lg-block">
+	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
+	    $this->setting_groups['active_url']); ?>
+	    </nav>
+	    
+	    <nav class="visible-xs-block visible-sm-block">
+	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
+	    $this->setting_groups['active_url'], 'nav nav-pills nav-stacked'); ?>
+	    </nav>
+	    
+	    <hr />
+	    
+	    <nav class="visible-md-block visible-lg-block">
+	    <?php echo $this->bootstrapNav($this->settings['items'], 
+	    $this->settings['active_url'], 'nav nav-pills'); ?>
+	    </nav>
+	    
+	    <nav class="visible-xs-block visible-sm-block">
+	    <?php echo $this->bootstrapNav($this->settings['items'], 
+	    $this->settings['active_url'], 'nav nav-pills nav-stacked'); ?>
+	    </nav>
 
 		<h3>Scope: <?php echo $this->escape($this->setting['scope']); ?> 
 			<small><?php echo $this->escape($this->setting['scope_details']); ?></small></h3>
@@ -79,19 +93,19 @@
 		<?php echo $this->setting['description']; ?>
 	</div>
 
-	<div class="col-md-12">
+	<div class="col-md-12 col-xs-12">
 		<h3>Heading styles <small>Set styles for each heading type</small></h3>
 	</div>
 </div>
 
 <?php foreach($this->heading_forms as $id => $form) { ?>
 <div class="row heading-styles">
-	<div class="col-md-9">
+	<div class="col-md-9 col-xs-12">
 		<div class="form" id="form_<?php echo $id; ?>">
 			<?php echo $form; ?>
 		</div>
 	</div>
-	<div class="col-md-3 bg-warning text-center" id="preview_<?php echo $id; ?>">
+	<div class="col-md-3  col-xs-12 bg-warning text-center" id="preview_<?php echo $id; ?>">
 		<h2 style="font-style: normal; font-weight: 700; text-decoration: none; font-size: 20px; color: #17365D;"><?php echo $this->heading_settings[$id]['name']; ?></h2>
 	</div>
 </div>

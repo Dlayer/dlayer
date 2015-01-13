@@ -1,19 +1,33 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-12 col-xs-12">
 		<h1>Form builder settings</h1>
 		
 		<h2>Web site: 
 		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
 		    
+		<nav class="visible-md-block visible-lg-block">
 	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
 	    $this->setting_groups['active_url']); ?>
+	    </nav>
+	    
+	    <nav class="visible-xs-block visible-sm-block">
+	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
+	    $this->setting_groups['active_url'], 'nav nav-pills nav-stacked'); ?>
+	    </nav>
 	    
 	    <hr />
 	    
+	    <nav class="visible-md-block visible-lg-block">
 	    <?php echo $this->bootstrapNav($this->settings['items'], 
 	    $this->settings['active_url'], 'nav nav-pills'); ?>
+	    </nav>
+	    
+	    <nav class="visible-xs-block visible-sm-block">
+	    <?php echo $this->bootstrapNav($this->settings['items'], 
+	    $this->settings['active_url'], 'nav nav-pills nav-stacked'); ?>
+	    </nav>
 	    
 	    <h3>Overview <small>What can you manage in this section?</small></h3>
 	    
