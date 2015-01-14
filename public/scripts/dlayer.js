@@ -1800,7 +1800,7 @@ var dlayer = {
 		*/
 		color_picker: function()
 		{
-			$('#ribbon .color_picker_tool .close a').click(
+			$('#ribbon .color_picker_tool .close').click(
 		        function() {
         			dlayer.designers.color_picker_close();
 		        }

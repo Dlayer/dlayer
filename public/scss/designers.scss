@@ -65,3 +65,40 @@ div#designer {
 		}
 	}
 }
+
+div.color_picker_tool {
+	
+	div.panel-body {
+		
+		div.palette {
+			float: left;
+			width: 100%;
+			
+			h5 {
+				margin: 10px 0px 5px 0px;
+			}
+			
+			div.color {
+				border-radius: 3px;
+				border: 1px solid #CCC;
+				cursor: pointer;
+			}
+		}
+		
+		div.history {
+			float: left;
+			width: 100%;
+			
+			div.color {
+				border-radius: 3px;
+				border: 1px solid #CCC;
+				cursor: pointer;
+			}
+		}
+		
+		div.custom {
+			float: left;
+			width: 100%;
+		}
+	}
+}
