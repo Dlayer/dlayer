@@ -7,6 +7,10 @@ div#designer {
   div#designer #design {
     width: 1026px;
     float: left; }
+    div#designer #design form div.move {
+      display: none; }
+    div#designer #design form div.selected {
+      background-color: #ec971f; }
   div#designer #tools {
     width: 320px;
     margin: 0px 10px;

@@ -1441,6 +1441,7 @@ var dlayer = {
 		        function() {
 		            background_color = $(this).css('background-color');
 		            $(this).css('background-color', '#e1dc50');
+		            $(this).css('cursor', 'pointer');
 		            $(this).find('.move').show();
 		        },
 		        function() {
@@ -1493,22 +1494,22 @@ var dlayer = {
 		*/
 		formFields: function()
 		{
-			var fields = $('#form .row').length - 1;
+			var fields = $('#form .field_row').length - 1;
 
-			$('#form .row').each(function(index) {
+			$('#design .field_row').each(function(index) {
 				var params = this.id.split(':');
 
 				if(index !== 0) {
-					$(this).prepend('<div class="move move-' + params[1] +
+					$(this).prepend('<div class="btn btn-xs btn-default btn-block move move-' + params[1] +
 					'" id="up:' + params[0] + ':' + params[2] + '">Move up</div>');
 				}
 				if(index !== fields) {
-					$(this).append('<div class="move move-' + params[1] +
+					$(this).append('<div class="btn btn-xs btn-default btn-block move move-' + params[1] +
 					'" id="down:' + params[0] + ':' + params[2] + '">Move down</div>');
 				}
 			});
 
-			$('#form .row > .move').click(
+			$('#design .field_row > .move').click(
 		        function() {
 		            $(this).css('background-color','#505050');
 		            $(this).css('color','#ebebeb');

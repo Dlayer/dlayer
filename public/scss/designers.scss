@@ -9,6 +9,16 @@ div#designer {
 	#design {
 		width: 1026px;
 		float: left;
+		
+		form {
+			div.move {
+				display: none;
+			}
+			
+			div.selected {
+				background-color: #ec971f;
+			}
+		}
 	}
 	
 	#tools {
