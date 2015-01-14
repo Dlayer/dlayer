@@ -16,7 +16,7 @@ div#designer {
 			}
 			
 			div.selected {
-				background-color: #ec971f;
+				background-color: #e1dc50;
 			}
 		}
 	}
@@ -61,6 +61,14 @@ div#designer {
 			
 			div.form-group {
 				margin-bottom: 5px;
+				
+				div.color_picker {
+					border: 1px solid #CCC;
+					border-radius: 3px;
+					height: 22px;
+					float: left;
+					clear: left;
+				}
 			}
 		}
 	}

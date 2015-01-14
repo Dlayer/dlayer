@@ -14,7 +14,8 @@ class Dlayer_View_FormElementColorPicker extends Zend_View_Helper_FormElement
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable
 
-        $xhtml = '<div class="color_picker" id="picker_' 
+        $xhtml = '<div class="clearfix"></div>'
+        		. '<div class="color_picker col-xs-4" id="picker_' 
         		. $this->view->escape($id) . '" style="background-color:' 
         		. $this->view->escape($value) . ';">&nbsp;</div>' 
         		. '<input type="hidden"'
@@ -25,7 +26,7 @@ class Dlayer_View_FormElementColorPicker extends Zend_View_Helper_FormElement
                 . $this->getClosingBracket(); 
                 
         if($attribs['clear_link'] == TRUE) {
-			$xhtml .= ' <a href="#" class="color_picker_clear">Clear</a>';
+			$xhtml .= ' <a href="#" class="btn btn-default btn-xs color_picker_clear"> Clear</a>';
 		}                
 
         return $xhtml;
