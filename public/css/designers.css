@@ -34,24 +34,26 @@ div#designer {
     div#designer #ribbon fieldset div.form-group {
       margin-bottom: 5px; }
 
-div.color_picker_tool div.panel-body div.palette {
-  float: left;
-  width: 100%; }
-  div.color_picker_tool div.panel-body div.palette h5 {
-    margin: 10px 0px 5px 0px; }
-  div.color_picker_tool div.panel-body div.palette div.color {
-    border-radius: 3px;
-    border: 1px solid #CCC;
-    cursor: pointer; }
-div.color_picker_tool div.panel-body div.history {
-  float: left;
-  width: 100%; }
-  div.color_picker_tool div.panel-body div.history div.color {
-    border-radius: 3px;
-    border: 1px solid #CCC;
-    cursor: pointer; }
-div.color_picker_tool div.panel-body div.custom {
-  float: left;
-  width: 100%; }
+div.color_picker_tool {
+  display: none; }
+  div.color_picker_tool div.panel-body div.palette {
+    float: left;
+    width: 100%; }
+    div.color_picker_tool div.panel-body div.palette h5 {
+      margin: 10px 0px 5px 0px; }
+    div.color_picker_tool div.panel-body div.palette div.color {
+      border-radius: 3px;
+      border: 1px solid #CCC;
+      cursor: pointer; }
+  div.color_picker_tool div.panel-body div.history {
+    float: left;
+    width: 100%; }
+    div.color_picker_tool div.panel-body div.history div.color {
+      border-radius: 3px;
+      border: 1px solid #CCC;
+      cursor: pointer; }
+  div.color_picker_tool div.panel-body div.custom {
+    float: left;
+    width: 100%; }
 
 /*# sourceMappingURL=designers.css.map */
