@@ -137,7 +137,6 @@ class Dlayer_Form_Form_Styling_Text extends Dlayer_Form_Module_Form
 		$this->elements['background_color'] = $background_color;
 
 		$submit = new Zend_Form_Element_Submit('submit');
-		$submit->setAttrib('class', 'submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
 		$submit->setLabel('Save');
 
