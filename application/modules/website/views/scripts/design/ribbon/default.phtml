@@ -1,40 +1,50 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="tab_content_1" class="content open">
-    <h2>Welcome to the Dlayer Web site manager.</h2>
-    
-    <p>To move an un-assigned page into your web site structure click the 
-    move button under the page.</p>
-    
-    <p>To manage a page within your web site either click it to select it and 
-    use the tools or use the controls above and below the page icon.</p>
-        
-    <p class="dev">The Web site manager is currently just a preview, I'm still 
-    working on the design and functionality, this just gives an idea of how 
-    it is intended to work.</p>
-    
-    <form enctype="application/x-www-form-urlencoded" action="/website/design/index" method="post">
-    	<dl class="zend_form">
-    		<dt id="heading_text-label">&nbsp;</dt>
-    		<dd id="heading_text-element">
-    			<fieldset id="fieldset-heading_text"><legend>Page details</legend>
-    			<dl>
-    				<div class="input">
-    					<label for="params-name" class="required">Name</label>
-    					<input type="text" name="name" id="name" value="Projects" size="50" maxlength="255" placeholder="e.g., News page">
-    					<p class="hint">Enter a name for the new page, this will only display within Dlayer, not on your site.</p>
-    				</div>
-    				<div class="input">
-    					<label for="params-title" class="required">Title</label>
-    					<input type="text" name="title" id="name" value="Our projects" size="50" maxlength="255" placeholder="e.g., News page">
-    					<p class="hint">Enter the title for your page, this will be shown in the title bar or the user's web browser.</p>
-    				</div>
-    				<div class="save">
-    					<input type="submit" name="submit" id="submit" value="Save" class="submit">
-    				</div>
-    			</dl>
-    			</fieldset>
-    		</dd>
-    	</dl>
-    </form>
+<div class="row">
+	<div class="col-xs-12">
+		<h2>Welcome to the Dlayer Web site manager</h2>
+		
+		<p>To move an un-assigned page into your web site structure click 
+			the move button under the page.</p>
+			
+		<p>To manage a page within your web site click to select it and 
+			then use the tools or the controls attached to the page.</p>
+		
+		<p class="dev-note bg-info">The Web site manager is currently just a 
+			preview, I'm still working on the final design and functionality, 
+			this is just to give an idea of how it may work.</p>
+	</div>
+	
+	<div class="col-xs-12">
+		<form enctype="application/x-www-form-urlencoded" 
+			action="/website/design/index" method="post" class="form">
+			<fieldset>
+				<legend>Edit <small>Edit the page details</small></legend>
+				
+    			<div class="form-group">
+    				<label for="params-name" class="required">Name</label>
+    				<input type="text" name="name" id="name" 
+    					value="Projects" size="50" maxlength="255" 
+    					placeholder="e.g., News page" 
+    					class="form-control" />
+    				<p class="help-block">Enter a name for the page, this 
+    					will only display within Dlayer, not on your 
+    					web site.</p>
+    			</div>
+    			<div class="form-group">
+    				<label for="params-title" class="required">Title</label>
+    				<input type="text" name="title" id="name" 
+    					value="Our projects" size="50" maxlength="255" 
+    					placeholder="e.g., News page" class="form-control" />
+    				<p class="help-block">Enter the title for your page, 
+    					this will be shown in the title bar of the user's 
+    					web browser.</p>
+    			</div>
+    			<div class="form-group">
+    				<input type="submit" name="submit" id="submit" 
+    					value="Save" class="btn btn-primary">
+    			</div>
+    		</fieldset>
+    	</form>
+	</div>
 </div>

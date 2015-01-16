@@ -7,9 +7,9 @@ div#designer {
   div#designer #design {
     width: 1026px;
     float: left; }
-    div#designer #design form div.move {
+    div#designer #design > div.builder-form > form div.move {
       display: none; }
-    div#designer #design form div.selected {
+    div#designer #design > div.builder-form > form div.selected {
       background-color: #e1dc50; }
   div#designer #tools {
     width: 320px;
