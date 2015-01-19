@@ -1,119 +1,153 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<?php //var_dump($this->unassigned_pages); ?>
-<?php //var_dump($this->selected_pages); ?>
-<?php //var_dump($this->parent_pages); ?>
-<?php //var_dump($this->child_pages); ?>
-
-<div id="unassigned_pages" class="pages_container">
+<script>
+$(document).ready(function() 
+{
+	$('div.website-manager h3').click(
+		function() {
+			var selector = this.className;
+			$('div.' + selector).toggle();
+			
+			if($('h3.' + selector + ' > span').hasClass('glyphicon-minus')) {
+				$('h3.' + selector + ' > span').removeClass('glyphicon-minus');
+				$('h3.' + selector + ' > span').addClass('glyphicon-plus');
+			} else {
+				$('h3.' + selector + ' > span').removeClass('glyphicon-plus');
+				$('h3.' + selector + ' > span').addClass('glyphicon-minus');
+			}
+		}
+	)
 	
-	<h2>Unassigned pages</h2>
-	
-	<div class="pages">
+	$('div.website-manager h3.pages-un-assigneed').trigger('click');
+	$('div.website-manager h3.pages-parent').trigger('click');
+	$('div.website-manager h3.pages-child').trigger('click');
+})
+</script>
 
-	<?php foreach($this->unassigned_pages as $page) { ?>
-	<!--<div class="mover">Move left</div>-->
-	<div class="page">
-		<div class="control">&nbsp;</div>
-		<div class="page_details" id="page_<?php echo $this->escape($page['id']); ?>">
-			<div class="row"><strong>Name:</strong> <?php echo $this->escape($page['name']); ?></div>
-			<div class="row"><strong>Title:</strong> <?php echo $this->escape($page['title']); ?></div>
-			<div class="description"><?php echo $this->escape($page['description']); ?></div>
-			<!--<div class="mover">Move right</div>-->
+<div class="website-manager">
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="pages-un-assigneed"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Un-assigned pages <small>No home yet</small></h3>	
 		</div>
-		<div class="control">&nbsp;</div>
-		<div class="control cm_control"><a href="">View in content manager</a></div>
-	</div>
-	<?php } ?>
-	
-	</div>
-</div>
-
-<div id="parent_pages" class="pages_container">
-	
-	<h2>Parent pages</h2>
-	
-	<div class="pages">
-
-	<?php foreach($this->parent_pages as $page) { ?>
-	<!--<div class="mover">Move left</div>-->
-	<div class="page">
-		<!--<div class="mover left"></div>-->
-		<div class="control"><a href="#">&nbsp;</a></div>
-		<div class="page_details" id="page_<?php echo $this->escape($page['id']); ?>">
-			<div class="row"><strong>Name:</strong> <?php echo $this->escape($page['name']); ?></div>
-			<div class="row"><strong>Title:</strong> <?php echo $this->escape($page['title']); ?></div>
-			<div class="description"><?php echo $this->escape($page['description']); ?></div>			
+		<div class="pages-un-assigneed">
+		<?php $x = 1; ?>
+		<?php foreach($this->unassigned_pages as $page) { ?>
+		<div class="col-md-3 small">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<?php echo $x . ': ' . $this->escape($page['name']); ?>
+				</div>
+				<div class="panel-body">
+					<?php echo $this->escape($page['description']); ?>
+					<div class="btn-group btn-group-xs" role="group">
+						<a href="#" class="btn btn-default">Move</a> 
+						<a href="#" class="btn btn-default">Content manager</a> 
+					</div>
+				</div>				
+			</div>
 		</div>
-		<div class="control"><a href="#">View <?php echo $this->escape($page['children']); ?> child pages</a></div>
-		<div class="control cm_control"><a href="">View in content manager</a></div>
-		<!--<div class="mover right"></div>-->
-	</div>
-	<?php } ?>
-	
-	</div>
-</div>
-
-<!--Need to limit the visible text for a title, name and description to n 
-characters, the full text should be shown by title=" for name and title but 
-not for description-->
-
-<div id="selected_pages" class="pages_container">
-	
-	<h2>Selected page and siblings</h2>
-	
-	<div class="pages">
-	
-	<div class="page selected">
-		<div class="control"><a href="#">Select parent page</a></div>
-		<div class="page_details" id="page_0">
-			<div class="row"><strong>Name:</strong> Projects</div>
-			<div class="row"><strong>Title:</strong> Our projects</div>
-			<div class="description">Lorem ipsum, Lorem ipsum ...</div>
-			<!--<div class="mover">Move right</div>-->
+		<?php $x++; ?>
+		<?php } ?>
 		</div>
-		<div class="control"><a href="#">View 3 child pages</a></div>
-		<div class="control cm_control"><a href="">View in content manager</a></div>
 	</div>
-
-	<?php foreach($this->selected_pages as $page) { ?>
-	<!--<div class="mover">Move left</div>-->
-	<div class="page">
-		<div class="control"><a href="#">Select parent page</a></div>
-		<div class="page_details" id="page_<?php echo $this->escape($page['id']); ?>">
-			<div class="row"><strong>Name:</strong> <?php echo $this->escape($page['name']); ?></div>
-			<div class="row"><strong>Title:</strong> <?php echo $this->escape($page['title']); ?></div>
-			<div class="description"><?php echo $this->escape($page['description']); ?></div>
-			<!--<div class="mover">Move right</div>-->
+	
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="pages-parent"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Parent pages <small>Parent page and siblings</small></h3>
 		</div>
-		<div class="control"><a href="#">View <?php echo $this->escape($page['children']); ?> child pages</a></div>
-		<div class="control cm_control"><a href="">View in content manager</a></div>
-	</div>
-	<?php } ?>
-	
-	</div>
-</div>
-
-<div id="child_pages" class="pages_container">
-	
-	<h2>Child pages</h2>
-	
-	<div class="pages">
-
-	<?php foreach($this->child_pages as $page) { ?>
-	<!--<div class="mover">Move left</div>-->
-	<div class="page">
-		<div class="control"><a href="#">Select parent page</a></div>
-		<div class="page_details" id="page_<?php echo $this->escape($page['id']); ?>">
-			<div class="row"><strong>Name:</strong> <?php echo $this->escape($page['name']); ?></div>
-			<div class="row"><strong>Title:</strong> <?php echo $this->escape($page['title']); ?></div>
-			<div class="description"><?php echo $this->escape($page['description']); ?></div>
-			<!--<div class="mover">Move right</div>-->
+		<div class="pages-parent">
+		<?php $x = 1; ?>
+		<?php foreach($this->parent_pages as $page) { ?>
+		<div class="col-md-3 small">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<?php echo $x . ': ' . $this->escape($page['name']); ?>
+				</div>
+				<div class="panel-body">
+					<?php echo $this->escape($page['description']); ?>
+					<div class="btn-group btn-group-xs" role="group">
+						<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true" title="Select parent"></span></a> 
+						<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true" title="Select children"></span></a> 
+						<a href="#" class="btn btn-default">Move</a> 
+						<a href="#" class="btn btn-default">Content manager</a> 
+					</div>
+				</div>				
+			</div>
 		</div>
-		<div class="control"><a href="#">View <?php echo $this->escape($page['children']); ?> child pages</a></div>
-		<div class="control cm_control"><a href="">View in content manager</a></div>
+		<?php $x++; ?>
+		<?php } ?>
+		</div>
 	</div>
-	<?php } ?>
 	
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="pages-selected"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Selected page <small>Currently selected page and siblings</small></h3>
+		</div>
+		<div class="pages-selected">
+		<div class="col-md-3 small">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<?php echo '1: Projects' ; ?>
+				</div>
+				<div class="panel-body">
+					<?php echo 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum...'; ?>
+					<div class="btn-group btn-group-xs" role="group">
+						<a href="#" class="btn btn-info"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true" title="Select parent"></span></a> 
+						<a href="#" class="btn btn-info"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true" title="Select children"></span></a> 
+						<a href="#" class="btn btn-info">Move</a> 
+						<a href="#" class="btn btn-info">Content manager</a> 
+					</div>
+				</div>				
+			</div>
+		</div>
+		<?php $x = 2; ?>
+		<?php foreach($this->selected_pages as $page) { ?>
+		<div class="col-md-3 small">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<?php echo $x . ': ' . $this->escape($page['name']); ?>
+				</div>
+				<div class="panel-body">
+					<?php echo $this->escape($page['description']); ?>
+					<div class="btn-group btn-group-xs" role="group">
+						<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true" title="Select parent"></span></a> 
+						<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true" title="Select children"></span></a> 
+						<a href="#" class="btn btn-default">Move</a> 
+						<a href="#" class="btn btn-default">Content manager</a> 
+					</div>
+				</div>				
+			</div>
+		</div>
+		<?php $x++; ?>
+		<?php } ?>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="pages-child"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Child pages <small>Children of the selected page</small></h3>
+		</div>
+		<div class="pages-child">
+		<?php $x = 1; ?>
+		<?php foreach($this->child_pages as $page) { ?>
+		<div class="col-md-3 small">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<?php echo $x . ': ' . $this->escape($page['name']); ?>
+				</div>
+				<div class="panel-body">
+					<?php echo $this->escape($page['description']); ?>
+					<div class="btn-group btn-group-xs" role="group">
+						<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true" title="Select parent"></span></a> 
+						<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true" title="Select children"></span></a>  
+						<a href="#" class="btn btn-default">Move</a> 
+						<a href="#" class="btn btn-default">Content manager</a> 
+					</div>
+				</div>				
+			</div>
+		</div>
+		<?php $x++; ?>
+		<?php } ?>
+		</div>
 	</div>
 </div>

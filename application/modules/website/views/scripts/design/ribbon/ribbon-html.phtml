@@ -9,14 +9,21 @@ $(document).ready(function()
 });
 </script>
 
-<nav class="tabs">
-<?php foreach($this->tabs as $tab) { ?>
-    <?php if($tab['tab'] == $this->tab) { $class = ' selected'; } else { $class = NULL; } ?>
-    <div id="tab_<?php echo $this->escape($tab['tab']); ?>" class="tab<?php echo $class; ?>"><?php echo $this->escape($tab['tab_name']); ?></div>
-<?php } ?>
-</nav>
+<div class="row">
+	<div class="col-xs-12">
+		<ul class="nav nav-tabs small">
+			<?php foreach($this->tabs as $tab) { ?>
+			<?php if($tab['tab'] == $this->tab) { $class = 'active'; } else { $class = NULL; } ?>
+			<li id="tab_<?php echo $this->escape($tab['tab']); ?>" 
+				role="presentation" class="<?php echo $class; ?>">
+				<a href="#"><?php echo $this->escape($tab['tab_name']); ?></a>
+			</li>
+			<?php } ?>
+		</ul>
+	</div>
+</div>
 
 <?php foreach($this->tabs as $tab) { ?>
     <?php if($tab['tab'] == $this->tab) { $class = ' open'; } else { $class = NULL; } ?>
-    <div id="tab_content_<?php echo $this->escape($tab['tab']); ?>" class="content<?php echo $class; ?>"></div>
+    <div id="tab_content_<?php echo $this->escape($tab['tab']); ?>" class="row content<?php echo $class; ?>"></div>
 <?php } ?>

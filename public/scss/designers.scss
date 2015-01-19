@@ -10,13 +10,24 @@ div#designer {
 		width: 1026px;
 		float: left;
 		
-		form {
-			div.move {
-				display: none;
-			}
+		> div.builder-form {
+		
+			> form {
 			
-			div.selected {
-				background-color: #e1dc50;
+				div.move {
+					display: none;
+				}
+				
+				div.selected {
+					background-color: #e1dc50;
+				}
+			}
+		}
+		
+		> div.website-manager {
+			
+			h3 {
+				cursor: pointer;
 			}
 		}
 	}

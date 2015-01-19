@@ -63,7 +63,8 @@ class Website_DesignController extends Zend_Controller_Action
 		$this->view->dlayer_website = $this->dlayerWebsite();
 		$this->view->dlayer_ribbon = $this->dlayerRibbon();
 
-		$this->layout->assign('css_include', array('css/dlayer.css'));
+		$this->layout->assign('css_include', 
+			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Web site manager');
 	}
 
@@ -75,7 +76,7 @@ class Website_DesignController extends Zend_Controller_Action
 	*/
 	private function dlayerMenu($url) 
 	{
-		$items = array(array('url'=>'/image/index/index', 
+		$items = array(array('url'=>'/website/index/index', 
 			'name'=>'Web site manager', 'title'=>'Dlayer Web site manager'), 
 			array('url'=>'', 'name'=>'Designers', 'title'=>'Choose a designer', 
 				'children'=>array(

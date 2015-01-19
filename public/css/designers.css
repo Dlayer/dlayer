@@ -7,10 +7,12 @@ div#designer {
   div#designer #design {
     width: 1026px;
     float: left; }
-    div#designer #design form div.move {
+    div#designer #design > div.builder-form > form div.move {
       display: none; }
-    div#designer #design form div.selected {
+    div#designer #design > div.builder-form > form div.selected {
       background-color: #e1dc50; }
+    div#designer #design > div.website-manager h3 {
+      cursor: pointer; }
   div#designer #tools {
     width: 320px;
     margin: 0px 10px;
