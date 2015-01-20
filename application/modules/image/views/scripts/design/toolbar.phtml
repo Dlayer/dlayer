@@ -1,7 +1,6 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <?php 
-
 foreach($this->tools as $group) {
     
     $html = '';
@@ -11,38 +10,43 @@ foreach($this->tools as $group) {
         $show = FALSE;
         $selected = FALSE;
         
-        if($this->image_id == NULL) { 
-            if($tool['tool'] != 'cancel' && $tool['base'] == 1) {
-                $show = TRUE;
-            } else {
-                if($this->tool != FALSE && $tool['tool'] == 'cancel') {
-                    $show = TRUE;
-                }
-            }
+        if($this->tool == FALSE) {
+        	if($this->image_id == NULL && $tool['base'] == 1 &&
+        		$tool['tool'] != 'cancel') {
+				$show = TRUE;
+        	}
         } else {
-            $show = TRUE;
+        	$show = TRUE;
         }
         
         if($this->tool['tool'] == $tool['tool']) {
             $selected = TRUE;
         }
-                        
-        if($show == TRUE) {            
-            if($selected == FALSE) {
-                $html .= '<div class="tool">';
-            } else {
-                $html .= '<div class="tool selected">';
+        
+        if($show == TRUE) {
+            $class = "btn btn-default";
+            
+            if($selected == TRUE) {
+                $class = "btn btn-primary";
+            }
+            
+            if($tool['tool'] == 'cancel') {
+                $class = "btn btn-danger";
             }
             
             $html .= '<a href="/image/design/set-tool/tool/' . 
-            $tool['tool'] . '">' . $tool['name'] . '</a></div>' . 
-            PHP_EOL;
+            $tool['tool'] . '"class="' . $class . '">' . 
+            $tool['name'] . '</a> ';
         }
     }
     
     if(strlen($html) > 0) {
-        echo '<div class="group">' . PHP_EOL;
+    	echo '<div class="row">' . PHP_EOL;
+    	echo '<div class="col-xs-12">' . PHP_EOL;
+        echo '<div class="btn-group btn-group-sm" role="group">' . PHP_EOL;
         echo $html;
+        echo '</div>' . PHP_EOL;
+        echo '</div>' . PHP_EOL;
         echo '</div>' . PHP_EOL;
     }
 }  

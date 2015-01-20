@@ -1,12 +1,16 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <div id="designer">
-    <section id="library">
+    <section id="design">
         <?php echo $this->dlayer_library; ?>
     </section>
     <?php if($this->image_id == NULL) { ?>
     <section id="filter">
-        <?php echo $this->filter_form; ?>
+    	<div class="row">
+    		<div class="col-xs-12 small">
+    			<?php echo $this->filter_form; ?>
+    		</div>
+    	</div>
     </section>
     <?php } ?>
     <?php if(strlen($this->dlayer_toolbar) > 1) { ?>

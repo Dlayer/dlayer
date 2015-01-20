@@ -107,8 +107,9 @@ class Image_DesignController extends Zend_Controller_Action
 		$this->view->filter_form = $this->designer_image_library->filterForm();
 
 		$this->view->image_id = $this->session_image->imageId();
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
+		
+		$this->layout->assign('css_include', 
+			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Image library');
 	}
 

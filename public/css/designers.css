@@ -13,6 +13,12 @@ div#designer {
       background-color: #e1dc50; }
     div#designer #design > div.website-manager h3 {
       cursor: pointer; }
+  div#designer #filter {
+    width: 320px;
+    margin: 0px 10px;
+    float: left; }
+    div#designer #filter div.row {
+      padding-bottom: 10px; }
   div#designer #tools {
     width: 320px;
     margin: 0px 10px;
