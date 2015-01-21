@@ -1,12 +1,14 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <script type="text/javascript">
-dlayer.tools.image.fn.sub_categories();
+	dlayer.tools.image.fn.sub_categories();
 </script>
 
-<?php 
-if($this->data != FALSE) {
-    echo $this->data['form'];
-}
-?>
+<div class="col-xs-12 small">
+	<?php 
+	if($this->data != FALSE) {
+		echo $this->data['form'];
+	}
+	?>
+</div>
 

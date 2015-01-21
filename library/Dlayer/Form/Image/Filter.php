@@ -87,7 +87,7 @@ class Dlayer_Form_Image_Filter extends Dlayer_Form
 		$this->elements['sub_category'] = $sub_category;
 
 		$submit = new Zend_Form_Element_Submit('submit');
-		$submit->setAttribs(array('class'=>'btn btn-primary btn-sm'));
+		$submit->setAttribs(array('class'=>'btn btn-info btn-sm'));
 		$submit->setLabel('Filter');
 
 		$this->elements['submit'] = $submit;
