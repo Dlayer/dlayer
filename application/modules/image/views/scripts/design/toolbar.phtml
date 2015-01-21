@@ -9,29 +9,28 @@ foreach($this->tools as $group) {
         
         $show = FALSE;
         $selected = FALSE;
-        
-        if($this->image_id == NULL) {
-			if($tool['base'] == 1) {
-				$show = TRUE;
+               
+        if($this->tool == FALSE) {
+			if($this->image_id == NULL) {
+				if($tool['base'] == 1) {
+					$show = TRUE;
+				}
+			} else {
+				if($tool['base'] == 0) {
+					$show = TRUE;
+				}
 			}
         } else {
-			if($tool['base'] == 0) {
-				$show = TRUE;
+        	if($this->image_id == NULL) {
+				if($tool['base'] == 1 || $tool['tool'] == 'cancel') {
+					$show = TRUE;
+				}
+			} else {
+				if($tool['base'] == 0 || $tool['tool'] == 'cancel') {
+					$show = TRUE;
+				}
 			}
         }
-        
-        if($this->tool != FALSE && $tool['tool'] == 'cancel') {
-			$show = TRUE;
-        }
-        
-        /*if($this->tool == FALSE) {
-        	if($this->image_id == NULL && $tool['base'] == 1 &&
-        		$tool['tool'] != 'cancel') {
-				$show = TRUE;
-        	}
-        } else {
-        	$show = TRUE;
-        }*/
         
         if($this->tool['tool'] == $tool['tool']) {
             $selected = TRUE;
