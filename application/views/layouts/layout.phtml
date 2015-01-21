@@ -33,11 +33,10 @@
 		</script>
     </head>
     <body>
-        <div class="container-fixed">
-	        <?php echo $this->bootstrapNavbar('Dlayer.com', 
+    	<?php echo $this->bootstrapNavbar('Dlayer.com', 
 	        $this->layout()->nav['items'],  
 	        $this->layout()->nav['active_url'])->inverted(); ?>
-	        
+        <div class="container-fixed">
 	        <?php echo $this->layout()->content; ?>
 	        
 	        <div class="row footer">

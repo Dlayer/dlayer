@@ -1,13 +1,15 @@
 .container-fixed {
 	margin: 0 auto;
   	max-width: 1366px;
+  	padding: 0px 15px;
 }
 
 div#designer {
-	width: 1366px;
+	width: 1336px;
+	float: left;
 	
 	#design {
-		width: 1026px;
+		width: 996px;
 		float: left;
 		
 		> div.builder-form {
