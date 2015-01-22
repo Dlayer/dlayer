@@ -8,6 +8,7 @@ div#designer {
   float: left; }
   div#designer #design {
     width: 996px;
+    min-height: 500px;
     float: left; }
     div#designer #design > div.builder-form > form div.move {
       display: none; }
@@ -15,6 +16,9 @@ div#designer {
       background-color: #e1dc50; }
     div#designer #design > div.website-manager h3 {
       cursor: pointer; }
+    div#designer #design > div.library ul.pager {
+      margin: 0;
+      text-align: right; }
   div#designer #filter {
     width: 320px;
     margin: 0px 10px;

@@ -1,74 +1,103 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<h1><?php echo $this->escape(
-$this->title['category']['name']); ?><?php if($this->title['category']['name'] != 
-Dlayer_Config::IMAGE_LIBRARY_DEFAULT_CATEGORY) { ?><span class="link"><a title="Edit category" href="/image/design/set-tool/tool/category/edit/1">[Edit]</a></span> <?php } ?>/<?php echo $this->escape(
-$this->title['sub_category']['name']); ?> <?php if($this->title['sub_category']['name'] != 
-Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY) { ?> <span class="link"><a title="Edit sub category" href="/image/design/set-tool/tool/subcategory/edit/1">[Edit]</a></span><?php } ?></h1>
+<div class="library">
+	<div class="row">
+		<div class="col-md-12">
+			<h2><?php echo $this->escape(
+					$this->title['category']['name']); ?>
+				<?php if($this->title['category']['name'] != Dlayer_Config::IMAGE_LIBRARY_DEFAULT_CATEGORY) { ?>
+					<small><a title="Edit category" href="/image/design/set-tool/tool/category/edit/1">[Edit]</a></small>
+					<?php } ?>/ <?php echo $this->escape($this->title['sub_category']['name']); ?> 
+				<?php if($this->title['sub_category']['name'] != Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY) { ?> 
+					<small><a title="Edit sub category" href="/image/design/set-tool/tool/subcategory/edit/1">[Edit]</a></small>
+					<?php } ?>
+			</h2>
+		</div>
 
-<?php if(count($this->images) > 0) { ?>
-<div class="sort">
-<?php if($this->sort != 'name') { ?>
-<a href="/image/design/set-sort/sort/name">Name</a>
-<?php } else { ?>Name<?php } ?> / 
-<?php if($this->sort != 'size') { ?>
-<a href="/image/design/set-sort/sort/size">Size</a>
-<?php } else { ?>Size<?php } ?> / 
-<?php if($this->sort != 'uploaded') { ?>
-<a href="/image/design/set-sort/sort/uploaded">Uploaded</a>
-<?php } else { ?>Uploaded<?php } ?> - 
-<?php if($this->sort_order != 'asc') { ?>
-<a href="/image/design/set-sort/order/asc">Asc</a>
-<?php } else { ?>Asc<?php } ?>-<?php if($this->sort_order != 'desc') { ?>
-<a href="/image/design/set-sort/order/desc">Desc</a>
-<?php } else { ?>Desc<?php } ?>
+		<?php if(count($this->images) > 0) { ?>
+			<div class="col-md-6">
+				<?php if($this->sort != 'name') { ?>
+					<a href="/image/design/set-sort/sort/name" class="btn btn-default btn-sm">Name</a>
+				<?php } else { ?>
+					<a href="#" class="btn btn-primary btn-sm">Name</a>
+				<?php } ?> 
+				<?php if($this->sort != 'size') { ?>
+					<a href="/image/design/set-sort/sort/size" class="btn btn-default btn-sm">Size</a>
+				<?php } else { ?>
+					<a href="#" class="btn btn-primary btn-sm">Size</a>
+				<?php } ?> 
+				<?php if($this->sort != 'uploaded') { ?>
+					<a href="/image/design/set-sort/sort/uploaded" class="btn btn-default btn-sm">Uploaded</a>
+				<?php } else { ?>
+					<a href="#" class="btn btn-primary btn-sm">Uploaded</a>
+				<?php } ?> 
+				<?php if($this->sort_order != 'asc') { ?>
+					<a href="/image/design/set-sort/order/asc" class="btn btn-default btn-xs">Asc.</a>
+				<?php } else { ?>
+					<a href="#" class="btn btn-primary btn-xs">Asc.</a>
+				<?php } ?> 
+				<?php if($this->sort_order != 'desc') { ?>
+					<a href="/image/design/set-sort/order/desc" class="btn btn-default btn-xs">Desc.</a>
+				<?php } else { ?>
+					<a href="#" class="btn btn-primary btn-xs">Desc.</a>
+				<?php } ?>
+			</div>
+		<?php } ?>
+
+		<?php if($this->images_count > Dlayer_Config::IMAGE_LIBRARY_THUMB_PER_PAGE) { ?>
+			<div class="col-md-6 small">
+			<?php echo $this->bootstrapPagination($this->per_page, $this->start, 
+				$this->images_count, '/image/design/index', 1, 'Previous', 'Next', 
+				'Image', 'Images'); ?>
+			</div>
+		<?php } ?>
+	</div>
+
+	<?php if(count($this->images) > 0) { ?>
+		<?php foreach($this->images as $row) { ?>
+			<div class="row" style="padding-top:15px;">
+				<?php foreach($row as $image) { ?>
+					<div id="image_<?php echo $this->escape($image['image_id']); ?>" 
+						class="col-md-2">
+						<div class="row">
+							<div class="col-md-12">
+							<a href="/image/design/set-selected-image/image/<?php echo $this->escape(
+									$image['image_id']); ?>/version/<?php echo $this->escape(
+									$image['version_id']); ?>">
+								<img src="/images/library/<?php echo $this->escape(
+										$image['image_id']); ?>/<?php echo $this->escape(
+										$image['version_id']); ?><?php echo $this->escape(
+										$image['extension']); ?>" title="<?php echo $this->escape(
+										$image['name']); ?>" alt="Image library image" 
+									width="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_WIDTH; ?>" 
+									height="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_HEIGHT; ?>" 
+									class="img-thumbnail" /></a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<a href="/image/design/set-selected-image/image/<?php echo $this->escape(
+										$image['image_id']); ?>/version/<?php echo $this->escape(
+										$image['version_id']); ?>" class="btn btn-default btn-xs">
+									<?php echo $this->escape(
+									$image['name']); ?></a></div>
+						</div>
+						<div class="row small">
+							<div class="col-md-6 small"><?php echo $this->escape(
+								$image['size']); ?></div>
+							<div class="col-md-6 small"><?php echo $this->escape(
+								$image['uploaded']); ?></div>
+						</div>
+					</div>
+				<?php } ?>
+			</div>
+		<?php } ?>
+	<?php } else { ?>
+		<div class="row">
+			<div class="col-md-12">
+				<p>There are no images to display, add an image to your Image
+					library using the <mark>add to library</mark> tool.</p>
+			</div>
+		</div>
+	<?php } ?>
 </div>
-<?php } ?>
-
-<?php if($this->images_count > Dlayer_Config::IMAGE_LIBRARY_THUMB_PER_PAGE) { ?>
-<?php echo $this->pagination($this->per_page, $this->start, 
-$this->images_count, '/image/design/index', 1, 'Previous', 'Next', 'Image', 
-'Images'); ?>
-<?php } ?>
-
-<?php if(count($this->images) > 0) { ?>
-<?php foreach($this->images as $row) { ?>
-<div class="row">
-    <?php foreach($row as $image) { ?>
-    <div id="image_<?php echo $this->escape($image['image_id']); ?>" 
-    class="container">
-        <div class="image">
-            <a href="/image/design/set-selected-image/image/<?php echo $this->escape(
-            $image['image_id']); ?>/version/<?php echo $this->escape(
-            $image['version_id']); ?>">
-            <img src="/images/library/<?php echo $this->escape(
-            $image['image_id']); ?>/<?php echo $this->escape(
-            $image['version_id']); ?><?php echo $this->escape(
-            $image['extension']); ?>" title="<?php echo $this->escape(
-            $image['name']); ?>" alt="Image library image" 
-            width="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_WIDTH; ?>" 
-            height="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_HEIGHT; ?>" /></a>
-        </div>
-        <div class="row">
-            <div class="title">
-            <a href="/image/design/set-selected-image/image/<?php echo $this->escape(
-            $image['image_id']); ?>/version/<?php echo $this->escape(
-            $image['version_id']); ?>">
-            <?php echo $this->escape(
-            $image['name']); ?></a></div>
-        </div>
-        <div class="row">
-            <div class="size"><?php echo $this->escape(
-            $image['size']); ?></div>
-            <div class="uploaded"><?php echo $this->escape(
-            $image['uploaded']); ?></div>
-        </div>
-    </div>
-    <?php } ?>
-</div>
-<?php } ?>
-<?php } else { ?>
-<p>There are no images to display, add an image to your Image 
-library using the 
-'<a href="/image/design/set-tool/tool/add">Add to library</a>' tool.</p>
-<?php } ?>

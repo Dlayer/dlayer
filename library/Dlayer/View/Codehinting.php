@@ -313,5 +313,30 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_BootstrapNav
 	*/
 	public function bootstrapNav(array $items, $active_url='', 
-	$class='nav nav-tabs') { }
+	$class='nav nav-tabs') { } 
+	
+	/**
+	* Simple pagination view helper, generates next and previous links as well 
+	* as the text between the links. The text between the links can be either 
+	* of the following formats, 'item n-m of o' or 'page n of m'. All the text 
+	* can be changed to whatever suits bests.
+	* 
+	* @param integer $per_page The number of results per page
+	* @param integer $start Start record for paging
+	* @param integer $total Total number of results in the full recordset
+	* @param string $url URL to use for pagination links, typically the url 
+	*                    of the current page
+	* @param integer $text_style Text style for text between links,  
+	*                            1 = item based, 2 = page based
+	* @param string $previous Previous page link text
+	* @param string $next Next page link text
+	* @param string $record Records n of m text, not relevant if page based 
+	*                       text is used
+	* @param string $records Rather than work out plural for text, just set it, 
+	*                        not relevant if page based text is used
+	* @return DLayer_View_BootstrapPagination 
+	*/
+	public function bootstrapPagination($per_page, $start, $total, $url, 
+	$text_style=1, $previous='Previous', $next='Next', $record='Record', 
+	$records='Records') { }
 }

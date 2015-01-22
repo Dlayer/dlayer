@@ -10,6 +10,7 @@ div#designer {
 	
 	#design {
 		width: 996px;
+		min-height: 500px;
 		float: left;
 		
 		> div.builder-form {
@@ -30,6 +31,14 @@ div#designer {
 			
 			h3 {
 				cursor: pointer;
+			}
+		}
+		
+		> div.library {
+			
+			ul.pager {
+				margin: 0;
+				text-align: right;
 			}
 		}
 	}
