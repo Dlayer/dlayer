@@ -2,7 +2,6 @@
 /**
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: index.php 1240 2013-11-14 16:27:15Z Dean.Blackborough $
 */
 
 // Define path to application directory
@@ -13,7 +12,7 @@ defined('APPLICATION_PATH')
 defined('APPLICATION_ENV') 
     || define('APPLICATION_ENV', 
     (getenv('APPLICATION_ENV') ? 
-    getenv('APPLICATION_ENV') : 'development'));
+    getenv('APPLICATION_ENV') : 'production'));
     
 $include = NULL;
 
