@@ -84,6 +84,10 @@ abstract class Dlayer_Form_Module_Image extends Dlayer_Form
 	protected function addCustomElementDecorators()
 	{
 		$this->elements['submit']->setDecorators(array(array('ViewHelper'),
-			array('HtmlTag', array('tag' => 'div', 'class'=>'save'))));
+			array('HtmlTag', array(
+				'tag' => 'div', 
+				'class'=>'form-group form-group-submit')
+			)
+		));
 	}
 }
