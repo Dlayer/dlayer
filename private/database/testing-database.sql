@@ -310,7 +310,7 @@ CREATE TABLE `dlayer_identities` (
 
 /*Data for the table `dlayer_identities` */
 
-insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-01-23 13:16:17','2015-01-23 13:16:29',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-01-22 16:46:52','2015-01-22 16:46:55',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2014-07-12 16:32:09','2014-07-12 16:32:28',1);
+insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-01-24 01:41:50','2015-01-24 01:43:42',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-01-24 01:44:36','2015-01-24 01:45:10',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-01-24 01:45:25','2015-01-24 01:45:39',1);
 
 /*Table structure for table `dlayer_module_tool_tabs` */
 
@@ -406,6 +406,8 @@ CREATE TABLE `dlayer_sessions` (
 
 /*Data for the table `dlayer_sessions` */
 
+insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('qqf3osjso0in3vn32je9httli6','','PHPSESSID',1422063941,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1422067541;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1422067541;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1422067541;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1422067541;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1422067541;}}dlayer_session_image|a:6:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:0:{}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:3:\"tab\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}');
+
 /*Table structure for table `dlayer_settings` */
 
 DROP TABLE IF EXISTS `dlayer_settings`;
@@ -486,9 +488,11 @@ CREATE TABLE `user_settings_color_history` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   CONSTRAINT `user_settings_color_history_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_settings_color_history` */
+
+insert  into `user_settings_color_history`(`id`,`site_id`,`color_hex`) values (1,1,'#f3f1df'),(2,1,'#666666'),(3,1,'#003366'),(4,1,'#FF6600'),(5,1,'FFFFFF'),(6,2,'#f3f1df'),(7,2,'#666666'),(8,2,'#003366'),(9,2,'#FF6600'),(10,2,'FFFFFF'),(11,3,'#f3f1df'),(12,3,'#666666'),(13,3,'#003366'),(14,3,'#FF6600'),(15,3,'FFFFFF');
 
 /*Table structure for table `user_settings_color_palette_colors` */
 
@@ -508,9 +512,11 @@ CREATE TABLE `user_settings_color_palette_colors` (
   CONSTRAINT `user_settings_color_palette_colors_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_settings_color_palette_colors_ibfk_2` FOREIGN KEY (`palette_id`) REFERENCES `user_settings_color_palettes` (`id`),
   CONSTRAINT `user_settings_color_palette_colors_ibfk_3` FOREIGN KEY (`color_type_id`) REFERENCES `designer_color_types` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_settings_color_palette_colors` */
+
+insert  into `user_settings_color_palette_colors`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (1,1,1,1,'Black','#000000'),(2,1,1,2,'Tan','#f3f1df'),(3,1,1,3,'Dark grey','#666666'),(4,1,2,1,'Blue','#336699'),(5,1,2,2,'Dark grey','#666666'),(6,1,2,3,'Grey','#999999'),(7,1,3,1,'Blue','#003366'),(8,1,3,2,'White','#FFFFFF'),(9,1,3,3,'Orange','#FF6600'),(10,2,4,1,'Black','#000000'),(11,2,4,2,'Tan','#f3f1df'),(12,2,4,3,'Dark grey','#666666'),(13,2,5,1,'Blue','#336699'),(14,2,5,2,'Dark grey','#666666'),(15,2,5,3,'Grey','#999999'),(16,2,6,1,'Blue','#003366'),(17,2,6,2,'White','#FFFFFF'),(18,2,6,3,'Orange','#FF6600'),(19,3,7,1,'Black','#000000'),(20,3,7,2,'Tan','#f3f1df'),(21,3,7,3,'Dark grey','#666666'),(22,3,8,1,'Blue','#336699'),(23,3,8,2,'Dark grey','#666666'),(24,3,8,3,'Grey','#999999'),(25,3,9,1,'Blue','#003366'),(26,3,9,2,'White','#FFFFFF'),(27,3,9,3,'Orange','#FF6600');
 
 /*Table structure for table `user_settings_color_palettes` */
 
@@ -526,9 +532,11 @@ CREATE TABLE `user_settings_color_palettes` (
   KEY `site_id` (`site_id`),
   KEY `view_script` (`view_script`),
   CONSTRAINT `user_settings_color_palettes_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_settings_color_palettes` */
+
+insert  into `user_settings_color_palettes`(`id`,`site_id`,`name`,`view_script`,`sort_order`) values (1,1,'Palette 1','palette-1',1),(2,1,'Palette 2','palette-2',2),(3,1,'Palette 3','palette-3',3),(4,2,'Palette 1','palette-1',1),(5,2,'Palette 2','palette-2',2),(6,2,'Palette 3','palette-3',3),(7,3,'Palette 1','palette-1',1),(8,3,'Palette 2','palette-2',2),(9,3,'Palette 3','palette-3',3);
 
 /*Table structure for table `user_settings_font_families` */
 
@@ -546,9 +554,11 @@ CREATE TABLE `user_settings_font_families` (
   CONSTRAINT `user_settings_font_families_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_settings_font_families_ibfk_2` FOREIGN KEY (`module_id`) REFERENCES `dlayer_modules` (`id`),
   CONSTRAINT `user_settings_font_families_ibfk_3` FOREIGN KEY (`font_family_id`) REFERENCES `designer_css_font_families` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_settings_font_families` */
+
+insert  into `user_settings_font_families`(`id`,`site_id`,`module_id`,`font_family_id`) values (1,1,3,1),(2,1,4,1),(3,2,3,1),(4,2,4,1),(5,3,3,1),(6,3,4,1);
 
 /*Table structure for table `user_settings_headings` */
 
@@ -575,9 +585,11 @@ CREATE TABLE `user_settings_headings` (
   CONSTRAINT `user_settings_headings_ibfk_4` FOREIGN KEY (`weight_id`) REFERENCES `designer_css_text_weights` (`id`),
   CONSTRAINT `user_settings_headings_ibfk_5` FOREIGN KEY (`decoration_id`) REFERENCES `designer_css_text_decorations` (`id`),
   CONSTRAINT `user_settings_headings_ibfk_6` FOREIGN KEY (`heading_id`) REFERENCES `designer_content_headings` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_settings_headings` */
+
+insert  into `user_settings_headings`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (1,1,1,1,2,1,22,'#000000',1),(2,1,2,1,2,1,18,'#000000',2),(3,1,3,1,2,1,16,'#000000',3),(4,1,4,1,2,2,14,'#000000',4),(5,1,5,2,2,1,14,'#000000',5),(6,1,6,1,1,1,12,'#000000',6),(7,2,1,1,2,1,22,'#000000',1),(8,2,2,1,2,1,18,'#000000',2),(9,2,3,1,2,1,16,'#000000',3),(10,2,4,1,2,2,14,'#000000',4),(11,2,5,2,2,1,14,'#000000',5),(12,2,6,1,1,1,12,'#000000',6),(13,3,1,1,2,1,22,'#000000',1),(14,3,2,1,2,1,18,'#000000',2),(15,3,3,1,2,1,16,'#000000',3),(16,3,4,1,2,2,14,'#000000',4),(17,3,5,2,2,1,14,'#000000',5),(18,3,6,1,1,1,12,'#000000',6);
 
 /*Table structure for table `user_site_content_heading` */
 
@@ -729,9 +741,11 @@ CREATE TABLE `user_site_history` (
   KEY `identity_id` (`identity_id`),
   CONSTRAINT `user_site_history_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_site_history_ibfk_2` FOREIGN KEY (`identity_id`) REFERENCES `dlayer_identities` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_history` */
+
+insert  into `user_site_history`(`id`,`identity_id`,`site_id`) values (1,1,1),(2,2,2),(3,3,3);
 
 /*Table structure for table `user_site_image_library` */
 
@@ -766,9 +780,11 @@ CREATE TABLE `user_site_image_library_categories` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   CONSTRAINT `user_site_image_library_categories_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_categories` */
+
+insert  into `user_site_image_library_categories`(`id`,`site_id`,`name`) values (1,1,'Backgrounds'),(2,2,'Backgrounds'),(3,3,'Backgrounds');
 
 /*Table structure for table `user_site_image_library_links` */
 
@@ -804,9 +820,11 @@ CREATE TABLE `user_site_image_library_sub_categories` (
   KEY `category_id` (`category_id`),
   CONSTRAINT `user_site_image_library_sub_categories_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_site_image_library_sub_categories_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `user_site_image_library_categories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_sub_categories` */
+
+insert  into `user_site_image_library_sub_categories`(`id`,`site_id`,`category_id`,`name`) values (1,1,1,'Misc.'),(2,2,2,'Misc.'),(3,3,3,'Misc.');
 
 /*Table structure for table `user_site_image_library_versions` */
 
@@ -1157,9 +1175,11 @@ CREATE TABLE `user_sites` (
   PRIMARY KEY (`id`),
   KEY `identity_id` (`identity_id`),
   CONSTRAINT `user_sites_ibfk_1` FOREIGN KEY (`identity_id`) REFERENCES `dlayer_identities` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_sites` */
+
+insert  into `user_sites`(`id`,`identity_id`,`name`) values (1,1,'Sample site 1'),(2,2,'Sample site 1'),(3,3,'Sample site 1');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
