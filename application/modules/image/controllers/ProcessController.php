@@ -94,7 +94,7 @@ class Image_ProcessController extends Zend_Controller_Action
         if(array_key_exists('version_id', $_POST) == TRUE) {
             $version_id = $_POST['version_id'];
         }
-        
+                
         // Instantiate base tool or sub tool
         $model_tools = new Dlayer_Model_Tool();
         

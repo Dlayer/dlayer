@@ -158,8 +158,7 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
 		$image = new Zend_Form_Element_File('image');
 		$image->setLabel('Image');
 		$image->setDescription('Choose an image to add to the Image library.');
-		$image->setBelongsTo('params');
-		//$image->setAttribs(array('class'=>'form-control input-sm'));
+		//$image->setBelongsTo('params');
 
 		$this->elements['image'] = $image;
 

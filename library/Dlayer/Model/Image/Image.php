@@ -162,14 +162,17 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         switch($upload_info['image']['type']) {
             case 'image/png';
                 $extension = '.png';
+                $type = $upload_info['image']['type'];
             break;
             
             case 'image/gif';
                 $extension = '.gif';
+                $type = $upload_info['image']['type'];
             break;
             
             default:
                 $extension = '.jpg';
+                $type = 'image/jpeg';
             break;
         }
         
@@ -185,7 +188,7 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
         'height'=>$image[1], 'size'=>$upload_info['image']['size']);
         
         $this->addToVersionsMeta($site_id, $library_id, $version_id, 
-        $meta['extension'], $upload_info['image']['type'], $meta['width'], 
+        $meta['extension'], $type, $meta['width'], 
         $meta['height'], $meta['size']);
         
         $this->addToLinks($site_id, $library_id, $version_id);
