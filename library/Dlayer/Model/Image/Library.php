@@ -29,7 +29,7 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
     {
         switch($sort) {
             case 'size':
-                $sort_field = 'usilv.`size`';
+                $sort_field = 'usilvm.`size`';
             break;
             
             case 'uploaded':
