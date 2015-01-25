@@ -170,6 +170,11 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
                 $type = $upload_info['image']['type'];
             break;
             
+            case 'image/jpeg';
+                $extension = '.jpg';
+                $type = $upload_info['image']['type'];
+            break;
+            
             default:
                 $extension = '.jpg';
                 $type = 'image/jpeg';
