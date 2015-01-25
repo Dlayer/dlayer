@@ -176,8 +176,30 @@ class Dlayer_Model_Image_Image extends Zend_Db_Table_Abstract
             break;
             
             default:
-                $extension = '.jpg';
-                $type = 'image/jpeg';
+            	$exif_type = image_type_to_mime_type(exif_imagetype(
+            	$upload_info['image']['tmp_name']));
+            
+            	switch($exif_type) {
+					case 'image/png';
+	                	$extension = '.png';
+	                	$type = $exif_type;
+		            break;
+		            
+		            case 'image/gif';
+		                $extension = '.gif';
+		                $type = $exif_type;
+		            break;
+		            
+		            case 'image/jpeg';
+		                $extension = '.jpg';
+		                $type = $exif_type;
+		            break;
+		            
+		            default;
+		            	throw new Exception('Error with uploader, couldn\'t 
+		            	work out mime type . [' . $exif_type . ']');
+		            break;
+            	}                
             break;
         }
         

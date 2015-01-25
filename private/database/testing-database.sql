@@ -310,7 +310,7 @@ CREATE TABLE `dlayer_identities` (
 
 /*Data for the table `dlayer_identities` */
 
-insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-01-24 01:41:50','2015-01-24 01:43:42',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-01-24 01:44:36','2015-01-24 01:45:10',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-01-24 01:45:25','2015-01-24 01:45:39',1);
+insert  into `dlayer_identities`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-01-25 00:26:38','2015-01-25 00:49:36',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-01-25 00:49:51','2015-01-25 00:51:45',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-01-25 00:51:53','2015-01-25 00:53:42',1);
 
 /*Table structure for table `dlayer_module_tool_tabs` */
 
@@ -406,7 +406,7 @@ CREATE TABLE `dlayer_sessions` (
 
 /*Data for the table `dlayer_sessions` */
 
-insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('qqf3osjso0in3vn32je9httli6','','PHPSESSID',1422063941,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1422067541;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1422067541;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1422067541;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1422067541;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1422067541;}}dlayer_session_image|a:6:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:0:{}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:3:\"tab\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}');
+insert  into `dlayer_sessions`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('phbcl600c06mtg0bcgblc666d5','','PHPSESSID',1422147229,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1422150829;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1422150829;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1422150829;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1422150829;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1422150829;}}dlayer_session_image|a:8:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:0:{}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:3:\"Add\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}'),('qu5c692mveqojqt3o1uqn93vm1','','PHPSESSID',1422145097,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1422148697;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1422148641;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1422148580;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1422148580;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1422148580;}}dlayer_session_image|a:8:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:4:{s:8:\"category\";i:1;s:12:\"sub_category\";i:1;s:5:\"image\";s:1:\"1\";s:7:\"version\";s:1:\"1\";}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:3:\"Add\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}');
 
 /*Table structure for table `dlayer_settings` */
 
@@ -765,9 +765,11 @@ CREATE TABLE `user_site_image_library` (
   CONSTRAINT `user_site_image_library_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_site_image_library_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `user_site_image_library_categories` (`id`),
   CONSTRAINT `user_site_image_library_ibfk_3` FOREIGN KEY (`sub_category_id`) REFERENCES `user_site_image_library_sub_categories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library` */
+
+insert  into `user_site_image_library`(`id`,`site_id`,`name`,`description`,`category_id`,`sub_category_id`) values (1,1,'Gradient 1','Green background gradient 1',1,1),(2,1,'Gradient 2','Green background gradient 2',1,1),(3,1,'Gradient 3','Green background gradient 3',1,1),(4,1,'Gradient 4','Green background gradient 4',1,1),(5,1,'Gradient 5','Green background gradient 5',1,1),(6,1,'Gradient 6','Green background gradient 6',1,1),(7,1,'Gradient 7','Green background gradient 7',1,1),(8,2,'Gradient 1','Green background gradient 1',2,2),(9,2,'Gradient 2','Green background gradient 2',2,2),(10,2,'Gradient 3','Green background gradient 3',2,2),(11,2,'Gradient 4','Green background gradient 4',2,2),(12,2,'Gradient 5','Green background gradient 5',2,2),(13,2,'Gradient 6','Green background gradient 6',2,2),(14,2,'Gradient 7','Green background gradient 7',2,2),(15,3,'Gradient 1','Green background gradient 1',3,3),(16,3,'Gradient 2','Green background gradient 2',3,3),(17,3,'Gradient 3','Green background gradient 3',3,3),(18,3,'Gradient 4','Green background gradient 4',3,3),(19,3,'Gradient 5','Green background gradient 5',3,3),(20,3,'Gradient 6','Green background gradient 6',3,3),(21,3,'Gradient 7','Green background gradient 7',3,3);
 
 /*Table structure for table `user_site_image_library_categories` */
 
@@ -802,9 +804,11 @@ CREATE TABLE `user_site_image_library_links` (
   CONSTRAINT `user_site_image_library_links_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_site_image_library_links_ibfk_2` FOREIGN KEY (`library_id`) REFERENCES `user_site_image_library` (`id`),
   CONSTRAINT `user_site_image_library_links_ibfk_3` FOREIGN KEY (`version_id`) REFERENCES `user_site_image_library_versions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_links` */
+
+insert  into `user_site_image_library_links`(`id`,`site_id`,`library_id`,`version_id`) values (1,1,1,1),(2,1,2,2),(3,1,3,3),(4,1,4,4),(5,1,5,5),(6,1,6,6),(7,1,7,7),(8,2,8,8),(9,2,9,9),(10,2,10,10),(11,2,11,11),(12,2,12,12),(13,2,13,13),(14,2,14,14),(15,3,15,15),(16,3,16,16),(17,3,17,17),(18,3,18,18),(19,3,19,19),(20,3,20,20),(21,3,21,21);
 
 /*Table structure for table `user_site_image_library_sub_categories` */
 
@@ -846,9 +850,11 @@ CREATE TABLE `user_site_image_library_versions` (
   CONSTRAINT `user_site_image_library_versions_ibfk_2` FOREIGN KEY (`identity_id`) REFERENCES `dlayer_identities` (`id`),
   CONSTRAINT `user_site_image_library_versions_ibfk_3` FOREIGN KEY (`library_id`) REFERENCES `user_site_image_library` (`id`),
   CONSTRAINT `user_site_image_library_versions_ibfk_4` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tools` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_versions` */
+
+insert  into `user_site_image_library_versions`(`id`,`site_id`,`library_id`,`uploaded`,`tool_id`,`identity_id`) values (1,1,1,'2015-01-25 00:47:08',25,1),(2,1,2,'2015-01-25 00:47:25',25,1),(3,1,3,'2015-01-25 00:48:25',25,1),(4,1,4,'2015-01-25 00:48:42',25,1),(5,1,5,'2015-01-25 00:48:58',25,1),(6,1,6,'2015-01-25 00:49:17',25,1),(7,1,7,'2015-01-25 00:49:36',25,1),(8,2,8,'2015-01-25 00:50:08',25,2),(9,2,9,'2015-01-25 00:50:25',25,2),(10,2,10,'2015-01-25 00:50:43',25,2),(11,2,11,'2015-01-25 00:50:58',25,2),(12,2,12,'2015-01-25 00:51:14',25,2),(13,2,13,'2015-01-25 00:51:28',25,2),(14,2,14,'2015-01-25 00:51:45',25,2),(15,3,15,'2015-01-25 00:52:11',25,3),(16,3,16,'2015-01-25 00:52:27',25,3),(17,3,17,'2015-01-25 00:52:41',25,3),(18,3,18,'2015-01-25 00:52:59',25,3),(19,3,19,'2015-01-25 00:53:14',25,3),(20,3,20,'2015-01-25 00:53:28',25,3),(21,3,21,'2015-01-25 00:53:42',25,3);
 
 /*Table structure for table `user_site_image_library_versions_meta` */
 
@@ -871,9 +877,11 @@ CREATE TABLE `user_site_image_library_versions_meta` (
   CONSTRAINT `user_site_image_library_versions_meta_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_sites` (`id`),
   CONSTRAINT `user_site_image_library_versions_meta_ibfk_2` FOREIGN KEY (`library_id`) REFERENCES `user_site_image_library` (`id`),
   CONSTRAINT `user_site_image_library_versions_meta_ibfk_3` FOREIGN KEY (`version_id`) REFERENCES `user_site_image_library_versions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_versions_meta` */
+
+insert  into `user_site_image_library_versions_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (1,1,1,1,'.png','image/png',960,720,25004),(2,1,2,2,'.png','image/png',960,720,21019),(3,1,3,3,'.png','image/png',960,720,24574),(4,1,4,4,'.png','image/png',960,720,19592),(5,1,5,5,'.png','image/png',960,720,13290),(6,1,6,6,'.png','image/png',960,720,12232),(7,1,7,7,'.png','image/png',960,720,14673),(8,2,8,8,'.png','image/png',960,720,25004),(9,2,9,9,'.png','image/png',960,720,21019),(10,2,10,10,'.png','image/png',960,720,24574),(11,2,11,11,'.png','image/png',960,720,19592),(12,2,12,12,'.png','image/png',960,720,13290),(13,2,13,13,'.png','image/png',960,720,12232),(14,2,14,14,'.png','image/png',960,720,14673),(15,3,15,15,'.png','image/png',960,720,25004),(16,3,16,16,'.png','image/png',960,720,21019),(17,3,17,17,'.png','image/png',960,720,24574),(18,3,18,18,'.png','image/png',960,720,19592),(19,3,19,19,'.png','image/png',960,720,13290),(20,3,20,20,'.png','image/png',960,720,12232),(21,3,21,21,'.png','image/png',960,720,14673);
 
 /*Table structure for table `user_site_page_content` */
 
