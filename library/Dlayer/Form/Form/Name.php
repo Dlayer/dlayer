@@ -173,7 +173,7 @@ class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
 		if($value != FALSE) {
 			$placeholder->setValue($value);
 		} else {
-			$placeholder->setValue('Enter you name');
+			$placeholder->setValue('Enter your name');
 		}
 
 		$this->elements['placeholder'] = $placeholder;

@@ -174,7 +174,7 @@ class Dlayer_Form_Form_Email extends Dlayer_Form_Module_Form
 		if($value != FALSE) {
 			$placeholder->setValue($value);
 		} else {
-			$placeholder->setValue('Enter you email');
+			$placeholder->setValue('Enter your email');
 		}
 
 		$this->elements['placeholder'] = $placeholder;
