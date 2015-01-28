@@ -30,12 +30,7 @@
 		<p>Select a template from the list below, once a template has been 
 			activated you can continue working on the design, edit it or 
 			copy it to create a new template.</p>
-			
-		<p class="dev-note bg-danger">You cannot access the Designer at the 
-			moment, I'm still working on the Bootstrap styling updates, 
-			check my blog and development log here to see how progress is 
-			going.</p>
-			
+		
 		<h2>Templates <small>Templates for this web site</small></h2>
 		
 		<?php foreach($this->templates as $template) { ?>    	
@@ -43,8 +38,7 @@
 				<p>
 					<button type="button" class="btn btn-default btn-xs">
 					<?php echo $this->escape($template['name']); ?></button>  
-					<!--<a href="/template/design/" class="btn btn-default btn-xs">Design</a>  -->
-					<a href="#" class="btn btn-default btn-xs disabled">Design</a>  
+					<a href="/template/design/" class="btn btn-default btn-xs">Design</a>  
 					<a href="/template/index/edit-template" class="btn btn-default btn-xs">Edit</a>  					<a href="#" class="btn btn-default btn-xs disabled">Copy</a>  
 					<span class="label label-success">Selected</span>
 				</p>

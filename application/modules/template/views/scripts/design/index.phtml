@@ -1,49 +1,49 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <script type="text/javascript">
-$(document).ready(function() 
-{
-    <?php if($this->div_id == NULL && $this->tool == NULL) { ?>
-    dlayer.selectors.template();
-    <?php } ?>
-    <?php if($this->div_id != NULL && $this->tool != NULL) { ?>
-    dlayer.designers.metrics.pageContainer();
-    <?php } ?>
-});
+	$(document).ready(function() 
+		{
+			<?php if($this->div_id == NULL && $this->tool == NULL) { ?>
+				dlayer.selectors.template();
+			<?php } ?>
+			<?php if($this->div_id != NULL && $this->tool != NULL) { ?>
+				dlayer.designers.metrics.pageContainer();
+			<?php } ?>
+	});
 </script>
 
 <div id="designer">
-    <section id="template">
-        <?php echo $this->dlayer_template; ?>
-    </section>
-    <?php if(strlen($this->dlayer_toolbar) > 1) { ?>
-    <section id="tools">
-        <?php echo $this->dlayer_toolbar; ?>
-    </section>
-    <?php } ?>
-    <?php if($this->div_id != NULL && $this->tool != NULL) { ?>
-    <section id="page_container_metrics">
-    <section class="title">
-    <a href="#">Show page container metrics</a>
-    </section>
-    <section class="metrics">
-    <div class="title">Page container metrics</div>
-    <div class="height">Height: <?php echo $this->escape(
-    $this->page_container_metrics['height']); ?></div>
-    <div class="border border_top"><?php echo $this->escape(
-    $this->page_container_metrics['borders']['top']); ?></div>
-    <div class="border border_right"><?php echo $this->escape(
-    $this->page_container_metrics['borders']['right']); ?></div>
-    <div class="width">Width: <?php echo $this->escape(
-    $this->page_container_metrics['width']); ?></div>
-    <div class="border border_left"><?php echo $this->escape(
-    $this->page_container_metrics['borders']['left']); ?></div>
-    <div class="border border_bottom"><?php echo $this->escape(
-    $this->page_container_metrics['borders']['bottom']); ?></div>
-    </section>
-    </section>
-    <?php } ?>
-    <section id="ribbon">
-        <?php echo $this->dlayer_ribbon; ?>
-    </section>
+	<div id="design">
+		<?php echo $this->dlayer_template; ?>
+	</div>
+	<?php if(strlen($this->dlayer_toolbar) > 1) { ?>
+	<div id="tools">
+		<?php echo $this->dlayer_toolbar; ?>
+	</div>
+	<?php } ?>
+	<?php if($this->div_id != NULL && $this->tool != NULL) { ?>
+		<div id="page_container_metrics">
+			<div class="title">
+				<a href="#">Show page container metrics</a>
+			</div>
+			<div class="metrics">
+				<div class="title">Page container metrics</div>
+				<div class="height">Height: <?php echo $this->escape(
+					$this->page_container_metrics['height']); ?></div>
+				<div class="border border_top"><?php echo $this->escape(
+					$this->page_container_metrics['borders']['top']); ?></div>
+				<div class="border border_right"><?php echo $this->escape(
+					$this->page_container_metrics['borders']['right']); ?></div>
+				<div class="width">Width: <?php echo $this->escape(
+					$this->page_container_metrics['width']); ?></div>
+				<div class="border border_left"><?php echo $this->escape(
+					$this->page_container_metrics['borders']['left']); ?></div>
+				<div class="border border_bottom"><?php echo $this->escape(
+					$this->page_container_metrics['borders']['bottom']); ?></div>
+			</div>
+		</div>
+		<?php } ?>
+	<div id="ribbon">
+		<?php echo $this->dlayer_ribbon; ?>
+	</div>
 </div>

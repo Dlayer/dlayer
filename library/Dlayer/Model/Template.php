@@ -153,8 +153,8 @@ class Dlayer_Model_Template extends Zend_Db_Table_Abstract
         // Create the base div        
         $model_template_div = new Dlayer_Model_Template_Div();
         $div_id = $model_template_div->add($site_id, $template_id, 0, 1);
-        $model_template_div->setSizes($site_id, $template_id, $div_id, 1020, 
-        700);
+        $model_template_div->setSizes($site_id, $template_id, $div_id, 
+        Dlayer_Config::DESIGNER_WIDTH, Dlayer_Config::DESIGNER_HEIGHT);
         
         return $template_id;
     }

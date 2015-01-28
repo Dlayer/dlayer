@@ -111,7 +111,9 @@ class Template_DesignController extends Zend_Controller_Action
 		$this->view->div_id = $this->session_template->divId();
 		$this->view->tool = $this->session_template->tool();
 		$this->view->page_container_metrics = $this->pageContainerMetrics();
-
+		
+		$this->layout->assign('css_include', 
+			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Template designer');
 	}
 
