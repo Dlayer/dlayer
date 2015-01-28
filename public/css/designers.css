@@ -19,6 +19,8 @@ div#designer {
     div#designer #design > div.library ul.pager {
       margin: 0;
       text-align: right; }
+    div#designer #design > div.template-designer div.selected {
+      background-color: #e1dc50; }
   div#designer #filter {
     width: 320px;
     margin: 0px 10px;

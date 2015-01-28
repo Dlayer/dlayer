@@ -1,64 +1,65 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <?php 
-
 foreach($this->tools as $group) {
-	
+    
     $html = '';
     
-    foreach($group as $group_tool) {
+    foreach($group as $tool) {
         
         $show = FALSE;
         $selected = FALSE;
         
-        if($this->div_id !== NULL) {
-        
-            // Base div selected, base tool            
-            if($this->div_id == 0 && $group_tool['base'] == 1) {
+        if($this->div_id != NULL) {
+        	
+        	// Base div selected, show base tools
+        	if($this->div_id == 1 && $tool['base'] == 1) {
                 $show = TRUE;
             }
             
-            // Any div other than base div
-            if($this->div_id != 0) {
+            // Any div other than the base div
+            if($this->div_id != 1) {
                 $show = TRUE;
-            }
-            
-            // Check to see if selected tool
-            if($this->tool['tool'] == $group_tool['tool']) {
-                $selected = TRUE;
             }
         }
         
-        if($show == TRUE) {
-            if($selected == FALSE) {
-                $html .= '<div class="tool">';
-            } else {
-                $html .= '<div class="tool selected">';
+        // Check to see if tool selected
+        if($this->tool['tool'] == $tool['tool']) {
+            $selected = TRUE;
+        }
+        
+        $class = "btn btn-default";
+        
+        if($show == TRUE) {            
+            if($selected == TRUE) {
+                $class = "btn btn-primary";
             }
             
-            if($this->has_content == FALSE) {            	
-                $html .= '<a href="/template/design/set-tool/tool/' . 
-                $this->escape($group_tool['tool']) . '">' . 
-                $this->escape($group_tool['name']) . '</a>';
-			} else {
-				if($group_tool['destructive'] == 0) {
-					$html .= '<a href="/template/design/set-tool/tool/' . 
-                    $this->escape($group_tool['tool']) . '">' . 
-                    $this->escape($group_tool['name']) . '</a>';
-				} else {
-					$html .= '<span class="destructive">' . 
-                    $this->escape($group_tool['name']) . '</span>';
-				}
+            if($tool['tool'] == 'cancel') {
+                $class = "btn btn-danger";
+            }
+            
+            if($this->has_content == TRUE && 
+            	$tool['destructive'] == 1) {
+                $class .= " disabled";
 			}
-            
-	        $html .= '</div>' . PHP_EOL;
+        } else {
+			$class = "btn btn-default disabled";		
         }
+        
+        $html .= '<a href="/template/design/set-tool/tool/' . 
+        $tool['tool'] . '"class="' . $class . '">' . 
+        $tool['name'] . '</a> ';
     }
     
     if(strlen($html) > 0) {
-    	echo '<div class="group">' . PHP_EOL;
-    	echo $html;
-    	echo '</div>' . PHP_EOL;
-	}
-} 
+    	echo '<div class="row">' . PHP_EOL;
+    	echo '<div class="col-xs-12">' . PHP_EOL;
+        echo '<div class="btn-group btn-group-sm" role="group">' . PHP_EOL;
+        echo $html;
+        echo '</div>' . PHP_EOL;
+        echo '</div>' . PHP_EOL;
+        echo '</div>' . PHP_EOL;
+    }
+}  
 ?>
