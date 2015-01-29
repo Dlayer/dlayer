@@ -161,8 +161,8 @@ class Dlayer_View_Template extends Zend_View_Helper_Abstract
 			$html .= '
 			<div class="row">
 			<div class="col-md-12">
-			<h3>Content block <small>This area can be split or have widgets, forms or 
-				content items added to it.</small></h3>
+			<h3>Content block <small>This area can be split or have widgets 
+				or forms added to it.</small></h3>
 			</div>
 			</div>';
 		}
