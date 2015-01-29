@@ -84,7 +84,7 @@ class Dlayer_Tool_Template_Border extends Dlayer_Tool_Module_Template
 
             // If a left or right border is being removed we need to check
             // to see if content containers need their widths modified
-            if($this->needToModifyContent($id, $site_id,
+            /*if($this->needToModifyContent($id, $site_id,
             $template_id) == TRUE) {
                 $modifier = new Dlayer_Modifier_Content($site_id, $template_id,
                 $id);
@@ -92,7 +92,7 @@ class Dlayer_Tool_Template_Border extends Dlayer_Tool_Module_Template
                 array('new_width'=>$new_width, 'old_width'=>$width));
             }
 
-            $this->model_div->setWidth($site_id, $id, $new_width);
+            $this->model_div->setWidth($site_id, $id, $new_width);*/
         }
 
         $this->model_border->deleteBorder($site_id, $template_id, $id,
@@ -129,14 +129,14 @@ class Dlayer_Tool_Template_Border extends Dlayer_Tool_Module_Template
             // Border width is being modified, may need to modify content
             // containers, depends on their current size in relation to the
             // page div id
-            if($this->needToModifyContent($id, $site_id,
+            /*if($this->needToModifyContent($id, $site_id,
             $template_id) == TRUE) {
                 $modifier = new Dlayer_Modifier_Content($site_id, $template_id,
                 $id);
                 $modifier->request(Dlayer_Modifier_Content::CONTAINER_WIDTH,
                 array('new_width'=>$new_width,
                 'old_width'=>$width));
-            }
+            }*/
 
             $this->model_div->setWidth($site_id, $id, $new_width);
         }
@@ -216,7 +216,7 @@ class Dlayer_Tool_Template_Border extends Dlayer_Tool_Module_Template
 
                 // If a left or right border is being added we need to check
                 // to see if content containers need their widths modified
-                if($this->needToModifyContent($id, $site_id,
+                /*if($this->needToModifyContent($id, $site_id,
                 $template_id) == TRUE) {
                     $modifier = new Dlayer_Modifier_Content($site_id,
                     $template_id, $id);
@@ -224,7 +224,7 @@ class Dlayer_Tool_Template_Border extends Dlayer_Tool_Module_Template
                     Dlayer_Modifier_Content::CONTAINER_WIDTH,
                     array('new_width'=>$new_width,
                     'old_width'=>$new_width + $this->params['width']));
-                }
+                }*/
 
                 // Set the new width for the template div
                 $this->model_div->setWidth($site_id, $id, $new_width);
@@ -418,13 +418,13 @@ class Dlayer_Tool_Template_Border extends Dlayer_Tool_Module_Template
 
                 $new_width = intval($width + $border_width);
 
-                if($this->needToModifyContent($id, $site_id,
+                /*if($this->needToModifyContent($id, $site_id,
                 $template_id) == TRUE) {
                     $modifier = new Dlayer_Modifier_Content($site_id,
                     $template_id, $id);
                     $modifier->request(Dlayer_Modifier_Content::CONTAINER_WIDTH,
                     array('new_width'=>$new_width, 'old_width'=>$width));
-                }
+                }*/
 
                 $this->model_div->setWidth($site_id, $id,
                 intval($width + $border_width));

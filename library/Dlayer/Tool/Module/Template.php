@@ -48,7 +48,7 @@ abstract class Dlayer_Tool_Module_Template extends Dlayer_Tool
     */
     protected function needToModifyContent($div_id, $site_id, $template_id)
     {
-        $model_pages = new Dlayer_Model_Page();
+        /*$model_pages = new Dlayer_Model_Page();
 
         if($model_pages->pageCreatedUsingTemplate($template_id,
         $site_id) == TRUE) {
@@ -60,7 +60,9 @@ abstract class Dlayer_Tool_Module_Template extends Dlayer_Tool
             }
         } else {
             return FALSE;
-        }
+        }*/
+        
+        return FALSE;
     }
     
     /**
