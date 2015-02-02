@@ -119,26 +119,25 @@ var dlayer = {
 				*/
 				horizontalSplit: function()
 				{
-				    var div = $('#template div.selected');
+				    var div = $('div.template-designer div.selected');
 
 				    var x = div.width();
 				    var y = div.height();
 
 				    background_color = div.css('background-color');
 				    div.css('backgroundColor', '#000000');
-				    div.addClass('active');
 
 				    if(contents == null) {
 				        contents = div.html();
 				    }
 
-				    $('#template div.selected').mousemove(function(e)
+				    $('div.template-designer div.selected').mousemove(function(e)
 				    {
 				        var split_position = e.pageY - this.offsetTop;
 
 				        if(split_position < y && split_position > 0) {
 				            var split_box =
-                            '<div class="horizontal_splitter" style="width:' +
+                            '<div class="horizontal-splitter" style="width:' +
 				            x + 'px; height:' + split_position + 'px;"></div>';
 
 				            div.html(split_box);
@@ -148,13 +147,13 @@ var dlayer = {
 				        }
 				    });
 
-				    $('#template div.selected').click(function(e)
+				    $('div.template-designer div.selected').click(function(e)
 				    {
 				        var split_position = e.pageY - this.offsetTop;
 
 				        // Get the dimensions of the current select div
-				        var x = $('#template div.selected').width();
-				        var y = $('#template div.selected').height();
+				        var x = $('div.template-designer div.selected').width();
+				        var y = $('div.template-designer div.selected').height();
 
 				        if(split_position < y && split_position > 0) {
 				            $.post('/template/process/tool',
@@ -192,8 +191,7 @@ var dlayer = {
 				    var y = div.height();
 
 				    background_color = div.css('background-color');
-				    div.css('backgroundColor', '#000000');
-				    div.addClass('active');
+				    div.css('backgroundColor', '#000000');				    
 
 				    if(contents == null) {
 				        contents = div.html();
@@ -252,10 +250,9 @@ var dlayer = {
 				splitReset: function()
 				{
 				    if(contents != null) {
-				        $('#template div.selected').unbind('mousemove');
-				        $('#template div.selected').unbind('click');
-				        var div = $('#template div.selected');
-				        div.removeClass('active');
+				        $('div.template-designer div.selected').unbind('mousemove');
+				        $('div.template-designer div.selected').unbind('click');
+				        var div = $('div.template-designer div.selected');
 				        div.css('background-color', background_color);
 				        div.html(contents);
 				    }
@@ -271,9 +268,9 @@ var dlayer = {
 				*/
 				splitInfo: function(one, two)
 				{
-				    $('p.advanced_info').show();
-				    $('p.advanced_info > span.one').html(one);
-				    $('p.advanced_info > span.two').html(two);
+				    $('p.advanced-info').show();
+				    $('p.advanced-info .one').html(one);
+				    $('p.advanced-info .two').html(two);
 				}
 			}
 		},
