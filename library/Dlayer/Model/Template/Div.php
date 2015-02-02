@@ -144,7 +144,7 @@ class Dlayer_Model_Template_Div extends Zend_Db_Table_Abstract
     * @return integer|FALSE Id of newly inserted row of FALSE if failed
     */
     public function setSizes($site_id, $template_id, $id, $width, $height,
-    $design_height = 0)
+    $design_height)
     {
         $sql = "INSERT INTO user_site_template_div_sizes
                 (site_id, template_id, div_id, width, height, design_height)

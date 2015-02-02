@@ -156,13 +156,16 @@ class Dlayer_View_TemplateStyles extends Zend_View_Helper_Abstract
         $this->html = " style=\"width:{$this->sizes['width']}px;";
         
         /**
-        * The height for a div depends on several factors, has it been defined, 
-        * does the div have children or content?
-        * 
-        * If the div has a fixed height the height is set as defined, 
-        * otherwise we check to see if the div has content or children. If no 
-        * children or content we set a design height for the div to ensure 
-        * that it does not collapse in the designer
+        * A divs height is either fixed or dynamic, as in scales with content. 
+        * In the designer all divs have a height, a synamic div will have a 
+        * min-height set if there are no children, this is so that the 
+        * div can be selected
+        */
+        
+        /**
+        * The actual height of a div is either fixed or dynamic, scales with 
+        * content. In the designer div without children need a height so that 
+        * they can be selected by the user, in those cases a min height is set
         */
         if($this->sizes['height'] != 0) {
             $this->html .= ' height:' . $this->view->escape(

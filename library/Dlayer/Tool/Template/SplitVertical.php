@@ -24,11 +24,11 @@ class Dlayer_Tool_Template_SplitVertical extends Dlayer_Tool_Module_Template
         if($this->validated == TRUE) {
             $id_1 = $model_div->add($site_id, $template_id, $id, 1);
             $model_div->setSizes($site_id, $template_id, $id_1,
-            $this->params['x_1'], $this->params['y'], $this->params['y']);
+            $this->params['x_1'], 0, $this->params['y']);
 
             $id_2 = $model_div->add($site_id, $template_id, $id, 2);
             $model_div->setSizes($site_id, $template_id, $id_2,
-            $this->params['x_2'], $this->params['y'], $this->params['y']);
+            $this->params['x_2'], 0, $this->params['y']);
 
             $model_div->clearHeight($site_id, $id);
         }
@@ -104,7 +104,7 @@ class Dlayer_Tool_Template_SplitVertical extends Dlayer_Tool_Module_Template
                     $i);
                     $model_div->setSizes($site_id, $template_id, $div_id,
                     intval($width / $this->params_auto['sections']),
-                    $height['height'], $height['height']);
+                    0, $height['height']);
                 }
             } else {
                 // Remove remainder, split into equal sections adding the
@@ -122,7 +122,7 @@ class Dlayer_Tool_Template_SplitVertical extends Dlayer_Tool_Module_Template
                     }
 
                     $model_div->setSizes($site_id, $template_id, $div_id,
-                    $div_width, $height['height'], $height['height']);
+                    $div_width, 0, $height['height']);
                 }
             }
 
