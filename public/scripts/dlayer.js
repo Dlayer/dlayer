@@ -1706,12 +1706,12 @@ var dlayer = {
 			*
 			* @returns {Void}
 			*/
-			pageContainer: function()
+			contentBlocks: function()
 			{
-				$('#page_container_metrics').click(
+				$('#content-block-metrics').click(
 					function() {
-						$('#page_container_metrics > .title').toggle();
-						$('#page_container_metrics > .metrics').toggle();
+						$('#content-block-metrics > .metrics-title').toggle();
+						$('#content-block-metrics > .metrics').toggle();
 					}
 				);
 			},

@@ -21,26 +21,15 @@
 		<?php echo $this->dlayer_toolbar; ?>
 	</div>
 	<?php } ?>
-	<?php if($this->div_id != NULL && $this->tool != NULL 
-		&& 1 == 0 ) { ?>
-		<div id="page_container_metrics">
-			<div class="title">
-				<a href="#">Show page container metrics</a>
-			</div>
-			<div class="metrics">
-				<div class="title">Page container metrics</div>
-				<div class="height">Height: <?php echo $this->escape(
-					$this->page_container_metrics['height']); ?></div>
-				<div class="border border_top"><?php echo $this->escape(
-					$this->page_container_metrics['borders']['top']); ?></div>
-				<div class="border border_right"><?php echo $this->escape(
-					$this->page_container_metrics['borders']['right']); ?></div>
-				<div class="width">Width: <?php echo $this->escape(
-					$this->page_container_metrics['width']); ?></div>
-				<div class="border border_left"><?php echo $this->escape(
-					$this->page_container_metrics['borders']['left']); ?></div>
-				<div class="border border_bottom"><?php echo $this->escape(
-					$this->page_container_metrics['borders']['bottom']); ?></div>
+	<?php if($this->div_id != NULL && $this->tool != NULL) { ?>
+		<div id="content-block-metrics">
+			<div class="row">
+				<div class="col-xs-12 metrics-title">
+					<h3 class="title">Metrics <small>Click to show content block sizes</small></h3>
+				</div>
+				<div class="col-xs-12 metrics">
+				
+				</div>			
 			</div>
 		</div>
 		<?php } ?>
