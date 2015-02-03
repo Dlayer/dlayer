@@ -110,7 +110,7 @@ class Dlayer_View_Template extends Zend_View_Helper_Abstract
 					$params['children']);
 				$this->html .= "{$params['class']}>" . PHP_EOL;
 				$this->html .= $this->childHtml($div['id'], 
-					$this->div_id, $div['children']);
+					$this->div_id, $div['children'], $div['sizes']['fixed']);
 				$this->html .= '</div>' . PHP_EOL;
 			}
 		} else {
@@ -138,9 +138,11 @@ class Dlayer_View_Template extends Zend_View_Helper_Abstract
 	* @param integer $parent_id
 	* @param integer $div_id Id of the selected div
 	* @param array $children Array of the child divs
+	* @param integer $fixed Fixed height setting for parent/container, 
+	* 						1 or 0.
 	* @return string
 	*/
-	function childHtml($parent_id, $div_id, array $children) 
+	function childHtml($parent_id, $div_id, array $children, $fixed) 
 	{
 		$html = '';
 
@@ -154,14 +156,19 @@ class Dlayer_View_Template extends Zend_View_Helper_Abstract
 					$params['children']);
 				$html .= "{$params['class']}>" . PHP_EOL;
 				$html .= $this->childHtml($div['id'], $div_id, 
-					$div['children']);
+					$div['children'], $div['sizes']['fixed']);
 				$html .= '</div>' . PHP_EOL;
 			}
 		} else {
+			if($fixed == 1) {
+				$label = 'Fixed height';
+			} else {
+				$label = 'Dynamic height';
+			}
 			$html .= '
 			<div class="row">
 			<div class="col-md-12">
-			<h3>Content block <small>This area can be split or have widgets 
+			<h3>' . $label . ' content block <small>This area can be split or have widgets 
 				or forms added to it.</small></h3>
 			</div>
 			</div>';

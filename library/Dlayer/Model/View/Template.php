@@ -276,7 +276,8 @@ class Dlayer_Model_View_Template extends Zend_Db_Table_Abstract
     {
         if($this->stmt_template == NULL) {
             $sql = "SELECT ustd.id, ustds.width, ustds.height,
-                    ustds.design_height
+                    ustds.design_height, 
+                    IF(ustds.height=0,0,1) AS fixed 
                     FROM user_site_template_divs ustd
                     JOIN user_site_template_div_sizes ustds
                         ON ustd.id = ustds.div_id
@@ -322,7 +323,8 @@ class Dlayer_Model_View_Template extends Zend_Db_Table_Abstract
             $div = array('id'=>$row['id'],
                          'sizes'=>array('width'=>$row['width'],
                                         'height'=>$row['height'],
-                                        'design_height'=>$row['design_height']));
+                                        'design_height'=>$row['design_height'], 
+                                        'fixed'=>$row['fixed']));
             $div['children'] = $this->templateDivChildren($row['id']);
 
             $template[] = $div;
@@ -356,7 +358,8 @@ class Dlayer_Model_View_Template extends Zend_Db_Table_Abstract
                 $div = array('id'=>$row['id'],
                              'sizes'=>array('width'=>$row['width'],
                                             'height'=>$row['height'],
-                                            'design_height'=>$row['design_height']));
+                                            'design_height'=>$row['design_height'], 
+                                            'fixed'=>$row['fixed']));
 
                 $div['children'] = $this->templateDivChildren($row['id']);
 

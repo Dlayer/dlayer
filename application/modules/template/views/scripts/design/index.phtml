@@ -6,7 +6,7 @@
 			<?php if($this->div_id == NULL && $this->tool == NULL) { ?>
 				dlayer.selectors.template();
 			<?php } ?>
-			<?php if($this->div_id != NULL && $this->tool != NULL) { ?>
+			<?php if($this->div_id) { ?>
 				dlayer.designers.metrics.contentBlocks();
 			<?php } ?>
 	});
@@ -21,7 +21,7 @@
 		<?php echo $this->dlayer_toolbar; ?>
 	</div>
 	<?php } ?>
-	<?php if($this->div_id != NULL && $this->tool != NULL) { ?>
+	<?php if($this->div_id != NULL) { ?>
 		<div id="content-block-metrics">
 			<div class="row">
 				<div class="col-xs-12 metrics-title">

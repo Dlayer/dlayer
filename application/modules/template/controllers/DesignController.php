@@ -65,8 +65,7 @@ class Template_DesignController extends Zend_Controller_Action
 		$metrics = array('id'=>0, 'width'=>0, 'height'=>'0', 'fixed'=>FALSE, 
 			'borders'=>array('top'=>0, 'right'=>0, 'left'=>0, 'bottom'=>0));
 
-		if($this->session_template->divId() != NULL && 
-		$this->session_template->tool() != FALSE) {
+		if($this->session_template->divId() != NULL) {
 			$model_template_div = new Dlayer_Model_Template_Div();
 			$model_template_div_borders = 
 			new Dlayer_Model_Template_Div_Border();
