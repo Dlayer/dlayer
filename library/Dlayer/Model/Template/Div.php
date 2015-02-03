@@ -164,7 +164,9 @@ class Dlayer_Model_Template_Div extends Zend_Db_Table_Abstract
     }
 
     /**
-    * Set the new height for the given div
+    * Set the new height for the given div. If fixed is value the actual height 
+    * is set as zero and only the design height is set otherwise both values 
+    * are set
     *
     * @param integer $site_id
     * @param integer $id Id of the div we are adjusting the height for
@@ -176,7 +178,8 @@ class Dlayer_Model_Template_Div extends Zend_Db_Table_Abstract
     {
         if($fixed == FALSE) {
             $sql = "UPDATE user_site_template_div_sizes
-                    SET design_height = :height
+                    SET design_height = :height, 
+                    height = 0 
                     WHERE site_id = :site_id
                     AND div_id = :div_id
                     LIMIT 1";

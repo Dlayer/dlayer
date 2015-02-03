@@ -464,15 +464,22 @@ class Template_DesignController extends Zend_Controller_Action
 	public function switchHeightSettingAction() 
 	{
 		$this->_helper->disableLayout(FALSE);
-		
-		die;
+		$id = $this->getParam('id');
 		
 		$model_template = new Dlayer_Model_View_Template();
-		if($model_template->divExists($this->getParam('id'),
+		if($model_template->divExists($id, 
 			$this->session_template->templateId()) == TRUE) {
-                return $id;
-        } else {
-			$this->cancelTool();
+				
+			$site_id = $this->session_dlayer->siteId();
+            
+            $model_div = new Dlayer_Model_Template_Div();
+            $height = $model_div->height($site_id, $id);
+            
+            // Set height by passing in opposite to fixed
+            $model_div->setHeight($site_id, $id, $height['height'], 
+                !$height['fixed']);                
         }
+        
+        $this->_redirect('/template/design');
 	}
 }

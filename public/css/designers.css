@@ -46,7 +46,9 @@ div#designer {
     div#designer #content-block-metrics .metrics-title {
       cursor: pointer; }
     div#designer #content-block-metrics .metrics {
-      cursor: pointer; }
+      display: none;
+      cursor: pointer;
+      margin-bottom: 15px; }
   div#designer #ribbon {
     width: 320px;
     margin: 0px 10px;

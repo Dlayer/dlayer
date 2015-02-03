@@ -140,7 +140,7 @@ class Dlayer_View_Template extends Zend_View_Helper_Abstract
 	* @param array $children Array of the child divs
 	* @return string
 	*/
-	function childHtml($parent_id, $div_id=NULL, array $children) 
+	function childHtml($parent_id, $div_id, array $children) 
 	{
 		$html = '';
 

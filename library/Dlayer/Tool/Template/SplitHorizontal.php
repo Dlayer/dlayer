@@ -24,11 +24,11 @@ class Dlayer_Tool_Template_SplitHorizontal extends Dlayer_Tool_Module_Template
 		if($this->validated == TRUE) {
 			$id_1 = $model_div->add($site_id, $template_id, $id, 1);
 			$model_div->setSizes($site_id, $template_id, $id_1,
-				$this->params['x'], 0, $this->params['y_1']);
+				$this->params['x']+30, 0, $this->params['y_1']);
 
 			$id_2 = $model_div->add($site_id, $template_id, $id, 2);
 			$model_div->setSizes($site_id, $template_id, $id_2,
-				$this->params['x'], 0, $this->params['y_2']);
+				$this->params['x']+30, 0, $this->params['y_2']);
 
 			$model_div->clearHeight($site_id, $id);
 		}
