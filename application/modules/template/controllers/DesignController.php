@@ -54,14 +54,15 @@ class Template_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	* Fetch the page container metrics
+	* Fetch the content block metrics, these are displayed in the designer view 
+	* when the user is working with a content block
 	* 
 	* @return array Contains the height, width and border dimensions for the 
-	* 				page container
+	* 				content block
 	*/
-	private function pageContainerMetrics() 
+	private function contentBlockMetrics() 
 	{
-		$metrics = array('width'=>0, 'height'=>'Dynamic', 
+		$metrics = array('id'=>0, 'width'=>0, 'height'=>'0', 'fixed'=>FALSE, 
 			'borders'=>array('top'=>0, 'right'=>0, 'left'=>0, 'bottom'=>0));
 
 		if($this->session_template->divId() != NULL && 
@@ -74,14 +75,24 @@ class Template_DesignController extends Zend_Controller_Action
 			$div_id = $this->session_template->divId();
 			$template_id = $this->session_template->templateId();
 
+			$metrics['id'] = $div_id;
 			$metrics['width'] = $model_template_div->width($site_id, 
 				$div_id);
 
 			$height = $model_template_div->height($site_id, $div_id);
 
-			if($height['fixed'] == TRUE) {
-				$metrics['height'] = $height['height'] . ' pixels';
+			$display_height = '';
+
+			if($height['fixed'] == FALSE) {
+				$display_height = 'Dynamic (display): ';
+			} else {
+				$display_height = 'Fixed: ';
+				$metrics['fixed'] = TRUE;
 			}
+
+			$display_height .= $height['height'] . ' pixels';
+
+			$metrics['height'] = $display_height;
 
 			$borders = $model_template_div_borders->existingBorders($site_id, 
 				$template_id, $div_id);
@@ -110,8 +121,8 @@ class Template_DesignController extends Zend_Controller_Action
 		$this->view->module = $this->getRequest()->getModuleName();
 		$this->view->div_id = $this->session_template->divId();
 		$this->view->tool = $this->session_template->tool();
-		$this->view->page_container_metrics = $this->pageContainerMetrics();
-		
+		$this->view->content_block_metrics = $this->contentBlockMetrics();
+
 		$this->layout->assign('css_include', 
 			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Template designer');
@@ -442,5 +453,26 @@ class Template_DesignController extends Zend_Controller_Action
 		} else {
 			$this->cancelTool();
 		}
+	}
+	
+	/**
+	* Switch the div between fixed height and dynamic heeight, this is handled 
+	* by setting a height value or clearing the height value
+	* 
+	* @return void	
+	*/
+	public function switchHeightSettingAction() 
+	{
+		$this->_helper->disableLayout(FALSE);
+		
+		die;
+		
+		$model_template = new Dlayer_Model_View_Template();
+		if($model_template->divExists($this->getParam('id'),
+			$this->session_template->templateId()) == TRUE) {
+                return $id;
+        } else {
+			$this->cancelTool();
+        }
 	}
 }

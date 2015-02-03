@@ -7,7 +7,7 @@
 				dlayer.selectors.template();
 			<?php } ?>
 			<?php if($this->div_id != NULL && $this->tool != NULL) { ?>
-				dlayer.designers.metrics.pageContainer();
+				dlayer.designers.metrics.contentBlocks();
 			<?php } ?>
 	});
 </script>
@@ -25,14 +25,28 @@
 		<div id="content-block-metrics">
 			<div class="row">
 				<div class="col-xs-12 metrics-title">
-					<h3 class="title">Metrics <small>Click to show content block sizes</small></h3>
+					<h3>Metrics <small>Click to show content block sizes</small></h3>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-xs-12 metrics">
-				
-				</div>			
+					<h5>Content block metrics <small>Click to hide</small></h5>
+					
+					<ul class="small">
+						<li><strong>Usable width</strong>: <?php echo $this->escape(
+							$this->content_block_metrics['width']); ?> pixels</li>
+						<li><strong>Height setting:</strong>: <?php echo $this->escape(
+							$this->content_block_metrics['height']); ?></li>
+						<?php if($this->content_block_metrics['fixed'] == FALSE) { ?>
+						<li><a href="/template/design/switch-height-setting/id/<?php echo $this->escape($this->content_block_metrics['id']); ?>">Switch to fixed height</a></li>
+						<?php } else { ?>
+						<li><a href="/template/design/switch-height-setting/id/<?php echo $this->escape($this->content_block_metrics['id']); ?>">Switch to dyanmic height</a></li>	
+						<?php } ?>
+					</ul>
+				</div>
 			</div>
 		</div>
-		<?php } ?>
+	<?php } ?>
 	<div id="ribbon">
 		<?php echo $this->dlayer_ribbon; ?>
 	</div>

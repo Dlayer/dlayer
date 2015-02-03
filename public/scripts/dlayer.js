@@ -1710,8 +1710,8 @@ var dlayer = {
 			{
 				$('#content-block-metrics').click(
 					function() {
-						$('#content-block-metrics > .metrics-title').toggle();
-						$('#content-block-metrics > .metrics').toggle();
+						$('#content-block-metrics .metrics-title').toggle();
+						$('#content-block-metrics .metrics').toggle();
 					}
 				);
 			},

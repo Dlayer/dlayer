@@ -85,7 +85,13 @@ div#designer {
 		margin: 0px 10px;
 		float: left;
 		
+		.metrics-title {
+			cursor: pointer;
+		}
 		
+		.metrics {
+			cursor: pointer;
+		}
 	}
 	
 	#ribbon {
