@@ -25,7 +25,17 @@ div#designer {
         float: left;
         display: block;
         border-bottom: 1px dashed #FFFFFF; }
-    div#designer #design > div.template-designer div.selected:hover {
+    div#designer #design > div.template-designer div.tool-horizontal-split:hover {
+      cursor: ns-resize; }
+    div#designer #design > div.template-designer div.selectable {
+      cursor: pointer; }
+    div#designer #design > div.content-manager div.selected {
+      background-color: #e1dc50; }
+      div#designer #design > div.content-manager div.selected div.horizontal-splitter {
+        float: left;
+        display: block;
+        border-bottom: 1px dashed #FFFFFF; }
+    div#designer #design > div.content-manager div.selected:hover {
       cursor: ns-resize; }
   div#designer #filter {
     width: 320px;

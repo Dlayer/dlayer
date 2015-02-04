@@ -54,6 +54,27 @@ div#designer {
 				}
 			}
 			
+			div.tool-horizontal-split:hover {
+				cursor: ns-resize;
+			}
+			
+			div.selectable {
+				cursor: pointer;
+			}
+		}
+		
+		> div.content-manager {
+			
+			div.selected {
+				background-color: #e1dc50;
+				
+				div.horizontal-splitter {
+					float: left;
+					display: block;
+					border-bottom: 1px dashed #FFFFFF;
+				}
+			}
+			
 			div.selected:hover {
 				cursor: ns-resize;
 			}

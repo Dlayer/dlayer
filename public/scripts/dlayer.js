@@ -126,6 +126,7 @@ var dlayer = {
 
 				    background_color = div.css('background-color');
 				    div.css('backgroundColor', '#000000');
+				    div.addClass('tool-horizontal-split');
 
 				    if(contents == null) {
 				        contents = div.html();
@@ -255,6 +256,7 @@ var dlayer = {
 				        var div = $('div.template-designer div.selected');
 				        div.css('background-color', background_color);
 				        div.html(contents);
+				        div.removeClass('tool-horizontal-split');
 				    }
 				},
                 
