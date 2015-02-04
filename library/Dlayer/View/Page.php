@@ -6,7 +6,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Page.php 1685 2014-03-16 20:48:23Z Dean.Blackborough $
 */
 class Dlayer_View_Page extends Zend_View_Helper_Abstract
 {
@@ -122,7 +121,8 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
                 $this->html .= $this->templateStyles($div['id'], $div['sizes'],
                 $params['children']);
                 $this->html .= "{$params['class']}>" . PHP_EOL;
-                $this->html .= $this->childHtml($div['id'], $div['children']);
+				$this->html .= $this->childHtml($div['id'], $div['children'], 
+					$div['sizes']['fixed']);
                 $this->html .= '</div>' . PHP_EOL;
             }
         } else {
@@ -151,9 +151,11 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
     *
     * @param integer $parent_id
     * @param array $children Array of the child divs
+    * @param integer $fixed Fixed height setting for parent/container, 
+	* 						1 or 0.
     * @return string
     */
-    function childHtml($parent_id, array $children)
+    function childHtml($parent_id, array $children, $fixed)
     {
         $html = '';
 
@@ -166,7 +168,8 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
                 $html .= $this->templateStyles($div['id'], $div['sizes'],
                 $params['children']);
                 $html .= "{$params['class']}>" . PHP_EOL;
-                $html .= $this->childHtml($div['id'], $div['children']);
+                $html .= $this->childHtml($div['id'], $div['children'], 
+                	$div['sizes']['fixed']);
                 $html .= '</div>' . PHP_EOL;
             }
         } else {
@@ -179,7 +182,18 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
             if(strlen($content) > 0) {
                 $html .= $content . PHP_EOL;
             } else {
-                $html .= "<p>&nbsp;</p>" . PHP_EOL;
+            	if($fixed == 1) {
+            		$label = 'Fixed height';
+            	} else {
+            		$label = 'Dynamic height';
+				}
+				
+				$html .= '
+				<div class="row">
+				<div class="col-md-12">
+				<h3>' . $label . ' content block <small>Add content items to this area</small></h3>
+				</div>
+				</div>' . PHP_EOL;
             }
         }
 
@@ -201,28 +215,27 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
     }
 
     /**
-    * Set the params for the current div, currently the selector class and
-    * the boolean for children
+    * Set the params for the current div, currently the selector class, 
+    * bootstrap container class and a boolean for children
     *
     * @return array
     */
     private function divParams(array $children, $id)
     {
+    	$child_divs = FALSE;
+    	$class = '';
+    	
         if(count($children) == 0) {
-            if($this->div_id != NULL &&
-            $this->div_id == $id) {
-                $class = ' class="selected"';
-            } else {
-                $class = ' class="selectable"';
-            }
-            $b_children = FALSE;
+        	if($this->div_id != NULL && $this->div_id == $id) {
+				$class = ' class="selected container"';
+			} else {
+				$class = ' class="selectable container"';
+			}
         } else {
-            $b_children = TRUE;
-            $class = '';
+            $child_divs = TRUE;
         }
 
-        return array('children'=>$b_children,
-                     'class'=>$class);
+        return array('children'=>$child_divs, 'class'=>$class);
     }
 
     /**

@@ -75,8 +75,8 @@ div#designer {
 				}
 			}
 			
-			div.selected:hover {
-				cursor: ns-resize;
+			div.selectable {
+				cursor: pointer;
 			}
 		}
 	}

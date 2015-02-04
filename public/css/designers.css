@@ -35,8 +35,8 @@ div#designer {
         float: left;
         display: block;
         border-bottom: 1px dashed #FFFFFF; }
-    div#designer #design > div.content-manager div.selected:hover {
-      cursor: ns-resize; }
+    div#designer #design > div.content-manager div.selectable {
+      cursor: pointer; }
   div#designer #filter {
     width: 320px;
     margin: 0px 10px;

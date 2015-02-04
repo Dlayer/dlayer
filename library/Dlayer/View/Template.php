@@ -192,8 +192,8 @@ class Dlayer_View_Template extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	* Set the params for the current div, currently the selector class and 
-	* the boolean for whether or not there are children
+	* Set the params for the current div, currently the selector class, 
+    * bootstrap container class and a boolean for children
 	* 
 	* @return array
 	*/

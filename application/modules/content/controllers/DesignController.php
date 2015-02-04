@@ -74,6 +74,8 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_id = $this->session_content->contentId();
 		$this->view->tool = $this->session_content->tool();
 
+		$this->layout->assign('css_include', 
+			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Content manager');
 	}
 	
