@@ -109,13 +109,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
             $this->content_row_id = NULL;
         }
     }
-    
-    /**
-    * Set the id of the selected content block content row
-    * 
-    * 
-    */
-    
+        
     /** 
     * Clear the currently set content id value, content_id is set to NULL
     * 

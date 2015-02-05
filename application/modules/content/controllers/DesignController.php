@@ -78,7 +78,7 @@ class Content_DesignController extends Zend_Controller_Action
 			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Content manager');
 	}
-	
+
 	/**
 	* Generate the base menu bar for the application.
 	* 
@@ -355,9 +355,9 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->form_field_styles = $designer_page->formFieldStyles();
 		$this->view->div_id = $this->session_content->divId();
 		$this->view->page_container_metrics = $this->pageContainerMetrics();
-		if($this->session_content->divId() != NULL) {
+		/*if($this->session_content->divId() != NULL) {
 			$this->view->content_item_metrics = $this->contentItemMetrics();
-		}
+		}*/
 		$this->view->content_id = $this->session_content->contentId();
 
 		return $this->view->render("design/page.phtml");
@@ -365,9 +365,8 @@ class Content_DesignController extends Zend_Controller_Action
 
 	/**
 	* Sets the selected div and returns the user back to the designer so that
-	* they can choose a content tool, this is a sister method to
-	* setSelectedContentAction(), this sets the selected div, the other sets
-	* the content block.
+	* they can choose a content item to edit or select a content row to add 
+	* a new one
 	*
 	* @return void
 	*/
@@ -377,6 +376,21 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$id = $this->getRequest()->getParam('selected');
 		$this->session_content->setDivId($id);
+		$this->_redirect('/content/design');
+	}
+
+	/**
+	* Set the id for the selected content row and returns the user back to 
+	* the designer so they can choose a content item tool
+	* 
+	* @return void
+	*/
+	public function setSelectedContentRowAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$id = $this->getRequest()->getParam('selected');
+		$this->session_content->setContentRowId($id);
 		$this->_redirect('/content/design');
 	}
 

@@ -84,17 +84,17 @@ class Dlayer_Designer_Page
 
         return $this->template_styles;
     }
-
+    
     /**
-    * Fetch the page content assigned to this page, each div can have multiple
-    * pieces of content, result array is indexed by div id
-    *
+    * Fetch all the page content assied to the selected content page, 
+    * the result array is indexed by template div id (content block) and then 
+    * content row
+    * 
     * @return array
     */
     public function content()
     {
-        return $this->model_page->content($this->site_id, $this->template_id,
-        $this->page_id);
+    	return $this->model_page->content($this->site_id, $this->page_id);
     }
 
     /**
