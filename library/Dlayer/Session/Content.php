@@ -70,23 +70,51 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
     }
     
     /**
-    * Set the id of the block that the user wants to add content to.
+    * Set the id for the seelcted content row
     * 
-    * By default when a users sets a div as being active any stored ids for 
-    * content are cleared
-    * 
-    * @param integer $div_id 
-    * @param boolean $clear_content_id Clear any content ids in the session
+    * @param integer $id
     * @return void
     */
-    public function setDivId($div_id, $clear_content_id=TRUE) 
+    public function setContentRowId($id) 
+    {
+        $this->content_row_id = intval($id);
+    }
+    
+    /**
+    * Get the id of the selected content row
+    * 
+    * @return integer|NULL
+    */
+    public function contentRowId() 
+    {
+		return $this->content_row_id;
+    }
+    
+    /**
+    * Set the id of the block that the user wants to add content to.
+    * 
+    * By default when a user sets a content block id the id of any content rows 
+    * and content items is cleared
+    * 
+    * @param integer $div_id 
+    * @param boolean $clear_content_ids Clear the content row id and content id
+    * @return void
+    */
+    public function setDivId($div_id, $clear_content_ids=TRUE) 
     {
         $this->div_id = intval($div_id);
         
-        if($clear_content_id == TRUE) {
+        if($clear_content_ids == TRUE) {
             $this->content_id = NULL;
+            $this->content_row_id = NULL;
         }
     }
+    
+    /**
+    * Set the id of the selected content block content row
+    * 
+    * 
+    */
     
     /** 
     * Clear the currently set content id value, content_id is set to NULL
