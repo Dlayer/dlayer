@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: IndexController.php 1568 2014-02-14 14:59:50Z Dean.Blackborough $
 */
 class Dlayer_IndexController extends Zend_Controller_Action
 {
@@ -373,7 +372,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	public function editSiteAction()
 	{
 		$this->_helper->authenticate();
-		
+
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Edit web site');
 

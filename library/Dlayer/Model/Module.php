@@ -24,8 +24,8 @@ class Dlayer_Model_Module extends Zend_Db_Table_Abstract
     {
         $sql = "SELECT dmt.`name`, dmt.tool, dmt.group_id,
                 dmt.base, dmt.destructive 
-                FROM dlayer_module_tools dmt
-                JOIN dlayer_modules dm ON dmt.module_id = dm.id
+                FROM dlayer_module_tool dmt
+                JOIN dlayer_module dm ON dmt.module_id = dm.id
                 WHERE dm.`name` = :module
                 AND dm.enabled = 1
                 AND dmt.enabled = 1
@@ -56,7 +56,7 @@ class Dlayer_Model_Module extends Zend_Db_Table_Abstract
     public function valid($module, $enabled=TRUE) 
     {
 		$sql = "SELECT id 
-				FROM dlayer_modules 
+				FROM dlayer_module 
 				WHERE `name` = :name 
 				AND enabled = :enabled 
 				LIMIT 1";
@@ -87,7 +87,7 @@ class Dlayer_Model_Module extends Zend_Db_Table_Abstract
     public function byStatus($enabled=TRUE)
     {
         $sql = "SELECT `name`, title, description
-                FROM dlayer_modules
+                FROM dlayer_module
                 WHERE enabled = :enabled 
                 AND `name` <> 'dlayer' 
                 ORDER BY sort_order ASC";
@@ -112,7 +112,7 @@ class Dlayer_Model_Module extends Zend_Db_Table_Abstract
     public function modes($module)
     {
         $sql = "SELECT `name`, button_name, title
-                FROM dlayer_modules
+                FROM dlayer_module
                 WHERE enabled = 1
                 AND `name` <> :module
                 ORDER BY sort_order ASC";

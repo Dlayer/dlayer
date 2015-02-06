@@ -1,12 +1,9 @@
 <?php
 /**
-* Authentication model
-*
-* Handles all requests relating to user authentication
+* Authentication model, handles all requests relating to user authentication
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Authentication.php 1515 2014-02-01 23:15:22Z Dean.Blackborough $
 * @category Model
 */
 class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
@@ -52,7 +49,7 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 	{
 		if($this->salt != NULL) {
 			$sql = "SELECT di.id
-					FROM dlayer_identities di
+					FROM dlayer_identity di
 					WHERE di.identity = :identity
 					AND di.credentials = :credentials
 					AND logged_in = 0
@@ -61,7 +58,7 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 			$stmt = $this->_db->prepare($sql);
 			$stmt->bindValue(':identity', $identity, PDO::PARAM_STR);
 			$stmt->bindValue(':credentials',
-			$this->hashedCredentials($credentials), PDO::PARAM_STR);
+				$this->hashedCredentials($credentials), PDO::PARAM_STR);
 			$stmt->execute();
 
 			$result = $stmt->fetch();
@@ -111,7 +108,7 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 	*/
 	public function logoutIdentity($identity_id)
 	{
-		$sql = "UPDATE dlayer_identities
+		$sql = "UPDATE dlayer_identity
 				SET logged_in = 0
 				WHERE id = :identity_id
 				LIMIT 1";
@@ -129,7 +126,7 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 	*/
 	public function loginIdentity($identity_id)
 	{
-		$sql = "UPDATE dlayer_identities
+		$sql = "UPDATE dlayer_identity
 				SET logged_in = 1, last_login = NOW(), last_action = NOW()
 				WHERE id = :identity_id
 				LIMIT 1";
@@ -147,106 +144,106 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 	*/
 	public function logoutInactiveIdenties($timeout)
 	{
-		$sql = "UPDATE dlayer_identities
-				SET logged_in = 0
-				WHERE last_action < (NOW() - INTERVAL :timeout SECOND)";
+		$sql = "UPDATE dlayer_identity
+		SET logged_in = 0
+		WHERE last_action < (NOW() - INTERVAL :timeout SECOND)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':timeout', $timeout, PDO::PARAM_INT);
 		$stmt->execute();
 	}
 
-    /**
-    * Check to see if the given username and password are valid
-    *
-    * @param mixed $username
-    * @param mixed $password
-    * @param string $salt
-    * @return integer|FALSE Either the identity_id or FALSE for a failed
-    *                       login
-    */
-    public function checkUserExists($username, $password, $salt)
-    {
-        $sql = "SELECT rc.id, rc.password, rc.enabled
-                FROM riviam_credentials rc
-                JOIN riviam_users ru ON rc.user_id = ru.id
-                WHERE rc.username = :username
-                LIMIT 1";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':username', strtolower($username));
-        $stmt->execute();
+	/**
+	* Check to see if the given username and password are valid
+	*
+	* @param mixed $username
+	* @param mixed $password
+	* @param string $salt
+	* @return integer|FALSE Either the identity_id or FALSE for a failed
+	*                       login
+	*/
+	public function checkUserExists($username, $password, $salt)
+	{
+		$sql = "SELECT rc.id, rc.password, rc.enabled
+				FROM riviam_credentials rc
+				JOIN riviam_users ru ON rc.user_id = ru.id
+				WHERE rc.username = :username
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':username', strtolower($username));
+		$stmt->execute();
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($result != FALSE) {
-            if($result['enabled'] == 1) {
-                $salt = '$6$rounds=5000$' . $salt . '$';
+		if($result != FALSE) {
+			if($result['enabled'] == 1) {
+				$salt = '$6$rounds=5000$' . $salt . '$';
 
-                if($result['password'] === crypt($password, $salt)) {
-                    $this->successfulLogin($result['id']);
-                    return $result['id'];
-                } else {
-                    $this->failedLogin($result['id']);
-                    return FALSE; // Password incorrect
-                }
-            } else {
-                $this->failedLogin($result['id']);
-                return FALSE; // Account disabled
-            }
-        } else {
-            return FALSE;
-        }
-    }
+				if($result['password'] === crypt($password, $salt)) {
+					$this->successfulLogin($result['id']);
+					return $result['id'];
+				} else {
+					$this->failedLogin($result['id']);
+					return FALSE; // Password incorrect
+				}
+			} else {
+				$this->failedLogin($result['id']);
+				return FALSE; // Account disabled
+			}
+		} else {
+			return FALSE;
+		}
+	}
 
-    /**
-    * Update the last action time for an identity
-    *
-    * @param integer $identity_id
-    * @return void
-    */
-    public function updateLastActionTimestamp($identity_id)
-    {
-		$sql = "UPDATE dlayer_identities
+	/**
+	* Update the last action time for an identity
+	*
+	* @param integer $identity_id
+	* @return void
+	*/
+	public function updateLastActionTimestamp($identity_id)
+	{
+		$sql = "UPDATE dlayer_identity
 				SET last_action = NOW()
 				WHERE id = :identity_id
 				LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':identity_id', $identity_id, PDO::PARAM_INT);
 		$stmt->execute();
-    }
+	}
 
-    /**
-    * Fetch all the test identities
-    *
-    * @return array
-    */
-    public function testIdentities()
-    {
-        $sql = "SELECT id, identity, logged_in
-                FROM dlayer_identities
-                ORDER BY id ASC";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->execute();
+	/**
+	* Fetch all the test identities
+	*
+	* @return array
+	*/
+	public function testIdentities()
+	{
+		$sql = "SELECT id, identity, logged_in
+				FROM dlayer_identity
+				ORDER BY id ASC";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->execute();
 
-        return $stmt->fetchAll();
-    }
-    
-    /**
-    * Fetch the identity for an identity_id
-    * 
-    * @param integer $identity_id
-    * @return string Identity (Email)
-    */
-    public function identity($identity_id) 
-    {
-    	$sql = "SELECT identity 
-    			FROM dlayer_identities 
-    			WHERE id = :identity_id";
-    	$stmt = $this->_db->prepare($sql);
-    	$stmt->bindValue(':identity_id', $identity_id, PDO::PARAM_INT);
-    	$stmt->execute();
-    	
-    	$result = $stmt->fetch();
-    	
-    	return $result['identity'];
+		return $stmt->fetchAll();
+	}
+
+	/**
+	* Fetch the identity for an identity_id
+	*
+	* @param integer $identity_id
+	* @return string Identity (Email)
+	*/
+	public function identity($identity_id)
+	{
+		$sql = "SELECT identity
+				FROM dlayer_identity
+				WHERE id = :identity_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':identity_id', $identity_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		return $result['identity'];
 	}
 }

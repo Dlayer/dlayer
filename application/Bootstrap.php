@@ -127,7 +127,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     */
     public function _initSessionHandler()
     {
-        $session_config = array('name' => 'dlayer_sessions',
+        $session_config = array('name' => 'dlayer_session',
                                 'primary' => array('session_id',
                                                    'save_path',
                                                    'name'),

@@ -51,7 +51,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->layout = Zend_Layout::getMvcInstance();
 		$this->layout->assign('js_include', array('scripts/dlayer.js'));
 		$this->layout->assign('css_include', array('styles/designer.css',
-			'styles/designer/content.css', 
+			'styles/designer/content.css',
 			'styles/designer/content-item-form.css', 'styles/ribbon.css',
 			'styles/ribbon/content.css'));
 	}
@@ -74,37 +74,37 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_id = $this->session_content->contentId();
 		$this->view->tool = $this->session_content->tool();
 
-		$this->layout->assign('css_include', 
+		$this->layout->assign('css_include',
 			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Content manager');
 	}
 
 	/**
 	* Generate the base menu bar for the application.
-	* 
+	*
 	* @param string $url Selected url
 	* @return string Html
 	*/
-	private function dlayerMenu($url) 
+	private function dlayerMenu($url)
 	{
-		$items = array(array('url'=>'/content/index/index', 
-			'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
-			array('url'=>'', 'name'=>'Designers', 'title'=>'Choose a designer', 
+		$items = array(array('url'=>'/content/index/index',
+			'name'=>'Content manager', 'title'=>'Dlayer Content manager'),
+			array('url'=>'', 'name'=>'Designers', 'title'=>'Choose a designer',
 				'children'=>array(
-					array('url'=>'/template/index/index', 
-						'name'=>'Template designer', 'title'=>'Dlayer Template designer'), 
-					array('url'=>'/form/index/index', 
-						'name'=>'Form builder', 'title'=>'Dlayer Form builder'), 
-					array('url'=>'/website/index/index', 
-						'name'=>'Web site manager', 'title'=>'Dlayer Website manager'), 
-					array('url'=>'/image/index/index', 
-						'name'=>'Image library', 'title'=>'Dlayer Image library'))), 
-			array('url'=>'/content/settings/index', 
-				'name'=>'Settings', 'title'=>'Content manager settings'), 
-			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout (' . 
+					array('url'=>'/template/index/index',
+						'name'=>'Template designer', 'title'=>'Dlayer Template designer'),
+					array('url'=>'/form/index/index',
+						'name'=>'Form builder', 'title'=>'Dlayer Form builder'),
+					array('url'=>'/website/index/index',
+						'name'=>'Web site manager', 'title'=>'Dlayer Website manager'),
+					array('url'=>'/image/index/index',
+						'name'=>'Image library', 'title'=>'Dlayer Image library'))),
+			array('url'=>'/content/settings/index',
+				'name'=>'Settings', 'title'=>'Content manager settings'),
+			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout (' .
 				$this->session_dlayer->identity() . ')', 'title'=>'Logout'));
 
-		$this->layout->assign('nav', array('class'=>'top_nav', 
+		$this->layout->assign('nav', array('class'=>'top_nav',
 			'items'=>$items, 'active_url'=>$url));
 	}
 
@@ -177,7 +177,7 @@ class Content_DesignController extends Zend_Controller_Action
 			$edit_mode = TRUE;
 		}
 
-		$tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool, 
+		$tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool,
 			$edit_mode);
 
 		if($tabs != FALSE) {
@@ -195,20 +195,20 @@ class Content_DesignController extends Zend_Controller_Action
 
 	/**
 	* Fetch the page container metrics
-	* 
+	*
 	* @return array Contains the usable height and width for the page container
 	*/
-	private function pageContainerMetrics() 
+	private function pageContainerMetrics()
 	{
 		$metrics = array('width'=>0, 'height'=>'Dynamic');
 
-		if($this->session_content->divId() != NULL && 
+		if($this->session_content->divId() != NULL &&
 		$this->session_content->tool() != FALSE) {
 			$model_template_div = new Dlayer_Model_Template_Div();
 			$site_id = $this->session_dlayer->siteId();
 			$div_id = $this->session_content->divId();
 
-			$metrics['width'] = $model_template_div->width($site_id, 
+			$metrics['width'] = $model_template_div->width($site_id,
 				$div_id);
 
 			$height = $model_template_div->height($site_id, $div_id);
@@ -222,21 +222,21 @@ class Content_DesignController extends Zend_Controller_Action
 
 	/**
 	* Fetch the content item metrics for the selected content item
-	* 
-	* @return array An array containing the metrics for the selected 
-	*                 content item 
+	*
+	* @return array An array containing the metrics for the selected
+	*                 content item
 	*/
-	private function contentItemMetrics() 
+	private function contentItemMetrics()
 	{
-		$metrics = array('width'=>0, 'height'=>'Dynamic', 
-			'border'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0), 
-			'margin'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0), 
+		$metrics = array('width'=>0, 'height'=>'Dynamic',
+			'border'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0),
+			'margin'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0),
 			'padding'=>array('top'=>0, 'right'=>0, 'bottom'=>0, 'left'=>0));
 
 		$model_metrics = new Dlayer_Model_Page_Content_Metrics();
 
 		$item_metrics = $model_metrics->data(
-			$this->session_dlayer->siteId(), $this->session_content->pageId(), 
+			$this->session_dlayer->siteId(), $this->session_content->pageId(),
 			$this->session_content->divId(), $this->session_content->contentId());
 
 		if($item_metrics != FALSE) {
@@ -244,25 +244,25 @@ class Content_DesignController extends Zend_Controller_Action
 		}
 
 		return $metrics;
-	}    
+	}
 
 	/**
-	* Fetch the data for the color picker, passed to the ribbon tab view 
+	* Fetch the data for the color picker, passed to the ribbon tab view
 	* so color picker can be pre populated for all tabs.
-	* 
-	* Returns an array with two indexs, palettes and history, if there was a 
-	* problem fetching data FALSE will be returned for the index that failed, 
+	*
+	* Returns an array with two indexs, palettes and history, if there was a
+	* problem fetching data FALSE will be returned for the index that failed,
 	* the view will display a friendly error message
-	* 
+	*
 	* @return array
 	*/
-	private function colorPickerData() 
+	private function colorPickerData()
 	{
 		$model_palettes = new Dlayer_Model_Palette();
 
 		$site_id = $this->session_dlayer->siteId();
 
-		return array('palettes'=>$model_palettes->palettes($site_id), 
+		return array('palettes'=>$model_palettes->palettes($site_id),
 			'history'=>$model_palettes->lastNColors($site_id));
 	}
 
@@ -350,9 +350,15 @@ class Content_DesignController extends Zend_Controller_Action
 			$this->session_dlayer->siteId(), 'content');
 		$this->view->template = $designer_page->template();
 		$this->view->template_styles = $designer_page->templateStyles();
-		$this->view->content_styles = $designer_page->contentStyles();
-		$this->view->content = $designer_page->content();
-		$this->view->form_field_styles = $designer_page->formFieldStyles();
+		//$this->view->content_styles = $designer_page->contentStyles();
+		$this->view->content_styles = array();
+
+		//$this->view->content = $designer_page->content();
+		$this->view->content = array();
+
+		//$this->view->form_field_styles = $designer_page->formFieldStyles();
+		$this->view->form_field_styles = array();
+
 		$this->view->div_id = $this->session_content->divId();
 		$this->view->page_container_metrics = $this->pageContainerMetrics();
 		/*if($this->session_content->divId() != NULL) {
@@ -365,7 +371,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 	/**
 	* Sets the selected div and returns the user back to the designer so that
-	* they can choose a content item to edit or select a content row to add 
+	* they can choose a content item to edit or select a content row to add
 	* a new one
 	*
 	* @return void
@@ -380,9 +386,9 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	* Set the id for the selected content row and returns the user back to 
+	* Set the id for the selected content row and returns the user back to
 	* the designer so they can choose a content item tool
-	* 
+	*
 	* @return void
 	*/
 	public function setSelectedContentRowAction()
@@ -409,7 +415,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$tool = $this->getRequest()->getParam('tool');
 		$content_type = $this->getRequest()->getParam('content-type');
 
-		if($this->session_content->setContentId($id, $content_type) == TRUE && 
+		if($this->session_content->setContentId($id, $content_type) == TRUE &&
 		$this->session_content->setTool($tool) == TRUE) {
 			$this->_redirect('/content/design');
 		} else {
@@ -419,13 +425,13 @@ class Content_DesignController extends Zend_Controller_Action
 
 	/**
 	* Move the selected content item, before passing the request to the model
-	* we check to ensure that the item can be moved in the requested direction 
-	* and also that the content item is valid for the requested content type and 
+	* we check to ensure that the item can be moved in the requested direction
+	* and also that the content item is valid for the requested content type and
 	* page div
-	* 
+	*
 	* @return div
 	*/
-	public function moveContentAction() 
+	public function moveContentAction()
 	{
 		$this->_helper->disableLayout(FALSE);
 
@@ -437,10 +443,10 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$model_page_content = new Dlayer_Model_Page_Content();
 
-		if($model_page_content->valid($content_id, 
-		$this->session_dlayer->siteId(), $page_id, $div_id, $content_type) && 
+		if($model_page_content->valid($content_id,
+		$this->session_dlayer->siteId(), $page_id, $div_id, $content_type) &&
 		in_array($direction, array('up', 'down')) == TRUE) {
-			$model_page_content->moveContentItem($direction, $content_type, 
+			$model_page_content->moveContentItem($direction, $content_type,
 				$content_id, $div_id, $page_id, $this->session_dlayer->siteId());
 		}
 
