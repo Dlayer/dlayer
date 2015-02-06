@@ -22,7 +22,7 @@ class Dlayer_Model_Settings_Content extends Zend_Db_Table_Abstract
 	{
 		$sql = "SELECT dch.id, dch.`name`, ush.style_id, ush.weight_id,
 				ush.decoration_id, ush.size, ush.color_hex
-				FROM user_settings_heading ush
+				FROM user_setting_heading ush
 				JOIN designer_content_heading dch ON ush.heading_id = dch.id
 				WHERE ush.site_id = :site_id
 				ORDER BY dch.sort_order ASC";
@@ -53,7 +53,7 @@ class Dlayer_Model_Settings_Content extends Zend_Db_Table_Abstract
 	public function baseFontFamily($site_id)
 	{
 		$sql = "SELECT dcff.id, dcff.css, dcff.`name`
-				FROM user_settings_font_family usff
+				FROM user_setting_font_family usff
 				JOIN dlayer_module dm ON usff.module_id = dm.id
 				AND dm.enabled = 1
 				JOIN designer_css_font_family dcff
@@ -77,7 +77,7 @@ class Dlayer_Model_Settings_Content extends Zend_Db_Table_Abstract
 	*/
 	public function updateHeadings($site_id, array $values)
 	{
-		$sql = "UPDATE user_settings_heading
+		$sql = "UPDATE user_setting_heading
 				SET style_id = :style, weight_id = :weight,
 				decoration_id = :decoration, size = :size,
 				color_hex = :color_hex
@@ -104,7 +104,7 @@ class Dlayer_Model_Settings_Content extends Zend_Db_Table_Abstract
 	*/
 	public function updateFontFamily($site_id, $font_family_id)
 	{
-		$sql = "UPDATE user_settings_font_family
+		$sql = "UPDATE user_setting_font_family
 				SET font_family_id = :font_family_id
 				WHERE site_id = :site_id
 				AND module_id = (SELECT id FROM dlayer_module
