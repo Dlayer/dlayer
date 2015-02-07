@@ -338,8 +338,10 @@ class Content_DesignController extends Zend_Controller_Action
 	private function dlayerPage()
 	{
 		$designer_page = new Dlayer_Designer_Page(
-			$this->session_dlayer->siteId(), $this->session_content->templateId(),
-			$this->session_content->pageId(), $this->session_content->divId(),
+			$this->session_dlayer->siteId(), 
+			$this->session_content->templateId(), 
+			$this->session_content->pageId(), 
+			$this->session_content->divId(),
 			$this->session_content->contentId());
 
 		$model_settings = new Dlayer_Model_View_Settings();
@@ -350,6 +352,23 @@ class Content_DesignController extends Zend_Controller_Action
 			$this->session_dlayer->siteId(), 'content');
 
 		$this->view->template = $designer_page->template();
+		
+		$this->view->content_rows = 
+		array(
+			2=>array(
+				array(
+					array('id'=>1),
+					array('id'=>2)
+				)
+			),
+			3=>array(3=>
+				array(
+					array('id'=>3),
+					array('id'=>4)
+				)
+			)
+		);
+		
 		//$this->view->template_styles = $designer_page->templateStyles();
 		$this->view->template_styles = array();
 
