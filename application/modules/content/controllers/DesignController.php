@@ -348,8 +348,11 @@ class Content_DesignController extends Zend_Controller_Action
 			$this->session_dlayer->siteId());
 		$this->view->base_font_family = $model_settings->baseFontFamily(
 			$this->session_dlayer->siteId(), 'content');
+
 		$this->view->template = $designer_page->template();
-		$this->view->template_styles = $designer_page->templateStyles();
+		//$this->view->template_styles = $designer_page->templateStyles();
+		$this->view->template_styles = array();
+
 		//$this->view->content_styles = $designer_page->contentStyles();
 		$this->view->content_styles = array();
 
@@ -360,11 +363,13 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->form_field_styles = array();
 
 		$this->view->div_id = $this->session_content->divId();
-		$this->view->page_container_metrics = $this->pageContainerMetrics();
+		$this->view->content_id = $this->session_content->contentId();
+		$this->view->content_row_id = $this->session_content->contentRowId();
+
+		//$this->view->page_container_metrics = $this->pageContainerMetrics();
 		/*if($this->session_content->divId() != NULL) {
 			$this->view->content_item_metrics = $this->contentItemMetrics();
 		}*/
-		$this->view->content_id = $this->session_content->contentId();
 
 		return $this->view->render("design/page.phtml");
 	}

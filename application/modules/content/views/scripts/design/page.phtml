@@ -4,25 +4,25 @@
 
 <style>
 #design > div.content-manager * {
-    font-family: <?php echo $this->base_font_family; ?>;
+	font-family: <?php echo $this->base_font_family; ?>;
 }
 
 <?php foreach($this->heading_styles as $heading) { ?>
 #designer > #page <?php echo $this->escape($heading['tag']); ?> {
-    <?php if($heading['style'] != 'normal') { ?>
-    font-style: <?php echo $this->escape($heading['style']); ?>;
-    <?php } ?>
-    font-weight: <?php echo $this->escape($heading['weight']); ?>;
-    <?php if($heading['decoration'] != 'none') { ?>
-    text-decoration: <?php echo $this->escape($heading['decoration']); ?>;
-    <?php } ?>
-    color: <?php echo $this->escape($heading['color']); ?>;
-    font-size: <?php echo $this->escape($heading['size']); ?>px;
+	<?php if($heading['style'] != 'normal') { ?>
+	font-style: <?php echo $this->escape($heading['style']); ?>;
+	<?php } ?>
+	font-weight: <?php echo $this->escape($heading['weight']); ?>;
+	<?php if($heading['decoration'] != 'none') { ?>
+	text-decoration: <?php echo $this->escape($heading['decoration']); ?>;
+	<?php } ?>
+	color: <?php echo $this->escape($heading['color']); ?>;
+	font-size: <?php echo $this->escape($heading['size']); ?>px;
 }
 <?php } ?>
 
-<?php 
-foreach ($this->form_field_styles as $form_id => $form_styles) {
+<?php
+/*foreach ($this->form_field_styles as $form_id => $form_styles) {
 	foreach($form_styles as $field_id => $field_styles) {
 		if(count($field_styles) > 0) {
 			echo '.form_' . $form_id . ' .row_' . $field_id . " {\r\n";
@@ -32,12 +32,12 @@ foreach ($this->form_field_styles as $form_id => $form_styles) {
 			echo "}\r\n";
 		}
 	}
-} 
+} */
 ?>
 
 </style>
 
 <div class="content-manager">
-<?php echo $this->page($this->template, $this->template_styles, 
+<?php echo $this->page($this->template, $this->template_styles,
 $this->content_styles, $this->content, $this->div_id, $this->content_id); ?>
 </div>
