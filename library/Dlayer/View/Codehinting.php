@@ -131,7 +131,7 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	*/
 	public function page(array $template, array $content_rows, array $content,
 		array $template_styles, array $content_styles, $div_id=NULL,
-		$content_row_id=NULL, $content_id=NULL)
+		$content_row_id=NULL, $content_id=NULL) { }
 
 	/** 
 	* A text content block is wrapped by a div, the width and padding of the 

@@ -150,15 +150,31 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 			
 			foreach($this->content[$this->content_row_id] as $content) {
 				
+				$selectable = FALSE;
+				$selected = FALSE;
+				$items = count($this->content[$this->content_row_id]);
+				
+				if($this->selected_content_row_id != NULL && 
+					$this->selected_content_row_id == $this->content_row_id) {
+						$selectable = TRUE;
+				}
+				
+				$selected = FALSE;
+				
+				if($this->selected_content_id != NULL && 
+					$this->selected_content_id == $content['data']['content_id']) {
+						$selected = TRUE;
+				}
+				
 				switch($content['type']) {
-					case 'text':
+					/*case 'text':
 						$html .= $this->view->contentText(
 							$content['data'], FALSE, FALSE, 1);
-						break;
+						break;*/
 
 					case 'heading':                                        
 						$html .= $this->view->contentHeading(
-							$content['data'], FALSE, FALSE, 1);
+							$content['data'], $selectable, $selected, $items);
 						break;
 
 					case 'form':                                        

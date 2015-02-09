@@ -46,6 +46,13 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 	*/
 	private $selected_content_row_id;
 	
+	/**
+	* Id of the selected content
+	* 
+	* @param integer|NULL
+	*/
+	private $selected_content_id;
+	
 	/** 
 	* The content row view helpers generated the invisible content rows 
 	* divs, these hoold content items, for each content row the content view 
@@ -97,7 +104,21 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 	*/
 	public function selectedContentRowId($id) 
 	{
-		$this->content_row_id = $id;
+		$this->selected_content_row_id = $id;
+
+		return $this;
+	}
+	
+	/**
+	* Set the id of the selected content item, this controls whether or not 
+	* the selected class is applied to a content item when it is generated.
+	* 
+	* @param integer $id Id of the selected content row
+	* @return Dlayer_View_ContentRow
+	*/
+	public function selectedContentId($id) 
+	{
+		$this->selected_content_id = $id;
 
 		return $this;
 	}
@@ -158,18 +179,20 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 				$this->view->content()->contentRow($content_row['id']);
 				$this->view->content()->selectedContentRowId(
 					$this->selected_content_row_id);
-				$this->view->content()->selectedContentId(NULL);
+				$this->view->content()->selectedContentId(
+					$this->selected_content_id);
 				
 				$content = $this->view->content()->render();
 				
 				if(strlen($content) != 0) {
 					$row_content = $content;
 				} else {
-					$row_content = '<h3>Content row <small>Add content items to this row</small></h3>';
+					$row_content = '<h3>Content row 
+					<small>Add content items to this row</small></h3>';
 				}
 				
 				$html .= "<div id=\"content_row_{$content_row['id']}\" ";
-				$html .= "class=\"" . $class . "\">" . $row_content . '</p>';
+				$html .= "class=\"" . $class . "\">" . $row_content;
 				$html .= '</div>';
 			}
 		}

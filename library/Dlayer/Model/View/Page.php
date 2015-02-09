@@ -87,13 +87,13 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
 			foreach($result as $row) {
 				switch($row['content_type']) {
-					case 'text':
+					/*case 'text':
 						$data = $this->text($row['id']);
 						if($data != FALSE) {
 							$content[$row['content_row_id']][] =
 							array('type'=>'text', 'data'=>$data);
 						}
-						break;
+						break;*/
 
 					case 'heading':
 						$data = $this->heading($row['content_id']);

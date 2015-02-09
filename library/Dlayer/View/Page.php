@@ -42,21 +42,21 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	*
 	* @var integer|NULL
 	*/
-	private $div_id;
+	private $selected_div_id;
 
 	/**
 	* Id of the selected content row
 	*
 	* @var integer|NULL
 	*/
-	private $content_row_id;
+	private $selected_content_row_id;
 
 	/**
 	* Id of the selected content item
 	*
 	* @var integer|NULL
 	*/
-	private $content_id;
+	private $selected_content_id;
 
 	/**
 	* Content page view helper, generates all the html for a content page by
@@ -87,16 +87,17 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_Page
 	*/
 	public function page(array $template, array $content_rows, array $content,
-		array $template_styles, array $content_styles, $div_id=NULL,
-		$content_row_id=NULL, $content_id=NULL)
+		array $template_styles, array $content_styles, $selected_div_id=NULL,
+		$selected_content_row_id=NULL, $selected_content_id=NULL)
 	{
 		$this->resetParams();
 
 		// Assign template array and set designer ids
 		$this->template = $template;
-		$this->div_id = $div_id;
-		$this->content_row_id = $content_row_id;
-		$this->content_id = $content_id;
+		
+		$this->selected_div_id = $selected_div_id;
+		$this->selected_content_row_id = $selected_content_row_id;
+		$this->selected_content_id = $selected_content_id;
 		
 		/** 
 		* Pass the template styles data array to the base template styles 
@@ -138,9 +139,9 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	{
 		$this->html = '';
 		$this->template = array();
-		$this->div_id = NULL;
-		$this->content_row_id = NULL;
-		$this->content_id = NULL;
+		$this->selected_div_id = NULL;
+		$this->selected_content_row_id = NULL;
+		$this->selected_content_id = NULL;
 		
 		/**
 		* Reset the data array for the dependant view helpers
@@ -228,7 +229,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 
 				$html .= "<div id=\"template_div_{$div['id']}\"";
 				$html .= $this->templateStyles($div['id'], $div['sizes'],
-				$params['children']);
+					$params['children']);
 				$html .= "{$params['class']}>" . PHP_EOL;
 				$html .= $this->childHtml($div['id'], $div['children'],
 					$div['sizes']['fixed']);
@@ -237,8 +238,11 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		} else {
 			
 			$this->view->contentRow()->divId($parent_id);
-			$this->view->contentRow()->selectedDivId(NULL);
-			$this->view->contentRow()->selectedContentRowId(NULL);
+			$this->view->contentRow()->selectedDivId($this->selected_div_id);
+			$this->view->contentRow()->selectedContentRowId(
+				$this->selected_content_row_id);
+			$this->view->contentRow()->selectedContentId(
+				$this->selected_content_id);			
 
 			$content_rows = $this->view->contentRow()->render();
 			
@@ -314,8 +318,9 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		$class = '';
 
 		if(count($children) == 0) {
-			if($this->div_id != NULL && $this->div_id == $id) {
-				$class = ' class="selected container"';
+			if($this->selected_div_id != NULL && 
+				$this->selected_div_id == $id) {
+					$class = ' class="selected container"';
 			} else {
 				$class = ' class="selectable container"';
 			}
