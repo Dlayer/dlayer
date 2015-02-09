@@ -365,8 +365,6 @@ class Content_DesignController extends Zend_Controller_Action
 		//$this->view->content_styles = $designer_page->contentStyles();
 		$this->view->content_styles = array();
 
-		$this->view->content = $designer_page->content();
-
 		//$this->view->form_field_styles = $designer_page->formFieldStyles();
 		$this->view->form_field_styles = array();
 

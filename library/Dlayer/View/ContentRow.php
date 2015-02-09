@@ -151,6 +151,8 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 					}
 				}
 				
+				//$this->view->content()->
+				
 				$html .= "<div id=\"content_row_{$content_row['id']}\" ";
 				$html .= "class=\"" . $class . "\"><p>Content row</p>";
 				$html .= "</div>";

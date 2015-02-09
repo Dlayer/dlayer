@@ -46,8 +46,6 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 			}
 		}
 		
-		//var_dump($content_rows);
-		
 		return $content_rows;
 	}
 
