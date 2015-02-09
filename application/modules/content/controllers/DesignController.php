@@ -337,8 +337,9 @@ class Content_DesignController extends Zend_Controller_Action
 	*/
 	private function dlayerPage()
 	{
-		$designer_page = new Dlayer_Designer_Page(
-			$this->session_dlayer->siteId(), 
+		$site_id = $this->session_dlayer->siteId();
+		
+		$designer_page = new Dlayer_Designer_Page($site_id, 
 			$this->session_content->templateId(), 
 			$this->session_content->pageId(), 
 			$this->session_content->divId(),
@@ -346,28 +347,17 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$model_settings = new Dlayer_Model_View_Settings();
 
-		$this->view->heading_styles = $model_settings->headingStyles(
-			$this->session_dlayer->siteId());
+		$this->view->heading_styles = $model_settings->headingStyles($site_id);
 		$this->view->base_font_family = $model_settings->baseFontFamily(
-			$this->session_dlayer->siteId(), 'content');
+			$site_id, 'content');
 
+		/**
+		* Fetch the base page details, template structure, content rows and 
+		* data for content items
+		*/
 		$this->view->template = $designer_page->template();
-		
-		$this->view->content_rows = 
-		array(
-			2=>array(
-				array(
-					array('id'=>1),
-					array('id'=>2)
-				)
-			),
-			3=>array(3=>
-				array(
-					array('id'=>3),
-					array('id'=>4)
-				)
-			)
-		);
+		$this->view->content_rows = $designer_page->contentRows();
+		$this->view->content = $designer_page->content();
 		
 		//$this->view->template_styles = $designer_page->templateStyles();
 		$this->view->template_styles = array();
@@ -375,8 +365,7 @@ class Content_DesignController extends Zend_Controller_Action
 		//$this->view->content_styles = $designer_page->contentStyles();
 		$this->view->content_styles = array();
 
-		//$this->view->content = $designer_page->content();
-		$this->view->content = array();
+		$this->view->content = $designer_page->content();
 
 		//$this->view->form_field_styles = $designer_page->formFieldStyles();
 		$this->view->form_field_styles = array();

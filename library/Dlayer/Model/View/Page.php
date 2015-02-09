@@ -13,34 +13,46 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 {
 	private $site_id;
 	private $page_id;
+	
+	/**
+	* fetch all the content rows that have been defined for the requested 
+	* page, results are grouped by template div id
+	* 
+	* @poram integer $site_id
+	* @param integer $page_id
+	* @return array An array containing all the content rows grouped by div id, 
+	* 	if there are no results an empty array is returned
+	*/
+	public function contentRows($site_id, $page_id) 
+	{
+				
+	}
 
 	/**
-	* Fetch all the content blocks that have been defined for the given
-	* page, as we loop through the array the details for each of the content
-	* items are fetched from the relevant data tables and then the results
-	* are grouped
+	* Fetch all the content items that have been defined for the requested 
+	* page, as we loop through the results the details for each particula 
+	* content item are fetched from the relevant data tables. The results are 
+	* grouped by content row id and then returned as a single array
 	*
-	* @param integer $site_id
-	* @param integer $page_id
-	* @return array An array of the content indexed by div_id and content row,
-	* 	each value is an array of the content attached to that div. If there
-	* 	is no content we return an empty array
+	* @return array An array of the content indexed by content row id, if 
+	* 	there is no content the returned array is empty
 	*/
 	public function content($site_id, $page_id)
 	{
 		$this->site_id = $site_id;
 		$this->page_id = $page_id;
-
-		$sql = "SELECT uspcr.div_id, uspcr.id AS content_row_id,
-				uspc.id AS content_id, dct.`name` AS content_type
-				FROM user_site_page_content_row uspcr
-				JOIN user_site_page_content uspc ON uspcr.id = uspc.row_id
-				JOIN designer_content_type dct ON uspc.content_type = dct.id
-				AND uspc.site_id = :site_id
-				AND uspc.page_id = :page_id
-				WHERE uspcr.site_id = :site_id
-				AND uspcr.page_id = :page_id
-				ORDER BY uspcr.sort_order, uspc.sort_order";
+		
+		$sql = "SELECT uspcr.id AS content_row_id, uspci.id AS content_id, 
+				dct.`name` AS content_type 
+				FROM user_site_page_content_item uspci 
+				JOIN user_site_page_content_rows uspcr 
+					ON uspci.row_id = uspcr.id 
+					AND uspcr.site_id = :site_id 
+					AND uspcr.page_id = :page_id 
+				JOIN designer_content_type dct ON uspci.content_type = dct.id 
+				WHERE uspci.site_id = :site_id 
+				AND uspci.page_id = :page_id 
+				ORDER BY uspcr.sort_order ASC, uspci.sort_order ASC";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
@@ -57,15 +69,15 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 					case 'text':
 						$data = $this->text($row['id']);
 						if($data != FALSE) {
-							$content[$row['row_id']][] =
+							$content[$row['content_row_id']][] =
 							array('type'=>'text', 'data'=>$data);
 						}
 						break;
 
 					case 'heading':
-						$data = $this->heading($row['id']);
+						$data = $this->heading($row['content_id']);
 						if($data != FALSE) {
-							$content[$row['div_id']][$row['content_row_id']][] =
+							$content[$row['content_row_id']][] =
 							array('type'=>$row['content_type'], 'data'=>$data);
 						}
 						break;
@@ -106,11 +118,11 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch the heding content
+	* Fetch the data for a heading content item
 	*
 	* @param integer $content_id
-	* @return array|FALSE Either the content data array or FALSE if nothing can
-	*                     be found for the content id and page id
+	* @return array|FALSE We either return the data array for the requested 
+	* 	content item or FALSE if the data can't be pulled
 	*/
 	private function heading($content_id)
 	{
