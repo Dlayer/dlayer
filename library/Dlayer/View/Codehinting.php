@@ -62,12 +62,16 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	*/
 	public function templateStyles() { }
 
-	/**
-	* Content view helper, generates the html for each of the content blocks.
-	* This is done by passing the details for each content block type onto a
-	* child view helper, these view helpers generate their html and pass it
-	* back so it can be return to the page layout view helper
-	*
+	/** 
+	* This is the base content view helper, it is called by the content row 
+	* view helper and generates all the html the content items that have been 
+	* added to the requested row, once all the html has been generated the 
+	* string is passed back to the content row view helper.
+	* 
+	* The html for individual content items is handled by child view 
+	* helpers, there is one for each content type, this helper passes the 
+	* requests on and then concatenates the output
+	* 
 	* @return Dlayer_View_Content
 	*/
 	public function content() { }
@@ -133,37 +137,46 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 		array $template_styles, array $content_styles, $div_id=NULL,
 		$content_row_id=NULL, $content_id=NULL) { }
 
-	/** 
-	* A text content block is wrapped by a div, the width and padding of the 
-	* containing div are defined in the data array along with the content
-	* 
-	* @param array $data Content data array. contains the content itself and 
-	*                    the width and padding for the container
-	* @param boolean $selectable Should the content block be selectable for 
-	*                            editing
-	* @param boolean $selected Is the content block currently selected for 
-	*                          editing
+	/**
+	* A text block is simple a string of text enclosed with p tags
+	*
+	* @param array $data Content data array. containns all the data required 
+	* 	to generate the html for the text content item
+	* @param boolean $selectable Should the selectable class be applied to the 
+	* 	content item, a content item is selectable when its content row has 
+	* 	been selected
+	* @param boolean $selected Shoudl the selected class be applied to the 
+	* 	content item, as item is selected when in either mode, either by being 
+	* 	selectable directly or after addition
+	* @param integer $items The total number of content items within the 
+	* 	content row, this is to help with the addition of the visual movment 
+	* 	controls
 	* @return Dlayer_View_ContentText
 	*/
-	public function contentText(array $data, $selectable=FALSE, 
-	$selected=FALSE) { }
+	public function contentText(array $data, $selectable=FALSE,
+		$selected=FALSE, $items=1) { }
 
-	/** 
-	* A heading is a string wrapped in one of the 7 heading tags. The styles 
-	* for each of the heading types will have already been defined either by 
-	* the user or defaulted when a site was created for the user
-	* 
-	* @param array $data Content data array. contains the heading string and 
-	*                    the css styles for the heading
-	* @param boolean $selectable Should the content block be selectable for 
-	*                            editing
-	* @param boolean $selected Is the content block currently selected for 
-	*                          editing
-	* @todo Should only need tag, css should be in view already
+	/**
+	* A heading content item is simply a heading string enclosed within one 
+	* of the six standard heading types, H1 through H6. The styles for the 
+	* headings will have already been output in the top of the view script, 
+	* only custom style options will be added here
+	*
+	* @param array $data Content data array. containns all the data required 
+	* 	to generate the html for the heading content item
+	* @param boolean $selectable Should the selectable class be applied to the 
+	* 	content item, a content item is selectable when its content row has 
+	* 	been selected
+	* @param boolean $selected Shoudl the selected class be applied to the 
+	* 	content item, as item is selected when in either mode, either by being 
+	* 	selectable directly or after addition
+	* @param integer $items The total number of content items within the 
+	* 	content row, this is to help with the addition of the visual movment 
+	* 	controls
 	* @return Dlayer_View_ContentHeading
 	*/
-	public function contentHeading(array $data, $selectable=FALSE, 
-	$selected=FALSE) { }
+	public function contentHeading(array $data, $selectable=FALSE,
+		$selected=FALSE, $items=1) { }
 
 	/**
 	* Simple pagination view helper, generates next and previous links as well

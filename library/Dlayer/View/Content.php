@@ -187,46 +187,6 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 				}
 				
 			}
-			
-			/*
-
-			$selectable = FALSE;
-
-			if($this->selected_div_id != NULL && 
-			$this->selected_div_id == $this->div_id) {
-				$selectable = TRUE;
-			}
-
-			$items = count($this->content[$this->div_id]);
-
-			foreach($this->content[$this->div_id] as $content_item) {
-
-				if($content_item['data']['content_id'] == $this->content_id) {
-					$selected = TRUE;
-				} else {
-					$selected = FALSE;
-				}
-
-				switch($content_item['type']) {
-					case 'text':
-						$html .= $this->view->contentText(
-							$content_item['data'], $selectable, $selected,  $items);
-						break;
-
-					case 'heading':                                        
-						$html .= $this->view->contentHeading(
-							$content_item['data'], $selectable, $selected, $items);
-						break;
-
-					case 'form':                                        
-						$html .= $this->view->contentForm(
-							$content_item['data'], $selectable, $selected, $items);
-						break;
-
-					default:
-						break;
-				}
-			}*/
 		}
 
 		return $html;

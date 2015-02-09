@@ -1,164 +1,161 @@
 <?php
 /**
-* A text content block is wrapped by a div, the width and padding of the
-* containing div are defined in the data array along with the content
+* A text block is simple a string of text enclosed with p tags
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: ContentText.php 1961 2014-06-17 00:01:52Z Dean.Blackborough $
 */
 class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 {
-    /**
-    * Override the hinting for the view property so that we can see the view
-    * helpers that have been defined
-    *
-    * @var Dlayer_View_Codehinting
-    */
-    public $view;
+	/**
+	* Override the hinting for the view property so that we can see the view
+	* helpers that have been defined
+	*
+	* @var Dlayer_View_Codehinting
+	*/
+	public $view;
 
-    /**
-    * Data array for the content block
-    *
-    * @var array
-    */
-    private $data = array();
+	/**
+	* Data array for the text item
+	*
+	* @var array
+	*/
+	private $data = array();
 
-    /**
-    * Is the content item currently selectable? 
-    * 
-    * A content item is only selectable when its page div has been selected 
-    * and no content items have been selected
-    *
-    * @var boolean
-    */
-    private $selectable;
+	/**
+	* Is the content item currently selectable? 
+	* 
+	* @var boolean
+	*/
+	private $selectable;
 
-    /**
-    * Is this content item currently selected, as in is the content item in 
-    * edit mode
-    *
-    * @var boolean
-    */
-    private $selected;
-    
-    /**
-    * The number of content items in the page div, used to work out if the 
-    * move down control is required for the item
-    * 
-    * @param integer
-    */
-    private $items;
+	/**
+	* Is the content item currently selected withing the designer view?
+	*
+	* @var boolean
+	*/
+	private $selected;
 
-    /**
-    * A text content block is wrapped by a div, the width and padding of the
-    * containing div are defined in the data array along with the content
-    *
-    * @param array $data Content data array. contains the content itself and
-    *                    the width and padding for the container
-    * @param boolean $selectable Should the content item be selectable for 
-    *                            moving and editing
-    * @param boolean $selected Is the content block currently selected for
-    *                          editing
-    * @param integer $items Total number of content items in page div
-    * @return Dlayer_View_ContentText
-    */
-    public function contentText(array $data, $selectable=FALSE,
-    $selected=FALSE, $items=1)
-    {
-        $this->resetParams();
+	/**
+	* The number of content items in the content row
+	* 
+	* @param integer
+	*/
+	private $items;
 
-        $this->data = $data;
-        $this->selectable = $selectable;
-        $this->selected = $selected;
-        $this->items = $items;
+	/**
+	* A text block is simple a string of text enclosed with p tags
+	*
+	* @param array $data Content data array. containns all the data required 
+	* 	to generate the html for the text content item
+	* @param boolean $selectable Should the selectable class be applied to the 
+	* 	content item, a content item is selectable when its content row has 
+	* 	been selected
+	* @param boolean $selected Shoudl the selected class be applied to the 
+	* 	content item, as item is selected when in either mode, either by being 
+	* 	selectable directly or after addition
+	* @param integer $items The total number of content items within the 
+	* 	content row, this is to help with the addition of the visual movment 
+	* 	controls
+	* @return Dlayer_View_ContentText
+	*/
+	public function contentText(array $data, $selectable=FALSE,
+		$selected=FALSE, $items=1)
+	{
+		$this->resetParams();
 
-        return $this;
-    }
+		$this->data = $data;
+		$this->selectable = $selectable;
+		$this->selected = $selected;
+		$this->items = $items;
 
-    /**
-    * Before setting an params all internal params are rese incase the view
-    * helper is called multiple times within the same script
-    *
-    * @return void
-    */
-    private function resetParams()
-    {
-        $this->data = NULL;
-        $this->selectable = FALSE;
-        $this->selected = FALSE;
-    }
+		return $this;
+	}
 
-    /**
-    * Render method, this is the base worker method for the view helper, it
-    * generates the html for the content block using the supplied params.
-    *
-    * @return string The generated html
-    */
-    private function render()
-    {
-        $styles = "width:{$this->view->escape($this->data['width'])}px;";
-        if($this->data['padding'] > 0) {
-            $styles .= " padding:{$this->view->escape(
-            $this->data['padding'])}px;";
-            $styles .= $this->view->contentStyles()->contentItem(
-            $this->data['content_id']);
-            
-        }
+	/**
+	* Reset any internal params, we need to reset the params for the view 
+	* helper in case it is called multiple times within the same view
+	*
+	* @return Dlayer_View_ContentText
+	*/
+	private function resetParams()
+	{
+		$this->data = NULL;
+		$this->selectable = FALSE;
+		$this->selected = FALSE;
+	}
 
-        $class = NULL;
-        $id = 'text:text:' . $this->view->escape($this->data['content_id']);
-        $html = '';
+	/**
+	* THis is the worker method for the view helper, it generates the html 
+	* for the content item and the html for the content item container and 
+	* the movement controls
+	*
+	* @return string The generated html
+	*/
+	private function render()
+	{
+		$styles = "width:{$this->view->escape($this->data['width'])}px;";
+		if($this->data['padding'] > 0) {
+			$styles .= " padding:{$this->view->escape(
+				$this->data['padding'])}px;";
+			$styles .= $this->view->contentStyles()->contentItem(
+				$this->data['content_id']);
 
-        if($this->selectable == TRUE) {
+		}
 
-            if($this->selected == TRUE) {
-                $class = 'c_selected';
-            } else {
-                $class = 'c_selectable';
-            }
-            
-            $container_width = intval($this->data['width']) + 
-            (intval($this->data['padding']) * 2) + 
-            $this->data['container_margin'];
-            
-            $mover_width = $container_width - 2;
-            
-            $html .= '<div class="content_item ' . $class . 
-            '" style="width:' . $container_width . 'px;">';
-            
-            $mover = $this->view->moverContentItem($this->data['content_id'], 
-            $this->data['div_id'], $this->data['page_id'], 'text', 
-            $mover_width);
-            
-            if($this->data['sort_order'] != 1) {
-               $html .= $mover->up();
-            }
-        }
+		$class = NULL;
+		$id = 'text:text:' . $this->view->escape($this->data['content_id']);
+		$html = '';
 
-        $html .= '<div style="' . $styles . '" class="item c_item_' . 
-        $this->view->escape($this->data['content_id']) . 
-        '" id="' . $id . '">' . nl2br($this->data['content']) . '</div>';
-        
-        if($this->selectable == TRUE) {
-            if($this->items != $this->data['sort_order']) {                
-                $html .= $mover->down();
-            }
-            $html .= '</div>';
-        }
-        
-        return $html;
-    }
+		if($this->selectable == TRUE) {
 
-    /**
-    * The view helpers can be output directly, no need to call and return the
-    * render method, we define the __toString method so that echo and print
-    * calls on the object return the html generated by the render method
-    *
-    * @return string The html generated by the render method
-    */
-    public function __toString()
-    {
-        return $this->render();
-    }
+			if($this->selected == TRUE) {
+				$class = 'c_selected';
+			} else {
+				$class = 'c_selectable';
+			}
+
+			$container_width = intval($this->data['width']) + 
+			(intval($this->data['padding']) * 2) + 
+			$this->data['container_margin'];
+
+			$mover_width = $container_width - 2;
+
+			$html .= '<div class="content_item ' . $class . 
+			'" style="width:' . $container_width . 'px;">';
+
+			$mover = $this->view->moverContentItem($this->data['content_id'], 
+				$this->data['div_id'], $this->data['page_id'], 'text', 
+				$mover_width);
+
+			if($this->data['sort_order'] != 1) {
+				$html .= $mover->up();
+			}
+		}
+
+		$html .= '<div style="' . $styles . '" class="item c_item_' . 
+		$this->view->escape($this->data['content_id']) . 
+		'" id="' . $id . '">' . nl2br($this->data['content']) . '</div>';
+
+		if($this->selectable == TRUE) {
+			if($this->items != $this->data['sort_order']) {                
+				$html .= $mover->down();
+			}
+			$html .= '</div>';
+		}
+
+		return $html;
+	}
+	
+	/**
+	* The view helpers can be output directly, no need to call and return the
+	* render method, we define the __toString method so that echo and print
+	* calls on the object return the html generated by the render method
+	*
+	* @return string The html generated by the render method
+	*/
+	public function __toString()
+	{
+		return $this->render();
+	}
 }
