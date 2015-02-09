@@ -1,8 +1,13 @@
 <?php
 /**
-* Base content view helper, called by the template class for each div, generates 
-* all the htmlo for the content blocks by passing the requests onto the child 
-* view helpers
+* This is the base content view helper, it is called by the content row view 
+* helper and generates all the html the content items that have been added to 
+* the requested row, once all the html has been generated the string is passed 
+* back to the content row view helper.
+* 
+* The html for individual content items is handled by child view helpers, there 
+* is one for each content type, this helper passes the requests on and then 
+* concatenates the output
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
@@ -18,39 +23,43 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	public $view;
 
 	/**
-	* Full content data array for the entire page, passed into the view helper 
-	* once and reused for subsequent calls
+	* Full content data array for the entire page, passed into the view 
+	* helper once and reused for all subsequent calls, more performant
 	* 
 	* @var array
 	*/
 	private $content = array();
 
 	/**
-	* Current div id
+	* Id of the current content row
 	* 
 	* @param integer
 	*/
-	private $div_id;
+	private $content_row_id;
 
 	/**
-	* Selected div id
+	* If od the selected content row
 	* 
 	* @param integer|NULL
 	*/
-	private $selected_div_id;
+	private $selected_content_row_id;
 
 	/**
-	* Selected content id
+	* Id of the selected content item
 	* 
 	* @param integer|NULL
 	*/
-	private $content_id;
+	private $selected_content_id;
 
 	/** 
-	* Content view helper, generates the html for each of the content blocks. 
-	* This is done by passing the details for each content block type onto a 
-	* child view helper, these view helpers generate their html and pass it 
-	* back so it can be return to the page template view helper
+	* This is the base content view helper, it is called by the content row 
+	* view helper and generates all the html the content items that have been 
+	* added to the requested row, once all the html has been generated the 
+	* string is passed back to the content row view helper.
+	* 
+	* The html for individual content items is handled by child view 
+	* helpers, there is one for each content type, this helper passes the 
+	* requests on and then concatenates the output
 	* 
 	* @return Dlayer_View_Content
 	*/
@@ -58,57 +67,56 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	{
 		return $this;
 	}
-
+	
 	/**
-	* Set the id for the current div. This is used to check if there is any 
-	* content to display for the selected div
+	* Set the id of the current content row, this is used to check if there 
+	* is any content to be generated
 	* 
-	* @param integer $div_id Id of the current div
+	* @param integer $id Id of the current content row
 	* @return Dlayer_View_Content
 	*/
-	public function divId($div_id) 
+	public function contentRow($id) 
 	{
-		$this->div_id = $div_id;
+		$this->content_row_id = $id;
+	}
+	
+	/**
+	* Set the id of the selected content row, this controls whether or not the 
+	* content items within the row should have the selectable class applied to 
+	* them
+	* 
+	* @param integer $id Id of the selected content row
+	* @return Dlayer_View_Content
+	*/
+	public function selectedContentRowId($id) 
+	{
+		$this->selected_content_row_id = $id;
+
+		return $this;
+	}
+	
+	/**
+	* Set the id of the selected content item, this controls whether or not the 
+	* selected class is applied to the content item
+	* 
+	* @param integer $id Id of the selected content item
+	* @return Dlayer_View_Content
+	*/
+	public function selectedContentId($id) 
+	{
+		$this->selected_content_id = $id;
 
 		return $this;
 	}
 
 	/**
-	* Set the id for the selected div id
-	* 
-	* @param integer|NULL $selected_div_id
-	* @return Dlayer_View_Content
-	*/
-	public function selectedDivId($selected_div_id) 
-	{
-		$this->selected_div_id = $selected_div_id;
-
-		return $this;
-	}
-
-	/**
-	* Set the id for the selected content item, this is usesd to turn the 
-	* selecting on and off for content items, if the content id is not NULL 
-	* we turn off the ability to select a content item
-	* 
-	* @param integer $div_id Id of the selected content block
-	* @return Dlayer_View_Content
-	*/
-	public function contentId($content_id) 
-	{
-		$this->content_id = $content_id;
-
-		return $this;
-	}
-
-	/**
-	* Set the content data array for the entire page. This array contains all 
-	* the content blocks.
+	* Set the content data array for the entire page, this array contains all 
+	* the content items.
 	* 
 	* The content data array is passed in using this method for performance 
-	* reasons. The view helper is called many times per page, each call needs
-	* access to the content array, by setting it before calling the view code 
-	* we can ensure that it only needs to be set once.
+	* reasons, this view helper will be called many times by the content row 
+	* view helper, once per content area row, they all need access to 
+	* the same data so it makes sense to set it once.
 	* 
 	* @param array $content
 	* @return Dlayer_View_Content
@@ -121,21 +129,50 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	* Render method, this is the worker method for the view helper, it checks 
-	* to see if there is any defined content for the requested div and if 
-	* found loops over the array calling the relevant view helpers. The 
-	* result html from each view helper is written to the html param to later ]
-	* be passed back to the page template view helper.
+	* THis is the worker method for the view helper, it checks to see if there 
+	* is any defined content for the current content row and then passes the 
+	* request of to the relevant child view helper. 
 	* 
-	* Unlike most of the view helper the render method is public in this view 
+	* The result html is stored until all the content items have been generated
+	* and then the concatenated string is passed back to the content row view 
 	* helper
+	* 
+	* Unlike the majority of view helpers this method is public because it 
+	* will called directly in other view helpers 
 	* 
 	* @return string The generated html
 	*/
 	public function render() 
 	{
 		$html = '';
-		if(array_key_exists($this->div_id, $this->content) == TRUE) {
+		
+		if(array_key_exists($this->content_row_id, $this->content) == TRUE) {
+			
+			foreach($this->content[$this->content_row_id] as $content) {
+				
+				switch($content['type']) {
+					case 'text':
+						$html .= $this->view->contentText(
+							$content['data'], FALSE, FALSE, 1);
+						break;
+
+					case 'heading':                                        
+						$html .= $this->view->contentHeading(
+							$content['data'], FALSE, FALSE, 1);
+						break;
+
+					case 'form':                                        
+						$html .= $this->view->contentForm(
+							$content['data'], FALSE, FALSE, 1);
+						break;
+
+					default:
+						break;
+				}
+				
+			}
+			
+			/*
 
 			$selectable = FALSE;
 
@@ -173,7 +210,7 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 					default:
 						break;
 				}
-			}
+			}*/
 		}
 
 		return $html;

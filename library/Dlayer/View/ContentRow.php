@@ -62,12 +62,12 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 	* Set the id of the current template div, this is used to check to see 
 	* if there are any defined content rows
 	* 
-	* @param integer $div_id Id of the current div
+	* @param integer $id Id of the current div
 	* @return Dlayer_View_ContentRow
 	*/
-	public function divId($div_id) 
+	public function divId($id) 
 	{
-		$this->div_id = $div_id;
+		$this->div_id = $id;
 
 		return $this;
 	}
@@ -77,12 +77,12 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 	* the selectable class should be applied to a content row, if it is a child 
 	* of the template div it is selectable
 	* 
-	* @param integer|NULL $selected_div_id Id of the selected div
+	* @param integer|NULL $id Id of the selected div
 	* @return Dlayer_View_ContentRow
 	*/
-	public function selectedDivId($selected_div_id) 
+	public function selectedDivId($id) 
 	{
-		$this->selected_div_id = $selected_div_id;
+		$this->selected_div_id = $id;
 		
 		return $this;
 	}
@@ -92,12 +92,12 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 	* selected class is applied to the content row, it is also allows us 
 	* to control whether or not content items will be selectable
 	* 
-	* @param integer $content_row_id Id of the selected content row
+	* @param integer $id Id of the selected content row
 	* @return Dlayer_View_ContentRow
 	*/
-	public function selectedContentRowId($content_row_id) 
+	public function selectedContentRowId($id) 
 	{
-		$this->content_row_id = $content_row_id;
+		$this->content_row_id = $id;
 
 		return $this;
 	}
@@ -109,7 +109,7 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 	* The content row data array is passed in using this method for 
 	* performance reasons, this view helper will be called many times by the 
 	* page view helper, once for each end child div, they all need access to 
-	* the same data so it makes sense to set it one.
+	* the same data so it makes sense to set it once.
 	* 
 	* @param array $content_rows
 	* @return Dlayer_View_ContentRow
@@ -151,11 +151,26 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 					}
 				}
 				
-				//$this->view->content()->
+				/**
+				* Fetch the content for the current content row, request 
+				* passed off to content view helper
+				*/
+				$this->view->content()->contentRow($content_row['id']);
+				$this->view->content()->selectedContentRowId(
+					$this->selected_content_row_id);
+				$this->view->content()->selectedContentId(NULL);
+				
+				$content = $this->view->content()->render();
+				
+				if(strlen($content) != 0) {
+					$row_content = $content;
+				} else {
+					$row_content = '<h3>Content row <small>Add content items to this row</small></h3>';
+				}
 				
 				$html .= "<div id=\"content_row_{$content_row['id']}\" ";
-				$html .= "class=\"" . $class . "\"><p>Content row</p>";
-				$html .= "</div>";
+				$html .= "class=\"" . $class . "\">" . $row_content . '</p>';
+				$html .= '</div>';
 			}
 		}
 	

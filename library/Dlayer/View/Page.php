@@ -254,7 +254,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 				$html .= '
 				<div class="row">
 				<div class="col-md-12">
-				<h3>' . $label . ' content block <small>Add content items to this area</small></h3>
+				<h3>' . $label . ' content block <small>Add content rows and then items to this area</small></h3>
 				</div>
 				</div>' . PHP_EOL;
 			}
