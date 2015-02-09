@@ -167,10 +167,10 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 				}
 				
 				switch($content['type']) {
-					/*case 'text':
-						$html .= $this->view->contentText(
-							$content['data'], FALSE, FALSE, 1);
-						break;*/
+					case 'text':
+						$html .= $this->view->contentText($content['data'], 
+							$selectable, $selected, $items);
+						break;
 
 					case 'heading':                                        
 						$html .= $this->view->contentHeading(

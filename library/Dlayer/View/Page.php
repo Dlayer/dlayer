@@ -262,31 +262,6 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 				</div>
 				</div>' . PHP_EOL;
 			}
-			
-			
-			
-			//$this->view->content()->divId($parent_id);
-			//$this->view->content()->contentId($this->content_id);
-			//$this->view->content()->selectedDivId($this->div_id);
-
-			//$content = $this->view->content()->render();
-
-			//if(strlen($content) > 0) {
-			  //  $html .= $content . PHP_EOL;
-			//} else {
-				/*if($fixed == 1) {
-					$label = 'Fixed height';
-				} else {
-					$label = 'Dynamic height';
-				}
-
-				$html .= '
-				<div class="row">
-				<div class="col-md-12">
-				<h3>' . $label . ' content block <small>Add content items to this area</small></h3>
-				</div>
-				</div>' . PHP_EOL;*/
-			//}
 		}
 
 		return $html;

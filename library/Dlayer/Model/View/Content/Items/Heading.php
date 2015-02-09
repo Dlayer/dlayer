@@ -46,45 +46,6 @@ class Dlayer_Model_View_Content_Items_Heading extends Zend_Db_Table_Abstract
 	}
 	
 	/**
-	* Fetch the combined left and right margin values for the content item, 
-	* margin values can be defined using the position tab of the text tool. 
-	* 
-	* Value is required to allow the view helpers to set the correct size for 
-	* the container and controls for the content item
-	* 
-	* @todo this method is duplicated, remedy that
-	* 
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $content_id
-	* @return integer Combined extra margin width
-	*/
-	private function containerCombinedMargin($site_id, $page_id, $content_id) 
-	{
-		$sql = "SELECT uspccm.`left`, uspccm.`right` 
-				FROM user_site_page_content_container_margins uspccm 
-				JOIN designer_content_types dct ON uspccm.content_type = dct.id 
-				WHERE uspccm.site_id = :site_id
-				AND uspccm.page_id = :page_id  
-				AND uspccm.content_id = :content_id 
-				AND dct.`name` = :content_type";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_type', 'heading', PDO::PARAM_INT);
-		$stmt->execute();
-		
-		$result = $stmt->fetch();
-		
-		if($result != FALSE) {
-			return intval($result['left']) + intval($result['right']);
-		} else {
-			return 0;
-		}
-	}
-	
-	/**
 	* Fetch the base data for the content item as well as any additional 
 	* data that may have been defined by the sub tools, examples being styling 
 	* values
@@ -98,11 +59,6 @@ class Dlayer_Model_View_Content_Items_Heading extends Zend_Db_Table_Abstract
 	public function data($site_id, $page_id, $content_id) 
 	{
 		$item = $this->item($site_id, $page_id, $content_id);   	
-		
-		/*if($item != FALSE) {    		
-			$item['container_margin'] = $this->containerCombinedMargin(
-			$site_id, $page_id, $content_id);
-		}*/
 		
 		return $item;
 	}
