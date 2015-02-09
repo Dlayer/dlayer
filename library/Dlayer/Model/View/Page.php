@@ -87,13 +87,13 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
 			foreach($result as $row) {
 				switch($row['content_type']) {
-					/*case 'text':
+					case 'text':
 						$data = $this->text($row['content_id']);
 						if($data != FALSE) {
 							$content[$row['content_row_id']][] =
 							array('type'=>$row['content_type'], 'data'=>$data);
 						}
-						break;*/
+						break;
 
 					case 'heading':
 						$data = $this->heading($row['content_id']);
@@ -125,12 +125,11 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch the text content, text sits in a container, user gets to define the
-	* container size and padding
+	* Fetch the data for the text content item
 	*
 	* @param integer $content_id Content id
-	* @return array|FALSE Either the content data array or FALSE if nothing can
-	*                     be found for the content id and page id
+	* @return array|FALSE We either retuirn the data array for the requested 
+	* 	content item or FALSE if the data can't be pulledE
 	*/
 	private function text($content_id)
 	{

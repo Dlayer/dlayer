@@ -2,9 +2,8 @@
 /**
 * Content heading view model
 *
-* Responsible for fetching the headings from the database and attaching the
-* styling data for the heading type chosen. When someone adds a heading they get
-* to choose the heading style and set the top and bottom margins
+* Responsible for fetching the heading item data from the database, and 
+* attaching  all the additional data defined by the sub tools.
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
@@ -22,7 +21,7 @@ class Dlayer_Model_View_Content_Items_Heading extends Zend_Db_Table_Abstract
 	* @param integer $page_id
 	* @param integer $content_id Content id
 	* @return array|FALSE Either the content data array including the content 
-	* 					  id or FALSE is nothing can be found
+	* 	id or FALSE is nothing can be found
 	*/
 	private function item($site_id, $page_id, $content_id)
 	{
@@ -54,7 +53,7 @@ class Dlayer_Model_View_Content_Items_Heading extends Zend_Db_Table_Abstract
 	* @param integer $page_id
 	* @param integer $content_id Content id
 	* @return array|FALSE Either the full content data array including the 
-	* 					  content id or FALSE if the data can't be pulled
+	* 	content id or FALSE if the data can't be pulled
 	*/
 	public function data($site_id, $page_id, $content_id) 
 	{
