@@ -107,22 +107,7 @@ class Dlayer_Designer_Page
 	*/
 	public function contentRows()
 	{
-		//return $this->model_page->contentRows($this->site_id, $this->page_id);
-		
-		return array(
-			2=>array(
-				array(
-					array('id'=>1),
-					array('id'=>2)
-				)
-			),
-			3=>array(3=>
-				array(
-					array('id'=>3),
-					array('id'=>3)
-				)
-			)
-		);
+		return $this->model_page->contentRows($this->site_id, $this->page_id);
 	}
 
 	/**

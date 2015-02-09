@@ -137,31 +137,23 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 				
 		if(array_key_exists($this->div_id, $this->content_rows) == TRUE) {
 						
-			foreach($this->content_rows[$this->div_id] as $content_rows) {
+			foreach($this->content_rows[$this->div_id] as $content_row) {
 				
-				var_dump($content_rows);
-				var_dump('done');
-								
-				foreach($content_rows as $row) {
-				
-					$class = 'row';
+				$class = 'row';
 					
-					//var_dump($row);
+				if($this->selected_div_id != NULL && 
+					$this->selected_div_id == $this->div_id) {
 					
-					if($this->selected_div_id != NULL && 
-						$this->selected_div_id == $this->div_id) {
-						
-						if($row['id'] == $this->selected_content_row_id) {
-							$class .= ' selected';
-						} else {
-							$class .= ' selectable';
-						}
+					if($content_row['id'] == $this->selected_content_row_id) {
+						$class .= ' selected';
+					} else {
+						$class .= ' selectable';
 					}
-					
-					$html .= "<div id=\"content_row_{$row['id']}\" ";
-					$html .= "class=\"" . $class . "\"><p>Content row</p>";
-					$html .= "</div>";
 				}
+				
+				$html .= "<div id=\"content_row_{$content_row['id']}\" ";
+				$html .= "class=\"" . $class . "\"><p>Content row</p>";
+				$html .= "</div>";
 			}
 		}
 	

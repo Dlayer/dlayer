@@ -25,7 +25,30 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	*/
 	public function contentRows($site_id, $page_id) 
 	{
-				
+		$sql = "SELECT uspcr.div_id, uspcr.id AS content_row_id 
+				FROM user_site_page_content_rows uspcr 
+				WHERE uspcr.site_id = :site_id 
+				AND uspcr.page_id = :page_id 
+				ORDER BY uspcr.div_id ASC, uspcr.sort_order ASC ";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetchAll();
+		
+		$content_rows = array();
+		
+		if(count($result) > 0) {
+			foreach($result as $row) {
+				$content_rows[$row['div_id']][] = 
+					array('id'=>$row['content_row_id']);
+			}
+		}
+		
+		//var_dump($content_rows);
+		
+		return $content_rows;
 	}
 
 	/**
