@@ -51,8 +51,8 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 	* @param boolean $selectable Should the selectable class be applied to the 
 	* 	content item, a content item is selectable when its content row has 
 	* 	been selected
-	* @param boolean $selected Shoudl the selected class be applied to the 
-	* 	content item, as item is selected when in either mode, either by being 
+	* @param boolean $selected Should the selected class be applied to the 
+	* 	content item, an item is selected when in edit mode, either by being 
 	* 	selectable directly or after addition
 	* @param integer $items The total number of content items within the 
 	* 	content row, this is to help with the addition of the visual movment 
@@ -76,7 +76,7 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 	* Reset any internal params, we need to reset the params for the view 
 	* helper in case it is called multiple times within the same view
 	*
-	* @return Dlayer_View_ContentText
+	* @return void
 	*/
 	private function resetParams()
 	{

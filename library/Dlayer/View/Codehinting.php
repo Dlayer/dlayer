@@ -145,8 +145,8 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @param boolean $selectable Should the selectable class be applied to the 
 	* 	content item, a content item is selectable when its content row has 
 	* 	been selected
-	* @param boolean $selected Shoudl the selected class be applied to the 
-	* 	content item, as item is selected when in either mode, either by being 
+	* @param boolean $selected Should the selected class be applied to the 
+	* 	content item, an item is selected when in edit mode, either by being 
 	* 	selectable directly or after addition
 	* @param integer $items The total number of content items within the 
 	* 	content row, this is to help with the addition of the visual movment 
@@ -167,8 +167,8 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @param boolean $selectable Should the selectable class be applied to the 
 	* 	content item, a content item is selectable when its content row has 
 	* 	been selected
-	* @param boolean $selected Shoudl the selected class be applied to the 
-	* 	content item, as item is selected when in either mode, either by being 
+	* @param boolean $selected Should the selected class be applied to the 
+	* 	content item, an item is selected when in edit mode, either by being 
 	* 	selectable directly or after addition
 	* @param integer $items The total number of content items within the 
 	* 	content row, this is to help with the addition of the visual movment 
@@ -229,21 +229,26 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	public function ulNavigation($class, array $items, $active_url='') { } 
 	
 	/**
-	* A form is wrapped in a container, the user defines the width and 
-	* padding, the layout settings and styes are all defined in the form 
-	* builder
+	* A form content item is simply a form from the Content manager in a 
+	* container, the majority of the form display options will be defined as 
+	* part of the form, this view helper will only add custom options 
+	* defined by sub tools
 	* 
-	* @param array $data Content data array. contains the form object, width 
-	*                    and padding for the container
-	* @param boolean $selectable Should the content item be selectable for 
-	*                            moving and editing
-	* @param boolean $selected Is the content block currently selected for
-	*                          editing
-	* @param integer $items Total number of content items in page div
-	* @return Dlayer_View_ContentForm
+	* @param array $data Content data array. containns all the data required 
+	* 	to generate the html for the requested Form builder form
+	* @param boolean $selectable Should the selectable class be applied to the 
+	* 	content item, a content item is selectable when its content row has 
+	* 	been selected
+	* @param boolean $selected Should the selected class be applied to the 
+	* 	content item, an item is selected when in edit mode, either by being 
+	* 	selectable directly or after addition
+	* @param integer $items The total number of content items within the 
+	* 	content row, this is to help with the addition of the visual movment 
+	* 	controls
+	* @return Dlayer_View_ContentHeading
 	*/
 	public function contentForm(array $data, $selectable=FALSE,
-	$selected=FALSE, $items=1) { } 
+		$selected=FALSE, $items=1) { }
 	
 	/**
 	* Generates the html for the movement controls, up and down in the content 

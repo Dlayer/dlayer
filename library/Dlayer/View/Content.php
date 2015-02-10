@@ -172,14 +172,14 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 							$selectable, $selected, $items);
 						break;
 
-					case 'heading':                                        
+					case 'heading': 
 						$html .= $this->view->contentHeading(
 							$content['data'], $selectable, $selected, $items);
 						break;
 
-					case 'form':                                        
-						$html .= $this->view->contentForm(
-							$content['data'], FALSE, FALSE, 1);
+					case 'form':
+						$html .= $this->view->contentForm($content['data'], 
+							$selectable, $selected, $items);
 						break;
 
 					default:
