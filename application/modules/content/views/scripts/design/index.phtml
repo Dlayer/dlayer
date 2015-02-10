@@ -3,12 +3,20 @@
 <script type="text/javascript">
 	$(document).ready(function()
 	{
-		<?php if($this->div_id == NULL && $this->tool == NULL) { ?>
-			dlayer.selectors.content();
+		<?php if($this->div_id == NULL && $this->content_row == NULL 
+			&& $this->tool == NULL) { ?>
+			console.log('Content area selector');
+			dlayer.selectors.contentArea();
+		<?php } ?>
+		
+		<?php if($this->div_id != NULL && $this->content_row == NULL 
+			&& $this->tool == NULL) { ?>
+			console.log('Content row selector');
+			dlayer.selectors.contentRow();
 		<?php } ?>
 		
 		<?php if($this->div_id != NULL && $this->content_id == NULL && 
-			$this->tool == NULL) { ?>
+			$this->tool == NULL && 1 == 0) { ?>
 			dlayer.selectors.contentItem();
 			/*dlayer.movers.contentItem();*/
 		<?php } ?>

@@ -102,6 +102,11 @@ class Dlayer_View_ContentHeading extends Zend_View_Helper_Abstract
 	{
 		$tag = $this->view->escape($this->data['tag']);
 
+		/**
+		* The id foir a content item is defined as the content type, 
+		* tool used to create the item and then the id for the content item, 
+		* this allows the selectors to set the correct environment vars
+		*/
 		$id = 'heading:heading:' . $this->view->escape(
 			$this->data['content_id']);
 		

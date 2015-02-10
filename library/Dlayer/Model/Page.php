@@ -286,23 +286,22 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	*/
 	public function templateDivHasContent($div_id, $site_id, $template_id)
 	{
-		$sql = "SELECT uspc.id
-				FROM user_site_page_content uspc
-				JOIN user_site_page usp ON uspc.`page_id` = usp.id
-				AND usp.site_id = :site_id
-				WHERE uspc.site_id = :site_id
-				AND usp.template_id = :template_id
-				AND uspc.div_id = :div_id
-				LIMIT 1";
+		$sql = "SELECT uspci.id 
+				FROM user_site_page_content_item uspci 
+				JOIN user_site_page_content_rows uspcr 
+					ON uspci.row_id = uspcr.id 
+					AND uspcr.site_id = :site_id 
+					AND uspcr.div_id = :div_id 
+				WHERE uspci.site_id = :site_id";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':template_id', $template_id, PDO::PARAM_INT);
 		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
 		$stmt->execute();
 
-		$result = $stmt->fetch();
+		$result = $stmt->fetchAll();
 
-		if($result == FALSE) {
+		if(count($result) == 0) {
 			return FALSE;
 		} else {
 			return TRUE;
