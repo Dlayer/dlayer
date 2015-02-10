@@ -92,7 +92,7 @@ class Dlayer_View_ContentHeading extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	* THis is the worker method for the view helper, it generates the html 
+	* This is the worker method for the view helper, it generates the html 
 	* for the content item and the html for the content item container and 
 	* the movement controls
 	*

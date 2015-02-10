@@ -104,12 +104,13 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 						break;
 
 					case 'form':
-						$data = $this->form($row['id']);
+						$data = $this->form($row['content_id']);
 						if($data != FALSE) {
 							$data['form'] = new Dlayer_Designer_Form(
 								$this->site_id, $data['form_id'], TRUE, NULL);
-							$content[$row['div_id']][] =
-							array('type'=>'form', 'data'=>$data);
+								
+							$content[$row['content_row_id']][] =
+							array('type'=>$row['content_type'], 'data'=>$data);	
 						}
 						break;
 
@@ -152,12 +153,13 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch the form content, forms sit in a container, user will have defined
-	* the width and padding for the form container
+	* Fetch the data for a form, forms simply sit in a container defined by 
+	* the user, the majority of the form layout options will have been defined 
+	* in the Form builder
 	*
 	* @param integer $content_id
-	* @return array|FALSE Either the content data array of FALSE if notrhing
-	* 					  can be found for the content id
+	* @return array|FALSE We either return the data array for the requested 
+	* 	content item of FALSE if the data can't be pulled
 	*/
 	private function form($content_id)
 	{

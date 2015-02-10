@@ -86,7 +86,7 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	* THis is the worker method for the view helper, it generates the html 
+	* This is the worker method for the view helper, it generates the html 
 	* for the content item and the html for the content item container and 
 	* the movement controls
 	*
@@ -94,55 +94,16 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 	*/
 	private function render()
 	{
-		$styles = "width:{$this->view->escape($this->data['width'])}px;";
-		if($this->data['padding'] > 0) {
-			$styles .= " padding:{$this->view->escape(
-				$this->data['padding'])}px;";
-			$styles .= $this->view->contentStyles()->contentItem(
-				$this->data['content_id']);
-
-		}
-
-		$class = NULL;
 		$id = 'text:text:' . $this->view->escape($this->data['content_id']);
+		
 		$html = '';
-
-		if($this->selectable == TRUE) {
-
-			if($this->selected == TRUE) {
-				$class = 'c_selected';
-			} else {
-				$class = 'c_selectable';
-			}
-
-			$container_width = intval($this->data['width']) + 
-			(intval($this->data['padding']) * 2) + 
-			$this->data['container_margin'];
-
-			$mover_width = $container_width - 2;
-
-			$html .= '<div class="content_item ' . $class . 
-			'" style="width:' . $container_width . 'px;">';
-
-			$mover = $this->view->moverContentItem($this->data['content_id'], 
-				$this->data['div_id'], $this->data['page_id'], 'text', 
-				$mover_width);
-
-			if($this->data['sort_order'] != 1) {
-				$html .= $mover->up();
-			}
-		}
-
-		$html .= '<div style="' . $styles . '" class="item c_item_' . 
-		$this->view->escape($this->data['content_id']) . 
-		'" id="' . $id . '">' . nl2br($this->data['content']) . '</div>';
-
-		if($this->selectable == TRUE) {
-			if($this->items != $this->data['sort_order']) {                
-				$html .= $mover->down();
-			}
-			$html .= '</div>';
-		}
+		
+		$html .= '<div class="col-12-md">';
+		$html .= '<p class="item c_item_' . $this->view->escape(
+			$this->data['content_id']) . '" id="' . $id . '">';
+		$html .= nl2br($this->view->escape($this->data['content']));
+		$html .= '</p>';
+		$html .= '</div>';
 
 		return $html;
 	}
