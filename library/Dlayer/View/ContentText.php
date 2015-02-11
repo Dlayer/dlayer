@@ -103,7 +103,7 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 		
 		$html = '';
 		
-		$html .= '<div class="col-12-md">';
+		$html .= '<div class="col-md-12">';
 		$html .= '<p class="item c_item_' . $this->view->escape(
 			$this->data['content_id']) . '" id="' . $id . '">';
 		$html .= nl2br($this->view->escape($this->data['content']));

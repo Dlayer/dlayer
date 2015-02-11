@@ -112,7 +112,7 @@ class Dlayer_View_ContentHeading extends Zend_View_Helper_Abstract
 		
 		$html = '';
 		
-		$html .= '<div class="col-12-md">';
+		$html .= '<div class="col-md-12">';
 		$html .= '<' . $tag . ' class="item c_item_' . $this->view->escape(
 			$this->data['content_id']) . '" id="' . $id . '">';
 		$html .= $this->view->escape($this->data['content']);

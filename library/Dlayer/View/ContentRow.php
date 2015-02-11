@@ -169,7 +169,7 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 						$class .= ' selected-row';
 					} else {
 						if($this->selected_content_row_id == NULL) {
-							$class = ' selectable"';
+							$class .= ' selectable"';
 						}
 					}
 				}

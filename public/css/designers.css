@@ -36,7 +36,7 @@ div#designer {
         display: block;
         border-bottom: 1px dashed #FFFFFF; }
     div#designer #design > div.content-manager div.selected-row {
-      background-color: red; }
+      background-color: #e1dc50; }
     div#designer #design > div.content-manager div.selectable {
       cursor: pointer; }
   div#designer #filter {

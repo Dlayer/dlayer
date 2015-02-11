@@ -290,20 +290,26 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	private function divParams(array $children, $id)
 	{
 		$child_divs = FALSE;
-		$class = '';
+		$class = 'container';
 
 		if(count($children) == 0) {
-			if($this->selected_div_id != NULL && 
+			$class = 'container';
+			
+			if($this->selected_div_id != NULL) {
+				if($this->selected_content_row_id == NULL && 
 				$this->selected_div_id == $id) {
-					$class = ' class="selected-area container"';
+					$class .= ' selected-area';	
+				}				
 			} else {
 				if($this->selected_div_id == NULL) {
-					$class = ' class="selectable container"';
-				} else {
-					$class = ' class="container"';
+					if($this->selected_content_row_id == NULL) {}
+					$class .= ' selectable';
 				}
 			}
+			
+			$class = 'class="' . $class . '"';			
 		} else {
+			$class = '';
 			$child_divs = TRUE;
 		}
 
