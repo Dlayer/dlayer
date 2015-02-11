@@ -1394,7 +1394,9 @@ var dlayer = {
 					$(this).css('background-color', '#66a7ba');
 					
 					var id = this.id.replace('content_row_', '');
-					console.log(id);
+					
+					window.location.replace(
+					'/content/design/set-selected-content-row/selected/' + id);
 				}			
 			);
 		},

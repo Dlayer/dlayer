@@ -71,6 +71,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$this->view->module = $this->getRequest()->getModuleName();
 		$this->view->div_id = $this->session_content->divId();
+		$this->view->content_row_id = $this->session_content->contentRowId();
 		$this->view->content_id = $this->session_content->contentId();
 		$this->view->tool = $this->session_content->tool();
 
@@ -120,7 +121,9 @@ class Content_DesignController extends Zend_Controller_Action
 		$model_module = new Dlayer_Model_Module();
 
 		$this->view->div_id = $this->session_content->divId();
+		$this->view->content_row_id = $this->session_content->contentRowId();
 		$this->view->content_id = $this->session_content->contentId();
+		
 		$this->view->tools = $model_module->tools(
 			$this->getRequest()->getModuleName());
 		$this->view->tool = $this->session_content->tool();
@@ -389,6 +392,8 @@ class Content_DesignController extends Zend_Controller_Action
 	* Sets the selected div and returns the user back to the designer so that
 	* they can choose a content item to edit or select a content row to add
 	* a new one
+	* 
+	* @todo Need to check that div id is valid
 	*
 	* @return void
 	*/
@@ -404,6 +409,8 @@ class Content_DesignController extends Zend_Controller_Action
 	/**
 	* Set the id for the selected content row and returns the user back to
 	* the designer so they can choose a content item tool
+	* 
+	* @todo Need to check that content row id is valid
 	*
 	* @return void
 	*/

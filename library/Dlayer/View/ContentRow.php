@@ -166,9 +166,11 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 					$this->selected_div_id == $this->div_id) {
 					
 					if($content_row['id'] == $this->selected_content_row_id) {
-						$class .= ' selected';
+						$class .= ' selected-row';
 					} else {
-						$class .= ' selectable';
+						if($this->selected_content_row_id == NULL) {
+							$class = ' selectable"';
+						}
 					}
 				}
 				
