@@ -1379,7 +1379,24 @@ var dlayer = {
 		*/
 		contentRow: function() 
 		{
-			
+			$('div.container div.selectable').hover(
+				function() {
+					background_color = $(this).css('background-color');
+					$(this).css('background-color', '#93d0e1');
+					$(this).css('cursor', 'pointer');
+				}, 
+				function() {
+					$(this).css('background-color', background_color);
+				}			
+			);
+			$('div.container div.selectable').click(
+				function() {
+					$(this).css('background-color', '#66a7ba');
+					
+					var id = this.id.replace('content_row_', '');
+					console.log(id);
+				}			
+			);
 		},
 		
 		/**

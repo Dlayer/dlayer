@@ -29,12 +29,14 @@ div#designer {
       cursor: ns-resize; }
     div#designer #design > div.template-designer div.selectable {
       cursor: pointer; }
-    div#designer #design > div.content-manager div.selected {
+    div#designer #design > div.content-manager div.selected-area {
       background-color: #e1dc50; }
-      div#designer #design > div.content-manager div.selected div.horizontal-splitter {
+      div#designer #design > div.content-manager div.selected-area div.horizontal-splitter {
         float: left;
         display: block;
         border-bottom: 1px dashed #FFFFFF; }
+    div#designer #design > div.content-manager div.selected-row {
+      background-color: red; }
     div#designer #design > div.content-manager div.selectable {
       cursor: pointer; }
   div#designer #filter {

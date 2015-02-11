@@ -1,7 +1,7 @@
 .container-fixed {
 	margin: 0 auto;
-  	max-width: 1366px;
-  	padding: 0px 15px;
+	max-width: 1366px;
+	padding: 0px 15px;
 }
 
 div#designer {
@@ -65,7 +65,7 @@ div#designer {
 		
 		> div.content-manager {
 			
-			div.selected {
+			div.selected-area {
 				background-color: #e1dc50;
 				
 				div.horizontal-splitter {
@@ -73,6 +73,10 @@ div#designer {
 					display: block;
 					border-bottom: 1px dashed #FFFFFF;
 				}
+			}
+			
+			div.selected-row {
+				background-color: red;
 			}
 			
 			div.selectable {

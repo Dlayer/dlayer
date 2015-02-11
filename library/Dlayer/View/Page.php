@@ -295,7 +295,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		if(count($children) == 0) {
 			if($this->selected_div_id != NULL && 
 				$this->selected_div_id == $id) {
-					$class = ' class="selected container"';
+					$class = ' class="selected-area container"';
 			} else {
 				if($this->selected_div_id == NULL) {
 					$class = ' class="selectable container"';
