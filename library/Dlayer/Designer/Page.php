@@ -13,8 +13,9 @@ class Dlayer_Designer_Page
 	private $template_id;
 	private $page_id;
 
-	private $div_id = NULL;
-	private $content_id = NULL;
+	private $selected_div_id = NULL;
+	private $selected_content_row_id;
+	private $selected_content_id = NULL;
 
 	private $template_styles;
 	private $content_styles;
@@ -37,14 +38,15 @@ class Dlayer_Designer_Page
 	* @param integer|NULL $content_id
 	*/
 	public function __construct($site_id, $template_id, $page_id, $div_id=NULL,
-		$content_id=NULL)
+		$content_row_id=NULL, $content_id=NULL)
 	{
 		$this->site_id = $site_id;
 		$this->template_id = $template_id;
 		$this->page_id = $page_id;
 
-		$this->div_id = $div_id;
-		$this->content_id = $content_id;
+		$this->selected_content_id = $div_id;
+		$this->selected_content_row_id = $content_row_id;
+		$this->selected_content_id = $content_id;
 
 		$this->template_styles = array();
 		$this->content_styles = array();
@@ -68,7 +70,7 @@ class Dlayer_Designer_Page
 	*/
 	public function template()
 	{
-		return $this->model_template->template($this->site_id,
+		return $this->model_template->template($this->site_id, 
 			$this->template_id);
 	}
 

@@ -337,13 +337,18 @@ class Content_DesignController extends Zend_Controller_Action
 	*/
 	private function dlayerPage()
 	{
+		// Vars defining the page being edited
 		$site_id = $this->session_dlayer->siteId();
+		$template_id = $this->session_content->templateId();
+		$page_id = $this->session_content->pageId();
 		
-		$designer_page = new Dlayer_Designer_Page($site_id, 
-			$this->session_content->templateId(), 
-			$this->session_content->pageId(), 
-			$this->session_content->divId(),
-			$this->session_content->contentId());
+		// Environment vars for the designer
+		$div_id = $this->session_content->divId();
+		$content_row_id = $this->session_content->contentRowId();
+		$content_id = $this->session_content->contentId();
+		
+		$designer_page = new Dlayer_Designer_Page($site_id, $template_id, 
+			$page_id, $div_id, $content_row_id, $content_id);
 
 		$model_settings = new Dlayer_Model_View_Settings();
 
@@ -368,9 +373,9 @@ class Content_DesignController extends Zend_Controller_Action
 		//$this->view->form_field_styles = $designer_page->formFieldStyles();
 		$this->view->form_field_styles = array();
 
-		$this->view->div_id = $this->session_content->divId();
-		$this->view->content_id = $this->session_content->contentId();
-		$this->view->content_row_id = $this->session_content->contentRowId();
+		$this->view->div_id = $div_id;
+		$this->view->content_row_id = $content_row_id;
+		$this->view->content_id = $content_id;
 
 		//$this->view->page_container_metrics = $this->pageContainerMetrics();
 		/*if($this->session_content->divId() != NULL) {
