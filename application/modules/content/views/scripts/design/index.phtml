@@ -5,27 +5,26 @@
 	{
 		<?php if($this->div_id == NULL && $this->content_row == NULL 
 			&& $this->tool == NULL) { ?>
-			console.log('Content area selector');
 			dlayer.selectors.contentArea();
 		<?php } ?>
 		
-		<?php if($this->div_id != NULL && $this->content_row == NULL 
+		<?php if($this->div_id != NULL && $this->content_row_id == NULL 
 			&& $this->tool == NULL) { ?>
 			console.log('Content row selector');
 			dlayer.selectors.contentRow();
 		<?php } ?>
 		
-		<?php if($this->div_id != NULL && $this->content_id == NULL && 
-			$this->tool == NULL && 1 == 0) { ?>
+		<?php if($this->div_id != NULL && $this->content_row_id != NULL 
+			&& $this->content_id == NULL && $this->tool == NULL) { ?>
 			dlayer.selectors.contentItem();
 			/*dlayer.movers.contentItem();*/
 		<?php } ?>
-		<?php if($this->div_id != NULL && $this->tool != NULL) { ?>
+		<?php //if($this->div_id != NULL && $this->tool != NULL) { ?>
 			/*dlayer.designers.metrics.pageContainer();*/
-		<?php } ?>
-		<?php if($this->div_id) { ?>
+		<?php // } ?>
+		<?php // if($this->div_id) { ?>
 			/*dlayer.designers.metrics.contentBlocks();*/
-		<?php } ?>
+		<?php //} ?>
 	});
 </script>
 

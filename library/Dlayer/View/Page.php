@@ -235,8 +235,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 					$div['sizes']['fixed']);
 				$html .= '</div>' . PHP_EOL;
 			}
-		} else {
-			
+		} else {			
 			$this->view->contentRow()->divId($parent_id);
 			$this->view->contentRow()->selectedDivId($this->selected_div_id);
 			$this->view->contentRow()->selectedContentRowId(

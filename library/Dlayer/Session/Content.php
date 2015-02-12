@@ -129,9 +129,10 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	* Set the content item that the user wants to edit. A check is done to 
-	* ensure that the content item belongs to the page/template div set in the 
-	* session and that it is off the expected type.
+	* Set the content item that the user wants to edit, before setting the 
+	* id a full check is done against all environment vars to ensure that the 
+	* selected content item belongs to the site, page, template div, content 
+	* row and then finally that it is of the correct type
 	*
 	* @param integer $content_id
 	* @param string $content_type Type of content item, heading, text, html
@@ -146,7 +147,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 
 		if($model_content->valid($content_id, $session_dlayer->siteId(), 
 		$session_content->pageId(), $session_content->divId(), 
-		$content_type) == TRUE) {
+		$session_content->contentRowId(), $content_type) == TRUE) {
 			$this->content_id = intval($content_id);
 			return TRUE;
 		} else {

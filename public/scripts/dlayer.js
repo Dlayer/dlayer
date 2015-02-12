@@ -1410,22 +1410,26 @@ var dlayer = {
 		*/
 		contentItem: function()
 		{
-			$('.c_selectable').hover(
-				function() {
+			$('div.selected-row .selectable').hover(
+				function() {					
 					background_color = $(this).css('background-color');
-					$(this).css('background-color', '#ebebeb');
-					$(this).find('.move').show();
+					$(this).css('background-color', '#93d0e1');
+					$(this).css('cursor', 'pointer');
+					//$(this).find('.move').show();
+					
+					// Neede to add move class with specific class move and 
+					// then move_id for show and hide
 				},
 				function() {
 					$(this).css('background-color', background_color);
-					$(this).find('.move').hide();
+					//$(this).find('.move').hide();
 				}
 			);
-			$('.c_selectable').click(
+			$('div.selected-row .selectable').click(
 				function() {
-					$(this).css('background-color','#e1e1e1');
+					$(this).css('background-color','#66a7ba');
 
-					var params = $(this).find('.item')[0].id.split(':');
+					var params = this.id.split(':');
 
 					window.location.replace(
 					'/content/design/set-selected-content/selected/' + params[2] +

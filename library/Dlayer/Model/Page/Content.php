@@ -78,26 +78,32 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
+	* @param integer $content_row_id
 	* @param string $content_type
 	* @return boolean
 	*/
-	public function valid($content_id, $site_id, $page_id, $div_id,
-	$content_type)
+	public function valid($content_id, $site_id, $page_id, $div_id, 
+		$content_row_id, $content_type)
 	{
-		$sql = "SELECT uspc.id
-				FROM user_site_page_content uspc
-				WHERE uspc.site_id = :site_id
-				AND uspc.page_id = :page_id
-				AND uspc.div_id = :div_id
-				AND uspc.content_type =
-					(SELECT id
-					 FROM designer_content_types dct
-					 WHERE dct.`name` = :content_type)
-				AND uspc.id = :content_id";
+		$sql = "SELECT uspci.id 
+				FROM user_site_page_content_item uspci 
+				JOIN user_site_page_content_rows uspcr ON uspci.row_id = uspcr.id 
+					AND uspcr.div_id = :div_id 
+					AND uspcr.site_id = :site_id 
+					AND uspcr.page_id = :page_id 
+				JOIN designer_content_type dct 
+					ON uspci.content_type = dct.id 
+					AND dct.`name` = 'heading'
+				WHERE uspci.site_id = :site_id 
+				AND uspci.page_id = :page_id 
+				AND uspci.row_id  = :content_row_id
+				AND uspci.id = :content_id 
+				LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_type', $content_type, PDO::PARAM_STR);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->execute();

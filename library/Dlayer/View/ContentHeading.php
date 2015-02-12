@@ -109,12 +109,21 @@ class Dlayer_View_ContentHeading extends Zend_View_Helper_Abstract
 		*/
 		$id = 'heading:heading:' . $this->view->escape(
 			$this->data['content_id']);
+		$class = 'item c_item_' .  $this->view->escape(
+			$this->data['content_id']);
+			
+		if($this->selectable == TRUE) {
+			if($this->selected == FALSE) {
+				$class .= ' selectable';
+			} else {
+				$class .= ' selected-item';
+			}
+		}
 		
 		$html = '';
 		
 		$html .= '<div class="col-md-12">';
-		$html .= '<' . $tag . ' class="item c_item_' . $this->view->escape(
-			$this->data['content_id']) . '" id="' . $id . '">';
+		$html .= '<' . $tag . ' class="' . $class . '" id="' . $id . '">';
 		$html .= $this->view->escape($this->data['content']);
 		$html .= '</' . $tag . '>';
 		$html .= '</div>';
