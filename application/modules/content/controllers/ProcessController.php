@@ -135,8 +135,6 @@ class Content_ProcessController extends Zend_Controller_Action
 	*/
 	public function autoToolAction()
 	{
-		var_dump($_POST);
-		
 		$site_id = $this->session_dlayer->siteId();
 		$page_id = $this->checkPageIdValid($_POST['page_id']);
 		$div_id = $this->checkDivIdValid($_POST['div_id'], $page_id);
@@ -153,7 +151,7 @@ class Content_ProcessController extends Zend_Controller_Action
 		$this->tool_class = new $tool_class();
 		
 		// Run the tool if validation passes
-		if($this->tool_class->validate($_POST['params'], $site_id, 
+		if($this->tool_class->autoValidate($_POST['params'], $site_id, 
 			$page_id, $div_id) == TRUE) {
 				
 				/**
@@ -163,8 +161,8 @@ class Content_ProcessController extends Zend_Controller_Action
 				* row, delete row needs to clear the ids but also reset the 
 				* content area id
 				*/
-				$return_ids = $this->tool_class->process($site_id, $page_id, 
-				$div_id, NULL);
+				$return_ids = $this->tool_class->authProcess($site_id, 
+					$page_id, $div_id, NULL);
 				
 				var_dump($return_ids); die;
 				
