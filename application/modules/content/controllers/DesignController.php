@@ -150,7 +150,13 @@ class Content_DesignController extends Zend_Controller_Action
 			$ribbon = new Dlayer_Ribbon();
 
 			if($this->session_content->divId() != NULL) {
-				$html = $this->view->render($ribbon->selectedViewScriptPath());
+				if($this->session_content->contentRowId() == NULL) {
+					$html = $this->view->render(
+						$ribbon->cmSelectedAreaViewScriptPath());
+				} else {
+					$html = $this->view->render(
+						$ribbon->cmSelectedRowViewScriptPath());
+				}
 			} else {
 				$html = $this->view->render($ribbon->defaultViewScriptPath());
 			}
