@@ -312,6 +312,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 				$this->view->color_picker_data = $this->colorPickerData();
 				$this->view->div_id = $this->session_content->divId();
+				$this->view->page_id = $this->session_content->pageId();
 				$this->view->data = $ribbon_tab->viewData($module, $tool,
 					$tab, $multi_use, $edit_mode);
 				$this->view->edit_mode = $edit_mode;

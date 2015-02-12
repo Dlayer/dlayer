@@ -25,6 +25,12 @@ foreach($this->tools as $group) {
 			$show = TRUE;
 		}
 		
+		// Hide content row tool is content row selected
+		if($this->div_id != NULL && $this->content_row_id != NULL 
+			&& $tool['tool'] == 'content-row') {
+			$show = FALSE;
+		}
+		
 		// Set selected status for tool
 		if($this->tool['tool'] == $tool['tool']) {
 			$selected = TRUE;
