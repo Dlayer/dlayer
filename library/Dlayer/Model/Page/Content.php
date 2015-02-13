@@ -10,6 +10,33 @@
 class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 {
 	/**
+	* Add a new content row to the requested content area (div id)
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @return integer Id of the newly created content row
+	*/
+	public function addContentRow($site_id, $page_id, $div_id) 
+	{
+		$sort_order = $this->newSortOrderValue($site_id, $page_id, $div_id, 
+			'user_site_page_content_rows');
+			
+		$sql = 'INSERT INTO user_site_page_content_rows 
+				(site_id, page_id, div_id, sort_order) 
+				VALUES 
+				(:site_id, :page_id, :div_id, :sort_order)';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		return $this->_db->lastInsertId('user_site_page_content_rows');
+	}
+	
+	/**
 	* Add a new content item to the given page and page content block
 	*
 	* @param integer $site_id
@@ -38,23 +65,22 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 
 		return $this->_db->lastInsertId('user_site_page_content');
 	}
-
+	
 	/**
-	* Calculate the new sort order value, fetch the current MAX and then
-	* add one
-	*
-	* @todo This method wont be required later when a user can choose exactly
-	* where they want to insert the content block
-	*
+	* Calculate the new sort order value for the new content row or content 
+	* item, fetches the current MAX value and then increments by 1
+	* 
 	* @param integer $site_id
 	* @param integer $page_id
-	* @param integer $div_id
-	* @return integer New sort order value
+	* @param integer $div_id 
+	* @param string $table Table to run the query against
+	* @return integer New sort order
 	*/
-	private function newSortOrder($site_id, $page_id, $div_id)
+	private function newSortOrderValue($site_id, $page_id, $div_id, 
+		$table='user_site_page_content_item') 
 	{
 		$sql = "SELECT IFNULL(MAX(sort_order), 0) + 1 AS sort_order
-				FROM user_site_page_content
+				FROM {$table} 
 				WHERE site_id = :site_id
 				AND page_id = :page_id
 				AND div_id = :div_id";
@@ -63,10 +89,10 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
 		$stmt->execute();
-
+		
 		$result = $stmt->fetch();
 
-		return $result['sort_order'];
+		return intval($result['sort_order']);
 	}
 
 	/**

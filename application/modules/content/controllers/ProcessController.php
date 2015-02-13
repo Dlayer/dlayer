@@ -42,13 +42,13 @@ class Content_ProcessController extends Zend_Controller_Action
 	public function init()
 	{
 		$this->_helper->authenticate();
-		
+
 		$this->_helper->setModule();
-		
+
 		$this->_helper->validateSiteId();
-		
+
 		$this->_helper->validateTemplateId(TRUE);
-		
+
 		$this->_helper->disableLayout(FALSE);
 
 		$this->debug = $this->getInvokeArg('bootstrap')->getOption('debug');
@@ -89,31 +89,31 @@ class Content_ProcessController extends Zend_Controller_Action
 		if($tool == FALSE || ($_POST['tool'] != $tool['tool'])) {
 			$this->returnToDesigner(FALSE);
 		}
-		
+
 		// Check to see if we are in edit mode, if so we will have a content id
 		if(array_key_exists('content_id', $_POST) == FALSE) {
 			$content_id = NULL;
 		} else {
 			$content_id = $this->checkContentIdValid($_POST['content_id'],
-			$page_id, $div_id, $_POST['content_type']);
+				$page_id, $div_id, $_POST['content_type']);
 		}
-		
+
 		// Instantiate base tool or sub tool
 		$model_tools = new Dlayer_Model_Tool();
-		
+
 		if(array_key_exists('sub_tool_model', $_POST) == TRUE 
-		&& $model_tools->subToolValid($this->getRequest()->getModuleName(),
-		$tool['tool'], $_POST['sub_tool_model']) == TRUE) {
-			$tool_class = 'Dlayer_Tool_Content_' . $_POST['sub_tool_model'];
+			&& $model_tools->subToolValid($this->getRequest()->getModuleName(),
+				$tool['tool'], $_POST['sub_tool_model']) == TRUE) {
+				$tool_class = 'Dlayer_Tool_Content_' . $_POST['sub_tool_model'];
 		} else {
 			$tool_class = 'Dlayer_Tool_Content_' . $tool['model'];
 		}
-						
+
 		$this->tool_class = new $tool_class();
-		
+
 		// Run the tool if validation passes
 		if($this->tool_class->validate($_POST['params'], $site_id, 
-			$page_id, $div_id) == TRUE) {
+		$page_id, $div_id) == TRUE) {
 			$content_id = $this->tool_class->process($site_id, $page_id, 
 				$div_id, $content_id);
 			$this->returnToDesigner(TRUE);
@@ -121,8 +121,8 @@ class Content_ProcessController extends Zend_Controller_Action
 			$this->returnToDesigner(FALSE);
 		}
 	}
-	
-	 /**
+
+	/**
 	* Process method for the auto tools.
 	* 
 	* Simpler than the standard tool action because the auto tool action tools 
@@ -134,54 +134,75 @@ class Content_ProcessController extends Zend_Controller_Action
 	public function autoToolAction()
 	{
 		$site_id = $this->session_dlayer->siteId();
-		
+
 		$page_id = $this->validatePageId($_POST['page_id']);
 		$div_id = $this->validateDivId($_POST['div_id'], $page_id);		
 		$tool = $this->validateTool($_POST['tool']);
-		
+
 		// Instantiate the tool model for the requested tool
 		$tool_class = 'Dlayer_Tool_Content_' . $tool['model'];
 		$this->tool_class = new $tool_class();
-		
+
 		/**
 		* Run the validation meton on the requested tool, if the result comes 
 		* back as TRUE process the request
 		*/
 		if($this->tool_class->autoValidate($_POST['params'], $site_id, 
-			$page_id, $div_id, NULL) == TRUE) {
+		$page_id, $div_id, NULL) == TRUE) {
+
+			/**
+			* Auto tool can return multiple ids, session values are 
+			* cleared and then returned values are set
+			*/
+			$return_ids = $this->tool_class->autoProcess($site_id, 
+				$page_id, $div_id, NULL);
 				
-				/**
-				* Auto tool can return multiple ids, session values are 
-				* cleared and then returned values are set
-				*/
-				$return_ids = $this->tool_class->autoProcess($site_id, 
-					$page_id, $div_id, NULL);
-					
-				// Clear session vars
-				$this->session_content->clearAll();
+			//var_dump($return_ids); die;
+
+			// Clear session vars
+			$this->session_content->clearAll();
+
+			// Set new vars
+			foreach($return_ids as $id) {
 				
-				// Set new vars
+				//var_dump($id); die;
 				
-				var_dump($return_ids); die;
-				
-				$this->returnToDesigner(TRUE);
+				switch($id['type']) {
+					case 'div_id':
+						$this->session_content->setDivId($id['id']);
+						break;
+
+					case 'content_row_id':
+						$this->session_content->setContentRowId($id['id']);
+						break;
+						
+					default:
+						break;
+				}
+			}
+
+			$this->returnToDesigner(TRUE, FALSE);
 		} else {
 			$this->returnToDesigner(FALSE);
 		}
 	}
 
 	/**
-	* Redirect the user, were we redirect depends upon whether the previous
-	* request was successful. The redirect method is mainly for the auto tools,
-	* the manual tools just need to clear the session values
-	*
-	* @todo Maybe update this for when we don't want to keep everything 
-	* selected, maybe just the selected div
-	*
+	* Redirect the user back to the designer
+	* 
+	* The redirect will call the cancel tool to clear session values for
+	* most redirects but this can be overridden by the clear paramn
+	* 
+	* If the debug param is set this method will not redirect the user leaving 
+	* it on the process page, useful for debugging
+	* 
 	* @param boolean $success Whether the request is considered successful
+	* @param boolean $clear Do we want to clear params, only called by certain 
+	* 	single use tools, example being content row, we want to clear all 
+	* 	params but we set a couple before returning the user to the designer
 	* @return void
 	*/
-	public function returnToDesigner($success=TRUE)
+	public function returnToDesigner($success=TRUE, $clear=TRUE)
 	{
 		$multi_use = FALSE;
 
@@ -190,16 +211,20 @@ class Content_ProcessController extends Zend_Controller_Action
 		&& $_POST['params']['multi_use'] == 1) {
 			$multi_use = TRUE;
 		}
-
+		
 		if($this->debug == 0) {
 			if($multi_use == FALSE) {
-				$this->_redirect('content/design/set-tool/tool/cancel');
+				if($clear==TRUE) {
+					$this->_redirect('content/design/set-tool/tool/cancel');
+				} else {
+					$this->_redirect('content/design/');	
+				}
 			} else {
-				$this->_redirect('content/design/');
+				$this->_redirect('content/design/');			
 			}
 		}
 	}
-	
+
 	/**
 	* Check to ensure that the posted tools matches the tool defined in the 
 	* session
@@ -211,7 +236,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	private function validateTool($name) 
 	{
 		$tool = $this->session_content->tool();
-		
+
 		if($tool != FALSE && $tool['tool'] == $name) {
 			return $tool;
 		} else {
@@ -232,12 +257,12 @@ class Content_ProcessController extends Zend_Controller_Action
 	private function validatePageId($page_id)
 	{
 		$model_page = new Dlayer_Model_Page();
-		
+
 		if($this->session_content->pageId() == $page_id && 
 			$model_page->valid($page_id, 
-			$this->session_dlayer->siteId()) == TRUE) {
-			
-			return intval($page_id);
+				$this->session_dlayer->siteId()) == TRUE) {
+
+				return intval($page_id);
 		} else {
 			$this->returnToDesigner(FALSE);
 		}
@@ -256,16 +281,16 @@ class Content_ProcessController extends Zend_Controller_Action
 	private function validateDivId($div_id, $page_id)
 	{
 		$model_page = new Dlayer_Model_Page();
-		
+
 		if($this->session_content->divId() == $div_id && 
-			$model_page->divValid($div_id, $page_id) == TRUE) {
-			
+		$model_page->divValid($div_id, $page_id) == TRUE) {
+
 			return intval($div_id);
 		} else {
 			$this->returnToDesigner(FALSE);
 		}
 	}
-	
+
 	/**
 	* Validate the tool posted in the request, needs to match the tool set in 
 	* the session	
@@ -284,7 +309,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	*                      cancelling their request
 	*/
 	private function checkContentIdValid($content_id, $page_id, $div_id,
-	$content_type)
+		$content_type)
 	{
 		$model_page = new Dlayer_Model_Page();
 		if($model_page->contentValid($content_id, $page_id, $div_id,

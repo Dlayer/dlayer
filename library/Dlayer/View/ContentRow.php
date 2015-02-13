@@ -190,8 +190,8 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 				if(strlen($content) != 0) {
 					$row_content = $content;
 				} else {
-					$row_content = '<h3>Content row 
-					<small>Add content items to this row</small></h3>';
+					$row_content = '<div class="col-md-12"><h3>Content row 
+					<small>Add content items to this row</small></h3></div>';
 				}
 				
 				$html .= "<div id=\"content_row_{$content_row['id']}\" ";

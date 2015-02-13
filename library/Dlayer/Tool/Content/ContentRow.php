@@ -75,8 +75,8 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	* @param integer $div_id 
 	* @param integer|NULL $content_row_id
 	* @param integer|NULL $content_id
-	* @return array Multiple ids can be returned, reset will be called first 
-	* 	and then array values set
+	* @return array|void Multiple ids can be returned, reset will be called 
+	* 	first and then array values set
 	*/
 	public function autoProcess($site_id, $page_id, $div_id, 
 		$content_row_id=NULL) 
@@ -84,17 +84,10 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 		if($this->validated_auto == TRUE) {
 			$content_row_id = $this->addContentRow($site_id, $page_id, $div_id);
 			
-			//return array('area'=>$div_id, ');
-			
-			
-			if($content_id == NULL) {
-				$content_id = $this->addContentItem($site_id, $page_id, $div_id,
-				$this->content_type);
-			} else {
-				$this->editContentItem($site_id, $page_id, $content_id);
-			}
-
-			return $content_id;
+			return array(
+				array('type'=>'div_id', 'id'=>$div_id), 
+				array('type'=>'content_row_id', 'id'=>$content_row_id)
+			);
 		}
 	}
 
@@ -138,6 +131,22 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	*/
 	protected function prepare(array $params) 
 	{
+		return array();
+	}
+	
+	/**
+	* Add a new content row to the page div id, gets added after any existing 
+	* content rows
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id 
+	* @return integer Id of the newly created content row
+	*/
+	private function addContentRow($site_id, $page_id, $div_id) 
+	{
+		$model_content = new Dlayer_Model_Page_Content();
 		
+		return $model_content->addContentRow($site_id, $page_id, $div_id);
 	}
 }
