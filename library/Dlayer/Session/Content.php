@@ -242,6 +242,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	public function clearAll($reset=FALSE) 
 	{
 		$this->div_id = NULL;
+		$this->content_row_id = NULL;
 		$this->content_id = NULL;
 		$this->tool = NULL;
 		$this->tab = NULL;
