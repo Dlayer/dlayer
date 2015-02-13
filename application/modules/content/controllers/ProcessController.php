@@ -161,7 +161,7 @@ class Content_ProcessController extends Zend_Controller_Action
 				* row, delete row needs to clear the ids but also reset the 
 				* content area id
 				*/
-				$return_ids = $this->tool_class->authProcess($site_id, 
+				$return_ids = $this->tool_class->autoProcess($site_id, 
 					$page_id, $div_id, NULL);
 				
 				var_dump($return_ids); die;

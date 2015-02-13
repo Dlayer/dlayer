@@ -6,20 +6,19 @@
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_Tool_Content_Text extends Dlayer_Tool_Module_Content
+class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 {
-	protected $content_type = '';
-
 	/**
-	* Not used by the this tool
-	*
+	* Not used by this tool
+	* 
 	* @param integer $site_id
-	* @param integer $page_id
+	* @param integer $page_id 
 	* @param integer $div_id
-	* @param integer|NULL $content_id
-	* @return 
+	* @param integer $content_row_id
+	* @param integer|NULL $content_id 
+	* @return integer Id of the content item either created or being edited
 	*/
-	public function process($site_id, $page_id, $div_id,
+	public function process($site_id, $page_id, $div_id, $content_row_id, 
 		$content_id=NULL)
 	{
 		// Not used by this tool
@@ -27,41 +26,53 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Module_Content
 
 	/**
 	* Not used by this tool
-	* 
-	* @param array $params Params $_POST array
+	*
+	* @param array $params
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
-	* @return boolean TRUE if requested is valid, also sets the $this->params
-	*                 property and set $this->validated to TRUE
+	* @param integer $content_row_id
+	* @return boolean
 	*/
-	public function validate(array $params = array(), $site_id, $page_id,
-		$div_id)
+	public function validate(array $params, $site_id, $page_id, $div_id, 
+		$content_row_id)
 	{
 		// Not used by this tool
-
-		return FALSE;
 	}
 
 	/**
-	* Validate the submitted data, if valid the tool processes the request
-	* 
-	* @param array $params Params $_POST array
+	* Check to see that the posted values are valid, in this case the site_id, 
+	* div_id and page idm no other values need to be posted for the tool
+	*
+	* @param array $params
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
-	* @return boolean TRUE if requested is valid, also sets the 
-	* 	$this->params_auto property and sets $this->validated_auto to TRUE
+	* @param integer|NULL $content_row_id
+	* @return boolean
 	*/
-	public function autoValidate(array $params = array())
+	public function autoValidate(array $params, $site_id, $page_id, $div_id, 
+		$content_row_id=NULL) 
 	{
-		// Not currently used by tool, may be used by the presets later
 		return FALSE;
 	}
-
-	public function autoProcess($site_id, $page_id, $div_id, $content_id=NULL)
+	
+	/**
+	* Add the new content row, gets placed after any existing content rows in 
+	* the selected content area
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id 
+	* @param integer|NULL $content_row_id
+	* @param integer|NULL $content_id
+	* @return array Multiple ids can be returned, reset will be called first 
+	* 	and then array values set
+	*/
+	public function autoProcess($site_id, $page_id, $div_id, 
+		$content_row_id=NULL) 
 	{
-		// Not currently used by tool, may be used by the presets later
+		return array();
 	}
 
 	/**
@@ -95,14 +106,15 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Module_Content
 	}
 
 	/**
-	* Prepare the data, convert the values to the correct data types and trim
-	* any string values
+	* Prepare the data for the process method. Converts all the data to the 
+	* correct content types once the two validation functions have been 
+	* run
 	*
-	* @param array $params Params array to prepare
+	* @param array $params
 	* @return array Prepared data array
 	*/
-	protected function prepare(array $params)
+	protected function prepare(array $params) 
 	{
-		return array();
+		
 	}
 }
