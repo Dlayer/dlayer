@@ -233,10 +233,13 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	/**
 	* Clears the session values for the content manager, these are the vars 
 	* that relate to the current state of the designer, selected div, 
-	* content item and tool and tool tab, leaves page_id and template_id set, 
-	* just resets the state of the designer.
+	* content row, content item, tool and tab.
 	* 
-	* @param boolean $reset If TRUE also clears page_id and template_id
+	* The page id and template id are left set, essentially the state of the 
+	* designer is reset back to default
+	* 
+	* @param boolean $reset If set to TRUE all the content session values are 
+	* 	cleared, this will include the page id and then template id
 	* @return void
 	*/
 	public function clearAll($reset=FALSE) 

@@ -42,8 +42,6 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$this->_helper->validateTemplateId(TRUE);
 
-		$this->_helper->validateContentId();
-
 		$this->session_dlayer = new Dlayer_Session();
 		$this->session_content = new Dlayer_Session_Content();
 

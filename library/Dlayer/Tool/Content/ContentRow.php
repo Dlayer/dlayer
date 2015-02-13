@@ -54,7 +54,16 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	public function autoValidate(array $params, $site_id, $page_id, $div_id, 
 		$content_row_id=NULL) 
 	{
-		return FALSE;
+		if($this->validateValues($params) == TRUE && 
+			$this->validateData($params, $site_id, $page_id, $div_id) == TRUE) {
+			
+			$this->params_auto = $this->prepare($params);
+			$this->validated_auto = TRUE;
+			
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 	
 	/**
@@ -72,7 +81,21 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	public function autoProcess($site_id, $page_id, $div_id, 
 		$content_row_id=NULL) 
 	{
-		return array();
+		if($this->validated_auto == TRUE) {
+			$content_row_id = $this->addContentRow($site_id, $page_id, $div_id);
+			
+			//return array('area'=>$div_id, ');
+			
+			
+			if($content_id == NULL) {
+				$content_id = $this->addContentItem($site_id, $page_id, $div_id,
+				$this->content_type);
+			} else {
+				$this->editContentItem($site_id, $page_id, $content_id);
+			}
+
+			return $content_id;
+		}
 	}
 
 	/**
@@ -85,7 +108,7 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	*/
 	private function validateValues(array $params = array())
 	{
-		// No data in the params array for this tool
+		// No additional data to validate
 		return TRUE;
 	}
 
