@@ -117,6 +117,11 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 		$div_id->setValue($this->div_id);
 
 		$this->elements['div_id'] = $div_id;
+		
+		$content_row_id = new Zend_Form_Element_Hidden('content_row_id');
+		$content_row_id->setValue($this->content_row_id);
+
+		$this->elements['content_row_id'] = $content_row_id;
 
 		$tool = new Zend_Form_Element_Hidden('tool');
 		$tool->setValue($this->tool);

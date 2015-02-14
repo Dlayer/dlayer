@@ -58,32 +58,36 @@ class Content_ProcessController extends Zend_Controller_Action
 	}
 
 	/**
-	* Process method for all manuakl tools, tools for which the user needs to 
-	* supply data.
+	* Process method for all the manual tools, tools where the user will be 
+	* supplying data.
 	* 
-	* First check to ensure the posted tool and environment values are correct, 
-	* tool is then validated and a check is also made to see if a sub tool is 
-	* being used.
+	* We initially check to ensure that all the posted environment params 
+	* match what is in the session and also that all the posted values are 
+	* valid
 	* 
-	* Once the tool has been confirmed to be valid the submitted params are 
-	* validated, first check ensures the correct values are posted, second 
-	* check looks at the values themselves and where necessary the data.
+	* Once the posted required has been confirmed as valid the submitted params 
+	* are validated by the tool class, initially to ensure the correct 
+	* fields have been posted and then to ensure that the posted values 
+	* are valid or within the expected range
 	* 
-	* Assuming all the submitted data is valid the data is passed to the tool 
-	* and then the process method is called.
+	* Assuming all the posted data is valid the process method for the tool is 
+	* called, the process method handles all database changes
 	* 
-	* In all cases the user is returned back the designer, how depends on 
-	* whether the request is valid and the return params for the tool.
+	* In all cases the user is returned back to the designer, the only 
+	* difference in whether state is maintained, that depends both on whether 
+	* the request was valid and the multi use param for the tool
 	*
-	* @return void
+	* @return void Redirect the user back to the designer
 	*/
 	public function toolAction()
 	{
 		$site_id = $this->session_dlayer->siteId();
-		$page_id = $this->checkPageIdValid($_POST['page_id']);
-		$div_id = $this->checkDivIdValid($_POST['div_id'], $page_id);
 
-		$tool = $this->session_content->tool();
+		$page_id = $this->validatePageId($_POST['page_id']);
+		$div_id = $this->validateDivId($_POST['div_id'], $page_id);
+		$content_row_id = $this->validateContentRowId(
+			$_POST['content_row_id'], $div_id, $page_id);
+		$tool = $this->validateTool($_POST['tool']);
 
 		// Check posted tool matches the tool currently set in the session
 		if($tool == FALSE || ($_POST['tool'] != $tool['tool'])) {
@@ -290,9 +294,29 @@ class Content_ProcessController extends Zend_Controller_Action
 	}
 
 	/**
-	* Validate the tool posted in the request, needs to match the tool set in 
-	* the session	
+	* Validate the posted content row id, needs to match the value stored in 
+	* the session and also belong to the page, div_id and lastly site
+	* 
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @return integer|void Either returns the intval for the content row id 
+	* 	or redirects the user back to the designer after calling the cancel 
+	* 	tool
 	*/
+	private function validateContentRowId($page_id, $div_id, $content_row_id) 
+	{
+		$model_content = new Dlayer_Model_Page_Content();
+		
+		if($this->session_content->contentRowId() == $content_row_id && 
+			$model_content->validContentRowId($this->session_dlayer->siteId(), 
+				$page_id, $div_id, $content_row_id) == TRUE) {
+			
+			return intval($content_row_id);
+		} else {
+			$this->returnToDesigner(FALSE);
+		}
+	}
 
 	/**
 	* Check to see if the content id is valid. The content id has to
