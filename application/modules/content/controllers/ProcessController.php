@@ -165,8 +165,6 @@ class Content_ProcessController extends Zend_Controller_Action
 			// Set new vars
 			foreach($return_ids as $id) {
 				
-				//var_dump($id); die;
-				
 				switch($id['type']) {
 					case 'div_id':
 						$this->session_content->setDivId($id['id']);
