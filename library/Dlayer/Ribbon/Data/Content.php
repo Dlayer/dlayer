@@ -93,9 +93,11 @@ class Dlayer_Ribbon_Data_Content
 		switch($this->tab) {
 			case 'heading':
 				$ribbon_heading = new Dlayer_Ribbon_Content_Heading();
+				
 				$data = $ribbon_heading->viewData($this->site_id, 
 					$this->page_id, $this->div_id, $this->tool, $this->tab, 
-					$this->multi_use, $this->content_id, $this->edit_mode);
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
 				break;
 
 			case 'styling':            
