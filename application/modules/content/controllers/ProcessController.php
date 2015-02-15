@@ -88,21 +88,11 @@ class Content_ProcessController extends Zend_Controller_Action
 		$content_row_id = $this->validateContentRowId(
 			$_POST['content_row_id'], $div_id, $page_id);
 		$tool = $this->validateTool($_POST['tool']);
-
-		// Check posted tool matches the tool currently set in the session
-		if($tool == FALSE || ($_POST['tool'] != $tool['tool'])) {
-			$this->returnToDesigner(FALSE);
-		}
-
-		// Check to see if we are in edit mode, if so we will have a content id
-		if(array_key_exists('content_id', $_POST) == FALSE) {
-			$content_id = NULL;
-		} else {
-			$content_id = $this->checkContentIdValid($_POST['content_id'],
-				$page_id, $div_id, $_POST['content_type']);
-		}
-
-		// Instantiate base tool or sub tool
+		$content_id = $this->contentId($site_id, $page_id, $div_id, 
+			$content_row_id, $_POST);
+			
+		// Instantiate the tool class, checks to see if we are instantiating 
+		// a base tool or sub tool
 		$model_tools = new Dlayer_Model_Tool();
 
 		if(array_key_exists('sub_tool_model', $_POST) == TRUE 
@@ -115,15 +105,41 @@ class Content_ProcessController extends Zend_Controller_Action
 
 		$this->tool_class = new $tool_class();
 
-		// Run the tool if validation passes
-		if($this->tool_class->validate($_POST['params'], $site_id, 
-		$page_id, $div_id) == TRUE) {
+		// Run the process method for the tool if the validation passes
+		if($this->tool_class->validate($_POST['params'], $site_id, $page_id, 
+			$div_id, $content_row_id, $content_id) == TRUE) {
+				
 			$content_id = $this->tool_class->process($site_id, $page_id, 
-				$div_id, $content_id);
+				$div_id, $content_row_id, $content_id);
+				
 			$this->returnToDesigner(TRUE);
 		} else {
 			$this->returnToDesigner(FALSE);
 		}
+	}
+	
+	/**
+	* Check for a content id in the posted data array, if found check that it 
+	* is valid.
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id 
+	* @param integer $content_row_id
+	* @param array $post Posted data array
+	* @return integer|NULL The content id or NULL
+	*/
+	private function contentId($site_id, $page_id, $div_id, $content_row_id, 
+		$post) 
+	{
+		if(array_key_exists('content_id', $post) == FALSE) {
+			$content_id = NULL;
+		} else {
+			$content_id = $this->checkContentIdValid($post['content_id'],
+				$page_id, $div_id, $post['content_type']);
+		}
+		
+		return $content_id;
 	}
 
 	/**
@@ -319,23 +335,26 @@ class Content_ProcessController extends Zend_Controller_Action
 	}
 
 	/**
-	* Check to see if the content id is valid. The content id has to
-	* belong to the requested page, be for the requested div and also be the
-	* correct type of content
-	*
-	* @param integer $content_id
+	* Check to see if the content id valid, it needs to belong to the 
+	* content row id, div id, page and site
+	* 
+	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer $content_id
 	* @param string $content_type
-	* @return integer|void Returns the valid content id or redirects the user
-	*                      cancelling their request
+	* @return integer|void Either retruns the content id or redirects the 
+	* 	user back to the designer after calling the cancel tool
 	*/
-	private function checkContentIdValid($content_id, $page_id, $div_id,
-		$content_type)
+	private function validateContentId($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id, $content_type)
 	{
 		$model_page = new Dlayer_Model_Page();
-		if($model_page->contentValid($content_id, $page_id, $div_id,
-		$content_type) == TRUE) {
+		
+		if($model_page->contentIdValid($site_id, $page_id, $div_id, 
+			$content_row_id, $content_id, $content_type) == TRUE) {
+				
 			return intval($content_id);
 		} else {
 			$this->returnToDesigner(FALSE);

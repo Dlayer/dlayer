@@ -73,28 +73,37 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Check to see if the content is valid. The content id needs to belong to
-	* the requested page, be for the requested div and be for the correct
-	* content type
-	*
-	* @param integer $content_id
-	* @param integer $page_id
+	* Check to see if the content id is valid, needs to be a child of all the
+	* supplied params and also be the correct content type
+	* 
+	* @param integer $site_id
+	* @param integer $page_id 
 	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer $content_id
 	* @param string $content_type
-	* @return boolean TRUE if the content id is valid
+	* @return boolean Returns TRUE if the content id is valid, FALSE otherwise
 	*/
-	public function contentValid($content_id, $page_id, $div_id, $content_type)
+	public function contentIdValid($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id, $content_type)
 	{
-		$sql = "SELECT uspc.id
-				FROM user_site_page_content uspc
-				WHERE uspc.page_id = :page_id
-				AND uspc.div_id = :div_id
-				AND uspc.id = :content_id
-				AND uspc.content_type = (SELECT id FROM designer_content_types
-				WHERE `name` = :content_type)";
+		$sql = "SELECT uspci.id 
+				FROM user_site_page_content_item uspci 
+				JOIN user_site_page_content_rows uscr ON uspci.row_id = uscr.id 
+					AND uscr.site_id = :site_id 
+					AND uscr.page_id = :page_id 
+					AND uscr.div_id = :div_id 
+					AND uscr.id = :content_row_id 
+				JOIN designer_content_type dct ON uspci.content_type = dct.id  
+					AND dct.name = :content_type 
+				WHERE uspci.site_id = :site_id 
+				AND uspci.page_id = :page_id 
+				AND uspci.id = :content_id";
 		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_type', $content_type, PDO::PARAM_STR);
 		$stmt->execute();

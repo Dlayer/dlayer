@@ -59,10 +59,11 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 	* @param integer $page_id
 	* @param integer $div_id
 	* @param integer $content_row_id
+	* @param integer|NULL $content_id 
 	* @return boolean
 	*/
 	abstract public function validate(array $params, $site_id, $page_id, 
-		$div_id, $content_row_id);
+		$div_id, $content_row_id, $content_id=NULL);
 
 	/**
 	* Validate the posted values, run before the process method is called. 

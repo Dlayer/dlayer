@@ -32,6 +32,7 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	* @param integer $page_id
 	* @param integer $div_id
 	* @param integer $content_row_id
+	* @param integer|NULL $content_id
 	* @return boolean
 	*/
 	public function validate(array $params, $site_id, $page_id, $div_id, 
