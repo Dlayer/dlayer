@@ -1,18 +1,26 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<h2>Create heading content item</h2>
-
-<p>This tool allows you to add or edit a heading content item, when adding a 
-new heading item you define the heading text, margin values, container width 
-and also the heading type, the heading type dictates the styling.</p>
-
-<p>The margin and width values will be defaulted based upon the size of the 
-page container, the values will also be validated when the tool is being 
-processed, you cannot add a content container which is larger than the page 
-container.</p>
-
-<p>In edit mode you will be able to define the styling for the content 
-container and also the formatting for the heading, this will override the 
-styles defined for the selected heading type. The styles for each of the 
-heading types can be updated in the 
-<a href="/content/settings/headings">Content manager settings.</a></p>
+<div class="col-xs-12">
+	<h3>Help <small>Create a new heading content item</small></h3>	
+	
+	<p>This tool allows you to add or edit a heading content item, to add a 
+		heading content item you need to define the heading text, an internal 
+		name to identity the text by, the heading type and optionally some sub 
+		heading text. If defined the sub heading text will display after the 
+		heading text in a smaller and lighter style.</p>
+		
+	<p>Initially the new heading content item will span the entire width of 
+		the row, if there are already content items in the row and there is 
+		space the heading content item will initially take up the remaining 
+		space otherwise it will drop below the other content items.</p>
+		
+	<p>The width and position of the heading content item can be managed 
+		via the size and position tab when you are in edit mode, in edit 
+		mode you will have access to all the sub tools.</p>
+		
+	<p class="dev-note bg-info">The styling for the heading types is 
+		defined within the settings, although you can override the styling 
+		on a per heading basis it makes much more sense to update the base 
+		settings, this will ensure all your headings are consistent. 
+		(Sub tools still in development)</p>
+</div>
