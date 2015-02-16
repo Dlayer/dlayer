@@ -228,18 +228,27 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	}
 
 	/**
-	* Edit the existing heading, just need to edit the heading data, no need
-	* to edit the base content heading data
+	* Edit the data for the selected content item, there is no need to edit the 
+	* base item definition data, only the data specific to the heading content 
+	* type
 	*
 	* @param integer $site_id
 	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
 	* @param integer $content_id
-	* @return void
+	* @return void 
 	*/
-	private function editContentItem($site_id, $page_id, $content_id)
+	private function editContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id)
 	{
 		$model_headiing = new Dlayer_Model_Page_Content_Items_Heading();
-		$model_headiing->editContentItemData($site_id, $page_id, $content_id,
-			$this->params);
+		
+		
+		/**
+		* Here
+		*/
+		$model_headiing->editContentItemData($site_id, $page_id, $div_id, 
+			$content_row_id, $content_id, $this->params);
 	}
 }

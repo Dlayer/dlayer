@@ -136,7 +136,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 		if(array_key_exists('id', $this->content_item) == TRUE 
 		&& $this->content_item['id'] != FALSE) {
 			$content_id = new Zend_Form_Element_Hidden('content_id');
-			$content_id->setValue($this->existing_data['id']);
+			$content_id->setValue($this->content_item['id']);
 
 			$this->elements['content_id'] = $content_id;
 		}

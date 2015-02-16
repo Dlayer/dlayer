@@ -52,21 +52,20 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Module_Content
 	*/
 	protected function contentItem()
 	{
-		$data = array('id'=>FALSE, 'heading'=>FALSE, 'pading_top'=>FALSE, 
-			'padding_bottom'=>FALSE, 'padding_left'=>FALSE, 'heading_id'=>FALSE, 
-			'width'=>FALSE);
-			
-		return $data;
+		$data = array('id'=>FALSE, 'name'=>FALSE, 'heading'=>FALSE, 
+			'heading_id'=>FALSE);
 
-		/*if($this->content_id != NULL) {
+		if($this->content_id != NULL) {
 			$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
-			$set_data = $model_heading->formData($this->content_id, $this->site_id,
-				$this->page_id, $this->div_id);
+			
+			$set_data = $model_heading->formData($this->site_id, 
+				$this->page_id, $this->div_id, $this->content_row_id, 
+				$this->content_id);
 
 			if($set_data != FALSE) {
 				$data = $set_data;
 			}
-		}*/
+		}
 
 		return $data;
 	}

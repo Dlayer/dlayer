@@ -184,42 +184,45 @@ Dlayer_Model_Page_Content_Item
 	}
 
 	/**
-	* Fetch the heading data for the ribbon edit form
+	* Fetch the data for the content item being edited
 	*
-	* @param integer $content_id
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
-	* @return array|FALSE
+	* @param integer $content_row_id
+	* @param integer $content_id
+	* @return array|FALSE Returns either the data array or FALSE if no data 
+	* 	can be found
 	*/
-	public function formData($content_id, $site_id, $page_id, $div_id)
+	public function formData($site_id, $page_id, $div_id, $content_row_id, 
+		$content_id)
 	{
-		$sql = "SELECT uspc.id, usch.content AS heading, usch.`name`, 
-				uspch.padding_top, uspch.padding_bottom, uspch.heading_id, 
-				uspch.padding_left, uspch.width 
-				FROM user_site_page_content_heading uspch 
-				JOIN user_site_content_heading usch 
-					ON uspch.data_id = usch.id 
+		$sql = "SELECT uspci.id, usch.`name`, usch.content AS heading, 
+				uspcih.heading_id 
+				FROM user_site_page_content_item_heading uspcih 
+				JOIN user_site_page_content_item uspci ON uspcih.content_id = uspci.id 
+					AND uspci.site_id = :site_id
+					AND uspci.page_id = :page_id 
+					AND uspci.row_id = :content_row_id 
+					AND uspci.id = :content_id 
+				JOIN user_site_content_heading usch ON uspcih.data_id = usch.id 
 					AND usch.site_id = :site_id 
-				JOIN user_site_page_content uspc
-					ON uspch.content_id = uspc.id
-					AND uspc.div_id = :div_id
-				WHERE uspch.content_id = :content_id
-				AND uspch.site_id = :site_id
-				AND uspch.page_id = :page_id
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+				WHERE uspcih.site_id = :site_id 
+				AND uspcih.page_id = :page_id
+				AND uspcih.content_id = :content_id";
+		$stmt = $this->_db->prepare($sql);		
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		$result = $stmt->fetch();
 		
 		if($result != FALSE) {
-			$result['instances'] = $this->contentDataInstances($site_id, 
-			$content_id);
+			$result['instances'] = $this->contentDataInstances(
+				$site_id, $content_id);
+			
 			return $result;
 		} else {
 			return FALSE;
@@ -227,20 +230,21 @@ Dlayer_Model_Page_Content_Item
 	}
 	
 	/**
-	* Fetch the number of instances for the content data being used by 
-	* the selected heading content item
+	* Calculate the number of instances of the heading content item text 
+	* within the entire site
 	* 
 	* @param integer $site_id
 	* @param integer $content_id 
-	* @return integer Number of instances for content data
+	* @return integer Returns the count of the number of times the heading 
+	* 	text has been used within the site
 	*/
 	private function contentDataInstances($site_id, $content_id) 
 	{
-		$sql = "SELECT COUNT(uspch.id) AS instances 
-				FROM user_site_page_content_heading uspch 
-				WHERE uspch.site_id = :site_id 
-				AND uspch.data_id = (SELECT ref_data.data_id 
-				FROM user_site_page_content_heading ref_data 
+		$sql = "SELECT COUNT(uspcih.id) AS instances 
+				FROM user_site_page_content_item_heading uspcih 
+				WHERE uspcih.site_id = :site_id 
+				AND uspcih.data_id = (SELECT ref_data.data_id 
+				FROM user_site_page_content_item_heading ref_data 
 				WHERE ref_data.content_id = :content_id 
 				AND ref_data.site_id = :site_id)";
 		$stmt = $this->_db->prepare($sql);
