@@ -388,4 +388,29 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 			$stmt->execute();
 		}
 	}
+	
+	/**
+	* Check to make sure that the heading type id is valid
+	* 
+	* @param integer $id
+	* @return boolean
+	*/
+	public function headingTypeIdValid($id) 
+	{
+		$sql = 'SELECT id 
+				FROM designer_content_heading 
+				WHERE id = :id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 }

@@ -85,8 +85,8 @@ class Content_ProcessController extends Zend_Controller_Action
 
 		$page_id = $this->validatePageId($_POST['page_id']);
 		$div_id = $this->validateDivId($_POST['div_id'], $page_id);
-		$content_row_id = $this->validateContentRowId(
-			$_POST['content_row_id'], $div_id, $page_id);
+		$content_row_id = $this->validateContentRowId($page_id, $div_id, 
+			$_POST['content_row_id']);
 		$tool = $this->validateTool($_POST['tool']);
 		$content_id = $this->contentId($site_id, $page_id, $div_id, 
 			$content_row_id, $_POST);
@@ -104,14 +104,16 @@ class Content_ProcessController extends Zend_Controller_Action
 		}
 
 		$this->tool_class = new $tool_class();
-
-		// Run the process method for the tool if the validation passes
+		
 		if($this->tool_class->validate($_POST['params'], $site_id, $page_id, 
 			$div_id, $content_row_id, $content_id) == TRUE) {
 				
-			$content_id = $this->tool_class->process($site_id, $page_id, 
+			$content_id = $this->tool_class->process($site_id, $page_id,
 				$div_id, $content_row_id, $content_id);
 				
+			$this->session_content->setContentId($content_id, 
+				$_POST['content_type']);
+
 			$this->returnToDesigner(TRUE);
 		} else {
 			$this->returnToDesigner(FALSE);
@@ -176,8 +178,6 @@ class Content_ProcessController extends Zend_Controller_Action
 			*/
 			$return_ids = $this->tool_class->autoProcess($site_id, 
 				$page_id, $div_id, NULL);
-				
-			//var_dump($return_ids); die;
 
 			// Clear session vars
 			$this->session_content->clearAll();

@@ -19,7 +19,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	*/
 	public function addContentRow($site_id, $page_id, $div_id) 
 	{
-		$sort_order = $this->newSortOrderValue($site_id, $page_id, $div_id, 
+		$sort_order = $this->newRowSortOrderValue($site_id, $page_id, $div_id, 
 			'user_site_page_content_rows');
 			
 		$sql = 'INSERT INTO user_site_page_content_rows 
@@ -33,54 +33,57 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
 		$stmt->execute();
 		
-		return $this->_db->lastInsertId('user_site_page_content_rows');
+		return intval($this->_db->lastInsertId('user_site_page_content_rows'));
 	}
 	
 	/**
-	* Add a new content item to the given page and page content block
+	* Add a new content item into the content items table, this is not the 
+	* data for the item itself, just the base definition for an item, the 
+	* specific item data will be stored in a sub table
 	*
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
+	* @param integer $content_row_id
 	* @param string $content_type
-	* @return integer Id of new content item
+	* @return integer The Id of the newly created content item
 	*/
-	public function addContentItem($site_id, $page_id, $div_id, $content_type)
+	public function addContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_type)
 	{
-		$sort_order = $this->newSortOrder($site_id, $page_id, $div_id);
+		$sort_order = $this->newItemSortOrderValue($site_id, $page_id, 
+		$content_row_id);
 
-		$sql = "INSERT INTO user_site_page_content
-				(site_id, page_id, div_id, content_type, sort_order)
+		$sql = "INSERT INTO user_site_page_content_item 
+				(site_id, page_id, row_id, content_type, sort_order)
 				VALUES
-				(:site_id, :page_id, :div_id,
-				(SELECT id FROM designer_content_types
+				(:site_id, :page_id, :content_row_id,
+				(SELECT id FROM designer_content_type 
 				WHERE `name` = :content_type), :sort_order)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_type', $content_type, PDO::PARAM_STR);
 		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
 		$stmt->execute();
 
-		return $this->_db->lastInsertId('user_site_page_content');
+		return intval($this->_db->lastInsertId('user_site_page_content_item'));
 	}
 	
 	/**
-	* Calculate the new sort order value for the new content row or content 
-	* item, fetches the current MAX value and then increments by 1
+	* Calculate the new sort order value for the new content row, 
+	* fetches the current MAX value and then increments by 1
 	* 
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id 
-	* @param string $table Table to run the query against
 	* @return integer New sort order
 	*/
-	private function newSortOrderValue($site_id, $page_id, $div_id, 
-		$table='user_site_page_content_item') 
+	private function newRowSortOrderValue($site_id, $page_id, $div_id) 
 	{
 		$sql = "SELECT IFNULL(MAX(sort_order), 0) + 1 AS sort_order
-				FROM {$table} 
+				FROM user_site_page_content_rows 
 				WHERE site_id = :site_id
 				AND page_id = :page_id
 				AND div_id = :div_id";
@@ -88,6 +91,33 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+
+		return intval($result['sort_order']);
+	}
+	
+	/**
+	* Calculate the new sort order value for the new content item, 
+	* fetches the current MAX value and then increments by 1
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id 
+	* @return integer New sort order
+	*/
+	private function newItemSortOrderValue($site_id, $page_id, $content_row_id) 
+	{
+		$sql = "SELECT IFNULL(MAX(sort_order), 0) + 1 AS sort_order
+				FROM user_site_page_content_item 
+				WHERE site_id = :site_id
+				AND page_id = :page_id
+				AND row_id = :content_row_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
 		$stmt->execute();
 		
 		$result = $stmt->fetch();
@@ -120,6 +150,8 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
 		$stmt->execute();
+		
+		$result = $stmt->fetch();
 		
 		if($result != FALSE) {
 			return TRUE;

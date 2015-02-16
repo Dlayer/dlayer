@@ -1,236 +1,245 @@
 <?php
 /**
-* Add or edit a heading contet item, manages both the base content data for
-* the content item and the specific data for the heading item
+* Add or edit a heading content item
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Heading.php 1928 2014-06-12 13:53:38Z Dean.Blackborough $
 */
 class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 {
-    protected $content_type = 'heading';
+	protected $content_type = 'heading';
 
-    /**
-    * Add a new heading content block or edit the selected heading content
-    * block. This method uses the params array for the request, this data
-    * will have already been validated and prepared so the process method can
-    * just process the request
-    *
-    * @param integer $site_id
-    * @param integer $page_id
-    * @param integer $div_id
-    * @param integer|NULL $content_id
-    * @return integer The new content id or the given content id
-    */
-    public function process($site_id, $page_id, $div_id,
-    $content_id=NULL)
-    {
-        if($this->validated == TRUE) {
-            if($content_id == NULL) {
-                $content_id = $this->addContentItem($site_id, $page_id, $div_id,
-                $this->content_type);
-            } else {
-                $this->editContentItem($site_id, $page_id, $content_id);
-            }
+	/**
+	* Add a new heading content item or edit a selected one, a heading content 
+	* item is simply a string of text , the heading styling to use and an 
+	* optional sub heading
+	* 
+	* This method processes the request based on the value of 
+	* $this->validated, the data will have been previously validated and 
+	* prepared before this method was called
+	*
+	* @param integer $site_id
+	* @param integer $page_id 
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer|NULL $content_id 
+	* @return integer Either the id for the newly created content item or the 
+	* 	id of the content item being edited
+	*/
+	public function process($site_id, $page_id, $div_id, $content_row_id, 
+		$content_id=NULL)
+	{
+		if($this->validated == TRUE) {
+			if($content_id == NULL) {
+				$content_id = $this->addContentItem($site_id, $page_id, 
+					$div_id, $content_row_id, $this->content_type);
+			} else {
+				$this->editContentItem($site_id, $page_id, $div_id, 
+					$content_row_id, $content_id);
+			}
 
-            return $content_id;
-        }
-    }
+			return $content_id;
+		}
+	}
 
-    /**
-    * Check to see if the information supplied in the params array is valid,
-    * if valid the data is written to the $this->parans array and the
-    * $this->validated property is set to TRUE
-    *
-    * @param array $params Params $_POST array
-    * @param integer $site_id
-    * @param integer $page_id
-    * @param integer $div_id
-    * @return boolean TRUE if requested is valid, also sets the $this->params
-    *                 property and set $this->validated to TRUE
-    */
-    public function validate(array $params = array(), $site_id, $page_id,
-    $div_id)
-    {
-        if($this->validateValues($params) == TRUE &&
-        $this->validateData($params, $site_id, $page_id, $div_id) == TRUE) {
-            $this->params = $this->prepare($params);
-            $this->validated = TRUE;
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+	/**
+	* Check to see if the posted data us correct, first we check that all 
+	* the expected params are in the array and secondly that the values 
+	* themselves are valid format
+	* 
+	* If the data is valid it is passed to the prepared method to convert the 
+	* data to the correct types and then saved to $this->params array ready for 
+	* the process method
+	*
+	* @param array $params
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer|NULL $content_id 
+	* @return boolean
+	*/
+	public function validate(array $params, $site_id, $page_id, $div_id, 
+		$content_row_id, $content_id=NULL)
+	{
+		if($this->validateFields($params, $content_id) == TRUE && 
+			$this->validateValues($site_id, $page_id, $div_id, 
+				$content_row_id, $params, $content_id) == TRUE) {
+					
+			$this->params = $this->prepare($params);
+			$this->validated = TRUE;
+					
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 
-        return FALSE;
-    }
+	/**
+	* Validate the posted values, run before the process method is called. 
+	* If the result of the validation is TRUE, the internal validated property 
+	* is set to TRUE and all the params are passed to the prepare method
+	*
+	* @param array $params
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer|NULL $content_row_id
+	* @return boolean
+	*/
+	public function autoValidate(array $params, $site_id, $page_id, $div_id, 
+		$content_row_id=NULL) 
+	{
+		// Not used by this class
+	}
 
-    public function autoValidate(array $params = array())
-    {
-        // Not currently used by tool, may be used by the presets later
-        return FALSE;
-    }
+	/**
+	* Process the request for an auto tool, these generally manage the 
+	* structure of a page, content row id not always defined
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id 
+	* @param integer|NULL $content_row_id
+	* @param integer|NULL $content_id
+	* @return array Multiple ids can be returned, reset will be called first 
+	* 	and then array values set
+	*/
+	public function autoProcess($site_id, $page_id, $div_id, 
+		$content_row_id=NULL) 
+	{
+		// Not used by this class
+	}
 
-    public function autoProcess($site_id, $page_id, $div_id,
-    $content_id=NULL)
-    {
-        // Not currently used by tool, may be used by the presets later
-    }
-
-    /**
-    * Check that the required values have been posted through with the
-    * request, another method will validate the values themselves, no
-    * point attempting to validate the data is we don't have the correct
-    * data to start with
-    *
-    * @param array $params $_POSTed params data array
-    * @return boolean TRUE if the required values are in array
-    */
-    private function validateValues(array $params = array())
-    {
-        if(array_key_exists('name', $params) == TRUE && 
-        array_key_exists('heading', $params) == TRUE &&
-        array_key_exists('heading_type', $params) == TRUE &&
-        array_key_exists('padding_top', $params) == TRUE &&
-        array_key_exists('padding_bottom', $params) == TRUE &&
-        array_key_exists('padding_left', $params) == TRUE &&
-        array_key_exists('width', $params) == TRUE && 
-        $this->validateValuesEditMode($params) == TRUE) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-    
-    /**
-    * Check that all the required values exist for edit mode
-    * 
-    * @todo Need to pass edit_mode into the validate methods so that the 
-    * validate logic can be cleaned up
-    * 
-    * @param array $params $_POSTed params data array
-    * @return boolean TRUE if the required values are in array
-    */
-    private function validateValuesEditMode(array $params = array()) 
-    {
-    	/**
-    	* @todo Till I refactor, this is the only way to check edit mode 
-    	* in the validate methods
-    	*/
-		if(array_key_exists('content_container_id', $params) == TRUE) {
-			if(array_key_exists('instances', $params) == TRUE) {
+	/**
+	* Check that all the required values have been posted as part of the 
+	* params array. Another method will be called after this to ensure that 
+	* the values are of the correct type, no point doing the mnore complex 
+	* validation if the required values aren't provided
+	* 
+	* @param array $params 
+	* @param integer|NULL $content_id
+	* @return boolean Returns TRUE if all the expected values have been posted 
+	* 	as part of the request
+	*/
+	private function validateFields(array $params=array(), $content_id=NULL)
+	{
+		if(array_key_exists('name', $params) == TRUE && 
+		array_key_exists('heading', $params) == TRUE &&
+		array_key_exists('heading_type', $params) == TRUE) {
+			
+			if($content_id == NULL) {
 				return TRUE;
 			} else {
-				return FALSE;
+				if(array_key_exists('instances', $params) == TRUE) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
 			}
 		} else {
-			return TRUE;
+			return FALSE;
 		}
-    }
+	}
 
-    /**
-    * Check that the submitted data is all valid, both the format of the data
-    * and the values themselves
-    *
-    * Checks the following
-    *
-    * 1. There needs to be content for the heading
-    * 2. The heading container width needs to be greater than 0
-    * 3. The margin values need to be greater than or larger than 0
-    * 4. The width and left margin value need to be equal or less than the
-    * page div width
-    *
-    * @param array $params Params array to validte
-    * @param integer $site_id
-    * @param integer $page_id
-    * @param integer $div_id
-    * @return boolean TRUE if the values are valid
-    */
-    private function validateData(array $params=array(), $site_id, $page_id,
-    $div_id)
-    {
-        $model_divs = new Dlayer_Model_Template_Div();
-        $width = $model_divs->width($site_id, $div_id);
+	/**
+	* Check to ensure that all the submitted data is valid, it has to be of 
+	* the expected format or within an expected range
+	* 
+	* @param array $params Params array to validte
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param array $params Params array to validte
+	* @param integer|NULL $content_id
+	* @return boolean Returns TRUE if all the values are of the expected size 
+	* 	twpe and within range
+	*/
+	private function validateValues($site_id, $page_id, $div_id, 
+		$content_row_id, array $params=array(), $content_id=NULL)
+	{
+		$valid = FALSE;
+		$model_settings = new Dlayer_Model_Settings();
+		
+		if(strlen(trim($params['name'])) > 0 && 
+			strlen(trim($params['heading'])) > 0 && 
+			$model_settings->headingTypeIdValid(
+				$params['heading_type']) == TRUE) {
+			
+			$valid = TRUE;
+		}
+		
+		return $valid;
+	}
 
-        if(strlen(trim($params['name'])) > 0 && 
-        strlen(trim($params['heading'])) > 0 &&
-        intval($params['width']) > 0 &&
-        intval($params['padding_top']) >= 0 &&
-        intval($params['padding_bottom']) >= 0 &&
-        intval($params['padding_left']) >= 0 &&
-        (intval($params['width']) + intval($params['padding_left'])) <= $width) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-
-    /**
-    * Prepare the data, convert the values to the correct data types and trim
-    * any string values
-    *
-    * @param array $params Params array to prepare
-    * @return array Prepared data array
-    */
-    protected function prepare(array $params)
-    {
-        $prepared = array('heading'=>trim($params['heading']),
-        'width'=>intval($params['width']),
-        'heading_type'=>intval($params['heading_type']),
-        'padding_top'=>intval($params['padding_top']),
-        'padding_bottom'=>intval($params['padding_bottom']),
-        'padding_left'=>intval($params['padding_left']),
-        'name'=>trim($params['name']));
-        
-        if(array_key_exists('content_container_id', $params) == TRUE) {
-			$prepared['content_container_id'] = 
-			intval($params['content_container_id']);
+	/**
+	* Prepare the submitted data by converting the values into the correct 
+	* data types for the tool
+	*
+	* @param array $params
+	* @param integer|NULL $content_id
+	* @return array THe prepared data array
+	*/
+	protected function prepare(array $params, $content_id=NULL)
+	{
+		$prepared = array(
+			'heading'=>trim($params['heading']),
+			'name'=>trim($params['name']),
+			'heading_type'=>intval($params['heading_type']));
+			
+		if($content_id != NULL) {
 			if($params['instances'] == 1) {
 				$prepared['instances'] = TRUE;
 			} else {
 				$prepared['instances'] = FALSE;
 			}
-        }
-        
-        return $prepared;
-    }
+		}
 
-    /**
-    * Add a new heading content item, one the base content item has been added 
-    * the new id is used to add the data for the heading content item
-    *
-    * @param integer $site_id
-    * @param integer $page_id
-    * @param integer $div_id
-    * @param string $content_type
-    * @return integer Id for the new content item
-    */
-    private function addContentItem($site_id, $page_id, $div_id, $content_type)
-    {
-        $model_content = new Dlayer_Model_Page_Content();
-        $content_id = $model_content->addContentItem($site_id, $page_id, $div_id,
-        $content_type);
+		return $prepared;
+	}
 
-        $model_heading = new Dlayer_Model_Page_Content_Items_Heading();
-        $model_heading->addContentItemData($site_id, $page_id, $content_id,
-        $this->params);
+	/**
+	* Add a new heading content item.
+	* 
+	* A new content item is created in the content items table and then the 
+	* specific data to create the heading item is added to the heading sub 
+	* tables
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param string $content_type
+	* @return integer The id of the newly created content item
+	*/
+	private function addContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_type)
+	{
+		$model_content = new Dlayer_Model_Page_Content();
+		$content_id = $model_content->addContentItem($site_id, $page_id, 
+			$div_id, $content_row_id, $content_type);
 
-        return $content_id;
-    }
+		$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
+		$model_heading->addContentItemData($site_id, $page_id, $div_id, 
+			$content_row_id, $content_id, $this->params);
 
-    /**
-    * Edit the existing heading, just need to edit the heading data, no need
-    * to edit the base content heading data
-    *
-    * @param integer $site_id
-    * @param integer $page_id
-    * @param integer $content_id
-    * @return void
-    */
-    private function editContentItem($site_id, $page_id, $content_id)
-    {
-        $model_headiing = new Dlayer_Model_Page_Content_Items_Heading();
-        $model_headiing->editContentItemData($site_id, $page_id, $content_id,
-        $this->params);
-    }
+		return $content_id;
+	}
+
+	/**
+	* Edit the existing heading, just need to edit the heading data, no need
+	* to edit the base content heading data
+	*
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_id
+	* @return void
+	*/
+	private function editContentItem($site_id, $page_id, $content_id)
+	{
+		$model_headiing = new Dlayer_Model_Page_Content_Items_Heading();
+		$model_headiing->editContentItemData($site_id, $page_id, $content_id,
+			$this->params);
+	}
 }
