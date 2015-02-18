@@ -1,134 +1,70 @@
 <?php
 /**
-* Text ribbon data class, returns the form for the tab view script. If
-* in edit mode the form will be populated with the data for the text
+* Text content item data class, returns the form for the tool tab view script 
+* populated with the existing content item details if the tool is in edit mode
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Text.php 1949 2014-06-16 00:34:49Z Dean.Blackborough $
 */
 class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Module_Content
 {
-    /**
-    * Data method for the text tab, returns the form for the view
-    *
-    * @param integer $site_id
-    * @param integer $page_id
-    * @param integer $div_id
-    * @param string $tool Name of the selected tool
-    * @param string $tab Name of the selected tool tab
-    * @param integer $multi_use Multi use value for tool tab
-    * @param integer|NULL $content_id Selected content item
-    * @param boolean $edit_mode Is the tool tab in edit mode
-    * @return array|FALSE
-    */
-    public function viewData($site_id, $page_id, $div_id, $tool, $tab,
-    $multi_use, $content_id=NULL, $edit_mode=FALSE)
-    {
-        $this->writeParams($site_id, $page_id, $div_id, $tool, $tab,
-        $multi_use, $content_id, $edit_mode);
+	/**
+	* Data method for the tool tab, returns the form and any data required 
+	* to generate the preview functions
+	*
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param string $tool 
+	* @param string $tab 
+	* @param integer $multi_use 
+	* @param boolean $edit_mode
+	* @param integer|NULL $content_row_id
+	* @param integer|NULL $content_id 
+	* @return array|FALSE Either a data array for the tool tab view script or 
+	* 	FALSE if no data is required
+	*/
+	public function viewData($site_id, $page_id, $div_id, $tool, $tab, 
+		$multi_use, $edit_mode=FALSE, $content_row_id=NULL, $content_id=NULL)
+	{
+		$this->writeParams($site_id, $page_id, $div_id, $tool, $tab,
+			$multi_use, $edit_mode, $content_row_id, $content_id);
 
-        return array('form'=>new Dlayer_Form_Content_Text($this->page_id,
-        $this->div_id, $this->container(), $this->existingData(), 
-        $this->edit_mode, $this->multi_use), 'preview_data'=>$this->previewData());
-    }
+		return array('form'=>new Dlayer_Form_Content_Text($this->page_id,
+			$this->div_id, $this->content_row_id, $this->contentRow(), 
+			$this->contentItem(), $this->edit_mode, $this->multi_use));
+	}
+	
+	protected function contentRow() 
+	{
+		return array();
+	}
 
-    /**
-    * Fetch the values for the content item container. 
-    * 
-    * If the tool is in edit mode we return the current values otherwise 
-    * sensible defaults are calculated based on the parent page div.
-    *
-    * @return array
-    */
-    protected function container()
-    {
-        $model_div = new Dlayer_Model_Template_Div();
-        $width = $model_div->width($this->site_id, $this->div_id);
+	/**
+	* Fetch the data for the selected content block
+	*
+	* If a content id exists return a data array for the text item otherwise
+	* return an array with FALSE for each of the values, we do this so we 
+	* can easily default the values at a later point
+	*
+	* @return array
+	*/
+	protected function contentItem()
+	{	
+		$data = array('id'=>FALSE, 'name'=>FALSE, 'text'=>FALSE);
 
-        if($this->content_id == NULL) {
-            if($width > 20) {
-                return array('width'=>($width-20), 'padding'=>10);
-            } else {
-                return array('width'=>$width, 'padding'=>0);
-            }
-        } else {
-            $model_text = new Dlayer_Model_Page_Content_Items_Text();
-            $dimensions = $model_text->boxDimensions($this->content_id,
-            $this->site_id, $this->page_id, $this->div_id);
-            if($dimensions != FALSE) {
-                return array('width'=>$dimensions['width'],
-                'padding'=>$dimensions['padding']);
-            } else {
-                return array('width'=>$width, 'padding'=>0);
-            }
-        }
-    }
-    
-    /**
-    * Fetch the data for the selected content block
-    *
-    * If a content id exists return a data array for the text item otherwise
-    * return an array with FALSE for each of the values, we do this so we 
-    * can easily default the values at a later point
-    *
-    * @return array
-    */
-    protected function existingData()
-    {
-    	$data = array('id'=>FALSE, 'content'=>FALSE);
-    	
-        if($this->content_id != NULL) {        	
-        	$model_text = new Dlayer_Model_Page_Content_Items_Text();
-            $set_data = $model_text->formData($this->content_id, 
-            $this->site_id,$this->page_id, $this->div_id);
-        	
-            if($set_data != FALSE) {
+		if($this->content_id != NULL) {
+			$model_text = new Dlayer_Model_Page_Content_Items_Text();
+			
+			$set_data = $model_text->formData($this->site_id, 
+				$this->page_id, $this->div_id, $this->content_row_id, 
+				$this->content_id);
+
+			if($set_data != FALSE) {
 				$data = $set_data;
-            }
+			}
 		}
-		
+
 		return $data;
-    }
-    
-    /**
-    * Fetch the preview data requireed by the live editing preview functions
-    * 
-    * @return array
-    */
-    protected function previewData() 
-    {
-        $data = null;
-        
-        if($this->edit_mode == TRUE) {
-            $data = array('content_id'=>$this->content_id);
-            
-            $model_text = new Dlayer_Model_Page_Content_Items_Text();
-            $dimensions = $model_text->boxDimensions($this->content_id, 
-            $this->site_id, $this->page_id, $this->div_id);
-            
-            $model_position = new Dlayer_Model_Page_Content_Position();
-            $positions = $model_position->marginValues($this->site_id, 
-            $this->page_id, $this->div_id, $this->content_id, 'text');
-            
-            $model_template_div = new Dlayer_Model_Template_Div();
-            $page_container_width = $model_template_div->width(
-            $this->site_id, $this->div_id);
-            
-            $data['width'] = $dimensions['width'];
-            $data['padding']['right'] = $dimensions['padding'];
-            $data['padding']['left'] = $dimensions['padding'];
-            $data['padding']['width'] = $dimensions['padding'];
-            if($positions != FALSE) {
-                $data['margin']['right'] = $positions['right'];
-                $data['margin']['left'] = $positions['left'];
-            } else {
-                $data['margin']['right'] = 0;
-                $data['margin']['left'] = 0;
-            }
-            $data['page_container_width'] = $page_container_width;
-        }
-        
-        return $data;
-    }
+	}
 }

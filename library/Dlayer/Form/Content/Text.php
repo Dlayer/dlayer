@@ -27,7 +27,7 @@ class Dlayer_Form_Content_Text extends Dlayer_Form_Module_Content
 	* @param array|NULL $options Zend form options data array
 	* @return void
 	*/
-	public function __construct($page_id, $div_id, $content_row_is, 
+	public function __construct($page_id, $div_id, $content_row_id, 
 		array $content_row, array $content_item, $edit_mode=FALSE, 
 		$multi_use=0, $options=NULL)
 	{
@@ -156,12 +156,12 @@ class Dlayer_Form_Content_Text extends Dlayer_Form_Module_Content
 		if(array_key_exists('name', $this->content_item) == TRUE 
 			&& $this->content_item['name'] != FALSE) {
 			
-			$name->setValue($this->existing_data['name']);
+			$name->setValue($this->content_item['name']);
 		}
 
 		$this->elements['name'] = $name;
 
-		$text = new Zend_Form_Element_Textarea('content');
+		$text = new Zend_Form_Element_Textarea('text');
 		$text->setLabel('Text');
 		$text->setAttribs(array('cols'=>50, 'rows'=>10, 
 			'placeholder'=>'e.g., The quick brown fox jumps over...', 
@@ -170,10 +170,10 @@ class Dlayer_Form_Content_Text extends Dlayer_Form_Module_Content
 		$text->setBelongsTo('params');
 		$text->setRequired();
 		
-		if(array_key_exists('content', $this->existing_data) == TRUE 
-			&& $this->existing_data['content'] != FALSE) {
+		if(array_key_exists('text', $this->content_item) == TRUE 
+			&& $this->content_item['text'] != FALSE) {
 			
-			$text->setValue($this->existing_data['content']);
+			$text->setValue($this->content_item['text']);
 		}
 
 		$this->elements['text'] = $text;
