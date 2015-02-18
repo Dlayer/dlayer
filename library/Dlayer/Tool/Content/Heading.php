@@ -10,108 +10,6 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	protected $content_type = 'heading';
 
 	/**
-	* Add a new heading content item or edit a selected one, a heading content 
-	* item is simply a string of text , the heading styling to use and an 
-	* optional sub heading
-	* 
-	* This method processes the request based on the value of 
-	* $this->validated, the data will have been previously validated and 
-	* prepared before this method was called
-	*
-	* @param integer $site_id
-	* @param integer $page_id 
-	* @param integer $div_id
-	* @param integer $content_row_id
-	* @param integer|NULL $content_id 
-	* @return integer Either the id for the newly created content item or the 
-	* 	id of the content item being edited
-	*/
-	public function process($site_id, $page_id, $div_id, $content_row_id, 
-		$content_id=NULL)
-	{
-		if($this->validated == TRUE) {
-			if($content_id == NULL) {
-				$content_id = $this->addContentItem($site_id, $page_id, 
-					$div_id, $content_row_id, $this->content_type);
-			} else {
-				$this->editContentItem($site_id, $page_id, $div_id, 
-					$content_row_id, $content_id);
-			}
-
-			return $content_id;
-		}
-	}
-
-	/**
-	* Check to see if the posted data us correct, first we check that all 
-	* the expected params are in the array and secondly that the values 
-	* themselves are valid format
-	* 
-	* If the data is valid it is passed to the prepared method to convert the 
-	* data to the correct types and then saved to $this->params array ready for 
-	* the process method
-	*
-	* @param array $params
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param integer $content_row_id
-	* @param integer|NULL $content_id 
-	* @return boolean
-	*/
-	public function validate(array $params, $site_id, $page_id, $div_id, 
-		$content_row_id, $content_id=NULL)
-	{
-		if($this->validateFields($params, $content_id) == TRUE && 
-			$this->validateValues($site_id, $page_id, $div_id, 
-				$content_row_id, $params, $content_id) == TRUE) {
-					
-			$this->params = $this->prepare($params, $content_id);
-			$this->validated = TRUE;
-					
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-
-	/**
-	* Validate the posted values, run before the process method is called. 
-	* If the result of the validation is TRUE, the internal validated property 
-	* is set to TRUE and all the params are passed to the prepare method
-	*
-	* @param array $params
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param integer|NULL $content_row_id
-	* @return boolean
-	*/
-	public function autoValidate(array $params, $site_id, $page_id, $div_id, 
-		$content_row_id=NULL) 
-	{
-		// Not used by this class
-	}
-
-	/**
-	* Process the request for an auto tool, these generally manage the 
-	* structure of a page, content row id not always defined
-	* 
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id 
-	* @param integer|NULL $content_row_id
-	* @param integer|NULL $content_id
-	* @return array Multiple ids can be returned, reset will be called first 
-	* 	and then array values set
-	*/
-	public function autoProcess($site_id, $page_id, $div_id, 
-		$content_row_id=NULL) 
-	{
-		// Not used by this class
-	}
-
-	/**
 	* Check that all the required values have been posted as part of the 
 	* params array. Another method will be called after this to ensure that 
 	* the values are of the correct type, no point doing the mnore complex 
@@ -122,7 +20,7 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	* @return boolean Returns TRUE if all the expected values have been posted 
 	* 	as part of the request
 	*/
-	private function validateFields(array $params=array(), $content_id=NULL)
+	protected function validateFields(array $params=array(), $content_id=NULL)
 	{
 		if(array_key_exists('name', $params) == TRUE && 
 		array_key_exists('heading', $params) == TRUE &&
@@ -150,14 +48,14 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
-	* @param integer $content_row_id
+	* @param integer|NULL $content_row_id
 	* @param array $params Params array to validte
 	* @param integer|NULL $content_id
 	* @return boolean Returns TRUE if all the values are of the expected size 
 	* 	twpe and within range
 	*/
-	private function validateValues($site_id, $page_id, $div_id, 
-		$content_row_id, array $params=array(), $content_id=NULL)
+	protected function validateValues($site_id, $page_id, $div_id, 
+		$content_row_id=NULL, array $params=array(), $content_id=NULL)
 	{
 		$valid = FALSE;
 		$model_settings = new Dlayer_Model_Settings();
@@ -213,7 +111,7 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	* @param string $content_type
 	* @return integer The id of the newly created content item
 	*/
-	private function addContentItem($site_id, $page_id, $div_id, 
+	protected function addContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_type)
 	{
 		$model_content = new Dlayer_Model_Page_Content();
@@ -239,7 +137,7 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	* @param integer $content_id
 	* @return void 
 	*/
-	private function editContentItem($site_id, $page_id, $div_id, 
+	protected function editContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id)
 	{
 		$model_headiing = new Dlayer_Model_Page_Content_Items_Heading();
