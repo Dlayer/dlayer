@@ -39,8 +39,8 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 	}
 
 	/**
-	* Initialuse the form, sers the url and submit method and then calls the
-	* methods that set up the form
+	* Initialise the form, sets the url, action method and calls the functions 
+	* to build the form
 	*
 	* @return void
 	*/
@@ -86,12 +86,12 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 	}
 
 	/**
-	* Set up all the elements required for the form, these are broken down 
-	* into two sections, hidden elements for the tool and then visible 
-	* elements for the user
-	*
-	* @return void The form elements are written to the private $this->elemnets
-	* 			   array
+	* Set up all the form elements required by the tool, this is broekn down 
+	* into two sections, the hidden elements that manage the environment and 
+	* tool and the user visible elements for the user
+	* 
+	* @return void The form elements are written to the private 
+	* 	$this->elements array
 	*/
 	protected function setUpFormElements()
 	{
@@ -101,10 +101,12 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 	}
 
 	/**
-	* Set up the tool elements, these are the elements that define the tool and 
-	* store the session values for the designer
+	* Set up all the tool and environment elements, there are all the elements 
+	* that define the tool being used and the environment/session values 
+	* currently set in the designer
 	*
-	* @return void Writes the elements to the private $this->elements array
+	* @return void The form elements are written to the private 
+	* 	$this->elements array
 	*/
 	private function toolElements()
 	{
@@ -149,10 +151,11 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 	}
 
 	/**
-	* Set up the user elements, these are the elements that the user interacts 
-	* with to use the tool
+	* Set up the user elements, these are the fields that the user interacts 
+	* with
 	* 
-	* @return void Writes the elements to the private $this->elements array
+	* @return void The form elements are written to the private 
+	* 	$this->elements array
 	*/
 	private function userElements()
 	{
