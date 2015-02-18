@@ -100,11 +100,13 @@ Dlayer_Model_Page_Content_Item
 	}
 	
 	/**
-	* Fetch the content data id used by an existing content item
+	* Update the content data text for the given data id
 	* 
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $content_id
+	* @param string $name
+	* @param string $content
 	* @return integer Id for the updated content
 	*/
 	private function updateContentData($site_id, $page_id, $content_id, 
@@ -113,11 +115,11 @@ Dlayer_Model_Page_Content_Item
 		$sql = "UPDATE user_site_content_heading 
 				SET `name` = :name, content = :content 
 				WHERE site_id = :site_id 
-				AND id = (SELECT uspch.data_id 
-				FROM user_site_page_content_heading uspch 
-				WHERE uspch.content_id = :content_id 
-				AND uspch.site_id = :site_id 
-				AND uspch.page_id = :page_id 
+				AND id = (SELECT uspcih.data_id 
+				FROM user_site_page_content_item_heading uspcih 
+				WHERE uspcih.content_id = :content_id 
+				AND uspcih.site_id = :site_id 
+				AND uspcih.page_id = :page_id 
 				LIMIT 1)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
@@ -131,7 +133,7 @@ Dlayer_Model_Page_Content_Item
 	}
 
 	/**
-	* Edit the data for a content item
+	* Edit the data for the selected heading content item
 	*
 	* @param integer $site_id
 	* @param integer $page_id
@@ -145,8 +147,7 @@ Dlayer_Model_Page_Content_Item
 		$content_row_id, $content_id, array $params) 
 	{
 		if($params['instances'] == FALSE) {
-			$data_id = $this->contentDataExists($site_id, 
-			$params['heading']);
+			$data_id = $this->contentDataExists($site_id, $params['heading']);
 			
 			if($data_id == FALSE) {
 				$data_id = $this->addToDataTable($site_id, $params['name'], 
@@ -157,26 +158,16 @@ Dlayer_Model_Page_Content_Item
 			$content_id, $params['name'], $params['heading']);
 		}
 		
-		$sql = "UPDATE user_site_page_content_heading
-				SET heading_id = :heading_id, data_id = :data_id,
-				width = :width, padding_top = :padding_top,
-				padding_bottom = :padding_bottom, padding_left = :padding_left
+		$sql = "UPDATE user_site_page_content_item_heading 
+				SET heading_id = :heading_id, data_id = :data_id 
 				WHERE site_id = :site_id
 				AND page_id = :page_id
 				AND content_id = :content_id
 				LIMIT 1";
-
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':heading_id', $params['heading_type'],
-		PDO::PARAM_INT);
+			PDO::PARAM_INT);
 		$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
-		$stmt->bindValue(':width', $params['width'], PDO::PARAM_INT);
-		$stmt->bindValue(':padding_top', $params['padding_top'], 
-		PDO::PARAM_INT);
-		$stmt->bindValue(':padding_bottom', $params['padding_bottom'],
-		PDO::PARAM_INT);
-		$stmt->bindValue(':padding_left', $params['padding_left'],
-		PDO::PARAM_INT);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);

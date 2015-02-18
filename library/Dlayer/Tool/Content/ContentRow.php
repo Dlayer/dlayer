@@ -36,7 +36,7 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	* @return boolean
 	*/
 	public function validate(array $params, $site_id, $page_id, $div_id, 
-		$content_row_id)
+		$content_row_id, $content_id=NULL)
 	{
 		// Not used by this tool
 	}

@@ -137,8 +137,8 @@ class Content_ProcessController extends Zend_Controller_Action
 		if(array_key_exists('content_id', $post) == FALSE) {
 			$content_id = NULL;
 		} else {
-			$content_id = $this->checkContentIdValid($post['content_id'],
-				$page_id, $div_id, $post['content_type']);
+			$content_id = $this->validateContentId($site_id, $page_id, $div_id,
+				$content_row_id, $post['content_id'], $post['content_type']);
 		}
 		
 		return $content_id;

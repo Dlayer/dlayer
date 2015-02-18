@@ -66,7 +66,7 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 			$this->validateValues($site_id, $page_id, $div_id, 
 				$content_row_id, $params, $content_id) == TRUE) {
 					
-			$this->params = $this->prepare($params);
+			$this->params = $this->prepare($params, $content_id);
 			$this->validated = TRUE;
 					
 			return TRUE;
@@ -244,10 +244,6 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	{
 		$model_headiing = new Dlayer_Model_Page_Content_Items_Heading();
 		
-		
-		/**
-		* Here
-		*/
 		$model_headiing->editContentItemData($site_id, $page_id, $div_id, 
 			$content_row_id, $content_id, $this->params);
 	}
