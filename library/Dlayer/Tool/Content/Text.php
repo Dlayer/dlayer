@@ -8,101 +8,87 @@
 class Dlayer_Tool_Content_Text extends Dlayer_Tool_Module_Content
 {
 	protected $content_type = 'text';
-
+	
 	/**
-	* Check that the required values have been posted through with the
-	* request, another method will validate the values themselves, no
-	* point attempting to validate the data is we don't have the correct
-	* data to start with
-	*
-	* @param array $params $_POSTed params data array
-	* @return boolean TRUE if the required values are in array
+	* Check that all the required values have been posted as part of the 
+	* params array. Another method will be called after this to ensure that 
+	* the values are of the correct type, no point doing the mnore complex 
+	* validation if the required values aren't provided
+	* 
+	* @param array $params 
+	* @param integer|NULL $content_id
+	* @return boolean Returns TRUE if all the expected values have been posted 
+	* 	as part of the request
 	*/
-	private function validateValues(array $params = array())
+	protected function validateFields(array $params=array(), $content_id=NULL)
 	{
 		if(array_key_exists('name', $params) == TRUE && 
-		array_key_exists('content', $params) == TRUE &&
-		array_key_exists('width', $params) == TRUE &&
-		array_key_exists('padding', $params) == TRUE && 
-		$this->validateValuesEditMode($params) == TRUE) {
-			return TRUE;
+		array_key_exists('text', $params) == TRUE) {
+			
+			if($content_id == NULL) {
+				return TRUE;
+			} else {
+				if(array_key_exists('instances', $params) == TRUE) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+			}
 		} else {
 			return FALSE;
 		}
 	}
 
 	/**
-	* Checks that the submitted data is all valid, both the format and the
-	* values themselves
-	*
-	* Checks the following
-	*
-	* 1. There needs to be content for the text block
-	* 2. The text container width needs to be greater than 0
-	* 3. The padding needs to be greater than or equal to 0
-	* 4. The width and padding values need to be less that or equal to the
-	* page div width
+	* Check to ensure that all the submitted data is valid, it has to be of 
+	* the expected format or within an expected range
 	* 
-	* If any existing margin (position) values have been set they are 
-	* included in all calculations
-	*
 	* @param array $params Params array to validte
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
-	* @return boolean TRUE if the values are valid
+	* @param integer|NULL $content_row_id
+	* @param array $params Params array to validte
+	* @param integer|NULL $content_id
+	* @return boolean Returns TRUE if all the values are of the expected size 
+	* 	twpe and within range
 	*/
-	private function validateData(array $params = array(), $site_id, $page_id,
-	$div_id)
+	protected function validateValues($site_id, $page_id, $div_id, 
+		$content_row_id=NULL, array $params=array(), $content_id=NULL)
 	{
-		$model_divs = new Dlayer_Model_Template_Div();
-		$width = $model_divs->width($site_id, $div_id);
+		$valid = FALSE;
 		
-		$container_margin = 0;
-		
-		if(array_key_exists('content_container_id', $params) == TRUE) {
-			$model_position = new Dlayer_Model_Page_Content_Position();
-			$container_margin = $model_position->containerCombinedMarginWidth(
-			$site_id, $page_id, $div_id, $params['content_container_id'], 
-			'text');
-		}
-
 		if(strlen(trim($params['name'])) > 0 && 
-		strlen(trim($params['content'])) > 0 &&
-		intval($params['width']) > 0 &&
-		intval($params['padding']) >= 0 &&
-		(intval($params['width'])
-		+ (intval($params['padding']) * 2) + $container_margin) <= $width) {
-			return TRUE;
-		} else {
-			return FALSE;
+			strlen(trim($params['text'])) > 0) {
+			
+			$valid = TRUE;
 		}
-	}
-
-	/**
-	* Prepare the data, convert the values to the correct data types and trim
-	* any string values
-	*
-	* @param array $params Params array to prepare
-	* @return array Prepared data array
-	*/
-	protected function prepare(array $params)
-	{
-		$prepared = array('content'=>trim($params['content']),
-		'width'=>intval($params['width']),
-		'padding'=>intval($params['padding']), 
-		'name'=>trim($params['name']));
 		
-		if(array_key_exists('content_container_id', $params) == TRUE) {
-			$prepared['content_container_id'] = 
-			intval($params['content_container_id']);
+		return $valid;
+	}
+	
+	/**
+	* Prepare the submitted data by converting the values into the correct 
+	* data types for the tool
+	*
+	* @param array $params
+	* @param integer|NULL $content_id
+	* @return array THe prepared data array
+	*/
+	protected function prepare(array $params, $content_id=NULL)
+	{
+		$prepared = array(
+			'name'=>trim($params['name']),
+			'text'=>trim($params['name']));
+			
+		if($content_id != NULL) {
 			if($params['instances'] == 1) {
 				$prepared['instances'] = TRUE;
 			} else {
 				$prepared['instances'] = FALSE;
 			}
 		}
-		
+
 		return $prepared;
 	}
 
