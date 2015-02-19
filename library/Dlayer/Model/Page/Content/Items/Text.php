@@ -10,56 +10,58 @@ class Dlayer_Model_Page_Content_Items_Text
 extends Dlayer_Model_Page_Content_Item
 {
 	/**
-	* Add a text content block
+	* Add a new text content item
 	*
 	* @param integer $site_id
 	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
 	* @param integer $content_id
-	* @param array $text Text data array
+	* @param array $params The data for the heading content item
 	* @return void
 	*/
-	public function addContentItemData($site_id, $page_id, $content_id, 
-	array $text)
+	public function addContentItemData($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id, array $params)
 	{
-		$data_id = $this->contentDataExists($site_id, $text['content']);
+		$data_id = $this->contentDataExists($site_id, $params['text']);
 		
 		if($data_id == FALSE) {
-			$data_id = $this->addToDataTable($site_id, $text['name'], 
-			$text['content']);
+			$data_id = $this->addToDataTable($site_id, $params['name'], 
+			$params['text']);
 		}
 		
-		$sql = "INSERT INTO user_site_page_content_text
-				(site_id, page_id, content_id, width, padding, data_id)
+		$sql = "INSERT INTO user_site_page_content_item_text 
+				(site_id, page_id, content_id, data_id)
 				VALUES
-				(:site_id, :page_id, :content_id, :width, :padding, :data_id)";
+				(:site_id, :page_id, :content_id, :data_id)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->bindValue(':width', $text['width'], PDO::PARAM_INT);
-		$stmt->bindValue(':padding', $text['padding'], PDO::PARAM_INT);
 		$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
 		$stmt->execute();
 	}
 	
 	/**
-	* Check to see if the text content exists in the text data table
+	* Check to see if the text content exists in the text data table, if 
+	* it does we can use the id for the previously stored value
 	* 
 	* @param integer $site_id
-	* @param string $content Text content to check for
-	* @return integer|FALSE Either the id of the content in the data table 
-	* 						or FALSE if a new content item needs to be created
+	* @param string $content The text content to check the system for
+	* @return integer|FALSE Either return the id for the existing text content 
+	* 	string or FALSE if the test is a new string
 	*/
 	private function contentDataExists($site_id, $content) 
 	{
 		$sql = "SELECT usct.id 
 				FROM user_site_content_text usct 
 				WHERE usct.site_id = :site_id 
-				AND usct.content = :content 
+				AND UPPER(usct.content) = :content 
 				LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content', $content, PDO::PARAM_LOB);
+		$stmt->bindValue(':content', trim(strtoupper($content)), 
+			PDO::PARAM_STR);
 		$stmt->execute();
 		
 		$result = $stmt->fetch();
@@ -72,10 +74,11 @@ extends Dlayer_Model_Page_Content_Item
 	}
 	
 	/** 
-	* Add content to content data table
+	* Add the content into the content data table and return the id for the 
+	* newly stored string
 	* 
 	* @param integer $site_id
-	* @param string $name Name for the content data
+	* @param string $name 
 	* @param string $content
 	* @return integer Id of the text in the content data table
 	*/
@@ -88,7 +91,7 @@ extends Dlayer_Model_Page_Content_Item
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-		$stmt->bindValue(':content', $content, PDO::PARAM_LOB);
+		$stmt->bindValue(':content', $content, PDO::PARAM_STR);
 		$stmt->execute();
 		
 		return $this->_db->lastInsertId('user_site_content_text');
@@ -126,16 +129,18 @@ extends Dlayer_Model_Page_Content_Item
 	}
 
 	/**
-	* Edit the data for the text block
+	* Edit the data for the selected text content item
 	*
 	* @param integer $site_id
 	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
 	* @param integer $content_id
-	* @param array $text Text data array
+	* @param array $params The data for the new content item
 	* @return void
 	*/
-	public function editContentItemData($site_id, $page_id, $content_id, 
-	array $text)
+	public function editContentItemData($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id, array $params)
 	{
 		if($text['instances'] == FALSE) {
 			$data_id = $this->contentDataExists($site_id, $text['content']);

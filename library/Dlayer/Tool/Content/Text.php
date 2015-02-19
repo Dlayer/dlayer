@@ -79,7 +79,7 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Module_Content
 	{
 		$prepared = array(
 			'name'=>trim($params['name']),
-			'text'=>trim($params['name']));
+			'text'=>trim($params['text']));
 			
 		if($content_id != NULL) {
 			if($params['instances'] == 1) {
@@ -91,39 +91,49 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Module_Content
 
 		return $prepared;
 	}
-
+	
 	/**
-	* Add a new content text block, once the block has been added to the page
-	* the id is used to add the content for the text block itself
-	*
+	* Add a new text content item
+	* 
+	* A new content item is created in the content items table and then the 
+	* specific data to create the text item is added to the text item sub 
+	* tables
+	* 
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
+	* @param integer $content_row_id
 	* @param string $content_type
-	* @return integer Id for the new content block
+	* @return integer The id of the newly created content item
 	*/
-	private function addContentItem($site_id, $page_id, $div_id, $content_type)
+	protected function addContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_type)
 	{
 		$model_content = new Dlayer_Model_Page_Content();
 		$content_id = $model_content->addContentItem($site_id, $page_id, 
-		$div_id, $content_type);
+			$div_id, $content_row_id, $content_type);
 
 		$model_text = new Dlayer_Model_Page_Content_Items_Text();
-		$model_text->addContentItemData($site_id, $page_id, $content_id, 
-		$this->params);
+		$model_text->addContentItemData($site_id, $page_id, $div_id, 
+			$content_row_id, $content_id, $this->params);
 
 		return $content_id;
 	}
 
 	/**
-	* Edit an existing text block
+	* Edit the data for the selected content item, there is no need to edit the 
+	* base item definition data, only the data specific to the text content 
+	* type
 	*
 	* @param integer $site_id
 	* @param integer $page_id
-	* @param integer $content_id 
-	* @return void
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer $content_id
+	* @return void 
 	*/
-	private function editContentItem($site_id, $page_id, $content_id)
+	protected function editContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id)
 	{
 		$model_text = new Dlayer_Model_Page_Content_Items_Text();
 		$model_text->editContentItemData($site_id, $page_id, $content_id, 
