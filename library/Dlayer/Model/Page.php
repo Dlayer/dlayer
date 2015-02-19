@@ -284,8 +284,8 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Check to see if the specific template div id has content defined on
-	* any pages
+	* Check to see if the specific template div id has content items defined 
+	* on any pages
 	*
 	* @param integer $div_id Template div id
 	* @param integer $site_id

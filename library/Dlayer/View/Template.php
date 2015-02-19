@@ -46,6 +46,13 @@ class Dlayer_View_Template extends Zend_View_Helper_Abstract
 	* @var integer|NULL
 	*/
 	private $div_id;
+	
+	/**
+	* Is there content attached to the selected element via content pages
+	* 
+	* @var boolean
+	*/
+	private $has_content;
 
 	/** 
 	* Template layout view helper, generates the html for the selected template,
@@ -55,16 +62,19 @@ class Dlayer_View_Template extends Zend_View_Helper_Abstract
 	* @param array $template Div template data array
 	* @param array $styles Styles data array for template
 	* @param integer|NULL $div_id Selected element in designer
+	* @param boolean $has_content Are there dependant content items for the 
+	* 	selected content area
 	* @return Dlayer_View_Template
 	*/
 	public function template(array $template, array $styles, 
-		$div_id=NULL) 
+		$div_id=NULL, $has_content=FALSE) 
 	{
 		$this->resetParams();
 
 		$this->template = $template;
 		$this->styles = $styles;
 		$this->div_id = $div_id;
+		$this->has_content = $has_content;
 
 		// Pass the style attributes array to the styles view helper
 		$this->view->templateStyles()->setStyles($this->styles);
@@ -165,13 +175,33 @@ class Dlayer_View_Template extends Zend_View_Helper_Abstract
 			} else {
 				$label = 'Dynamic height';
 			}
+			
+			$content = '<div class="col-md-12"><h3>' . $label . ' content 
+				block <small>This area can be split or have widgets or 
+				forms added to it.</small></h3></div>';
+			
+			if($this->div_id != NULL && $this->div_id == $parent_id && 
+				$this->has_content == TRUE) {
+					
+				$content = '<div class="col-md-3"><h4>A content item</h4>
+					<p>One or more content items has been added on a 
+					depenedant content page</p></div>';
+					
+				$content .= '<div class="col-md-3"><h4>A content item</h4>
+					<p>One or more content items has been added on a 
+					depenedant content page</p></div>';
+					
+				$content .= '<div class="col-md-3"><h4>A content item</h4>
+					<p>One or more content items has been added on a 
+					depenedant content page</p></div>';
+					
+				$content .= '<div class="col-md-3"><h4>A content item</h4>
+					<p>One or more content items has been added on a 
+					depenedant content page</p></div>';
+			}
+			
 			$html .= '
-			<div class="row">
-			<div class="col-md-12">
-			<h3>' . $label . ' content block <small>This area can be split or have widgets 
-				or forms added to it.</small></h3>
-			</div>
-			</div>';
+			<div class="row">' . $content . '</div>';
 		}
 
 		return $html;

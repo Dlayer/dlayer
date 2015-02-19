@@ -100,10 +100,12 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @param array $template Div template data array
 	* @param array $styles Styles data array for template
 	* @param integer|NULL $div_id Selected element in designer
+	* @param boolean $has_content Are there dependant content items for the 
+	* 	selected content area
 	* @return Dlayer_View_Template
 	*/
 	public function template(array $template, array $styles, 
-	$div_id=NULL) { }
+		$div_id=NULL, $has_content=FALSE) { }
 
 	/**
 	* Content page view helper, generates all the html for a content page by

@@ -420,13 +420,31 @@ class Template_DesignController extends Zend_Controller_Action
 	*/
 	private function dlayerTemplate()
 	{
-		$designer_template = new Dlayer_Designer_Template(
-			$this->session_dlayer->siteId(), $this->session_template->templateId(),
-			$this->session_template->divId());
+		$site_id = $this->session_dlayer->siteId();
+		$template_id = $this->session_template->templateId();
+		$div_id = $this->session_template->divId();
+				
+		$designer_template = new Dlayer_Designer_Template($site_id, 
+			$template_id, $div_id);
+			
+		$has_content = FALSE;
+			
+		if($div_id != NULL) {
+			$model_pages = new Dlayer_Model_Page();
+
+			if($model_pages->pageCreatedUsingTemplate($template_id, 
+			$site_id) == TRUE) {        		
+				if($model_pages->templateDivHasContent($div_id, $site_id, 
+				$template_id) == TRUE) {
+					$has_content = TRUE;
+				}
+			}
+		}
 
 		$this->view->template = $designer_template->template();
 		$this->view->styles = $designer_template->styles();
-		$this->view->div_id = $this->session_template->divId();
+		$this->view->div_id = $div_id;
+		$this->view->has_content = $has_content;
 
 		return $this->view->render("design/template.phtml");
 	}
@@ -470,15 +488,15 @@ class Template_DesignController extends Zend_Controller_Action
 			$this->session_template->templateId()) == TRUE) {
 				
 			$site_id = $this->session_dlayer->siteId();
-            
-            $model_div = new Dlayer_Model_Template_Div();
-            $height = $model_div->height($site_id, $id);
-            
-            // Set height by passing in opposite to fixed
-            $model_div->setHeight($site_id, $id, $height['height'], 
-                !$height['fixed']);                
-        }
-        
-        $this->_redirect('/template/design');
+			
+			$model_div = new Dlayer_Model_Template_Div();
+			$height = $model_div->height($site_id, $id);
+			
+			// Set height by passing in opposite to fixed
+			$model_div->setHeight($site_id, $id, $height['height'], 
+				!$height['fixed']);                
+		}
+		
+		$this->_redirect('/template/design');
 	}
 }
