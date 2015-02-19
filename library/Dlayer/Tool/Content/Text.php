@@ -136,7 +136,8 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Module_Content
 		$content_row_id, $content_id)
 	{
 		$model_text = new Dlayer_Model_Page_Content_Items_Text();
-		$model_text->editContentItemData($site_id, $page_id, $content_id, 
-		$this->params);
+		
+		$model_text->editContentItemData($site_id, $page_id, $div_id, 
+			$content_row_id, $content_id, $this->params);
 	}
 }

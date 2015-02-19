@@ -125,4 +125,40 @@ abstract class Dlayer_Form_Module_Content extends Dlayer_Form
 			return FALSE;
 		}
 	}
+	
+	/**
+	* Generate the instances element, the instance element shows if there are 
+	* multiple instances of the content item data in the site and controls 
+	* where all references should be updated
+	* 
+	* @param string $description Desription string for help text
+	* @param string $label Text for no option in label
+	* @return Zend_Form_Element_Select
+	*/
+	protected function instancesElement($description, $label) 
+	{
+		if($this->edit_mode == TRUE && 
+		array_key_exists('id', $this->content_item) == TRUE && 
+		array_key_exists('instances', $this->content_item) == TRUE && 
+		$this->content_item['id'] != FALSE && 
+		$this->content_item['instances'] > 1) {
+			$instances = new Zend_Form_Element_Select('instances');
+			$instances->setLabel('Update all instances');
+			$instances->setDescription('There are ' . 
+				$this->content_item['instances'] . '  instances of the ' . 
+				$description . ' in your site, to update all insances please 
+				select yes, otherwise select no and only the text for this 
+				content item will be updated.');
+			$instances->setMultiOptions(array(1=>'Yes - Update all instances', 
+				0=>'No - Only update this ' . $label));
+			$instances->setAttribs(array('class'=>'form-control input-sm'));
+			$instances->setBelongsTo('params');
+		} else {
+			$instances = new Zend_Form_Element_Hidden('instances');
+			$instances->setValue(0);
+			$instances->setBelongsTo('params');
+		}
+		
+		return $instances;
+	}
 }

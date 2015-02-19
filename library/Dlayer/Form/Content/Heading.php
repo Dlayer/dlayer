@@ -195,33 +195,8 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 
 		$this->elements['heading'] = $heading;
 
-		/**
-		* @todo This needs to be moved into the base method, no need to 
-		* duplicate the code in each of the forms
-		*/
-		if($this->edit_mode == TRUE && 
-		array_key_exists('id', $this->content_item) == TRUE && 
-		array_key_exists('instances', $this->content_item) == TRUE && 
-		$this->content_item['id'] != FALSE && 
-		$this->content_item['instances'] > 1) {
-			$instances = new Zend_Form_Element_Select('instances');
-			$instances->setLabel('Update all instances');
-			$instances->setDescription('There are ' . 
-				$this->content_item['instances'] . '  instances of the 
-				heading text in your site, to update all insances please 
-				select yes, otherwise select no and only the text for this 
-				content item will be updated.');
-			$instances->setMultiOptions(array(1=>'Yes - Update all instances', 
-				0=>'No - Only update this heading'));
-			$instances->setAttribs(array('class'=>'form-control input-sm'));
-			$instances->setBelongsTo('params');
-		} else {
-			$instances = new Zend_Form_Element_Hidden('instances');
-			$instances->setValue(0);
-			$instances->setBelongsTo('params');
-		}
-
-		$this->elements['instances'] = $instances;
+		$this->elements['instances'] = $this->instancesElement(
+			'heading text', 'heading');
 
 		$heading_type = new Zend_Form_Element_Select('heading_type');
 		$heading_type->setLabel('Heading type');

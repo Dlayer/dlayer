@@ -98,11 +98,13 @@ extends Dlayer_Model_Page_Content_Item
 	}
 	
 	/**
-	* Fetch the content data id used by an existing content item
+	* Update the content data text for the given data id
 	* 
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $content_id
+	* @param string $name
+	* @param string $content
 	* @return integer Id for the updated content
 	*/
 	private function updateContentData($site_id, $page_id, $content_id, 
@@ -111,11 +113,11 @@ extends Dlayer_Model_Page_Content_Item
 		$sql = "UPDATE user_site_content_text 
 				SET `name` = :name, content = :content 
 				WHERE site_id = :site_id 
-				AND id = (SELECT uspct.data_id 
-				FROM user_site_page_content_text uspct 
-				WHERE uspct.content_id = :content_id 
-				AND uspct.site_id = :site_id 
-				AND uspct.page_id = :page_id 
+				AND id = (SELECT uspcit.data_id 
+				FROM user_site_page_content_item_text uspcit 
+				WHERE uspcit.content_id = :content_id 
+				AND uspcit.site_id = :site_id 
+				AND uspcit.page_id = :page_id 
 				LIMIT 1)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
@@ -142,32 +144,29 @@ extends Dlayer_Model_Page_Content_Item
 	public function editContentItemData($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id, array $params)
 	{
-		if($text['instances'] == FALSE) {
-			$data_id = $this->contentDataExists($site_id, $text['content']);
+		if($params['instances'] == FALSE) {
+			$data_id = $this->contentDataExists($site_id, $params['text']);
 			
 			if($data_id == FALSE) {
-				$data_id = $this->addToDataTable($site_id, $text['name'], 
-				$text['content']);
+				$data_id = $this->addToDataTable($site_id, $params['name'], 
+				$params['text']);
 			}
 		} else {
 			$data_id = $this->updateContentData($site_id, $page_id, 
-			$content_id, $text['name'], $text['content']);
+			$content_id, $params['name'], $params['text']);
 		}
 		
-		$sql = "UPDATE user_site_page_content_text
-				SET width = :width, padding = :padding,
-				data_id = :data_id 
+		$sql = "UPDATE user_site_page_content_item_text 
+				SET data_id = :data_id 
 				WHERE site_id = :site_id
 				AND page_id = :page_id
 				AND content_id = :content_id
 				LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':width', $text['width'], PDO::PARAM_INT);
-		$stmt->bindValue(':padding', $text['padding'], PDO::PARAM_INT);
 		$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_STR);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->execute();
 	}
 
