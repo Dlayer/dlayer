@@ -100,12 +100,21 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 		* this allows the selectors to set the correct environment vars
 		*/
 		$id = 'text:text:' . $this->view->escape($this->data['content_id']);
+		$class = 'item c_item_' .  $this->view->escape(
+			$this->data['content_id']);
+			
+		if($this->selectable == TRUE) {
+			if($this->selected == FALSE) {
+				$class .= ' selectable';
+			} else {
+				$class .= ' selected-item';
+			}
+		}
 		
 		$html = '';
 		
 		$html .= '<div class="col-md-12">';
-		$html .= '<p class="item c_item_' . $this->view->escape(
-			$this->data['content_id']) . '" id="' . $id . '">';
+		$html .= '<p class="' .$class . '" id="' . $id . '">';
 		$html .= nl2br($this->view->escape($this->data['content']));
 		$html .= '</p>';
 		$html .= '</div>';

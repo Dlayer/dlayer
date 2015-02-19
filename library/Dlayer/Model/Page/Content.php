@@ -184,7 +184,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 					AND uspcr.page_id = :page_id 
 				JOIN designer_content_type dct 
 					ON uspci.content_type = dct.id 
-					AND dct.`name` = 'heading'
+					AND dct.`name` = :content_type 
 				WHERE uspci.site_id = :site_id 
 				AND uspci.page_id = :page_id 
 				AND uspci.row_id  = :content_row_id
