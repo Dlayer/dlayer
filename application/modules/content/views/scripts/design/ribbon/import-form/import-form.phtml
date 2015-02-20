@@ -1,40 +1,13 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
+ 
+<div class="col-xs-12">
 
-<script type="text/javascript">
+</div>
 
-dlayer.tools.content.fn.import_form(<?php echo $this->escape(
-$this->data['page_container_width']); ?>);
-
-<?php if($this->edit_mode == TRUE) { ?>
-dlayer.preview.content.fn.container_width(<?php echo $this->escape(
-$this->data['preview_data']['content_id']); ?>, <?php echo $this->escape(
-$this->data['preview_data']['page_container_width']); ?>, <?php echo $this->escape(
-$this->data['preview_data']['width']); ?>, { 
-paddings: { left: <?php echo $this->escape(
-$this->data['preview_data']['padding']['left']); ?>, right: <?php echo $this->escape(
-$this->data['preview_data']['padding']['right']); ?> }, margins: { right: <?php echo $this->escape(
-$this->data['preview_data']['margin']['right']); ?>, left: <?php echo $this->escape(
-$this->data['preview_data']['margin']['left']); ?> }});
-dlayer.preview.content.fn.container_padding(<?php echo $this->escape(
-$this->data['preview_data']['content_id']); ?>, <?php echo $this->escape(
-$this->data['preview_data']['page_container_width']); ?>, <?php echo $this->escape(
-$this->data['preview_data']['padding']['width']); ?>, { width: <?php echo $this->escape(
-$this->data['preview_data']['width']); ?>, 
-margins: { right: <?php echo $this->escape(
-$this->data['preview_data']['margin']['right']); ?>, left: <?php echo $this->escape(
-$this->data['preview_data']['margin']['left']); ?> }});
-<?php } ?>
-</script>
-
-<?php if($this->edit_mode == TRUE) { ?>
-<p class="unsaved">Data has been modified!</p>
-<?php } ?>
-
-<p class="validation">Selected form will not fit into page container, the 
-minimum width of the selected form is greater than the page container.</p>
-
-<?php 
-if($this->data != FALSE) {
-    echo $this->data['form'];
-}
-?>
+<div class="col-xs-12 small">
+	<?php 
+	if($this->data != FALSE) {
+		echo $this->data['form'];
+	}
+	?>
+</div>

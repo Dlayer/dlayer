@@ -198,16 +198,4 @@ class Dlayer_Form_Content_ImportForm extends Dlayer_Form_Module_Content
 	{
 
 	}
-
-	/**
-	* Add any custom decorators, these are inputs where we need a little more
-	* control over the html, an example being the submit button
-	*
-	* @return void
-	*/
-	protected function addCustomElementDecorators()
-	{
-		$this->elements['submit']->setDecorators(array(array('ViewHelper'),
-			array('HtmlTag', array('tag' => 'div', 'class'=>'save'))));
-	}
 }

@@ -10,13 +10,12 @@
 class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 {
 	/**
-	* Check to see if the given form is valid, it just needs to belong to the
-	* requested site, currently their is no status indicator because the user
-	* needs to be able to edit disabled forms
+	* Check to see if the given form id is valid and belongs to the current 
+	* site.
 	*
 	* @param integer $form_id
 	* @param integer $site_id
-	* @return boolean
+	* @return boolean TRUE if the form is valid
 	*/
 	public function valid($form_id, $site_id)
 	{
