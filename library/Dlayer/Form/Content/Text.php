@@ -2,7 +2,7 @@
 /**
 * Form for the text content item tool
 * 
-* The form is used by the Text content itemt o allow a user to define or edit 
+* The form is used by the Text content item to allow a user to define or edit 
 * a text content item, a text content item is essentially just a plain text 
 * block. This form is also used by the edit version of the tool.
 *

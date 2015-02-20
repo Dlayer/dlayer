@@ -100,20 +100,29 @@ class Dlayer_View_ContentForm extends Zend_View_Helper_Abstract
 	private function render()
 	{
 		/**
-		* The id foir a content item is defined as the content type, 
+		* The id for a content item is defined as the content type, 
 		* tool used to create the item and then the id for the content item, 
 		* this allows the selectors to set the correct environment vars
 		*/
 		$id = 'form:import-form:' . $this->view->escape(
-		$this->data['content_id']);
+			$this->data['content_id']);
+		$class = 'item c_item_' .  $this->view->escape(
+			$this->data['content_id']);
+			
+		if($this->selectable == TRUE) {
+			if($this->selected == FALSE) {
+				$class .= ' selectable';
+			} else {
+				$class .= ' selected-item';
+			}
+		}
 		
 		$html = '';
 		
 		$html .= '<div class="col-md-12">';
-		$html .= '<p class="item c_item_' . $this->view->escape(
-			$this->data['content_id']) . '" id="' . $id . '">';
+		$html .= '<div class="' . $class . '" id="' . $id . '">';
 		$html .= $this->data['form']->form();
-		$html .= '</p>';
+		$html .= '</div>';
 		$html .= '</div>';
 
 		return $html;
