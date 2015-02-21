@@ -1,18 +1,20 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<p>To alter the details for the form you will need to visit the Form builder. 
-To jump to the Form builder with this form selected click the link below.</p>
-
-<p>Once you are done altering the form click the return to Content manager 
-link, the Content manager will be as you left it.</p>
-
-<?php if($this->data != FALSE) { ?>
-
-<p><a href="/form/index/activate/form-id/<?php echo $this->escape(
-$this->data); ?>/load/1/return/content">Edit in Form Builder</a></p>
-
-<?php } else { ?>
-
-<p>Sorry, unable to fetch data to generate link for Form builder.</p>
-
-<?php } ?>
+<div class="col-xs-12">
+	<h3>Edit <small>Edit form in Form builder</small></h3>
+	
+	<p>To alter the form you will need to visit the Form builder. To jump to 
+		the Form builder with this form selected please click the link 
+		below</p>
+		
+	<p>Once you are done altering the form click the 
+		<mark>Return to Content manager</mark> link, the Content manager will 
+		be just as you left it.</p>
+		
+	<?php if($this->data != FALSE) { ?>
+	<p><a href="/form/index/activate/form-id/<?php echo $this->escape(
+		$this->data); ?>/load/1/return/content">Edit in Form Builder</a></p>
+	<?php } else { ?>
+	<p>Sorry, unable to generate the link for Form builder.</p>
+	<?php } ?>
+</div>

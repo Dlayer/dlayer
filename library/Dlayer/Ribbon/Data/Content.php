@@ -228,6 +228,25 @@ class Dlayer_Ribbon_Data_Content
 					$this->multi_use, $this->edit_mode, $this->content_row_id, 
 					$this->content_id);
 				break;
+				
+			case 'edit':
+			
+				/**
+				* @todo This needs to be moved into a ribbon class when it 
+				* is working
+				*/
+				$model_content_form = 
+				new Dlayer_Model_Page_Content_Items_Form();
+
+				$form_id = $model_content_form->formId($this->site_id, 
+					$this->page_id, $this->content_id);
+
+				if($form_id != FALSE) {
+					$data = $form_id;
+				} else {
+					$data = FALSE;
+				}				
+				break;
 
 			case 'styling':            
 				$ribbon_styling = 
@@ -243,24 +262,6 @@ class Dlayer_Ribbon_Data_Content
 				$data = $ribbon_position->viewData($this->site_id, 
 					$this->page_id, $this->div_id, $this->tool, $this->tab, 
 					$this->multi_use, $this->content_id, $this->edit_mode);
-				break;
-
-			case 'edit':
-				/**
-				* @todo This needs to be moved into a ribbon class when it 
-				* is working
-				*/
-				$model_content_form = new 
-				Dlayer_Model_Page_Content_Items_Form();
-
-				$form_id = $model_content_form->formId($this->site_id, 
-					$this->content_id);
-
-				if($form_id != FALSE) {
-					$data = $form_id;
-				} else {
-					$data = FALSE;
-				}
 				break;
 
 			default:

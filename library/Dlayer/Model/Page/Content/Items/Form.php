@@ -107,20 +107,25 @@ extends Dlayer_Model_Page_Content_Item
 	}
 	
 	/**
-	* Fetch the id of the form in the Form builder by the content id
+	* Fetch the of the form currently selected in the Form builder by the 
+	* content id
 	* 
 	* @param integer $site_id
+	* @param integer $page_id
 	* @param integer $content_id
-	* @return integer|FALSE
+	* @return integer|FALSE Return either the form id or FALSE if we have 
+	* 	been unable to select a form
 	*/
-	public function formId($site_id, $content_id) 
+	public function formId($site_id, $page_id, $content_id) 
 	{
 		$sql = "SELECT form_id 
-				FROM user_site_page_content_form 
+				FROM user_site_page_content_item_form 
 				WHERE site_id = :site_id 
+				AND page_id = :page_id 
 				AND content_id = :content_id";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->execute();
 		
