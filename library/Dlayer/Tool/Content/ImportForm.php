@@ -67,7 +67,7 @@ class Dlayer_Tool_Content_ImportForm extends Dlayer_Tool_Module_Content
 	*/
 	protected function prepare(array $params, $content_id=NULL)
 	{
-		$prepared = array('form_id'=>iintval($params['form_id']));
+		$prepared = array('form_id'=>intval($params['form_id']));
 			
 		return $prepared;
 	}
@@ -91,10 +91,11 @@ class Dlayer_Tool_Content_ImportForm extends Dlayer_Tool_Module_Content
 	{
 		$model_content = new Dlayer_Model_Page_Content();
 		$content_id = $model_content->addContentItem($site_id, $page_id, 
-			$div_id, $content_type);
+			$div_id, $content_row_id, $content_type);
 
 		$model_form = new Dlayer_Model_Page_Content_Items_Form();
-		$model_form->addContentItemData($site_id, $page_id, $content_id, $this->params);
+		$model_form->addContentItemData($site_id, $page_id, $div_id, 
+			$content_row_id, $content_id, $this->params);
 
 		return $content_id;
 	}

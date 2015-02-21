@@ -23,16 +23,14 @@ extends Dlayer_Model_Page_Content_Item
 	public function addContentItemData($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id, array $params)
 	{
-		$sql = 'INSERT INTO user_site_page_content_form 
-				(site_id, page_id, content_id, width, padding, form_id) 
+		$sql = 'INSERT INTO user_site_page_content_item_form 
+				(site_id, page_id, content_id, form_id) 
 				VALUES 
-				(:site_id, :page_id, :content_id, :width, :padding, :form_id)';
+				(:site_id, :page_id, :content_id, :form_id)';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->bindValue(':width', $params['width'], PDO::PARAM_INT);
-		$stmt->bindValue(':padding', $params['padding'], PDO::PARAM_INT);
 		$stmt->bindValue(':form_id', $params['form_id'], PDO::PARAM_INT);
 		$stmt->execute();
 	}
