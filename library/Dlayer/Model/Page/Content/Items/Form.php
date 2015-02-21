@@ -49,8 +49,8 @@ extends Dlayer_Model_Page_Content_Item
 	public function editContentItemData($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id, array $params)
 	{
-		$sql = "UPDATE user_site_page_content_form 
-				SET form_id = :form_id, width = :width, padding = :padding 
+		$sql = "UPDATE user_site_page_content_item_form 
+				SET form_id = :form_id 
 				WHERE site_id = :site_id
 				AND page_id = :page_id
 				AND content_id = :content_id 
@@ -58,8 +58,6 @@ extends Dlayer_Model_Page_Content_Item
 
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':form_id', $params['form_id'], PDO::PARAM_INT);
-		$stmt->bindValue(':width', $params['width'], PDO::PARAM_INT);
-		$stmt->bindValue(':padding', $params['padding'], PDO::PARAM_INT);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
