@@ -476,7 +476,7 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 				sort_order)
 				VALUES
 				(:site_id, :form_id, (SELECT id FROM designer_form_field_type
-				WHERE type = :field_type), (SELECT id FROM dlayer_module_tools
+				WHERE type = :field_type), (SELECT id FROM dlayer_module_tool 
 				WHERE tool = :tool AND module_id = 3 AND enabled = 1), :label,
 				:description, :sort_order)";
 		$stmt = $this->_db->prepare($sql);
