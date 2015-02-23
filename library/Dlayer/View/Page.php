@@ -175,7 +175,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 				
 				// Set the styles for the template div
 				$this->html .= $this->templateStyles($div['id'], 
-					$div['sizes'], $params['children']);
+					$div['sizes'], $params['children'], FALSE);
 				
 				// Set the css classes
 				$this->html .= "{$params['class']}>";
@@ -226,16 +226,33 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 			foreach($children as $div) {
 
 				$params = $this->divParams($div['children'], $div['id']);
+				
+				// Generate the content row html
+				$this->view->contentRow()->divId($div['id']);
+				$this->view->contentRow()->selectedDivId($this->selected_div_id);
+				$this->view->contentRow()->selectedContentRowId(
+					$this->selected_content_row_id);
+				$this->view->contentRow()->selectedContentId(
+					$this->selected_content_id);			
+
+				$content_rows = $this->view->contentRow()->render();
+				
+				$content = FALSE;
+				
+				if(strlen($content_rows) > 0) {
+					$content = TRUE;
+				}
 
 				$html .= "<div id=\"template_div_{$div['id']}\"";
 				$html .= $this->templateStyles($div['id'], $div['sizes'],
-					$params['children']);
+					$params['children'], $content);
 				$html .= "{$params['class']}>" . PHP_EOL;
 				$html .= $this->childHtml($div['id'], $div['children'],
 					$div['sizes']['fixed']);
 				$html .= '</div>' . PHP_EOL;
 			}
-		} else {			
+		} else {
+			// Generate the content row html
 			$this->view->contentRow()->divId($parent_id);
 			$this->view->contentRow()->selectedDivId($this->selected_div_id);
 			$this->view->contentRow()->selectedContentRowId(
@@ -245,7 +262,13 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 
 			$content_rows = $this->view->contentRow()->render();
 			
+			$content = FALSE;
+			
 			if(strlen($content_rows) > 0) {
+				$content = TRUE;
+			}
+			
+			if($content == TRUE) {
 				$html .= $content_rows;
 			} else {
 				if($fixed == 1) {
@@ -273,11 +296,13 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	* @param integer $id Div id
 	* @param array $sizes Sizes data array for the div
 	* @param boolean $children Does the div have any children?
+	* @param boolean $content Is there defined content for the content area
 	* @return string
 	*/
-	private function templateStyles($id, $sizes, $children)
+	private function templateStyles($id, $sizes, $children, $content=FALSE)
 	{
-		return $this->view->templateStyles()->div($id, $sizes, $children);
+		return $this->view->templateStyles()->div($id, $sizes, $children, 
+			$content);
 	}
 
 	/**
