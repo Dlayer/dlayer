@@ -41,6 +41,10 @@ div#designer {
       background-color: #e1dc50; }
     div#designer #design > div.content-manager div.selectable {
       cursor: pointer; }
+    div#designer #design > div.content-manager div.row.selectable > div.move {
+      width: 100%;
+      float: left;
+      display: none; }
   div#designer #filter {
     width: 320px;
     margin: 0px 10px;

@@ -86,6 +86,15 @@ div#designer {
 			div.selectable {
 				cursor: pointer;
 			}
+			
+			div.row.selectable {
+				
+				> div.move {
+					width: 100%;
+					float: left;
+					display: none;
+				}
+			}
 		}
 	}
 	

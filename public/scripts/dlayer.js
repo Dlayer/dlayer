@@ -1384,9 +1384,11 @@ var dlayer = {
 					background_color = $(this).css('background-color');
 					$(this).css('background-color', '#93d0e1');
 					$(this).css('cursor', 'pointer');
+					$(this).find('.move').show();
 				}, 
 				function() {
 					$(this).css('background-color', background_color);
+					$(this).find('.move').hide();
 				}			
 			);
 			$('div.container div.selectable').click(
@@ -1560,6 +1562,60 @@ var dlayer = {
 					return false;
 				}
 			);
+		},
+		
+		button: function(base_class, move_class, label) 
+		{
+			var button = '<div class="move">';
+			button += '<div class="btn btn-xs btn-default btn-block ';
+			button += move_class + '">';
+			button += label;
+			button += '</div>';
+			button += '</div>';
+			
+			return button;
+			//return '<div class="btn btn-xs btn-default btn-block move move-up">Move up</div>';
+		},
+		
+		/**
+		* Attach the movement controls and events to allow content rows to be 
+		* moved on the form
+		*
+		* @return {Void}
+		*/
+		contentRows: function()
+		{
+			var rows = $('.selected-area .row.selectable').length;
+			
+			$('.selected-area .row.selectable').each(function(index)
+			{
+				console.log(index);
+				
+				if(index !== 0) {
+					$(this).prepend(dlayer.movers.button('move', 
+						'move-up', 'Move up'));
+				}
+				if(index !== (rows-1)) {
+					$(this).append(dlayer.movers.button('move', 
+						'move-down', 'Move down'));
+				}
+			}) ;
+
+			/*
+			$('#design .field_row > .move').click(
+				function() {
+					$(this).css('background-color','#505050');
+					$(this).css('color','#ebebeb');
+
+					var params = this.id.split(':');
+
+					window.location.replace(
+					'/form/design/move-field/direction/' + params[0] +
+					'/type/' + params[1] + '/field-id/' + params[2]);
+
+					return false;
+				}
+			);*/
 		}
 	},
 	
