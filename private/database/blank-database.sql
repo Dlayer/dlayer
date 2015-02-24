@@ -310,7 +310,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-02-24 15:00:32','2015-02-24 15:03:02',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-02-24 15:03:15','2015-02-24 15:03:41',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-02-24 15:03:49','2015-02-24 15:04:21',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-02-24 15:05:02','2015-02-24 15:10:01',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-02-24 15:10:10','2015-02-24 15:11:24',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-02-24 15:11:36','2015-02-24 15:12:58',1);
 
 /*Table structure for table `dlayer_module` */
 
@@ -406,7 +406,7 @@ CREATE TABLE `dlayer_session` (
 
 /*Data for the table `dlayer_session` */
 
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('8ts5db5u8noa5l8lj4tl29mlp6','','PHPSESSID',1424790263,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1424793863;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1424793863;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1424793863;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1424793863;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1424793863;}}dlayer_session_template|a:6:{s:11:\"template_id\";N;s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:10:\"tool_model\";s:15:\"SplitHorizontal\";s:16:\"tool_destructive\";s:1:\"1\";}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_content|a:7:{s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('8ts5db5u8noa5l8lj4tl29mlp6','','PHPSESSID',1424790789,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1424794389;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1424794389;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1424794389;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1424794389;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1424794389;}}dlayer_session_template|a:6:{s:11:\"template_id\";N;s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:10:\"tool_model\";s:15:\"SplitHorizontal\";s:16:\"tool_destructive\";s:1:\"1\";}dlayer_session_form|a:6:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;s:10:\"tool_model\";s:12:\"FormSettings\";}dlayer_session_content|a:7:{s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
 
 /*Table structure for table `dlayer_setting` */
 
@@ -650,9 +650,11 @@ CREATE TABLE `user_site_form` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form` */
+
+insert  into `user_site_form`(`id`,`site_id`,`name`) values (1,1,'Contact form'),(2,1,'Subscribe'),(3,2,'Contact form'),(4,2,'Subscribe'),(5,3,'Contact form'),(6,3,'Subscribe');
 
 /*Table structure for table `user_site_form_field` */
 
@@ -676,9 +678,11 @@ CREATE TABLE `user_site_form_field` (
   CONSTRAINT `user_site_form_field_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`),
   CONSTRAINT `user_site_form_field_ibfk_3` FOREIGN KEY (`field_type_id`) REFERENCES `designer_form_field_type` (`id`),
   CONSTRAINT `user_site_form_field_ibfk_4` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tool` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form_field` */
+
+insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (1,1,1,1,21,'Your name','Please enter your name',1),(2,1,1,1,20,'Your email','Please enter your email address',2),(3,1,1,2,13,'Comment','Please enter your comment',3),(4,1,2,1,21,'Your name','Please enter your name',1),(5,1,2,1,20,'Your email','Please enter your email address',2),(6,2,3,1,21,'Your name','Please enter your name',1),(7,2,3,1,20,'Your email','Please enter your email address',2),(8,2,3,2,13,'Comment','Please enter your comment',3),(9,2,4,1,21,'Your name','Please enter your name',1),(10,2,4,1,20,'Your email','Please enter your email address',2),(11,3,5,1,21,'Your name','Please enter your name',1),(12,3,5,1,20,'Your email','Please enter your email address',2),(13,3,5,2,13,'Comment','Please enter your comment',3),(14,3,6,1,21,'Your name','Please enter your name',1),(15,3,6,1,20,'Your email','Please enter your email address',2);
 
 /*Table structure for table `user_site_form_field_attribute` */
 
@@ -700,9 +704,11 @@ CREATE TABLE `user_site_form_field_attribute` (
   CONSTRAINT `user_site_form_field_attribute_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`),
   CONSTRAINT `user_site_form_field_attribute_ibfk_3` FOREIGN KEY (`field_id`) REFERENCES `user_site_form_field` (`id`),
   CONSTRAINT `user_site_form_field_attribute_ibfk_4` FOREIGN KEY (`attribute_id`) REFERENCES `designer_form_field_attribute` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form_field_attribute` */
+
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (1,1,1,1,1,'40'),(2,1,1,1,2,'255'),(3,1,1,1,7,'Enter your name'),(4,1,1,2,1,'40'),(5,1,1,2,2,'255'),(6,1,1,2,7,'Enter your email'),(7,1,1,3,3,'40'),(8,1,1,3,4,'3'),(9,1,1,3,8,'Dlayer is starting to look interesting'),(10,1,2,4,1,'40'),(11,1,2,4,2,'255'),(12,1,2,4,7,'Enter your name'),(13,1,2,5,1,'40'),(14,1,2,5,2,'255'),(15,1,2,5,7,'Enter your email'),(16,2,3,6,1,'40'),(17,2,3,6,2,'255'),(18,2,3,6,7,'Enter your name'),(19,2,3,7,1,'40'),(20,2,3,7,2,'255'),(21,2,3,7,7,'Enter your email'),(22,2,3,8,3,'40'),(23,2,3,8,4,'3'),(24,2,3,8,8,'Dlayer is starting to look interesting'),(25,2,4,9,1,'40'),(26,2,4,9,2,'255'),(27,2,4,9,7,'Enter your name'),(28,2,4,10,1,'40'),(29,2,4,10,2,'255'),(30,2,4,10,7,'Enter your email'),(31,3,5,11,1,'40'),(32,3,5,11,2,'255'),(33,3,5,11,7,'Enter your name'),(34,3,5,12,1,'40'),(35,3,5,12,2,'255'),(36,3,5,12,7,'Enter your email'),(37,3,5,13,3,'40'),(38,3,5,13,4,'3'),(39,3,5,13,8,'Dlayer is starting to look interesting'),(40,3,6,14,1,'40'),(41,3,6,14,2,'255'),(42,3,6,14,7,'Enter your name'),(43,3,6,15,1,'40'),(44,3,6,15,2,'255'),(45,3,6,15,7,'Enter your email');
 
 /*Table structure for table `user_site_form_field_row_background_color` */
 
@@ -741,9 +747,11 @@ CREATE TABLE `user_site_form_setting` (
   KEY `form_id` (`form_id`),
   CONSTRAINT `user_site_form_setting_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_site_form_setting_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form_setting` */
+
+insert  into `user_site_form_setting`(`id`,`site_id`,`form_id`,`width`,`legend`,`button`) values (1,1,1,600,'My form','Save'),(2,1,2,600,'Subscribe to my newlestter','Subscribe'),(3,2,3,600,'My form','Save'),(4,2,4,600,'Subscribe to my newlestter','Subscribe'),(5,3,5,600,'My form','Save'),(6,3,6,600,'Subscribe to my newlestter','Subscribe');
 
 /*Table structure for table `user_site_history` */
 
