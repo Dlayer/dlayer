@@ -1564,17 +1564,27 @@ var dlayer = {
 			);
 		},
 		
-		button: function(base_class, move_class, label) 
+		/**
+		* Generate the html for the movement buttons
+		* 
+		* @param base_class Base css class
+		* @param move_class Specific movement class
+		* @param direction Direction of intended movement
+		* @param label Label for button
+		* @param id Id for button
+		* 
+		* @returns {String}
+		*/
+		button: function(base_class, move_class, direction, label, id) 
 		{
 			var button = '<div class="move">';
 			button += '<div class="btn btn-xs btn-default btn-block ';
-			button += move_class + '">';
+			button += move_class + '" id="' + direction + ':' + id + '">';
 			button += label;
 			button += '</div>';
 			button += '</div>';
 			
 			return button;
-			//return '<div class="btn btn-xs btn-default btn-block move move-up">Move up</div>';
 		},
 		
 		/**
@@ -1589,33 +1599,29 @@ var dlayer = {
 			
 			$('.selected-area .row.selectable').each(function(index)
 			{
-				console.log(index);
+				id = this.id.replace('content_row_', '');
 				
 				if(index !== 0) {
 					$(this).prepend(dlayer.movers.button('move', 
-						'move-up', 'Move up'));
+						'move-up', 'up', 'Move up', id));
 				}
 				if(index !== (rows-1)) {
 					$(this).append(dlayer.movers.button('move', 
-						'move-down', 'Move down'));
+						'move-down', 'down', 'Move down', id));
 				}
-			}) ;
-
-			/*
-			$('#design .field_row > .move').click(
+			});
+			
+			$('.selected-area .row.selectable > .move > .btn').click(
 				function() {
-					$(this).css('background-color','#505050');
-					$(this).css('color','#ebebeb');
-
 					var params = this.id.split(':');
-
+					
 					window.location.replace(
-					'/form/design/move-field/direction/' + params[0] +
-					'/type/' + params[1] + '/field-id/' + params[2]);
+					'/content/design/move-content-row/direction/' + 
+						params[0] + '/id/' + params[1]);
 
 					return false;
 				}
-			);*/
+			);
 		}
 	},
 	

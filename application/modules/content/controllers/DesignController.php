@@ -529,4 +529,43 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->session_content->clearAll();
 		$this->_redirect('/content/design');
 	}
+	
+	/**
+	* Move the content row, before passing the request to the model we check 
+	* to ensure that the params are correct and belong to the site id stored in
+	* the session
+	*
+	* @return div
+	*/
+	public function moveContentRowAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+		
+		$direction = $this->getRequest()->getParam('direction');
+		$content_row_id = $this->getRequest()->getParam('id');
+		$site_id = $this->session_dlayer->siteId();
+		$page_id = $this->session_content->pageId();
+		$div_id = $this->session_content->divId();
+
+		$model_page_content = new Dlayer_Model_Page_Content();
+		
+		if($model_page_content->validContentRowId($site_id, $page_id, 
+			$div_id, $content_row_id) == TRUE && 
+			in_array($direction, array('up', 'down')) ==  TRUE) {
+		
+			$model_page_content->moveContentRow($site_id, $page_id, $div_id, 
+				$content_row_id, $direction);
+		}
+		
+		$this->redirect('/content/design');
+
+		if($model_page_content->valid($content_id,
+		$this->session_dlayer->siteId(), $page_id, $div_id, $content_type) &&
+		in_array($direction, array('up', 'down')) == TRUE) {
+			$model_page_content->moveContentItem($direction, $content_type,
+				$content_id, $div_id, $page_id, $this->session_dlayer->siteId());
+		}
+
+		$this->_redirect('/content/design/');
+	}
 }

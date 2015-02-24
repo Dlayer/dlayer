@@ -400,4 +400,79 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 
 		return count($stmt->fetchAll());
 	}
+	
+	/**
+	* Move the requested content row, either moves up or down. 
+	* 
+	* Once the sort order of the current item has been calculated and the 
+	* id of the sibling item that needs to be altered two requests are sent 
+	* to update the sort orders
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param string $direction
+	* @return void
+	*/
+	public function moveContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $direction)
+	{
+		$process = FALSE;
+
+		/**
+		* @todo Need to update this, check the types against the database
+		*/
+		if(in_array($content_type, array('text', 'heading', 'form')) == TRUE) {
+
+			$sort_order = $this->sortOrder($site_id, $page_id, $div_id,
+			$content_type, $content_id);
+
+			if($sort_order != FALSE) {
+				$process = TRUE;
+			}
+		}
+
+		if($process == TRUE) {
+
+			switch($direction) {
+				case 'up':
+					if($sort_order > 1) {
+						$sibling_content_id = $this->contentItemBySortOrder(
+						$site_id, $page_id, $div_id, $sort_order-1);
+
+						$this->setSortOrder($site_id, $content_id,
+						$sort_order-1);
+
+						$this->setSortOrder($site_id, $sibling_content_id,
+						$sort_order);
+					}
+				break;
+
+				case 'down':
+					if($sort_order < $this->numberContentItems($site_id,
+					$page_id, $div_id)) {
+						$sibling_content_id = $this->contentItemBySortOrder(
+						$site_id, $page_id, $div_id, $sort_order+1);
+
+						$this->setSortOrder($site_id, $content_id,
+						$sort_order+1);
+
+						$this->setSortOrder($site_id, $sibling_content_id,
+						$sort_order);
+					}
+				break;
+
+				default:
+					throw new Exception('Direction \'' . $direction . '\' not
+					found in Dlayer_Model_Page_Content::moveContentItem()');
+				break;
+			}
+
+		} else {
+			throw new Exception('Content type \'' . $content_type . '\' not
+			supported in Dlayer_Model_Page_Content::moveContentItem() or
+			sort order not returned by Dlayer_Model_Page_Content::sortOrder');
+		}
+	}
 }
