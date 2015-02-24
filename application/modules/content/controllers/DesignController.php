@@ -542,7 +542,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->_helper->disableLayout(FALSE);
 		
 		$direction = $this->getRequest()->getParam('direction');
-		$content_row_id = $this->getRequest()->getParam('id');
+		$content_row_id = intval($this->getRequest()->getParam('id'));
 		$site_id = $this->session_dlayer->siteId();
 		$page_id = $this->session_content->pageId();
 		$div_id = $this->session_content->divId();
@@ -558,14 +558,5 @@ class Content_DesignController extends Zend_Controller_Action
 		}
 		
 		$this->redirect('/content/design');
-
-		if($model_page_content->valid($content_id,
-		$this->session_dlayer->siteId(), $page_id, $div_id, $content_type) &&
-		in_array($direction, array('up', 'down')) == TRUE) {
-			$model_page_content->moveContentItem($direction, $content_type,
-				$content_id, $div_id, $page_id, $this->session_dlayer->siteId());
-		}
-
-		$this->_redirect('/content/design/');
 	}
 }
