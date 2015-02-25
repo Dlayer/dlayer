@@ -178,4 +178,50 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 	*/
 	abstract protected function validateValues($site_id, $page_id, $div_id, 
 		$content_row_id=NULL, array $params=array(), $content_id=NULL);
+		
+	/**
+	* Logic to handle adding the content item or editing the details for th 
+	* content item.
+	* 
+	* Method is used by all sub tools even though technically they don't add 
+	* content items, the update suplementary data
+	* 
+	* Used by the process method
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param string $content_type
+	* @return integer The id of the newly created content item
+	*/
+	abstract protected function addContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_type);
+		
+	/**
+	* Logic to edit content item
+	* 
+	* Used by the process method if a content id exists
+	*
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer $content_id
+	* @return void 
+	*/
+	protected function editContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id);
+		
+	/**
+	* Manage the structure for a content page
+	* 
+	* Used by the auto process methods
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id 
+	* @return integer Id of the newly created content row
+	*/
+	protected function structure($site_id, $page_id, $div_id);
 }

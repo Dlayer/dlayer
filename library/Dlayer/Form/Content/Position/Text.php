@@ -54,7 +54,7 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 
 		$this->validationRules();
 
-		$legend = 'Size & Position <small>Set the size and position for the 
+		$legend = 'Size & position <small>Set the size and position for the 
 			content item</small>';
 
 		$this->addElementsToForm('text_position', $legend, $this->elements);
