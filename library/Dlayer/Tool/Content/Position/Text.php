@@ -70,4 +70,21 @@ class Dlayer_Tool_Content_Position_Text extends Dlayer_Tool_Module_Content
 
 		return $prepared;
 	}
+	
+	protected function addContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_type)
+	{
+		
+	}
+		
+	protected function editContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id)
+	{
+		
+	}
+		
+	protected function structure($site_id, $page_id, $div_id)
+	{
+		
+	}
 }

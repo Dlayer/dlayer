@@ -210,7 +210,7 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 	* @param integer $content_id
 	* @return void 
 	*/
-	protected function editContentItem($site_id, $page_id, $div_id, 
+	abstract protected function editContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id);
 		
 	/**
@@ -223,5 +223,5 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 	* @param integer $div_id 
 	* @return integer Id of the newly created content row
 	*/
-	protected function structure($site_id, $page_id, $div_id);
+	abstract protected function structure($site_id, $page_id, $div_id);
 }

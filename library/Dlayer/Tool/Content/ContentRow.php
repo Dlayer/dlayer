@@ -72,4 +72,16 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 		
 		return $model_content->addContentRow($site_id, $page_id, $div_id);
 	}
+
+	protected function addContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_type) 
+	{
+			
+	}
+
+	protected function editContentItem($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id)
+	{
+		
+	}
 }
