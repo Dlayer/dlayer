@@ -74,13 +74,42 @@ class Dlayer_Tool_Content_Position_Text extends Dlayer_Tool_Module_Content
 	protected function addContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_type)
 	{
-		
+		 
 	}
-		
+
+	/**
+	* Update the size and positon values for the selected text content item
+	* 		
+	* @param mixed $site_id
+	* @param mixed $page_id
+	* @param mixed $div_id
+	* @param mixed $content_row_id
+	* @param mixed $content_id
+	* @return void
+	*/
 	protected function editContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id)
 	{
+		$model_size = new Dlayer_Model_Page_Content_Size();
+		$size = $model_size->size($site_id, $page_id, $content_id);
 		
+		if($size != FALSE) {
+			if($size != $this->params['size']) {
+				$model_size->updateSize($site_id, $page_id, $content_id, 
+					$this->params['size']);
+			}
+		} else {
+			$model_size->setSize($site_id, $page_id, $content_id, 
+				$this->params['size']);
+		}
+		
+		
+		var_dump($site_id);
+		var_dump($page_id);
+		var_dump($div_id);
+		var_dump($content_row_id);
+		var_dump($content_id);
+		var_dump($this->params); die;
 	}
 		
 	protected function structure($site_id, $page_id, $div_id)
