@@ -54,8 +54,10 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 
 		$this->validationRules();
 
-		$this->addElementsToForm('text_position', 'Container position', 
-		$this->elements);
+		$legend = 'Size & Position <small>Set the size and position for the 
+			content item</small>';
+
+		$this->addElementsToForm('text_position', $legend, $this->elements);
 
 		$this->addDefaultElementDecorators();
 
@@ -63,25 +65,27 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 	}
 
 	/**
-	* Set up all the elements required for the form, these are broken down 
-	* into two sections, hidden elements for the tool and then visible 
-	* elements for the user
-	*
-	* @return void The form elements are written to the private $this->elemnets
-	* 			   array
+	* Set up all the form elements required by the tool, this is broekn down 
+	* into two sections, the hidden elements that manage the environment and 
+	* tool and the user visible elements for the user
+	* 
+	* @return void The form elements are written to the private 
+	* 	$this->elements array
 	*/
 	protected function setUpFormElements()
 	{
 		$this->toolElements();
-		
+
 		$this->userElements();
 	}
 
 	/**
-	* Set up the tool elements, these are the elements that define the tool and 
-	* store the session values for the designer
+	* Set up all the tool and environment elements, there are all the elements 
+	* that define the tool being used and the environment/session values 
+	* currently set in the designer
 	*
-	* @return void Writes the elements to the private $this->elements array
+	* @return void The form elements are written to the private 
+	* 	$this->elements array
 	*/
 	private function toolElements()
 	{
@@ -94,6 +98,11 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 		$div_id->setValue($this->div_id);
 
 		$this->elements['div_id'] = $div_id;
+		
+		$content_row_id = new Zend_Form_Element_Hidden('content_row_id');
+		$content_row_id->setValue($this->content_row_id);
+
+		$this->elements['content_row_id'] = $content_row_id;
 
 		$tool = new Zend_Form_Element_Hidden('tool');
 		$tool->setValue($this->tool);
@@ -104,14 +113,14 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 		$sub_tool_model->setValue($this->sub_tool_model);
 
 		$this->elements['sub_tool_model'] = $sub_tool_model;
-		
+
 		$content_type = new Zend_Form_Element_Hidden('content_type');
-		$content_type->setValue($this->content_type);
+		$content_type->setValue('text');
 
 		$this->elements['content_type'] = $content_type;
 
 		$content_id = new Zend_Form_Element_Hidden('content_id');
-		$content_id->setValue($this->existing_data['content_id']);
+		$content_id->setValue($this->content_item['id']);
 
 		$this->elements['content_id'] = $content_id;
 
@@ -123,92 +132,36 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 	}
 	
 	/**
-	* Set up the user elements, these are the elements that the user interacts 
-	* with to use the tool
+	* Set up the user elements, these are the fields that the user interacts 
+	* with
 	* 
-	* @return void Writes the elements to the private $this->elements array
+	* @return void The form elements are written to the private 
+	* 	$this->elements array
 	*/
 	private function userElements() 
 	{
-		$top = new Dlayer_Form_Element_Number('top');
-		$top->setLabel('Top: (Spacing above text item)');
-		$top->setAttribs(array('max'=>1000, 'maxlength'=>4, 'class'=>'tinyint', 
-		'min'=>0));
-		$top->setDescription('Set the size of the spacing that you would like 
-		above the text content item.');
-		$top->setBelongsTo('params');
+		$size = new Dlayer_Form_Element_Number('size');
+		$size->setLabel('Size:');
+		$size->setAttribs(array('max'=>12, 'min'=>1, 
+			'class'=>'form-control input-sm'));
+		$size->setDescription('Set the size for the text content item, there 
+			are 12 columns to a row, the text item size can be set to any value 
+			between 1 and 12');
+		$size->setBelongsTo('params');
+		$size->setRequired();
 		
-		$value = $this->existingDataValue('top');
-		if($value != FALSE) {
-			$top->setValue($value);
+		if(array_key_exists('size', $this->content_item) == TRUE 
+			&& $this->content_item['size'] != FALSE) {
+			
+			$size->setValue($this->content_item['size']);
 		} else {
-			$top->setValue(0);
+			$size->setValue(12);
 		}
-		
-		$this->elements['top'] = $top;
-		
-		$right = new Dlayer_Form_Element_Number('right');
-		$right->setLabel('Right: (Spacing to right of text item)');
-		$right->setAttribs(array('max'=>1000, 'maxlength'=>4, 'class'=>'tinyint', 
-		'min'=>0));
-		$right->setDescription('Set the size of the spacing that you would like 
-		to the right of the text content item.');
-		$right->setBelongsTo('params');
-		
-		$value = $this->existingDataValue('right');
-		if($value != FALSE) {
-			$right->setValue($value);
-		} else {
-			$right->setValue(0);
-		}
-		
-		$this->elements['right'] = $right;
-		
-		$bottom = new Dlayer_Form_Element_Number('bottom');
-		$bottom->setLabel('Bottom: (Spacing below text item)');
-		$bottom->setAttribs(array('max'=>1000, 'maxlength'=>4, 'class'=>'tinyint', 
-		'min'=>0));
-		$bottom->setDescription('Set the size of the spacing that you would like 
-		below the text content item.');
-		$bottom->setBelongsTo('params');
-		
-		$value = $this->existingDataValue('bottom');
-		if($value != FALSE) {
-			$bottom->setValue($value);
-		} else {
-			$bottom->setValue(0);
-		}
-		
-		$this->elements['bottom'] = $bottom;
-		
-		$left = new Dlayer_Form_Element_Number('left');
-		$left->setLabel('Left: (Spacing to the left of text item)');
-		$left->setAttribs(array('max'=>1000, 'maxlength'=>4, 'class'=>'tinyint', 
-		'min'=>0));
-		$left->setDescription('Set the size of the spacing that you would like 
-		to the left of the text content item.');
-		$left->setBelongsTo('params');
-		
-		$value = $this->existingDataValue('left');
-		if($value != FALSE) {
-			$left->setValue($value);
-		} else {
-			$left->setValue(0);
-		}
-		
-		$this->elements['left'] = $left;
-		
-		// Duplicated value for params array, required by the validateData 
-		// method, this is the easiest way of passing the value through 
-		// without modifying the process controller and tool classes
-		$content_id = new Zend_Form_Element_Hidden('content_container_id');
-		$content_id->setValue($this->existing_data['content_id']);
-		$content_id->setBelongsTo('params');
 
-		$this->elements['content_container_id'] = $content_id;
-				
+		$this->elements['size'] = $size;
+		
 		$submit = new Zend_Form_Element_Submit('submit');
-		$submit->setAttrib('class', 'submit');
+		$submit->setAttribs(array('class'=>'btn btn-primary'));
 		$submit->setLabel('Save');
 
 		$this->elements['submit'] = $submit;

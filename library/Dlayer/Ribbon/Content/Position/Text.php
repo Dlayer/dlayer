@@ -54,7 +54,7 @@ Dlayer_Ribbon_Module_Content
 	*/
 	protected function contentItem()
 	{
-		$this->data = array('size'=>FALSE);
+		$this->data = array('id'=>$this->content_id, 'size'=>FALSE);
 
 		if($this->content_id != NULL) {
 			
