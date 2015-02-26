@@ -131,7 +131,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 		$this->elements['tool'] = $tool;
 
 		$content_type = new Zend_Form_Element_Hidden('content_type');
-		$content_type->setValue('heading');
+		$content_type->setValue($this->content_type);
 
 		$this->elements['content_type'] = $content_type;
 

@@ -1,225 +1,181 @@
 <?php
 /**
-* Position form for the import form tool
+* Form for the size and position tab of the import form tool
 * 
-* Allows the user to define the placement of the imported form by defining the 
-* top, right, bottom and left margin
+* This form allows a user to define the size and position of the currently 
+* selected content item
 *
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: ImportForm.php 1928 2014-06-12 13:53:38Z Dean.Blackborough $
 */
-class Dlayer_Form_Content_Position_ImportForm extends Dlayer_Form_Module_Content
+class Dlayer_Form_Content_Position_ImportForm extends 
+Dlayer_Form_Module_Content
 {
-    /**
-    * Set the initial properties for the form
-    *
-    * @param integer $page_id
-    * @param integer $div_id
-    * @param array $container Content container sizes, conatins all the size 
-    * 						  fields relevant to the content item
-    * @param array $existing_data Exisitng form data array, array values will 
-    * 							  be FALSE if there is no data for the field
-    * @param boolean $edit_mode Is the tool in edit mode
-    * @param integer $multi_use Tool tab multi use param
-    * @param array|NULL $options Zend form options data array
-    * @return void
-    */
-    public function __construct($page_id, $div_id, array $container, 
-    array $existing_data, $edit_mode=FALSE, $multi_use, $options=NULL)
-    {
-        $this->tool = 'import-form';
-        $this->content_type = 'form';
-        $this->sub_tool_model = 'Position_ImportForm';
+	/**
+	* Set the initial properties for the form
+	* 
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param array $content_row Details for the content row, used to preset 
+	* 	certains values for the content item, for example which bootstrap 
+	* 	column class to use
+	* @param array $content_item The existing data for the content item, 
+	* 	array values will be FALSE in add mode, populated in edit mode
+	* @param boolean $edit_mode Is the tool in edit mode
+	* @param integer $multi_use The multi use value for the tool, either 1 or 0
+	* @param array|NULL $options Zend form options data array
+	* @return void
+	*/
+	public function __construct($page_id, $div_id, $content_row_id, 
+		array $content_row, array $content_item, $edit_mode=FALSE, 
+		$multi_use=0, $options=NULL)
+	{
+		$this->tool = 'import-form';
+		$this->content_type = 'form';
+		$this->sub_tool_model = 'Position_ImportForm';
 
-        parent::__construct($page_id, $div_id, $container, $existing_data, 
-        $edit_mode, $multi_use, $options=NULL);
-    }
+		parent::__construct($page_id, $div_id, $content_row_id, $content_row, 
+			$content_item, $edit_mode, $multi_use, $options);
+	}
 
-    /**
-    * Initialuse the form, sers the url and submit method and then calls the
-    * methods that set up the form
-    *
-    * @return void
-    */
-    public function init()
-    {
-        $this->setAction('/content/process/tool');
+	/**
+	* Initialuse the form, sers the url and submit method and then calls the
+	* methods that set up the form
+	*
+	* @return void
+	*/
+	public function init()
+	{
+		$this->setAction('/content/process/tool');
 
-        $this->setMethod('post');
+		$this->setMethod('post');
 
-        $this->setUpFormElements();
+		$this->setUpFormElements();
 
-        $this->validationRules();
+		$this->validationRules();
 
-        $this->addElementsToForm('import_form_position', 'Container position', 
-        $this->elements);
+		$legend = 'Size & position <small>Set the size and position for the 
+			imported form</small>';
 
-        $this->addDefaultElementDecorators();
+		$this->addElementsToForm('form_position', $legend, $this->elements);
 
-        $this->addCustomElementDecorators();
-    }
+		$this->addDefaultElementDecorators();
 
-    /**
-    * Set up all the elements required for the form, these are broken down 
-    * into two sections, hidden elements for the tool and then visible 
-    * elements for the user
-    *
-    * @return void The form elements are written to the private $this->elemnets
-    * 			   array
-    */
-    protected function setUpFormElements()
-    {
-        $this->toolElements();
-        
-        $this->userElements();
-    }
+		$this->addCustomElementDecorators();
+	}
 
-    /**
-    * Set up the tool elements, these are the elements that define the tool and 
-    * store the session values for the designer
-    *
-    * @return void Writes the elements to the private $this->elements array
-    */
-    private function toolElements()
-    {
-        $page_id = new Zend_Form_Element_Hidden('page_id');
-        $page_id->setValue($this->page_id);
+	/**
+	* Set up all the form elements required by the tool, this is broekn down 
+	* into two sections, the hidden elements that manage the environment and 
+	* tool and the user visible elements for the user
+	* 
+	* @return void The form elements are written to the private 
+	* 	$this->elements array
+	*/
+	protected function setUpFormElements()
+	{
+		$this->toolElements();
 
-        $this->elements['page_id'] = $page_id;
+		$this->userElements();
+	}
 
-        $div_id = new Zend_Form_Element_Hidden('div_id');
-        $div_id->setValue($this->div_id);
+	/**
+	* Set up all the tool and environment elements, there are all the elements 
+	* that define the tool being used and the environment/session values 
+	* currently set in the designer
+	*
+	* @return void The form elements are written to the private 
+	* 	$this->elements array
+	*/
+	private function toolElements()
+	{
+		$page_id = new Zend_Form_Element_Hidden('page_id');
+		$page_id->setValue($this->page_id);
 
-        $this->elements['div_id'] = $div_id;
+		$this->elements['page_id'] = $page_id;
 
-        $tool = new Zend_Form_Element_Hidden('tool');
-        $tool->setValue($this->tool);
+		$div_id = new Zend_Form_Element_Hidden('div_id');
+		$div_id->setValue($this->div_id);
 
-        $this->elements['tool'] = $tool;
-        
-        $sub_tool_model = new Zend_Form_Element_Hidden('sub_tool_model');
-        $sub_tool_model->setValue($this->sub_tool_model);
+		$this->elements['div_id'] = $div_id;
+		
+		$content_row_id = new Zend_Form_Element_Hidden('content_row_id');
+		$content_row_id->setValue($this->content_row_id);
 
-        $this->elements['sub_tool_model'] = $sub_tool_model;
-        
-        $content_type = new Zend_Form_Element_Hidden('content_type');
-        $content_type->setValue($this->content_type);
+		$this->elements['content_row_id'] = $content_row_id;
 
-        $this->elements['content_type'] = $content_type;
+		$tool = new Zend_Form_Element_Hidden('tool');
+		$tool->setValue($this->tool);
 
-        $content_id = new Zend_Form_Element_Hidden('content_id');
-        $content_id->setValue($this->existing_data['content_id']);
+		$this->elements['tool'] = $tool;
+		
+		$sub_tool_model = new Zend_Form_Element_Hidden('sub_tool_model');
+		$sub_tool_model->setValue($this->sub_tool_model);
 
-        $this->elements['content_id'] = $content_id;
+		$this->elements['sub_tool_model'] = $sub_tool_model;
 
-        $multi_use = new Zend_Form_Element_Hidden('multi_use');
-        $multi_use->setValue($this->multi_use);
-        $multi_use->setBelongsTo('params');
+		$content_type = new Zend_Form_Element_Hidden('content_type');
+		$content_type->setValue($this->content_type);
 
-        $this->elements['multi_use'] = $multi_use;
-    }
-    
-    /**
-    * Set up the user elements, these are the elements that the user interacts 
-    * with to use the tool
-    * 
-    * @return void Writes the elements to the private $this->elements array
-    */
-    private function userElements() 
-    {
-    	$top = new Dlayer_Form_Element_Number('top');
-        $top->setLabel('Top: (Spacing above form)');
-        $top->setAttribs(array('max'=>1000, 'maxlength'=>4, 'class'=>'tinyint', 
-        'min'=>0));
-        $top->setDescription('Set the size of the spacing that you would like 
-        above the imported form.');
-        $top->setBelongsTo('params');
-        
-        $value = $this->existingDataValue('top');
-        if($value != FALSE) {
-			$top->setValue($value);
-        } else {
-			$top->setValue(0);
-        }
-        
-        $this->elements['top'] = $top;
-        
-        $right = new Dlayer_Form_Element_Number('right');
-        $right->setLabel('Right: (Spacing to right of form)');
-        $right->setAttribs(array('max'=>1000, 'maxlength'=>4, 'class'=>'tinyint', 
-        'min'=>0));
-        $right->setDescription('Set the size of the spacing that you would like 
-        to the right of the imported form.');
-        $right->setBelongsTo('params');
-        
-        $value = $this->existingDataValue('right');
-        if($value != FALSE) {
-			$right->setValue($value);
-        } else {
-			$right->setValue(0);
-        }
-        
-        $this->elements['right'] = $right;
-        
-        $bottom = new Dlayer_Form_Element_Number('bottom');
-        $bottom->setLabel('Bottom: (Spacing below form)');
-        $bottom->setAttribs(array('max'=>1000, 'maxlength'=>4, 'class'=>'tinyint', 
-        'min'=>0));
-        $bottom->setDescription('Set the size of the spacing that you would like 
-        below the imported form.');
-        $bottom->setBelongsTo('params');
-        
-        $value = $this->existingDataValue('bottom');
-        if($value != FALSE) {
-			$bottom->setValue($value);
-        } else {
-			$bottom->setValue(0);
-        }
-        
-        $this->elements['bottom'] = $bottom;
-        
-        $left = new Dlayer_Form_Element_Number('left');
-        $left->setLabel('Left: (Spacing to the left of form)');
-        $left->setAttribs(array('max'=>1000, 'maxlength'=>4, 'class'=>'tinyint', 
-        'min'=>0));
-        $left->setDescription('Set the size of the spacing that you would like 
-        to the left of the imported form.');
-        $left->setBelongsTo('params');
-        
-        $value = $this->existingDataValue('left');
-        if($value != FALSE) {
-			$left->setValue($value);
-        } else {
-			$left->setValue(0);
-        }
-        
-        $this->elements['left'] = $left;
-        
-        // Duplicated value for params array, required by the validateData 
-        // method, this is the easiest way of passing the value through 
-        // without modifying the process controller and tool classes
-        $content_id = new Zend_Form_Element_Hidden('content_container_id');
-        $content_id->setValue($this->existing_data['content_id']);
-        $content_id->setBelongsTo('params');
+		$this->elements['content_type'] = $content_type;
 
-        $this->elements['content_container_id'] = $content_id;
-                
-        $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setAttrib('class', 'submit');
-        $submit->setLabel('Save');
+		$content_id = new Zend_Form_Element_Hidden('content_id');
+		$content_id->setValue($this->content_item['id']);
 
-        $this->elements['submit'] = $submit;
-    }
+		$this->elements['content_id'] = $content_id;
 
-    /**
-    * Add the validation rules for the form elements and set the custom error
-    * messages
-    *
-    * @return void
-    */
-    protected function validationRules()
-    {
+		$multi_use = new Zend_Form_Element_Hidden('multi_use');
+		$multi_use->setValue($this->multi_use);
+		$multi_use->setBelongsTo('params');
 
-    }
+		$this->elements['multi_use'] = $multi_use;
+	}
+	
+	/**
+	* Set up the user elements, these are the fields that the user interacts 
+	* with
+	* 
+	* @return void The form elements are written to the private 
+	* 	$this->elements array
+	*/
+	private function userElements() 
+	{
+		$size = new Dlayer_Form_Element_Number('size');
+		$size->setLabel('Size:');
+		$size->setAttribs(array('max'=>12, 'min'=>1, 
+			'class'=>'form-control input-sm'));
+		$size->setDescription('Set the size for the imported form, there 
+			are 12 columns to a row, the form size can be set to any value 
+			between 1 and 12');
+		$size->setBelongsTo('params');
+		$size->setRequired();
+		
+		if(array_key_exists('size', $this->content_item) == TRUE 
+			&& $this->content_item['size'] != FALSE) {
+			
+			$size->setValue($this->content_item['size']);
+		} else {
+			$size->setValue(12);
+		}
+
+		$this->elements['size'] = $size;
+		
+		$submit = new Zend_Form_Element_Submit('submit');
+		$submit->setAttribs(array('class'=>'btn btn-primary'));
+		$submit->setLabel('Save');
+
+		$this->elements['submit'] = $submit;
+	}
+
+	/**
+	* Add the validation rules for the form elements and set the custom error
+	* messages
+	*
+	* @return void
+	*/
+	protected function validationRules()
+	{
+
+	}
 }

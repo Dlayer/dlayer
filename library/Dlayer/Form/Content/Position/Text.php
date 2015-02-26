@@ -55,7 +55,7 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 		$this->validationRules();
 
 		$legend = 'Size & position <small>Set the size and position for the 
-			content item</small>';
+			text item</small>';
 
 		$this->addElementsToForm('text_position', $legend, $this->elements);
 
@@ -115,7 +115,7 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 		$this->elements['sub_tool_model'] = $sub_tool_model;
 
 		$content_type = new Zend_Form_Element_Hidden('content_type');
-		$content_type->setValue('text');
+		$content_type->setValue($this->content_type);
 
 		$this->elements['content_type'] = $content_type;
 

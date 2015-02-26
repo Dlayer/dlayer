@@ -117,9 +117,11 @@ class Dlayer_View_ContentForm extends Zend_View_Helper_Abstract
 			}
 		}
 		
+		$width = 'col-md-' . $this->view->escape($this->data['size']);
+		
 		$html = '';
 		
-		$html .= '<div class="col-md-12">';
+		$html .= '<div class="' . $width . '">';
 		$html .= '<div class="' . $class . '" id="' . $id . '">';
 		$html .= $this->data['form']->form();
 		$html .= '</div>';
