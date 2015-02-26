@@ -25,13 +25,18 @@ class Dlayer_Model_View_Content_Items_Heading extends Zend_Db_Table_Abstract
 	*/
 	private function item($site_id, $page_id, $content_id)
 	{
-		$sql = "SELECT uspcih.content_id, usch.content, dch.tag 
+		$sql = "SELECT uspcih.content_id, usch.content, dch.tag, 
+				uspcis.size  
 				FROM user_site_page_content_item_heading uspcih 
 				JOIN user_site_content_heading usch 
 					ON uspcih.data_id = usch.id 
 					AND usch.site_id = :site_id 
 				JOIN designer_content_heading dch 
 					ON uspcih.heading_id = dch.id 
+				LEFT JOIN user_site_page_content_item_size uspcis 
+					ON uspcih.content_id = uspcis.content_id 
+					AND uspcis.site_id = :site_id 
+					AND uspcis.page_id = :page_id 
 				WHERE uspcih.content_id = :content_id 
 				AND uspcih.site_id = :site_id 
 				AND uspcih.page_id = :page_id";

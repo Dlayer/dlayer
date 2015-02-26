@@ -120,9 +120,15 @@ class Dlayer_View_ContentHeading extends Zend_View_Helper_Abstract
 			}
 		}
 		
+		if($this->data['size'] != NULL) {
+			$width = 'col-md-' . $this->view->escape($this->data['size']);
+		} else {
+			$width = 'col-md-12';
+		}
+		
 		$html = '';
 		
-		$html .= '<div class="col-md-12">';
+		$html .= '<div class="' . $width . '">';
 		$html .= '<' . $tag . ' class="' . $class . '" id="' . $id . '">';
 		$html .= $this->view->escape($this->data['content']);
 		$html .= '</' . $tag . '>';

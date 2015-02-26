@@ -111,7 +111,11 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 			}
 		}
 		
-		$width = 'col-md-' . $this->view->escape($this->data['size']);
+		if($this->data['size'] != NULL) {
+			$width = 'col-md-' . $this->view->escape($this->data['size']);
+		} else {
+			$width = 'col-md-12';
+		}
 		
 		$html = '';
 		
