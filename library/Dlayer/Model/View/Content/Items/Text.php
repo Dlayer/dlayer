@@ -12,9 +12,9 @@
 class Dlayer_Model_View_Content_Items_Text extends Zend_Db_Table_Abstract 
 {
 	/**
-	* Fetch the base data for the text content item, essentially just the 
-	* text, custom options defined by sub tools are returned by their own 
-	* methods
+	* Fetch the base data for the text content item, the text itself and the 
+	* size of the content box, custom options defined by the sub tools are 
+	* returned by their own methods
 	* 
 	* @param integer $site_id
 	* @param integer $page_id
@@ -24,10 +24,14 @@ class Dlayer_Model_View_Content_Items_Text extends Zend_Db_Table_Abstract
 	*/
 	private function item($site_id, $page_id, $content_id) 
 	{
-		$sql = "SELECT uspcit.content_id, usct.content 
+		$sql = "SELECT uspcit.content_id, usct.content, uspcis.size 
 				FROM user_site_page_content_item_text uspcit 
 				JOIN user_site_content_text usct ON uspcit.data_id = usct.id 
 					AND usct.site_id = :site_id 
+				LEFT JOIN user_site_page_content_item_size uspcis 
+					ON uspcit.content_id = uspcis.content_id 
+					AND uspcis.site_id = :site_id 
+					AND uspcis.page_id = :page_id 
 				WHERE uspcit.content_id = :content_id 
 				AND uspcit.site_id = :site_id 
 				AND uspcit.page_id = :page_id";

@@ -102,14 +102,6 @@ class Dlayer_Tool_Content_Position_Text extends Dlayer_Tool_Module_Content
 			$model_size->setSize($site_id, $page_id, $content_id, 
 				$this->params['size']);
 		}
-		
-		
-		var_dump($site_id);
-		var_dump($page_id);
-		var_dump($div_id);
-		var_dump($content_row_id);
-		var_dump($content_id);
-		var_dump($this->params); die;
 	}
 		
 	protected function structure($site_id, $page_id, $div_id)

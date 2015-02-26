@@ -111,9 +111,11 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 			}
 		}
 		
+		$width = 'col-md-' . $this->view->escape($this->data['size']);
+		
 		$html = '';
 		
-		$html .= '<div class="col-md-12">';
+		$html .= '<div class="' . $width . '">';
 		$html .= '<p class="' .$class . '" id="' . $id . '">';
 		$html .= nl2br($this->view->escape($this->data['content']));
 		$html .= '</p>';
