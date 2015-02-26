@@ -194,6 +194,23 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 		}
 
 		$this->elements['heading'] = $heading;
+		
+		$sub_heading = new Zend_Form_Element_Textarea('sub_heading');
+		$sub_heading->setLabel('Sub heading');
+		$sub_heading->setAttribs(array('cols'=>50, 'rows'=>4, 
+			'placeholder'=>'e.g., Sub heading!', 
+			'class'=>'form-control input-sm'));
+		$sub_heading->setDescription('Enter the text for the sub heading, this 
+			will appear to the right of the heading in a smaller, lighter 
+			style.');
+		$sub_heading->setBelongsTo('params');
+		
+		if(array_key_exists('sub_heading', $this->content_item) == TRUE 
+		&& $this->content_item['sub_heading'] != FALSE) {
+			$sub_heading->setValue($this->content_item['sub_heading']);
+		}
+
+		$this->elements['sub_heading'] = $sub_heading;
 
 		$this->elements['instances'] = $this->instancesElement(
 			'heading text', 'heading');

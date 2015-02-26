@@ -25,8 +25,8 @@ class Dlayer_Model_View_Content_Items_Heading extends Zend_Db_Table_Abstract
 	*/
 	private function item($site_id, $page_id, $content_id)
 	{
-		$sql = "SELECT uspcih.content_id, usch.content, dch.tag, 
-				uspcis.size  
+		$sql = "SELECT uspcih.content_id, usch.content AS heading, 
+				dch.tag, uspcis.size  
 				FROM user_site_page_content_item_heading uspcih 
 				JOIN user_site_content_heading usch 
 					ON uspcih.data_id = usch.id 
@@ -45,8 +45,27 @@ class Dlayer_Model_View_Content_Items_Heading extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		$exploded = explode('-:-', $result['heading']);
+			
+		switch(count($exploded)) {
+			case 1:
+				$result['sub_heading'] = '';
+				break;
+				
+			case 2:
+				$result['heading'] = $exploded['0'];
+				$result['sub_heading'] = $exploded['1'];
+				break;
+			
+			default:
+				$result['sub_heading'] = '';
+				break;
+		}
 
-		return $stmt->fetch();
+		return $result;
 	}
 	
 	/**

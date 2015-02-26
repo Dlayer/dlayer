@@ -23,7 +23,8 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	protected function validateFields(array $params=array(), $content_id=NULL)
 	{
 		if(array_key_exists('name', $params) == TRUE && 
-		array_key_exists('heading', $params) == TRUE &&
+		array_key_exists('heading', $params) == TRUE && 
+		array_key_exists('sub_heading', $params) == TRUE &&
 		array_key_exists('heading_type', $params) == TRUE) {
 			
 			if($content_id == NULL) {
@@ -62,6 +63,7 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 		
 		if(strlen(trim($params['name'])) > 0 && 
 			strlen(trim($params['heading'])) > 0 && 
+			strlen(trim($params['sub_heading'])) >= 0 && 
 			$model_settings->headingTypeIdValid(
 				$params['heading_type']) == TRUE) {
 			
@@ -83,6 +85,7 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	{
 		$prepared = array(
 			'heading'=>trim($params['heading']),
+			'heading'=>trim($params['sub_heading']),
 			'name'=>trim($params['name']),
 			'heading_type'=>intval($params['heading_type']));
 			
