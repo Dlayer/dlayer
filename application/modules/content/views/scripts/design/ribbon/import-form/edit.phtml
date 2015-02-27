@@ -11,9 +11,9 @@
 		<mark>Return to Content manager</mark> link, the Content manager will 
 		be just as you left it.</p>
 		
-	<?php if($this->data != FALSE) { ?>
+	<?php if($this->data['form_id'] != FALSE) { ?>
 	<p><a href="/form/index/activate/form-id/<?php echo $this->escape(
-		$this->data); ?>/load/1/return/content" class="btn btn-primary">
+		$this->data['form_id']); ?>/load/1/return/content" class="btn btn-primary">
 		Edit in Form Builder</a></p>
 	<?php } else { ?>
 	<p>Sorry, unable to generate the link for Form builder.</p>

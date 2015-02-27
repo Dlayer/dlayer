@@ -233,24 +233,12 @@ class Dlayer_Ribbon_Data_Content
 				break;
 				
 			case 'edit':
-			
-				/**
-				* 
-				* @todo This needs to be moved into a ribbon class when it 
-				* is working
-				* 
-				*/
-				$model_content_form = 
-				new Dlayer_Model_Page_Content_Items_Form();
-
-				$form_id = $model_content_form->formId($this->site_id, 
-					$this->page_id, $this->content_id);
-
-				if($form_id != FALSE) {
-					$data = $form_id;
-				} else {
-					$data = FALSE;
-				}				
+				$ribbon_reference = 
+				new Dlayer_Ribbon_Content_Reference_ImportForm();
+				$data = $ribbon_reference->viewData($this->site_id, 
+					$this->page_id, $this->div_id, $this->tool, $this->tab, 
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);			
 				break;
 				
 			case 'position':
