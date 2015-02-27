@@ -120,7 +120,7 @@ div#designer {
 	
 	#return {
 		width: 320px;
-		margin: 0px 10px;
+		margin: 0px 10px 10px 10px;
 		float: left;
 	}
 	
@@ -147,6 +147,13 @@ div#designer {
 		
 		ul.nav-tabs {
 			margin-bottom: 10px;
+			
+			> li {
+				
+				> a {
+					padding: 5px 10px;
+				}
+			}
 		}
 		
 		div.content {

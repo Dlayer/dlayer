@@ -59,7 +59,7 @@ div#designer {
       padding-bottom: 10px; }
   div#designer #return {
     width: 320px;
-    margin: 0px 10px;
+    margin: 0px 10px 10px 10px;
     float: left; }
   div#designer #content-block-metrics {
     width: 320px;
@@ -77,6 +77,8 @@ div#designer {
     float: left; }
     div#designer #ribbon ul.nav-tabs {
       margin-bottom: 10px; }
+      div#designer #ribbon ul.nav-tabs > li > a {
+        padding: 5px 10px; }
     div#designer #ribbon div.content {
       display: none; }
       div#designer #ribbon div.content p.unsaved {

@@ -149,12 +149,13 @@ class Dlayer_Ribbon_Data_Content
 					$this->multi_use, $this->edit_mode, $this->content_row_id, 
 					$this->content_id);
 				break;
-
-			case 'styling':            
+				
+			case 'styling':
 				$ribbon_styling = new Dlayer_Ribbon_Content_Styling_Text();
 				$data = $ribbon_styling->viewData($this->site_id, 
 					$this->page_id, $this->div_id, $this->tool, $this->tab, 
-					$this->multi_use, $this->content_id, $this->edit_mode);
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
 				break;
 
 			default:
