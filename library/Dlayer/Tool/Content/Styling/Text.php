@@ -100,24 +100,47 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 	protected function editContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id)
 	{
-		var_dump($this->params); die;
-		
-		$model_size = new Dlayer_Model_Page_Content_Size();
-		$size = $model_size->size($site_id, $page_id, $content_id);
-		
-		if($size != FALSE) {
-			if($size != $this->params['size']) {
-				$model_size->updateSize($site_id, $page_id, $content_id, 
-					$this->params['size']);
-			}
-		} else {
-			$model_size->setSize($site_id, $page_id, $content_id, 
-				$this->params['size']);
-		}
+		$this->backgroundColor($site_id, $page_id, $div_id, $content_row_id, 
+			$content_id);
 	}
 		
 	protected function structure($site_id, $page_id, $div_id)
 	{
 		
+	}
+	
+	/**
+	* Update or set the background styling value for the selected content item
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer $content_id
+	* @return void
+	*/
+	protected function backgroundColor($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id) 
+	{
+		$model_styling = new Dlayer_Model_Page_Content_Styling();
+		
+		$id = $model_styling->existingItemContainerBackgroundColor($site_id, 
+			$page_id, $content_id);
+			
+		if($id == FALSE) {
+			if($this->params['clear_background'] == FALSE) {
+				$model_styling->addItemContainerBackgroundColor($site_id, 
+					$page_id, $content_id, $this->params['background_color']);
+			}
+		} else {
+			if($this->params['clear_background'] == FALSE) {
+				$model_styling->updateItemContainerBackgroundColor($site_id, 
+					$page_id, $content_id, $id, 
+					$this->params['background_color']);
+			} else {
+				$model_styling->clearItemContainerBackgroundColor($site_id, 
+					$page_id, $content_id, $id);
+			}
+		}
 	}
 }
