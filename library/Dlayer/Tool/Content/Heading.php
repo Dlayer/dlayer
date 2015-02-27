@@ -85,7 +85,7 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Module_Content
 	{
 		$prepared = array(
 			'heading'=>trim($params['heading']),
-			'heading'=>trim($params['sub_heading']),
+			'sub_heading'=>trim($params['sub_heading']),
 			'name'=>trim($params['name']),
 			'heading_type'=>intval($params['heading_type']));
 			

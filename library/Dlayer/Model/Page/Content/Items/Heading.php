@@ -96,10 +96,9 @@ Dlayer_Model_Page_Content_Item
 	private function addToDataTable($site_id, $name, $heading, $sub_heading) 
 	{
 		if(strlen($sub_heading) > 0) {
-			$content = trim(strtoupper($heading)) . '-:-' . 
-				trim(strtoupper($sub_heading));
+			$content = trim($heading) . '-:-' . trim($sub_heading);
 		} else {
-			$content = trim(strtoupper($heading));
+			$content = trim($heading);
 		}
 		
 		$sql = "INSERT INTO user_site_content_heading 
@@ -130,10 +129,9 @@ Dlayer_Model_Page_Content_Item
 	$name, $heading, $sub_heading='') 
 	{
 		if(strlen($sub_heading) > 0) {
-			$content = trim(strtoupper($heading)) . '-:-' . 
-				trim(strtoupper($sub_heading));
+			$content = trim($heading) . '-:-' . trim($sub_heading);
 		} else {
-			$content = trim(strtoupper($heading));
+			$content = trim($heading);
 		}
 		
 		$sql = "UPDATE user_site_content_heading 
