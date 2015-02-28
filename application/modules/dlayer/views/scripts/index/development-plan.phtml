@@ -4,248 +4,126 @@
 	<div class="col-md-12 col-xs-12">
 		<h1>Development plan <small>Plan of attack</small></h1>
 		
-		<p>The development plan for Dlayer exists in my head, the specification, 
-			OneNote and all over the white board in my man cave, it is structured 
-			initially towards getting Dlayer into a position where a user can create a 
-			simple multi-page web site with minor dynamic functionality.</p>
-
-		<p>As soon as I have added enough functionality to the first four modules 
-			(Template designer, Content manager, Form builder and Web site manager) to 
-			achieve the above goal I will dedicate my time towards adding and 
-			completing the content based  modules, Content designer, Form builder and 
-			Question manager.</p>
-
-		<p>The development of the Widget designer will always lag behind the other 
-			modules, the Widget designer is incredibly complicated because in addition 
-			to allowing dynamic functionality it is an amalgamation of all the other 
-			modules.</p>
-
-		<p class="bg-info dev-note">If you are interested in seeing the full current 
-			specification for Dlayer please contact me at dean (at) 
-			g3d-development (dot) com or via my 
-			<a href="http://www.g3d-development.com">blog</a>.</p>
-
-		<h3>Text based content</h3>
-
-		<p>Dynamic data in the modules is due to be attached by reference, 
-			examples include forms from the Form builder and images from the Image 
-			library.</p>
-
-		<p>Currently text based content in the Content manager isn't being handled 
-			in this way, the system needs to be updated to assign content by 
-			reference, this way the same piece of text can be re-used without 
-			duplication.</p>
-
-		<p class="bg-info dev-note">Text data for the text and heading tools is now 
-			assigned by reference, this allows multiple content items to use the 
-			same single piece of data.</p>
-
-		<h3>Live addition and editing</h3>
-
-		<p>When a user uses a tool to add or edit data, be it a form field in the 
-			Form builder or a text item in the Content manager the user is supposed to 
-			be able to manage the design directly.</p>
-
-		<p>For example when adding a text item the user would create the text 
-			block and then type the text directing within the Content manager 
-			designer, not the tool section as the side, the tool section should be 
-			limited to the layout controls.</p>
-
-		<p>This will be added very much later into development, initially the 
-			goal is base functionality</p>
-
-		<h3>Live preview</h3>
-
-		<p>All the content based designers should support live previews of 
-			changes.</p>
-
-		<p>For example when a user is defining the background colour for a text 
-			item or adding a border to a form field row the designer should update to 
-			show a preview before the user clicks save.</p>
-
-		<p>One of the later goals for Dlayer is full live editing, live preview 
-			is a stepping stone.</p>
-
-		<p class="bg-info dev-note">The Form builder and Content manager now both 
-			support live previews when content items are being edited. When it makes 
-			sense an effect is added to the item that has just been changed to 
-			highlight the change to the user.</p>
-
-		<p class="bg-info dev-note">The live previews will be added to the Template 
-			designer soon(tm), the Template designer is a little more complicated 
-			and may not end up with live previews on all the editing tools. When a 
-			page block is altered there is a possibility that sibling blocks will 
-			also need to be altered.</p>
-
-		<p class="bg-info dev-note">The live preview system can be updated to support 
-			all the editing tools in the Template designer but with live editing 
-			coming at some point in the future I don't feel it makes too much sense 
-			to put in lots of development on a feature that will eventually 
-			largely be replaced.</p>
-
-		<h3>Image library</h3>
-
-		<p>I need to develop a site wide Image library, this will be accessible 
-			anytime a user needs to choose an image, it will include all the basic 
-			manipulation tools, for example crop.</p>
-
-		<p class="bg-info dev-note">Initial development for Image library almost 
-			complete, once ready the first tools that use images can be developed.</p>
-
-		<h3>Formatting tabs</h3>
-
-		<p>Need to add formating tabs to some of the tools, obvious examples 
-			being the text tool and import form tool, a user should be able to 
-			define the background colour and border for the content container, 
-			useful for things like pull quotes.</p>
-
-		<p class="bg-info dev-note">Added styling tab to tools in Content manager, 
-			initially it allows the user to define the background colour for the 
-			selected content item, more styling options will be added in the future</p>
-
-		<h3>Modifier system</h3>
-
-		<p>The modifier system is responsible for all back end communication 
-			between the the different modules in Dlayer.</p>
-
-		<p>If a change is made in one module that may affect one or more items in 
-			another module the modifier system is called by the tool. The modifier 
-			system loads any relevant modifiers which then analyse any linked data. 
-			If the modifiers find anything that will be affected adversely by the 
-			change they automatically update the items to accommodate the original 
-			change.</p>
-
-		<p class="bg-info dev-note">The base modifier system is now in place, there is 
-			a single modifier which acts upon data in the content manager, container 
-			width.</p>
-
-		<p class="bg-info dev-note">The container width modifier is called anytime an 
-			active page template is updated. The modifier looks at all the pages 
-			that use the page template and then all the content items that could be 
-			affected the template change. The sizes of all the content item containers 
-			are compared against the original and then  updated to accommodate the 
-			template change, how a content item is resized  depends on its size 
-			relative to the page block it sits in.</p>
-
-		<p class="bg-info dev-note">I need to develop additional modifiers as tools 
-			are added and/or their functionality updated.</p>
-
-		<h3>Colour picker</h3>
-
-		<p>Need to create the colour picker which will be called anytime a user 
-			needs to choose a colour. The colour picker needs to include all the 
-			colours defined in the three palettes for the site, the last last n 
-			colours and also a custom control allowing the user to create a new 
-			colour.</p>
-
-		<p class="bg-info dev-note">Colour picker is now in place in the Template 
-			designer, Content manager and Form builder, anytime a user needs to 
-			choose a colour the picker pops open.</p>
-
-		<p class="bg-info dev-note">A version of the colour picker needs to be 
-			implemented in the settings part of Dlayer</p>
-
-		<h3>Import form </h3>
-
-		<p>Allow a form to be imported from the Form builder into a content 
-			page.</p>
-
-		<p>A user should be able to import a form in the Template manager, it 
-			should appear as a non editable content item in the Content manager.</p>
-
-		<p class="bg-info dev-note">A form can now be imported in the content 
-			manager.</p>
-
-		<p class="bg-info dev-note">Currently all the user defines is the size of the 
-			content container and the padding. As the Form builder gains layout and 
-			styling functionality the import form tool will be updated with new 
-			features.</p>
-
-		<p class="bg-info dev-note">The import form tool now checks the minimum 
-			width of the form against the width of the selected page container, a 
-			form that will not fit cannot be imported.</p>
-
-		<h3>Move content</h3>
-
-		<p>A user can move content items around within a page block. Need to also 
-			allow the user to move items from one content block to another.</p>
-
-		<h3>Form fields</h3>
-
-		<p>Add the missing form fields to the form builder, both static and 
-			dynamic.</p>
-
-		<h3>Form settings</h3>
-
-		<p>The form settings will allow the user to define general settings that 
-			control the layout of the form in addition to base form settings, these 
-			are independent to styling options for form fields and options for 
-			individual form fields.</p>
-
-		<p>Two examples are setting the minimum display width for a form and 
-			setting whether labels and inputs should appear on the same line or 
-			their own.</p>
-
-		<p class="bg-info dev-note">A user can now define the minimum width for a 
-			form, the text for the field set legend and also the text to use for 
-			the submit button, more options will be added shortly.</p>
-
-		<h3>Form styling options</h3>
-
-		<p>Allow the user to define styling options for the form, for example 
-			field set and legend styling and the styling for the submit button.</p>
-
-		<p class="bg-info dev-note">Added row background colour as a styling option for 
-			form fields, more styling options will be added in the future.</p>
-
-		<h3>Form field styling options</h3>
-
-		<p>Allow the user to define the styling for form fields.</p>
-
-		<h3>Form validation</h3>
-
-		<p>Allow the user to define the validation options for form fields.</p>
-
-		<h3>Tool validation</h3>
-
-		<p>The tools in the modules all validate user data, currently though 
-			all the validation is silent, I need to develop the system to display 
-			the errors to the user.</p>
-
-		<h3>Base template block</h3>
-
-		<p>The base block for a template doesn't really exist, it currently just 
-			acts as a starting point for the user to break up the initial blank 
-			design, the base block should exist as a real block otherwise there is a 
-			limit to the designs that can be created.</p>
-
-		<p class="bg-info dev-note">The base template block is now a 'real' block, 
-			all the Template designer tools can now be used on it.</p>
-
-		<h3>Tools</h3>
-
-		<p>There are only a limited number of tools in the enabled modules, the 
-			number and tools and functionality of existing tools needs to be 
-			updated.</p>
-
-		<h3>Web site manager</h3>
-
-		<p>The Web site manager allows the user to connect all their created 
-			pages. The Web site manager also allows the user to define site level data 
-			for widgets, an example being menu widgets.</p>
-
-		<p class="bg-info dev-note">Initial preview of Web site manager in place, non 
-			functional, acting as a starting point for designing how the Web site 
-			manager needs to look and work.</p>
-
-		<h3>Settings</h3>
-
-		<p>There will be many app and module settings, settings need to be added 
-			and the current settings need to be updated, an example being the addition
-			of the colour picker tool when the user needs to choose a colour.</p>
-
-		<h3>Working concept</h3>
-
-		<p class="bg-primary dev-note">Dlayer doesn't yet work, finish it!</p>
+		<p>The development plan for Dlayer exists in my head, the 
+			specifications, OneNote and all over the white board in my man 
+			cave, it is structured towards getting Dlayer into a position 
+			where a user will be able to create a simple multi-page web site 
+			with minor dynamic functionality. As soon as I have added enough 
+			functionality to the Template designer, Content manager, Form 
+			builder and Web site manager to achieve this goal I will dedicate 
+			my time towards filling out the Content manager and Form 
+			builder.</p>
+		
+		<p class="dev-note bg-info">This is a rolling list of the features 
+			in my short term to do list, it will be updated periodically as 
+			features are completed, I’m not going to detail my long term 
+			development plans.</p>
+		
+		<p>The development of the Widget designer will always lag behind 
+			the other designers, the Widget designer is an incredibly 
+			complicated system because in addition to allowing dynamic 
+			functionality it is in effect an amalgamation of all the 
+			other designers.</p>
+			
+		<h2>Template designer <small>To do list for Template designer</small></h2>
+		
+		<h4>Background image</h4>
+		
+		<p>Need to allow the user to define a background image for a 
+			content area.</p>
+		
+		<h4>Content area background styling</h4>
+		
+		<p>Need to allow the user to define the styling for a content area, 
+			initially background colour.</p>
+		
+		<h2>Content manager <small>To do list for Content manager</small></h2>
+		
+		<h4>Move content items</h4>
+		
+		<p>Need to allow the user to move content items, initially within a 
+			content row using visual controls and then using a tool to move a 
+			content item from one row to another.</p>
+		
+		<h4>Delete content row</h4>
+		
+		<p>Need to allow the user to delete a content row, content items are 
+			also deleted but only the definition data, the actual data for 
+			each content item will be stored in the relevant reference 
+			tables.</p>
+		
+		<h4>Delete content item</h4>
+		
+		<p>Need to allow the user to delete a content item, only the 
+			definition of the content item is deleted, the actual data will 
+			still persist in the reference tables.</p>
+		
+		<h4>Content item position</h4>
+		
+		<p>Need to allow the user to define the offsetting for a content 
+			item.</p>
+		
+		<h4>Move content rows</h4>
+		
+		<p>Need to allow the user to move content rows between content 
+			areas.</p>
+		
+		<h4>Import heading</h4>
+		
+		<p>Need to return the import heading tool, this tool allows a 
+			user to effectively duplicate an existing heading content item.</p>
+		
+		<h4>Import text</h4>
+		
+		<p>Need to return the import text tool, the tool allows a user 
+			to effectively duplicate an existing text content item.</p>
+		
+		<h4>Live previews</h4>
+		
+		<p>Need to add live previews back into the Content manager as in 
+			the Form builder, shows changes live in the designer view when 
+			changes are made in the tool section.</p>
+		
+		<h4>Image content item</h4>
+		
+		<p>Need to allow the user to import and image from the image library, 
+			caption, description and type all definable options.</p>
+		
+		<h4>Content item background image</h4>
+		
+		<p>Need to allow the user to define a background image for a 
+			content item</p>
+		
+		<h4>Content container styling</h4>
+		
+		<p>Need to allow the user to define the styling for a content item 
+			container, initially the background colour.</p>
+		
+		<h4>Content item styling</h4>
+		
+		<p>Need to allow the user to define the styling for a content item, 
+			initially the background colour.</p>
+		
+		<h4>Content row styling</h4>
+		
+		<p>Need to allow the user to define the styling for a content row, 
+			initially the background colour.</p>
+		
+		<h4>Store item</h4>
+		
+		<p>Need to allow a user to store an item in a temporary scratch 
+			pad.</p>
+		
+		<h2>Form builder <small>To do list for Form builder</small></h2>
+		
+		<h4>Elements</h4>
+		
+		<p>Add the missing element types, select, file, radio, hidden, 
+			colour and number to the Form builder.</p>
+		
+		<h4>Preset tools</h4>
+		
+		<p>Add additional preset tools, for example salutation, address and 
+			postcode.</p>
 	</div>
 </div>
