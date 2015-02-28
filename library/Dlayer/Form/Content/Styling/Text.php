@@ -139,24 +139,26 @@ class Dlayer_Form_Content_Styling_Text extends Dlayer_Form_Module_Content
 	*/
 	private function userElements() 
 	{
-		$background_color = new Dlayer_Form_Element_ColorPicker(
-			'background_color');
-		$background_color->setLabel('Background colour');
-		$background_color->setDescription('Choose a background colour for 
-			the text item content container, to clear the background colour 
-			use the clear link.');
-		$background_color->setBelongsTo('params');
-		$background_color->addClearLink();
-		$background_color->setRequired();
+		$container_background_color = new Dlayer_Form_Element_ColorPicker(
+			'container_background_color');
+		$container_background_color->setLabel('Text container background 
+			colour');
+		$container_background_color->setDescription('Choose a background 
+			colour for the text item content container, to clear the 
+			background colour use the clear link.');
+		$container_background_color->setBelongsTo('params');
+		$container_background_color->addClearLink();
+		$container_background_color->setRequired();
 		
-		if(array_key_exists('background_color', $this->content_item) == TRUE 
-			&& $this->content_item['background_color'] != FALSE) {
+		if(array_key_exists('container_background_color', 
+			$this->content_item) == TRUE 
+			&& $this->content_item['container_background_color'] != FALSE) {
 			
-			$background_color->setValue(
-				$this->content_item['background_color']);
+			$container_background_color->setValue(
+				$this->content_item['container_background_color']);
 		}
 
-		$this->elements['background_color'] = $background_color;
+		$this->elements['container_background_color'] = $container_background_color;
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));

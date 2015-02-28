@@ -22,7 +22,7 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 	*/
 	protected function validateFields(array $params=array(), $content_id=NULL)
 	{
-		if(array_key_exists('background_color', $params) == TRUE) {
+		if(array_key_exists('container_background_color', $params) == TRUE) {
 			return TRUE;
 		} else {
 			return FALSE;
@@ -48,8 +48,9 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 	{
 		$valid = FALSE;
 		
-		if(strlen(trim($params['background_color'])) == 0 || 
-			Dlayer_Validate::colorHex($params['background_color']) == TRUE) {
+		if(strlen(trim($params['container_background_color'])) == 0 || 
+			Dlayer_Validate::colorHex(
+				$params['container_background_color']) == TRUE) {
 				
 			$valid = TRUE;
 		}
@@ -68,14 +69,15 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 	protected function prepare(array $params, $content_id=NULL)
 	{
 		$prepared = array(
-			'clear_background'=>FALSE, 
-			'background_color'=>FALSE,
+			'container_clear_background'=>FALSE, 
+			'container_background_color'=>FALSE,
 		);
 		
-		if(strlen(trim($params['background_color'])) == 0) {
-			$prepared['clear_background'] = TRUE;
+		if(strlen(trim($params['container_background_color'])) == 0) {
+			$prepared['container_background_color'] = TRUE;
 		} else {
-			$prepared['background_color'] = trim($params['background_color']);
+			$prepared['container_background_color'] = 
+				trim($params['container_background_color']);
 		}
 
 		return $prepared;
@@ -100,8 +102,8 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 	protected function editContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id)
 	{
-		$this->backgroundColor($site_id, $page_id, $div_id, $content_row_id, 
-			$content_id);
+		$this->containerBackgroundColor($site_id, $page_id, $div_id, 
+			$content_row_id, $content_id);
 	}
 		
 	protected function structure($site_id, $page_id, $div_id)
@@ -110,7 +112,8 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 	}
 	
 	/**
-	* Update or set the background styling value for the selected content item
+	* Update or set the background styling value for the selected content 
+	* item container
 	* 
 	* @param integer $site_id
 	* @param integer $page_id
@@ -119,7 +122,7 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 	* @param integer $content_id
 	* @return void
 	*/
-	protected function backgroundColor($site_id, $page_id, $div_id, 
+	protected function containerBackgroundColor($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id) 
 	{
 		$model_styling = new Dlayer_Model_Page_Content_Styling();
@@ -127,16 +130,19 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 		$id = $model_styling->existingItemContainerBackgroundColor($site_id, 
 			$page_id, $content_id);
 			
+		var_dump($id); die;
+			
 		if($id == FALSE) {
-			if($this->params['clear_background'] == FALSE) {
+			if($this->params['container_clear_background'] == FALSE) {
 				$model_styling->addItemContainerBackgroundColor($site_id, 
-					$page_id, $content_id, $this->params['background_color']);
+					$page_id, $content_id, 
+					$this->params['container_background_color']);
 			}
 		} else {
-			if($this->params['clear_background'] == FALSE) {
+			if($this->params['container_clear_background'] == FALSE) {
 				$model_styling->updateItemContainerBackgroundColor($site_id, 
 					$page_id, $content_id, $id, 
-					$this->params['background_color']);
+					$this->params['container_background_color']);
 			} else {
 				$model_styling->clearItemContainerBackgroundColor($site_id, 
 					$page_id, $content_id, $id);
