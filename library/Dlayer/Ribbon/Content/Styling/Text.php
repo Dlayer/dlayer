@@ -56,9 +56,32 @@ Dlayer_Ribbon_Module_Content
 	{
 		$this->data = array(
 			'id'=>$this->content_id, 
-			'background_color'=>FALSE
+			'container_background_color'=>FALSE
 		);
+		
+		if($this->content_id != NULL) {
+			
+			$this->containerBackgroundColor();
+			
+		}
 
 		return $this->data;
+	}
+	
+	/**
+	* Fetch the background color for a container
+	* 
+	* @retrun void Writes the data directly to $this->data
+	*/
+	protected function containerBackgroundColor() 
+	{
+		$model_styling = new Dlayer_Model_Page_Content_Styling();
+		
+		$color = $model_styling->itemContainerBackgroundColor($this->site_id, 
+			$this->page_id, $this->content_id);
+			
+		if($color != FALSE) {
+			$this->data['container_background_color'] = $color;
+		}
 	}
 }

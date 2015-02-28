@@ -74,7 +74,7 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 		);
 		
 		if(strlen(trim($params['container_background_color'])) == 0) {
-			$prepared['container_background_color'] = TRUE;
+			$prepared['container_clear_background'] = TRUE;
 		} else {
 			$prepared['container_background_color'] = 
 				trim($params['container_background_color']);
@@ -129,8 +129,6 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 		
 		$id = $model_styling->existingItemContainerBackgroundColor($site_id, 
 			$page_id, $content_id);
-			
-		var_dump($id); die;
 			
 		if($id == FALSE) {
 			if($this->params['container_clear_background'] == FALSE) {
