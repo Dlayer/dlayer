@@ -1,8 +1,8 @@
 <?php
 /**
-* Content manager page designer class, similar to the Dlayer_Designer_Template
-* class, pulls all the data required to generate the requested page so that
-* it can be passed to the view helpers that generate the page
+* The content manager page designed class is responsible for fetching all the 
+* data requested to generate a content page so it can be passed off to the 
+* relevant actions in the designer controller
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
@@ -14,10 +14,12 @@ class Dlayer_Designer_Page
 	private $page_id;
 
 	private $selected_div_id = NULL;
-	private $selected_content_row_id;
+	private $selected_content_row_id = NULL;
 	private $selected_content_id = NULL;
 
 	private $template_styles;
+	private $content_row_styles;
+	private $content_container_styles;
 	private $content_styles;
 	private $form_styles;
 
@@ -25,6 +27,8 @@ class Dlayer_Designer_Page
 	private $model_template_styles;
 	private $model_page;
 
+	private $model_content_row_styles;
+	private $model_content_container_styles;
 	private $model_content_styles;
 	private $model_form_styles;
 
@@ -55,6 +59,9 @@ class Dlayer_Designer_Page
 		$this->model_template = new Dlayer_Model_View_Template();
 		$this->model_template_styles = new Dlayer_Model_View_Template_Styles();
 		$this->model_page = new Dlayer_Model_View_Page();
+		
+		$this->model_content_container_styles = 
+			new Dlayer_Model_View_Content_ContainerStyles();
 
 		//$this->model_content_styles = new Dlayer_Model_View_Content_Styles();
 		//$this->model_form_styles = new Dlayer_Model_View_Content_Styles_Forms();
@@ -220,4 +227,27 @@ class Dlayer_Designer_Page
 		return $this->model_form_styles->fieldStyles($this->site_id,
 			$this->page_id);
 	}*/
+	
+	/**
+	* Fetch all the styles assigned to the content item containers attached 
+	* to this page, the styles are grouped by type and then merged
+	* 
+	* @return array Array contains all the defined content iten container 
+	* 	styles grouped by style type and then content item id
+	*/
+	public function contentContainerStyles() 
+	{
+		return array();
+	}
+	
+	/**
+	* Fetch all the background colour styles defined for the content item 
+	* containers that make up the current page
+	* 
+	* @return array Array of defined styles indexed by content id
+	*/
+	private function contentContainerBackgroundStyles() 
+	{
+		return array();
+	}
 }

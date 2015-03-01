@@ -365,28 +365,34 @@ class Content_DesignController extends Zend_Controller_Action
 			$site_id, 'content');
 
 		/**
-		* Fetch the base page details, template structure, content rows and 
+		* Set the base page details, template structure, content rows and 
 		* data for content items
 		*/
 		$this->view->template = $designer_page->template();
 		$this->view->content_rows = $designer_page->contentRows();
 		$this->view->content = $designer_page->content();
 		
-		//$this->view->template_styles = $designer_page->templateStyles();
+		/**
+		* Set all the defined styles for the template, content rows, 
+		* content item containers, content items, assigned forms
+		*/
 		$this->view->template_styles = array();
-
-		//$this->view->content_styles = $designer_page->contentStyles();
-		
 		$this->view->content_row_styles = array();
-		$this->view->content_container_styles = array();
+		$this->view->content_container_styles = 
+			$designer_page->contentContainerStyles();
 		$this->view->content_styles = array();
-
-		//$this->view->form_field_styles = $designer_page->formFieldStyles();
 		$this->view->form_field_styles = array();
-
+		
+		/**
+		* Set the designer environment vars
+		*/
 		$this->view->div_id = $div_id;
 		$this->view->content_row_id = $content_row_id;
 		$this->view->content_id = $content_id;
+		
+		//$this->view->template_styles = $designer_page->templateStyles();
+		//$this->view->content_styles = $designer_page->contentStyles();
+		//$this->view->form_field_styles = $designer_page->formFieldStyles();
 
 		//$this->view->page_container_metrics = $this->pageContainerMetrics();
 		/*if($this->session_content->divId() != NULL) {
