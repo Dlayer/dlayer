@@ -126,6 +126,12 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @param array $template_styles Template styles data array, contains all
 	* 	the styles for the divs that make up the template the page is based
 	* 	upon
+	* @param array $content_row_styles Content row styles data array, contains 
+	* 	all the styles that have been assigned to the content rows for the 
+	* 	current page
+	* @param array $content_container_styles Content container styles data 
+	* 	array, contains all the styles that have been assigned to the content 
+	* 	item containers for the current page
 	* @param array $content_styles Content styles data array, contains all
 	* 	the styles that have been assigned to content items for the current
 	* 	page
@@ -136,8 +142,10 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_Page
 	*/
 	public function page(array $template, array $content_rows, array $content,
-		array $template_styles, array $content_styles, $div_id=NULL,
-		$content_row_id=NULL, $content_id=NULL) { }
+		array $template_styles, array $content_row_styles, 
+		array $content_container_styles, array $content_styles, 
+		$selected_div_id=NULL, $selected_content_row_id=NULL, 
+		$selected_content_id=NULL) { }
 
 	/**
 	* A text block is simple a string of text enclosed with p tags
@@ -291,18 +299,7 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_ColorPicker
 	*/
 	public function colorPicker() { } 
-	
-	/** 
-	* Content styles view helper, generates the additional style attributes 
-	* for a content item, data defined using tool styling tab. 
-	* 
-	* There is a view helper for each styling group this view helper calls 
-	* them all and returns the final style string
-	* 
-	* @return Dlayer_View_ContentStyles
-	*/
-	public function contentStyles() { }
-	
+		
 	/** 
 	* Content item background color styles view helper, generates the 
 	* background color style attributes for each of the content items
@@ -382,4 +379,16 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_ContentRow
 	*/
 	public function contentRow() { }
+	
+	/** 
+	* Content container styles view helper, generates the style string 
+	* for a content item container using the data defind on the styling tabs
+	* 
+	* There is a child view helper for each styling group, this view helper 
+	* calls the child view helpers to generate the comple style string before 
+	* returning it the to content item
+	* 
+	* @return Dlayer_View_ContentContainerStyles
+	*/
+	public function contentContainerStyles() { }
 }
