@@ -77,6 +77,12 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	* @param array $template_styles Template styles data array, contains all
 	* 	the styles for the divs that make up the template the page is based
 	* 	upon
+	* @param array $content_row_styles Content row styles data array, contains 
+	* 	all the styles that have been assigned to the content rows for the 
+	* 	current page
+	* @param array $content_container_styles Content container styles data 
+	* 	array, contains all the styles that have been assigned to the content 
+	* 	item containers for the current page
 	* @param array $content_styles Content styles data array, contains all
 	* 	the styles that have been assigned to content items for the current
 	* 	page
@@ -87,8 +93,10 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_Page
 	*/
 	public function page(array $template, array $content_rows, array $content,
-		array $template_styles, array $content_styles, $selected_div_id=NULL,
-		$selected_content_row_id=NULL, $selected_content_id=NULL)
+		array $template_styles, array $content_row_styles, 
+		array $content_container_styles, array $content_styles, 
+		$selected_div_id=NULL, $selected_content_row_id=NULL, 
+		$selected_content_id=NULL)
 	{
 		$this->resetParams();
 
@@ -107,11 +115,13 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		$this->view->templateStyles()->setStyles($template_styles);
 		
 		/**
-		* Pass the content styles data array to the base content styles view 
-		* helper, the content styles view helper will call child view helpers 
-		* for each of the defined style groups
+		* Pass in the content item container styles indexed by style type for 
+		* all the content items defined on the content page. The content 
+		* container styles view helper will call a child view helper for 
+		* each of the defined styles
 		*/
-		$this->view->contentStyles()->setStyles($content_styles);
+		$this->view->contentContainerStyles()->setStyles(
+			$content_container_styles);		
 		
 		/** 
 		* Pass the content rows data array to the content row view helper, 
@@ -144,10 +154,10 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		$this->selected_content_id = NULL;
 		
 		/**
-		* Reset the data array for the dependant view helpers
+		* Reset the data arrays for all the depeendant view helpers
 		*/
 		$this->view->templateStyles()->setStyles(array());
-		$this->view->contentStyles()->setStyles(array());
+		$this->view->contentContainerStyles()->setStyles(array());
 		$this->view->content()->setContent(array());
 
 		return $this;
