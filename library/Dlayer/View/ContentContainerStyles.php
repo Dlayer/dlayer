@@ -35,6 +35,13 @@ class Dlayer_View_ContentContainerStyles extends Zend_View_Helper_Abstract
 	*/
 	private $styles;
 	
+	/**
+	* Partial style string
+	* 
+	* @var string
+	*/
+	private $html;
+	
 	/** 
 	* Content container styles view helper, generates the style string 
 	* for a content item container using the data defind on the styling tabs
@@ -106,19 +113,6 @@ class Dlayer_View_ContentContainerStyles extends Zend_View_Helper_Abstract
 	{
 		$this->styles = $styles;
 		
-		/*$this->additional_styles = $additional_styles;
-
-		if(array_key_exists('background_colors', 
-		$this->additional_styles) == TRUE) {
-			$this->view->contentStylesBackgroundColors()->setStyles(
-			$this->additional_styles['background_colors']);
-		}
-		
-		if(array_key_exists('margins', $this->additional_styles) == TRUE) {
-			$this->view->contentStylesMargins()->setStyles(
-			$this->additional_styles['margins']);
-		}*/
-		
 		return $this;
 	}
 	
@@ -131,23 +125,19 @@ class Dlayer_View_ContentContainerStyles extends Zend_View_Helper_Abstract
 	*/
 	private function render() 
 	{
-		$html = '';
-		
 		if(array_key_exists('background_colors', $this->styles) == TRUE && 
 			array_key_exists($this->id, 
 				$this->styles['background_colors']) == TRUE) {
 			
-			/*$html .= $this->view->stylesBackgroundColor()->styles(
-				$this->styles['background_colors'][$this->id]);*/
+			$this->html .= $this->view->stylesBackgroundColor(
+				$this->styles['background_colors'][$this->id]);
 		}
 		
-		/*		
-		$html .= $this->view->contentStylesBackgroundColors()->contentItem(
-		$this->id);
+		if(strlen($this->html) > 0) {
+			$this->html = ' style="' . $this->html . '" ';
+		}
 		
-		$html .= $this->view->contentStylesMargins()->contentItem($this->id);*/
-		
-		return $html;
+		return $this->html;
 	}
 	
 	/**

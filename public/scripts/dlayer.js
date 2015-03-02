@@ -1348,6 +1348,8 @@ var dlayer = {
 		*/
 		contentArea: function()
 		{
+			var background_color;
+			
 			$('div.selectable').hover(
 				function() {
 					background_color = $(this).css('background-color');

@@ -17,11 +17,11 @@ class Dlayer_Designer_Page
 	private $selected_content_row_id = NULL;
 	private $selected_content_id = NULL;
 
-	private $template_styles;
-	private $content_row_styles;
-	private $content_container_styles;
-	private $content_styles;
-	private $form_styles;
+	private $template_styles = array();
+	private $content_row_styles = array();
+	private $content_container_styles = array();
+	private $content_styles = array();
+	private $form_styles = array();
 
 	private $model_template;
 	private $model_template_styles;
@@ -237,7 +237,9 @@ class Dlayer_Designer_Page
 	*/
 	public function contentContainerStyles() 
 	{
-		return array();
+		$this->contentContainerBackgroundStyles();
+		
+		return $this->content_container_styles;
 	}
 	
 	/**
@@ -248,6 +250,12 @@ class Dlayer_Designer_Page
 	*/
 	private function contentContainerBackgroundStyles() 
 	{
+		$styles = $this->model_content_container_styles->backgroundColors(
+			$this->site_id, $this->page_id, $this->selected_content_id);
+			
+		if($styles != FALSE) {
+			$this->content_container_styles['background_colors'] = $styles;
+		}
 		return array();
 	}
 }

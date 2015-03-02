@@ -32,7 +32,7 @@ class Dlayer_Model_View_Content_ContainerStyles extends Zend_Db_Table_Abstract
 	*/
 	public function backgroundColors($site_id, $page_id, $content_id=NULL) 
 	{
-		$sql = 'SELECT uspcicbc.content_id, uspcicbc.color_hex AS `hex`
+		$sql = 'SELECT uspcicbc.content_id, uspcicbc.color_hex 
 				FROM user_site_page_content_item_container_background_color uspcicbc 
 				WHERE uspcicbc.site_id = :site_id 
 				AND uspcicbc.page_id = :page_id ';
@@ -47,59 +47,20 @@ class Dlayer_Model_View_Content_ContainerStyles extends Zend_Db_Table_Abstract
 		}
 		$stmt->execute();
 		
-		
-	}
-	
-	
-	
-	
-	/**
-	* Fetch all the defined background colors for the content item containers 
-	* for a specific page, returns an array indexed by content id. 
-	* 
-	* If a content item is currently selected in the Content manager we don't 
-	* include its background color in the returned array because we don't want 
-	* to override the selected status background color
-	*
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer|NULL $content_id Id of the currently selected content 
-	* 								  item
-	* @return array|FALSE An array of the background colors indexed by div
-	* 					  content id, if not colors have been assigned returns 
-	* 					  FALSE
-	*/
-	/*public function backgroundColors($site_id, $page_id, $content_id=NULL)
-	{
-		$sql = "SELECT uspccbc.content_id, uspccbc.color_hex 
-				FROM user_site_page_content_container_background_colors uspccbc 
-				WHERE uspccbc.site_id = :site_id 
-				AND uspccbc.page_id = :page_id";
-		if($content_id != NULL) {
-				$sql .= " AND uspccbc.content_id != :content_id";
-		}
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		if($content_id != NULL) {
-			$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		}
-		$stmt->execute();
-
 		$result = $stmt->fetchAll();
-
+		
 		if(count($result) > 0) {
-			$rows = array();
-
+			$styles = array();
+			
 			foreach($result as $row) {
-				$rows[$row['content_id']] = $row['color_hex'];
+				$styles[$row['content_id']] = $row['color_hex'];
 			}
-
-			return $rows;
+			
+			return $styles;
 		} else {
 			return FALSE;
 		}
-	}*/
+	}
 	
 	/**
 	* Fetch all the defined margin values for the content item containers for 

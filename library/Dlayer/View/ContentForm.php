@@ -123,9 +123,12 @@ class Dlayer_View_ContentForm extends Zend_View_Helper_Abstract
 			$width = 'col-md-12';
 		}
 		
+		$container_styles = $this->view->contentContainerStyles()->contentItem(
+			$this->data['content_id']);
+		
 		$html = '';
 		
-		$html .= '<div class="' . $width . '">';
+		$html .= '<div class="' . $width . '"' . $container_styles . '>';
 		$html .= '<div class="' . $class . '" id="' . $id . '">';
 		$html .= $this->data['form']->form();
 		$html .= '</div>';
