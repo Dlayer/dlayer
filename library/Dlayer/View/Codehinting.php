@@ -300,22 +300,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	*/
 	public function colorPicker() { } 
 		
-	/** 
-	* Content item background color styles view helper, generates the 
-	* background color style attributes for each of the content items
-	* 
-	* @return Dlayer_View_ContentStylesBackgroundColors
-	*/
-	public function contentStylesBackgroundColors() { }
-	
-	/** 
-	* Content item margin values view helper, generates the style attributes 
-	* for each of the content items based on the set data
-	* 
-	* @return Dlayer_View_ContentStylesMargins
-	*/
-	public function contentStylesMargins() { }
-	
 	/**
 	* Generate the html for a bootstrap navbar, allows the developer to define 
 	* the brand name, navbar items including dropdowns and allow the inverted 
@@ -391,4 +375,16 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_ContentContainerStyles
 	*/
 	public function contentContainerStyles() { }
+	
+	/** 
+	* Content container styles view helper, generates the style string 
+	* for a content item container using the data defind on the styling tabs
+	* 
+	* There is a child view helper for each styling group, this view helper 
+	* calls the child view helpers to generate the comple style string before 
+	* returning it the to content item
+	* 
+	* @return Dlayer_View_ContentItemStyles
+	*/
+	public function contentItemStyles() { }
 }

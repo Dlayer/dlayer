@@ -1,7 +1,7 @@
 <?php
 /**
-* Content container styles view helper, generates the style string 
-* for a content item container using the data defind on the styling tabs
+* Content item styles view helper, generates the style string 
+* for a content item using the data defind on the styling tabs
 * 
 * There is a child view helper for each styling group, this view helper calls 
 * the child view helpers to generate the complete style string before 
@@ -10,7 +10,7 @@
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_View_ContentContainerStyles extends Zend_View_Helper_Abstract 
+class Dlayer_View_ContentItemStyles extends Zend_View_Helper_Abstract 
 {
 	/**
 	* Override the hinting for the view property so that we can see the view 
@@ -50,9 +50,9 @@ class Dlayer_View_ContentContainerStyles extends Zend_View_Helper_Abstract
 	* calls the child view helpers to generate the comple style string before 
 	* returning it the to content item
 	* 
-	* @return Dlayer_View_ContentContainerStyles
+	* @return Dlayer_View_ContentItemStyles
 	*/
-	public function contentContainerStyles() 
+	public function contentItemStyles() 
 	{
 		return $this;
 	}
@@ -79,7 +79,7 @@ class Dlayer_View_ContentContainerStyles extends Zend_View_Helper_Abstract
 	* reset method to clear any previousy set values
 	* 
 	* @param integer $id
-	* @return Dlayer_View_ContentContainerStyles
+	* @return Dlayer_View_ContentItemStyles
 	*/
 	public function contentItem($id) 
 	{
@@ -107,7 +107,7 @@ class Dlayer_View_ContentContainerStyles extends Zend_View_Helper_Abstract
 	* 
 	* @param array $styles The defined styles for every content item container 
 	* 	defined on the current page
-	* @return Dlayer_View_ContentContainerStyles
+	* @return Dlayer_View_ContentItemStyles
 	*/
 	public function setStyles(array $styles)
 	{
@@ -136,7 +136,7 @@ class Dlayer_View_ContentContainerStyles extends Zend_View_Helper_Abstract
 		}
 		
 		if(strlen($html) > 0) {
-			$this->html = ' style="' . trim($html) . '" ';
+			$this->html = ' style="' . $html . '" ';
 		}
 		
 		return $this->html;
