@@ -135,11 +135,17 @@ class Dlayer_Tool_Content_Styling_Text extends Dlayer_Tool_Module_Content
 				$model_styling->addItemContainerBackgroundColor($site_id, 
 					$page_id, $content_id, 
 					$this->params['container_background_color']);
+					
+				$this->addToColorHistory($site_id, 
+					$this->params['container_background_color']);
 			}
 		} else {
 			if($this->params['container_clear_background'] == FALSE) {
 				$model_styling->updateItemContainerBackgroundColor($site_id, 
 					$page_id, $content_id, $id, 
+					$this->params['container_background_color']);
+					
+				$this->addToColorHistory($site_id, 
 					$this->params['container_background_color']);
 			} else {
 				$model_styling->clearItemContainerBackgroundColor($site_id, 

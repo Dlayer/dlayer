@@ -113,10 +113,11 @@ class Dlayer_Model_Palette extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Add a new entry into the color history table
-	*
-	* @todo Can update this method to stop inserting duplicate colors, for now
-	* though not a problem, volume of data too low
+	* Add a new entry into the colour history table for the given site
+	* 
+	* @todo Need to either update this method to check for duplicates before 
+	* doing an insert or add in a cleaning method to remove the duplicated 
+	* data periodically
 	*
 	* @param integer $site_id
 	* @param string $color_hex

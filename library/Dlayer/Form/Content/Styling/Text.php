@@ -158,7 +158,8 @@ class Dlayer_Form_Content_Styling_Text extends Dlayer_Form_Module_Content
 				$this->content_item['container_background_color']);
 		}
 
-		$this->elements['container_background_color'] = $container_background_color;
+		$this->elements['container_background_color'] = 
+			$container_background_color;
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));

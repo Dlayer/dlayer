@@ -137,10 +137,11 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 	}
 
 	/**
-	* Add a new value into the color history table
+	* Add a new value into the color histort table for the current site
 	* 
 	* @param integer $site_id
 	* @param string $color_hex
+	* @return void
 	*/
 	protected function addToColorHistory($site_id, $color_hex) 
 	{
