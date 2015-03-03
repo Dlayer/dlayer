@@ -62,6 +62,8 @@ class Dlayer_Designer_Page
 		
 		$this->model_content_container_styles = 
 			new Dlayer_Model_View_Content_ContainerStyles();
+		$this->model_content_styles = 
+			new Dlayer_Model_View_Content_ItemStyles();
 
 		//$this->model_content_styles = new Dlayer_Model_View_Content_Styles();
 		//$this->model_form_styles = new Dlayer_Model_View_Content_Styles_Forms();
@@ -229,6 +231,20 @@ class Dlayer_Designer_Page
 	}*/
 	
 	/**
+	* Fetch all the styles assigned to the content item attached to this page, 
+	* the styles are grouped by type and then merged
+	* 
+	* @return array Array contains all the defined content iten styles 
+	* 	grouped by style type and then content item id
+	*/
+	public function contentItemStyles() 
+	{
+		$this->contentItemBackgroundStyles();
+		
+		return $this->content_styles;
+	}
+	
+	/**
 	* Fetch all the styles assigned to the content item containers attached 
 	* to this page, the styles are grouped by type and then merged
 	* 
@@ -246,7 +262,8 @@ class Dlayer_Designer_Page
 	* Fetch all the background colour styles defined for the content item 
 	* containers that make up the current page
 	* 
-	* @return array Array of defined styles indexed by content id
+	* @return void Writes the data to the $content_container_styles private 
+	* 	property
 	*/
 	private function contentContainerBackgroundStyles() 
 	{
@@ -256,6 +273,21 @@ class Dlayer_Designer_Page
 		if($styles != FALSE) {
 			$this->content_container_styles['background_colors'] = $styles;
 		}
-		return array();
+	}
+	
+	/**
+	* Fetch all the background colour styles defined for the content items 
+	* that make up the current page
+	* 
+	* @return void Writes the data to the $content_styles private property
+	*/
+	private function contentItemBackgroundStyles() 
+	{
+		$styles = $this->model_content_styles->backgroundColors(
+			$this->site_id, $this->page_id, $this->selected_content_id);
+			
+		if($styles != FALSE) {
+			$this->content_styles['background_colors'] = $styles;
+		}
 	}
 }

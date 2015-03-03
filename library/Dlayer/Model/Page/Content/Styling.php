@@ -21,11 +21,11 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	public function existingItemContainerBackgroundColor($site_id, $page_id, 
 		$content_id) 
 	{
-		$sql = 'SELECT uspcibc.id 
-				FROM user_site_page_content_item_container_background_color uspcibc
-				WHERE uspcibc.site_id = :site_id 
-				AND uspcibc.page_id = :page_id 
-				AND uspcibc.content_id = :content_id 
+		$sql = 'SELECT uspscbc.id 
+				FROM user_site_page_styles_container_background_color uspscbc
+				WHERE uspscbc.site_id = :site_id 
+				AND uspscbc.page_id = :page_id 
+				AND uspscbc.content_id = :content_id 
 				LIMIT 1';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
@@ -54,7 +54,7 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	public function addItemContainerBackgroundColor($site_id, $page_id, 
 		$content_id, $hex) 
 	{
-		$sql = 'INSERT INTO user_site_page_content_item_container_background_color 
+		$sql = 'INSERT INTO user_site_page_styles_container_background_color 
 				(site_id, page_id, content_id, color_hex) 
 				VALUES 
 				(:site_id, :page_id, :content_id, :color_hex)';
@@ -79,7 +79,7 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	public function updateItemContainerBackgroundColor($site_id, $page_id, 
 		$content_id, $id, $hex) 
 	{
-		$sql = 'UPDATE user_site_page_content_item_container_background_color 
+		$sql = 'UPDATE user_site_page_styles_container_background_color 
 				SET color_hex = :hex 
 				WHERE site_id = :site_id 
 				AND page_id = :page_id 
@@ -107,7 +107,7 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	public function clearItemContainerBackgroundColor($site_id, $page_id, 
 		$content_id, $id) 
 	{
-		$sql = 'DELETE FROM user_site_page_content_item_container_background_color 
+		$sql = 'DELETE FROM user_site_page_styles_container_background_color 
 				WHERE site_id = :site_id 
 				AND page_id = :page_id 
 				AND content_id = :content_id 
@@ -134,7 +134,7 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 		$content_id) 
 	{
 		$sql = 'SELECT color_hex 
-				FROM user_site_page_content_item_container_background_color 
+				FROM user_site_page_styles_container_background_color 
 				WHERE site_id = :site_id 
 				AND page_id = :page_id 
 				AND content_id = :content_id 

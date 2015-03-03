@@ -16,7 +16,7 @@ class Dlayer_Model_View_Content_ContainerStyles extends Zend_Db_Table_Abstract
 {
 	/**
 	* Fetch all the defined background colour styles for the content item 
-	* containers that makde up the current page, results are returned indexed 
+	* containers that make up the current page, results are returned indexed 
 	* by content item id
 	* 
 	* If a content item is currently selected within the content manager 
@@ -32,12 +32,12 @@ class Dlayer_Model_View_Content_ContainerStyles extends Zend_Db_Table_Abstract
 	*/
 	public function backgroundColors($site_id, $page_id, $content_id=NULL) 
 	{
-		$sql = 'SELECT uspcicbc.content_id, uspcicbc.color_hex 
-				FROM user_site_page_content_item_container_background_color uspcicbc 
-				WHERE uspcicbc.site_id = :site_id 
-				AND uspcicbc.page_id = :page_id ';
+		$sql = 'SELECT uspscbc.content_id, uspscbc.color_hex 
+				FROM user_site_page_styles_container_background_color uspscbc 
+				WHERE uspscbc.site_id = :site_id 
+				AND uspscbc.page_id = :page_id ';
 		if($content_id != NULL) {
-			$sql .= 'AND uspcicbc.content_id != :content_id';
+			$sql .= 'AND uspscbc.content_id != :content_id';
 		}
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
@@ -61,42 +61,4 @@ class Dlayer_Model_View_Content_ContainerStyles extends Zend_Db_Table_Abstract
 			return FALSE;
 		}
 	}
-	
-	/**
-	* Fetch all the defined margin values for the content item containers for 
-	* a specific page, returns and array indexed by content id
-	* 
-	* @param integer $site_id
-	* @param integer $page_id
-	* @return array|FALSE An array of the margin values indexes by content id, 
-	* 					  the value will be an array with indexes for each set 
-	* 					  margin
-	*/
-	/*public function margins($site_id, $page_id) 
-	{
-		$sql = "SELECT uspccm.content_id, uspccm.`top`, uspccm.`right`, 
-				uspccm.`bottom`, uspccm.`left` 
-				FROM user_site_page_content_container_margins uspccm 
-				WHERE uspccm.site_id = :site_id 
-				AND uspccm.page_id = :page_id";
-				
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->execute();
-		
-		$result = $stmt->fetchAll();
-		
-		if(count($result) > 0) {
-			$rows = array();
-			
-			foreach($result as $row) {
-				$rows[$row['content_id']] = $row;
-			}
-			
-			return $rows;
-		} else {
-			return FALSE;
-		}
-	}*/
 }
