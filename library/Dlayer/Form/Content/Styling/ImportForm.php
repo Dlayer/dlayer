@@ -141,6 +141,7 @@ Dlayer_Form_Module_Content
 	*/
 	private function userElements() 
 	{
+		// Content container background colour
 		$container_background_color = new Dlayer_Form_Element_ColorPicker(
 			'container_background_color');
 		$container_background_color->setLabel('Form container background 
@@ -162,6 +163,27 @@ Dlayer_Form_Module_Content
 
 		$this->elements['container_background_color'] = 
 			$container_background_color;
+			
+		// Content item background colour	
+		$item_background_color = new Dlayer_Form_Element_ColorPicker(
+			'item_background_color');
+		$item_background_color->setLabel('Form background colour');
+		$item_background_color->setDescription('Choose a background 
+			colour for the form, to clear the background colour use the 
+			clear link.');
+		$item_background_color->setBelongsTo('params');
+		$item_background_color->addClearLink();
+		$item_background_color->setRequired();
+		
+		if(array_key_exists('item_background_color', 
+			$this->content_item) == TRUE 
+			&& $this->content_item['item_background_color'] != FALSE) {
+			
+			$item_background_color->setValue(
+				$this->content_item['item_background_color']);
+		}
+
+		$this->elements['item_background_color'] = $item_background_color;
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
