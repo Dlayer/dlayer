@@ -22,7 +22,9 @@ class Dlayer_Tool_Content_Styling_Heading extends Dlayer_Tool_Module_Content
 	*/
 	protected function validateFields(array $params=array(), $content_id=NULL)
 	{
-		if(array_key_exists('container_background_color', $params) == TRUE) {
+		if(array_key_exists('container_background_color', $params) == TRUE && 
+			array_key_exists('item_background_color', $params) == TRUE) {
+			
 			return TRUE;
 		} else {
 			return FALSE;
@@ -48,9 +50,10 @@ class Dlayer_Tool_Content_Styling_Heading extends Dlayer_Tool_Module_Content
 	{
 		$valid = FALSE;
 		
-		if(strlen(trim($params['container_background_color'])) == 0 || 
+		if(Dlayer_Validate::colorHex(
+			$params['container_background_color'], TRUE) == TRUE && 
 			Dlayer_Validate::colorHex(
-				$params['container_background_color']) == TRUE) {
+			$params['item_background_color'], TRUE) == TRUE) {
 				
 			$valid = TRUE;
 		}
@@ -71,6 +74,8 @@ class Dlayer_Tool_Content_Styling_Heading extends Dlayer_Tool_Module_Content
 		$prepared = array(
 			'container_clear_background'=>FALSE, 
 			'container_background_color'=>FALSE,
+			'item_clear_background'=>FALSE, 
+			'item_background_color'=>FALSE,
 		);
 		
 		if(strlen(trim($params['container_background_color'])) == 0) {
@@ -78,6 +83,13 @@ class Dlayer_Tool_Content_Styling_Heading extends Dlayer_Tool_Module_Content
 		} else {
 			$prepared['container_background_color'] = 
 				trim($params['container_background_color']);
+		}
+		
+		if(strlen(trim($params['item_background_color'])) == 0) {
+			$prepared['item_clear_background'] = TRUE;
+		} else {
+			$prepared['item_background_color'] = 
+				trim($params['item_background_color']);
 		}
 
 		return $prepared;
@@ -103,6 +115,9 @@ class Dlayer_Tool_Content_Styling_Heading extends Dlayer_Tool_Module_Content
 		$content_row_id, $content_id)
 	{
 		$this->containerBackgroundColor($site_id, $page_id, $div_id, 
+			$content_row_id, $content_id);
+			
+		$this->itemBackgroundColor($site_id, $page_id, $div_id, 
 			$content_row_id, $content_id);
 	}
 		
@@ -150,6 +165,47 @@ class Dlayer_Tool_Content_Styling_Heading extends Dlayer_Tool_Module_Content
 			} else {
 				$model_styling->clearItemContainerBackgroundColor($site_id, 
 					$page_id, $content_id, $id);
+			}
+		}
+	}
+	
+	/**
+	* Update or set the background styling value for the selected content 
+	* item
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer $content_id
+	* @return void
+	*/
+	protected function itemBackgroundColor($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id) 
+	{
+		$model_styling = new Dlayer_Model_Page_Content_Styling();
+		
+		$id = $model_styling->existingItemBackgroundColor($site_id, $page_id, 
+			$content_id);
+			
+		if($id == FALSE) {
+			if($this->params['item_clear_background'] == FALSE) {
+				$model_styling->addItemBackgroundColor($site_id, $page_id, 
+					$content_id, $this->params['item_background_color']);
+					
+				$this->addToColorHistory($site_id, 
+					$this->params['item_background_color']);
+			}
+		} else {
+			if($this->params['item_clear_background'] == FALSE) {
+				$model_styling->updateItemBackgroundColor($site_id, $page_id, 
+					$content_id, $id, $this->params['item_background_color']);
+					
+				$this->addToColorHistory($site_id, 
+					$this->params['item_background_color']);
+			} else {
+				$model_styling->clearItemBackgroundColor($site_id, $page_id, 
+					$content_id, $id);
 			}
 		}
 	}
