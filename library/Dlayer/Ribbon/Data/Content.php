@@ -60,6 +60,10 @@ class Dlayer_Ribbon_Data_Content
 			case 'text':
 				$data = $this->text();
 				break;
+				
+			case 'jumbotron':
+				$data = $this->jumbotron();
+				break;
 
 			case 'import-form':
 				$data = $this->importForm();
@@ -159,6 +163,32 @@ class Dlayer_Ribbon_Data_Content
 					$this->content_id);
 				break;
 
+			default:
+				$data = FALSE;
+				break;
+		}
+
+		return $data;
+	}
+	
+	/**
+	* Fetch the view tab data for the jumbotron tool, in this case the form for 
+	* the ribbon. If there is any existing data the form will show the current 
+	* values
+	* 
+	* @return array|FALSE 
+	*/
+	private function jumbotron() 
+	{
+		switch($this->tab) {
+			case 'jumbotron':
+				$ribbon_jumbotron = new Dlayer_Ribbon_Content_Jumbotron();
+				$data = $ribbon_jumbotron->viewData($this->site_id, 
+					$this->page_id, $this->div_id, $this->tool, $this->tab, 
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
+				break;
+				
 			default:
 				$data = FALSE;
 				break;
