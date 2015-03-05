@@ -91,11 +91,11 @@ CREATE TABLE `designer_content_type` (
   `name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `designer_content_type` */
 
-insert  into `designer_content_type`(`id`,`name`,`description`) values (1,'text','Text block'),(2,'heading','Heading'),(3,'form','Form');
+insert  into `designer_content_type`(`id`,`name`,`description`) values (1,'text','Text block'),(2,'heading','Heading'),(3,'form','Form'),(4,'jumbotron','Jumbotron');
 
 /*Table structure for table `designer_css_border_style` */
 
@@ -310,7 +310,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-03-05 01:29:16','2015-03-05 02:01:12',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-03-02 15:52:20','2015-03-02 15:52:37',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-03-02 15:52:45','2015-03-02 15:53:01',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-03-05 14:56:39','2015-03-05 15:26:48',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-03-02 15:52:20','2015-03-02 15:52:37',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-03-02 15:52:45','2015-03-02 15:53:01',1);
 
 /*Table structure for table `dlayer_module` */
 
@@ -358,7 +358,7 @@ CREATE TABLE `dlayer_module_tool` (
 
 /*Data for the table `dlayer_module_tool` */
 
-insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (1,1,'Cancel','cancel',NULL,'cancel',1,0,1,1,1),(2,1,'Create rows','split-horizontal','SplitHorizontal','split-horizontal',1,1,2,1,1),(3,1,'Split vertical','split-vertical','SplitVertical','split-vertical',1,1,2,2,0),(6,1,'Resize','resize','Resize','resize',0,1,2,3,0),(7,1,'Background colour','background-color','BackgroundColor','background-color',1,0,3,1,0),(8,1,'Border','border','Border','border',1,0,3,2,0),(9,4,'Cancel','cancel',NULL,'cancel',1,0,1,1,1),(10,4,'Text item','text','Text','text',0,0,3,2,1),(11,4,'Heading item','heading','Heading','heading',0,0,3,1,1),(12,3,'Text','text','Text','text',0,0,4,1,1),(13,3,'Text area','textarea','Textarea','textarea',0,0,4,2,1),(14,3,'Cancel','cancel',NULL,'cancel',0,0,1,1,1),(15,3,'Password','password','Password','password',0,0,4,3,1),(16,4,'Import form','import-form','ImportForm','import-form',0,0,4,3,1),(17,5,'Cancel','cancel',NULL,'cancel',0,0,1,1,1),(18,5,'New page','new-page','NewPage','new-page',0,0,2,2,1),(19,5,'Move page','move-page','MovePage','move-page',0,0,2,1,1),(20,3,'Email','email','Email','email',0,0,3,2,1),(21,3,'Name','name','Name','name',0,0,3,1,1),(22,4,'Import text','import-text','ImportText','import-text',0,0,4,2,0),(23,4,'Import heading','import-heading','ImportHeading','import-heading',0,0,4,1,0),(24,3,'Form settings','form-settings','FormSettings','form-settings',0,0,2,1,1),(25,8,'Add to library','add','Add','add',1,0,2,1,1),(26,8,'Cancel / Back to library','cancel',NULL,'cancel',0,0,1,1,1),(27,8,'Category','category','Category','category',1,0,2,2,1),(28,8,'Sub category','subcategory','Subcategory','subcategory',1,0,2,3,1),(29,8,'Clone','copy','Copy','copy',0,0,3,2,1),(30,8,'Crop','crop','Crop','crop',0,0,4,1,1),(31,8,'Edit','edit','Edit','edit',0,0,3,1,1),(32,4,'Add content row','content-row','ContentRow','content-row',0,0,2,1,1),(33,4,'Delete content row','content-row-delete','ContentRowDelete','content-row-delete',0,0,2,2,0),(34,4,'Jumbotron','jumbotron','Jumbotron','jumbotron',1,0,3,3,1);
+insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (1,1,'Cancel','cancel',NULL,'cancel',1,0,1,1,1),(2,1,'Create rows','split-horizontal','SplitHorizontal','split-horizontal',1,1,2,1,1),(3,1,'Split vertical','split-vertical','SplitVertical','split-vertical',1,1,2,2,0),(6,1,'Resize','resize','Resize','resize',0,1,2,3,0),(7,1,'Background colour','background-color','BackgroundColor','background-color',1,0,3,1,0),(8,1,'Border','border','Border','border',1,0,3,2,0),(9,4,'Cancel','cancel',NULL,'cancel',1,0,1,1,1),(10,4,'Text','text','Text','text',0,0,3,2,1),(11,4,'Heading','heading','Heading','heading',0,0,3,1,1),(12,3,'Text','text','Text','text',0,0,4,1,1),(13,3,'Text area','textarea','Textarea','textarea',0,0,4,2,1),(14,3,'Cancel','cancel',NULL,'cancel',0,0,1,1,1),(15,3,'Password','password','Password','password',0,0,4,3,1),(16,4,'Import form','import-form','ImportForm','import-form',0,0,4,3,1),(17,5,'Cancel','cancel',NULL,'cancel',0,0,1,1,1),(18,5,'New page','new-page','NewPage','new-page',0,0,2,2,1),(19,5,'Move page','move-page','MovePage','move-page',0,0,2,1,1),(20,3,'Email','email','Email','email',0,0,3,2,1),(21,3,'Name','name','Name','name',0,0,3,1,1),(22,4,'Import text','import-text','ImportText','import-text',0,0,4,2,0),(23,4,'Import heading','import-heading','ImportHeading','import-heading',0,0,4,1,0),(24,3,'Form settings','form-settings','FormSettings','form-settings',0,0,2,1,1),(25,8,'Add to library','add','Add','add',1,0,2,1,1),(26,8,'Cancel / Back to library','cancel',NULL,'cancel',0,0,1,1,1),(27,8,'Category','category','Category','category',1,0,2,2,1),(28,8,'Sub category','subcategory','Subcategory','subcategory',1,0,2,3,1),(29,8,'Clone','copy','Copy','copy',0,0,3,2,1),(30,8,'Crop','crop','Crop','crop',0,0,4,1,1),(31,8,'Edit','edit','Edit','edit',0,0,3,1,1),(32,4,'Add content row','content-row','ContentRow','content-row',0,0,2,1,1),(33,4,'Delete content row','content-row-delete','ContentRowDelete','content-row-delete',0,0,2,2,0),(34,4,'Jumbotron','jumbotron','Jumbotron','jumbotron',1,0,3,3,1);
 
 /*Table structure for table `dlayer_module_tool_tab` */
 
@@ -406,7 +406,7 @@ CREATE TABLE `dlayer_session` (
 
 /*Data for the table `dlayer_session` */
 
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('edche8nuuot32m5tmkc1tascr5','','PHPSESSID',1425520907,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1425524507;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1425524507;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1425524507;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1425524507;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1425524507;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:9:\"Jumbotron\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}'),('mt07aq83i1tuuchhdsjjpc0g13','','PHPSESSID',1425261155,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1425264755;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1425264672;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1425264532;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1425264532;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1425264532;}}dlayer_session_content|a:8:{s:7:\"page_id\";i:1;s:6:\"div_id\";i:3;s:14:\"content_row_id\";i:3;s:10:\"content_id\";i:4;s:4:\"tool\";s:11:\"import-form\";s:3:\"tab\";s:7:\"styling\";s:11:\"template_id\";i:1;s:10:\"tool_model\";s:10:\"ImportForm\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('edche8nuuot32m5tmkc1tascr5','','PHPSESSID',1425569581,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1425573181;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1425573181;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1425573181;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1425573181;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1425573181;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:9:\"Jumbotron\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}'),('mt07aq83i1tuuchhdsjjpc0g13','','PHPSESSID',1425261155,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1425264755;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1425264672;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1425264532;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1425264532;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1425264532;}}dlayer_session_content|a:8:{s:7:\"page_id\";i:1;s:6:\"div_id\";i:3;s:14:\"content_row_id\";i:3;s:10:\"content_id\";i:4;s:4:\"tool\";s:11:\"import-form\";s:3:\"tab\";s:7:\"styling\";s:11:\"template_id\";i:1;s:10:\"tool_model\";s:10:\"ImportForm\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}');
 
 /*Table structure for table `dlayer_setting` */
 
@@ -625,6 +625,22 @@ CREATE TABLE `user_site_content_heading` (
 /*Data for the table `user_site_content_heading` */
 
 insert  into `user_site_content_heading`(`id`,`site_id`,`name`,`content`) values (1,1,'Page heading','Sample page heading-:-Sample sub heading'),(2,1,'Content title','Sample content title!-:-Sample content sub heading!'),(3,2,'Page heading','Sample page heading-:-Sample sub heading'),(4,2,'Content title','Sample content title!-:-Sample content sub heading!'),(5,3,'Page heading','Sample page heading-:-Sample sub heading'),(6,3,'Content title','Sample content title!-:-Sample content sub heading!');
+
+/*Table structure for table `user_site_content_jumbotron` */
+
+DROP TABLE IF EXISTS `user_site_content_jumbotron`;
+
+CREATE TABLE `user_site_content_jumbotron` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `site_id` int(11) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `user_site_content_jumbotron` */
+
+insert  into `user_site_content_jumbotron`(`id`,`site_id`,`name`,`content`) values (1,1,'Masthead','Site.com-:-Welcome to my new web site');
 
 /*Table structure for table `user_site_content_text` */
 
@@ -951,11 +967,11 @@ CREATE TABLE `user_site_page_content_item` (
   KEY `sort_order` (`sort_order`),
   KEY `div_id` (`row_id`),
   KEY `site_id` (`site_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_content_item` */
 
-insert  into `user_site_page_content_item`(`id`,`site_id`,`page_id`,`row_id`,`content_type`,`sort_order`) values (1,1,1,1,2,1),(2,1,1,2,2,1),(3,1,1,3,1,1),(4,1,1,3,3,2),(5,1,1,4,2,1),(6,2,2,5,2,1),(7,2,2,6,2,1),(8,2,2,8,2,1),(9,2,2,7,1,1),(10,2,2,7,3,2),(11,3,3,9,2,1),(12,3,3,10,2,1),(13,3,3,12,2,1),(14,3,3,11,1,1),(15,3,3,11,3,2),(16,1,1,4,1,2),(17,2,2,8,1,2),(18,3,3,12,1,2);
+insert  into `user_site_page_content_item`(`id`,`site_id`,`page_id`,`row_id`,`content_type`,`sort_order`) values (1,1,1,1,2,1),(2,1,1,2,2,1),(3,1,1,3,1,1),(4,1,1,3,3,2),(5,1,1,4,2,1),(6,2,2,5,2,1),(7,2,2,6,2,1),(8,2,2,8,2,1),(9,2,2,7,1,1),(10,2,2,7,3,2),(11,3,3,9,2,1),(12,3,3,10,2,1),(13,3,3,12,2,1),(14,3,3,11,1,1),(15,3,3,11,3,2),(16,1,1,4,1,2),(17,2,2,8,1,2),(18,3,3,12,1,2),(19,1,1,1,4,2);
 
 /*Table structure for table `user_site_page_content_item_form` */
 
@@ -1012,9 +1028,11 @@ CREATE TABLE `user_site_page_content_item_jumbotron` (
   `content_id` int(11) unsigned NOT NULL,
   `data_id` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_content_item_jumbotron` */
+
+insert  into `user_site_page_content_item_jumbotron`(`id`,`site_id`,`page_id`,`content_id`,`data_id`) values (1,1,1,19,1);
 
 /*Table structure for table `user_site_page_content_item_size` */
 

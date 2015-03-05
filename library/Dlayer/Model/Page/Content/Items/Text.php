@@ -17,7 +17,7 @@ extends Dlayer_Model_Page_Content_Item
 	* @param integer $div_id
 	* @param integer $content_row_id
 	* @param integer $content_id
-	* @param array $params The data for the heading content item
+	* @param array $params The data for the text content item
 	* @return void
 	*/
 	public function addContentItemData($site_id, $page_id, $div_id, 
