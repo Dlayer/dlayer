@@ -176,6 +176,11 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 						$html .= $this->view->contentHeading(
 							$content['data'], $selectable, $selected, $items);
 						break;
+						
+					case 'jumbotron': 
+						$html .= $this->view->contentJumbotron(
+							$content['data'], $selectable, $selected, $items);
+						break;
 
 					case 'form':
 						$html .= $this->view->contentForm($content['data'], 

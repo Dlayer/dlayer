@@ -113,7 +113,16 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 							array('type'=>$row['content_type'], 'data'=>$data);	
 						}
 						break;
-
+						
+					case 'jumbotron':
+						$data = $this->jumbotron($row['content_id']);
+						if($data != FALSE) {
+							$content[$row['content_row_id']][] =
+							array('type'=>$row['content_type'], 'data'=>$data);
+						}
+						break;
+						break;
+					
 					default:
 						break;
 				}
@@ -136,6 +145,20 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	{
 		$model_text = new Dlayer_Model_View_Content_Items_Text();
 		return $model_text->data($this->site_id, $this->page_id, $content_id);
+	}
+	
+	/**
+	* Fetch the data for the jumbotron content item
+	*
+	* @param integer $content_id Content id
+	* @return array|FALSE We either retuirn the data array for the requested 
+	* 	content item or FALSE if the data can't be pulledE
+	*/
+	private function jumbotron($content_id)
+	{
+		$model_jumbotron = new Dlayer_Model_View_Content_Items_Jumbotron();
+		return $model_jumbotron->data($this->site_id, $this->page_id,
+			$content_id);
 	}
 
 	/**

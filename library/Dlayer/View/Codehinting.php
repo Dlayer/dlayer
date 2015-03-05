@@ -165,6 +165,26 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	*/
 	public function contentText(array $data, $selectable=FALSE,
 		$selected=FALSE, $items=1) { }
+		
+	/**
+	* A jumbotron content item is a title, sub title and option content in a 
+	* large content with a background colour, it is a masthead
+	*
+	* @param array $data Content data array. containns all the data required 
+	* 	to generate the html for the heading content item
+	* @param boolean $selectable Should the selectable class be applied to the 
+	* 	content item, a content item is selectable when its content row has 
+	* 	been selected
+	* @param boolean $selected Should the selected class be applied to the 
+	* 	content item, an item is selected when in edit mode, either by being 
+	* 	selectable directly or after addition
+	* @param integer $items The total number of content items within the 
+	* 	content row, this is to help with the addition of the visual movment 
+	* 	controls
+	* @return Dlayer_View_ContentJumbotron
+	*/
+	public function contentJumbotron(array $data, $selectable=FALSE,
+		$selected=FALSE, $items=1) { }
 
 	/**
 	* A heading content item is simply a heading string enclosed within one 
