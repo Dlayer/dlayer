@@ -95,7 +95,7 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 	*/
 	public function validate(array $params, $site_id, $page_id, $div_id, 
 		$content_row_id, $content_id=NULL)
-	{
+	{		
 		if($this->validateFields($params, $content_id) == TRUE && 
 			$this->validateValues($site_id, $page_id, $div_id, 
 				$content_row_id, $params, $content_id) == TRUE) {

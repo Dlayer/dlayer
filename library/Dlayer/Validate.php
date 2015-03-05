@@ -14,7 +14,7 @@ class Dlayer_Validate
 {
 	/**
 	* Check to see if the supplied value is a valid hex color, needs to be 
-	* 7 characters with a l;eading hash, the remaining 6 characters should be 
+	* 7 characters with a leading hash, the remaining 6 characters should be 
 	* a valid hex value
 	* 
 	* @param string $value Value to validate
@@ -23,16 +23,11 @@ class Dlayer_Validate
 	*/
 	public static function colorHex($value, $optional=FALSE) 
 	{
-		if($optional == FALSE) {
-			$validator = new Dlayer_Validate_ColorHex();
-			
-			return $validator->isValid($value);
+		if(strlen($value) == 0 && $optional == TRUE) {
+			return TRUE;
 		} else {
-			if(strlen(trim($value)) == 0) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
+			$validator = new Dlayer_Validate_ColorHex();			
+			return $validator->isValid($value);
 		}
 	}
 	

@@ -125,11 +125,16 @@ class Dlayer_View_ContentForm extends Zend_View_Helper_Abstract
 		
 		$container_styles = $this->view->contentContainerStyles()->contentItem(
 			$this->data['content_id']);
-		
-		$html = '';
-		
-		$html .= '<div class="' . $width . '"' . $container_styles . '>';
-		$html .= '<div class="' . $class . '" id="' . $id . '">';
+			
+		$content_item_styles = $this->view->contentItemStyles()->contentItem(
+			$this->data['content_id']);
+			
+		$html = '<div class="' . $width .'"';
+		$html .= $container_styles;
+		$html .= '>';
+		$html .= '<div class="' . $class . '"' . ' id="' . $id . '"'; 
+		$html .= $content_item_styles;
+		$html .= '>';
 		$html .= $this->data['form']->form();
 		$html .= '</div>';
 		$html .= '</div>';

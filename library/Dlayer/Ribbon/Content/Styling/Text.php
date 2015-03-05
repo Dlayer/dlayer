@@ -63,6 +63,7 @@ Dlayer_Ribbon_Module_Content
 		if($this->content_id != NULL) {
 			
 			$this->containerBackgroundColor();
+			$this->itemBackgroundColor();
 			
 		}
 
