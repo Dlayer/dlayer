@@ -23,7 +23,7 @@ extends Dlayer_Model_Page_Content_Item
 	public function formData($site_id, $page_id, $div_id, $content_row_id, 
 		$content_id)
 	{
-		$sql = "SELECT uspcij.id, usct.`name`, usct.content AS `text`
+		$sql = "SELECT uspci.id, uscj.`name`, uscj.content AS title
 				FROM user_site_page_content_item_jumbotron uspcij 
 				JOIN user_site_page_content_item uspci 
 					ON uspcij.content_id = uspci.id 
@@ -31,9 +31,9 @@ extends Dlayer_Model_Page_Content_Item
 					AND uspci.page_id = :page_id 
 					AND uspci.row_id = :content_row_id 
 					AND uspci.id = :content_id 
-				JOIN user_site_content_text usct 
-					ON uspcit.data_id = usct.id 
-					AND usct.site_id = :site_id 
+				JOIN user_site_content_jumbotron uscj 
+					ON uspcij.data_id = uscj.id 
+					AND uscj.site_id = :site_id 
 				WHERE uspcij.site_id = :site_id 
 				AND uspcij.page_id = :page_id
 				AND uspcij.content_id = :content_id";
@@ -49,6 +49,11 @@ extends Dlayer_Model_Page_Content_Item
 		if($result != FALSE) {
 			$result['instances'] = $this->contentDataInstances(
 				$site_id, $content_id);
+				
+			$exploded = explode('-:-', $result['title']);
+			
+			$result['title'] = $exploded[0];
+			$result['sub_title'] = $exploded[1];
 			
 			return $result;
 		} else {

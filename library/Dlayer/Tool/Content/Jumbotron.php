@@ -138,9 +138,9 @@ class Dlayer_Tool_Content_Jumbotron extends Dlayer_Tool_Module_Content
 	protected function editContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id)
 	{
-		$model_text = new Dlayer_Model_Page_Content_Items_Text();
+		$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
 		
-		$model_text->editContentItemData($site_id, $page_id, $div_id, 
+		$model_jumbotron->editContentItemData($site_id, $page_id, $div_id, 
 			$content_row_id, $content_id, $this->params);
 	}
 	

@@ -52,7 +52,7 @@ class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Module_Content
 	protected function contentItem()
 	{	
 		$data = array('id'=>FALSE, 'name'=>FALSE, 'text'=>FALSE);
-
+		
 		if($this->content_id != NULL) {
 			$model_text = new Dlayer_Model_Page_Content_Items_Text();
 			
