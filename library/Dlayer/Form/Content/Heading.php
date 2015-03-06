@@ -221,6 +221,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 		$heading_type->setDescription('Choose the type for the new heading.');
 		$heading_type->setAttribs(array('class'=>'form-control input-sm'));
 		$heading_type->setBelongsTo('params');
+		$heading_type->setRequired();
 		
 		if(array_key_exists('heading_id', $this->content_item) == TRUE 
 		&& $this->content_item['heading_id'] != FALSE) {

@@ -91,6 +91,10 @@ div#designer {
       margin-bottom: 10px; }
     div#designer #ribbon fieldset div.form-group {
       margin-bottom: 5px; }
+      div#designer #ribbon fieldset div.form-group label.required:after {
+        content: ' *';
+        display: inline;
+        color: #d9534f; }
       div#designer #ribbon fieldset div.form-group div.color_picker {
         border: 1px solid #CCC;
         border-radius: 3px;
