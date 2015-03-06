@@ -47,7 +47,7 @@ class Dlayer_Model_Palette extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch the three defined color palettes and all the colors (9), returns
+	* Fetch the two defined color palettes and all the colors (10), returns
 	* the color palette name, color and color name grouped by palette
 	*
 	* Used by the color picker in the designers
@@ -70,7 +70,7 @@ class Dlayer_Model_Palette extends Zend_Db_Table_Abstract
 
 		$result = $stmt->fetchAll();
 
-		if(count($result) == 9) {
+		if(count($result) == 10) {
 
 			$palettes = array();
 

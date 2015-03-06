@@ -147,7 +147,7 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 
-		for($i=1;$i<4;$i++) {
+		for($i=1;$i<3;$i++) {
 			$stmt->bindValue(':name', 'Palette ' . $i, PDO::PARAM_STR);
 			$stmt->bindValue(':view_script', 'palette-' . $i, PDO::PARAM_STR);
 			$stmt->bindValue(':sort_order', $i, PDO::PARAM_INT);
@@ -166,17 +166,19 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	{
 		$palettes = array();
 
-		$palettes[1] = array(array('type'=>1, 'name'=>'Black', 'hex'=>'#000000'),
-			array('type'=>2, 'name'=>'Tan', 'hex'=>'#f3f1df'),
-			array('type'=>3, 'name'=>'Dark grey', 'hex'=>'#666666'));
-
-		$palettes[2] = array(array('type'=>1, 'name'=>'Blue', 'hex'=>'#336699'),
-			array('type'=>2, 'name'=>'Dark grey', 'hex'=>'#666666'),
-			array('type'=>3, 'name'=>'Grey', 'hex'=>'#999999'));
-
-		$palettes[3] = array(array('type'=>1, 'name'=>'Blue', 'hex'=>'#003366'),
-			array('type'=>2, 'name'=>'White', 'hex'=>'#FFFFFF'),
-			array('type'=>3, 'name'=>'Orange', 'hex'=>'#FF6600'));
+		$palettes[1] = array(
+			array('type'=>1, 'name'=>'Black', 'hex'=>'#000000'),
+			array('type'=>3, 'name'=>'Dark grey', 'hex'=>'#333333'), 
+			array('type'=>3, 'name'=>'Grey', 'hex'=>'#555555'), 
+			array('type'=>4, 'name'=>'Light grey', 'hex'=>'#777777'), 
+			array('type'=>5, 'name'=>'Off white', 'hex'=>'#EEEEEE'));
+			
+		$palettes[2] = array(
+			array('type'=>1, 'name'=>'Blue', 'hex'=>'#337ab7'),
+			array('type'=>3, 'name'=>'Green', 'hex'=>'#5cb85c'), 
+			array('type'=>3, 'name'=>'Light blue', 'hex'=>'#5bc0de'), 
+			array('type'=>4, 'name'=>'Amber', 'hex'=>'#f0ad4e'), 
+			array('type'=>5, 'name'=>'Red', 'hex'=>'#d9534f'));
 
 		$sql = "INSERT INTO user_setting_color_palette_color
 				(site_id, palette_id, color_type_id, `name`, color_hex)
@@ -373,8 +375,7 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	public function setDefaultHistoryColors($site_id)
 	{
 		// Need to add five initial history colors for the newly  created site
-
-		$colors = array('#f3f1df', '#666666', '#003366', '#FF6600', 'FFFFFF');
+		$colors = array('#337ab7', '#5cb85c', '#555555', '#EEEEEE', '#f0ad4e');
 
 		$sql = "INSERT INTO user_setting_color_history
 				(site_id, color_hex)

@@ -10,77 +10,77 @@
 */
 class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract 
 {
-    /**
-    * Override the hinting for the view property so that we can see the view
-    * helpers that have been defined
-    *
-    * @var Dlayer_View_Codehinting
-    */
-    public $view;
-    
-    private $html;
-    
-    /**
-    * Generates the html and javascript for the color picker, called on ribbon 
-    * tabs that have color inputs that need to the replaced by calls to the 
-    * color picker
-    * 
-    * The color picker and javscript methods should be returned individually 
-    * in different parts of the script, javascript at the end of the script 
-    * after all html, color picker before any contols
-    * 
-    * Example usage, <?php echo $this->colorPicker()->javascript(); ?> 
-    * and <?php echo $this->colorPicker()->picker(TRUE, FALSE, TRUE); ?>
-    * 
-    * @return Dlayer_View_ColorPicker
-    */
-    public function colorPicker() 
-    {
-        $this->resetParams();
-        
-        return $this;
-    }
-    
-    /**
-    * Reset any internal params, need to reset the params in case the view 
-    * helper is called multiple times within the same view.
-    * 
-    * @return void
-    */
-    public function resetParams() 
-    {
-    	$this->html = '';
-    }
-    
-    /**
-    * The javascript that attaches the onclick events to the inputs and also 
-    * manages all the functionality of the color picker
-    * 
-    * @return Dlayer_View_ColorPicker
-    */
-    public function javascript() 
-    {
+	/**
+	* Override the hinting for the view property so that we can see the view
+	* helpers that have been defined
+	*
+	* @var Dlayer_View_Codehinting
+	*/
+	public $view;
+	
+	private $html;
+	
+	/**
+	* Generates the html and javascript for the color picker, called on ribbon 
+	* tabs that have color inputs that need to the replaced by calls to the 
+	* color picker
+	* 
+	* The color picker and javscript methods should be returned individually 
+	* in different parts of the script, javascript at the end of the script 
+	* after all html, color picker before any contols
+	* 
+	* Example usage, <?php echo $this->colorPicker()->javascript(); ?> 
+	* and <?php echo $this->colorPicker()->picker(TRUE, FALSE, TRUE); ?>
+	* 
+	* @return Dlayer_View_ColorPicker
+	*/
+	public function colorPicker() 
+	{
+		$this->resetParams();
+		
+		return $this;
+	}
+	
+	/**
+	* Reset any internal params, need to reset the params in case the view 
+	* helper is called multiple times within the same view.
+	* 
+	* @return void
+	*/
+	public function resetParams() 
+	{
+		$this->html = '';
+	}
+	
+	/**
+	* The javascript that attaches the onclick events to the inputs and also 
+	* manages all the functionality of the color picker
+	* 
+	* @return Dlayer_View_ColorPicker
+	*/
+	public function javascript() 
+	{
 		$this->html = '<script type="text/javascript">
 		dlayer.designers.color_picker();
 		dlayer.designers.color_picker_invoke();
 		</script>';
 		
 		return $this;
-    }
-    
-    /**
-    * Generates the html for the color picker, developer can define if they 
-    * want to include each of the sections, palettes, history and custom, 
-    * by passing in either the data or FALSE
-    * 
-    * @param array|FALSE $palettes 
-    * @param array|FALSE $history
-    * @param boolean $custom
-    * @return Dlayer_View_ColorPicker
-    */
-    public function picker($palettes, $history, $custom=TRUE) 
-    {
-    	// Start color picker container
+	}
+	
+	/**
+	* Generates the html for the color picker, developer can define if they 
+	* want to include each of the sections, palettes, history and custom, 
+	* by passing in either the data or FALSE
+	* 
+	* @param array|FALSE $palettes 
+	* @param array|FALSE $history
+	* @param boolean $custom
+	* @return Dlayer_View_ColorPicker
+	*/
+	public function picker($palettes, $history, $custom=TRUE) 
+	{
+		// Start color picker container
 		$this->html = '<div class="color_picker_tool panel panel-default">';
 		$this->html .= '<div class="panel-heading">Colour picker</div>';
 		$this->html .= '<div class="panel-body">';
@@ -95,20 +95,20 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		$this->html .= '</div>';
 		
 		return $this;
-    }
-    
-    /**
-    * Generate the html for the palettes section of the color picker
-    * 
-    * @param array|FALSE $palettes 
-    * @return string
-    */
-    private function palettes($palettes) 
-    {
-    	$html = '';
-    	
+	}
+	
+	/**
+	* Generate the html for the palettes section of the color picker
+	* 
+	* @param array|FALSE $palettes 
+	* @return string
+	*/
+	private function palettes($palettes) 
+	{
+		$html = '';
+		
 		if($palettes != FALSE) {
-			if(count($palettes) == 3) {
+			if(count($palettes) == 2) {
 				foreach($palettes as $palette) {
 					$html .= '<div class="palette">';
 					$html .= '<h5>' . $this->view->escape($palette['name']) . 
@@ -118,13 +118,12 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 					$labels = '';
 					
 					foreach($palette['colors'] as $color) {
-						$colors .= '<div class="color col-xs-4" style="background-color:' . 
-						$this->view->escape($color['color_hex']) . ';">&nbsp;</div>';
-						$labels .= '<div class="color-name col-xs-4 small text-center">' . 
-						$this->view->escape($color['name']) . '</div>';
+						$colors .= '<div class="color col-xs-2" style="background-color:' . 
+						$this->view->escape($color['color_hex']) . ';" title="' . 
+						$this->view->escape($color['name']) . '">&nbsp;</div>';
 					}
 					
-					$html .= $colors . $labels;
+					$html .= $colors;
 					
 					$html .= '</div>';
 				}
@@ -136,16 +135,16 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		}
 		
 		return $html;
-    }
-    
-    /**
-    * Generate the html for the history part of the color picker
-    * 
-    * @param array|FALSE $history
-    * @return string
-    */
-    private function history($history) 
-    {
+	}
+	
+	/**
+	* Generate the html for the history part of the color picker
+	* 
+	* @param array|FALSE $history
+	* @return string
+	*/
+	private function history($history) 
+	{
 		$html = '';
 		
 		if($history != FALSE) {
@@ -164,16 +163,16 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		}
 		
 		return $html;
-    }
-    
-    /**
-    * Generate the html for the custom control on the color picker
-    * 
-    * @param boolean $custom
-    * @return string
-    */
-    private function custom($custom=TRUE)
-    {
+	}
+	
+	/**
+	* Generate the html for the custom control on the color picker
+	* 
+	* @param boolean $custom
+	* @return string
+	*/
+	private function custom($custom=TRUE)
+	{
 		$html = '';
 		
 		if($custom == TRUE) {
@@ -185,18 +184,18 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		}
 		
 		return $html;
-    }
-    
-    /**
-    * The view helpers can be output directly, no need to call and return the 
-    * render method, we define the __toString method so that echo and print 
-    * calls on the object return the html generated by the render method
-    * 
-    * @return string Generated html
-    */
-    public function __toString() 
-    {
-        return $this->html;
-    }
-    
+	}
+	
+	/**
+	* The view helpers can be output directly, no need to call and return the 
+	* render method, we define the __toString method so that echo and print 
+	* calls on the object return the html generated by the render method
+	* 
+	* @return string Generated html
+	*/
+	public function __toString() 
+	{
+		return $this->html;
+	}
+	
 }
