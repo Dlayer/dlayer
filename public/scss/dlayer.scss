@@ -8,8 +8,8 @@ body {
 
 .container-fixed {
 	margin: 0 auto;
-  	max-width: 970px;
-  	padding: 0px 15px;
+	max-width: 970px;
+	padding: 0px 15px;
 }
 
 p.dev-note {
@@ -32,6 +32,16 @@ fieldset {
 		small {
 			font-size: 65%;
 			color: #777;
+		}
+	}
+	
+	div.form-group {
+		
+		label.required:after {
+			content: ' *';
+			display:inline;
+			color: #d9534f;
+			font-weight: bold;
 		}
 	}
 }

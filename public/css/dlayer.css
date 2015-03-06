@@ -19,6 +19,11 @@ ul.alert-danger {
 fieldset legend small {
   font-size: 65%;
   color: #777; }
+fieldset div.form-group label.required:after {
+  content: ' *';
+  display: inline;
+  color: #d9534f;
+  font-weight: bold; }
 
 div.heading-styles {
   border-bottom: 1px solid;
