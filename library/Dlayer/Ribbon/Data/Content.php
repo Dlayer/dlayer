@@ -189,6 +189,15 @@ class Dlayer_Ribbon_Data_Content
 					$this->content_id);
 				break;
 				
+			case 'position':
+				$ribbon_position = 
+					new Dlayer_Ribbon_Content_Position_Jumbotron();
+				$data = $ribbon_position->viewData($this->site_id, 
+					$this->page_id, $this->div_id, $this->tool, $this->tab, 
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
+				break;
+				
 			default:
 				$data = FALSE;
 				break;
