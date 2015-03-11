@@ -120,15 +120,10 @@ class Dlayer_View_ContentJumbotron extends Zend_View_Helper_Abstract
 			$width = 'col-md-12';
 		}
 		
-		$container_styles = $this->view->contentContainerStyles()->contentItem(
-			$this->data['content_id']);
-			
 		$content_item_styles = $this->view->contentItemStyles()->contentItem(
 			$this->data['content_id']);
 			
-		$html = '<div class="' . $width .'"';
-		$html .= $container_styles;
-		$html .= '>';
+		$html = '<div class="' . $width .'">';
 		$html .= '<div class="' . $class . '"' . ' id="' . $id . '"'; 
 		$html .= $content_item_styles;
 		$html .= '>';
