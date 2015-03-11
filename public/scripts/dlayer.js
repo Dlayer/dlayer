@@ -1504,25 +1504,49 @@ var dlayer = {
 		}
 	},
 	movers: {
+			
 		/**
-		* Move a content item, either up or down, how to move the item depends on the
-		* class attached to the div
+		* Attach the movement controls and events to allow content items to be 
+		* moved within a content row
 		*
-		* @returns {Void}
+		* @return {Void}
 		*/
-		contentItem: function()
+		contentItems: function()
 		{
-			$('.c_selectable > .move').click(
+			/**
+			* 
+			* 
+			* Not move up and down, should be something similar to increase 
+			* and lower priority but with less text
+			* 
+			* 
+			*/
+			
+			var rows = $('.selected-area .row.selectable').length;
+			
+			$('.selected-area .row.selectable').each(function(index)
+			{
+				id = this.id.replace('content_row_', '');
+				
+				if(index !== 0) {
+					$(this).prepend(dlayer.movers.button('move', 
+						'move-up', 'up', 'Move up', id));
+				}
+				if(index !== (rows-1)) {
+					$(this).append(dlayer.movers.button('move', 
+						'move-down', 'down', 'Move down', id));
+				}
+			});
+			
+			$('.selected-area .row.selectable > .move > .btn').click(
 				function() {
-					$(this).css('background-color','#505050');
-					$(this).css('color','#ebebeb');
-
 					var params = this.id.split(':');
-
+					
 					window.location.replace(
-					'/content/design/move-content/direction/' + params[0] +
-					'/type/' + params[1] + '/content-id/' + params[2] + '/div-id/' +
-					params[3] + '/page-id/' + params[4]);
+					'/content/design/move-content-row/direction/' + 
+						params[0] + '/id/' + params[1]);
+
+					return false;
 				}
 			);
 		},
@@ -1591,7 +1615,7 @@ var dlayer = {
 		
 		/**
 		* Attach the movement controls and events to allow content rows to be 
-		* moved on the form
+		* moved within a content area
 		*
 		* @return {Void}
 		*/
