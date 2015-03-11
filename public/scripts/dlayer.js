@@ -1552,8 +1552,8 @@ var dlayer = {
 		},
 		
 		/**
-		* Attach the movement controls and events, allows a form field to be moved up
-		* down on the form
+		* Attach the movement controls and events, allows a form field to be 
+		* moved up and down on the form
 		*
 		* @return {Void}
 		*/
