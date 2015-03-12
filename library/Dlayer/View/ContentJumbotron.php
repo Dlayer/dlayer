@@ -103,7 +103,7 @@ class Dlayer_View_ContentJumbotron extends Zend_View_Helper_Abstract
 		*/
 		$id = 'jumbotron:jumbotron:' . $this->view->escape(
 			$this->data['content_id']);
-		$class = 'item c_item_' .  $this->view->escape(
+		$class = 'item c-item-' .  $this->view->escape(
 			$this->data['content_id']);
 			
 		if($this->selectable == TRUE) {

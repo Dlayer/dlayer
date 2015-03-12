@@ -514,7 +514,7 @@ var dlayer = {
 
 					$('#params-background_color').change(function()
 					{
-						var selector = '.c_item_' + content_id;
+						var selector = '.c-item-' + content_id;
 						var new_value = this.value;
 						dlayer.preview.highlight = true;
 
@@ -557,7 +557,7 @@ var dlayer = {
 					$('#params-width').change(function() {
 						
 						var new_width = parseInt(this.value, 10);
-						var selector = '.c_item_' + content_id;
+						var selector = '.c-item-' + content_id;
 						dlayer.preview.highlight = true;
 
 						if(new_width != NaN && new_width > 0) {
@@ -628,7 +628,7 @@ var dlayer = {
 					$('#params-padding').change(function() {
 						
 						var new_padding = parseInt(this.value, 10);
-						var selector = '.c_item_' + content_id;
+						var selector = '.c-item-' + content_id;
 						dlayer.preview.highlight = true;
 
 						if(new_padding != NaN && new_padding >= 0) {
@@ -695,7 +695,7 @@ var dlayer = {
 						$('#params-padding_' + position).change(function() {
 							
 							var new_padding = parseInt(this.value, 10);
-							var selector = '.c_item_' + content_id;
+							var selector = '.c-item-' + content_id;
 							dlayer.preview.highlight = true;
 
 							if(new_padding != NaN && new_padding >= 0) {
@@ -732,7 +732,7 @@ var dlayer = {
 						$('#params-' + position).change(function() {
 							
 							var new_margin = parseInt(this.value, 10);
-							var selector = '.c_item_' + content_id;
+							var selector = '.c-item-' + content_id;
 							dlayer.preview.highlight = true;
 
 							if(new_margin != NaN && new_margin >= 0) {
@@ -774,7 +774,7 @@ var dlayer = {
 						$('#params-padding_' + position).change(function() {
 							
 							var new_padding = parseInt(this.value, 10);
-							var selector = '.c_item_' + content_id;
+							var selector = '.c-item-' + content_id;
 							dlayer.preview.highlight = true;
 							
 							// Check width value in designer in case 
@@ -865,7 +865,7 @@ var dlayer = {
 						$('#params-' + position).change(function() {
 							
 							var new_margin = parseInt(this.value, 10);
-							var selector = '.c_item_' + content_id;
+							var selector = '.c-item-' + content_id;
 							dlayer.preview.highlight = true;
 							
 							// Check width value in designer in case 
@@ -942,7 +942,7 @@ var dlayer = {
 				{
 					$('#params-heading_type').change(function() 
 					{
-						var selector = '.c_item_' + content_id;
+						var selector = '.c-item-' + content_id;
 						var h_tag = $(selector)[0].tagName;
 						var heading = $('.c_selected').html();
 						dlayer.preview.highlight = true;
@@ -970,7 +970,7 @@ var dlayer = {
 				{
 					$('#params-' + field).keyup(function()
 					{
-						var selector = '.c_item_' + content_id;
+						var selector = '.c-item-' + content_id;
 						var current_value = $(selector).text();
 						dlayer.preview.highlight = true;
 
@@ -987,7 +987,7 @@ var dlayer = {
 					$('#params-' + field).change(function()
 					{
 						dlayer.preview.highlight = true;
-						var selector = '.c_item_' + content_id;
+						var selector = '.c-item-' + content_id;
 						var current_value = $(selector).text();
 
 						if(this.value.trim() != current_value) {
@@ -1002,7 +1002,7 @@ var dlayer = {
 					$('#params-' + field).blur(function()
 					{
 						dlayer.preview.highlight = true;
-						var selector = '.c_item_' + content_id;
+						var selector = '.c-item-' + content_id;
 
 						if(dlayer.preview.changed == true) {
 							dlayer.preview.highlight_item(selector);

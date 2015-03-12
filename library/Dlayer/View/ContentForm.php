@@ -106,7 +106,7 @@ class Dlayer_View_ContentForm extends Zend_View_Helper_Abstract
 		*/
 		$id = 'form:import-form:' . $this->view->escape(
 			$this->data['content_id']);
-		$class = 'imported-form item c_item_' .  $this->view->escape(
+		$class = 'imported-form item c-item-' .  $this->view->escape(
 			$this->data['content_id']);
 			
 		if($this->selectable == TRUE) {
