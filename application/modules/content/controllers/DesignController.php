@@ -489,6 +489,49 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$this->_redirect('/content/design/');
 	}
+	
+	/**
+	* Move the content item, before passing the request to the model we check 
+	* to ensure that the params are correct and belong to the site id stored in
+	* the session
+	*
+	* @return div
+	*/
+	public function moveContentItemAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+		
+		$direction = $this->getRequest()->getParam('direction');
+		$content_id = intval($this->getRequest()->getParam('id'));
+		$content_type = trim($this->getRequest()->getParam('type'));
+		
+		$site_id = $this->session_dlayer->siteId();
+		$page_id = $this->session_content->pageId();
+		$div_id = $this->session_content->divId();
+		$content_row_id = $this->session_content->contentRowId();
+
+		$model_page_content = new Dlayer_Model_Page_Content();
+		
+		if($model_page_content->valid($content_id, $site_id, $page_id, 
+			$div_id, $content_row_id, $content_type) == TRUE && 
+			in_array($direction, array('up', 'down')) ==  TRUE) {
+				
+			print('Site id: ' . $site_id);
+			print('Page id: ' . $page_id);
+			print('Div id: ' . $div_id);
+			print('Content row id: ' . $content_row_id);
+			print('Content id: ' . $content_id);
+			print('Content type: ' . $content_type);
+		
+			$model_page_content->moveContentItem($site_id, $page_id, $div_id, 
+				$content_row_id, $content_id, $content_type, $direction);
+		} else {
+			
+			die('not valid');
+		}
+		
+		//$this->redirect('/content/design');
+	}
 
 	/**
 	* Set the tool, validates that the requested tool is valid and then sets

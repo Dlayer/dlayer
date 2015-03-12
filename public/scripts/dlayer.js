@@ -1533,7 +1533,7 @@ var dlayer = {
 					
 					window.location.replace(
 					'/content/design/move-content-item/direction/' + 
-						params[0] + '/id/' + params[1] + '/type/' + params[3]);
+						params[0] + '/id/' + params[2] + '/type/' + params[1]);
 
 					return false;
 				}
