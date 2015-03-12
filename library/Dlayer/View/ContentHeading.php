@@ -132,10 +132,10 @@ class Dlayer_View_ContentHeading extends Zend_View_Helper_Abstract
 		$content_item_styles = $this->view->contentItemStyles()->contentItem(
 			$this->data['content_id']);
 			
-		$html = '<div class="' . $width .'"';
+		$html = '<div class="' . $width . ' ' . $class . '"' . ' id="' . $id . '"';
 		$html .= $container_styles;
 		$html .= '>';
-		$html .= '<' . $tag . ' class="' . $class . '"' . ' id="' . $id . '"'; 
+		$html .= '<' . $tag; 
 		$html .= $content_item_styles;
 		$html .= '>';
 		$html .= $this->view->escape($this->data['heading']);

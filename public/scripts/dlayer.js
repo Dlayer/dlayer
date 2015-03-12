@@ -1419,14 +1419,11 @@ var dlayer = {
 					background_color = $(this).css('background-color');
 					$(this).css('background-color', '#93d0e1');
 					$(this).css('cursor', 'pointer');
-					//$(this).find('.move').show();
-					
-					// Neede to add move class with specific class move and 
-					// then move_id for show and hide
+					$(this).find('.move').show();
 				},
 				function() {
 					$(this).css('background-color', background_color);
-					//$(this).find('.move').hide();
+					$(this).find('.move').hide();
 				}
 			);
 			$('div.selected-row .selectable').click(
@@ -1513,38 +1510,30 @@ var dlayer = {
 		*/
 		contentItems: function()
 		{
-			/**
-			* 
-			* 
-			* Not move up and down, should be something similar to increase 
-			* and lower priority but with less text
-			* 
-			* 
-			*/
+			var rows = $('.selected-row .item.selectable').length;
 			
-			var rows = $('.selected-area .row.selectable').length;
-			
-			$('.selected-area .row.selectable').each(function(index)
+			$('.selected-row .item.selectable').each(function(index)
 			{
-				id = this.id.replace('content_row_', '');
+				var id = this.id.split(':');
+				id = id[0] + ':' + id[2];
 				
 				if(index !== 0) {
 					$(this).prepend(dlayer.movers.button('move', 
-						'move-up', 'up', 'Move up', id));
+						'move-up', 'up', 'Display sooner', id));
 				}
 				if(index !== (rows-1)) {
 					$(this).append(dlayer.movers.button('move', 
-						'move-down', 'down', 'Move down', id));
+						'move-down', 'down', 'Display later', id));
 				}
 			});
 			
-			$('.selected-area .row.selectable > .move > .btn').click(
+			$('.selected-row .item.selectable > .move > .btn').click(
 				function() {
 					var params = this.id.split(':');
 					
 					window.location.replace(
-					'/content/design/move-content-row/direction/' + 
-						params[0] + '/id/' + params[1]);
+					'/content/design/move-content-item/direction/' + 
+						params[0] + '/id/' + params[1] + '/type/' + params[3]);
 
 					return false;
 				}

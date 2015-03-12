@@ -123,10 +123,10 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 		$content_item_styles = $this->view->contentItemStyles()->contentItem(
 			$this->data['content_id']);
 		
-		$html = '<div class="' . $width .'"';
+		$html = '<div class="' . $width . ' ' . $class . '"' . ' id="' . $id . '"';
 		$html .= $container_styles;
 		$html .= '>';
-		$html .= '<p class="' . $class . '"' . ' id="' . $id . '"'; 
+		$html .= '<p'; 
 		$html .= $content_item_styles;
 		$html .= '>';
 		$html .= nl2br($this->view->escape($this->data['content']));

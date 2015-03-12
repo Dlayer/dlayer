@@ -77,6 +77,12 @@ div#designer {
 			
 			div.selected-row {
 				background-color: #e1dc50;
+				
+				div.move {
+					width: 100%;
+					float: left;
+					display: none;
+				}
 			}
 			
 			.selected-item {

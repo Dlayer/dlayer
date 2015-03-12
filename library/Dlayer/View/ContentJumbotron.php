@@ -103,7 +103,7 @@ class Dlayer_View_ContentJumbotron extends Zend_View_Helper_Abstract
 		*/
 		$id = 'jumbotron:jumbotron:' . $this->view->escape(
 			$this->data['content_id']);
-		$class = 'jumbotron item c_item_' .  $this->view->escape(
+		$class = 'item c_item_' .  $this->view->escape(
 			$this->data['content_id']);
 			
 		if($this->selectable == TRUE) {
@@ -123,8 +123,8 @@ class Dlayer_View_ContentJumbotron extends Zend_View_Helper_Abstract
 		$content_item_styles = $this->view->contentItemStyles()->contentItem(
 			$this->data['content_id']);
 			
-		$html = '<div class="' . $width .'">';
-		$html .= '<div class="' . $class . '"' . ' id="' . $id . '"'; 
+		$html = '<div class="' . $width . ' ' . $class . '"' . ' id="' . $id . '">';
+		$html .= '<div class="jumbotron"'; 
 		$html .= $content_item_styles;
 		$html .= '>';
 		$html .= '<h1>' . $this->view->escape($this->data['title']) . '</h1>';
