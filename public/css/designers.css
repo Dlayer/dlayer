@@ -41,6 +41,9 @@ div#designer {
         width: 100%;
         float: left;
         display: none; }
+      div#designer #design > div.content-manager div.selected-row div.imported-form > div {
+        width: 100%;
+        float: left; }
     div#designer #design > div.content-manager .selected-item {
       background-color: #e1dc50; }
     div#designer #design > div.content-manager div.selectable {

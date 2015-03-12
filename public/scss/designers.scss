@@ -83,6 +83,14 @@ div#designer {
 					float: left;
 					display: none;
 				}
+				
+				div.imported-form {
+				
+					> div {
+						width: 100%;
+						float: left;
+					}
+				}
 			}
 			
 			.selected-item {
