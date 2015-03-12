@@ -515,22 +515,12 @@ class Content_DesignController extends Zend_Controller_Action
 		if($model_page_content->valid($content_id, $site_id, $page_id, 
 			$div_id, $content_row_id, $content_type) == TRUE && 
 			in_array($direction, array('up', 'down')) ==  TRUE) {
-				
-			print('Site id: ' . $site_id);
-			print('Page id: ' . $page_id);
-			print('Div id: ' . $div_id);
-			print('Content row id: ' . $content_row_id);
-			print('Content id: ' . $content_id);
-			print('Content type: ' . $content_type);
 		
 			$model_page_content->moveContentItem($site_id, $page_id, $div_id, 
 				$content_row_id, $content_id, $content_type, $direction);
-		} else {
-			
-			die('not valid');
 		}
 		
-		//$this->redirect('/content/design');
+		$this->redirect('/content/design');
 	}
 
 	/**

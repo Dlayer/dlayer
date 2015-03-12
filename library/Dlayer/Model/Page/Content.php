@@ -231,10 +231,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$sort_order = $this->itemSortOrder($site_id, $page_id, $div_id, 
 			$content_row_id, $content_id, $content_type);
 		
-		var_dump($sort_order);
-			
-		die;
-			
 		$process = FALSE;
 
 		if($sort_order != FALSE) {
