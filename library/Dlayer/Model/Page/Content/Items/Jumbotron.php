@@ -209,11 +209,15 @@ extends Dlayer_Model_Page_Content_Item
 			if($data_id == FALSE) {
 				$data_id = $this->addToDataTable($site_id, $params['name'], 
 					$params['title'], $params['sub_title']);
+			} else {				
+				$data_id = $this->updateContentData($site_id, $page_id, 
+					$content_id, $params['name'], $params['title'], 
+					$params['sub_title']);
 			}
 		} else {
 			$data_id = $this->updateContentData($site_id, $page_id, 
-				$content_id, $params['name'], $params['heading'], 
-				$params['sub_heading']);
+				$content_id, $params['name'], $params['title'], 
+				$params['sub_title']);
 		}
 		
 		$sql = "UPDATE user_site_page_content_item_jumbotron 
@@ -244,7 +248,7 @@ extends Dlayer_Model_Page_Content_Item
 	private function updateContentData($site_id, $page_id, $content_id, 
 	$name, $title, $sub_title) 
 	{
-		$content = trim($heading) . '-:-' . trim($sub_heading);
+		$content = trim($title) . '-:-' . trim($sub_title);
 		
 		$sql = "UPDATE user_site_content_jumbotron 
 				SET `name` = :name, content = :content 
@@ -263,6 +267,6 @@ extends Dlayer_Model_Page_Content_Item
 		$stmt->bindValue(':content', $content, PDO::PARAM_LOB);
 		$stmt->execute();
 		
-		return $this->contentDataExists($site_id, $heading, $sub_heading);
+		return $this->contentDataExists($site_id, $title, $sub_title);
 	}
 }

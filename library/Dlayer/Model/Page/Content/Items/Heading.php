@@ -175,6 +175,10 @@ Dlayer_Model_Page_Content_Item
 			if($data_id == FALSE) {
 				$data_id = $this->addToDataTable($site_id, $params['name'], 
 					$params['heading'], $params['sub_heading']);
+			} else {
+				$data_id = $this->updateContentData($site_id, $page_id, 
+					$content_id, $params['name'], $params['heading'], 
+					$params['sub_heading']);
 			}
 		} else {
 			$data_id = $this->updateContentData($site_id, $page_id, 
