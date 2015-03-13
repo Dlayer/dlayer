@@ -75,37 +75,9 @@ class Dlayer_Tool_Content_ImportText extends Dlayer_Tool_Module_Content
 
 		return $prepared;
 	}
-	
-	/**
-	* Add a new text content item
-	* 
-	* A new content item is created in the content items table and then the 
-	* specific data to create the text item is added to the text item sub 
-	* tables
-	* 
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param integer $content_row_id
-	* @param string $content_type
-	* @return integer The id of the newly created content item
-	*/
-	protected function addContentItem($site_id, $page_id, $div_id, 
-		$content_row_id, $content_type)
-	{
-		$model_content = new Dlayer_Model_Page_Content();
-		$content_id = $model_content->addContentItem($site_id, $page_id, 
-			$div_id, $content_row_id, $content_type);
-
-		$model_text = new Dlayer_Model_Page_Content_Items_Text();
-		$model_text->addContentItemData($site_id, $page_id, $div_id, 
-			$content_row_id, $content_id, $this->params);
-
-		return $content_id;
-	}
 
 	/**
-	* Add a new text content item
+	* Add a new text content item using existing data
 	* 
 	* A new content item is created in the content items table and then the 
 	* specific data to create the text item is added to the text item sub 
