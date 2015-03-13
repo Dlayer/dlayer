@@ -305,17 +305,22 @@ var dlayer = {
 								if(data.data == true) {
 									$('form #params-text').val(data.text);
 									$('form #params-name').val(data.name);
+									$('form #params-text').effect('highlight');
 								} else {
 									var error = 'There was an selecting the ' + 
 									'text content from the system.';
 									$('form #params-text').val(error);
 									$('form #params-name').val('');
+									$('form #params-text').effect('highlight', 
+										{ color: '#c9302c' });
 								}
 							});
 						} else {
 							$('form #params-text').val('Select an existing ' + 
 							'piece of content using the select menu above.');
 							$('form #params-name').val('');
+							$('form #params-text').effect('highlight', 
+								{ color: '#c9302c' });
 						}
 					});
 				},
