@@ -214,10 +214,10 @@ class Dlayer_Ribbon_Data_Content
 
 		return $data;
 	}
-
+	
 	/**
-	* Fetch the view tab data for the import text tool, typically the data 
-	* array will contain the form for the view
+	* Fetch the view tab data for the import text tool, in this case the 
+	* form for the ribbon. 
 	* 
 	* @return array|FALSE 
 	*/
@@ -228,9 +228,10 @@ class Dlayer_Ribbon_Data_Content
 				$ribbon_import_text = new Dlayer_Ribbon_Content_ImportText();
 				$data = $ribbon_import_text->viewData($this->site_id, 
 					$this->page_id, $this->div_id, $this->tool, $this->tab, 
-					$this->multi_use, $this->content_id, $this->edit_mode);
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
 				break;
-
+			
 			default:
 				$data = FALSE;
 				break;

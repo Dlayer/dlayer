@@ -282,35 +282,40 @@ var dlayer = {
 			fn: {
 				
 				/**
-				* AJAX for import text select, fetches the json based on the
-				* chosen option and then passes the data to the name and
-				* content fields
-				*
+				* Ajax for the import text tool, when a user selects a option 
+				* on the import text menu the content for the selected 
+				* data is completed into the text area field.
+				* 
+				* The name for the content item is also copied, just in case 
+				* the user makes a change to the import content
+				* 
 				* @returns {Void}
 				*/
 				import_text: function()
 				{
 					$('form #select_imported_text').change(function()
 					{
-						var data_id = $('form #select_imported_text').val();
+						var id = $('form #select_imported_text').val();
 
-						if(data_id != 0) {
+						if(id != 0) {
 							$.getJSON('/content/ajax/import-text',
-							{ data_id: data_id },
+							{ id: id },
 							function(data) {
 
 								if(data.data == true) {
-									$('form #params-content').val(
-									data.content);
+									$('form #params-text').val(data.text);
 									$('form #params-name').val(data.name);
 								} else {
-									var error =
-									'There was an error importing the selected text.';
-									$('form #params-content').val(error);
+									var error = 'There was an selecting the ' + 
+									'text content from the system.';
+									$('form #params-text').val(error);
+									$('form #params-name').val('');
 								}
 							});
 						} else {
-							$('form #params-content').val('Select an option above.');
+							$('form #params-text').val('Select an existing ' + 
+							'piece of content using the select menu above.');
+							$('form #params-name').val('');
 						}
 					});
 				},

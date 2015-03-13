@@ -83,8 +83,9 @@ class Dlayer_Form_Content_ImportText extends Dlayer_Form_Module_Content
 		
 		$this->elements_data[0] = 'Select text to import';
 		
-		foreach($model_text_data->importDataOptions(
-		$session_dlayer->siteId()) as $options) {
+		foreach($model_text_data->existingTextContentNames(
+			$session_dlayer->siteId()) as $options) {
+			
 			$this->elements_data[$options['id']] = $options['name'];
 		}
 	}
