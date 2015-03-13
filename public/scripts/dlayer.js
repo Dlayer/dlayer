@@ -352,6 +352,10 @@ var dlayer = {
 									$('form #params-sub_heading').val(
 										data.sub_heading);
 									$('form #params-name').val(data.name);
+									$('form #params-heading').effect(
+										'highlight');
+									$('form #params-sub_heading').effect(
+									'highlight');
 								} else {
 									var error = 'There was an error ' + 
 									'selecting the text content from the ' + 

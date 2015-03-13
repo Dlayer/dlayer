@@ -78,14 +78,15 @@ class Content_AjaxController extends Zend_Controller_Action
 		
 		$model_text_data = new Dlayer_Model_Page_Content_Items_Heading();
 		$import_data = $model_text_data->importData(
-		$this->session_dlayer->siteId(), 
-		$this->getRequest()->getParam('data_id'));
+			$this->session_dlayer->siteId(), 
+			$this->getRequest()->getParam('id'));
 		
 		$json = array('data'=>FALSE);
 		
 		if($import_data != FALSE) {
-			$json = array('data'=>true, "name"=>$import_data['name'], 
-			"content"=>$import_data['content']);
+			$json = array('data'=>true, "name"=>$import_data['name'],
+				"heading"=>$import_data['heading'], 
+				"sub_heading"=>$import_data['sub_heading']);
 		}
 		
 		echo Zend_Json::encode($json);

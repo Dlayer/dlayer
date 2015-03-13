@@ -298,11 +298,12 @@ Dlayer_Model_Page_Content_Item
 	}
 	
 	/**
-	* Fetch import data from the heading data tabe
+	* Fetch the existsing heading content that matches the supplied id
 	* 
 	* @param integer $site_id
-	* @param integer $data_id
-	* @return array|FALSE
+	* @param integer $id
+	* @return array|FALSE Either returns the data array for the heading 
+	* 	content or FALSE if an invalid id was supplied
 	*/
 	public function importData($site_id, $data_id) 
 	{
@@ -315,7 +316,28 @@ Dlayer_Model_Page_Content_Item
 		$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
 		$stmt->execute();
 		
-		return $stmt->fetch();
+		$result = $stmt->fetch();
+		
+		$exploded = explode('-:-', $result['content']);
+			
+		switch(count($exploded)) {
+			case 1:
+				$result['heading'] = $exploded[0];
+				$result['sub_heading'] = '';
+				break;
+				
+			case 2:
+				$result['heading'] = $exploded[0];
+				$result['sub_heading'] = $exploded[1];
+				break;
+			
+			default:
+				$result['heading'] = '';
+				$result['sub_heading'] = '';
+				break;
+		}
+			
+		return $result;
 	}
 	
 	/**
