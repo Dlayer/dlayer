@@ -319,12 +319,13 @@ Dlayer_Model_Page_Content_Item
 	}
 	
 	/**
-	* Fetch options form the import data select
+	* Fetch all the defined names and ids for the heading data stored in the 
+	* database, used by the import heading tool
 	* 
 	* @param integer $site_id
 	* @return array
 	*/
-	public function importDataOptions($site_id)
+	public function existingHeadingContentNames($site_id)
 	{
 		$sql = "SELECT id, `name` 
 				FROM user_site_content_heading 

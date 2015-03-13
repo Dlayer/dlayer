@@ -282,9 +282,9 @@ var dlayer = {
 			fn: {
 				
 				/**
-				* Ajax for the import text tool, when a user selects a option 
+				* Ajax for the import text tool, when a user selects an option 
 				* on the import text menu the content for the selected 
-				* data is completed into the text area field.
+				* data is copied into the relevant fields.
 				* 
 				* The name for the content item is also copied, just in case 
 				* the user makes a change to the import content
@@ -307,7 +307,7 @@ var dlayer = {
 									$('form #params-name').val(data.name);
 									$('form #params-text').effect('highlight');
 								} else {
-									var error = 'There was an selecting the ' + 
+									var error = 'There was an error selecting the ' + 
 									'text content from the system.';
 									$('form #params-text').val(error);
 									$('form #params-name').val('');
@@ -326,34 +326,56 @@ var dlayer = {
 				},
 				
 				/**
-				* AJAX for import heading select, fetches the json based
-				* on the chosen option and then passes the data to the name
-				* and content fields
-				*
+				* Ajax for the import heading tool, when a user selects an 
+				* option on the import heading menu the content for the 
+				* selected data is copied into the relevant fields
+				* 
+				* The name for the content item is also copied, just in case 
+				* the user makes a change to the import content
+				* 
 				* @returns {Void}
 				*/
 				import_heading: function()
 				{
 					$('form #select_imported_text').change(function()
 					{
-						var data_id = $('form #select_imported_text').val();
+						var id = $('form #select_imported_text').val();
 
-						if(data_id != 0) {
+						if(id != 0) {
 							$.getJSON('/content/ajax/import-heading',
-							{ data_id: data_id },
+							{ id: id },
 							function(data) {
 
 								if(data.data == true) {
-									$('form #params-heading').val(data.content);
+									$('form #params-heading').val(
+										data.heading);
+									$('form #params-sub_heading').val(
+										data.sub_heading);
 									$('form #params-name').val(data.name);
 								} else {
-									var error =
-									'There was an error importing the selected text.';
+									var error = 'There was an error ' + 
+									'selecting the text content from the ' + 
+									'system.';
 									$('form #params-heading').val(error);
+									$('form #params-sub_heading').val(error);
+									$('form #params-name').val('');
+									$('form #params-heading').effect(
+										'highlight', { color: '#c9302c' });
+									$('form #params-sub_heading').effect(
+										'highlight', { color: '#c9302c' });
 								}
 							});
 						} else {
-							$('form #params-heading').val('Select an option above.');
+							var error = 'Select an existing piece of ' + 
+							'content using the select menu above.'
+							
+							$('form #params-heading').val(error);
+							$('form #params-sub_heading').val(error);
+							$('form #params-name').val('');
+							$('form #params-heading').effect('highlight', 
+								{ color: '#c9302c' });
+							$('form #params-sub_heading').effect('highlight', 
+								{ color: '#c9302c' });
 						}
 					});
 				},

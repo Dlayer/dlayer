@@ -3,7 +3,7 @@
 * Form for the import text content tool
 * 
 * Allows a user to add a new text content item using an existing piece of 
-* text from the system, the user simple selects the text and the form is 
+* text from the system, the user simply selects the text and the form is 
 * updated with the data
 * 
 * There is no edit version of the import text tool, once added the text item 

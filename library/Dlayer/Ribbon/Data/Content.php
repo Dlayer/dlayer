@@ -241,8 +241,8 @@ class Dlayer_Ribbon_Data_Content
 	}
 
 	/**
-	* Fetch the view tab data for the import heading tool, typically the data 
-	* array will contain the form for the view
+	* Fetch the view tab data for the import heading tool, in this case the 
+	* form for the ribbon. 
 	* 
 	* @return array|FALSE 
 	*/
@@ -251,12 +251,13 @@ class Dlayer_Ribbon_Data_Content
 		switch($this->tab) {
 			case 'import-heading':
 				$ribbon_import_heading = 
-				new Dlayer_Ribbon_Content_ImportHeading();
+					new Dlayer_Ribbon_Content_ImportHeading();
 				$data = $ribbon_import_heading->viewData($this->site_id, 
 					$this->page_id, $this->div_id, $this->tool, $this->tab, 
-					$this->multi_use, $this->content_id, $this->edit_mode);
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
 				break;
-
+			
 			default:
 				$data = FALSE;
 				break;

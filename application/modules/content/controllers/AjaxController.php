@@ -42,8 +42,8 @@ class Content_AjaxController extends Zend_Controller_Action
 	}
 	
 	/**
-	* Fetches the data belong to the option in the import select menu and then 
-	* returns the json so what the tool fields can be updated
+	* Fetches the data belonging to the option in the import select menu and 
+	* then returns the json so that the tool fields can be updated
 	* 
 	* @return void
 	*/
@@ -67,7 +67,8 @@ class Content_AjaxController extends Zend_Controller_Action
 	}
 	
 	/**
-	* Returns the json for the import heading tool
+	* Fetches the data belonging to the option in the import select menu and 
+	* then returns the json so that the tool fields can be updated
 	* 
 	* @return void
 	*/
