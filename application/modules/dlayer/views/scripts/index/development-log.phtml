@@ -19,10 +19,10 @@
 		<?php echo $this->bootstrapPagination($this->per_page, $this->start, 
 			$this->updates_count, '/dlayer/index/development-log', 2); ?>
 			
-		<table class="table table-striped">
+		<table class="table table-hover">
 			<tr>
 				<th class="col-md-2 col-xs-4">Date of change</th>
-				<th class="col-md-10 col-xs-8">Update or Fix</th>
+				<th class="col-md-10 col-xs-8">Change, Improvment or Fix</th>
 			</tr>
 			
 			<?php foreach($this->updates as $update) { ?>
@@ -30,7 +30,7 @@
 			<?php if($update['release'] == 0) {
 				$class = NULL;
 			} else {
-				$class = ' class="success"';
+				$class = ' class="info"';
 			}
 			?>
 

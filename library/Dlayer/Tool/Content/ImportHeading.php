@@ -81,7 +81,7 @@ class Dlayer_Tool_Content_ImportHeading extends Dlayer_Tool_Module_Content
 			'name'=>trim($params['name']),
 			'heading'=>trim($params['heading']), 
 			'sub_heading'=>trim($params['sub_heading']), 
-			'heading_type'=>intval($params['heading']));
+			'heading_type'=>intval($params['heading_type']));
 
 		return $prepared;
 	}
