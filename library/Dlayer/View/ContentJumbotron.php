@@ -120,6 +120,11 @@ class Dlayer_View_ContentJumbotron extends Zend_View_Helper_Abstract
 			$width = 'col-md-12';
 		}
 		
+		if($this->data['offset'] != NULL) {
+			$width .= ' col-md-offset-' . $this->view->escape(
+				$this->data['offset']);
+		}
+		
 		$content_item_styles = $this->view->contentItemStyles()->contentItem(
 			$this->data['content_id']);
 			

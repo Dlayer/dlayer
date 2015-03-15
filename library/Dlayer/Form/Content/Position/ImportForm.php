@@ -141,25 +141,9 @@ Dlayer_Form_Module_Content
 	*/
 	private function userElements() 
 	{
-		$size = new Dlayer_Form_Element_Number('size');
-		$size->setLabel('Size:');
-		$size->setAttribs(array('max'=>12, 'min'=>1, 
-			'class'=>'form-control input-sm'));
-		$size->setDescription('Set the size for the imported form, there 
-			are 12 columns to a row, the form size can be set to any value 
-			between 1 and 12');
-		$size->setBelongsTo('params');
-		$size->setRequired();
+		$this->elements['size'] = $this->sizeElement('form');
 		
-		if(array_key_exists('size', $this->content_item) == TRUE 
-			&& $this->content_item['size'] != FALSE) {
-			
-			$size->setValue($this->content_item['size']);
-		} else {
-			$size->setValue(12);
-		}
-
-		$this->elements['size'] = $size;
+		$this->elements['offset'] = $this->offsetElement();
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));

@@ -24,7 +24,8 @@ class Dlayer_Model_View_Content_Items_Form extends Zend_Db_Table_Abstract
 	*/
 	private function item($site_id, $page_id, $content_id) 
 	{
-		$sql = "SELECT uspcif.content_id, uspcif.form_id, uspcis.size 
+		$sql = "SELECT uspcif.content_id, uspcif.form_id, uspcis.size, 
+				uspcis.offset 
 				FROM user_site_page_content_item_form uspcif 
 				LEFT JOIN user_site_page_content_item_size uspcis 
 					ON uspcif.content_id = uspcis.content_id 

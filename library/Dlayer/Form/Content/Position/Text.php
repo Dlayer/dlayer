@@ -140,55 +140,9 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 	*/
 	private function userElements() 
 	{
-		/**
-		* 
-		* 
-		* These two are standard elements so then need to be moved to the 
-		* parent class, much like instances.
-		* 
-		* 
-		*/
+		$this->elements['size'] = $this->sizeElement('text content item');
 		
-		
-		$size = new Dlayer_Form_Element_Number('size');
-		$size->setLabel('Size:');
-		$size->setAttribs(array('max'=>12, 'min'=>1, 
-			'class'=>'form-control input-sm'));
-		$size->setDescription('Set the size for the text content item, there 
-			are 12 columns to a row, the text item size can be set to any value 
-			between 1 and 12');
-		$size->setBelongsTo('params');
-		$size->setRequired();
-		
-		if(array_key_exists('size', $this->content_item) == TRUE 
-			&& $this->content_item['size'] != FALSE) {
-			
-			$size->setValue($this->content_item['size']);
-		} else {
-			$size->setValue(12);
-		}
-
-		$this->elements['size'] = $size;
-		
-		$offset = new Dlayer_Form_Element_Number('offset');
-		$offset->setLabel('Offsetting:');
-		$offset->setAttribs(array('max'=>12, 'min'=>0, 
-			'class'=>'form-control input-sm'));
-		$offset->setDescription('You can offset a item by setting the column 
-			spacing to the left of the content item, the offsetting can be 
-			set to any value between 0 and 12.');
-		$offset->setBelongsTo('params');
-		$offset->setRequired();
-		
-		if(array_key_exists('offset', $this->content_item) == TRUE 
-			&& $this->content_item['offset'] != FALSE) {
-			
-			$offset->setValue($this->content_item['offset']);
-		} else {
-			$offset->setValue(0);
-		}
-
-		$this->elements['offset'] = $offset;
+		$this->elements['offset'] = $this->offsetElement();
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));

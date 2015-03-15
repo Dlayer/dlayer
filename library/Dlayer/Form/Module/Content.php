@@ -161,4 +161,69 @@ abstract class Dlayer_Form_Module_Content extends Dlayer_Form
 		
 		return $instances;
 	}
+	
+	/**
+	* Generate the size element for the position sub tool, used by multiple 
+	* sub tools so to reduce duplication added to this class until a better 
+	* location is found
+	* 
+	* @todo Go with something similar to how the position tool classes work, 
+	* bease form which they all extend
+	* 
+	* @param string $description_fragment Text fragment for element description
+	* @return Dlayer_Form_Element_Number
+	*/
+	protected function sizeElement($description_fragment) 
+	{
+		$size = new Dlayer_Form_Element_Number('size');
+		$size->setLabel('Size:');
+		$size->setAttribs(array('max'=>12, 'min'=>1, 
+			'class'=>'form-control input-sm'));
+		$size->setDescription('Set the size for the ' . 
+			$description_fragment . ', there are 12 columns to a row, the ' . 
+			$description_fragment . ' size can be set to any value between 1 
+			and 12');
+		$size->setBelongsTo('params');
+		$size->setRequired();
+		
+		if(array_key_exists('size', $this->content_item) == TRUE 
+			&& $this->content_item['size'] != FALSE) {
+			
+			$size->setValue($this->content_item['size']);
+		} else {
+			$size->setValue(12);
+		}
+		
+		return $size;
+	}
+	
+	/**
+	* Generate the offset element for the position sub tool, used by multiple 
+	* sub tools so to reduce duplication added to this class until a better 
+	* location is found
+	* 
+	* @return Dlayer_Form_Element_Number
+	*/
+	protected function offsetElement() 
+	{
+		$offset = new Dlayer_Form_Element_Number('offset');
+		$offset->setLabel('Offsetting:');
+		$offset->setAttribs(array('max'=>12, 'min'=>0, 
+			'class'=>'form-control input-sm'));
+		$offset->setDescription('You can offset a item by setting the column 
+			spacing to the left of the content item, the offsetting can be 
+			set to any value between 0 and 12.');
+		$offset->setBelongsTo('params');
+		$offset->setRequired();
+		
+		if(array_key_exists('offset', $this->content_item) == TRUE 
+			&& $this->content_item['offset'] != FALSE) {
+			
+			$offset->setValue($this->content_item['offset']);
+		} else {
+			$offset->setValue(0);
+		}
+		
+		return $offset;
+	}
 }

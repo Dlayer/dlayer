@@ -126,6 +126,11 @@ class Dlayer_View_ContentHeading extends Zend_View_Helper_Abstract
 			$width = 'col-md-12';
 		}
 		
+		if($this->data['offset'] != NULL) {
+			$width .= ' col-md-offset-' . $this->view->escape(
+				$this->data['offset']);
+		}
+		
 		$container_styles = $this->view->contentContainerStyles()->contentItem(
 			$this->data['content_id']);
 			

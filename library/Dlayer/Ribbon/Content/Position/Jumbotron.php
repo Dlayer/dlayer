@@ -54,30 +54,34 @@ Dlayer_Ribbon_Module_Content
 	*/
 	protected function contentItem()
 	{
-		$this->data = array('id'=>$this->content_id, 'size'=>FALSE);
+		$this->data = array(
+			'id'=>$this->content_id, 
+			'size'=>FALSE, 
+			'offset'=>FALSE);
 
 		if($this->content_id != NULL) {
 			
-			$this->size();
+			$this->sizeAndOffset();
 		}
 
 		return $this->data;
 	}
 	
 	/**
-	* Fetch the size data for the content item
+	* Fetch the size and offset data for the current content item
 	* 
 	* @retyurn void Writes any returned data to the $this->data array
 	*/
-	protected function size() 
+	protected function sizeAndOffset() 
 	{
 		$model_size = new Dlayer_Model_Page_Content_Size();
 			
-		$data = $model_size->size($this->site_id, $this->page_id, 
+		$data = $model_size->sizeAndOffset($this->site_id, $this->page_id, 
 			$this->content_id);
 
 		if($data != FALSE) {
-			$this->data['size'] = $data;
+			$this->data['size'] = $data['size'];
+			$this->data['offset'] = $data['offset'];
 		}
 	}
 }
