@@ -170,25 +170,25 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 
 		$this->elements['size'] = $size;
 		
-		$offsetting = new Dlayer_Form_Element_Number('offsetting');
-		$offsetting->setLabel('Offsetting:');
-		$offsetting->setAttribs(array('max'=>12, 'min'=>0, 
+		$offset = new Dlayer_Form_Element_Number('offset');
+		$offset->setLabel('Offsetting:');
+		$offset->setAttribs(array('max'=>12, 'min'=>0, 
 			'class'=>'form-control input-sm'));
-		$offsetting->setDescription('You can offset a item by setting the column 
+		$offset->setDescription('You can offset a item by setting the column 
 			spacing to the right of the content item, the offsetting can be 
 			set to any value between 0 and 12.');
-		$offsetting->setBelongsTo('params');
-		$offsetting->setRequired();
+		$offset->setBelongsTo('params');
+		$offset->setRequired();
 		
-		if(array_key_exists('offsetting', $this->content_item) == TRUE 
-			&& $this->content_item['offsetting'] != FALSE) {
+		if(array_key_exists('offset', $this->content_item) == TRUE 
+			&& $this->content_item['offset'] != FALSE) {
 			
-			$offsetting->setValue($this->content_item['offsetting']);
+			$offset->setValue($this->content_item['offset']);
 		} else {
-			$offsetting->setValue(0);
+			$offset->setValue(0);
 		}
 
-		$this->elements['offsetting'] = $offsetting;
+		$this->elements['offset'] = $offset;
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
