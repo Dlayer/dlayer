@@ -175,7 +175,7 @@ class Dlayer_Form_Content_Position_Text extends Dlayer_Form_Module_Content
 		$offset->setAttribs(array('max'=>12, 'min'=>0, 
 			'class'=>'form-control input-sm'));
 		$offset->setDescription('You can offset a item by setting the column 
-			spacing to the right of the content item, the offsetting can be 
+			spacing to the left of the content item, the offsetting can be 
 			set to any value between 0 and 12.');
 		$offset->setBelongsTo('params');
 		$offset->setRequired();
