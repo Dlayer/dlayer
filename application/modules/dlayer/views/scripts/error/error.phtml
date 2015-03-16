@@ -1,25 +1,17 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div class="row">
-	<div class="col-md-12">
-		<p>There appears to have been an error processing the request, the site has 
-			emailed me the error details and I will attempt to fix the problem as soon 
-			as possible.</p>
+<p>
+<strong>Error:</strong> <?php echo $this->message; ?><br />
+<strong>Request:</strong> <?php echo $this->request_params['module']; ?>/<?php echo $this->request_params['controller']; ?>/<?php echo $this->request_params['action']; ?>
+</p>
 
-		<h2>Error details: <?php echo $this->message; ?></h2>
-		<h2>Request details: <?php echo $this->request_params['module']; ?>/<?php echo $this->request_params['controller']; ?>/<?php echo $this->request_params['action']; ?></h2>
+<?php if (isset($this->exception)): ?>
 
-		<?php if (isset($this->exception)): ?>
+<h3>Exception information:</h3>
+<p>
+<strong>Message:</strong> <?php echo $this->exception->getMessage() ?><br />
+<strong>Stack trace:</strong> <pre><?php echo $this->exception->getTraceAsString() ?></pre><br />
+<strong>Request Parameters:</strong> <?php echo $this->escape(var_export($this->request->getParams(), true)) ?>
+</p>
 
-			<h3>Exception information:</h3>
-			<p><b>Message:</b> <?php echo $this->exception->getMessage() ?></p>
-
-			<h3>Stack trace:</h3>
-			<pre><?php echo $this->exception->getTraceAsString() ?></pre>
-
-			<h3>Request Parameters:</h3>
-			<pre><?php echo $this->escape(var_export($this->request->getParams(), true)) ?></pre>
-
-			<?php endif ?>
-	</div>
-</div>
+<?php endif ?>
