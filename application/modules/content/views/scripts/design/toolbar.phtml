@@ -38,10 +38,21 @@ foreach($this->tools as $group_id => $group) {
 			$show = TRUE;
 		}
 		
-		// Hide content row tool is content row selected
+		// Hide content row tool if content row selected
 		if($this->div_id != NULL && $this->content_row_id != NULL 
 			&& $tool['tool'] == 'content-row') {
 			$show = FALSE;
+		}
+		
+		// Hide move row tool if content id or other tool selected
+		if($tool['tool'] == 'move-row') {
+			if($this->content_id != NULL || $this->tool != FALSE) {
+				if($this->tool['tool'] != 'move-row') {
+					$show = FALSE;
+				} else {
+					$show = TRUE;
+				}
+			}
 		}
 		
 		// Set selected status for tool
