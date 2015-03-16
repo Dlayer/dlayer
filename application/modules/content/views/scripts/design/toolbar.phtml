@@ -1,7 +1,20 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <?php 
-foreach($this->tools as $group) {
+
+/**
+* @todo Need to update this, use database come up with a cleaner, more 
+* re-usable solution
+*/
+
+$groups = array(
+	1=>'', 
+	2=>'Page structure',
+	3=>'Content items',
+	4=>'Import tools'
+);
+
+foreach($this->tools as $group_id => $group) {
 
 	$html = '';
 
@@ -63,6 +76,9 @@ foreach($this->tools as $group) {
 		echo '<div class="row">' . PHP_EOL;
 		echo '<div class="col-xs-12">' . PHP_EOL;
 		echo '<div class="btn-group btn-group-sm" role="group">' . PHP_EOL;
+		if(strlen($groups[$group_id]) > 0) {
+			echo '<h4>' . $this->escape($groups[$group_id]) . '</h4>' . PHP_EOL;
+		}
 		echo $html;
 		echo '</div>' . PHP_EOL;
 		echo '</div>' . PHP_EOL;

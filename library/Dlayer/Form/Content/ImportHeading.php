@@ -167,8 +167,8 @@ class Dlayer_Form_Content_ImportHeading extends Dlayer_Form_Module_Content
 		
 		$import = new Zend_Form_Element_Select('select_imported_text');
 		$import->setLabel('Select the text to import');
-		$import->setDescription('Select the text from an earlier heading , a 
-			preview of the import data will display below.');
+		$import->setDescription('Select the text from an earlier heading, 
+			a preview of the imported text will display below.');
 		$import->setMultiOptions($this->elements_data['import']);
 		$import->setAttribs(array('class'=>'form-control input-sm'));
 		

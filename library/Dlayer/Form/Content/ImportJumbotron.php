@@ -81,9 +81,9 @@ class Dlayer_Form_Content_ImportJumbotron extends Dlayer_Form_Module_Content
 			new Dlayer_Model_Page_Content_Items_Jumbotron();
 		$session_dlayer = new Dlayer_Session();
 		
-		$this->elements_data[0] = 'Select text to import';
+		$this->elements_data[0] = 'Select data to import';
 		
-		foreach($model_jumbotron_data->existingHeadingContentNames(
+		foreach($model_jumbotron_data->existingJumbotronContentNames(
 			$session_dlayer->siteId()) as $options) {
 			
 			$this->elements_data[$options['id']] = $options['name'];
@@ -162,43 +162,34 @@ class Dlayer_Form_Content_ImportJumbotron extends Dlayer_Form_Module_Content
 		
 		$import = new Zend_Form_Element_Select('select_imported_text');
 		$import->setLabel('Select the text to import');
-		$import->setDescription('Select the text from an earlier heading , a 
-			preview of the import data will display below.');
+		$import->setDescription('Select the text from an earlier jumbotron, 
+			a preview of the imported text will display below.');
 		$import->setMultiOptions($this->elements_data['import']);
 		$import->setAttribs(array('class'=>'form-control input-sm'));
 		
 		$this->elements['select_imported_text'] = $import;
 		
-		$heading = new Zend_Form_Element_Textarea('heading');
-		$heading->setLabel('Heading');
-		$heading->setAttribs(array('cols'=>50, 'rows'=>4, 
-			'class'=>'form-control input-sm'));
-		$heading->setDescription('Once you make a selection above a preview of 
-			the imported text will display here.');
-		$heading->setBelongsTo('params');
-		$heading->setRequired();
 		
-		$this->elements['heading'] = $heading;
-		
-		$sub_heading = new Zend_Form_Element_Textarea('sub_heading');
-		$sub_heading->setLabel('Sub heading');
-		$sub_heading->setAttribs(array('cols'=>50, 'rows'=>4, 
+		$title = new Zend_Form_Element_Text('title');
+		$title->setLabel('Title');
+		$title->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'class'=>'form-control input-sm'));
-		$sub_heading->setDescription('Once you make a selection above a preview of 
+		$title->setDescription('Once you make a selection above a preview of 
 			the imported text will display here.');
-		$sub_heading->setBelongsTo('params');
+		$title->setRequired();
 
-		$this->elements['sub_heading'] = $sub_heading;
-				
-		$heading_type = new Zend_Form_Element_Select('heading_type');
-		$heading_type->setLabel('Heading type');
-		$heading_type->setMultiOptions($this->elements_data['heading_type']);
-		$heading_type->setDescription('Choose the type for the new heading.');
-		$heading_type->setAttribs(array('class'=>'form-control input-sm'));
-		$heading_type->setBelongsTo('params');
-		$heading_type->setRequired();
+		$this->elements['title'] = $title;
+		
+		$sub_title = new Zend_Form_Element_Textarea('sub_title');
+		$sub_title->setLabel('Sub title');
+		$sub_title->setAttribs(array('cols'=>50, 'rows'=>10, 
+			'class'=>'form-control input-sm'));
+		$sub_title->setDescription('Once you make a selection above a preview 
+			of the imported text will display here.');
+		$sub_title->setBelongsTo('params');
+		$sub_title->setRequired();
 
-		$this->elements['heading_type'] = $heading_type;
+		$this->elements['sub_title'] = $sub_title;
 				
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));

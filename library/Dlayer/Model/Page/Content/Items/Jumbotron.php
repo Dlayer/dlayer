@@ -269,4 +269,24 @@ extends Dlayer_Model_Page_Content_Item
 		
 		return $this->contentDataExists($site_id, $title, $sub_title);
 	}
+	
+	/**
+	* Fetch all the defined names and ids for the jumbotron data stored in the 
+	* database, used by the import jumbotron tool
+	* 
+	* @param integer $site_id
+	* @return array
+	*/
+	public function existingJumbotronContentNames($site_id)
+	{
+		$sql = "SELECT id, `name` 
+				FROM user_site_content_jumbotron 
+				WHERE site_id = :site_id
+				ORDER BY `name` ASC";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		return $stmt->fetchAll();
+	}
 }
