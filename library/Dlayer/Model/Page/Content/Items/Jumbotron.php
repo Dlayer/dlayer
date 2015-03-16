@@ -289,4 +289,47 @@ extends Dlayer_Model_Page_Content_Item
 		
 		return $stmt->fetchAll();
 	}
+	
+	/**
+	* Fetch the existsing jumbotron content that matches the supplied id
+	* 
+	* @param integer $site_id
+	* @param integer $id
+	* @return array|FALSE Either returns the data array for the jumbotron 
+	* 	content or FALSE if an invalid id was supplied
+	*/
+	public function existingJumbotronContent($site_id, $data_id) 
+	{
+		$sql = "SELECT `name`, content 
+				FROM user_site_content_jumbotron 
+				WHERE site_id = :site_id 
+				AND id = :data_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		$exploded = explode('-:-', $result['content']);
+			
+		switch(count($exploded)) {
+			case 1:
+				$result['title'] = $exploded[0];
+				$result['sub_title'] = '';
+				break;
+				
+			case 2:
+				$result['title'] = $exploded[0];
+				$result['sub_title'] = $exploded[1];
+				break;
+			
+			default:
+				$result['title'] = '';
+				$result['sub_title'] = '';
+				break;
+		}
+			
+		return $result;
+	}
 }

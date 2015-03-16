@@ -72,12 +72,38 @@ class Content_AjaxController extends Zend_Controller_Action
 	* 
 	* @return void
 	*/
+	public function importJumbotronAction() 
+	{
+		$this->getResponse()->setHeader('Content-Type', 'application/json');
+		
+		$model_text_data = new Dlayer_Model_Page_Content_Items_Jumbotron();
+		$import_data = $model_text_data->existingJumbotronContent(
+			$this->session_dlayer->siteId(), 
+			$this->getRequest()->getParam('id'));
+		
+		$json = array('data'=>FALSE);
+		
+		if($import_data != FALSE) {
+			$json = array('data'=>true, "name"=>$import_data['name'],
+				"title"=>$import_data['title'], 
+				"sub_title"=>$import_data['sub_title']);
+		}
+		
+		echo Zend_Json::encode($json);
+	}
+	
+	/**
+	* Fetches the data belonging to the option in the import select menu and 
+	* then returns the json so that the tool fields can be updated
+	* 
+	* @return void
+	*/
 	public function importHeadingAction() 
 	{
 		$this->getResponse()->setHeader('Content-Type', 'application/json');
 		
 		$model_text_data = new Dlayer_Model_Page_Content_Items_Heading();
-		$import_data = $model_text_data->importData(
+		$import_data = $model_text_data->existingHeadingContent(
 			$this->session_dlayer->siteId(), 
 			$this->getRequest()->getParam('id'));
 		

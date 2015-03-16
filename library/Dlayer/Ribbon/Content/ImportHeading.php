@@ -1,8 +1,7 @@
 <?php
 /**
-* Heading content item data class, returns the form for the tool tab view 
-* script populated with the existing content item details if the tool is in 
-* edit mode
+* Import heading data class for ribbon, fetches all the data and state for 
+* the tool view scrips.
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited

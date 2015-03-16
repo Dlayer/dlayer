@@ -305,7 +305,7 @@ Dlayer_Model_Page_Content_Item
 	* @return array|FALSE Either returns the data array for the heading 
 	* 	content or FALSE if an invalid id was supplied
 	*/
-	public function importData($site_id, $data_id) 
+	public function existingHeadingContent($site_id, $data_id) 
 	{
 		$sql = "SELECT `name`, content 
 				FROM user_site_content_heading 

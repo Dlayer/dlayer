@@ -424,8 +424,64 @@ var dlayer = {
 							$('p.validation').hide();
 						}
 					});
-				}
-			}
+				}, 
+				
+				/**
+				* Ajax for the import jumbotron tool, when a user selects an 
+				* option on the import jumbotron menu the content for the 
+				* selected data is copied into the relevant fields
+				* 
+				* The name for the content item is also copied, just in case 
+				* the user makes a change to the imported content
+				* 
+				* @returns {Void}
+				*/
+				import_jumbotron: function()
+				{
+					$('form #select_imported_text').change(function()
+					{
+						var id = $('form #select_imported_text').val();
+
+						if(id != 0) {
+							$.getJSON('/content/ajax/import-jumbotron',
+							{ id: id },
+							function(data) {
+
+								if(data.data == true) {
+									$('form #params-title').val(data.title);
+									$('form #params-sub_title').val(
+										data.sub_title);
+									$('form #params-name').val(data.name);
+									$('form #params-title').effect('highlight');
+									$('form #params-sub_title').effect('highlight');
+								} else {
+									var error = 'There was an error ' + 
+									'selecting the text content from the ' + 
+									'system.';
+									$('form #params-title').val(error);
+									$('form #params-sub_title').val(error);
+									$('form #params-name').val('');
+									$('form #params-title').effect(
+										'highlight', { color: '#c9302c' });
+									$('form #params-sub_title').effect(
+										'highlight', { color: '#c9302c' });
+								}
+							});
+						} else {
+							var error = 'Select an existing piece of ' + 
+							'content using the select menu above.'
+							
+							$('form #params-title').val(error);
+							$('form #params-sub_title').val(error);
+							$('form #params-name').val('');
+							$('form #params-title').effect('highlight', 
+								{ color: '#c9302c' });
+							$('form #params-sub_title').effect('highlight', 
+								{ color: '#c9302c' });
+						}
+					});
+				},
+			}, 
 		}, 
 		
 		image: {

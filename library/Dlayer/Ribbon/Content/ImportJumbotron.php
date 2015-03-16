@@ -1,12 +1,13 @@
 <?php
 /**
-* Import text data class for ribbon, fetches all the data and state for 
+* Import jumbotron data class for ribbon, fetches all the data and state for 
 * the tool view scrips.
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_Ribbon_Content_ImportText extends Dlayer_Ribbon_Module_Content
+class Dlayer_Ribbon_Content_ImportJumbotron extends 
+Dlayer_Ribbon_Module_Content
 {
 	/**
 	* Data method for the tool tab, returns the form and any data required 
@@ -30,12 +31,12 @@ class Dlayer_Ribbon_Content_ImportText extends Dlayer_Ribbon_Module_Content
 		$this->writeParams($site_id, $page_id, $div_id, $tool, $tab,
 			$multi_use, $edit_mode, $content_row_id, $content_id);
 
-		return array('form'=>new Dlayer_Form_Content_ImportText(
+		return array('form'=>new Dlayer_Form_Content_ImportJumbotron(
 			$this->page_id, $this->div_id, $this->content_row_id, 
 			$this->contentRow(), $this->contentItem(), $this->edit_mode, 
 			$this->multi_use));
 	}
-
+	
 	protected function contentRow() 
 	{
 		return array();

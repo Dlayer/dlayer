@@ -164,7 +164,7 @@ class Dlayer_Form_Content_ImportJumbotron extends Dlayer_Form_Module_Content
 		$import->setLabel('Select the text to import');
 		$import->setDescription('Select the text from an earlier jumbotron, 
 			a preview of the imported text will display below.');
-		$import->setMultiOptions($this->elements_data['import']);
+		$import->setMultiOptions($this->elements_data);
 		$import->setAttribs(array('class'=>'form-control input-sm'));
 		
 		$this->elements['select_imported_text'] = $import;
@@ -176,6 +176,7 @@ class Dlayer_Form_Content_ImportJumbotron extends Dlayer_Form_Module_Content
 			'class'=>'form-control input-sm'));
 		$title->setDescription('Once you make a selection above a preview of 
 			the imported text will display here.');
+		$title->setBelongsTo('params');
 		$title->setRequired();
 
 		$this->elements['title'] = $title;
