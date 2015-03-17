@@ -160,6 +160,13 @@ class Content_ProcessController extends Zend_Controller_Action
 		$page_id = $this->validatePageId($_POST['page_id']);
 		$div_id = $this->validateDivId($_POST['div_id'], $page_id);		
 		$tool = $this->validateTool($_POST['tool']);
+		
+		$content_row_id = NULL;
+		
+		// Validate and set content row id if set
+		if(array_key_exists('content_row_id', $_POST) == TRUE) {
+			
+		}
 
 		// Instantiate the tool model for the requested tool
 		$tool_class = 'Dlayer_Tool_Content_' . $tool['model'];
@@ -170,14 +177,14 @@ class Content_ProcessController extends Zend_Controller_Action
 		* back as TRUE process the request
 		*/
 		if($this->tool_class->autoValidate($_POST['params'], $site_id, 
-		$page_id, $div_id, NULL) == TRUE) {
+		$page_id, $div_id, $content_row_id) == TRUE) {
 
 			/**
 			* Auto tool can return multiple ids, session values are 
 			* cleared and then returned values are set
 			*/
 			$return_ids = $this->tool_class->autoProcess($site_id, 
-				$page_id, $div_id, NULL);
+				$page_id, $div_id, $content_row_id);
 
 			// Clear session vars
 			$this->session_content->clearAll();
