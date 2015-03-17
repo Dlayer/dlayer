@@ -69,7 +69,7 @@ class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
 	*/
 	protected function prepare(array $params) 
 	{
-		return array('content_area_id'=>intval($parms['content_area_id']));
+		return array('content_area_id'=>intval($params['content_area_id']));
 	}
 	
 	/**
@@ -88,15 +88,13 @@ class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
 	{
 		$model_content = new Dlayer_Model_Page_Content();
 		
-		$model_content->setContentRowParent($site_id, $page_id, 
-			$this->params_auto['content_row_id'], $content_row_id);
+		$model_content->setContentRowParent($site_id, $page_id, $div_id, 
+			$this->params_auto['content_area_id'], $content_row_id);
 			
-		die;
-		
-		/*return array(
-			array('type'=>'div_id', 'id'=>$div_id), 
-			array('type'=>'content_area_id', 'id'=>$content_row_id)
-		);*/
+		return array(
+			array('type'=>'div_id', 'id'=>$this->params_auto['content_area_id']), 
+			array('type'=>'content_row_id', 'id'=>$content_row_id)
+		);
 	}
 
 	protected function addContentItem($site_id, $page_id, $div_id, 

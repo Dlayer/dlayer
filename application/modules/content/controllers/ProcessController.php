@@ -165,7 +165,7 @@ class Content_ProcessController extends Zend_Controller_Action
 		
 		// Validate and set content row id if set
 		if(array_key_exists('content_row_id', $_POST) == TRUE) {
-			
+			$content_row_id = intval($_POST['content_row_id']);
 		}
 
 		// Instantiate the tool model for the requested tool

@@ -550,12 +550,18 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id
+	* @param integer $new_div_id
+	* @param integer $content_row_id
 	* @return void
 	*/
 	public function setContentRowParent($site_id, $page_id, $div_id, 
-		$content_row_id) 
+		$new_div_id, $content_row_id) 
 	{
-		$sort_order = $this->newRowSortOrderValue($site_id, $page_id, $div_id);
+		$current_sort_order = $this->rowSortOrder($site_id, $page_id, 
+			$div_id, $content_row_id);
+		
+		$new_sort_order = $this->newRowSortOrderValue($site_id, $page_id, 
+			$new_div_id);
 		
 		$sql = 'UPDATE user_site_page_content_rows 
 				SET div_id = :div_id, sort_order = :sort_order  
@@ -565,9 +571,40 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				LIMIT 1';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->bindValue(':div_id', $new_div_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':sort_order', $new_sort_order, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$this->reorderContentRows($site_id, $page_id, $div_id, 
+			$current_sort_order);
+	}
+	
+	/**
+	* Reorder the content rows within an area, when a row is moved out there 
+	* will be a gap in the ids and all the sort orders above the sort order 
+	* of the item being moved need to be reduced by one
+	* 
+	* @param integer $site_id 
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $sort_order
+	* @return void
+	*/
+	private function reorderContentRows($site_id, $page_id, $div_id, 
+		$sort_order) 
+	{
+		$sql = 'UPDATE user_site_page_content_rows 
+				SET sort_order = sort_order - 1 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND div_id = :div_id 
+				AND sort_order > :sort_order';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
 		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
 		$stmt->execute();
 	}
