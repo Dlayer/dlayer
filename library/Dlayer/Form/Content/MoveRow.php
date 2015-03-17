@@ -9,7 +9,7 @@
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Form_Content_Text extends Dlayer_Form_Module_Content
+class Dlayer_Form_Content_MoveRow extends Dlayer_Form_Module_Content
 {
 	/**
 	* Set the initial properties for the form
@@ -109,19 +109,6 @@ class Dlayer_Form_Content_Text extends Dlayer_Form_Module_Content
 
 		$this->elements['tool'] = $tool;
 
-		$content_type = new Zend_Form_Element_Hidden('content_type');
-		$content_type->setValue($this->content_type);
-
-		$this->elements['content_type'] = $content_type;
-
-		if(array_key_exists('id', $this->content_item) == TRUE 
-		&& $this->content_item['id'] != FALSE) {
-			$content_id = new Zend_Form_Element_Hidden('content_id');
-			$content_id->setValue($this->content_item['id']);
-
-			$this->elements['content_id'] = $content_id;
-		}
-
 		$multi_use = new Zend_Form_Element_Hidden('multi_use');
 		$multi_use->setValue($this->multi_use);
 		$multi_use->setBelongsTo('params');
@@ -138,52 +125,21 @@ class Dlayer_Form_Content_Text extends Dlayer_Form_Module_Content
 	*/
 	private function userElements()
 	{
-		$name = new Zend_Form_Element_Text('name');
-		$name->setLabel('Name');
-		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
-			'placeholder'=>'e.g., Intro text for site', 
-			'class'=>'form-control input-sm'));
-		$name->setDescription('Set a name for the content item, this will allow 
-			 you to easily identity the content item text if you want to re-use 
-			 it on another page or this page.');
-		$name->setBelongsTo('params');
-		$name->setRequired();
+		$content_area = new Zend_Form_Element_Select('content_area_id');
+		$content_area->setLabel('Content area');
+		$content_area->setMultiOptions(array());
+		$content_area->setDescription('Choose the content area that you would 
+			like to move the row to, each area will highlight when it is 
+			selected in the menu.');
+		$content_area->setAttribs(array('class'=>'form-control input-sm'));
+		$content_area->setBelongsTo('params');
+		$content_area->setRequired();
 		
-		if(array_key_exists('name', $this->content_item) == TRUE 
-			&& $this->content_item['name'] != FALSE) {
-			
-			$name->setValue($this->content_item['name']);
-		}
-
-		$this->elements['name'] = $name;
-
-		$text = new Zend_Form_Element_Textarea('text');
-		$text->setLabel('Text');
-		$text->setAttribs(array('cols'=>50, 'rows'=>10, 
-			'placeholder'=>'e.g., The quick brown fox jumps over...', 
-			'class'=>'form-control input-sm'));
-		$text->setDescription('Enter the text for your new content item.');
-		$text->setBelongsTo('params');
-		$text->setRequired();
+		$this->elements['content_area_id'] = $content_area;
 		
-		if(array_key_exists('text', $this->content_item) == TRUE 
-			&& $this->content_item['text'] != FALSE) {
-			
-			$text->setValue($this->content_item['text']);
-		}
-
-		$this->elements['text'] = $text;
-
-		$this->elements['instances'] = $this->instancesElement(
-			'text', 'text item');
-
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		if($this->edit_mode == FALSE) {
-			$submit->setLabel('Add');
-		} else {
-			$submit->setLabel('Save');
-		}
+		$submit->setLabel('Move');
 
 		$this->elements['submit'] = $submit;
 	}
