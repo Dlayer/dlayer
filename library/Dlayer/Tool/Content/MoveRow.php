@@ -1,12 +1,11 @@
 <?php
 /**
-* Add a new content row to a content area, new content row is added after all 
-* existing content rows
+* Move the selected content row from one area to another
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
+class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
 {
 	/**
 	* Check that all the required values have been posted as part of the 
@@ -21,7 +20,13 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	*/
 	protected function validateFields(array $params=array(), $content_id=NULL)
 	{
-		return TRUE; // No params data required by tool
+		$valid = FALSE;
+		
+		if(array_key_exists('content_area_id', $params) == TRUE) {
+			$valid = TRUE;
+		}
+		
+		return $valid;
 	}
 
 	/**
@@ -36,12 +41,22 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	* @param array $params Params array to validte
 	* @param integer|NULL $content_id
 	* @return boolean Returns TRUE if all the values are of the expected size 
-	* 	twpe and within range
+	* 	or within range
 	*/
 	protected function validateValues($site_id, $page_id, $div_id, 
 		$content_row_id=NULL, array $params=array(), $content_id=NULL)
 	{
-		return TRUE; // No params data required by tool
+		$valid = FALSE;
+		$model_page = new Dlayer_Model_Page();
+		
+		if(intval($params['content_area_id']) != 0 && 
+			$model_page->divValid($params['content_area_id'], 
+				$page_id) == TRUE) {
+				
+				$valid = TRUE;
+		}
+		
+		return $valid;
 	}
 
 	/**
@@ -54,7 +69,7 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	*/
 	protected function prepare(array $params) 
 	{
-		return array();
+		return array('content_area_id'=>intval($parms['content_area_id']));
 	}
 	
 	/**
@@ -69,17 +84,19 @@ class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
 	* 	after the request has processed
 	*/
 	protected function structure($site_id, $page_id, $div_id, 
-		$content_row_id=NULL)  
+		$content_row_id=NULL) 
 	{
 		$model_content = new Dlayer_Model_Page_Content();
 		
-		$content_row_id = $model_content->addContentRow($site_id, $page_id, 
-			$div_id);
+		$model_content->setContentRowParent($site_id, $page_id, 
+			$this->params_auto['content_row_id'], $content_row_id);
+			
+		die;
 		
-		return array(
+		/*return array(
 			array('type'=>'div_id', 'id'=>$div_id), 
-			array('type'=>'content_row_id', 'id'=>$content_row_id)
-		);
+			array('type'=>'content_area_id', 'id'=>$content_row_id)
+		);*/
 	}
 
 	protected function addContentItem($site_id, $page_id, $div_id, 

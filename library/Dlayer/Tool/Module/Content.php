@@ -57,12 +57,10 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 		$content_row_id=NULL) 
 	{
 		if($this->validated_auto == TRUE) {
-			$content_row_id = $this->structure($site_id, $page_id, $div_id);
-			
-			return array(
-				array('type'=>'div_id', 'id'=>$div_id), 
-				array('type'=>'content_row_id', 'id'=>$content_row_id)
-			);
+			$ids = $this->structure($site_id, $page_id, $div_id, 
+				$content_row_id);
+				
+			return $ids;
 		}
 	}
 
@@ -222,7 +220,10 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $div_id 
-	* @return integer Id of the newly created content row
+	* @param integer|NULL $content_row_id
+	* @return array Return an array of the ids that you would like to be set 
+	* 	after the request has processed
 	*/
-	abstract protected function structure($site_id, $page_id, $div_id);
+	abstract protected function structure($site_id, $page_id, $div_id, 
+		$content_row_id=NULL);
 }

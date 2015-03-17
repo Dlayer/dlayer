@@ -545,6 +545,34 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	}
 	
 	/**
+	* Set a new div id (content area) for the requested content row
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @return void
+	*/
+	public function setContentRowParent($site_id, $page_id, $div_id, 
+		$content_row_id) 
+	{
+		$sort_order = $this->newRowSortOrderValue($site_id, $page_id, $div_id);
+		
+		$sql = 'UPDATE user_site_page_content_rows 
+				SET div_id = :div_id, sort_order = :sort_order  
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND id = :content_row_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+	
+	/**
 	* Move the requested content row, either moves up or down. 
 	* 
 	* Once the sort order of the current item has been calculated and the 
