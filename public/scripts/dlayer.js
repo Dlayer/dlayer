@@ -481,7 +481,24 @@ var dlayer = {
 						}
 					});
 				},
-			}, 
+				
+				/**
+				* Highlights the content area selected in the menu
+				* 
+				* @returns {Void}
+				*/
+				move_row: function() 
+				{
+					$('form #params-content_area_id').change(function()
+					{
+						var id = $('form #params-content_area_id').val();
+						
+						if(id != 0) {
+							$('#template_div_' + id).effect('highlight', 2000);
+						}
+					});
+				}
+			}
 		}, 
 		
 		image: {
