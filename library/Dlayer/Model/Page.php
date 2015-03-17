@@ -344,4 +344,60 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 
 		return $stmt->fetchAll();
 	}
+	
+	/**
+	* Fetch the content areas that have been defined for the supplied content 
+	* page ignoring the currently selected div id, only returns the ids of the 
+	* last content areas, these are the only ones content can be added to
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $selected_div_id
+	* @return array Returns an array containing all the other content areas 
+	* 	that make up the content page
+	*/
+	public function useablePageContentAreas($site_id, $page_id, 
+		$selected_div_id) 
+	{
+		$sql = 'SELECT ustd.id, ustd.parent_id, ustd.sort_order
+				FROM user_site_page usp 
+				JOIN user_site_template_div ustd 
+					ON usp.template_id = ustd.template_id  
+					AND ustd.site_id = :site_id 
+				WHERE usp.id = :page_id 
+				AND usp.site_id = :site_id
+				ORDER BY ustd.parent_id, ustd.sort_order';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetchAll();
+		
+		$count_children = array();
+		
+		// Calculate the number of children for each div id
+		foreach($result as $area) {
+			if(array_key_exists($area['parent_id'], $count_children) == TRUE) {
+				$count_children[$area['parent_id']]['children']++;
+			}
+			
+			$count_children[$area['id']] = 
+				array(
+					'id'=>$area['id'],
+					'children'=>0
+				);
+		}
+		
+		$areas = array();
+		
+		// Return only the ids with no children
+		foreach($count_children as $area) {
+			if($area['children'] == 0 && $area['id'] != $selected_div_id) {
+				$areas[intval($area['id'])] = $area['id'];
+			}		
+		}
+		
+		return $areas;
+	}
 }

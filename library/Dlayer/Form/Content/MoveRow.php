@@ -50,6 +50,8 @@ class Dlayer_Form_Content_MoveRow extends Dlayer_Form_Module_Content
 		$this->setAction('/content/process/auto-tool');
 
 		$this->setMethod('post');
+		
+		$this->formElementsData();
 
 		$this->setUpFormElements();
 
@@ -62,6 +64,28 @@ class Dlayer_Form_Content_MoveRow extends Dlayer_Form_Module_Content
 		$this->addDefaultElementDecorators();
 
 		$this->addCustomElementDecorators();
+	}
+	
+	/**
+	* Fetch any data required by the form inputs,
+	* 
+	* Fetch the defined heading styles.
+	*
+	* @return void Writes the data to the $this->element_data property
+	*/
+	private function formElementsData()
+	{
+		$model_page = new Dlayer_Model_Page();		
+		$session_dlayer = new Dlayer_Session();
+		
+		$areas = $model_page->useablePageContentAreas($session_dlayer->site_id, 
+			$this->page_id, $this->div_id);
+			
+		$this->elements_data['content_area_id'][0] = 'Select content area';
+		
+		foreach($areas as $k=>$v) {
+			$this->elements_data['content_area_id'][$k] = 'Content area ' . $v;	
+		}
 	}
 
 	/**
@@ -127,7 +151,7 @@ class Dlayer_Form_Content_MoveRow extends Dlayer_Form_Module_Content
 	{
 		$content_area = new Zend_Form_Element_Select('content_area_id');
 		$content_area->setLabel('Content area');
-		$content_area->setMultiOptions(array());
+		$content_area->setMultiOptions($this->elements_data['content_area_id']);
 		$content_area->setDescription('Choose the content area that you would 
 			like to move the row to, each area will highlight when it is 
 			selected in the menu.');
