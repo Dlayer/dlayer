@@ -613,8 +613,8 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	
 	/**
 	* Reorder the content rows within an area, when a row is moved out there 
-	* will be a gap in the ids and all the sort orders above the sort order 
-	* of the item being moved need to be reduced by one
+	* will be a gap in all the sort orders above the sort order of the row 
+	* being moved need to be reduced by one
 	* 
 	* @param integer $site_id 
 	* @param integer $page_id
@@ -635,6 +635,34 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+	
+	/**
+	* Reorder the content items within a row, when an item is moved out there 
+	* will be a gap and all the sort orders above the sort order of the item 
+	* being moved need to be reduced by one
+	* 
+	* @param integer $site_id 
+	* @param integer $page_id
+	* @param integer $content_row_id
+	* @param integer $sort_order
+	* @return void
+	*/
+	private function reorderContentItems($site_id, $page_id, $content_row_id, 
+		$sort_order) 
+	{
+		$sql = 'UPDATE user_site_page_content_item 
+				SET sort_order = sort_order - 1 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND row_id = :content_row_id 
+				AND sort_order > :sort_order';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
 		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
 		$stmt->execute();
 	}
@@ -750,7 +778,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	* @param integer $content_row_id
 	* @param integer $new_content_row_id
 	* @param integer $content_id
-	* @return void
+	* @return integer The div id belong to the new content row
 	*/
 	public function setContentItemParent($site_id, $page_id, $div_id, 
 		$content_row_id, $new_content_row_id, $content_id) 
@@ -761,7 +789,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$new_sort_order = $this->newItemSortOrderValue($site_id, $page_id, 
 			$new_content_row_id);
 			
-		$sql = 'UPDATE user_site_page_contenmt_item 
+		$sql = 'UPDATE user_site_page_content_item 
 				SET row_id = :content_row_id, sort_order = :sort_order 
 				WHERE site_id = :site_id 
 				AND page_id = :page_id 
@@ -769,5 +797,48 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				LIMIT 1';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $new_content_row_id, 
+			PDO::PARAM_INT);
+		$stmt->bindValue(':sort_order', $new_sort_order, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$this->reorderContentItems($site_id, $page_id, $content_row_id, 
+			$current_sort_order);
+			
+		return $this->contentRowDivId($site_id, $page_id, $new_content_row_id);
+	}
+	
+	/**
+	* Fetch the div id for the requested content row
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id
+	* @return integer|FALSE Returns wither the div id that the content row 
+	* 	row belongs to or FALSE if unable to be selected
+	*/
+	public function contentRowDivId($site_id, $page_id, $content_row_id) 
+	{
+		$sql = 'SELECT div_id 
+				FROM user_site_page_content_rows 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND id = :content_row_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			return intval($result['div_id']);
+		} else {
+			return FALSE;
+		}
 	}
 }

@@ -107,10 +107,34 @@ class Dlayer_Tool_Content_MoveItem extends Dlayer_Tool_Module_Content
 	protected function structure($site_id, $page_id, $div_id, 
 		$content_row_id=NULL) 
 	{
-		var_dump('Content id ' . $this->params_auto['content_id']);
-		var_dump('Content row id ' . $content_row_id);
-		var_dump('New content row id ' . $this->params_auto['content_row_id']);
-		
 		$model_page_content = new Dlayer_Model_Page_Content();
+		
+		$new_div_id = $model_page_content->setContentItemParent($site_id, 
+			$page_id, $div_id, $content_row_id, 
+			$this->params_auto['content_row_id'], 
+			$this->params_auto['content_id']);
+			
+		/**
+		* Only return the array to set environment properties if the div id 
+		* can be selected for the content row
+		*/
+		if($new_div_id != FALSE) {
+			return array(
+				array(
+					'type'=>'div_id', 
+					'id'=>$new_div_id
+				), 
+				array(
+					'type'=>'content_row_id', 
+					'id'=>$this->params_auto['content_row_id']
+				),
+				array(
+					'type'=>'content_id', 
+					'id'=>$this->params_auto['content_id']
+				),
+			);
+		} else {
+			return array();
+		}
 	}
 }

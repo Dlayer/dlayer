@@ -506,9 +506,9 @@ var dlayer = {
 				*/
 				move_item: function() 
 				{
-					$('form #params-content_row_id').change(function()
+					$('form #params-new_content_row_id').change(function()
 					{
-						var id = $('form #params-content_row_id').val();
+						var id = $('form #params-new_content_row_id').val();
 						
 						if(id != 0) {
 							$('#content_row_' + id).effect('highlight', 2000);
