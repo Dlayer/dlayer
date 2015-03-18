@@ -57,6 +57,10 @@ class Dlayer_Ribbon_Data_Content
 				$data = $this->moveRow();
 				break;
 				
+			case 'move-item':
+				$data = $this->moveItem();
+				break;
+				
 			case 'text':
 				$data = $this->text();
 				break;
@@ -366,6 +370,32 @@ class Dlayer_Ribbon_Data_Content
 				$ribbon_move_row = 
 					new Dlayer_Ribbon_Content_MoveRow();
 				$data = $ribbon_move_row->viewData($this->site_id, 
+					$this->page_id, $this->div_id, $this->tool, $this->tab, 
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
+				break;
+			
+			default:
+				$data = FALSE;
+				break;
+		}
+
+		return $data;
+	}
+	
+	/**
+	* Fetch the view tab data for the move item tool, in this case just the 
+	* form for the ribbon 
+	* 
+	* @return array|FALSE 
+	*/
+	private function moveItem() 
+	{
+		switch($this->tab) {
+			case 'move-item':
+				$ribbon_move_item = 
+					new Dlayer_Ribbon_Content_MoveItem();
+				$data = $ribbon_move_item->viewData($this->site_id, 
 					$this->page_id, $this->div_id, $this->tool, $this->tab, 
 					$this->multi_use, $this->edit_mode, $this->content_row_id, 
 					$this->content_id);
