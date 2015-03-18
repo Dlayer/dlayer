@@ -171,7 +171,7 @@ class Content_ProcessController extends Zend_Controller_Action
 		// Instantiate the tool model for the requested tool
 		$tool_class = 'Dlayer_Tool_Content_' . $tool['model'];
 		$this->tool_class = new $tool_class();
-
+		
 		/**
 		* Run the validation meton on the requested tool, if the result comes 
 		* back as TRUE process the request

@@ -24,7 +24,8 @@ class Dlayer_Tool_Content_MoveItem extends Dlayer_Tool_Module_Content
 	{
 		$valid = FALSE;
 		
-		if(array_key_exists('content_row_id', $params) == TRUE) {
+		if(array_key_exists('new_content_row_id', $params) == TRUE && 
+			array_key_exists('content_id', $params) == TRUE) {
 			$valid = TRUE;
 		}
 		
@@ -34,6 +35,8 @@ class Dlayer_Tool_Content_MoveItem extends Dlayer_Tool_Module_Content
 	/**
 	* Check to ensure that all the submitted data is valid, it has to be of 
 	* the expected format or within an expected range
+	* 
+	* @todo Needs to include a check to make sure content id is valid
 	* 
 	* @param array $params Params array to validte
 	* @param integer $site_id
@@ -51,9 +54,10 @@ class Dlayer_Tool_Content_MoveItem extends Dlayer_Tool_Module_Content
 		$valid = FALSE;
 		$model_page_content = new Dlayer_Model_Page_Content();
 		
-		if(intval($params['content_row_id']) != 0 && 
+		if(intval($params['new_content_row_id']) != 0 && 
+			intval($params['content_id']) != 0 && 
 			$model_page_content->validContentRowIdSansDiv($site_id, $page_id, 
-				$params['content_row_id']) == TRUE) {
+				$params['new_content_row_id']) == TRUE) {
 				
 				$valid = TRUE;
 		}
@@ -71,7 +75,10 @@ class Dlayer_Tool_Content_MoveItem extends Dlayer_Tool_Module_Content
 	*/
 	protected function prepare(array $params, $content_id=NULL)
 	{
-		return array('content_row_id'=>intval($params['content_row_id']));
+		return array(
+			'content_row_id'=>intval($params['new_content_row_id']), 
+			'content_id'=>intval($params['content_id'])
+		);
 	}
 	
 	protected function addContentItem($site_id, $page_id, $div_id, 
@@ -99,4 +106,10 @@ class Dlayer_Tool_Content_MoveItem extends Dlayer_Tool_Module_Content
 	*/
 	protected function structure($site_id, $page_id, $div_id, 
 		$content_row_id=NULL) 
+	{
+		var_dump('Content id ' . $this->params_auto['content_id']);
+		var_dump('Content row id ' . $content_row_id);
+		var_dump('New content row id ' . $this->params_auto['content_row_id']);
+		die;
+	}
 }

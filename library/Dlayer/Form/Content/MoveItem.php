@@ -46,7 +46,7 @@ class Dlayer_Form_Content_MoveItem extends Dlayer_Form_Module_Content
 	*/
 	public function init()
 	{
-		$this->setAction('/content/process/tool');
+		$this->setAction('/content/process/auto-tool');
 
 		$this->setMethod('post');
 		
@@ -80,10 +80,10 @@ class Dlayer_Form_Content_MoveItem extends Dlayer_Form_Module_Content
 		$rows = $model_page_content->contentRows($session_dlayer->site_id, 
 			$this->page_id, $this->content_row_id);
 			
-		$this->elements_data['content_row_id'][0] = 'Select content row';
+		$this->elements_data['new_content_row_id'][0] = 'Select content row';
 		
 		foreach($rows as $row) {
-			$this->elements_data['content_row_id'][$row['id']] = 
+			$this->elements_data['new_content_row_id'][$row['id']] = 
 				'Content row ' . $row['id'];
 		}
 	}
@@ -133,16 +133,6 @@ class Dlayer_Form_Content_MoveItem extends Dlayer_Form_Module_Content
 
 		$this->elements['tool'] = $tool;
 
-		$content_type = new Zend_Form_Element_Hidden('content_type');
-		$content_type->setValue($this->content_type);
-
-		$this->elements['content_type'] = $content_type;
-
-		$content_id = new Zend_Form_Element_Hidden('content_id');
-		$content_id->setValue($this->content_item['id']);
-
-		$this->elements['content_id'] = $content_id;
-
 		$multi_use = new Zend_Form_Element_Hidden('multi_use');
 		$multi_use->setValue($this->multi_use);
 		$multi_use->setBelongsTo('params');
@@ -159,9 +149,10 @@ class Dlayer_Form_Content_MoveItem extends Dlayer_Form_Module_Content
 	*/
 	private function userElements()
 	{
-		$content_row = new Zend_Form_Element_Select('content_row_id');
+		$content_row = new Zend_Form_Element_Select('new_content_row_id');
 		$content_row->setLabel('Content row');
-		$content_row->setMultiOptions($this->elements_data['content_row_id']);
+		$content_row->setMultiOptions(
+			$this->elements_data['new_content_row_id']);
 		$content_row->setDescription('Choose the content row that you would 
 			like to move the content item to, each row will highlight when it 
 			is selected in the menu.');
@@ -169,7 +160,13 @@ class Dlayer_Form_Content_MoveItem extends Dlayer_Form_Module_Content
 		$content_row->setBelongsTo('params');
 		$content_row->setRequired();
 		
-		$this->elements['content_row_id'] = $content_row;
+		$this->elements['new_content_row_id'] = $content_row;
+		
+		$content_id = new Zend_Form_Element_Hidden('content_id');
+		$content_id->setBelongsTo('params');
+		$content_id->setValue($this->content_item['id']);
+
+		$this->elements['content_id'] = $content_id;
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
