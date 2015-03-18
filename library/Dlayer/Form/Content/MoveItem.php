@@ -49,6 +49,8 @@ class Dlayer_Form_Content_MoveItem extends Dlayer_Form_Module_Content
 		$this->setAction('/content/process/tool');
 
 		$this->setMethod('post');
+		
+		$this->formElementsData();
 
 		$this->setUpFormElements();
 
@@ -61,6 +63,29 @@ class Dlayer_Form_Content_MoveItem extends Dlayer_Form_Module_Content
 		$this->addDefaultElementDecorators();
 
 		$this->addCustomElementDecorators();
+	}
+	
+	/**
+	* Fetch any data required by the form inputs,
+	* 
+	* Fetch the defined heading styles.
+	*
+	* @return void Writes the data to the $this->element_data property
+	*/
+	private function formElementsData()
+	{
+		$model_page_content = new Dlayer_Model_Page_Content();
+		$session_dlayer = new Dlayer_Session();
+		
+		$rows = $model_page_content->contentRows($session_dlayer->site_id, 
+			$this->page_id, $this->content_row_id);
+			
+		$this->elements_data['content_row_id'][0] = 'Select content row';
+		
+		foreach($rows as $row) {
+			$this->elements_data['content_row_id'][$row['id']] = 
+				'Content row ' . $row['id'];
+		}
 	}
 
 	/**
@@ -136,7 +161,7 @@ class Dlayer_Form_Content_MoveItem extends Dlayer_Form_Module_Content
 	{
 		$content_row = new Zend_Form_Element_Select('content_row_id');
 		$content_row->setLabel('Content row');
-		$content_row->setMultiOptions(array());
+		$content_row->setMultiOptions($this->elements_data['content_row_id']);
 		$content_row->setDescription('Choose the content row that you would 
 			like to move the content item to, each row will highlight when it 
 			is selected in the menu.');

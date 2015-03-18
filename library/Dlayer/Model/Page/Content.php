@@ -683,4 +683,31 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				Dlayer_Model_Page_Content::moveContentRow();');
 		}
 	}
+	
+	/**
+	* Fetch the content rows that have been defined for the request page 
+	* ignoring the currently selected content row
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $seleted_content_row_id
+	* @return array Returns an array containing all the content rows that have 
+	* 	been defined for the requested page
+	*/
+	public function contentRows($site_id, $page_id, $selected_content_row_id) 
+	{
+		$sql = 'SELECT uspcr.id
+				FROM user_site_page_content_rows uspcr 
+				WHERE uspcr.site_id = :site_id 
+				AND uspcr.page_id = :page_id 
+				AND uspcr.id != :selected_content_row_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':selected_content_row_id', $selected_content_row_id, 
+			PDO::PARAM_INT);
+		$stmt->execute();
+		
+		return $stmt->fetchAll();
+	}
 }
