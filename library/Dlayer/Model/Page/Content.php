@@ -841,4 +841,36 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 			return FALSE;
 		}
 	}
+	
+	/**
+	* Fetch the content type by the content id
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_id
+	* @return string|FALSE Content type for given content id
+	*/
+	public function contentTypeByContentId($site_id, $page_id, $content_id) 
+	{
+		$sql = 'SELECT dct.`name` 
+				FROM user_site_page_content_item uspci 
+				JOIN designer_content_type dct 
+					ON uspci.content_type = dct.id 
+				WHERE uspci.site_id = :site_id 
+				AND uspci.page_id = :page_id 
+				AND uspci.id = :content_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			return $result['name'];
+		} else {
+			return FALSE;
+		}
+	}
 }

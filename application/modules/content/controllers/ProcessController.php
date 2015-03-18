@@ -202,7 +202,8 @@ class Content_ProcessController extends Zend_Controller_Action
 						break;
 						
 					case 'content_id':
-						$this->session_content->setContentId($id['id'], 'heading');
+						$this->session_content->setContentId($id['id'], 
+							$id['content_type']);
 						break;
 						
 					default:

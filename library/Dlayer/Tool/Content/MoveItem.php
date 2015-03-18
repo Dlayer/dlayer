@@ -114,11 +114,15 @@ class Dlayer_Tool_Content_MoveItem extends Dlayer_Tool_Module_Content
 			$this->params_auto['content_row_id'], 
 			$this->params_auto['content_id']);
 			
+		$content_type = $model_page_content->contentTypeByContentId($site_id, 
+			$page_id, $this->params_auto['content_id']);
+			
 		/**
 		* Only return the array to set environment properties if the div id 
-		* can be selected for the content row
+		* can be selected for the new content row and the content type is 
+		* returned for the content id
 		*/
-		if($new_div_id != FALSE) {
+		if($new_div_id != FALSE && $content_type != FALSE) {
 			return array(
 				array(
 					'type'=>'div_id', 
@@ -130,7 +134,8 @@ class Dlayer_Tool_Content_MoveItem extends Dlayer_Tool_Module_Content
 				),
 				array(
 					'type'=>'content_id', 
-					'id'=>$this->params_auto['content_id']
+					'id'=>$this->params_auto['content_id'], 
+					'content_type'=>$content_type
 				),
 			);
 		} else {
