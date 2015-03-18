@@ -23,40 +23,56 @@ foreach($this->tools as $group_id => $group) {
 		$show = FALSE;
 		$selected = FALSE;
 		
-		// Show cancel tool
-		if($this->div_id != NULL && $tool['tool'] == 'cancel') {
-			$show = TRUE;
-		}
-		
-		// Show content row tool if div selected
-		if($this->div_id != NULL && $tool['tool'] == 'content-row') {
-			$show = TRUE;
-		}
-		
-		// Show content tools if row selected
-		if($this->div_id != NULL && $this->content_row_id != NULL) {
-			$show = TRUE;
-		}
-		
-		// Hide content row tool if content row selected
-		if($this->div_id != NULL && $this->content_row_id != NULL 
-			&& $tool['tool'] == 'content-row') {
-			$show = FALSE;
-		}
-		
-		// Hide move row tool if content id or other tool selected
-		if($tool['tool'] == 'move-row') {
-			if($this->content_id != NULL || $this->tool != FALSE) {
-				if($this->tool['tool'] != 'move-row') {
-					$show = FALSE;
-				} else {
+		switch($tool['base']) {
+			case 2:
+				if($this->div_id != NULL) {
+					$show = TRUE;
+				}			
+				break;
+			
+			case 1:
+				/**
+				* Show the add content row tool if content area selected and a 
+				* content row is not selected
+				*/
+				if($tool['tool'] == 'content-row' && $this->div_id != NULL &&
+					$this->content_row_id == NULL) {
+						
 					$show = TRUE;
 				}
-			}
+				
+				// Show move row tool if content area and content row selected
+				if($tool['tool'] == 'move-row' && $this->div_id != NULL && 
+					$this->content_row_id != NULL) {
+						
+					$show = TRUE;
+				}
+				
+				/**
+				* Show move item tool if content area, content row and 
+				* content id selected
+				*/
+				if($tool['tool'] == 'move-item' && $this->div_id != NULL && 
+					$this->content_row_id != NULL && 
+					$this->content_id != NULL) {
+						
+					$show = TRUE;
+				}
+							
+				break;
+			
+			case 0:
+				if($this->div_id != NULL && $this->content_row_id != NULL) {
+					$show = TRUE;
+				}
+				break;
+				
+			default:
+				break;
 		}
-		
+				
 		// Set selected status for tool
-		if($this->tool['tool'] == $tool['tool']) {
+		if($this->tool != FALSE && $this->tool['tool'] == $tool['tool']) {
 			$selected = TRUE;
 		}
 		
@@ -64,7 +80,9 @@ foreach($this->tools as $group_id => $group) {
 
 		if($show == TRUE) {
 			if($this->content_id != NULL) {
-				$reset = '/reset/1';
+				if($tool['tool'] != 'move-item') {
+					$reset = '/reset/1';
+				}
 			}
 			
 			$class = "btn btn-default";
