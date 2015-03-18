@@ -110,6 +110,7 @@ class Dlayer_Tool_Content_MoveItem extends Dlayer_Tool_Module_Content
 		var_dump('Content id ' . $this->params_auto['content_id']);
 		var_dump('Content row id ' . $content_row_id);
 		var_dump('New content row id ' . $this->params_auto['content_row_id']);
-		die;
+		
+		$model_page_content = new Dlayer_Model_Page_Content();
 	}
 }

@@ -264,7 +264,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$content_row_id, $content_id, $content_type, $direction)
 	{
 		$sort_order = $this->itemSortOrder($site_id, $page_id, $div_id, 
-			$content_row_id, $content_id, $content_type);
+			$content_row_id, $content_id);
 		
 		$process = FALSE;
 
@@ -386,18 +386,14 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	* @param integer $div_id
 	* @param integer $content_row_id
 	* @param integer $content_id 
-	* @param string $content_type
 	* @return integer|FALSE The sort order for the selected content item or 
 	* 	FALSE if unable to pull the data
 	*/
 	private function itemSortOrder($site_id, $page_id, $div_id, 
-		$content_row_id, $content_id, $content_type)
+		$content_row_id, $content_id)
 	{
 		$sql = 'SELECT uspci.sort_order 
 				FROM user_site_page_content_item uspci 
-				JOIN designer_content_type dct 
-					ON uspci.content_type = dct.id 
-					AND dct.`name` = :content_type 
 				JOIN user_site_page_content_rows uspcr 
 					ON uspcr.id = uspci.row_id 
 					AND uspcr.id = :content_row_id 
@@ -411,7 +407,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_type', $content_type, PDO::PARAM_STR);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->execute();
 
@@ -744,5 +739,35 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->execute();
 		
 		return $stmt->fetchAll();
+	}
+	
+	/** 
+	* Set the parent for a content item, new content row id
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param inetegr $div_id
+	* @param integer $content_row_id
+	* @param integer $new_content_row_id
+	* @param integer $content_id
+	* @return void
+	*/
+	public function setContentItemParent($site_id, $page_id, $div_id, 
+		$content_row_id, $new_content_row_id, $content_id) 
+	{
+		$current_sort_order = $this->itemSortOrder($site_id, $page_id, $div_id, 
+			$content_row_id, $content_id);
+			
+		$new_sort_order = $this->newItemSortOrderValue($site_id, $page_id, 
+			$new_content_row_id);
+			
+		$sql = 'UPDATE user_site_page_contenmt_item 
+				SET row_id = :content_row_id, sort_order = :sort_order 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND id = :content_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 	}
 }
