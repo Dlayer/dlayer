@@ -159,6 +159,41 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 			return FALSE;
 		}
 	}
+	
+	/**
+	* Check to see if the given content row id is valid, it has to belong to 
+	* the supplied site and page, we don't not however check the div id
+	* 
+	* @todo THis is used by the move item tool, see how it goes but 
+	* 	essentially this is a duplicate of the validContentRowId() method
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id
+	* @return boolean TRUE if the content row id is valid
+	*/
+	public function validContentRowIdSansDiv($site_id, $page_id, 
+		$content_row_id) 
+	{
+		$sql = 'SELECT uspcr.id
+				FROM user_site_page_content_rows uspcr
+				WHERE uspcr.site_id = :site_id 
+				AND uspcr.page_id = :page_id 
+				AND uspcr.id = :content_row_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 
 	/**
 	* Check to see if the requested content item is valid, it has to belong

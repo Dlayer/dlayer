@@ -73,7 +73,7 @@ class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
 	}
 	
 	/**
-	* Add a new content row to the page div id, gets added after any existing 
+	* Move the content row to another content area
 	* content rows
 	* 
 	* @param integer $site_id

@@ -120,7 +120,8 @@ class Dlayer_Tool_Content_ImportHeading extends Dlayer_Tool_Module_Content
 
 	}
 	
-	protected function structure($site_id, $page_id, $div_id) 
+	protected function structure($site_id, $page_id, $div_id, 
+		$content_row_id=NULL) 
 	{
 		
 	}
