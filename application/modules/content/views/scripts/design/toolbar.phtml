@@ -41,6 +41,16 @@ foreach($this->tools as $group_id => $group) {
 					$show = TRUE;
 				}
 				
+				/**
+				* Show the content row tool if a content area and content row 
+				* is selected
+				*/
+				if($tool['tool'] == 'content-row' && $this->div_id != NULL &&
+					$this->content_row_id != NULL) {
+						
+					$show = TRUE;
+				}
+				
 				// Show move row tool if content area and content row selected
 				if($tool['tool'] == 'move-row' && $this->div_id != NULL && 
 					$this->content_row_id != NULL) {
