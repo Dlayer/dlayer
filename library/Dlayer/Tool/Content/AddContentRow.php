@@ -6,7 +6,7 @@
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_Tool_Content_ContentRow extends Dlayer_Tool_Module_Content
+class Dlayer_Tool_Content_AddContentRow extends Dlayer_Tool_Module_Content
 {
 	/**
 	* Check that all the required values have been posted as part of the 
