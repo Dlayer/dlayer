@@ -421,8 +421,10 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	* Set the id for the selected content row and returns the user back to
-	* the designer so they can choose a content item tool
+	* Set the id for the selected content row, set the content row tool and 
+	* return the user back tothe designer with the row selected, the content 
+	* row tool selected and the selectors set so that they can choose a content 
+	* item if they wish
 	* 
 	* @todo Need to check that content row id is valid
 	*
@@ -434,6 +436,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$id = $this->getRequest()->getParam('selected');
 		$this->session_content->setContentRowId($id);
+		$this->session_content->setTool('content-row');		
 		$this->_redirect('/content/design');
 	}
 
