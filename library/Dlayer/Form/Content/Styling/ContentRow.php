@@ -33,7 +33,7 @@ Dlayer_Form_Module_Content
 	{
 		$this->tool = 'content-row';
 		$this->content_type = 'row';
-		$this->sub_tool_model = NULL;
+		$this->sub_tool_model = 'Styling_ContentRow';
 
 		parent::__construct($page_id, $div_id, $content_row_id, $content_row, 
 			$content_item, $edit_mode, $multi_use, $options);
@@ -108,6 +108,11 @@ Dlayer_Form_Module_Content
 		$tool->setValue($this->tool);
 
 		$this->elements['tool'] = $tool;
+		
+		$sub_tool_model = new Zend_Form_Element_Hidden('sub_tool_model');
+		$sub_tool_model->setValue($this->sub_tool_model);
+
+		$this->elements['sub_tool_model'] = $sub_tool_model;
 
 		$multi_use = new Zend_Form_Element_Hidden('multi_use');
 		$multi_use->setValue($this->multi_use);

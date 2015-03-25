@@ -5,7 +5,7 @@
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
+class Dlayer_Tool_Content_Styling_ContentRow extends Dlayer_Tool_Module_Content
 {
 	/**
 	* Check that all the required values have been posted as part of the 
@@ -67,7 +67,7 @@ class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
 	*/
 	protected function prepare(array $params) 
 	{
-		return array(
+		$prepared = array(
 			'row_clear_background'=>FALSE,
 			'row_background_color'=>FALSE
 		);
@@ -78,6 +78,8 @@ class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
 			$prepared['row_background_color'] = 
 				trim($params['row_background_color']);
 		}
+		
+		return $prepared;
 	}
 	
 	/**
@@ -94,6 +96,12 @@ class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
 		$content_row_id=NULL) 
 	{
 		$this->rowBackgroundColor($site_id, $page_id, $div_id, $content_row_id);
+		
+		return array(
+			array('type'=>'div_id', 'id'=>$div_id), 
+			array('type'=>'content_row_id', 'id'=>$content_row_id),
+			array('type'=>'tool', 'id'=>'content-row'),
+		);
 	}
 
 	protected function addContentItem($site_id, $page_id, $div_id, 
@@ -117,7 +125,7 @@ class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
 	* @param integer $content_row_id
 	* @return void
 	*/
-	protected function containerBackgroundColor($site_id, $page_id, $div_id, 
+	protected function rowBackgroundColor($site_id, $page_id, $div_id, 
 		$content_row_id) 
 	{
 		$model_styling = new Dlayer_Model_Page_Content_Styling();
@@ -126,21 +134,22 @@ class Dlayer_Tool_Content_MoveRow extends Dlayer_Tool_Module_Content
 			$content_row_id);
 			
 		if($id == FALSE) {
-			if($this->params['row_clear_background'] == FALSE) {
+			if($this->params_auto['row_clear_background'] == FALSE) {
 				$model_styling->addRowBackgroundColor($site_id, $page_id, 
-					$content_row_id, $this->params['row_background_color']);
+					$content_row_id, 
+					$this->params_auto['row_background_color']);
 					
 				$this->addToColorHistory($site_id, 
-					$this->params['row_background_color']);
+					$this->params_auto['row_background_color']);
 			}
 		} else {
-			if($this->params['row_clear_background'] == FALSE) {
+			if($this->params_auto['row_clear_background'] == FALSE) {
 				$model_styling->updateRowBackgroundColor($site_id, $page_id, 
 					$content_row_id, $id, 
-					$this->params['row_background_color']);
+					$this->params_auto['row_background_color']);
 					
 				$this->addToColorHistory($site_id, 
-					$this->params['row_background_color']);
+					$this->params_auto['row_background_color']);
 			} else {
 				$model_styling->clearRowBackgroundColor($site_id, $page_id, 
 					$content_row_id, $id);

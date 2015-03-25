@@ -168,8 +168,18 @@ class Content_ProcessController extends Zend_Controller_Action
 			$content_row_id = intval($_POST['content_row_id']);
 		}
 
-		// Instantiate the tool model for the requested tool
-		$tool_class = 'Dlayer_Tool_Content_' . $tool['model'];
+		// Instantiate the tool class, checks to see if we are instantiating 
+		// a base tool or sub tool
+		$model_tools = new Dlayer_Model_Tool();
+
+		if(array_key_exists('sub_tool_model', $_POST) == TRUE 
+			&& $model_tools->subToolValid($this->getRequest()->getModuleName(),
+				$tool['tool'], $_POST['sub_tool_model']) == TRUE) {
+				$tool_class = 'Dlayer_Tool_Content_' . $_POST['sub_tool_model'];
+		} else {
+			$tool_class = 'Dlayer_Tool_Content_' . $tool['model'];
+		}
+
 		$this->tool_class = new $tool_class();
 		
 		/**
@@ -204,6 +214,10 @@ class Content_ProcessController extends Zend_Controller_Action
 					case 'content_id':
 						$this->session_content->setContentId($id['id'], 
 							$id['content_type']);
+						break;
+						
+					case 'tool':
+						$this->session_content->setTool($id['id']);
 						break;
 						
 					default:

@@ -167,7 +167,8 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	* @param string $hex
 	* @return void
 	*/
-	public function addRowBackgroundColor($site_id, $page_id, $content_row_id) 
+	public function addRowBackgroundColor($site_id, $page_id, $content_row_id, 
+		$hex) 
 	{
 		$sql = 'INSERT INTO user_site_page_styles_row_background_color 
 				(site_id, page_id, content_row_id, color_hex) 
