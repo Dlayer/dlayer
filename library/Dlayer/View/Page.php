@@ -115,6 +115,14 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		$this->view->templateStyles()->setStyles($template_styles);
 		
 		/**
+		* Pass in the content row styles indexed by style type for all the 
+		* content row defined on the content page. The content row styles 
+		* view helper will call a child view helper for each of the defined 
+		* styles
+		*/
+		$this->view->contentRowStyles()->setStyles($content_row_styles);
+		
+		/**
 		* Pass in the content item container styles indexed by style type for 
 		* all the content items defined on the content page. The content 
 		* container styles view helper will call a child view helper for 
