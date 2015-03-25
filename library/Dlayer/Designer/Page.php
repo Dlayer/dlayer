@@ -60,12 +60,13 @@ class Dlayer_Designer_Page
 		$this->model_template_styles = new Dlayer_Model_View_Template_Styles();
 		$this->model_page = new Dlayer_Model_View_Page();
 		
+		$this->model_content_row_styles = 
+			new Dlayer_Model_View_Content_RowStyles();
 		$this->model_content_container_styles = 
 			new Dlayer_Model_View_Content_ContainerStyles();
 		$this->model_content_styles = 
 			new Dlayer_Model_View_Content_ItemStyles();
 
-		//$this->model_content_styles = new Dlayer_Model_View_Content_Styles();
 		//$this->model_form_styles = new Dlayer_Model_View_Content_Styles_Forms();
 	}
 
@@ -120,115 +121,6 @@ class Dlayer_Designer_Page
 	{
 		return $this->model_page->contentRows($this->site_id, $this->page_id);
 	}
-
-	/**
-	* Fetch all the background coolour styles that have been assigned to the
-	* selected template and then pass them to the template styles property,
-	* if there are no background styles nothing is assigned to the template
-	* styles property
-	*
-	* The id of the currently selected div needs to be passed into the model
-	* method because we need to ensure that an assigned background colour
-	* doesn't override the selected status of a div
-	*
-	* @return void Writes the data to the styles array if values exist
-	*/
-	/*private function templateBackgroundColorStyles()
-	{
-		$styles = $this->model_template_styles->backgroundColors(
-			$this->site_id,$this->template_id, $this->div_id);
-
-		if($styles != FALSE) {
-			$this->template_styles['background_colors'] = $styles;
-		}
-	}*/
-
-	/**
-	* Fetch all the background color styles for the content items and assign
-	* the data to the styles array, if there are no styles we dont assign
-	* any data to the array
-	*
-	* The id of any currently selected content item needs to be passed in
-	* because it will be excluded from the query, don't want to override the
-	* selected content item background color
-	*
-	* @return void Writes the data to the styles array if values exist
-	*/
-	/*private function contentBackgroundColorStyles()
-	{
-		$styles = $this->model_content_styles->backgroundColors($this->site_id,
-			$this->page_id, $this->content_id);
-
-		if($styles != FALSE) {
-			$this->content_styles['background_colors'] = $styles;
-		}
-	}*/
-
-	/**
-	* Fetch all the margin values for the content items and assign the data to
-	* the styles array, if there are no margins we don't assign any data to the
-	* styles array
-	*
-	* @todo At the moment the margin values are pulled indivually, obviously
-	* this is incorrect if all the margin values are the same
-	*
-	* @return void Writes the data to the styles array if values exist
-	*/
-	/*private function contentMargins()
-	{
-		$margins = $this->model_content_styles->margins($this->site_id,
-			$this->page_id);
-
-		if($margins != FALSE) {
-			$this->content_styles['margins'] = $margins;
-		}
-	}*/
-
-	/**
-	* Fetch all the border styles for the template and assign the
-	* data to the styles array, if there are no styles we dont assign anything
-	* to the array
-	*
-	* @return void Writes the data to the styles array if values exist
-	*/
-	/*private function borderStyles()
-	{
-		$styles = $this->model_template_styles->borders($this->site_id,
-			$this->template_id);
-
-		if($styles != FALSE) {
-			$this->template_styles['borders'] = $styles;
-		}
-	}*/
-
-	/**
-	* Fetch all the additional styles assigned to the content items on the
-	* page, each style group pulled individually and then grouped and passed
-	* to the designer page class
-	*
-	* @return array Indexed array of styles
-	*/
-	/*public function contentStyles()
-	{
-		$this->contentBackgroundColorStyles();
-
-		$this->contentMargins();
-
-		return $this->content_styles;
-	}*/
-
-	/**
-	* Fetch all the styles defined for the imported forms, array will be
-	* indexed by form id with a sub array indexed by field id containing all
-	* the individual styles
-	*
-	* @return array
-	*/
-	/*public function formFieldStyles()
-	{
-		return $this->model_form_styles->fieldStyles($this->site_id,
-			$this->page_id);
-	}*/
 	
 	/**
 	* Fetch all the styles assigned to the content item attached to this page, 
@@ -256,6 +148,20 @@ class Dlayer_Designer_Page
 		$this->contentContainerBackgroundStyles();
 		
 		return $this->content_container_styles;
+	}
+	
+	/**
+	* Fetch all the styles assigned to the content rows that makde up the 
+	* page, the styles are grouped by type and then merged
+	* 
+	* @return Array contents all the defined content row styles grouped by 
+	* 	style type and content row id
+	*/
+	public function contentRowStyles() 
+	{
+		$this->contentRowBackgroundStyles();
+		
+		return $this->content_row_styles;
 	}
 	
 	/**
@@ -288,6 +194,22 @@ class Dlayer_Designer_Page
 			
 		if($styles != FALSE) {
 			$this->content_styles['background_colors'] = $styles;
+		}
+	}
+	
+	/**
+	* Fetch all the background colour styles defined for the content rows that 
+	* make up the current page
+	* 
+	* @return void Writes the data to the $content_row_styles private property
+	*/
+	private function contentRowBackgroundStyles() 
+	{
+		$styles = $this->model_content_row_styles->backgroundColors(
+			$this->site_id, $this->page_id, $this->selected_content_row_id);
+			
+		if($styles != FALSE) {
+			$this->content_row_styles['background_colors'] = $styles;
 		}
 	}
 }

@@ -377,7 +377,7 @@ class Content_DesignController extends Zend_Controller_Action
 		* content item containers, content items, assigned forms
 		*/
 		$this->view->template_styles = array();
-		$this->view->content_row_styles = array();
+		$this->view->content_row_styles = $designer_page->contentRowStyles();
 		$this->view->content_container_styles = 
 			$designer_page->contentContainerStyles();
 		$this->view->content_styles = $designer_page->contentItemStyles();
@@ -391,7 +391,6 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_id = $content_id;
 		
 		//$this->view->template_styles = $designer_page->templateStyles();
-		//$this->view->content_styles = $designer_page->contentStyles();
 		//$this->view->form_field_styles = $designer_page->formFieldStyles();
 
 		//$this->view->page_container_metrics = $this->pageContainerMetrics();
