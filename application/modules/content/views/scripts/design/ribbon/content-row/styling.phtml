@@ -1,0 +1,16 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<div class="col-xs-12">
+<?php echo $this->colorPicker()->picker($this->color_picker_data['palettes'], 
+	$this->color_picker_data['history'], TRUE, TRUE); ?>
+</div>
+
+<div class="col-xs-12 small">
+<?php 
+if($this->data != FALSE) {
+	echo $this->data['form'];
+}
+?>
+</div>
+
+<?php echo $this->colorPicker()->javascript(); ?>

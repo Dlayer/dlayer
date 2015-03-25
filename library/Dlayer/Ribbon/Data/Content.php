@@ -53,6 +53,10 @@ class Dlayer_Ribbon_Data_Content
 		$this->content_id = $content_id;
 
 		switch($this->tool) {
+			case 'content-row':
+				$data = $this->contentRow();
+				break;
+			
 			case 'move-row':
 				$data = $this->moveRow();
 				break;
@@ -370,6 +374,32 @@ class Dlayer_Ribbon_Data_Content
 				$ribbon_move_row = 
 					new Dlayer_Ribbon_Content_MoveRow();
 				$data = $ribbon_move_row->viewData($this->site_id, 
+					$this->page_id, $this->div_id, $this->tool, $this->tab, 
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
+				break;
+			
+			default:
+				$data = FALSE;
+				break;
+		}
+
+		return $data;
+	}
+	
+	/**
+	* Fetch the view tab data for the content row tool, in this case just the 
+	* form for the ribbon 
+	* 
+	* @return array|FALSE 
+	*/
+	private function contentRow() 
+	{
+		switch($this->tab) {
+			case 'styling':
+				$ribbon_styling = 
+					new Dlayer_Ribbon_Content_Styling_ContentRow();
+				$data = $ribbon_styling->viewData($this->site_id, 
 					$this->page_id, $this->div_id, $this->tool, $this->tab, 
 					$this->multi_use, $this->edit_mode, $this->content_row_id, 
 					$this->content_id);
