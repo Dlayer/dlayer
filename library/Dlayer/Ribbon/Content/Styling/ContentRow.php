@@ -71,13 +71,13 @@ Dlayer_Ribbon_Module_Content
 	*/
 	protected function rowBackgroundColor() 
 	{
-		/*$model_styling = new Dlayer_Model_Page_Content_Styling();
+		$model_styling = new Dlayer_Model_Page_Content_Styling();
 		
-		$color = $model_styling->itemContainerBackgroundColor($this->site_id, 
-			$this->page_id, $this->content_id);
+		$color = $model_styling->rowBackgroundColor($this->site_id, 
+			$this->page_id, $this->content_row_id);
 			
 		if($color != FALSE) {
-			$this->data['container_background_color'] = $color;
-		}*/
+			$this->data['row_background_color'] = $color;
+		}
 	}
 }
