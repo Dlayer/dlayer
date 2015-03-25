@@ -44,6 +44,40 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	
 	/**
 	* Check to see if a background colour has been defined for the selected 
+	* content row
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id
+	* @return integer|FALSE Either returns the id of the assigned background 
+	* 	colour or FALSE if no background colour has been defined
+	*/
+	public function existingRowBackgroundColor($site_id, $page_id, 
+		$content_row_id) 
+	{
+		$sql = 'SELECT uspsrbc.id 
+				FROM user_site_page_styles_row_background_color uspsrbc
+				WHERE uspsrbc.site_id = :site_id 
+				AND uspsrbc.page_id = :page_id 
+				AND uspsrbc.content_row_id = :content_row_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			return intval($result['id']);
+		} else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	* Check to see if a background colour has been defined for the selected 
 	* content item
 	* 
 	* @param integer $site_id
@@ -125,6 +159,29 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	}
 	
 	/**
+	* Add a background colour for the selected content row
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id
+	* @param string $hex
+	* @return void
+	*/
+	public function addRowBackgroundColor($site_id, $page_id, $content_row_id) 
+	{
+		$sql = 'INSERT INTO user_site_page_styles_row_background_color 
+				(site_id, page_id, content_row_id, color_hex) 
+				VALUES 
+				(:site_id, :page_id, :content_row_id, :color_hex)';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);		
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);		
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':color_hex', $hex, PDO::PARAM_STR);
+		$stmt->execute();
+	}
+	
+	/**
 	* Update the background colour for the selected content item container
 	* 
 	* @param integer $site_id
@@ -183,6 +240,35 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	}
 	
 	/**
+	* Update the background colour for the selected content row
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id
+	* @param integer $id
+	* @param string $hex
+	* @return void
+	*/
+	public function updateRowBackgroundColor($site_id, $page_id, 
+		$content_row_id, $id, $hex) 
+	{
+		$sql = 'UPDATE user_site_page_styles_row_background_color 
+				SET color_hex = :hex 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_row_id = :content_row_id 
+				AND id = :id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':hex', $hex, PDO::PARAM_STR);
+		$stmt->execute();
+	}
+	
+	/**
 	* Clear the background color for the selected content item container
 	* 
 	* @param integer $site_id
@@ -230,6 +316,32 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+	
+	/**
+	* Clear the background color for the selected content row
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id
+	* @param integer $id
+	* @return void
+	*/
+	public function clearRowBackgroundColor($site_id, $page_id, 
+		$content_row_id, $id) 
+	{
+		$sql = 'DELETE FROM user_site_page_styles_row_background_color 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_row_id = :content_row_id 
+				AND id = :id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 		$stmt->execute();
 	}
