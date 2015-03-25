@@ -14,8 +14,9 @@
 			dlayer.movers.contentRows();
 		<?php } ?>
 		
-		<?php if($this->div_id != NULL && $this->content_row_id != NULL 
-			&& $this->content_id == NULL && $this->tool == NULL) { ?>
+		<?php if($this->div_id != NULL && $this->content_row_id != NULL && 
+			$this->content_id == NULL && 
+			$this->tool['tool'] == 'content-row') { ?>
 			dlayer.selectors.contentItem();
 			dlayer.movers.contentItems();
 		<?php } ?>
