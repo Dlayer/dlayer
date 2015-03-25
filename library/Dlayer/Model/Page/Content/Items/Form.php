@@ -86,9 +86,9 @@ extends Dlayer_Model_Page_Content_Item
 					AND uspci.id = :content_id 
 					AND uspci.site_id = :site_id 
 					AND uspci.page_id = :page_id 
-					AND uspci.row_id = :content_row_id 
+					AND uspci.content_row_id = :content_row_id 
 				JOIN user_site_page_content_rows uspcr 
-					ON uspci.row_id = uspcr.id 
+					ON uspci.content_row_id = uspcr.id 
 					AND uspcr.site_id = :site_id 
 					AND uspcr.page_id = :page_id 
 					AND uspcr.div_id = :div_id 

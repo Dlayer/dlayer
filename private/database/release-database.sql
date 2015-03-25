@@ -310,7 +310,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-03-25 14:55:44','2015-03-25 15:03:18',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-03-15 15:24:30','2015-03-15 15:25:11',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-03-15 15:25:22','2015-03-15 15:25:43',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-03-25 15:06:30','2015-03-25 15:21:39',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-03-15 15:24:30','2015-03-15 15:25:11',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-03-15 15:25:22','2015-03-15 15:25:43',1);
 
 /*Table structure for table `dlayer_module` */
 
@@ -406,7 +406,7 @@ CREATE TABLE `dlayer_session` (
 
 /*Data for the table `dlayer_session` */
 
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('5iei0ushdvo80v6albqvbr18e3','','PHPSESSID',1426779467,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1426783067;}}'),('hm5h865onanoqkfk49pu5ur0q4','','PHPSESSID',1427295906,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1427299506;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1427299506;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1427299506;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1427299506;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1427299506;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:10:\"ContentRow\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}'),('uj0m8qisb4eiobet89iiat4at5','','PHPSESSID',1427055316,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1427058916;}}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('5iei0ushdvo80v6albqvbr18e3','','PHPSESSID',1426779467,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1426783067;}}'),('hm5h865onanoqkfk49pu5ur0q4','','PHPSESSID',1427296900,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1427300500;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1427300500;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1427300500;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1427300500;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1427300500;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:4:\"Text\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:7:\"form_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}'),('uj0m8qisb4eiobet89iiat4at5','','PHPSESSID',1427055316,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1427058916;}}');
 
 /*Table structure for table `dlayer_setting` */
 
@@ -958,20 +958,20 @@ CREATE TABLE `user_site_page_content_item` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `site_id` int(11) unsigned NOT NULL,
   `page_id` int(11) unsigned NOT NULL,
-  `row_id` int(11) unsigned NOT NULL,
+  `content_row_id` int(11) unsigned NOT NULL,
   `content_type` int(11) unsigned NOT NULL,
   `sort_order` int(11) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `page_id` (`page_id`),
   KEY `content_type` (`content_type`),
   KEY `sort_order` (`sort_order`),
-  KEY `div_id` (`row_id`),
+  KEY `div_id` (`content_row_id`),
   KEY `site_id` (`site_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_content_item` */
 
-insert  into `user_site_page_content_item`(`id`,`site_id`,`page_id`,`row_id`,`content_type`,`sort_order`) values (1,1,1,1,4,1),(2,1,1,2,2,1),(3,1,1,2,1,2),(4,1,1,3,1,1),(5,1,1,3,3,2),(6,2,2,5,4,1),(7,2,2,6,2,1),(8,2,2,6,1,2),(9,2,2,7,1,1),(10,2,2,7,3,2),(11,3,3,9,4,1),(12,3,3,10,2,1),(13,3,3,10,1,2),(14,3,3,11,1,1),(15,3,3,11,3,2);
+insert  into `user_site_page_content_item`(`id`,`site_id`,`page_id`,`content_row_id`,`content_type`,`sort_order`) values (1,1,1,1,4,1),(2,1,1,2,2,1),(3,1,1,2,1,2),(4,1,1,3,1,1),(5,1,1,3,3,2),(6,2,2,5,4,1),(7,2,2,6,2,1),(8,2,2,6,1,2),(9,2,2,7,1,1),(10,2,2,7,3,2),(11,3,3,9,4,1),(12,3,3,10,2,1),(13,3,3,10,1,2),(14,3,3,11,1,1),(15,3,3,11,3,2);
 
 /*Table structure for table `user_site_page_content_item_form` */
 
@@ -1124,6 +1124,21 @@ CREATE TABLE `user_site_page_styles_item_background_color` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_styles_item_background_color` */
+
+/*Table structure for table `user_site_page_styles_row_background_color` */
+
+DROP TABLE IF EXISTS `user_site_page_styles_row_background_color`;
+
+CREATE TABLE `user_site_page_styles_row_background_color` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `site_id` int(11) unsigned NOT NULL,
+  `page_id` int(11) unsigned NOT NULL,
+  `content_row_id` int(11) unsigned NOT NULL,
+  `color_hex` char(7) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `user_site_page_styles_row_background_color` */
 
 /*Table structure for table `user_site_template` */
 

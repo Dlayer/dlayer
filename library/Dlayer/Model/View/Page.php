@@ -67,7 +67,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 				dct.`name` AS content_type 
 				FROM user_site_page_content_item uspci 
 				JOIN user_site_page_content_rows uspcr 
-					ON uspci.row_id = uspcr.id 
+					ON uspci.content_row_id = uspcr.id 
 					AND uspcr.site_id = :site_id 
 					AND uspcr.page_id = :page_id 
 				JOIN designer_content_type dct ON uspci.content_type = dct.id 

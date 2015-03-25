@@ -222,7 +222,7 @@ Dlayer_Model_Page_Content_Item
 				JOIN user_site_page_content_item uspci ON uspcih.content_id = uspci.id 
 					AND uspci.site_id = :site_id
 					AND uspci.page_id = :page_id 
-					AND uspci.row_id = :content_row_id 
+					AND uspci.content_row_id = :content_row_id 
 					AND uspci.id = :content_id 
 				JOIN user_site_content_heading usch ON uspcih.data_id = usch.id 
 					AND usch.site_id = :site_id 

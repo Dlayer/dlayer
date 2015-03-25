@@ -55,7 +55,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$content_row_id);
 
 		$sql = "INSERT INTO user_site_page_content_item 
-				(site_id, page_id, row_id, content_type, sort_order)
+				(site_id, page_id, content_row_id, content_type, sort_order)
 				VALUES
 				(:site_id, :page_id, :content_row_id,
 				(SELECT id FROM designer_content_type 
@@ -113,7 +113,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				FROM user_site_page_content_item 
 				WHERE site_id = :site_id
 				AND page_id = :page_id
-				AND row_id = :content_row_id";
+				AND content_row_id = :content_row_id";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
@@ -213,7 +213,8 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	{
 		$sql = "SELECT uspci.id 
 				FROM user_site_page_content_item uspci 
-				JOIN user_site_page_content_rows uspcr ON uspci.row_id = uspcr.id 
+				JOIN user_site_page_content_rows uspcr 
+					ON uspci.content_row_id = uspcr.id 
 					AND uspcr.div_id = :div_id 
 					AND uspcr.site_id = :site_id 
 					AND uspcr.page_id = :page_id 
@@ -222,7 +223,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 					AND dct.`name` = :content_type 
 				WHERE uspci.site_id = :site_id 
 				AND uspci.page_id = :page_id 
-				AND uspci.row_id  = :content_row_id
+				AND uspci.content_row_id  = :content_row_id
 				AND uspci.id = :content_id 
 				LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
@@ -367,7 +368,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				WHERE id = :content_id 
 				AND site_id = :site_id 
 				AND page_id = :page_id 
-				AND row_id = :content_row_id 
+				AND content_row_id = :content_row_id 
 				LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
@@ -395,13 +396,13 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$sql = 'SELECT uspci.sort_order 
 				FROM user_site_page_content_item uspci 
 				JOIN user_site_page_content_rows uspcr 
-					ON uspcr.id = uspci.row_id 
+					ON uspcr.id = uspci.content_row_id 
 					AND uspcr.id = :content_row_id 
 					AND uspcr.site_id = :site_id 
 					AND uspcr.page_id = :page_id
 				WHERE uspci.site_id = :site_id 
 				AND uspci.page_id = :page_id 
-				AND uspci.row_id = :content_row_id
+				AND uspci.content_row_id = :content_row_id
 				AND uspci.id = :content_id';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
@@ -505,7 +506,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				FROM user_site_page_content_item 
 				WHERE site_id = :site_id
 				AND page_id = :page_id
-				AND row_id = :content_row_id 
+				AND content_row_id = :content_row_id 
 				AND sort_order = :sort_order
 				LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
@@ -564,7 +565,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				FROM user_site_page_content_item 
 				WHERE site_id = :site_id
 				AND page_id = :page_id
-				AND row_id = :content_row_id";
+				AND content_row_id = :content_row_id";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
@@ -657,7 +658,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				SET sort_order = sort_order - 1 
 				WHERE site_id = :site_id 
 				AND page_id = :page_id 
-				AND row_id = :content_row_id 
+				AND content_row_id = :content_row_id 
 				AND sort_order > :sort_order';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
@@ -790,7 +791,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 			$new_content_row_id);
 			
 		$sql = 'UPDATE user_site_page_content_item 
-				SET row_id = :content_row_id, sort_order = :sort_order 
+				SET content_row_id = :content_row_id, sort_order = :sort_order 
 				WHERE site_id = :site_id 
 				AND page_id = :page_id 
 				AND id = :content_id 

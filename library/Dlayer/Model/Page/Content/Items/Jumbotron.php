@@ -29,7 +29,7 @@ extends Dlayer_Model_Page_Content_Item
 					ON uspcij.content_id = uspci.id 
 					AND uspci.site_id = :site_id 
 					AND uspci.page_id = :page_id 
-					AND uspci.row_id = :content_row_id 
+					AND uspci.content_row_id = :content_row_id 
 					AND uspci.id = :content_id 
 				JOIN user_site_content_jumbotron uscj 
 					ON uspcij.data_id = uscj.id 

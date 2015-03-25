@@ -89,7 +89,8 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	{
 		$sql = "SELECT uspci.id 
 				FROM user_site_page_content_item uspci 
-				JOIN user_site_page_content_rows uscr ON uspci.row_id = uscr.id 
+				JOIN user_site_page_content_rows uscr ON 
+					uspci.content_row_id = uscr.id 
 					AND uscr.site_id = :site_id 
 					AND uscr.page_id = :page_id 
 					AND uscr.div_id = :div_id 
@@ -298,7 +299,7 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 		$sql = "SELECT uspci.id 
 				FROM user_site_page_content_item uspci 
 				JOIN user_site_page_content_rows uspcr 
-					ON uspci.row_id = uspcr.id 
+					ON uspci.content_row_id = uspcr.id 
 					AND uspcr.site_id = :site_id 
 					AND uspcr.div_id = :div_id 
 				WHERE uspci.site_id = :site_id";
