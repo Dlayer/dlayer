@@ -14,15 +14,20 @@ var dlayer = {
 	/**
 	* Convert the rgb value in a hex for the inputs
 	*
-	* @returns {String}
+	* @returns {String|false}
 	*/
 	rgbToHex: function(colorStr)
-	{
-		var hex = '#';
-		$.each(colorStr.substring(4).split(','), function(i, str){
-			var h = ($.trim(str.replace(')',''))*1).toString(16);
-			hex += (h.length == 1) ? "0" + h : h;
-		});
+	{		
+		if(colorStr != 'rgba(0, 0, 0, 0)') {
+			var hex = '#';
+			$.each(colorStr.substring(4).split(','), function(i, str){
+				var h = ($.trim(str.replace(')',''))*1).toString(16);
+				hex += (h.length == 1) ? "0" + h : h;
+			});
+		} else {
+			hex = false;
+		}
+		
 		return hex;
 	},
 	
@@ -1474,16 +1479,54 @@ var dlayer = {
 		*/
 		contentArea: function()
 		{
-			var background_color;
+			var area_background_color;
+			var row_background_colors = {};
 			
 			$('div.selectable').hover(
 				function() {
-					background_color = $(this).css('background-color');
+					area_background_color = $(this).css('background-color');
 					$(this).css('background-color', '#e1dc50');
 					$(this).css('cursor', 'pointer');
+					
+					/**
+					* Store background color for each row if a value has 
+					* been set
+					*/
+					var area_id = this.id;
+					
+					$('#' + area_id + ' > div.row').each(function() 
+					{
+						var row = this;
+						var bg_color = dlayer.rgbToHex($(row).css(
+							'background-color'));
+							
+						if(bg_color != false) {
+							row_background_colors[row.id] = bg_color;
+							
+							$('#' + area_id + ' > #' + row.id).css(
+								'background-color', 'transparent');
+						}						
+					});
 				},
 				function() {
-					$(this).css('background-color', background_color);
+					$(this).css('background-color', area_background_color);
+					
+					/**
+					* Re-assign the assigned background colour if it 
+					* exists in the data array
+					*/
+					var area_id = this.id;
+					
+					$('#' + area_id + ' > div.row').each(function() 
+					{
+						var row = this;
+						
+						if(row_background_colors[row.id] != undefined) {
+							$('#' + area_id + ' > #' + row.id).css(
+								'background-color', 
+								row_background_colors[row.id]);
+						}
+					});
 				}
 			);
 			$('div.selectable').click(
