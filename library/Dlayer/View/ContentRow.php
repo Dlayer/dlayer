@@ -175,6 +175,10 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 					}
 				}
 				
+				// Content row styles
+				$row_styles = $this->view->contentRowStyles()->contentRow(
+					$content_row['id']);
+				
 				/**
 				* Fetch the content for the current content row, request 
 				* passed off to content view helper
@@ -195,7 +199,9 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 				}
 				
 				$html .= "<div id=\"content_row_{$content_row['id']}\" ";
-				$html .= "class=\"" . $class . "\">" . $row_content;
+				$html .= 'class="' . $class . '"' . $row_styles;
+				$html .= '>';
+				$html .= $row_content;
 				$html .= '</div>';
 			}
 		}
