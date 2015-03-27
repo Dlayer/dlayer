@@ -106,14 +106,16 @@ class Dlayer_View_ContentForm extends Zend_View_Helper_Abstract
 		*/
 		$id = 'form:import-form:' . $this->view->escape(
 			$this->data['content_id']);
-		$class = 'imported-form item c-item-' .  $this->view->escape(
+		$container_class = 'imported-form item content-container-' .  
+			$this->view->escape($this->data['content_id']);
+		$content_class = 'content-' . $this->view->escape(
 			$this->data['content_id']);
 			
 		if($this->selectable == TRUE) {
 			if($this->selected == FALSE) {
-				$class .= ' selectable';
+				$container_class .= ' selectable';
 			} else {
-				$class .= ' selected-item';
+				$container_class .= ' selected-item';
 			}
 		}
 		
@@ -134,10 +136,11 @@ class Dlayer_View_ContentForm extends Zend_View_Helper_Abstract
 		$content_item_styles = $this->view->contentItemStyles()->contentItem(
 			$this->data['content_id']);
 			
-		$html = '<div class="' . $width . ' ' . $class . '"' . ' id="' . $id . '"'; 
+		$html = '<div class="' . $width . ' ' . $container_class . '"' . 
+			' id="' . $id . '"'; 
 		$html .= $container_styles;
 		$html .= '>';
-		$html .= '<div'; 
+		$html .= '<div class="' . $content_class . '"'; 
 		$html .= $content_item_styles;
 		$html .= '>';
 		$html .= $this->data['form']->form();
