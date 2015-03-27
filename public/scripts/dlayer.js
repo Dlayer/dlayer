@@ -1649,17 +1649,35 @@ var dlayer = {
 		*/
 		contentItem: function()
 		{
-			var item_container_background_colors = {};
+			var item_container_background_color = null;
+			var item_background_color = null;
 			
 			$('div.selected-row .selectable').hover(
-				function() {					
-					background_color = $(this).css('background-color');
-					$(this).css('background-color', '#93d0e1');
+				function() {
+					
+					var params = this.id.split(':');
+					var item_id = params[2];
+					
+					item_container_background_color = $(
+						'.content-container-' + item_id).css(
+						'background-color');
+					$('.content-container-' + item_id).css(
+						'background-color', '#93d0e1');
+					item_background_color = $(
+					'.content-' + item_id).css('background-color');
+					$('.content-' + item_id).css('background-color', '#93d0e1');
+						
 					$(this).css('cursor', 'pointer');
 					$(this).find('.move').show();
 				},
 				function() {
-					$(this).css('background-color', background_color);
+					var params = this.id.split(':');
+					var item_id = params[2];
+					
+					$('.content-container-' + item_id).css('background-color', 
+						item_container_background_color);
+					$('.content-' + item_id).css('background-color', 
+						item_background_color);
 					$(this).find('.move').hide();
 				}
 			);
