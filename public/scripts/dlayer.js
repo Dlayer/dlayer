@@ -1550,16 +1550,82 @@ var dlayer = {
 		*/
 		contentRow: function() 
 		{
+			var background_color = null;
+			var content_container_background_colors = {};
+			var content_background_colors = {};
+			
 			$('div.container div.selectable').hover(
 				function() {
 					background_color = $(this).css('background-color');
 					$(this).css('background-color', '#93d0e1');
 					$(this).css('cursor', 'pointer');
 					$(this).find('.move').show();
+					
+					/**
+					* Store background color for each content item 
+					* container and content item
+					*/
+					var row_id = this.id;
+					
+					$('#' + row_id + ' .item').each(function() 
+					{
+						var params = this.id.split(':');
+						var item_id = params[2];
+						
+						var bg_color = dlayer.rgbToHex(
+							$('.content-container-' + item_id).css(
+							'background-color'));
+																					
+						if(bg_color != false) {
+							
+							content_container_background_colors[item_id] = 
+								bg_color;
+							
+							$('.content-container-' + item_id).css(
+								'background-color', 'transparent');
+						}
+						
+						var bg_color = dlayer.rgbToHex(
+							$('.content-' + item_id).css('background-color'));
+																					
+						if(bg_color != false) {
+							
+							content_background_colors[item_id] = bg_color;
+							
+							$('.content-' + item_id).css('background-color', 
+								'transparent');
+						}
+					});
 				}, 
 				function() {
 					$(this).css('background-color', background_color);
 					$(this).find('.move').hide();
+					
+					/**
+					* Re-assign the background color for the content container 
+					* and content item if values exist in the objects
+					*/
+					var row_id = this.id;
+					
+					$('#' + row_id + ' .item').each(function() 
+					{
+						var params = this.id.split(':');
+						var item_id = params[2];
+						
+						if(content_container_background_colors[item_id] != 
+							undefined) {
+							$('.content-container-' + item_id).css(
+								'background-color', 
+								content_container_background_colors[item_id]);
+						}
+						
+						if(content_background_colors[item_id] != 
+							undefined) {
+							$('.content-' + item_id).css(
+								'background-color', 
+								content_background_colors[item_id]);
+						}
+					});
 				}			
 			);
 			$('div.container div.selectable').click(
@@ -1583,6 +1649,8 @@ var dlayer = {
 		*/
 		contentItem: function()
 		{
+			var item_container_background_colors = {};
+			
 			$('div.selected-row .selectable').hover(
 				function() {					
 					background_color = $(this).css('background-color');
