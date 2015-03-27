@@ -85,8 +85,8 @@ class Form_SettingsController extends Zend_Controller_Action
 						'name'=>'Image library', 'title'=>'Dlayer Image library'))), 
 			array('url'=>'/form/settings/index', 
 				'name'=>'Settings', 'title'=>'Form builder settings'), 
-			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Logout'));
+			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of my app'));
 
 		$this->layout->assign('nav', array('class'=>'top_nav', 
 			'items'=>$items, 'active_url'=>$url));

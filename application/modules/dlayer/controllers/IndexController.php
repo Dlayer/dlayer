@@ -180,7 +180,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 				'name'=>'Development log', 'title'=>'Dlayer development log'), 
 			array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
 				'title'=>'Dlayer known bugs'), 
-			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout (' . 
+			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
 				$session_dlayer->identity() . ')', 'title'=>'Logout of site'));
 
 		$this->layout->assign('nav', array('class'=>'top_nav', 
