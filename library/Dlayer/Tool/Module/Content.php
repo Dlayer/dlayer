@@ -9,6 +9,7 @@
 abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 {
 	protected $content_type;
+	protected $minimum_size = 12;
 
 	/**
 	* Process the request for a manual tool, for example add or edit a content
@@ -226,4 +227,26 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 	*/
 	abstract protected function structure($site_id, $page_id, $div_id, 
 		$content_row_id=NULL);
+		
+	/**
+	* Calculate the size for the new content items based on the size of all 
+	* the sibling content items in the row
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id
+	*/
+	protected function columnSize($site_id, $page_id, $content_row_id) 
+	{
+		$model_size = new Dlayer_Model_Page_Content_Size();
+		
+		$suggest_size = $model_size->suggestedColumnSize($site_id, $page_id, 
+			$content_row_id);
+			
+		if($suggest_size >= $this->minimum_size) {
+			return $suggest_size;
+		} else {
+			return 12;
+		}
+	}
 }
