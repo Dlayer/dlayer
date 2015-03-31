@@ -30,8 +30,8 @@ class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Module_Content
 		$this->writeParams($site_id, $page_id, $div_id, $tool, $tab,
 			$multi_use, $edit_mode, $content_row_id, $content_id);
 
-		return array('form'=>new Dlayer_Form_Content_Text($this->page_id,
-			$this->div_id, $this->content_row_id, $this->contentRow(), 
+		return array('form'=>new Dlayer_Form_Content_Text(
+			$this->page_id, $this->div_id, $this->content_row_id, 
 			$this->contentItem(), $this->edit_mode, $this->multi_use));
 	}
 
