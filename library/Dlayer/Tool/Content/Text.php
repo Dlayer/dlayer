@@ -110,13 +110,17 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Module_Content
 	protected function addContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_type)
 	{
+		// Calculate size for new item before any addition
+		$suggested_size = $this->columnSize($site_id, $page_id, 
+			$content_row_id);
+		
 		$model_content = new Dlayer_Model_Page_Content();
 		$content_id = $model_content->addContentItem($site_id, $page_id, 
 			$div_id, $content_row_id, $content_type);
 			
 		$model_size = new Dlayer_Model_Page_Content_Size();
 		$model_size->setSizeAndOffset($site_id, $page_id, $content_id, 
-			$this->columnSize($site_id, $page_id, $content_row_id));
+			$suggested_size);
 
 		$model_text = new Dlayer_Model_Page_Content_Items_Text();
 		$model_text->addContentItemData($site_id, $page_id, $div_id, 
