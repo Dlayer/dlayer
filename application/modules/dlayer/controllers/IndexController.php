@@ -95,7 +95,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$this->view->form = $form;
 		$this->dlayerMenuPublic('/dlayer/index/index');
 		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Login');
+		$this->layout->assign('title', 'Dlayer.com - Sign in');
 	}
 
 	/**
