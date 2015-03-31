@@ -8,6 +8,7 @@
 class Dlayer_Tool_Content_ImportForm extends Dlayer_Tool_Module_Content
 {
 	protected $content_type = 'form';
+	protected $minimum_size = 3;
 	
 	/**
 	* Check that all the required values have been posted as part of the 
@@ -89,9 +90,17 @@ class Dlayer_Tool_Content_ImportForm extends Dlayer_Tool_Module_Content
 	protected function addContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_type)
 	{
+		// Calculate size for new item before any addition
+		$suggested_size = $this->columnSize($site_id, $page_id, 
+			$content_row_id);
+		
 		$model_content = new Dlayer_Model_Page_Content();
 		$content_id = $model_content->addContentItem($site_id, $page_id, 
 			$div_id, $content_row_id, $content_type);
+			
+		$model_size = new Dlayer_Model_Page_Content_Size();
+		$model_size->setSizeAndOffset($site_id, $page_id, $content_id, 
+			$suggested_size);
 
 		$model_form = new Dlayer_Model_Page_Content_Items_Form();
 		$model_form->addContentItemData($site_id, $page_id, $div_id, 
