@@ -20,9 +20,6 @@ class Dlayer_Form_Content_ImportText extends Dlayer_Form_Module_Content
 	* @param integer $page_id
 	* @param integer $div_id
 	* @param integer $content_row_id
-	* @param array $content_row Details for the content row, used to preset 
-	* 	certains values for the content item, for example which bootstrap 
-	* 	column class to use
 	* @param array $content_item The existing data for the content item, 
 	* 	array values will be FALSE in add mode, populated in edit mode
 	* @param boolean $edit_mode Is the tool in edit mode
@@ -31,14 +28,13 @@ class Dlayer_Form_Content_ImportText extends Dlayer_Form_Module_Content
 	* @return void
 	*/
 	public function __construct($page_id, $div_id, $content_row_id, 
-		array $content_row, array $content_item, $edit_mode=FALSE, 
-		$multi_use=0, $options=NULL)
+		array $content_item, $edit_mode=FALSE, $multi_use=0, $options=NULL)
 	{
 		$this->tool = 'import-text';
 		$this->content_type = 'text';
 		$this->sub_tool_model = NULL;
 
-		parent::__construct($page_id, $div_id, $content_row_id, $content_row, 
+		parent::__construct($page_id, $div_id, $content_row_id, 
 			$content_item, $edit_mode, $multi_use, $options);
 	}
 	

@@ -10,7 +10,6 @@ abstract class Dlayer_Form_Module_Content extends Dlayer_Form
 	protected $page_id;
 	protected $div_id;
 	protected $content_row_id;
-	protected $content_row = array();
 	protected $content_item = array();
 	protected $edit_mode;
 	protected $multi_use;
@@ -33,9 +32,6 @@ abstract class Dlayer_Form_Module_Content extends Dlayer_Form
 	* @param integer $page_id
 	* @param integer $div_id
 	* @param integer $content_row_id
-	* @param array $content_row Details for the content row, used to preset 
-	* 	certains values for the content item, for example which bootstrap 
-	* 	column class to use
 	* @param array $existing_data The existing data for the content item, 
 	* 	array values will be FALSE in add mode, populated in edit mode
 	* @param boolean $edit_mode Is the tool in edit mode
@@ -44,13 +40,11 @@ abstract class Dlayer_Form_Module_Content extends Dlayer_Form
 	* @return void
 	*/
 	public function __construct($page_id, $div_id, $content_row_id, 
-		array $content_row, array $content_item, $edit_mode=FALSE, 
-		$multi_use=0, $options=NULL)
+		array $content_item, $edit_mode=FALSE, $multi_use=0, $options=NULL)
 	{
 		$this->page_id = $page_id;
 		$this->div_id = $div_id;
 		$this->content_row_id = $content_row_id;
-		$this->content_row = $content_row;
 		$this->content_item = $content_item;
 		$this->edit_mode = $edit_mode;
 		$this->multi_use = $multi_use;

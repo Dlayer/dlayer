@@ -31,11 +31,6 @@ Dlayer_Ribbon_Module_Content
 		return array('form_id'=>$this->formId());
 	}
 	
-	protected function contentRow() 
-	{
-		return array();
-	}
-	
 	protected function contentItem()
 	{	
 
