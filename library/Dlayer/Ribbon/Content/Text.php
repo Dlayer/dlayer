@@ -34,24 +34,6 @@ class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Module_Content
 			$this->div_id, $this->content_row_id, $this->contentRow(), 
 			$this->contentItem(), $this->edit_mode, $this->multi_use));
 	}
-	
-	/**
-	* Calculate the default values for the content item based on the size 
-	* of any other sibling items in the row
-	* 
-	* @return array
-	*/
-	protected function contentRow() 
-	{
-		return array();
-		
-		
-		/**
-		* Calculate the size for the new content item based on size of all 
-		* previous items, counting up to 12 taking into account the offset 
-		* for each of the items
-		*/
-	}
 
 	/**
 	* Fetch the data for the selected content block

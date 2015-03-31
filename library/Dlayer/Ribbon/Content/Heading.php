@@ -36,11 +36,6 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Module_Content
 			$this->contentItem(), $this->edit_mode, $this->multi_use));
 	}
 
-	protected function contentRow() 
-	{
-		return array();
-	}
-
 	/**
 	* Fetch the data for the selected content block
 	*

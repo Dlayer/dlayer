@@ -35,11 +35,6 @@ class Dlayer_Ribbon_Content_ImportText extends Dlayer_Ribbon_Module_Content
 			$this->contentRow(), $this->contentItem(), $this->edit_mode, 
 			$this->multi_use));
 	}
-
-	protected function contentRow() 
-	{
-		return array();
-	}
 	
 	/**
 	* Fetch the data for the selected content block

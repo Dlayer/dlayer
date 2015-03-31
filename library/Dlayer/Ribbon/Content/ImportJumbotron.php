@@ -37,11 +37,6 @@ Dlayer_Ribbon_Module_Content
 			$this->multi_use));
 	}
 	
-	protected function contentRow() 
-	{
-		return array();
-	}
-	
 	/**
 	* Fetch the data for the selected content block
 	*

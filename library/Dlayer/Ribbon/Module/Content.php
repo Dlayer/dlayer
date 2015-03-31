@@ -83,6 +83,4 @@ abstract class Dlayer_Ribbon_Module_Content
 	* @return array
 	*/
 	abstract protected function contentItem();
-	
-	abstract protected function contentRow();
 }
