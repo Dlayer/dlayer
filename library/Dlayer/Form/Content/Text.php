@@ -159,7 +159,7 @@ class Dlayer_Form_Content_Text extends Dlayer_Form_Module_Content
 
 		$text = new Zend_Form_Element_Textarea('text');
 		$text->setLabel('Text');
-		$text->setAttribs(array('cols'=>50, 'rows'=>10, 
+		$text->setAttribs(array('cols'=>50, 'rows'=>20, 
 			'placeholder'=>'e.g., The quick brown fox jumps over...', 
 			'class'=>'form-control input-sm'));
 		$text->setDescription('Enter the text for your new content item.');

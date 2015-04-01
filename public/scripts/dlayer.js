@@ -590,6 +590,16 @@ var dlayer = {
 		highlight: false,
 		
 		/**
+		* Convert newlines to breaks
+		* 
+		* @return {String}
+		*/
+		nl2br: function(value) 
+		{
+			return value.replace(/\n/g, "<br />");
+		},
+		
+		/**
 		* Display a message if any data has changed and not yet been
 		* saved
 		*
@@ -606,13 +616,13 @@ var dlayer = {
 		},
 		
 		/**
-		* Add a highlight to the content item that has just been changed
+		* Add a highlight to the item that has just been changed
 		*
 		* @param {String Element selector
 		* @param {Integer} Length for effect, defaults to 500 if not set
 		* @returns {Void}
 		*/
-		highlight_item: function(selector, time)
+		highlightItem: function(selector, time)
 		{
 			if(typeof time == 'undefined') { time = 400 }
 
@@ -622,6 +632,121 @@ var dlayer = {
 		},
 		
 		content: {
+			
+			fn: {
+				
+				/** 
+				* Preview function which updates the text for an element, 
+				* 
+				* @param {string} The selector for the content container, used 
+				* 	for highlighting purposes
+				* @param {String} The selector for the content item, this is 
+				* 	the content that will updated
+				* @param {String} The selector for the tool form field, this is 
+				* 	the tool field that contains the content
+				* @param {String} This initial value from the tool form, used 
+				* 	to reset the content for the content item if the user clears
+				* 	the field
+				* @param {Boolean} Is the value optional, if yes the user can 
+					the value other it resets the value to default
+				* @return {Void}
+				*/
+				elementText: function(container_selector, content_selector, 
+					field_selector, initial_value, optional) 
+				{
+					// Set option if not set					
+					if(typeof optional == 'undefined') { optional = false }
+					
+					// Set highlight to true, only called once for onkey up
+					dlayer.preview.highlight = true;
+					
+					/**
+					* Update the value on keyup, reset to default if optional 
+					* is set to false and tool field is cleared
+					*/					
+					$(field_selector).keyup(function()
+					{
+						var current_value = $(content_selector).text();
+
+						if(this.value.trim().length > 0) {
+							if(this.value.trim() != current_value) {
+								$(content_selector).html(
+									dlayer.preview.nl2br(this.value.trim()));
+								dlayer.preview.highlightItem(
+									container_selector, 1500);
+								dlayer.preview.highlight = false;
+								dlayer.preview.changed = true;
+							}
+						} else {
+							if(optional == false) {
+								$(content_selector).html(
+									dlayer.preview.nl2br(initial_value));
+								$(field_selector).val(initial_value);
+							} else {
+								$(content_selector).html('');
+								$(field_selector).val('');
+								dlayer.preview.highlight = true;
+								dlayer.preview.highlightItem(content_selector);
+								dlayer.preview.changed = true;
+							}
+							
+						}
+
+						dlayer.preview.unsaved();
+					});
+					
+					/**
+					* Highlight the content item on blue if the value has been 
+					* changed
+					*/
+					$(field_selector).blur(function()
+					{
+						dlayer.preview.highlight = true;
+
+						if(dlayer.preview.changed == true) {
+							dlayer.preview.highlightItem(container_selector, 
+								1500);
+						}
+					});
+					
+					
+					/*if(typeof optional == 'undefined') { optional = false }
+
+					$('#params-' + attribute).keyup(function()
+					{
+						var selector = '#field_' + field_id;
+						var current_value = $(selector).attr(field_attribute);
+
+						if(this.value.trim().length > 0 &&
+						this.value.trim() != current_value) {
+							$(selector).attr(field_attribute, this.value.trim());
+							dlayer.preview.highlightItem(selector, 1500);
+							dlayer.preview.highlight = false;
+							dlayer.preview.changed = true;
+						} else {
+							if(this.value.trim().length == 0) {
+								if(optional == false) {
+									$(selector).attr(field_attribute, value);
+									$('#params-' + attribute).val(value);
+								} else {
+									$(selector).attr(field_attribute, '');
+									$('#params-' + attribute).val('');
+									dlayer.preview.highlight = true;
+									dlayer.preview.highlightItem(selector);
+									dlayer.preview.changed = true;
+								}
+							}
+						}
+
+						dlayer.preview.unsaved();
+					});*/
+				}
+				
+				
+			}
+		},
+		
+		contentOld: {
 			
 			fn: {
 				
@@ -715,7 +840,7 @@ var dlayer = {
 								set_content_item_widths(selector, total_width,
 								container_width);
 								
-								dlayer.preview.highlight_item(selector, 1500);
+								dlayer.preview.highlightItem(selector, 1500);
 								dlayer.preview.changed = true;
 							} else {
 								// Check width value in designer in case 
@@ -783,7 +908,7 @@ var dlayer = {
 								set_content_item_widths(selector, total_width,
 								container_width);
 
-								dlayer.preview.highlight_item(selector);
+								dlayer.preview.highlightItem(selector);
 								dlayer.preview.changed = true;
 							} else {
 								// Check padding value in designer in case 
@@ -798,7 +923,7 @@ var dlayer = {
 								trigger('change');
 
 								// Add highlight effect
-								dlayer.preview.highlight_item(selector);
+								dlayer.preview.highlightItem(selector);
 								dlayer.preview.changed = true;
 							}
 						}
@@ -834,7 +959,7 @@ var dlayer = {
 								set_content_item_padding_value(selector,
 								position, new_padding);
 
-								dlayer.preview.highlight_item(selector);
+								dlayer.preview.highlightItem(selector);
 								dlayer.preview.changed = true;
 							}
 							
@@ -871,7 +996,7 @@ var dlayer = {
 								set_content_item_margin_value(selector,
 								position, new_margin);
 
-								dlayer.preview.highlight_item(selector);
+								dlayer.preview.highlightItem(selector);
 								dlayer.preview.changed = true;
 							}
 							
@@ -945,7 +1070,7 @@ var dlayer = {
 									set_content_item_widths(selector, 
 									total_width, container_width);
 
-									dlayer.preview.highlight_item(selector);
+									dlayer.preview.highlightItem(selector);
 									dlayer.preview.changed = true;
 								} else {
 									// Check padding value in designer in case 
@@ -960,7 +1085,7 @@ var dlayer = {
 									padding).trigger('change');
 
 									// Add highlight effect
-									dlayer.preview.highlight_item(
+									dlayer.preview.highlightItem(
 									selector);
 									dlayer.preview.changed = true;
 								}
@@ -1036,7 +1161,7 @@ var dlayer = {
 									set_content_item_widths(selector, 
 									total_width, container_width);
 
-									dlayer.preview.highlight_item(selector);
+									dlayer.preview.highlightItem(selector);
 									dlayer.preview.changed = true;
 								} else {
 									// Check margin value in designer in case 
@@ -1051,7 +1176,7 @@ var dlayer = {
 									client_margin).trigger('change');
 
 									// Add highlight effect
-									dlayer.preview.highlight_item(
+									dlayer.preview.highlightItem(
 									selector);
 									dlayer.preview.changed = true;
 								}
@@ -1083,7 +1208,7 @@ var dlayer = {
 						.replace('</' + h_tag.toLowerCase(), 
 						'</h' + this.value));
 						
-						dlayer.preview.highlight_item(selector);
+						dlayer.preview.highlightItem(selector);
 						dlayer.preview.changed = true;
 						dlayer.preview.unsaved(); 
 					});
@@ -1107,7 +1232,7 @@ var dlayer = {
 
 						if(this.value.trim() != current_value) {
 							$(selector).html(this.value.trim());
-							dlayer.preview.highlight_item(selector, 1500);
+							dlayer.preview.highlightItem(selector, 1500);
 							dlayer.preview.highlight = false;
 							dlayer.preview.changed = true;
 						}
@@ -1123,7 +1248,7 @@ var dlayer = {
 
 						if(this.value.trim() != current_value) {
 							$(selector).html(this.value.trim());
-							dlayer.preview.highlight_item(selector);
+							dlayer.preview.highlightItem(selector);
 							dlayer.preview.changed = true;
 						}
 
@@ -1136,7 +1261,7 @@ var dlayer = {
 						var selector = '.c-item-' + content_id;
 
 						if(dlayer.preview.changed == true) {
-							dlayer.preview.highlight_item(selector);
+							dlayer.preview.highlightItem(selector);
 						}
 						
 						dlayer.preview.unsaved();
@@ -1258,7 +1383,7 @@ var dlayer = {
 						if(this.value.trim().length > 0 &&
 						this.value.trim() != current_value) {
 							$(selector).html(this.value.trim());
-							dlayer.preview.highlight_item(selector, 1500);
+							dlayer.preview.highlightItem(selector, 1500);
 							dlayer.preview.highlight = false;
 							dlayer.preview.changed = true;
 						} else {
@@ -1270,7 +1395,7 @@ var dlayer = {
 									$(selector).html('');
 									$('#params-' + attribute).val('');
 									dlayer.preview.highlight = true;
-									dlayer.preview.highlight_item(selector);
+									dlayer.preview.highlightItem(selector);
 									dlayer.preview.changed = true;
 								}
 							}
@@ -1288,7 +1413,7 @@ var dlayer = {
 						if(this.value.trim().length > 0 &&
 						this.value.trim() != current_value) {
 							$(selector).html(this.value.trim());
-							dlayer.preview.highlight_item(selector);
+							dlayer.preview.highlightItem(selector);
 							dlayer.preview.changed = true;
 						}
 
@@ -1301,7 +1426,7 @@ var dlayer = {
 						var selector = '.row_' + field_id + ' ' + element;
 
 						if(dlayer.preview.changed == true) {
-							dlayer.preview.highlight_item(selector);
+							dlayer.preview.highlightItem(selector);
 						}
 					});
 				},
@@ -1333,7 +1458,7 @@ var dlayer = {
 						if(this.value.trim().length > 0 &&
 						this.value.trim() != current_value) {
 							$(selector).attr(field_attribute, this.value.trim());
-							dlayer.preview.highlight_item(selector, 1500);
+							dlayer.preview.highlightItem(selector, 1500);
 							dlayer.preview.highlight = false;
 							dlayer.preview.changed = true;
 						} else {
@@ -1345,7 +1470,7 @@ var dlayer = {
 									$(selector).attr(field_attribute, '');
 									$('#params-' + attribute).val('');
 									dlayer.preview.highlight = true;
-									dlayer.preview.highlight_item(selector);
+									dlayer.preview.highlightItem(selector);
 									dlayer.preview.changed = true;
 								}
 							}
@@ -1363,7 +1488,7 @@ var dlayer = {
 						if(this.value.trim().length > 0 &&
 						this.value.trim() != current_value) {
 							$(selector).attr(field_attribute, this.value.trim());
-							dlayer.preview.highlight_item(selector);
+							dlayer.preview.highlightItem(selector);
 							dlayer.preview.changed = true;
 						}
 
@@ -1376,7 +1501,7 @@ var dlayer = {
 						var selector = '#field_' + field_id;
 
 						if(dlayer.preview.changed == true) {
-							dlayer.preview.highlight_item(selector);
+							dlayer.preview.highlightItem(selector);
 						}
 					});
 				},
@@ -1447,7 +1572,7 @@ var dlayer = {
 						new_value != current_value &&
 						new_value > 0) {
 							$(selector).attr(field_attribute, new_value);
-							dlayer.preview.highlight_item(selector);
+							dlayer.preview.highlightItem(selector);
 							dlayer.preview.changed = true;
 						} else {
 							if(optional == false) {
@@ -1456,7 +1581,7 @@ var dlayer = {
 							} else {
 								$(selector).attr(field_attribute, '');
 								$('#params-' + attribute).val('');
-								dlayer.preview.highlight_item(selector);
+								dlayer.preview.highlightItem(selector);
 								dlayer.preview.changed = true;
 							}
 						}

@@ -1,7 +1,14 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div class="col-xs-12">
+<?php if($this->edit_mode == TRUE) { ?>
+<script>
+dlayer.preview.content.fn.elementText('div.content-container-3', 
+	'p.content-3', '#params-text', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum ante at mauris iaculis, id sagittis velit aliquam. Fusce in nulla a magna varius posuere. Proin congue, ligula non pellentesque mollis, est justo pharetra dui, dapibus pretium eros sem placerat ipsum.');
+</script>
+<?php } ?>
 
+<div class="col-xs-12">
+	<p class="dev-note bg-danger unsaved">Data has been modified!</p>
 </div>
 
 <div class="col-xs-12 small">

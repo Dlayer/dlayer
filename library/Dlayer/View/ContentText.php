@@ -137,7 +137,7 @@ class Dlayer_View_ContentText extends Zend_View_Helper_Abstract
 		$html .= '<p class="' . $content_class . '"'; 
 		$html .= $content_item_styles;
 		$html .= '>';
-		$html .= nl2br($this->view->escape($this->data['content']));
+		$html .= nl2br($this->view->escape($this->data['content']), TRUE);
 		$html .= '</p>';
 		$html .= '</div>';
 
