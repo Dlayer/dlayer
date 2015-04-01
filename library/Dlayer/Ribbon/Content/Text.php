@@ -32,7 +32,8 @@ class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Module_Content
 
 		return array('form'=>new Dlayer_Form_Content_Text(
 			$this->page_id, $this->div_id, $this->content_row_id, 
-			$this->contentItem(), $this->edit_mode, $this->multi_use));
+			$this->contentItem(), $this->edit_mode, $this->multi_use), 
+			'preview'=>$this->previewData());
 	}
 
 	/**
@@ -61,5 +62,37 @@ class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Module_Content
 		}
 
 		return $data;
+	}
+	
+	/**
+	* Fetch the data required by the live preview functions when the tool is 
+	* in edit mode
+	* 
+	* @return array|FALSE
+	*/
+	protected function previewData() 
+	{
+		$preview_data = FALSE;
+		
+		if($this->edit_mode == TRUE) {
+			
+			$model_text = new Dlayer_Model_Page_Content_Items_Text();
+			$data = $model_text->previewData($this->site_id, $this->page_id, 
+				$this->content_id);
+				
+			if($data != FALSE) {
+				$preview_data = array();
+				
+				$preview_data['container_selector'] = 
+					'div.content-container-' . $this->content_id;
+				$preview_data['content_selector'] = 'p.content-' . 
+					$this->content_id;
+				$preview_data['initial_value'] = $data['text'];
+			}
+			
+			$preview_data = json_encode($preview_data);
+		}
+		
+		return $preview_data;
 	}
 }

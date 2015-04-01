@@ -294,4 +294,32 @@ extends Dlayer_Model_Page_Content_Item
 		
 		return $stmt->fetchAll();
 	}
+	
+	/**
+	* Fetch the data required by the preview functions 
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_id
+	* @return array|FALSE Contains all the data required to generate the 
+	* 	preview functions, if nothing cvan be found we return FALSE
+	*/
+	public function previewData($site_id, $page_id, $content_id) 
+	{
+		$sql = 'SELECT uspcit.content_id, usct.content AS `text`
+				FROM user_site_page_content_item_text uspcit 
+				JOIN user_site_content_text usct 
+					ON uspcit.data_id = usct.id 
+					AND usct.site_id = :site_id 
+				WHERE uspcit.site_id = :site_id 
+				AND uspcit.page_id = :page_id 
+				AND uspcit.content_id = :content_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		return $stmt->fetch();
+	}	
 }

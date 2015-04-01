@@ -638,21 +638,16 @@ var dlayer = {
 				/** 
 				* Preview function which updates the text for an element, 
 				* 
-				* @param {string} The selector for the content container, used 
-				* 	for highlighting purposes
-				* @param {String} The selector for the content item, this is 
-				* 	the content that will updated
+				* @param {Object} The json containing all the values 
+				* 	required. The names in the array are content_selector, 
+				* 	container_selector and initial value
 				* @param {String} The selector for the tool form field, this is 
 				* 	the tool field that contains the content
-				* @param {String} This initial value from the tool form, used 
-				* 	to reset the content for the content item if the user clears
-				* 	the field
 				* @param {Boolean} Is the value optional, if yes the user can 
 					the value other it resets the value to default
 				* @return {Void}
 				*/
-				elementText: function(container_selector, content_selector, 
-					field_selector, initial_value, optional) 
+				elementText: function(preview, field_selector, optional) 
 				{
 					// Set option if not set					
 					if(typeof optional == 'undefined') { optional = false }
@@ -666,27 +661,31 @@ var dlayer = {
 					*/					
 					$(field_selector).keyup(function()
 					{
-						var current_value = $(content_selector).text();
+						var current_value = $(preview.content_selector).text();
+						
+						console.log(preview.content_selector);
 
 						if(this.value.trim().length > 0) {
 							if(this.value.trim() != current_value) {
-								$(content_selector).html(
+								$(preview.content_selector).html(
 									dlayer.preview.nl2br(this.value.trim()));
 								dlayer.preview.highlightItem(
-									container_selector, 1500);
+									preview.container_selector, 1500);
 								dlayer.preview.highlight = false;
 								dlayer.preview.changed = true;
 							}
 						} else {
 							if(optional == false) {
-								$(content_selector).html(
-									dlayer.preview.nl2br(initial_value));
-								$(field_selector).val(initial_value);
+								$(preview.content_selector).html(
+									dlayer.preview.nl2br(
+									preview.initial_value));
+								$(field_selector).val(preview.initial_value);
 							} else {
-								$(content_selector).html('');
+								$(preview.content_selector).html('');
 								$(field_selector).val('');
 								dlayer.preview.highlight = true;
-								dlayer.preview.highlightItem(content_selector);
+								dlayer.preview.highlightItem(
+									preview.container_selector);
 								dlayer.preview.changed = true;
 							}
 							
@@ -704,8 +703,8 @@ var dlayer = {
 						dlayer.preview.highlight = true;
 
 						if(dlayer.preview.changed == true) {
-							dlayer.preview.highlightItem(container_selector, 
-								1500);
+							dlayer.preview.highlightItem(
+								preview.container_selector, 1500);
 						}
 					});
 					

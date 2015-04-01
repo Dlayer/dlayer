@@ -2,8 +2,8 @@
 
 <?php if($this->edit_mode == TRUE) { ?>
 <script>
-dlayer.preview.content.fn.elementText('div.content-container-3', 
-	'p.content-3', '#params-text', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum ante at mauris iaculis, id sagittis velit aliquam. Fusce in nulla a magna varius posuere. Proin congue, ligula non pellentesque mollis, est justo pharetra dui, dapibus pretium eros sem placerat ipsum.');
+dlayer.preview.content.fn.elementText(<?php echo $this->data['preview']; ?>, 
+	'#params-text');
 </script>
 <?php } ?>
 
