@@ -649,7 +649,7 @@ var dlayer = {
 				*/
 				elementText: function(preview, field_selector, optional) 
 				{
-					// Set option if not set					
+					// Set optional if not set					
 					if(typeof optional == 'undefined') { optional = false }
 					
 					// Set highlight to true, only called once for onkey up
@@ -707,41 +707,71 @@ var dlayer = {
 								preview.container_selector, 1500);
 						}
 					});
+				},
+				
+				/** 
+				* Preview function which updates the size of a content item, as 
+				* in updates the bootstrap column class for the container
+				* 
+				* @param {Integer} The id of the content container
+				* @param {String} The selector for the tool form field that 
+				* 	contains the width value
+				* @param {String} The selector for the tool form field that 
+					contains with offset value
+				* @param {String} The bootstrap column class size, either sm, 
+					xs, md or lg
+				* @return {Void}
+				*/
+				containerWidth: function(content_id, field_selector_width, 
+					field_selector_offset, bootstrap_column_size)  
+				{
+					// Set column class if not set
+					if(typeof bootstrap_column_size == 'undefined') { 
+						bootstrap_column_size = 'md' 
+					}
 					
-					
-					/*if(typeof optional == 'undefined') { optional = false }
-
-					$('#params-' + attribute).keyup(function()
+					$(field_selector_width).change(function()
 					{
-						var selector = '#field_' + field_id;
-						var current_value = $(selector).attr(field_attribute);
-
-						if(this.value.trim().length > 0 &&
-						this.value.trim() != current_value) {
-							$(selector).attr(field_attribute, this.value.trim());
-							dlayer.preview.highlightItem(selector, 1500);
-							dlayer.preview.highlight = false;
-							dlayer.preview.changed = true;
-						} else {
-							if(this.value.trim().length == 0) {
-								if(optional == false) {
-									$(selector).attr(field_attribute, value);
-									$('#params-' + attribute).val(value);
-								} else {
-									$(selector).attr(field_attribute, '');
-									$('#params-' + attribute).val('');
-									dlayer.preview.highlight = true;
-									dlayer.preview.highlightItem(selector);
-									dlayer.preview.changed = true;
-								}
+						var process = false;
+												
+						var bootstrap_class = 'col-' + bootstrap_column_size + '-';
+						var new_width = parseInt(this.value, 10);
+						
+						var designer_width = 12;
+												
+						var class_list = $(
+							'.content-container-' + content_id).attr(
+							'class').split(/\s+/);
+							
+						var pattern = 'col-' + bootstrap_column_size + '-(\\d+)';
+													
+						$.each(class_list, function(index, item) {
+							
+							matched = item.match(new RegExp(pattern));
+							
+							if(matched != null) {
+								var current_bootstrap_class = matched[0];
+								
+								designer_width = parseInt(
+									current_bootstrap_class.replace(
+									bootstrap_class, ''), 10);
+								process = true;
+							}
+						});
+						
+						if(process == true) {							
+							if(new_width != designer_width && 
+								(new_width + 1) <= 12) {
+									
+								$('.content-container-' + content_id).removeClass(
+								bootstrap_class + designer_width).addClass(
+								bootstrap_class + new_width);
+							} else {
+								$(field_selector_width).val(12-1);
 							}
 						}
-
-						dlayer.preview.unsaved();
-					});*/
+					});					
 				}
-				
-				
 			}
 		},
 		

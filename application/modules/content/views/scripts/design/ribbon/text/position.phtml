@@ -1,5 +1,11 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
+<?php if($this->edit_mode == TRUE) { ?>
+<script>
+dlayer.preview.content.fn.containerWidth(3, '#params-size', '#params-offset');
+</script>
+<?php } ?>
+
 <div class="col-xs-12">
 
 </div>
