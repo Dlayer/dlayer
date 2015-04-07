@@ -748,10 +748,79 @@ var dlayer = {
 						var offset_pattern = 'col-' + bootstrap_column_size + 
 							'-offset-(\\d+)';
 						
-						size = dlayer.preview.content.helper.pullSizeFromClass(
+						var size = dlayer.preview.content.helper.pullSizeFromClass(
 							content_id, size_pattern, bootstrap_class);
 												
-						offset = dlayer.preview.content.helper.pullSizeFromClass(
+						var offset = dlayer.preview.content.helper.pullSizeFromClass(
+							content_id, offset_pattern, bootstrap_offset_class);
+						
+						if(size.process == true && offset.process == true) {							
+							if(new_width != size.size && 
+								(new_width + offset.size) <= 12) {
+									
+								$('.content-container-' + content_id).removeClass(
+								bootstrap_class + size.size).addClass(
+								bootstrap_class + new_width);
+							} else {
+								$(field_selector_width).val(12-offset.size);
+							}
+							
+							dlayer.preview.highlight = true;
+							dlayer.preview.highlightItem(
+								'.content-container-' + content_id);
+							dlayer.preview.changed = true;
+						}
+						
+						dlayer.preview.unsaved();
+					});
+				}, 
+				
+				/** 
+				* Preview function which updates the offset for a content 
+				* item, as in updates the bootstrap offset column class for 
+				* the container
+				* 
+				* @param {Integer} The id of the content container
+				* @param {String} The selector for the tool form field that 
+				* 	contains the offset value
+				* @param {String} The bootstrap column class size, either sm, 
+					xs, md or lg
+				* @return {Void}
+				*/
+				containerOffset: function(content_id, field_selector_offset, 
+					bootstrap_column_size)  
+				{
+					// Set column class if not set
+					if(typeof bootstrap_column_size == 'undefined') { 
+						bootstrap_column_size = 'md' 
+					}
+					
+					$(field_selector_offset).change(function()
+					{
+						var process = false;
+												
+						var bootstrap_class = 'col-' + 
+							bootstrap_column_size + '-';
+						var bootstrap_offset_class = 'col-' + 
+							bootstrap_column_size + '-offset-';
+						var new_width = parseInt(this.value, 10);
+						
+						var designer_width = 12;
+												
+						var class_list = $(
+							'.content-container-' + content_id).attr(
+							'class').split(/\s+/);
+							
+						var size_pattern = 'col-' + bootstrap_column_size + 
+							'-(\\d+)';
+							
+						var offset_pattern = 'col-' + bootstrap_column_size + 
+							'-offset-(\\d+)';
+						
+						var size = dlayer.preview.content.helper.pullSizeFromClass(
+							content_id, size_pattern, bootstrap_class);
+												
+						var offset = dlayer.preview.content.helper.pullSizeFromClass(
 							content_id, offset_pattern, bootstrap_offset_class);
 						
 						if(size.process == true && offset.process == true) {							
