@@ -803,7 +803,7 @@ var dlayer = {
 							bootstrap_column_size + '-';
 						var bootstrap_offset_class = 'col-' + 
 							bootstrap_column_size + '-offset-';
-						var new_width = parseInt(this.value, 10);
+						var new_offset = parseInt(this.value, 10);
 						
 						var designer_width = 12;
 												
@@ -823,15 +823,15 @@ var dlayer = {
 						var offset = dlayer.preview.content.helper.pullSizeFromClass(
 							content_id, offset_pattern, bootstrap_offset_class);
 						
-						if(size.process == true && offset.process == true) {							
-							if(new_width != size.size && 
-								(new_width + offset.size) <= 12) {
+						if(offset.process == true && size.process == true) {
+							if(new_offset != offset.size && 
+								(new_offset + size.size) <= 12) {
 									
 								$('.content-container-' + content_id).removeClass(
-								bootstrap_class + size.size).addClass(
-								bootstrap_class + new_width);
+								bootstrap_offset_class + offset.size).addClass(
+								bootstrap_offset_class + new_offset);
 							} else {
-								$(field_selector_width).val(12-offset.size);
+								$(field_selector_offset).val(12-size.size);
 							}
 							
 							dlayer.preview.highlight = true;
