@@ -662,8 +662,6 @@ var dlayer = {
 					$(field_selector).keyup(function()
 					{
 						var current_value = $(preview.content_selector).text();
-						
-						console.log(preview.content_selector);
 
 						if(this.value.trim().length > 0) {
 							if(this.value.trim() != current_value) {
@@ -716,14 +714,12 @@ var dlayer = {
 				* @param {Integer} The id of the content container
 				* @param {String} The selector for the tool form field that 
 				* 	contains the width value
-				* @param {String} The selector for the tool form field that 
-					contains with offset value
 				* @param {String} The bootstrap column class size, either sm, 
 					xs, md or lg
 				* @return {Void}
 				*/
 				containerWidth: function(content_id, field_selector_width, 
-					field_selector_offset, bootstrap_column_size)  
+					bootstrap_column_size)  
 				{
 					// Set column class if not set
 					if(typeof bootstrap_column_size == 'undefined') { 
@@ -734,7 +730,10 @@ var dlayer = {
 					{
 						var process = false;
 												
-						var bootstrap_class = 'col-' + bootstrap_column_size + '-';
+						var bootstrap_class = 'col-' + 
+							bootstrap_column_size + '-';
+						var bootstrap_offset_class = 'col-' + 
+							bootstrap_column_size + '-offset-';
 						var new_width = parseInt(this.value, 10);
 						
 						var designer_width = 12;
@@ -743,34 +742,78 @@ var dlayer = {
 							'.content-container-' + content_id).attr(
 							'class').split(/\s+/);
 							
-						var pattern = 'col-' + bootstrap_column_size + '-(\\d+)';
-													
-						$.each(class_list, function(index, item) {
+						var size_pattern = 'col-' + bootstrap_column_size + 
+							'-(\\d+)';
 							
-							matched = item.match(new RegExp(pattern));
-							
-							if(matched != null) {
-								var current_bootstrap_class = matched[0];
-								
-								designer_width = parseInt(
-									current_bootstrap_class.replace(
-									bootstrap_class, ''), 10);
-								process = true;
-							}
-						});
+						var offset_pattern = 'col-' + bootstrap_column_size + 
+							'-offset-(\\d+)';
 						
-						if(process == true) {							
-							if(new_width != designer_width && 
-								(new_width + 1) <= 12) {
+						size = dlayer.preview.content.helper.pullSizeFromClass(
+							content_id, size_pattern, bootstrap_class);
+												
+						offset = dlayer.preview.content.helper.pullSizeFromClass(
+							content_id, offset_pattern, bootstrap_offset_class);
+						
+						if(size.process == true && offset.process == true) {							
+							if(new_width != size.size && 
+								(new_width + offset.size) <= 12) {
 									
 								$('.content-container-' + content_id).removeClass(
-								bootstrap_class + designer_width).addClass(
+								bootstrap_class + size.size).addClass(
 								bootstrap_class + new_width);
 							} else {
-								$(field_selector_width).val(12-1);
+								$(field_selector_width).val(12-offset.size);
 							}
+							
+							dlayer.preview.highlight = true;
+							dlayer.preview.highlightItem(
+								'.content-container-' + content_id);
+							dlayer.preview.changed = true;
 						}
-					});					
+						
+						dlayer.preview.unsaved();
+					});
+				}
+			}, 
+			
+			helper: {
+				
+				/**
+				* Searches the classes assigned to an element, finds the one 
+				* that matches the regex pattern and then pulls the size value 
+				* from the matched class
+				* 
+				* @param {Integer} The id for the content item
+				* @param {String} The pattern for the regex
+				* @param {String} Partial bootstrap classname to pull size from
+				* @return {Object}
+				*/
+				pullSizeFromClass: function(content_id, pattern, 
+					bootstrap_class) 
+				{
+					var class_list = $(
+						'.content-container-' + content_id).attr(
+						'class').split(/\s+/);
+					
+					var result = { process: false, size: 0 }
+												
+					$.each(class_list, function(index, item) {
+						
+						matched = item.match(new RegExp(pattern));
+						
+						console.log(matched);
+						
+						if(matched != null) {
+							var current_bootstrap_class = matched[0];
+							
+							result.size = parseInt(
+								current_bootstrap_class.replace(
+								bootstrap_class, ''), 10);
+							result.process = true;
+						}
+					});
+					
+					return result;
 				}
 			}
 		},
