@@ -842,7 +842,46 @@ var dlayer = {
 						
 						dlayer.preview.unsaved();
 					});
-				}
+				}, 
+				
+				/**
+				* Preview function which updates the background colour for the 
+				* requested page element
+				*
+				* @param {String} Selector for the element being affected
+				* @param {String} Selector for the tool form field
+				* @returns {Void}
+				*/
+				elementBackgroundColor: function(element_selector, 
+					field_selector)
+				{
+					$(field_selector).change(function()
+					{
+						var new_value = this.value;
+						
+						console.log(new_value);
+						console.log($(element_selector));
+						$(element_selector).css('background-color', 
+								new_value);
+
+						if(new_value.length == 7) {
+							$(element_selector).css('background-color', 
+								new_value);
+							dlayer.preview.changed = true;
+						} else {
+							if(new_value.length == 0) {
+								$(element_selector).css('background-color', 
+									'inherit');
+								// Reset selected background colour on clear
+								$('.selected-item').css('background-color', 
+									'#e1dc50');
+								dlayer.preview.changed = true;
+							}
+						}
+
+						dlayer.preview.unsaved();
+					});
+				},
 			}, 
 			
 			helper: {
@@ -1648,8 +1687,9 @@ var dlayer = {
 				},
 				
 				/**
-				* Preview function for row background styling color, changes the background
-				* color as the user move focus from the field.
+				* Preview function for the field row background colour, 
+				* updates the background colour when a user chooses a colour 
+				* in the colour picker
 				*
 				* @param {Integer} Id of the field being edited
 				* @param {String} Initial value for the background color
@@ -1658,7 +1698,7 @@ var dlayer = {
 								  defaults to false
 				* @returns {Void}
 				*/
-				row_background_color: function(field_id, value,
+				rowBackgroundColor: function(field_id, value,
 				optional)
 				{
 					if(typeof optional == 'undefined') { optional = false }

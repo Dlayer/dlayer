@@ -35,7 +35,8 @@ Dlayer_Ribbon_Module_Content
 
 		return array('form'=>new Dlayer_Form_Content_Position_Text(
 			$this->page_id, $this->div_id, $this->content_row_id, 
-			$this->contentItem(), $this->edit_mode, $this->multi_use));
+			$this->contentItem(), $this->edit_mode, $this->multi_use), 
+			'preview'=>$this->previewData());
 	}
 	
 	/**
@@ -77,5 +78,22 @@ Dlayer_Ribbon_Module_Content
 			$this->data['size'] = $data['size'];
 			$this->data['offset'] = $data['offset'];
 		}
+	}
+	
+	/**
+	* Fetch the data required by the live preview functions when the tool is 
+	* in edit mode
+	* 
+	* @return array|FALSE
+	*/
+	protected function previewData() 
+	{
+		$preview_data = FALSE;
+		
+		if($this->edit_mode == TRUE) {
+			$preview_data = array('content_id' => $this->content_id);
+		}
+		
+		return $preview_data;
 	}
 }

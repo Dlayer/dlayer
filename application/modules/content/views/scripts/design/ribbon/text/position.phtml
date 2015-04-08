@@ -2,8 +2,10 @@
 
 <?php if($this->edit_mode == TRUE) { ?>
 <script>
-dlayer.preview.content.fn.containerWidth(3, '#params-size');
-dlayer.preview.content.fn.containerOffset(3, '#params-offset');
+dlayer.preview.content.fn.containerWidth(
+<?php echo $this->data['preview']['content_id']; ?>, '#params-size');
+dlayer.preview.content.fn.containerOffset(
+<?php echo $this->data['preview']['content_id']; ?>, '#params-offset');
 </script>
 <?php } ?>
 
