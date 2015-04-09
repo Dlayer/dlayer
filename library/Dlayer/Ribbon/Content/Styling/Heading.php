@@ -35,7 +35,8 @@ Dlayer_Ribbon_Module_Content
 
 		return array('form'=>new Dlayer_Form_Content_Styling_Heading(
 			$this->page_id, $this->div_id, $this->content_row_id, 
-			$this->contentItem(), $this->edit_mode, $this->multi_use));
+			$this->contentItem(), $this->edit_mode, $this->multi_use), 
+			'preview'=>$this->previewData());
 	}
 	
 	/**
@@ -96,5 +97,25 @@ Dlayer_Ribbon_Module_Content
 		if($color != FALSE) {
 			$this->data['item_background_color'] = $color;
 		}
+	}
+	
+	/**
+	* Fetch the data required by the live preview functions when the tool is 
+	* in edit mode
+	* 
+	* @return array|FALSE
+	*/
+	protected function previewData() 
+	{
+		$preview_data = FALSE;
+		
+		if($this->edit_mode == TRUE) {
+			$preview_data = array(
+				'element' => '.content-' . $this->content_id, 
+				'container' => '.content-container-' . $this->content_id, 
+			);
+		}
+		
+		return $preview_data;
 	}
 }
