@@ -86,14 +86,16 @@ class Dlayer_Ribbon_Content_Jumbotron extends Dlayer_Ribbon_Module_Content
 				$title = array(
 					'container_selector'=>'div.content-container-' . 
 						$this->content_id, 
-					'content_selector'=>'div.content-1 > h1', 
+					'content_selector'=>'div.content-' . $this->content_id . 
+						' > h1', 
 					'initial_value'=>$data['title']
 				);
 				
 				$sub_title = array(
 					'container_selector'=>'div.content-container-' . 
 						$this->content_id, 
-					'content_selector'=>'div.content-1 > p', 
+					'content_selector'=>'div.content-' . $this->content_id . 
+						' > p', 
 					'initial_value'=>$data['sub_title']
 				);
 				

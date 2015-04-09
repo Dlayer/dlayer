@@ -380,7 +380,7 @@ extends Dlayer_Model_Page_Content_Item
 	*/
 	private function splitContent($content) 
 	{
-		$exploded = explode('-:-', $content['content']);
+		$exploded = explode('-:-', $content);
 		
 		$result = array();
 			

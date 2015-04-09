@@ -359,4 +359,75 @@ Dlayer_Model_Page_Content_Item
 		
 		return $stmt->fetchAll();
 	}
+	
+	/** 
+	* Fetch the data required by the live editing preview functions, in this 
+	* case the current title and sub title values
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_id
+	* @return array|FALSE Eithers returns the required data array or FALSE if 
+	* 	the data cannot be found
+	*/
+	public function previewData($site_id, $page_id, $content_id) 
+	{
+		$sql = 'SELECT uspcih.content_id, usch.content 
+				FROM user_site_page_content_item_heading uspcih 
+				JOIN user_site_content_heading usch 
+					ON uspcih.data_id = usch.id 
+					AND usch.site_id = :site_id 
+				WHERE uspcih.site_id = :site_id 
+				AND uspcih.page_id = :page_id 
+				AND uspcih.content_id = :content_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			$content = $this->splitContent($result['content']);
+			
+			$result['heading'] = $content['heading'];
+			$result['sub_heading'] = $content['sub_heading'];
+		}
+		
+		return $result;
+	}
+	
+	/**
+	* Split the content field into heading and sub heading
+	* 
+	* @param string $content
+	* @return array
+	*/
+	private function splitContent($content) 
+	{
+		$exploded = explode('-:-', $content);
+		
+		$result = array();
+			
+		switch(count($exploded)) {
+			case 1:
+				$result['heading'] = $exploded[0];
+				$result['sub_heading'] = '';
+				break;
+				
+			case 2:
+				$result['heading'] = $exploded[0];
+				$result['sub_heading'] = $exploded[1];
+				break;
+			
+			default:
+				$result['heading'] = '';
+				$result['sub_heading'] = '';
+			break;
+		}
+		
+		return $result;
+	}
 }

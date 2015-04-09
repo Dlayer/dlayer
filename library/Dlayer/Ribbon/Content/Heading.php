@@ -33,7 +33,8 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Module_Content
 
 		return array('form'=>new Dlayer_Form_Content_Heading(
 			$this->page_id, $this->div_id, $this->content_row_id, 
-			$this->contentItem(), $this->edit_mode, $this->multi_use));
+			$this->contentItem(), $this->edit_mode, $this->multi_use), 
+			'preview'=>$this->previewData());
 	}
 
 	/**
@@ -63,5 +64,47 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Module_Content
 		}
 
 		return $data;
+	}
+	
+	/**
+	* Fetch the data required by the live preview functions when the tool is 
+	* in edit mode
+	* 
+	* @return array|FALSE
+	*/
+	protected function previewData() 
+	{
+		$preview_data = FALSE;
+		
+		if($this->edit_mode == TRUE) {
+			
+			$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
+			$data = $model_heading->previewData($this->site_id, $this->page_id, 
+				$this->content_id);
+				
+			if($data != FALSE) {
+				$heading = array(
+					'container_selector'=>'div.content-container-' . 
+						$this->content_id, 
+					'content_selector'=>'h2.content-' . $this->content_id, 
+					'initial_value'=>$data['heading']
+				);
+				
+				$sub_heading = array(
+					'container_selector'=>'div.content-container-' . 
+						$this->content_id, 
+					'content_selector'=>'h2.content-' . $this->content_id . 
+						' > small', 
+					'initial_value'=>$data['sub_heading']
+				);
+				
+				$preview_data = array(
+					'heading'=>json_encode($heading), 
+					'sub_heading'=>json_encode($sub_heading)
+				);
+			}
+		}
+		
+		return $preview_data;
 	}
 }
