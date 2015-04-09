@@ -2,8 +2,10 @@
 
 <?php if($this->edit_mode == TRUE) { ?>
 <script>
-dlayer.preview.content.fn.elementText(<?php echo $this->data['preview']['title']; ?>, '#params-title');
-dlayer.preview.content.fn.elementText(<?php echo $this->data['preview']['sub_title']; ?>, '#params-sub_title');
+dlayer.preview.content.fn.elementTextNoBr(
+	<?php echo $this->data['preview']['title']; ?>, '#params-title');
+dlayer.preview.content.fn.elementText(
+	<?php echo $this->data['preview']['sub_title']; ?>, '#params-sub_title');
 </script>
 <?php } ?>
 

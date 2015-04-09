@@ -647,7 +647,7 @@ var dlayer = {
 					the value other it resets the value to default
 				* @return {Void}
 				*/
-				elementText: function(preview, field_selector, optional) 
+				elementText: function(options, field_selector, optional) 
 				{
 					// Set optional if not set					
 					if(typeof optional == 'undefined') { optional = false }
@@ -661,29 +661,104 @@ var dlayer = {
 					*/					
 					$(field_selector).keyup(function()
 					{
-						var current_value = $(preview.content_selector).text();
+						var current_value = $(options.content_selector).text();
 
 						if(this.value.trim().length > 0) {
 							if(this.value.trim() != current_value) {
-								$(preview.content_selector).html(
+								$(options.content_selector).html(
 									dlayer.preview.nl2br(this.value.trim()));
 								dlayer.preview.highlightItem(
-									preview.container_selector, 1500);
+									options.container_selector, 1500);
 								dlayer.preview.highlight = false;
 								dlayer.preview.changed = true;
 							}
 						} else {
 							if(optional == false) {
-								$(preview.content_selector).html(
+								$(options.content_selector).html(
 									dlayer.preview.nl2br(
-									preview.initial_value));
-								$(field_selector).val(preview.initial_value);
+									options.initial_value));
+								$(field_selector).val(options.initial_value);
 							} else {
-								$(preview.content_selector).html('');
+								$(options.content_selector).html('');
 								$(field_selector).val('');
 								dlayer.preview.highlight = true;
 								dlayer.preview.highlightItem(
-									preview.container_selector);
+									options.container_selector);
+								dlayer.preview.changed = true;
+							}
+							
+						}
+
+						dlayer.preview.unsaved();
+					});
+					
+					/**
+					* Highlight the content item on blue if the value has been 
+					* changed
+					*/
+					$(field_selector).blur(function()
+					{
+						dlayer.preview.highlight = true;
+
+						if(dlayer.preview.changed == true) {
+							dlayer.preview.highlightItem(
+								preview.container_selector, 1500);
+						}
+					});
+				},
+				
+				/** 
+				* Preview function which updates the text for an element, 
+				* this method will not add BR tags into the content as per the 
+				* elementText function. 
+				* 
+				* @param {Object} The json containing all the values 
+				* 	required. The names in the array are content_selector, 
+				* 	container_selector and initial value
+				* @param {String} The selector for the tool form field, this is 
+				* 	the tool field that contains the content
+				* @param {Boolean} Is the value optional, if yes the user can 
+				*	the value other it resets the value to default
+				* @todo THis method doesn't need to be its own functrion, BR 
+				* 	setting should be a param 
+				* @return {Void}
+				*/
+				elementTextNoBr: function(options, field_selector, optional) 
+				{
+					// Set optional if not set					
+					if(typeof optional == 'undefined') { optional = false }
+					
+					// Set highlight to true, only called once for onkey up
+					dlayer.preview.highlight = true;
+					
+					/**
+					* Update the value on keyup, reset to default if optional 
+					* is set to false and tool field is cleared
+					*/					
+					$(field_selector).keyup(function()
+					{
+						var current_value = $(options.content_selector).text();
+
+						if(this.value.trim().length > 0) {
+							if(this.value.trim() != current_value) {
+								$(options.content_selector).html(
+									this.value.trim());
+								dlayer.preview.highlightItem(
+									options.container_selector, 1500);
+								dlayer.preview.highlight = false;
+								dlayer.preview.changed = true;
+							}
+						} else {
+							if(optional == false) {
+								$(options.content_selector).html(
+									options.initial_value);
+								$(field_selector).val(options.initial_value);
+							} else {
+								$(options.content_selector).html('');
+								$(field_selector).val('');
+								dlayer.preview.highlight = true;
+								dlayer.preview.highlightItem(
+									options.container_selector);
 								dlayer.preview.changed = true;
 							}
 							
