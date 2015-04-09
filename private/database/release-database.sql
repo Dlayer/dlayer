@@ -1045,7 +1045,13 @@ CREATE TABLE `user_site_page_content_item_size` (
   `content_id` int(11) unsigned NOT NULL,
   `size` tinyint(3) unsigned NOT NULL DEFAULT '12',
   `offset` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `site_id` (`site_id`),
+  KEY `page_id` (`page_id`),
+  KEY `content_id` (`content_id`),
+  CONSTRAINT `user_site_page_content_item_size_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
+  CONSTRAINT `user_site_page_content_item_size_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
+  CONSTRAINT `user_site_page_content_item_size_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_content_item` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_content_item_size` */
@@ -1066,7 +1072,11 @@ CREATE TABLE `user_site_page_content_item_text` (
   KEY `page_id` (`page_id`),
   KEY `content_id` (`content_id`),
   KEY `site_id` (`site_id`),
-  KEY `data_id` (`data_id`)
+  KEY `data_id` (`data_id`),
+  CONSTRAINT `user_site_page_content_item_text_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
+  CONSTRAINT `user_site_page_content_item_text_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
+  CONSTRAINT `user_site_page_content_item_text_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_content_item` (`id`),
+  CONSTRAINT `user_site_page_content_item_text_ibfk_4` FOREIGN KEY (`data_id`) REFERENCES `user_site_content_text` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_content_item_text` */
@@ -1086,7 +1096,10 @@ CREATE TABLE `user_site_page_content_rows` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `page_id` (`page_id`),
-  KEY `div_id` (`div_id`)
+  KEY `div_id` (`div_id`),
+  CONSTRAINT `user_site_page_content_rows_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
+  CONSTRAINT `user_site_page_content_rows_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
+  CONSTRAINT `user_site_page_content_rows_ibfk_3` FOREIGN KEY (`div_id`) REFERENCES `user_site_template_div` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_content_rows` */
