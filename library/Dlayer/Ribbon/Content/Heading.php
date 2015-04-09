@@ -87,6 +87,8 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Module_Content
 					'container_selector'=>'div.content-container-' . 
 						$this->content_id, 
 					'content_selector'=>'h2.content-' . $this->content_id, 
+					'content_selector_sub_heading'=>'h2.content-' . 
+						$this->content_id . ' > small', 
 					'initial_value'=>$data['heading']
 				);
 				

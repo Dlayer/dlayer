@@ -708,6 +708,90 @@ var dlayer = {
 				},
 				
 				/** 
+				* Preview function which updates the heading text for a content 
+				* item, acts differently to the base element text method 
+				* because the he content is html, includes small tag so need 
+				* to incorporate it
+				* 
+				* @param {Object} The json containing all the values 
+				* 	required. The names in the array are content_selector, 
+				* 	container_selector and initial value
+				* @param {String} The selector for the tool form field, this is 
+				* 	the tool field that contains the content
+				* @param {Boolean} Is the value optional, if yes the user can 
+					the value other it resets the value to default
+				* @return {Void}
+				*/
+				headingText: function(preview, field_selector, optional) 
+				{
+					// Set optional if not set					
+					if(typeof optional == 'undefined') { optional = false }
+					
+					// Set highlight to true, only called once for onkey up
+					dlayer.preview.highlight = true;
+					
+					/**
+					* Update the value on keyup, reset to default if optional 
+					* is set to false and tool field is cleared
+					*/					
+					$(field_selector).keyup(function()
+					{
+						// Fetch current sub heading text content						
+						var sub_heading_value = 
+							$(preview.content_selector_sub_heading).text();
+							
+						// Strip sub heading from fetched text
+						var current_value = 
+							$(preview.content_selector).text().replace(
+							sub_heading_value, '');
+
+						if(this.value.trim().length > 0) {
+							if(this.value.trim() != current_value) {
+								$(preview.content_selector).html(
+								this.value.trim() + ' <small>' + 
+								sub_heading_value + '</small>');
+								dlayer.preview.highlightItem(
+									preview.container_selector, 1500);
+								dlayer.preview.highlight = false;
+								dlayer.preview.changed = true;
+							}
+						} else {
+							if(optional == false) {
+								$(preview.content_selector).html(
+									preview.initial_value + ' <small>' + 
+									sub_heading_value + '</small>');
+								$(field_selector).val(preview.initial_value);
+							} else {
+								$(preview.content_selector).html(
+									'<small></small>');
+								$(field_selector).val('');
+								dlayer.preview.highlight = true;
+								dlayer.preview.highlightItem(
+									preview.container_selector);
+								dlayer.preview.changed = true;
+							}
+							
+						}
+
+						dlayer.preview.unsaved();
+					});
+					
+					/**
+					* Highlight the content item on blue if the value has been 
+					* changed
+					*/
+					$(field_selector).blur(function()
+					{
+						dlayer.preview.highlight = true;
+
+						if(dlayer.preview.changed == true) {
+							dlayer.preview.highlightItem(
+								preview.container_selector, 1500);
+						}
+					});
+				},
+				
+				/** 
 				* Preview function which updates the size of a content item, as 
 				* in updates the bootstrap column class for the container
 				* 
