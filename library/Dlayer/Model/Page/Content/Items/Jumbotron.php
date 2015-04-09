@@ -332,4 +332,75 @@ extends Dlayer_Model_Page_Content_Item
 			
 		return $result;
 	}
+	
+	/** 
+	* Fetch the data required by the live editing preview functions, in this 
+	* case the current title and sub title values
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_id
+	* @return array|FALSE Eithers returns the required data array or FALSE if 
+	* 	the data cannot be found
+	*/
+	public function previewData($site_id, $page_id, $content_id) 
+	{
+		$sql = 'SELECT uspcij.content_id, uscj.content 
+				FROM user_site_page_content_item_jumbotron uspcij 
+				JOIN user_site_content_jumbotron uscj 
+					ON uspcij.data_id = uscj.id 
+					AND uscj.site_id = :site_id 
+				WHERE uspcij.site_id = :site_id 
+				AND uspcij.page_id = :page_id 
+				AND uspcij.content_id = :content_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			$content = $this->splitContent($result['content']);
+			
+			$result['title'] = $content['title'];
+			$result['sub_title'] = $content['sub_title'];
+		}
+		
+		return $result;
+	}
+	
+	/**
+	* Split the content field into title and sub title
+	* 
+	* @param string $content
+	* @return array
+	*/
+	private function splitContent($content) 
+	{
+		$exploded = explode('-:-', $result['content']);
+		
+		$result = array();
+			
+		switch(count($exploded)) {
+			case 1:
+				$result['title'] = $exploded[0];
+				$result['sub_title'] = '';
+				break;
+				
+			case 2:
+				$result['title'] = $exploded[0];
+				$result['sub_title'] = $exploded[1];
+				break;
+			
+			default:
+				$result['title'] = '';
+				$result['sub_title'] = '';
+			break;
+		}
+		
+		return $result;
+	}
 }

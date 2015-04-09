@@ -64,4 +64,45 @@ class Dlayer_Ribbon_Content_Jumbotron extends Dlayer_Ribbon_Module_Content
 
 		return $data;
 	}
+	
+	/**
+	* Fetch the data required by the live preview functions when the tool is 
+	* in edit mode
+	* 
+	* @return array|FALSE
+	*/
+	protected function previewData() 
+	{
+		$preview_data = FALSE;
+		
+		if($this->edit_mode == TRUE) {
+			
+			$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+			$data = $model_jumbotron->previewData($this->site_id, 
+				$this->page_id, $this->content_id);
+				
+			if($data != FALSE) {
+				$title = array(
+					'container_selector'=>'div.content-container-' . 
+						$this->content_id, 
+					'content_selector'=>'div.content-1 > h1', 
+					'initial_value'=>$data['title']
+				);
+				
+				$sub_title = array(
+					'container_selector'=>'div.content-container-' . 
+						$this->content_id, 
+					'content_selector'=>'div.content-1 > p', 
+					'initial_value'=>$data['sub_title']
+				);
+				
+				$preview_data = array(
+					'title'=>json_encode($title), 
+					'sub_title'=>json_encode($sub_title)
+				);
+			}
+		}
+		
+		return $preview_data;
+	}
 }
