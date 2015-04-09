@@ -148,10 +148,13 @@ class Dlayer_View_ContentHeading extends Zend_View_Helper_Abstract
 		$html .= '>';
 		$html .= $this->view->escape($this->data['heading']);
 		
+		$html .= ' <small>';
+		
 		if(strlen($this->data['sub_heading']) > 0) {
-			$html .= ' <small>' . $this->view->escape(
-				$this->data['sub_heading']) . '</small>';
+			$html .= $this->view->escape($this->data['sub_heading']);
 		}
+		
+		$html .= '</small>';
 		
 		$html .= '</' . $tag . '>';
 		$html .= '</div>';
