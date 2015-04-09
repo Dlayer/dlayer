@@ -33,7 +33,8 @@ class Dlayer_Ribbon_Content_Jumbotron extends Dlayer_Ribbon_Module_Content
 
 		return array('form'=>new Dlayer_Form_Content_Jumbotron(
 			$this->page_id, $this->div_id, $this->content_row_id, 
-			$this->contentItem(), $this->edit_mode, $this->multi_use));
+			$this->contentItem(), $this->edit_mode, $this->multi_use), 
+			'preview'=>$this->previewData());
 	}
 
 	/**

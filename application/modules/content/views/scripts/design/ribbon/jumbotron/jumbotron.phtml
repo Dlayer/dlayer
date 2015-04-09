@@ -1,7 +1,14 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div class="col-xs-12">
+<?php if($this->edit_mode == TRUE) { ?>
+<script>
+dlayer.preview.content.fn.elementText(<?php echo $this->data['preview']['title']; ?>, '#params-title');
+dlayer.preview.content.fn.elementText(<?php echo $this->data['preview']['sub_title']; ?>, '#params-sub_title');
+</script>
+<?php } ?>
 
+<div class="col-xs-12">
+	<p class="dev-note bg-danger unsaved">Data has been modified!</p>
 </div>
 
 <div class="col-xs-12 small">
