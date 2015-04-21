@@ -10,13 +10,15 @@
 			way, there are widgets, templates, forms and a question manager to help 
 			you build the site you want..</p>
 
-		<p>There are seven modules in Dlayer, three that are based around content, 
-			<strong>Content manager</strong>, <strong>Form builder</strong> and 
-			<strong>Question manger</strong>, two that are used for designing your 
-			web site, <strong>Template designer</strong> and 
+		<p>There are seven designers in Dlayer, three that are based around 
+			content, <strong>Content manager</strong>, 
+			<strong>Form builder</strong> and <strong>Question manger</strong>, 
+			two that are used for designing your web site, 
+			<strong>Template designer</strong> and 
 			<strong>Widget designer</strong>, one which lets you bring it all 
 			together to create a working web site, the 
-			<strong>Web site manager</strong> and an 
+			<strong>Web site manager</strong>, one which is used to manage 
+			data, the <strong>Data manager</strong> and an 
 			<strong>Image library</strong>.</p>
 
 		<p class="bg-info dev-note">The entire app should be considered as a 
@@ -26,11 +28,11 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h2>Enabled modules <small>Partial functionality</small></h2>
+		<h2>Enabled sections <small>Partial functionality</small></h2>
 
-		<p>The <?php echo count($this->modules_enabled); ?> modules listed below 
-			are all enabled, they are actively being developed and have some working 
-			tools.</p>
+		<p>The <?php echo count($this->modules_enabled); ?> sections listed 
+			below are all enabled, they are either actively being developed 
+			and have some working tools or are a preview of things to come.</p>
 
 		<ol>
 			<?php foreach($this->modules_enabled as $module) { ?>
@@ -40,11 +42,11 @@
 				<?php } ?>
 		</ol>
 
-		<h2>Disabled modules <small>Not yet working correctly</small></h2>
+		<h2>Disabled sections <small>Not yet working correctly</small></h2>
 
-		<p>The <?php echo count($this->modules_disabled); ?> modules listed below 
-			are currently disabled, the modules are in either planning mode or early 
-			development.</p>
+		<p>The <?php echo count($this->modules_disabled); ?> sections listed 
+			below are currently disabled, the sections are in either planning 
+			mode or early development, they are not ready for prime time.</p>
 
 		<ol>
 			<?php foreach($this->modules_disabled as $module) { ?>
