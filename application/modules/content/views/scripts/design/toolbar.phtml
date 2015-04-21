@@ -9,9 +9,10 @@
 
 $groups = array(
 	1=>'', 
-	2=>'Structure <small>Change page structure</small>',
-	3=>'Create <small>Create a new item</small>',
-	4=>'Import <small>Create a new item from existing data</small>'
+	2=>'Structure <small>Change the page structure</small>',
+	3=>'Create <small>Create a new content item</small>',
+	4=>'Import <small>Create a new content item using existing content 
+	data</small>'
 );
 
 foreach($this->tools as $group_id => $group) {
@@ -113,16 +114,20 @@ foreach($this->tools as $group_id => $group) {
 	}
 
 	if(strlen($html) > 0) {
-		echo '<div class="row">' . PHP_EOL;
-		echo '<div class="col-xs-12">' . PHP_EOL;
-		echo '<div class="btn-group btn-group-sm" role="group">' . PHP_EOL;
+		echo '<div class="row">';
+		echo '<div class="col-xs-12">';
 		if(strlen($groups[$group_id]) > 0) {
-			echo '<h4>' . $groups[$group_id] . '</h4>' . PHP_EOL;
+			echo '<h4 class="tool-row-' . $group_id . '"> 
+				<span class="glyphicon glyphicon-minus" 
+				aria-hidden="true"></span> ' . 
+				$groups[$group_id] . '</h4>';
 		}
+		echo '<div class="btn-group btn-group-sm tool-row-' . $group_id . 
+			'" role="group">';
 		echo $html;
-		echo '</div>' . PHP_EOL;
-		echo '</div>' . PHP_EOL;
-		echo '</div>' . PHP_EOL;
+		echo '</div>';
+		echo '</div>';
+		echo '</div>';
 	}
 } 
 ?>

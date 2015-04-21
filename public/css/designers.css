@@ -65,7 +65,8 @@ div#designer {
     div#designer #tools div.row {
       padding-bottom: 10px; }
     div#designer #tools h4 {
-      margin: 0px 0px 5px 0px; }
+      margin: 0px 0px 5px 0px;
+      cursor: pointer; }
   div#designer #return {
     width: 320px;
     margin: 0px 10px 10px 10px;
