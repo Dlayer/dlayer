@@ -57,7 +57,7 @@ class Dlayer_Form_Login extends Dlayer_Form
 		$identity = new Zend_Form_Element_Text('identity');
 		$identity->setLabel('Username');
 		$identity->setDescription('Please enter a username, try one of the 
-		combinations below.');
+		combinations in the Test credentials section.');
 		$identity->setAttribs(array('size'=>30, 'maxlength'=>255, 
 		'placeholder'=>'e.g., user-1@dlayer.com', 'class'=>'form-control'));
 		$this->elements['identity'] = $identity;
@@ -65,7 +65,7 @@ class Dlayer_Form_Login extends Dlayer_Form
 		$credentials = new Zend_Form_Element_Password('credentials');
 		$credentials->setLabel('Passsword');
 		$credentials->setDescription('Please enter a password, try one of the 
-		combinations below.');
+		combinations in the Test credentials section.');
 		$credentials->setAttribs(array('placeholder'=>'********', 
 		'class'=>'form-control'));
 		$this->elements['credentials'] = $credentials;
