@@ -1,58 +1,91 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <?php 
-foreach($this->tools as $group) {
-    
-    $html = '';
-    
-    foreach($group as $tool) {
-        
-        $show = FALSE;
-        $selected = FALSE;
-        
-        if($this->tool != FALSE) {
-            $show = TRUE;
-        } else {
-            if($tool['tool'] != 'cancel') {
-                $show = TRUE;
-            } 
-        }
-        
-        if($this->tool['tool'] == $tool['tool']) {
-            $selected = TRUE;
-        }
-        
-        if($show == TRUE) {
-            if($this->field_id == NULL) {
-                $reset = NULL;
-            } else {
-                $reset = '/reset/1';
-            }
-            
-            $class = "btn btn-default";
-            
-            if($selected == TRUE) {
-                $class = "btn btn-primary";
-            }
-            
-            if($tool['tool'] == 'cancel') {
-                $class = "btn btn-danger";
-            }
-            
-            $html .= '<a href="/form/design/set-tool/tool/' . 
-            $tool['tool'] . $reset . '"class="' . $class . '">' . 
-            $tool['name'] . '</a> ';
-        }
-    }
-    
-    if(strlen($html) > 0) {
-    	echo '<div class="row">' . PHP_EOL;
-    	echo '<div class="col-xs-12">' . PHP_EOL;
-        echo '<div class="btn-group btn-group-sm" role="group">' . PHP_EOL;
-        echo $html;
-        echo '</div>' . PHP_EOL;
-        echo '</div>' . PHP_EOL;
-        echo '</div>' . PHP_EOL;
-    }
-}  
+
+/**
+* @todo Need to update this, use database come up with a cleaner, more 
+* re-usable solution
+*/
+
+$groups = array(
+	1=>'', 
+	2=>'Settings <small>Change the settings for the form</small>',
+	3=>'Pre-set fields <small>Quickly create fields, these are standard 
+		fields with values preset</small>',
+	4=>'Standard fields <small>Create form fields using the standard field 
+		types, you will need to define all values</small>'
+);
+
+foreach($this->tools as $group_id => $group) {
+
+	$html = '';
+
+	foreach($group as $tool) {
+
+		$show = FALSE;
+		$selected = FALSE;
+		
+		switch($tool['base']) {
+			case 2:
+				if($this->tool != NULL) {
+					$show = TRUE;
+				}			
+				break;
+			
+			case 1:
+			case 0:
+				$show = TRUE;				
+				break;
+				
+			default:
+				break;
+		}
+				
+		// Set selected status for tool
+		if($this->tool != FALSE && $this->tool['tool'] == $tool['tool']) {
+			$selected = TRUE;
+		}
+		
+		$reset = NULL;
+
+		if($show == TRUE) {
+			if($this->field_id == NULL) {
+				$reset = NULL;
+			} else {
+				$reset = '/reset/1';
+			}
+			
+			$class = "btn btn-default";
+			
+			if($selected == TRUE) {
+				$class = "btn btn-primary";
+			}
+			
+			if($tool['tool'] == 'cancel') {
+				$class = "btn btn-danger";
+			}
+			
+			$html .= '<a href="/form/design/set-tool/tool/' . 
+			$tool['tool'] . $reset . '"class="' . $class . '">' . 
+			$tool['name'] . '</a> ';
+		}
+	}
+
+	if(strlen($html) > 0) {
+		echo '<div class="row">';
+		echo '<div class="col-xs-12">';
+		if(strlen($groups[$group_id]) > 0) {
+			echo '<h4 class="tool-row-' . $group_id . '"> 
+				<span class="glyphicon glyphicon-minus" 
+				aria-hidden="true"></span> ' . 
+				$groups[$group_id] . '</h4>';
+		}
+		echo '<div class="btn-group btn-group-sm tool-row-' . $group_id . 
+			'" role="group">';
+		echo $html;
+		echo '</div>';
+		echo '</div>';
+		echo '</div>';
+	}
+} 
 ?>

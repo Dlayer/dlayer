@@ -2022,7 +2022,7 @@ var dlayer = {
 			$('div.container div.selectable').hover(
 				function() {
 					background_color = $(this).css('background-color');
-					$(this).css('background-color', '#93d0e1');
+					$(this).css('background-color', '#e1dc50');
 					$(this).css('cursor', 'pointer');
 					$(this).find('.move').show();
 					
@@ -2127,10 +2127,10 @@ var dlayer = {
 						'.content-container-' + item_id).css(
 						'background-color');
 					$('.content-container-' + item_id).css(
-						'background-color', '#93d0e1');
+						'background-color', '#e1dc50');
 					item_background_color = $(
 					'.content-' + item_id).css('background-color');
-					$('.content-' + item_id).css('background-color', '#93d0e1');
+					$('.content-' + item_id).css('background-color', '#e1dc50');
 						
 					$(this).css('cursor', 'pointer');
 					$(this).find('.move').show();

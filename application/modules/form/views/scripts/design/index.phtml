@@ -1,13 +1,38 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <script type="text/javascript">
-	$(document).ready(function() 
-		{
-			<?php if($this->field_id == NULL && $this->tool == NULL) { ?>
-				dlayer.selectors.form();
-				dlayer.movers.formFields();
-				<?php } ?>
-	});
+$(document).ready(function() 
+	{
+		<?php if($this->field_id == NULL && $this->tool == NULL) { ?>
+			dlayer.selectors.form();
+			dlayer.movers.formFields();
+			<?php } ?>
+			
+		// Toggles for tools section
+		$('div#tools h4').click(
+			function() 
+			{
+				var selector = this.className;
+				$('div.' + selector).toggle();
+				
+				if($('h4.' + selector + ' > span').hasClass('glyphicon-minus')) {
+					$('h4.' + selector + ' > span').removeClass('glyphicon-minus');
+					$('h4.' + selector + ' > span').addClass('glyphicon-plus');
+				} else {
+					$('h4.' + selector + ' > span').removeClass('glyphicon-plus');
+					$('h4.' + selector + ' > span').addClass('glyphicon-minus');
+				}
+			}
+		)
+		
+		<?php if($this->tool == FALSE) { ?>
+		$('div#tools h4.tool-row-4').trigger('click');
+		<?php } else { ?>
+		<?php if(in_array($this->tool, array('text', 'password', 'textarea')) == FALSE) { ?>
+		$('div#tools h4.tool-row-4').trigger('click');
+		<?php } ?>
+		<?php } ?>
+});
 </script>
 
 <div id="designer">

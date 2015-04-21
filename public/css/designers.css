@@ -13,7 +13,7 @@ div#designer {
     div#designer #design > div.builder-form > form div.move {
       display: none; }
     div#designer #design > div.builder-form > form div.selected {
-      background-color: #e1dc50; }
+      border: 1px dashed #93d0e1; }
     div#designer #design > div.website-manager h3 {
       cursor: pointer; }
     div#designer #design > div.library ul.pager {
@@ -30,13 +30,13 @@ div#designer {
     div#designer #design > div.template-designer div.selectable {
       cursor: pointer; }
     div#designer #design > div.content-manager div.selected-area {
-      background-color: #e1dc50; }
+      border: 1px dashed #93d0e1; }
       div#designer #design > div.content-manager div.selected-area div.horizontal-splitter {
         float: left;
         display: block;
         border-bottom: 1px dashed #FFFFFF; }
     div#designer #design > div.content-manager div.selected-row {
-      background-color: #e1dc50; }
+      border: 1px dashed #93d0e1; }
       div#designer #design > div.content-manager div.selected-row div.move {
         width: 100%;
         float: left;
@@ -45,7 +45,7 @@ div#designer {
         width: 100%;
         float: left; }
     div#designer #design > div.content-manager .selected-item {
-      background-color: #e1dc50; }
+      border: 1px dashed #93d0e1; }
     div#designer #design > div.content-manager div.selectable {
       cursor: pointer; }
     div#designer #design > div.content-manager div.row.selectable > div.move {
