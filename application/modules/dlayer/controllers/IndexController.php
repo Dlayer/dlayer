@@ -175,9 +175,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 			array('url'=>'/dlayer/settings/index', 'name'=>'Settings', 
 				'title'=>'Dlayer settings'), 
 			array('url'=>'/dlayer/index/development-plan', 
-				'name'=>'Development plan', 'title'=>'Dlayer development plan'), 
+				'name'=>'Dev plan', 'title'=>'Dlayer development plan'), 
 			array('url'=>'/dlayer/index/development-log', 
-				'name'=>'Development log', 'title'=>'Dlayer development log'), 
+				'name'=>'Dev log', 'title'=>'Dlayer development log'), 
 			array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
 				'title'=>'Dlayer known bugs'), 
 			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
@@ -195,16 +195,19 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	*/
 	private function dlayerMenuPublic($url)
 	{
-		$items = array(array('url'=>'/dlayer/index/index', 'name'=>'Dlayer', 
-			'title'=>'Dlayer.com: Web development simplified'), 
+		$items = array(
+			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer', 
+				'title'=>'Dlayer.com: Web development simplified'), 
 			array('url'=>'/dlayer/index/dlayer', 'name'=>'What is Dlayer?', 
-				'title'=>'What is Dlayer'), 
+				'title'=>'What is it?'), 
+			array('url'=>'/dlayer/index/why', 'name'=>'Why use Dlayer?', 
+				'title'=>'Why will I use it?'), 
 			array('url'=>'/dlayer/index/dlayer-history', 
-				'name'=>'History of Dlayer', 'title'=>'How Dlayer came to be'), 
+				'name'=>'History', 'title'=>'How Dlayer came to be'), 
 			array('url'=>'/dlayer/index/development-plan', 
-				'name'=>'Development plan', 'title'=>'Dlayer development plan'), 
+				'name'=>'Dev plan', 'title'=>'Dlayer development plan'), 
 			array('url'=>'/dlayer/index/development-log', 
-				'name'=>'Development log', 'title'=>'Dlayer development log'), 
+				'name'=>'Dev log', 'title'=>'Dlayer development log'), 
 			array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
 				'title'=>'Dlayer known bugs'));
 
@@ -294,6 +297,19 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - What is Dlayer?');
+	}
+	
+	/**
+	* Dlayer why page
+	*
+	* @return void
+	*/
+	public function whyAction()
+	{
+		$this->dlayerMenuPublic('/dlayer/index/why');
+
+		$this->layout->assign('css_include', array('css/dlayer.css'));
+		$this->layout->assign('title', 'Dlayer.com - How will I use Dlayer?');
 	}
 
 	/**

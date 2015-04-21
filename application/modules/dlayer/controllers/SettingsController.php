@@ -73,9 +73,9 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 		array('url'=>'/dlayer/settings/index', 'name'=>'Settings', 
 		'title'=>'Dlayer settings'), 
 		array('url'=>'/dlayer/index/development-plan', 
-		'name'=>'Development plan', 'title'=>'Current Dlayer development plan'), 
+		'name'=>'Dev plan', 'title'=>'Current Dlayer development plan'), 
 		array('url'=>'/dlayer/index/development-log', 
-		'name'=>'Development log', 'title'=>'Dlayer development log'), 
+		'name'=>'Dev log', 'title'=>'Dlayer development log'), 
 		array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
 		'title'=>'Known bugs'), 
 		array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
