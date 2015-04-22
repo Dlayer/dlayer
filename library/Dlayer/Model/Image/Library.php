@@ -43,7 +43,10 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
 
 		$sql = "SELECT SQL_CALC_FOUND_ROWS usil.`name`, usil.id AS image_id,
 				usilv.id AS version_id, usilvm.extension, usilvm.size,
-				DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded
+				DATE_FORMAT(usilv.uploaded, '%e %b %Y') AS uploaded, 
+				(SELECT COUNT(versions.id) 
+					FROM user_site_image_library_version versions 
+					WHERE versions.library_id = usil.id) AS versions 
 				FROM user_site_image_library usil
 				JOIN user_site_image_library_link usill
 				ON usil.id = usill.library_id
