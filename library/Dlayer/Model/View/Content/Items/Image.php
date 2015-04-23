@@ -25,7 +25,8 @@ class Dlayer_Model_View_Content_Items_Image extends Zend_Db_Table_Abstract
 	private function item($site_id, $page_id, $content_id) 
 	{
 		$sql = "SELECT uspcii.content_id, usilv.id AS version_id, 
-				usilv.library_id, usil.`name`, usilvm.extension
+				usilv.library_id, usil.`name`, usilvm.extension, 
+				uspcis.size, uspcis.offset 
 				FROM user_site_page_content_item_image uspcii 
 				JOIN user_site_image_library_version usilv 
 					ON uspcii.version_id = usilv.id 

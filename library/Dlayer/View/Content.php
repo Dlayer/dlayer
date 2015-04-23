@@ -186,6 +186,11 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 						$html .= $this->view->contentForm($content['data'], 
 							$selectable, $selected, $items);
 						break;
+						
+					case 'image':
+						$html .= $this->view->contentImage($content['data'], 
+							$selectable, $selected, $items);
+						break;
 
 					default:
 						break;

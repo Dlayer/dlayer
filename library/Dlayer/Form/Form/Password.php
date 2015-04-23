@@ -131,6 +131,7 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Module_Form
 		$label->setDescription('Enter the label for the password field, this
 			will appear to the left of the password field.');
 		$label->setBelongsTo('params');
+		$label->setRequired();
 
 		$value = $this->fieldValue('label');
 		if($value != FALSE) {
@@ -147,6 +148,7 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Module_Form
 		$description->setDescription('Enter a description, this should indicate
 			to the user what they should enter in the password field.');
 		$description->setBelongsTo('params');
+		$description->setRequired();
 
 		$value = $this->fieldValue('description');
 		if($value != FALSE) {
@@ -179,6 +181,7 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Module_Form
 		$size->setDescription('Set the size of the password field in
 			characters,we default to 20 characters.');
 		$size->setBelongsTo('params');
+		$size->setRequired();
 
 		$value = $this->fieldAttributeValue('size');
 		if($value != FALSE) {
@@ -195,6 +198,7 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Module_Form
 		$max_length->setDescription('Set the maximum number of characters that
 			can be entered into the password field, we default to 255 characters.');
 		$max_length->setBelongsTo('params');
+		$max_length->setRequired();
 
 		$value = $this->fieldAttributeValue('maxlength');
 		if($value != FALSE) {

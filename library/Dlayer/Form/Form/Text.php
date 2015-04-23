@@ -132,6 +132,7 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$label->setDescription('Enter the label for the text field, this will
 		appear to the left of the text field.');
 		$label->setBelongsTo('params');
+		$label->setRequired();
 
 		$value = $this->fieldValue('label');
 		if($value != FALSE) {
@@ -148,6 +149,7 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$description->setDescription('Enter a description, this should indicate
 		to the user what they should enter in the text field.');
 		$description->setBelongsTo('params');
+		$description->setRequired();
 
 		$value = $this->fieldValue('description');
 		if($value != FALSE) {
@@ -180,6 +182,7 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$size->setDescription('Set the size of the text field in characters,
 		we default to 40 characters.');
 		$size->setBelongsTo('params');
+		$size->setRequired();
 
 		$value = $this->fieldAttributeValue('size');
 		if($value != FALSE) {
@@ -196,6 +199,7 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$maxlength->setDescription('Set the maximum number of characters that
 		can be entered into this field, we default to 255 characters.');
 		$maxlength->setBelongsTo('params');
+		$maxlength->setRequired();
 
 		$value = $this->fieldAttributeValue('maxlengh');
 		if($value != FALSE) {

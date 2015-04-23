@@ -133,6 +133,7 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$label->setDescription('Enter the label for the textarea, this will
 			appear to the left of the textarea.');
 		$label->setBelongsTo('params');
+		$label->setRequired();
 
 		$value = $this->fieldValue('label');
 		if($value != FALSE) {
@@ -149,6 +150,7 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$description->setDescription('Enter a description, this should indicate
 			to the user what they should enter in the textarea.');
 		$description->setBelongsTo('params');
+		$description->setRequired();
 
 		$value = $this->fieldValue('description');
 		if($value != FALSE) {
@@ -181,6 +183,7 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$cols->setDescription('Set the width of the textarea in characters,
 			we default to 40 characters.');
 		$cols->setBelongsTo('params');
+		$cols->setRequired();
 
 		$value = $this->fieldAttributeValue('cols');
 		if($value != FALSE) {
@@ -197,6 +200,7 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$rows->setDescription('Set the number of rows for the textarea,
 			we default to three rows.');
 		$rows->setBelongsTo('params');
+		$rows->setRequired();
 
 		$value = $this->fieldAttributeValue('rows');
 		if($value != FALSE) {
