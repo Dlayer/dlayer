@@ -89,18 +89,10 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 				switch($row['content_type']) {
 					case 'text':
 						$data = $this->text($row['content_id']);
-						if($data != FALSE) {
-							$content[$row['content_row_id']][] =
-							array('type'=>$row['content_type'], 'data'=>$data);
-						}
 						break;
 
 					case 'heading':
 						$data = $this->heading($row['content_id']);
-						if($data != FALSE) {
-							$content[$row['content_row_id']][] =
-							array('type'=>$row['content_type'], 'data'=>$data);
-						}
 						break;
 
 					case 'form':
@@ -108,23 +100,25 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 						if($data != FALSE) {
 							$data['form'] = new Dlayer_Designer_Form(
 								$this->site_id, $data['form_id'], TRUE, NULL);
-								
-							$content[$row['content_row_id']][] =
-							array('type'=>$row['content_type'], 'data'=>$data);	
 						}
 						break;
 						
 					case 'jumbotron':
 						$data = $this->jumbotron($row['content_id']);
-						if($data != FALSE) {
-							$content[$row['content_row_id']][] =
-							array('type'=>$row['content_type'], 'data'=>$data);
-						}
 						break;
+						
+					case 'image':
+						$data = $this->image($row['content_id']);
 						break;
 					
 					default:
+						$data = FALSE;
 						break;
+				}
+				
+				if($data != FALSE) {
+					$content[$row['content_row_id']][] = 
+						array('type'=>$row['content_type'], 'data'=>$data);
 				}
 			}
 
@@ -138,8 +132,8 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	* Fetch the data for the text content item
 	*
 	* @param integer $content_id Content id
-	* @return array|FALSE We either retuirn the data array for the requested 
-	* 	content item or FALSE if the data can't be pulledE
+	* @return array|FALSE We either return the data array for the text 
+	* 	content item or FALSE if the data can't be pulled from the database
 	*/
 	private function text($content_id)
 	{
@@ -151,8 +145,8 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	* Fetch the data for the jumbotron content item
 	*
 	* @param integer $content_id Content id
-	* @return array|FALSE We either retuirn the data array for the requested 
-	* 	content item or FALSE if the data can't be pulledE
+	* @return array|FALSE We either return the data array for the jumbotron 
+	* 	content item or FALSE if the data can't be pulled from the database
 	*/
 	private function jumbotron($content_id)
 	{
@@ -160,13 +154,26 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		return $model_jumbotron->data($this->site_id, $this->page_id,
 			$content_id);
 	}
+	
+	/**
+	* Fetch the data for the image content item
+	*
+	* @param integer $content_id Content id
+	* @return array|FALSE We either return the data array for the image content 
+	* 	item or FALSE if the data can't be pulled from the database
+	*/
+	private function image($content_id)
+	{
+		$model_image = new Dlayer_Model_View_Content_Items_Image();
+		return $model_image->data($this->site_id, $this->page_id, $content_id);
+	}
 
 	/**
 	* Fetch the data for a heading content item
 	*
 	* @param integer $content_id
-	* @return array|FALSE We either return the data array for the requested 
-	* 	content item or FALSE if the data can't be pulled
+	* @return array|FALSE We either return the data array for the heading 
+	* 	content item or FALSE if the data can't be pulled from the database
 	*/
 	private function heading($content_id)
 	{
