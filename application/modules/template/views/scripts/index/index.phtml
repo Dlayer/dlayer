@@ -2,45 +2,36 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Template designer <small>Web site template management</small></h1>
-	</div>
-
-	<div class="col-md-12 col-xs-12">
-		<h2>Web site 
-		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
-	</div>
-
-	<div class="col-md-12 col-xs-12">
-		<p>A template defines the basic structure of a content page, all 
-			content pages will be based on and build upon a template.</p>
-			
-		<p>Templates are typically simple although that is not a requirement, 
-			think of them as merely a way of blocking out content areas, 
-			the obvious examples being where the footer, header and main 
-			content areas will be.</p>
-			
-		<p>There are no artificial limits to the number of templates you can 
-			create for a web site, the number of pages based upon a template 
-			or how many items can be added to them. Forms and widgets can be 
-			added to templates but typically most of the content and flourish 
-			that makes up a page will be added via the Content manager.</p>
-			
-		<p>When a new site is created the Template designer will be stocked 
-			with a number of predefined templates which you are free to edit, 
-			copy or delete.</p>
-			
-		<p>Although widgets and forms can be added to templates they cannot 
-			be modified in the Template designer, all changes will need to be 
-			made in either the Widget designer or Form builder, this is 
-			easily reached via the item and after editing you can return to 
-			the Template designer, it will be in the same state as when you 
-			left it.</p>
-			
-		<p>Select a template from the list below, once a template has been 
-			selected you can start or continue working on the design, edit 
-			the base details or copy it to create a brand new template.</p>
+		<h1>Template designer <small>Content page template management</small></h1>
 		
-		<h2>Templates <small>Templates for this web site</small></h2>
+		<h3>Welcome to the Template designer</h3>
+		
+		<p>A template defines the basic structure of a content page, all 
+			content pages are built upon a template. </p>
+		
+		<p>Templates are typically simply although there is nothing limiting 
+			the creation of complex templates, think of them as a way of 
+			blocking out content areas, the obvious examples being where the 
+			header, footer and main content areas are on a content page.</p>
+		
+		<p>There are no artificial limits to the number of templates you can 
+			design for a web site, the number of content pages based upon a 
+			single template or how many items can be added to them. Forms 
+			and widgets can be added to templates but typically most of the 
+			content and flourish that makes up a content page will be added 
+			in the Content manager.</p>
+			
+		<p class="dev-note bg-warning">The Template designer has been stripped 
+			right back to the basics, before the Bootstrap update v0.50 there 
+			were five tools to use each with multiple tabs. The missing tools 
+			will be added once the rest of the app has undergone more 
+			development.</p>
+			
+		<h2>Templates <small>All your templates</small></h2>
+		
+		<p>Select a template from the list below, once selected you can start 
+			or continue designing it, edit the base details or copy it to 
+			create a brand new template.</p>
 		
 		<?php foreach($this->templates as $template) { ?>    	
 			<?php if($template['id'] == $this->template_id) { ?>
@@ -63,5 +54,13 @@
 			<a href="/template/index/new-template" 
 			class="btn btn-primary">New template</a>
 		</p>
+		
+		<h3>Further reading <small>Hungry for more?</small></h3>
+		
+		<p>You can find the current specification for Dlayer on my web site, it 
+			details all the functionality that is public as well as some that 
+			is coming very soon. You can go directly to the Content manager 
+			section by clicking the button - <a class="btn btn-primary btn-xs" href="http://www.g3d-development.com/blog/specification/the-designers-2/template-designer/" role="button">Go to specification</a>
+			</p>
 	</div>
 </div>

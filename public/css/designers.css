@@ -95,6 +95,10 @@ div#designer {
         display: none; }
       div#designer #ribbon div.content div.col-xs-7 h4 {
         margin-top: 0px; }
+      div#designer #ribbon div.content div.col-xs-12 h3 {
+        margin-top: 0px; }
+      div#designer #ribbon div.content div.col-xs-12 h2 {
+        margin-top: 0px; }
     div#designer #ribbon div.open {
       display: block; }
     div#designer #ribbon fieldset legend {
