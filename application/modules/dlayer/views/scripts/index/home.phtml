@@ -28,30 +28,33 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h2>Enabled sections <small>Partial functionality</small></h2>
+		<h2>Enabled sections <small>Either partial functionality or a 
+			preview</small></h2>
 
 		<p>The <?php echo count($this->modules_enabled); ?> sections listed 
-			below are all enabled, they are either actively being developed 
-			and have some working tools or are a preview of things to come.</p>
+			below are accessible, they are either actively being 
+			developed, on hold because I need to bring up other parts of the 
+			app before continuing development or in a preview state.</p>
 
 		<ol>
 			<?php foreach($this->modules_enabled as $module) { ?>
 				<li><a href="/<?php echo $this->escape($module['name']); ?>">
 					<?php echo $this->escape($module['title']); ?></a> - 
-				<?php echo $this->escape($module['description']); ?></li>
+				<?php echo $module['description']; ?></li>
 				<?php } ?>
 		</ol>
 
-		<h2>Disabled sections <small>Not yet working correctly</small></h2>
+		<h2>Disabled sections <small>Not for public consumption</small></h2>
 
 		<p>The <?php echo count($this->modules_disabled); ?> sections listed 
-			below are currently disabled, the sections are in either planning 
-			mode or early development, they are not ready for prime time.</p>
+			below are not accessible, this could be because they are still in 
+			early development, planning or in a transition period, they are not 
+			ready for prime time.</p>
 
 		<ol>
 			<?php foreach($this->modules_disabled as $module) { ?>
 				<li><?php echo $this->escape($module['title']); ?> - 
-				<?php echo $this->escape($module['description']); ?></li>
+				<?php echo $module['description']; ?></li>
 				<?php } ?>
 		</ol>
 	</div>
