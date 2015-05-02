@@ -2,87 +2,77 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Content manager <small>Web site content management</small></h1>
-	</div>
-
-	<div class="col-md-12 col-xs-12">
-		<h2>Web site 
-		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
-	</div>
-
-	<div class="col-md-12 col-xs-12">
-		<p>Web sites are a collection of linked web pages, your create your 
-			pages in the Content manager, specifically by placing content 
-			items onto pages. Content is a generic term, a content item 
-			could be a single image, a text block, a form or a widget in the 
-			form of an image gallery.</p>
+		<h1>Content manager <small>Content page management</small></h1>
 		
-		<p>A new content page is created from a template, the content areas 
-			are defined by the template and control the general layout of the 
-			page, you can also create a new content page by copying an 
-			existing one or modifying one of the provided samples.</p>
+		<h3>Welcome to the Content manager</h3>
 		
-		<p>To add content you need to select a content area and then add a 
-			content row, the row doesn't appear to the user, it is just a 
-			guide to allow you to align multiple content items up if 
-			required. A content item can then be added to the page, the 
-			options that need to be defined depend on the content item, 
-			where possible Dlayer will provide sensible default values, 
-			one constant setting will be the width of the item, this is how 
-			much of the row you would like the content item to span, there 
-			can be twelve columns in each row and you can set any value 
-			between one and twelve.</p>
+		<p>Websites are essentially a collection of content pages consisting 
+			of content items. Content is a generic term, a content item could 
+			be a single image, text block, form, poll or a widget in the form 
+			of an image gallery, blog or simply a twitter feed.</p>
 		
-		<p>There are two types of content items, dynamic content and 
-			standard content, forms and widgets are dynamic content items, 
-			everything else is classed as a standard content item. Content 
-			items are attached by reference so if you re-use a piece of 
-			content you will only need to update it in one location.</p>
+		<p>A content page is created from a template, the content areas 
+			defined in the template block out the general layout of a page, 
+			examples being the header, footer, side bar and main content area.</p>
 		
-		<p>Changes to dynamic content items need to be made within the 
-			relevant designer, you can however at any point jump to the 
-			relevant designer to make your changes and return easily to the 
-			Content manager where your current state will have been 
-			maintained.</p>
+		<p>There are two base types for content items, standard and dynamic. 
+			Forms, polls and widgets are dynamic content items, everything 
+			else is a standard content item, all content items are attached 
+			by reference so there is never any duplication.</p>
 		
-		<p>There are no artificial limits on the number of content pages 
-			that can be created or the number of content items that can be 
-			attached to a page, you have full control. </p>
+		<p>To create a content item you select the content area you want to 
+			work in, add a content row and then choose the content type you 
+			want to create, content rows act as invisible guides to ease 
+			with lining up content items. To edit an existing content items 
+			you simply select the content area, the content row and then 
+			finally the content item itself.</p>
 		
-		<p class="dev-note bg-info">The tools in the Content manager are not 
-			as per my final design, as it stands today when adding or editing 
-			content everything needs to be defined in the side panel, as 
-			development continues everything will move closer to my final 
-			design where the side panel will only be for controlling data 
-			that cannot easily be managed directly, 'live', in the view.</p>
+		<p>There are no artificial limits to the number or content pages you 
+			can create or the number of content items that can be assigned to 
+			either a page or content area, you have full control over 
+			everything.</p>
 		
-		<p>Select a content page from the list below, once a content page 
-			has been selected you can continue to work on it in the Content 
-			manager, edit the base details or copy the page to create a 
-			brand new content page.</p>
+		<p class="dev-note bg-warning">The tools in the Content manger are 
+			not at per my final design, they are a stepping stone. As it 
+			stands today when adding or editing content all data is managed 
+			in the side panel, as development continues the tools will be 
+			updated to allow more data to be managed directly within the 
+			design view.</p>
 			
-		<h2>Pages <small>Pages for this web site</small></h2>
+		<h2>Content pages <small>All your content pages</small></h2>
 		
-    	<?php foreach($this->pages as $page) { ?>
-    		<?php if($page['id'] == $this->page_id) { ?>
-    			<p>
-    				<button type="button" class="btn btn-default btn-xs">
-    					<?php echo $this->escape($page['name']); ?>
-    				</button>
-    				<span class="label label-info"><?php echo $this->escape($page['template']); ?></span>
-    				<a href="/content/design/" class="btn btn-default btn-xs">Design</a> 
-    				<a href="/content/index/edit-page" class="btn btn-default btn-xs">Edit</a> 
-    				<a href="#" class="btn btn-default btn-xs disabled">Copy</a> 
-    				<span class="label label-success">Selected</span>
-    			</p>
-    		<?php } else { ?>
-    			<p>
-    				<a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>" 
-    				class="btn btn-default btn-xs">
-    				<?php echo $this->escape($page['name']); ?> (<?php echo $this->escape($page['template']); ?>)</a>
-    			</p>    			
-    		<?php } ?>
-    	<?php } ?>
-	    <p><a href="/content/index/new-page" class="btn btn-primary">New page</a></p>
+		<p>Select a content page from the list below, once selected you can 
+			manage its content, edit the base details or copy it to create a 
+			brand new content page.</p>
+		
+		<?php foreach($this->pages as $page) { ?>
+			<?php if($page['id'] == $this->page_id) { ?>
+				<p>
+					<button type="button" class="btn btn-default btn-xs">
+						<?php echo $this->escape($page['name']); ?>
+					</button>
+					<span class="label label-info"><?php echo $this->escape($page['template']); ?></span>
+					<a href="/content/design/" class="btn btn-default btn-xs">Design</a> 
+					<a href="/content/index/edit-page" class="btn btn-default btn-xs">Edit</a> 
+					<a href="#" class="btn btn-default btn-xs disabled">Copy</a> 
+					<span class="label label-success">Selected</span>
+				</p>
+			<?php } else { ?>
+				<p>
+					<a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>" 
+					class="btn btn-default btn-xs">
+					<?php echo $this->escape($page['name']); ?> (<?php echo $this->escape($page['template']); ?>)</a>
+				</p>    			
+			<?php } ?>
+		<?php } ?>
+		<p><a href="/content/index/new-page" class="btn btn-primary">New page</a></p>
+		
+		<h3>Further reading <small>Hungry for more?</small></h3>
+		
+		<p>You can find the current specification for Dlayer on my web site, it 
+			details all the functionality that is public as well as some that 
+			is coming very soon. You can go directly to the Content manager 
+			section by clicking the button - <a class="btn btn-primary btn-xs" href="http://www.g3d-development.com/blog/specification/the-designers-2/content-manager/" role="button">Go to specification</a>
+			</p>
 	</div>
 </div>

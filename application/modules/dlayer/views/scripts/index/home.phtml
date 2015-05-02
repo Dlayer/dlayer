@@ -2,27 +2,23 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">	
-		<h1>Dlayer</h1>
+		<h1>Dlayer <small>Web development simplified</small></h1>
+		
+		<h3>Welcome to Dlayer</h3>
+		
+		<p class="bg-info dev-note">
+			There are currently eight sections within Dlayer, each one is 
+			tailored to a specific part of the web development process, please 
+			check out each of them and if you have any feedback I would be 
+			very happy to hear it.  I will be very happy to hear your feedback, 
+			you can contact me either via my development blog or by emailing 
+			me at 
+			<a href="mailto:dean@g3d-development.com">dean@g3d-development.com</a>.
+		</p>
 
-		<p>Dlayer has one simple goal, allow you the user to develop a web site 
-			with contol of every element without ever writing a single line of html, 
-			css or code. Dlayer is not a templating system, you are not limited in any 
-			way, there are widgets, templates, forms and a question manager to help 
-			you build the site you want..</p>
-
-		<p>There are seven designers in Dlayer, three that are based around 
-			content, <strong>Content manager</strong>, 
-			<strong>Form builder</strong> and <strong>Question manger</strong>, 
-			two that are used for designing your web site, 
-			<strong>Template designer</strong> and 
-			<strong>Widget designer</strong>, one which lets you bring it all 
-			together to create a working web site, the 
-			<strong>Web site manager</strong>, one which is used to manage 
-			data, the <strong>Data manager</strong> and an 
-			<strong>Image library</strong>.</p>
-
-		<p class="bg-info dev-note">The entire app should be considered as a 
-			very early alpha.</p>
+		<p class="bg-warning dev-note">The entire app should be considered as a 
+			very early alpha, as you will see below almost every section is 
+			still in development or planning.</p>
 	</div>
 </div>
 
@@ -62,11 +58,7 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h2>Web site: <small><?php echo $this->escape($this->last_accessed_site); ?></small></h2>
-
-		<p class="bg-info dev-note"><?php echo $this->escape($this->last_accessed_site); ?></strong> 
-			is currently selected, to work on another of your web sites or to create a 
-			new one please use the links below.</p>
+		<h2>Web site <small>Your web sites</small></h2>
 
 		<?php foreach($this->sites as $site) { ?>
 			<?php if($site['id'] == $this->site_id) { ?>
