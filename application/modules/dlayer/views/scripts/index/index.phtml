@@ -63,7 +63,11 @@
 			<li>
 			<?php echo $this->escape($identity['identity']); ?> / 
 			password-<?php echo $this->escape($identity['id']); ?> 
-			<?php if($identity['logged_in'] == 1) { echo ' - Logged in'; } ?>
+			<?php if($identity['logged_in'] == 1) { ?> 
+			<span class="label label-danger">Account signed in</span>
+			<?php } else { ?>
+			<span class="label label-success">Account free</span>
+			<?php } ?>
 			</li>
 		<?php } ?>
 		</ul>
