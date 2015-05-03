@@ -46,7 +46,8 @@ div#designer {
 		> div.template-designer {
 			
 			div.selected {
-				background-color: #e1dc50;
+				//background-color: #e1dc50;
+				border: 1px dashed #93d0e1;
 				
 				div.horizontal-splitter {
 					float: left;
@@ -158,8 +159,12 @@ div#designer {
 		
 		.metrics {
 			display: none;
-			cursor: pointer;
+			cursor: pointer;			
 			margin-bottom: 15px;
+			
+			ul {
+				padding: 15px 0px 15px 40px;
+			}
 		}
 	}
 	

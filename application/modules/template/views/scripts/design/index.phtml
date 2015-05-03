@@ -30,7 +30,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 metrics">
-					<h5>Content area metrics <small>Click to hide</small></h5>
+					<h3>Content area metrics <small>Click to hide</small></h3>
 					
 					<ul class="small bg-info">
 						<li><strong>Usable width</strong>: <?php echo $this->escape(
@@ -38,9 +38,9 @@
 						<li><strong>Height setting:</strong>: <?php echo $this->escape(
 							$this->content_block_metrics['height']); ?></li>
 						<?php if($this->content_block_metrics['fixed'] == FALSE) { ?>
-						<li><a href="/template/design/switch-height-setting/id/<?php echo $this->escape($this->content_block_metrics['id']); ?>">Switch to fixed height</a></li>
+						<li><a class="btn btn-primary btn-xs" role="button" href="/template/design/switch-height-setting/id/<?php echo $this->escape($this->content_block_metrics['id']); ?>">Switch to fixed height</a></li>
 						<?php } else { ?>
-						<li><a href="/template/design/switch-height-setting/id/<?php echo $this->escape($this->content_block_metrics['id']); ?>">Switch to dyanmic height</a></li>	
+						<li><a class="btn btn-primary btn-xs" role="button" href="/template/design/switch-height-setting/id/<?php echo $this->escape($this->content_block_metrics['id']); ?>">Switch to dyanmic height</a></li>	
 						<?php } ?>
 					</ul>
 				</div>

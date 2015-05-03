@@ -20,7 +20,7 @@ div#designer {
       margin: 0;
       text-align: right; }
     div#designer #design > div.template-designer div.selected {
-      background-color: #e1dc50; }
+      border: 1px dashed #93d0e1; }
       div#designer #design > div.template-designer div.selected div.horizontal-splitter {
         float: left;
         display: block;
@@ -81,6 +81,8 @@ div#designer {
       display: none;
       cursor: pointer;
       margin-bottom: 15px; }
+      div#designer #content-block-metrics .metrics ul {
+        padding: 15px 0px 15px 40px; }
   div#designer #ribbon {
     width: 320px;
     margin: 10px 10px 0px 10px;
