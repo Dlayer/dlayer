@@ -2,45 +2,39 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Web site manager <small>Relationship and Data management</small></h1>
-	</div>
+		<h1>Web site manager 
+			<small>Content page relationship and management</small></h1>
 
-	<div class="col-md-12 col-xs-12">
-		<h2>Web site 
-		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
-	</div>
+		<h3>Welcome to the Web site manager</h3>
 
-	<div class="col-md-12 col-xs-12">
-		<p>The Web site manager is where you define the relationships between 
+		<p>Within the Web site manager you define the relationships between 
 			all your content pages to create the structure of your web 
 			site.</p>
-			
-		<p>When a new content page is created, either in the Content manager 
-			or here in the Widget designer it will initially be placed in an 
-			un-assigned pages bucket, from there you can assign its parent 
-			and relationship to its siblings.</p>
-			
-		<p>There are no real restrictions on how your web site structure 
-			needs to be defined other than there must be one page that acts as 
-			the homepage and a page can have either one or no parents.</p>
 		
-		<p>Changes to content pages need to be made within the Content 
-			manager, you can however at any point jump to the Content manager 
-			to make changes and then return easily to the Web site manager 
-			where your current state will have been maintained.</p>
+		<p>When a new content page is created it will initially be placed in 
+			the unassigned pages bucket, from there you can assign its parent 
+			and control its relationship with its siblings.</p>
+		
+		<p class="dev-note bg-info">The Web site manager is currently only a 
+			preview, I’m still trying to work on something approaching the 
+			final design. I need to develop the Template designer, Content 
+			manager, Form builder and Widget designer further before 
+			developing the Web site manager. This preview is here to give 
+			you an idea of how the Web site manager could look and work.</p>
 			
-		<p class="dev-note bg-info">The Web site manager is currently just a 
-			preview, I'm still working on the design and functionality, I 
-			need complete more of the Template designer, Content manager 
-			and Widget designer before I can commit to adding functionality 
-			to the Web site manager. The preview is here to give you an idea 
-			of how I intend it to work.</p>
-			
-		<h2>Options <small>Web site management options</small></h2>
+		<h2>Actions <small>Web site manager actions</small></h2>
 		
 		<p>
 			<a href="/website/design/index/" class="btn btn-primary">
-				Go to page management</a>
+				Go to content page management</a>
 		</p>
+		
+		<h3>Further reading <small>Hungry for more?</small></h3>
+		
+		<p>You can find the current specification for Dlayer on my web site, it 
+			details all the functionality that is public as well as some that 
+			is coming very soon. You can go directly to the Content manager 
+			section by clicking the button - <a class="btn btn-primary btn-xs" href="http://www.g3d-development.com/blog/specification/the-designers-2/web-site-manager/" role="button">Go to specification</a>
+			</p>
 	</div>
 </div>
