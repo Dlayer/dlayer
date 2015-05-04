@@ -3,60 +3,53 @@
 <div class="row">
 	<div class="col-md-12 col-xs-12">
 		<h1>Form builder <small>Form management</small></h1>
-	</div>
 
-	<div class="col-md-12 col-xs-12">
-		<h2>Web site 
-		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
-	</div>
-
-	<div class="col-md-12 col-xs-12">
-		<p>A form allows you to capture information from your users.</p>
+		<h3>Welcome to the Form builder</h3>
 		
-		<p>Forms can be added to templates, widgets or directly onto content 
-			pages, although the core use is to capture user input they can be 
-			used to navigate and also begin user actions.</p>
+		<p>A form allows you to capture information from your users or within 
+			a widget to control flow. </p>
 		
-		<p>There are no artificial limits on the number of forms that can be 
-			created or the number of times a single form can be linked to an 
-			item or items, the same form can be attached to a content page, 
-			widget and template if required.</p>
+		<p>You can add forms to templates, widgets or directly to content 
+			pages as content items, forms consist of any number of fields.</p>
 		
-		<p>The status of a form can be switched between hidden and live, if 
-			a form is hidden it will not appear as a selectable item in any 
-			of the import tools, when the status of a form is switched you 
-			will be asked to confirm the status change for previous 
-			assignments.</p>
-		
-		<p>Regardless of how you modify the structure of a form through out 
-			its life all submitted data is maintained in the original format, 
-			no data is ever lost.</p>
-		
-		<p>Select a form from the list below, once a form has been selected 
-			you can continue to work on it in the Form builder, edit the base 
-			details or copy the structure to create a brand new form.</p>
+		<p>There are no artificial limits on the number of forms that you 
+			can create for a website, the number of fields on a form or the 
+			number of times an individual forms can be linked to a content 
+			page, widget or template.</p>
 			
-		<h2>Forms <small>Forms for this web site</small></h2>
+		<h2>Forms <small>All your forms</small></h2>
 		
-    	<?php foreach($this->forms as $form) { ?>
-    		<?php if($form['id'] == $this->form_id) { ?>
-    			<p>
-    				<button type="button" class="btn btn-default btn-xs">
-    					<?php echo $this->escape($form['name']); ?> 
-    				</button>
-    				<a href="/form/design/" class="btn btn-default btn-xs">Manage</a> 
-    				<a href="/form/index/edit-form" class="btn btn-default btn-xs">Edit</a> 
-    				<a href="#" class="btn btn-default btn-xs disabled">Copy structure</a> 
-    				<span class="label label-success">Selected</span>
-    			</p>
-    		<?php } else { ?>
-    			<p>
-    				<a href="/form/index/activate/form-id/<?php echo $this->escape($form['id']); ?>" 
-    				class="btn btn-default btn-xs">
-    				<?php echo $this->escape($form['name']); ?></a>
-    			</p>
-    		<?php } ?>
-    	<?php } ?>
-	    <p><a href="/form/index/new-form" class="btn btn-primary">New form</a></p>
+		<p>Select a form from the list below, once selected you can build it 
+			in the Form builder, edit the base details or copy the structure 
+			or the form to create a brand new form.</p>
+		
+		<?php foreach($this->forms as $form) { ?>
+			<?php if($form['id'] == $this->form_id) { ?>
+				<p>
+					<button type="button" class="btn btn-default btn-xs">
+						<?php echo $this->escape($form['name']); ?> 
+					</button>
+					<a href="/form/design/" class="btn btn-default btn-xs">Manage</a> 
+					<a href="/form/index/edit-form" class="btn btn-default btn-xs">Edit</a> 
+					<a href="#" class="btn btn-default btn-xs disabled">Copy structure</a> 
+					<span class="label label-success">Selected</span>
+				</p>
+			<?php } else { ?>
+				<p>
+					<a href="/form/index/activate/form-id/<?php echo $this->escape($form['id']); ?>" 
+					class="btn btn-default btn-xs">
+					<?php echo $this->escape($form['name']); ?></a>
+				</p>
+			<?php } ?>
+		<?php } ?>
+		<p><a href="/form/index/new-form" class="btn btn-primary">New form</a></p>
+		
+		<h3>Further reading <small>Hungry for more?</small></h3>
+		
+		<p>You can find the current specification for Dlayer on my web site, it 
+			details all the functionality that is public as well as some that 
+			is coming very soon. You can go directly to the Form builder 
+			section by clicking the button - <a class="btn btn-primary btn-xs" href="http://www.g3d-development.com/blog/specification/the-designers-2/form-builder/" role="button">Go to specification</a>
+			</p>
 	</div>
 </div>
