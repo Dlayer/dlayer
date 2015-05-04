@@ -2,49 +2,35 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Image library <small>Image management</small></h1>
-	</div>
-
-	<div class="col-md-12 col-xs-12">
-		<h2>Web site 
-		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
-	</div>
-
-	<div class="col-md-12 col-xs-12">
-		<p>The Image library is the base for all image management and later 
-			all media management (after a rename), the Image library is a 
-			site wide feature that all the designers can plug into.</p>
-			
-		<p>Image assets can be categorised using any number of custom 
-			categories and sub categories, the only hard rules being that a 
-			'Misc.' sub category will be automatically created when a new 
-			category is added and an 'Uncategorised' category will be 
-			automatically created upon your first visit to the Image 
-			library.</p>
-			
-		<p>When you manipulate or use an image using any tool a new version 
-			of the selected image is created and the tool used to create the 
-			new image version is logged along with the request, older 
-			versions of images are always accessible, recoverable and even 
-			usable by any of the tools in the designers, for example, the 
-			background image tool can use a cropped version of an image 
-			without affecting the original version.</p>
-			
-		<p>The Image library includes all the standard adjustment and 
-			manipulation tools, for example cropping and resizing.</p>
+		<h1>Image library <small>Media management</small></h1>
 		
-		<p>When you need to choose an image you will be presented with an 
-			Image picker which will allow you to filter down your selection by 
-			category, subcategory, image and then version.</p>
-	
-		<p class="dev-note bg-info">Although you can upload an image and manage 
-			categories the Image library should be considered a preview until 
-			this message is removed.</p>
+		<h3>Welcome to the Image library</h3>
+		
+		<p>The Image library is where all media management is done, the Image 
+			library is a site wide feature that is exposed to the rest of the 
+			system via the image picker.</p>
+		
+		<p>You can add images to templates, widgets, content pages, forms and 
+			many other items, all of the designers will include tools or sub 
+			tools that use images from the Image library.</p>
+		
+		<p class="dev-note bg-info">The Image library currently sits somewhere 
+			between preview and alpha status, you can upload images for use 
+			in other designers but I haven’t yet included any manipulation 
+			tools.</p>
 					
-		<h2>Options <small>Image library management options</small></h2>
+		<h2>Actions <small>Image library actions</small></h2>
 		
 		<p>
-			<a href="/image/design/index/" class="btn btn-primary">Go to Image library</a>
+			<a href="/image/design/index/" class="btn btn-primary">Go to the Image library</a>
 		</p>
+		
+		<h3>Further reading <small>Hungry for more?</small></h3>
+		
+		<p>You can find the current specification for Dlayer on my web site, it 
+			details all the functionality that is public as well as some that 
+			is coming very soon. You can go directly to the Image library 
+			section by clicking the button - <a class="btn btn-primary btn-xs" href="http://www.g3d-development.com/blog/specification/the-designers-2/image-library/" role="button">Go to specification</a>
+			</p>
 	</div>
 </div>
