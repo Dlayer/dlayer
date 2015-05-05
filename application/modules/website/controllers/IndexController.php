@@ -69,18 +69,25 @@ class Website_IndexController extends Zend_Controller_Action
 	*/
 	private function dlayerMenu($url) 
 	{
-		$items = array(array('url'=>'/image/index/index', 
+		$items = array(array('url'=>'/website/index/index', 
 			'name'=>'Web site manager', 'title'=>'Dlayer Web site manager'), 
 			array('url'=>'', 'name'=>'Designers', 'title'=>'Choose a designer', 
 				'children'=>array(
-					array('url'=>'/template/index/index', 
-						'name'=>'Template designer', 'title'=>'Dlayer Template designer'), 
 					array('url'=>'/content/index/index', 
-						'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
+						'name'=>'Content manager', 
+						'title'=>'Dlayer Content manager'), 
+					array('url'=>'/widget/index/index', 
+						'name'=>'Widget designer', 
+						'title'=>'Dlayer Widget designer'), 
 					array('url'=>'/form/index/index', 
-						'name'=>'Form builder', 'title'=>'Dlayer Form builder'), 
+						'name'=>'Form builder', 
+						'title'=>'Dlayer Form builder'), 
 					array('url'=>'/image/index/index', 
-						'name'=>'Image library', 'title'=>'Dlayer Image library'))), 
+						'name'=>'Image library', 
+						'title'=>'Dlayer Image library'),
+					array('url'=>'/template/index/index', 
+						'name'=>'Template designer', 
+						'title'=>'Dlayer Template designer'))),
 			array('url'=>'/website/settings/index', 
 				'name'=>'Settings', 'title'=>'Website manager settings'), 
 			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
