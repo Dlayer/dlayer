@@ -54,11 +54,9 @@ class Form_IndexController extends Zend_Controller_Action
 	*/
 	public function indexAction()
 	{
-		$model_sites = new Dlayer_Model_Site();
 		$model_forms = new Dlayer_Model_Form();
 
 		$this->dlayerMenu('/form/index/index');
-		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 		$this->view->forms = $model_forms->forms(
 			$this->session_dlayer->siteId());
 		$this->view->form_id = $this->session_form->formId();

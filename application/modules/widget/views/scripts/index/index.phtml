@@ -1,20 +1,28 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
-<div id="content">
-    <h1>Widget designer</h1>
-    
-    <h2>Web site: <?php echo $this->escape($this->site['name']); ?></h2>
-    
-    <p>The widget designer allow you to create reusable blocks which are 
-    called widgets.</p>
-    
-    <p>Widgets can be added to templates, content pages and even other widgets, 
-    pretty much anything goes.</p>
-    
-    <p>The Widget designer is the most complex module within Dlayer, think of 
-    it as a combination of the template designer and content manager.</p>
-    
-    <p>A widget can be anything you want, the header for your web site, the 
-    footer, a menu, a widget is typically anything that you want to use in 
-    more than one place.</p>    
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		<h1>Widget designer <small>Widget management</small></h1>
+
+		<h3>Welcome to the Widget designer</h3>
+		
+		<p>Widgets are reusable content items or collections of reusable content items, some examples of widgets could be the header and menu for a web site, a twitter feed widget, an image gallery, a small call to action or even an entire blog system. </p>
+		
+		<p>A widget can be assigned to a template, content page, form or even another widget, there are no limits to the number of times a widget can be assigned to an item, be it a content page or a widget.</p>
+		
+		<p>There are two sections to the Widget designer, the designer and the library, the designer allows you to create or modify a widget, the library allows you to manager your entire library of widgets, you can organise your widgets, categorise them, copy them to create brand new widgets or delete them.</p>
+			
+		<h2>Actions <small>Widget designer actions</small></h2>
+		
+		<p><a href="/form/index/new-form" class="btn btn-primary">Create widget</a></p>
+		<p><a href="/form/index/new-form" class="btn btn-primary">Go to widget library</a></p>
+		
+		<h3>Further reading <small>Hungry for more?</small></h3>
+		
+		<p>You can find the current specification for Dlayer on my web site, it 
+			details all the functionality that is public as well as some that 
+			is coming very soon. You can go directly to the Widget designer 
+			section by clicking the button - <a class="btn btn-primary btn-xs" href="http://www.g3d-development.com/blog/specification/the-designers-2/widget-designer/" role="button">Go to specification</a>
+			</p>
+	</div>
 </div>
