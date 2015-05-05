@@ -4,6 +4,10 @@
 	padding: 0px 15px;
 }
 
+@mixin selected-state() {
+	border: 1px solid #93d0e1;
+}
+
 div#designer {
 	width: 1336px;
 	float: left;
@@ -22,8 +26,7 @@ div#designer {
 				}
 				
 				div.selected {
-					//background-color: #e1dc50;
-					border: 1px dashed #93d0e1;
+					@include selected-state();
 				}
 			}
 		}
@@ -46,8 +49,7 @@ div#designer {
 		> div.template-designer {
 			
 			div.selected {
-				//background-color: #e1dc50;
-				border: 1px dashed #93d0e1;
+				@include selected-state();
 				
 				div.horizontal-splitter {
 					float: left;
@@ -68,8 +70,7 @@ div#designer {
 		> div.content-manager {
 			
 			div.selected-area {
-				//background-color: #e1dc50;
-				border: 1px dashed #93d0e1;
+				@include selected-state();
 				
 				div.horizontal-splitter {
 					float: left;
@@ -79,8 +80,7 @@ div#designer {
 			}
 			
 			div.selected-row {
-				//background-color: #e1dc50;
-				border: 1px dashed #93d0e1;
+				@include selected-state();
 				
 				div.move {
 					width: 100%;
@@ -98,8 +98,7 @@ div#designer {
 			}
 			
 			.selected-item {
-				//background-color: #e1dc50;
-				border: 1px dashed #93d0e1;
+				@include selected-state();
 			}
 			
 			div.selectable {
