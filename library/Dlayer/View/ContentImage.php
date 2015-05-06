@@ -6,7 +6,7 @@
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_View_ContentInlineImage extends Zend_View_Helper_Abstract
+class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 {
 	/**
 	* Override the hinting for the view property so that we can see the view
@@ -59,9 +59,9 @@ class Dlayer_View_ContentInlineImage extends Zend_View_Helper_Abstract
 	* @param integer $items The total number of content items within the 
 	* 	content row, this is to help with the addition of the visual movment 
 	* 	controls
-	* @return Dlayer_View_ContentInlineImage
+	* @return Dlayer_View_ContentImage
 	*/
-	public function contentInlineImage(array $data, $selectable=FALSE,
+	public function contentImage(array $data, $selectable=FALSE,
 		$selected=FALSE, $items=1)
 	{
 		$this->resetParams();

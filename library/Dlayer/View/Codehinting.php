@@ -435,8 +435,8 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @param integer $items The total number of content items within the 
 	* 	content row, this is to help with the addition of the visual movment 
 	* 	controls
-	* @return Dlayer_View_ContentInlineImage
+	* @return Dlayer_View_ContentImage
 	*/
-	public function contentInlineImage(array $data, $selectable=FALSE,
+	public function contentImage(array $data, $selectable=FALSE,
 		$selected=FALSE, $items=1) { }
 }

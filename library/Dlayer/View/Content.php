@@ -188,7 +188,7 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 						break;
 						
 					case 'image':
-						$html .= $this->view->contentInlineImage($content['data'], 
+						$html .= $this->view->contentImage($content['data'], 
 							$selectable, $selected, $items);
 						break;
 
