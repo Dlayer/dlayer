@@ -64,6 +64,8 @@ div#designer {
     float: left; }
     div#designer #tools div.row {
       padding-bottom: 10px; }
+      div#designer #tools div.row .btn-group .btn {
+        margin-bottom: 2px; }
     div#designer #tools h4 {
       margin: 0px 0px 5px 0px;
       cursor: pointer; }

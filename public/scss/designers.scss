@@ -4,6 +4,10 @@
 	padding: 0px 15px;
 }
 
+.img-caption {
+	
+}
+
 @mixin selected-state() {
 	border: 1px solid #93d0e1;
 }
@@ -133,6 +137,10 @@ div#designer {
 		
 		div.row {
 			padding-bottom: 10px;
+			
+			.btn-group .btn {
+				margin-bottom: 2px;
+			}
 		}
 		
 		h4 {
