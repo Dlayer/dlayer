@@ -129,12 +129,10 @@
   </div>
 </div>-->
 
-<div class="col-xs-12">
-	<form>
-		<fieldset>
-			<legend>Image <small>Add an new image content item</legend>
-			<div class="form-group form-group-submit">
-<input type="submit" name="submit" id="submit" value="Add" class="btn btn-primary"></div>
-		</fieldset>
-	</form>
-</div>	
+<div class="col-xs-12 small">
+	<?php 
+	if($this->data != FALSE) {
+		echo $this->data['form'];
+	}
+	?>
+</div>

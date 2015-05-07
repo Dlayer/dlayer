@@ -80,6 +80,10 @@ class Dlayer_Ribbon_Data_Content
 			case 'import-form':
 				$data = $this->importForm();
 				break;
+				
+			case 'image':
+				$data = $this->image();
+				break;
 
 			case 'import-text':
 				$data = $this->importText();
@@ -353,6 +357,38 @@ class Dlayer_Ribbon_Data_Content
 					$this->content_id);
 				break;
 
+			default:
+				$data = FALSE;
+				break;
+		}
+
+		return $data;
+	}
+	
+	/**
+	* Fetch the view tab data for the selected image tool tab (sub tool)
+	* 
+	* @return array|FALSE 
+	*/
+	private function image() 
+	{
+		switch($this->tab) {
+			/**
+			* Fetch the data for the image tab, the returned array will include 
+			* the html for the insert image form
+			*/
+			case 'image':
+				$ribbon_form = new Dlayer_Ribbon_Content_Image();
+				$data = $ribbon_form->viewData($this->site_id, 
+					$this->page_id, $this->div_id, $this->tool, $this->tab, 
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
+				break;
+			
+			/**
+			* No need to return any data to generate the view script, typically
+			* this will be for help tabs	
+			*/
 			default:
 				$data = FALSE;
 				break;
