@@ -174,7 +174,7 @@ class Dlayer_Designer_Page
 	private function contentContainerBackgroundStyles() 
 	{
 		$styles = $this->model_content_container_styles->backgroundColors(
-			$this->site_id, $this->page_id, $this->selected_content_id);
+			$this->site_id, $this->page_id);
 			
 		if($styles != FALSE) {
 			$this->content_container_styles['background_colors'] = $styles;
@@ -190,7 +190,7 @@ class Dlayer_Designer_Page
 	private function contentItemBackgroundStyles() 
 	{
 		$styles = $this->model_content_styles->backgroundColors(
-			$this->site_id, $this->page_id, $this->selected_content_id);
+			$this->site_id, $this->page_id);
 			
 		if($styles != FALSE) {
 			$this->content_styles['background_colors'] = $styles;
@@ -206,7 +206,7 @@ class Dlayer_Designer_Page
 	private function contentRowBackgroundStyles() 
 	{
 		$styles = $this->model_content_row_styles->backgroundColors(
-			$this->site_id, $this->page_id, $this->selected_content_row_id);
+			$this->site_id, $this->page_id);
 			
 		if($styles != FALSE) {
 			$this->content_row_styles['background_colors'] = $styles;

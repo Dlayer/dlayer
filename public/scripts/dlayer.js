@@ -1031,9 +1031,6 @@ var dlayer = {
 							if(new_value.length == 0) {
 								$(element_selector).css('background-color', 
 									'inherit');
-								// Reset selected background colour on clear
-								$('.selected-item').css('background-color', 
-									'#e1dc50');
 								dlayer.preview.changed = true;
 							}
 						}
@@ -2609,7 +2606,7 @@ var dlayer = {
 		},
 		
 		/**
-		* Close the color picker, set the invoker element and incoker div to the
+		* Close the color picker, set the invoker element and invoker div to the
 		* selected color and value
 		*
 		* @returns {Void}
