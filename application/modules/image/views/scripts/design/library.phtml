@@ -16,31 +16,37 @@
 
 		<?php if(count($this->images) > 0) { ?>
 			<div class="col-md-6">
-				<?php if($this->sort != 'name') { ?>
-					<a title="Sort by name" href="/image/design/set-sort/sort/name" class="btn btn-default btn-sm">Name</a>
-				<?php } else { ?>
-					<a title="Sorted by name" href="#" class="btn btn-primary btn-sm">Name</a>
-				<?php } ?> 
-				<?php if($this->sort != 'size') { ?>
-					<a title="Sort by size" href="/image/design/set-sort/sort/size" class="btn btn-default btn-sm">Size</a>
-				<?php } else { ?>
-					<a title="Sorted by size" href="#" class="btn btn-primary btn-sm">Size</a>
-				<?php } ?> 
-				<?php if($this->sort != 'uploaded') { ?>
-					<a title="Sort by date uploaded to library" href="/image/design/set-sort/sort/uploaded" class="btn btn-default btn-sm">Uploaded</a>
-				<?php } else { ?>
-					<a title="Sorted by date uploaded to library" href="#" class="btn btn-primary btn-sm">Uploaded</a>
-				<?php } ?> 
-				<?php if($this->sort_order != 'asc') { ?>
-					<a title="Display in ascending order" href="/image/design/set-sort/order/asc" class="btn btn-default btn-xs">Asc.</a>
-				<?php } else { ?>
-					<a title="Displayed in ascending order" href="#" class="btn btn-primary btn-xs">Asc.</a>
-				<?php } ?> 
-				<?php if($this->sort_order != 'desc') { ?>
-					<a title="Display in descending order" href="/image/design/set-sort/order/desc" class="btn btn-default btn-xs">Desc.</a>
-				<?php } else { ?>
-					<a title="Displayed in descending order" href="#" class="btn btn-primary btn-xs">Desc.</a>
-				<?php } ?>
+				<div class="btn-toolbar">
+					<div class="btn-group">
+						<?php if($this->sort != 'name') { ?>
+							<a title="Sort by name" href="/image/design/set-sort/sort/name" class="btn btn-default btn-sm">Name</a>
+						<?php } else { ?>
+							<a title="Sorted by name" href="#" class="btn btn-primary btn-sm">Name</a>
+						<?php } ?> 
+						<?php if($this->sort != 'size') { ?>
+							<a title="Sort by size" href="/image/design/set-sort/sort/size" class="btn btn-default btn-sm">Size</a>
+						<?php } else { ?>
+							<a title="Sorted by size" href="#" class="btn btn-primary btn-sm">Size</a>
+						<?php } ?> 
+						<?php if($this->sort != 'uploaded') { ?>
+							<a title="Sort by date uploaded to library" href="/image/design/set-sort/sort/uploaded" class="btn btn-default btn-sm">Uploaded</a>
+						<?php } else { ?>
+							<a title="Sorted by date uploaded to library" href="#" class="btn btn-primary btn-sm">Uploaded</a>
+						<?php } ?> 
+					</div>
+					<div class="btn-group">
+						<?php if($this->sort_order != 'asc') { ?>
+							<a title="Display in ascending order" href="/image/design/set-sort/order/asc" class="btn btn-default btn-sm">Asc.</a>
+						<?php } else { ?>
+							<a title="Displayed in ascending order" href="#" class="btn btn-primary btn-sm">Asc.</a>
+						<?php } ?> 
+						<?php if($this->sort_order != 'desc') { ?>
+							<a title="Display in descending order" href="/image/design/set-sort/order/desc" class="btn btn-default btn-sm">Desc.</a>
+						<?php } else { ?>
+							<a title="Displayed in descending order" href="#" class="btn btn-primary btn-sm">Desc.</a>
+						<?php } ?>
+					</div>
+				</div>
 			</div>
 		<?php } ?>
 
