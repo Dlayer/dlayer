@@ -98,4 +98,47 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
 
 		return array('results'=>$images, 'count'=>$count['FOUND_ROWS()']);
 	}
+	
+	/**
+	* Fetch the list of images for the insert image select
+	* 
+	* @todo Temp code, won't be need once image picker is in place
+	* 
+	* @param integer $site_id
+	* @param integer $category_id
+	* @param integer $sub_category_id
+	* @return array
+	*/
+	public function imagesArrayForSelect($site_id) 
+	{
+		$sql = 'SELECT usill.version_id, usil.`name`, usilvm.width, 
+				usilvm.height 
+				FROM user_site_image_library usil 
+				JOIN user_site_image_library_link usill 
+					ON usil.id = usill.library_id 
+					AND usill.site_id = :site_id 
+				JOIN user_site_image_library_version usilv 
+					ON usill.version_id = usilv.id 
+					AND usilv.site_id = :site_id 
+				JOIN user_site_image_library_version_meta usilvm 
+					ON usilv.id = usilvm.version_id 
+					AND usil.id = usilvm.library_id 
+					AND usilvm.site_id = :site_id 
+				WHERE usil.site_id = :site_id 
+				ORDER BY usil.`name` ASC';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetchAll();
+		
+		$images = array();
+		
+		foreach($result as $row) {
+			$images[$row['version_id']] = $row['name'] . 
+				' (' . $row['width'] . ' x ' . $row['height'] . ')';
+		}
+		
+		return $images;
+	}	
 }

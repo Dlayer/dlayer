@@ -46,6 +46,8 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 		$this->setAction('/content/process/tool');
 
 		$this->setMethod('post');
+		
+		$this->formElementsData();
 
 		$this->setUpFormElements();
 
@@ -62,6 +64,27 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 		$this->addDefaultElementDecorators();
 
 		$this->addCustomElementDecorators();
+	}
+	
+	/**
+	* Fetch the data required by the form elements, in this case the list of 
+	* images for the image select
+	* 
+	* @todo THis is only here till picker works.
+	* @return void Writes the data to the $this->element_data property
+	*/
+	private function formElementsData()
+	{
+		$model_image_library = new Dlayer_Model_Image_Library();
+		
+		$session_dlayer = new Dlayer_Session();
+
+		$this->elements_data['null'] = 'Select image';
+
+		foreach($model_image_library->imagesArrayForSelect(
+			$session_dlayer->siteId()) as $k => $v) {
+			$this->elements_data[$k] = $v;
+		}
 	}
 
 	/**
@@ -142,7 +165,7 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 		$image->setLabel('Image');
 		$image->setDescription('Select the image that you would like to insert 
 			from your Image library.');
-		$image->setMultiOptions(array());
+		$image->setMultiOptions($this->elements_data);
 		$image->setAttribs(array('class'=>'form-control input-sm'));
 		$image->setBelongsTo('params');
 		
@@ -154,11 +177,23 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 		
 		$this->elements['version_id'] = $image;
 		
-		/**
-		* 
-		* Expand option goes here
-		* 
-		*/
+		$expand = new Zend_Form_Element_Select('expand');
+		$expand->setLabel('Expand?');
+		$expand->setDescription('Do you want viewers to be able to see an 
+			exapanded version of this image in a dialog?');
+		$expand->setMultiOptions(array(
+			0=>'No - Inline image only', 
+			1=>'Yes - Full size image displays in dialog on click'));
+		$expand->setAttribs(array('class'=>'form-control input-sm'));
+		$expand->setBelongsTo('params');
+		
+		if(array_key_exists('expand', $this->content_item) == TRUE && 
+			$this->content_item['expand'] != FALSE) {
+
+			$expand->setValue($this->content_item['expand']);
+		}
+		
+		$this->elements['expand'] = $expand;
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
