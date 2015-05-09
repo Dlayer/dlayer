@@ -1,19 +1,26 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <div class="col-xs-12">
-	<h3>Help <small>Create a new text item using existing content</small></h3>
+	<h3>Help <small>Add a text content item to the content page using 
+		existing content.</small></h3>
+		
+	<p>This tools allows you to create a new text content using data from an 
+		existing or deleted text content item. Simply select the existing 
+		content that you would like to import, the text field will be populated 
+		with your chosen text you are free to modify any of the imported values 
+		if required.</p>
 	
-	<p>This tool allows you to create a new text content item using existing 
-		content from an earlier text content item. Simply select the content 
-		to import, a preview will be shown to allow you to confirm that you 
-		are selecting the correct content.</p>
+	<p>The initial size of the newly inserted text content item depends upon 
+		whether or not there are any other content items in the content row, 
+		Dlayer will attempt to predict a sensible size for you based on the 
+		size of any sibling content items and any remaining space, it will 
+		attempt to size the text content item to fill all the remaining space. 
+		If Dlayer deems that there is not enough remaining space in the content 
+		row it will set a sensible default, for text content items the default 
+		is 12, the text content item will automatically be sized to span the 
+		entire width of the content row. If the text content item is the only 
+		item in the content row the same rule will be applied.</p>
 	
-	<p>The initial size of a text content item depends on whether or not 
-		there are other content items in the content row, if the text item 
-		is the only item in the  row the content will span the entire row, 
-		otherwise it will span all the remaining space. There is a minimum 
-		suggested width, if the content item will be smaller than this value 
-		the content item will drop down below all the other content and fill 
-		the entire row, the minimum suggested value is just a guide, it can 
-		be overridden manually.</p>
+	<p>Once created the imported content item will behave as a standard text 
+		content item.</p>
 </div>
