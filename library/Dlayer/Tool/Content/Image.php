@@ -16,6 +16,9 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 	* the values are of the correct type, no point doing the mnore complex 
 	* validation if the required values aren't provided
 	* 
+	* Checks to ensure that the version id (image) field is set and the 
+	* expand option
+	* 
 	* @param array $params 
 	* @param integer|NULL $content_id
 	* @return boolean Returns TRUE if all the expected values have been posted 
@@ -23,7 +26,9 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 	*/
 	protected function validateFields(array $params=array(), $content_id=NULL)
 	{
-		if(array_key_exists('form_id', $params) == TRUE) {
+		if(array_key_exists('version_id', $params) == TRUE && 
+			array_key_exists('expand', $params) == TRUE) {
+			
 			return TRUE;
 		} else {
 			return FALSE;
@@ -33,6 +38,9 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 	/**
 	* Check to ensure that all the submitted data is valid, it has to be of 
 	* the expected format or within an expected range
+	* 
+	* The supplied version id needs to be a valid id from the users image 
+	* library and the expand option needs to be either 1 or 0
 	* 
 	* @param array $params Params array to validte
 	* @param integer $site_id
@@ -50,6 +58,9 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 		$valid = FALSE;
 		
 		$model_forms = new Dlayer_Model_Form();
+		$model_image_library = new Dlayer_Model_Image_Library();
+		
+		
 		
 		if($model_forms->valid(intval($params['form_id']), $site_id) == TRUE) {			
 			$valid = TRUE;

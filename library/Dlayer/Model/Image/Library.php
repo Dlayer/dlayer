@@ -141,4 +141,33 @@ class Dlayer_Model_Image_Library extends Zend_Db_Table_Abstract
 		
 		return $images;
 	}	
+	
+	/**
+	* Check to see if the supplied version id is a valid value from within the 
+	* users Image library
+	* 
+	* @param integer $site_id
+	* @param integer $version_id
+	* @return boolean TRUE if the version id is valid
+	*/
+	public function valid($site_id, $version_id) 
+	{
+		$sql = 'SELECT usilv.id  
+				FROM user_site_image_library_version usilv 
+				WHERE usilv.site_id = :site_id 
+				AND usilv.id = :version_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 }
