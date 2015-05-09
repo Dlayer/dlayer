@@ -118,16 +118,19 @@ class Dlayer_Model_Page_Content_Size extends Zend_Db_Table_Abstract
 	}	
 	
 	/**
-	* Calculate the suggested column size for a new item in the content 
-	* based on the size of all sibling content items
+	* Calculate the suggested column size for a new item in the content row 
+	* based upon the size of all the sibling content items
 	* 
 	* @param integer $site_id
 	* @param integer $oage_id
 	* @param integer $content_row_id
+	* @param integer $suggested_maximum_size Suggested maximum size for the 
+	*   content item
 	* @return integer The suggested column size, will be a value between 1 and 
 	* 	12
 	*/
-	public function suggestedColumnSize($site_id, $page_id, $content_row_id)
+	public function suggestedColumnSize($site_id, $page_id, $content_row_id, 
+		$suggested_maximum_size)
 	{
 		$content_items = $this->contentItemSizes($site_id, $page_id, 
 			$content_row_id);
@@ -135,7 +138,7 @@ class Dlayer_Model_Page_Content_Size extends Zend_Db_Table_Abstract
 		$last_row = $this->sizeOfLastRow($content_items);
 		
 		if($last_row == 12) {
-			return 12;
+			return $suggested_maximum_size;
 		} else {
 			return 12-$last_row;
 		}
