@@ -9,6 +9,7 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 {
 	protected $content_type = 'image';
 	protected $minimum_size = 1;
+	protected $suggested_maximum_size = 6;
 	
 	/**
 	* Check that all the required values have been posted as part of the 
@@ -27,7 +28,8 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 	protected function validateFields(array $params=array(), $content_id=NULL)
 	{
 		if(array_key_exists('version_id', $params) == TRUE && 
-			array_key_exists('expand', $params) == TRUE) {
+			array_key_exists('expand', $params) == TRUE && 
+			array_key_exists('caption', $params) == TRUE) {
 			
 			return TRUE;
 		} else {
@@ -61,7 +63,8 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 		
 		if($model_image_library->valid($site_id, 
 			intval($params['version_id'])) == TRUE && 
-			in_array($params['expand'], array(1, 0)) == TRUE) {
+			in_array($params['expand'], array(1, 0)) == TRUE && 
+			strlen(trim($params['caption'])) >= 0) {
 				
 			$valid = TRUE;
 		}
@@ -81,7 +84,8 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 	{
 		$prepared = array(
 			'version_id'=>intval($params['version_id']), 
-			'expand'=>intval($params['expand'])
+			'expand'=>intval($params['expand']), 
+			'caption'=>trim($params['caption'])
 		);
 			
 		return $prepared;
