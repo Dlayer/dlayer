@@ -57,12 +57,12 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 	{
 		$valid = FALSE;
 		
-		$model_forms = new Dlayer_Model_Form();
 		$model_image_library = new Dlayer_Model_Image_Library();
 		
-		
-		
-		if($model_forms->valid(intval($params['form_id']), $site_id) == TRUE) {			
+		if($model_image_library->valid($site_id, 
+			intval($params['version_id'])) == TRUE && 
+			in_array($params['expand'], array(1, 0)) == TRUE) {
+				
 			$valid = TRUE;
 		}
 		
@@ -79,17 +79,20 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 	*/
 	protected function prepare(array $params, $content_id=NULL)
 	{
-		$prepared = array('form_id'=>intval($params['form_id']));
+		$prepared = array(
+			'version_id'=>intval($params['version_id']), 
+			'expand'=>intval($params['expand'])
+		);
 			
 		return $prepared;
 	}
 
 	/**
-	* Add a new text content item
+	* Add a new image content item
 	* 
-	* A new content item is created in the content items table and then the 
-	* specific data to create the text item is added to the text item sub 
-	* tables
+	* A new content is created in the content items data table and the 
+	* specific data to create the image content item is added to the 
+	* image item sub table
 	* 
 	* @param integer $site_id
 	* @param integer $page_id
