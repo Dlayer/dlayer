@@ -9,6 +9,7 @@ class Dlayer_Tool_Content_Jumbotron extends Dlayer_Tool_Module_Content
 {
 	protected $content_type = 'jumbotron';
 	protected $minimum_size = 12;
+	protected $suggested_maximum_size = 12;
 	
 	/**
 	* Check that all the required values have been posted as part of the 

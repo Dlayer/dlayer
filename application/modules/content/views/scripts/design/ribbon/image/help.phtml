@@ -1,24 +1,27 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
 <div class="col-xs-12">
-	<h3>Help <small>Add an image to the content page</small></h3>
+	<h3>Help <small>Add an image content item to the content page</small></h3>
 	
-	<p>This tools allows you to insert an image from your Image library, to 
-		insert an image you need to select an image from your library and 
-		the choose whether or not you want the user to be able to expand the 
-		image to view a full size version in a dialog.</p>
+	<p>This tool allows you to add an image content item to the content page, 
+		to add an image content item you need to select an image from your 
+		Image library, choose whether or not you want your users to be able 
+		to expand the image and optionally define the caption that will appear 
+		below the image.</p>
 	
-	<p>The initial size of the newly inserted image depends on whether or 
-		not there are other content items in the content row, Dlayer will 
-		attempt to predict a sensible size based on the size of sibling 
-		content items. If Dlayer deems that there is enough space left in 
-		the content row the image will automatically be sized to fill the 
-		rest of the content row. If the image is the only item in the content 
-		row or Dlayer thinks any remaining space is too small the image will 
-		drop below the other content items and the size will be set so that 
-		the inserted image fills the entire width of the content row.</p>
+	<p>The initial size of the newly inserted image content item depends upon 
+		whether or not there are any other content items in the content row, 
+		Dlayer will attempt to predict a sensible size for you based on the 
+		size of any sibling content items and any remaining space, it will 
+		attempt to size the image content item to fill all the remaining 
+		space. If Dlayer deems that there is not enough remaining space in 
+		the content row it will set a sensible default, for image content 
+		items the default is six, the image content item will automatically 
+		be sized to span half the width of the content row. If the image 
+		content item is the only item in the content row the same rule will 
+		be applied.</p>
 	
-	<p>At any time, the width and position of the inserted image can be 
+	<p>At any time, the width and position of the image content item can be 
 		managed via the size and position tab when the tool is in edit mode, 
 		in edit mode you will also get access to all the other sub tools.</p>
 </div>

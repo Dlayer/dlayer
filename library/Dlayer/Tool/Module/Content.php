@@ -10,6 +10,7 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 {
 	protected $content_type;
 	protected $minimum_size;
+	protected $suggested_maximum_size = 12;
 
 	/**
 	* Process the request for a manual tool, for example add or edit a content
@@ -246,7 +247,7 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 		if($suggested_size >= $this->minimum_size) {
 			return $suggested_size;
 		} else {
-			return 12;
+			return $this->suggested_maximum_size;
 		}
 	}
 }

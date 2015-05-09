@@ -9,6 +9,7 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Module_Content
 {
 	protected $content_type = 'text';
 	protected $minimum_size = 3;
+	protected $suggested_maximum_size = 12;
 	
 	/**
 	* Check that all the required values have been posted as part of the 
