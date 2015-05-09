@@ -55,18 +55,18 @@ class Dlayer_Ribbon_Content_Image extends Dlayer_Ribbon_Module_Content
 			'version_id'=>FALSE, 
 			'expand'=>FALSE, 
 			'caption'=>FALSE);
-		
-		/*if($this->content_id != NULL) {
-			$model_form = new Dlayer_Model_Page_Content_Items_Form();
 			
-			$set_data = $model_form->formData($this->site_id, 
+		if($this->content_id != NULL) {
+			$model_image = new Dlayer_Model_Page_Content_Items_Image();
+			
+			$set_date = $model_image->formData($this->site_id, 
 				$this->page_id, $this->div_id, $this->content_row_id, 
 				$this->content_id);
-
-			if($set_data != FALSE) {
-				$data = $set_data;
+				
+			if($set_date != FALSE) {
+				$data = $set_date;
 			}
-		}*/
+		}
 
 		return $data;
 	}

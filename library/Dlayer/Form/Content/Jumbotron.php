@@ -198,7 +198,7 @@ class Dlayer_Form_Content_Jumbotron extends Dlayer_Form_Module_Content
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
 		if($this->edit_mode == FALSE) {
-			$submit->setLabel('Add');
+			$submit->setLabel('Insert');
 		} else {
 			$submit->setLabel('Save');
 		}

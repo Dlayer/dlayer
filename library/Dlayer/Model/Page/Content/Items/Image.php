@@ -52,4 +52,47 @@ extends Dlayer_Model_Page_Content_Item
 	{
 		
 	}
+	
+	/**
+	* Fetch the existing data for the content item being edited, in this 
+	* case the version id, expand setting and the caption for the image
+	*
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer $content_id
+	* @return array|FALSE Returns either the data array or FALSE if no data 
+	*     can be found
+	*/
+	public function formData($site_id, $page_id, $div_id, $content_row_id, 
+		$content_id) 
+	{
+		$sql = 'SELECT uspci.id, uspcii.version_id, uspcii.expand, 
+					uspcii.caption 
+				FROM user_site_page_content_item_image uspcii 
+				JOIN user_site_page_content_item uspci 
+					ON uspcii.content_id = uspci.id 
+					AND uspci.site_id = :site_id 
+					AND uspci.page_id = :page_id 
+					AND uspci.content_row_id = :content_row_id 
+				JOIN user_site_page_content_rows uspcr 
+					ON uspci.content_row_id = uspcr.id 
+					AND uspcr.site_id = :site_id 
+					AND uspcr.page_id = :page_id 
+					AND uspcr.div_id = :div_id 
+				WHERE uspcii.site_id = :site_id 
+				AND uspcii.page_id = :page_id 
+				AND uspcii.content_id = :content_id
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		return $stmt->fetch();
+	}
 }
