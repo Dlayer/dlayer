@@ -50,7 +50,11 @@ class Dlayer_Ribbon_Content_Image extends Dlayer_Ribbon_Module_Content
 	*/
 	protected function contentItem()
 	{	
-		$data = array('id'=>FALSE, 'version_id'=>FALSE, 'expand'=>FALSE);
+		$data = array(
+			'id'=>FALSE, 
+			'version_id'=>FALSE, 
+			'expand'=>FALSE, 
+			'caption'=>FALSE);
 		
 		/*if($this->content_id != NULL) {
 			$model_form = new Dlayer_Model_Page_Content_Items_Form();

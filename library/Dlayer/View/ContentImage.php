@@ -142,8 +142,10 @@ class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 			'" title="' . $this->view->escape($this->data['name']) . '"' . 
 			$content_item_styles . ' />';
 			
-		$html .= '<p class="img-caption text-muted text-center small">' . 
-			$this->view->escape($this->data['name']) . '</p>';
+		if(strlen($this->data['caption']) > 0) {
+			$html .= '<p class="img-caption text-muted text-center small">' . 
+				$this->view->escape($this->data['caption']) . '</p>';
+		}
 			
 		$html .= '</div>';
 

@@ -7,7 +7,7 @@
 */
 class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 {
-	protected $content_type = 'form';
+	protected $content_type = 'image';
 	protected $minimum_size = 1;
 	
 	/**

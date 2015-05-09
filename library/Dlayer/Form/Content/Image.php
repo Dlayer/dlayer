@@ -168,6 +168,7 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 		$image->setMultiOptions($this->elements_data);
 		$image->setAttribs(array('class'=>'form-control input-sm'));
 		$image->setBelongsTo('params');
+		$image->setRequired();
 		
 		if(array_key_exists('version_id', $this->content_item) == TRUE && 
 			$this->content_item['version_id'] != FALSE) {
@@ -186,6 +187,7 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 			1=>'Yes - Full size image displays in dialog on click'));
 		$expand->setAttribs(array('class'=>'form-control input-sm'));
 		$expand->setBelongsTo('params');
+		$expand->setRequired();
 		
 		if(array_key_exists('expand', $this->content_item) == TRUE && 
 			$this->content_item['expand'] != FALSE) {
@@ -194,6 +196,23 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 		}
 		
 		$this->elements['expand'] = $expand;
+		
+		$caption = new Zend_Form_Element_Textarea('caption');
+		$caption->setLabel('Caption');
+		$caption->setAttribs(array('cols'=>50, 'rows'=>5, 
+			'placeholder'=>'e.g., Caption explaining image...', 
+			'class'=>'form-control input-sm'));
+		$caption->setDescription('Enter an optional cpation to which will 
+			appear below the image.');
+		$caption->setBelongsTo('params');
+		
+		if(array_key_exists('caption', $this->content_item) == TRUE 
+			&& $this->content_item['caption'] != FALSE) {
+			
+			$caption->setValue($this->content_item['caption']);
+		}
+
+		$this->elements['caption'] = $caption;
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));

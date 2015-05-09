@@ -35,4 +35,21 @@ extends Dlayer_Model_Page_Content_Item
 		$stmt->bindValue(':expand', $params['expand'], PDO::PARAM_INT);
 		$stmt->execute();
 	}
+	
+	/**
+	* Edit the data for a content item
+	*
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $content_row_id
+	* @param integer $content_id
+	* @param array $params The data for the new content item
+	* @return void
+	*/
+	public function editContentItemData($site_id, $page_id, $div_id, 
+		$content_row_id, $content_id, array $params) 
+	{
+		
+	}
 }

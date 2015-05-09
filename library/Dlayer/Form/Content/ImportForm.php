@@ -164,6 +164,7 @@ class Dlayer_Form_Content_ImportForm extends Dlayer_Form_Module_Content
 		$form->setMultiOptions($this->elements_data);
 		$form->setAttribs(array('class'=>'form-control input-sm'));
 		$form->setBelongsTo('params');
+		$form->setRequired();
 		
 		if(array_key_exists('form_id', $this->content_item) == TRUE && 
 			$this->content_item['form_id'] != FALSE) {
