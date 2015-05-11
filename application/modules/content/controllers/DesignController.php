@@ -91,7 +91,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->setLayout('preview');
 		
-		$this->view->dlayer_page = $this->dlayerPage();
+		$this->view->dlayer_page = $this->dlayerPagePreview();
 		
 		$this->layout->assign('css_include',
 			array('css/dlayer.css', 'css/preview.css'));
@@ -416,16 +416,64 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->div_id = $div_id;
 		$this->view->content_row_id = $content_row_id;
 		$this->view->content_id = $content_id;
-		
-		//$this->view->template_styles = $designer_page->templateStyles();
-		//$this->view->form_field_styles = $designer_page->formFieldStyles();
-
-		//$this->view->page_container_metrics = $this->pageContainerMetrics();
-		/*if($this->session_content->divId() != NULL) {
-			$this->view->content_item_metrics = $this->contentItemMetrics();
-		}*/
 
 		return $this->view->render("design/page.phtml");
+	}
+	
+	/**
+	* Generate the preview for the current content page, doesn't any 
+	* helper content areas, content rows or un-necessary code
+	*
+	* @return string
+	*/
+	private function dlayerPagePreview()
+	{
+		// Vars defining the page being edited
+		$site_id = $this->session_dlayer->siteId();
+		$template_id = $this->session_content->templateId();
+		$page_id = $this->session_content->pageId();
+		
+		// Environment vars for the designer
+		$div_id = $this->session_content->divId();
+		$content_row_id = $this->session_content->contentRowId();
+		$content_id = $this->session_content->contentId();
+		
+		$designer_page = new Dlayer_Designer_Page($site_id, $template_id, 
+			$page_id, $div_id, $content_row_id, $content_id);
+
+		$model_settings = new Dlayer_Model_View_Settings();
+
+		$this->view->heading_styles = $model_settings->headingStyles($site_id);
+		$this->view->base_font_family = $model_settings->baseFontFamily(
+			$site_id, 'content');
+
+		/**
+		* Set the base page details, template structure, content rows and 
+		* data for content items
+		*/
+		$this->view->template = $designer_page->template();
+		$this->view->content_rows = $designer_page->contentRows();
+		$this->view->content = $designer_page->content();
+		
+		/**
+		* Set all the defined styles for the template, content rows, 
+		* content item containers, content items, assigned forms
+		*/
+		$this->view->template_styles = array();
+		$this->view->content_row_styles = $designer_page->contentRowStyles();
+		$this->view->content_container_styles = 
+			$designer_page->contentContainerStyles();
+		$this->view->content_styles = $designer_page->contentItemStyles();
+		$this->view->form_field_styles = array();
+		
+		/**
+		* Set the designer environment vars
+		*/
+		$this->view->div_id = $div_id;
+		$this->view->content_row_id = $content_row_id;
+		$this->view->content_id = $content_id;
+
+		return $this->view->render("design/page-preview.phtml");
 	}
 
 	/**
