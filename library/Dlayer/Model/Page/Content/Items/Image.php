@@ -52,10 +52,10 @@ extends Dlayer_Model_Page_Content_Item
 	public function editContentItemData($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id, array $params) 
 	{
-		$sql = 'UPDATE user_site_page_content_item_page 
-				SET version_id = :version_id 
-				AND expand = :expand 
-				AND caption = :caption 
+		$sql = 'UPDATE user_site_page_content_item_image 
+				SET version_id = :version_id, 
+				expand = :expand, 
+				caption = :caption 
 				WHERE site_id = :site_id 
 				AND page_id = :page_id 
 				AND content_id = :content_id 

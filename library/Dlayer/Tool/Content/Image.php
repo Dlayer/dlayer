@@ -142,8 +142,8 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Module_Content
 	protected function editContentItem($site_id, $page_id, $div_id, 
 		$content_row_id, $content_id)
 	{
-		$model_form = new Dlayer_Model_Page_Content_Items_Form();
-		$model_form->editContentItemData($site_id, $page_id, $div_id, 
+		$model_image = new Dlayer_Model_Page_Content_Items_Image();
+		$model_image->editContentItemData($site_id, $page_id, $div_id, 
 			$content_row_id, $content_id, $this->params);
 	}
 	
