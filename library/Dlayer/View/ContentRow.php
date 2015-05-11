@@ -53,15 +53,36 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 	*/
 	private $selected_content_id;
 	
+	private $preview;
+	
 	/** 
 	* The content row view helpers generated the invisible content rows 
-	* divs, these hoold content items, for each content row the content view 
+	* divs, these hold content items, for each content row the content view 
 	* helper is called which in turns generates the page comtent
 	* 
+	* @param boolean $preview If the content row view helper is in preview mode
+	* 	the helper content rows aren't added
 	* @return Dlayer_View_ContentRow
 	*/
-	public function contentRow() 
+	public function contentRow($preview=FALSE) 
 	{
+		$this->resetParams();
+		
+		$this->preview = $preview;
+		
+		return $this;
+	}
+	
+	/**
+	* Reset any internal params, we need to reset the params for the view 
+	* helper in case it is called multiple times within the same view
+	*
+	* @return Dlayer_View_ContentRow
+	*/
+	private function resetParams()
+	{
+		$this->preview = FALSE;
+
 		return $this;
 	}
 	
@@ -191,18 +212,29 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 				
 				$content = $this->view->content()->render();
 				
+				$render_content = FALSE;
+				
 				if(strlen($content) != 0) {
 					$row_content = $content;
+					
+					$render_content = TRUE;
 				} else {
-					$row_content = '<div class="col-md-12"><h3>Content row 
-					<small>Add content items to this row</small></h3></div>';
+					if($this->preview == FALSE) {
+						$row_content = '<div class="col-md-12"><h3>Content row 
+							<small>Add content items to this row
+							</small></h3></div>';
+						
+						$render_content = TRUE;
+					}
 				}
 				
-				$html .= "<div id=\"content_row_{$content_row['id']}\" ";
-				$html .= 'class="' . $class . '"' . $row_styles;
-				$html .= '>';
-				$html .= $row_content;
-				$html .= '</div>';
+				if($render_content == TRUE) {
+					$html .= "<div id=\"content_row_{$content_row['id']}\" ";
+					$html .= 'class="' . $class . '"' . $row_styles;
+					$html .= '>';
+					$html .= $row_content;
+					$html .= '</div>';
+				}
 			}
 		}
 	

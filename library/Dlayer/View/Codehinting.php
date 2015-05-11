@@ -380,9 +380,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* divs, these hoold content items, for each content row the content view 
 	* helper is called which in turns generates the page comtent
 	* 
+	* @param boolean $preview If the content row view helper is in preview mode
+	* 	the helper content rows aren't added
 	* @return Dlayer_View_ContentRow
 	*/
-	public function contentRow() { }
+	public function contentRow($preview=FALSE) { }
 	
 	/** 
 	* Content container styles view helper, generates the style string 
