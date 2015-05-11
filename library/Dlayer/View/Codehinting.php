@@ -439,4 +439,21 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	*/
 	public function contentImage(array $data, $selectable=FALSE,
 		$selected=FALSE, $items=1) { }
+		
+	/**
+	* Generates a simple bootstrap navbar with a preview link to the right 
+	* of the menu
+	* 
+	* @param string $brand Brand name, appears to let of navbar
+	* @param array $navbar_items Array containing the navbar items, each item 
+	* 							 should be an array with url, title and name 
+	* 							 fields, dropdowns can be created by defining 
+	* 							 a children field with the same format array
+	* @param string $active_url The URL of the active item, not always the 
+	* 							current URL
+	* @param string $preview_url
+	* @return Dlayer_View_BootstrapNavbar
+	*/
+	public function bootstrapNavbarPreview($brand, array $navbar_items, 
+		$active_url='', $preview_url='') { }
 }

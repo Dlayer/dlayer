@@ -62,6 +62,10 @@ class Content_DesignController extends Zend_Controller_Action
 	*/
 	public function indexAction()
 	{
+		$this->_helper->setLayout('designer');
+		
+		$this->layout->assign('preview_url', '/content/design/preview');
+		
 		$this->dlayerMenu('/content/index/index');
 		$this->view->dlayer_toolbar = $this->dlayerToolbar();
 		$this->view->dlayer_page = $this->dlayerPage();
@@ -76,6 +80,22 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->layout->assign('css_include',
 			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Content manager');
+	}
+	
+	/**
+	* Preview for design
+	*
+	* @return void
+	*/
+	public function previewAction()
+	{
+		$this->_helper->setLayout('preview');
+		
+		$this->view->dlayer_page = $this->dlayerPage();
+		
+		$this->layout->assign('css_include',
+			array('css/dlayer.css', 'css/preview.css'));
+		$this->layout->assign('title', 'Dlayer.com - Design preview');
 	}
 
 	/**
