@@ -202,11 +202,6 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 				
 				// Generate the content row html
 				$this->view->contentRow()->divId($div['id']);
-				$this->view->contentRow()->selectedDivId($this->selected_div_id);
-				$this->view->contentRow()->selectedContentRowId(
-					$this->selected_content_row_id);
-				$this->view->contentRow()->selectedContentId(
-					$this->selected_content_id);			
 
 				$content_rows = $this->view->contentRow()->render();
 				
@@ -227,11 +222,6 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 		} else {
 			// Generate the content row html
 			$this->view->contentRow()->divId($parent_id);
-			$this->view->contentRow()->selectedDivId($this->selected_div_id);
-			$this->view->contentRow()->selectedContentRowId(
-				$this->selected_content_row_id);
-			$this->view->contentRow()->selectedContentId(
-				$this->selected_content_id);			
 
 			$content_rows = $this->view->contentRow()->render();
 			
@@ -271,21 +261,7 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 		$class = 'container';
 
 		if(count($children) == 0) {
-			$class = 'container';
-			
-			if($this->selected_div_id != NULL) {
-				if($this->selected_content_row_id == NULL && 
-				$this->selected_div_id == $id) {
-					$class .= ' selected-area';	
-				}				
-			} else {
-				if($this->selected_div_id == NULL) {
-					if($this->selected_content_row_id == NULL) {}
-					$class .= ' selectable';
-				}
-			}
-			
-			$class = 'class="' . $class . '"';			
+			$class = 'class="container"';			
 		} else {
 			$class = '';
 			$child_divs = TRUE;
