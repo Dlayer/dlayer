@@ -385,6 +385,34 @@ class Dlayer_Ribbon_Data_Content
 					$this->content_id);
 				break;
 			
+			/** 
+			* Fetch the data for the size and position tab, the returned aray 
+			* will include the html for the form along with the data required 
+			* for the preview functions
+			*/				
+			case 'position':
+				$ribbon_position = new 
+					Dlayer_Ribbon_Content_Position_Image();
+				$data = $ribbon_position->viewData($this->site_id, 
+					$this->page_id, $this->div_id, $this->tool, $this->tab, 
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
+				break;
+				
+			/**
+			* Fetch the data for the styling tab, the returns array will 
+			* include the form foe the styling options along with the data 
+			* required for the preview functions
+			*/
+			case 'styling':
+				$ribbon_styling = 
+					new Dlayer_Ribbon_Content_Styling_Image();
+				$data = $ribbon_styling->viewData($this->site_id, 
+					$this->page_id, $this->div_id, $this->tool, $this->tab, 
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
+				break;
+			
 			/**
 			* No need to return any data to generate the view script, typically
 			* this will be for help tabs	
