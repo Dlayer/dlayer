@@ -135,12 +135,17 @@ class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 		$html = '<div class="' . $width . ' ' . $container_class . '" id="' . 
 			$id . '"' . $container_styles . '>';
 			
+		/*$html .= '<a href="#" data-toggle="modal" data-target="#imageModal' . 
+			$this->view->escape($this->data['content_id']) . '">';*/
+			
 		$html .= '<img src="/images/library/' . $this->view->escape(
 			$this->data['library_id']) . '/' . $this->view->escape(
 			$this->data['version_id']) . $this->view->escape(
 			$this->data['extension']) . '" class="' . $content_class . 
 			'" title="' . $this->view->escape($this->data['name']) . '"' . 
 			$content_item_styles . ' />';
+		
+		/*$html .= '</a>';*/
 			
 		if(strlen($this->data['caption']) > 0) {
 			$html .= '<p class="img-caption text-muted text-center small">' . 
