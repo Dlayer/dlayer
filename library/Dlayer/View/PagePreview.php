@@ -101,7 +101,7 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 		* Pass the content rows data array to the content row view helper, 
 		* the content row view helper calls the content view helper
 		*/
-		$this->view->contentRow(TRUE)->setContentRows($content_rows);
+		$this->view->contentRow()->setContentRows($content_rows);
 		
 		/**
 		* Pass the content data array to the base content view helper, the 
@@ -201,9 +201,9 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 				$params = $this->divParams($div['children'], $div['id']);
 				
 				// Generate the content row html
-				$this->view->contentRow(TRUE)->divId($div['id']);
+				$this->view->contentRow()->divId($div['id']);
 
-				$content_rows = $this->view->contentRow(TRUE)->render();
+				$content_rows = $this->view->contentRow()->render(TRUE);
 				
 				$content = FALSE;
 				
@@ -221,9 +221,9 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 			}
 		} else {
 			// Generate the content row html
-			$this->view->contentRow(TRUE)->divId($parent_id);
+			$this->view->contentRow()->divId($parent_id);
 
-			$content_rows = $this->view->contentRow(TRUE)->render();
+			$content_rows = $this->view->contentRow()->render(TRUE);
 			
 			if(strlen($content_rows) > 0) {
 				$html .= $content_rows;

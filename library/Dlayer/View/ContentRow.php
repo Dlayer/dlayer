@@ -53,36 +53,15 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 	*/
 	private $selected_content_id;
 	
-	private $preview;
-	
 	/** 
 	* The content row view helpers generated the invisible content rows 
 	* divs, these hold content items, for each content row the content view 
 	* helper is called which in turns generates the page comtent
 	* 
-	* @param boolean $preview If the content row view helper is in preview mode
-	* 	the helper content rows aren't added
 	* @return Dlayer_View_ContentRow
 	*/
-	public function contentRow($preview=FALSE) 
+	public function contentRow() 
 	{
-		$this->resetParams();
-		
-		$this->preview = $preview;
-		
-		return $this;
-	}
-	
-	/**
-	* Reset any internal params, we need to reset the params for the view 
-	* helper in case it is called multiple times within the same view
-	*
-	* @return Dlayer_View_ContentRow
-	*/
-	private function resetParams()
-	{
-		$this->preview = FALSE;
-
 		return $this;
 	}
 	
@@ -171,9 +150,10 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 	* Unlike the majority of view helpers this method is public because it 
 	* will called directly in other view helpers 
 	* 
+	* @param boolean $preview IS the view helper in preview mode
 	* @return string The generated html
 	*/
-	public function render() 
+	public function render($preview=FALSE) 
 	{		
 		$html = '';
 				
@@ -219,7 +199,7 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 					
 					$render_content = TRUE;
 				} else {
-					if($this->preview == FALSE) {
+					if($preview == FALSE) {
 						$row_content = '<div class="col-md-12"><h3>Content row 
 							<small>Add content items to this row
 							</small></h3></div>';
