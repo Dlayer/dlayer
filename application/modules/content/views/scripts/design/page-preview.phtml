@@ -2,6 +2,25 @@
 /** @var $this Dlayer_View_Codehinting */
 ?>
 
+<script>
+$(document).ready(function() {
+	
+	// Onclick populate data of modal dialog 
+	$(".image-modal-dialog").on("click", function() {
+		
+		$('#imageModalDialogSrc').attr('src', $('img', this).attr('src'));
+		$('#imageModalDialogLabel').html($('img', this).attr('title'));
+		
+		var caption = ($('p.img-caption', this).text());		
+		if(caption.length > 0) {
+			$('#imageModalDialogCaption').html(caption);	
+		}
+		
+		$('#imageModalDialog').modal('show');
+	});
+});
+</script>
+
 <style>
 #design > div.content-manager * {
 	font-family: <?php echo $this->base_font_family; ?>;
@@ -27,22 +46,22 @@
 	$this->content, $this->template_styles, $this->content_row_styles, 
 	$this->content_container_styles, $this->content_styles); ?>
 
-<!--<div class="modal fade" id="imageModal20" tabindex="-1" role="dialog" 
-	aria-labelledby="myModalLabel" aria-hidden="true">	
+<div class="modal fade" id="imageModalDialog" tabindex="-1" role="dialog" 
+	aria-labelledby="imageModalDialogLabel" aria-hidden="true">	
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" 
 					aria-label="Close"><span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="imageModal20Label">Autumn Path</h4>
+				<h4 class="modal-title" id="imageModalDialogLabel"></h4>
 			</div>
 			<div class="modal-body">
-				<img src="/images/library/1/1.jpg" class="content-20 img-rounded img-responsive" title="Autumn path">
-				<p class="img-caption text-muted text-center small">
-					Caption: This is the caption for the newly inserted image.
+				<img id="imageModalDialogSrc" src="" class="img-rounded img-responsive" title="">
+				<p id="imageModalDialogCaption" class="img-caption text-muted text-center small">
+					
 				</p>
 			</div>
 		</div>
 	</div>
-</div>-->
+</div>

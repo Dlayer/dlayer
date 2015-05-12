@@ -43,6 +43,14 @@ class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 	* @param integer
 	*/
 	private $items;
+	
+	/**
+	* Is the view helper in preview mode, is so the expand option can be added 
+	* to the image iof set as true
+	* 
+	* @var boolean
+	*/
+	private $preview;
 
 	/**
 	* The basic image content item is simply an image sitting inside a 
@@ -57,12 +65,13 @@ class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 	* 	content item, an item is selected when in edit mode, either by being 
 	* 	selectable directly or after addition
 	* @param integer $items The total number of content items within the 
-	* 	content row, this is to help with the addition of the visual movment 
+	* 	content row, this is to help with the addition of the visual movement 
 	* 	controls
+	* @param boolean $preview Is the view helper in preview mode?
 	* @return Dlayer_View_ContentImage
 	*/
 	public function contentImage(array $data, $selectable=FALSE,
-		$selected=FALSE, $items=1)
+		$selected=FALSE, $items=1, $preview=FALSE)
 	{
 		$this->resetParams();
 
@@ -70,6 +79,7 @@ class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 		$this->selectable = $selectable;
 		$this->selected = $selected;
 		$this->items = $items;
+		$this->preview = $preview;
 
 		return $this;
 	}
@@ -77,6 +87,9 @@ class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 	/**
 	* Reset any internal params, we need to reset the params for the view 
 	* helper in case it is called multiple times within the same view
+	* 
+	* We don't reset the preview value as it will apply each time the view 
+	* helper is called for the current view
 	*
 	* @return void
 	*/
@@ -85,6 +98,7 @@ class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 		$this->data = NULL;
 		$this->selectable = FALSE;
 		$this->selected = FALSE;
+		$this->items = 0;
 	}
 
 	/**
@@ -134,9 +148,10 @@ class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 		
 		$html = '<div class="' . $width . ' ' . $container_class . '" id="' . 
 			$id . '"' . $container_styles . '>';
-			
-		/*$html .= '<a href="#" data-toggle="modal" data-target="#imageModal' . 
-			$this->view->escape($this->data['content_id']) . '">';*/
+		
+		if($this->preview == TRUE && $this->data['expand'] == 1) {
+			$html .= '<a href="#" class="image-modal-dialog">';
+		}
 			
 		$html .= '<img src="/images/library/' . $this->view->escape(
 			$this->data['library_id']) . '/' . $this->view->escape(
@@ -144,12 +159,14 @@ class Dlayer_View_ContentImage extends Zend_View_Helper_Abstract
 			$this->data['extension']) . '" class="' . $content_class . 
 			'" title="' . $this->view->escape($this->data['name']) . '"' . 
 			$content_item_styles . ' />';
-		
-		/*$html .= '</a>';*/
 			
 		if(strlen($this->data['caption']) > 0) {
 			$html .= '<p class="img-caption text-muted text-center small">' . 
 				$this->view->escape($this->data['caption']) . '</p>';
+		}
+		
+		if($this->preview == TRUE && $this->data['expand'] == 1) {
+			$html .= '</a>';
 		}
 			
 		$html .= '</div>';

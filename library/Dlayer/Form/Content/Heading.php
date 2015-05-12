@@ -160,9 +160,9 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'placeholder'=>'e.g., Page title', 
 			'class'=>'form-control input-sm'));
-		$name->setDescription('Set a name for the content item, this will allow 
-			 you to easily identity the content item text if you want to re-use 
-			 it on another page or this page.');
+		$name->setDescription('Set a name, it should describe the text that you 
+			define for this heading. Later, you can re-use the text to create 
+			another heading content item on this content page or another.');
 		$name->setBelongsTo('params');
 		$name->setRequired();
 		
@@ -179,8 +179,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 		$heading->setAttribs(array('cols'=>50, 'rows'=>4, 
 			'placeholder'=>'e.g., Page heading!', 
 			'class'=>'form-control input-sm'));
-		$heading->setDescription('Enter the text for the new heading content 
-			item.');
+		$heading->setDescription('Enter the text for your heading.');
 		$heading->setBelongsTo('params');
 		$heading->setRequired();
 		
@@ -197,8 +196,8 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 			'placeholder'=>'e.g., Sub heading!', 
 			'class'=>'form-control input-sm'));
 		$sub_heading->setDescription('Enter the text for the sub heading, this 
-			will appear to the right of the heading in a smaller, lighter 
-			style.');
+			appears in a smaller light font to the right of the heading, the 
+			sub heading is optional.');
 		$sub_heading->setBelongsTo('params');
 		
 		if(array_key_exists('sub_heading', $this->content_item) == TRUE 
@@ -214,7 +213,8 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Module_Content
 		$heading_type = new Zend_Form_Element_Select('heading_type');
 		$heading_type->setLabel('Heading type');
 		$heading_type->setMultiOptions($this->elements_data);
-		$heading_type->setDescription('Choose the type for the new heading.');
+		$heading_type->setDescription('Choose the heading type you want 
+			to use.');
 		$heading_type->setAttribs(array('class'=>'form-control input-sm'));
 		$heading_type->setBelongsTo('params');
 		$heading_type->setRequired();

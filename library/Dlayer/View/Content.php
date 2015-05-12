@@ -140,9 +140,10 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	* Unlike the majority of view helpers this method is public because it 
 	* will called directly in other view helpers 
 	* 
+	* @param boolean $preview Is the view helper is preview mode
 	* @return string The generated html
 	*/
-	public function render() 
+	public function render($preview=FALSE) 
 	{
 		$html = '';
 		
@@ -189,7 +190,7 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 						
 					case 'image':
 						$html .= $this->view->contentImage($content['data'], 
-							$selectable, $selected, $items);
+							$selectable, $selected, $items, $preview);
 						break;
 
 					default:

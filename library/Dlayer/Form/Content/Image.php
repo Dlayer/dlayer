@@ -163,8 +163,7 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 	{
 		$image = new Zend_Form_Element_Select('version_id');
 		$image->setLabel('Image');
-		$image->setDescription('Select the image that you would like to insert 
-			from your Image library.');
+		$image->setDescription('Select an image from your Image library.');
 		$image->setMultiOptions($this->elements_data);
 		$image->setAttribs(array('class'=>'form-control input-sm'));
 		$image->setBelongsTo('params');
@@ -180,11 +179,11 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 		
 		$expand = new Zend_Form_Element_Select('expand');
 		$expand->setLabel('Expand?');
-		$expand->setDescription('Do you want viewers to be able to see an 
-			exapanded version of this image in a dialog?');
+		$expand->setDescription('Do you want your viewers to be able to see an 
+			expanded version of your image?');
 		$expand->setMultiOptions(array(
 			0=>'No - Inline image only', 
-			1=>'Yes - Full size image displays in dialog on click'));
+			1=>'Yes - Full size image displays in a dialog on click'));
 		$expand->setAttribs(array('class'=>'form-control input-sm'));
 		$expand->setBelongsTo('params');
 		$expand->setRequired();
@@ -202,8 +201,8 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 		$caption->setAttribs(array('cols'=>50, 'rows'=>5, 
 			'placeholder'=>'e.g., Caption explaining image...', 
 			'class'=>'form-control input-sm'));
-		$caption->setDescription('Enter an optional cpation to which will 
-			appear below the image.');
+		$caption->setDescription('Enter an optional caption which will appear 
+			below your image.');
 		$caption->setBelongsTo('params');
 		
 		if(array_key_exists('caption', $this->content_item) == TRUE 

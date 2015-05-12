@@ -143,9 +143,9 @@ class Dlayer_Form_Content_Jumbotron extends Dlayer_Form_Module_Content
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'placeholder'=>'e.g., Site masthead', 
 			'class'=>'form-control input-sm'));
-		$name->setDescription('Set a name for the content item, this will allow 
-			 you to easily identity the content item text if you want to re-use 
-			 it on another page or this page.');
+		$name->setDescription('Set a name, it should describe the text that you 
+			define for this jumbotron. Later, you can re-use the text to create 
+			another jumbotron content item on this content page or another.');
 		$name->setBelongsTo('params');
 		$name->setRequired();
 		
@@ -162,7 +162,7 @@ class Dlayer_Form_Content_Jumbotron extends Dlayer_Form_Module_Content
 		$title->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'placeholder'=>'e.g., Welcome to my site', 
 			'class'=>'form-control input-sm'));
-		$title->setDescription('Enter the main title text for the Jumbotron.');
+		$title->setDescription('Enter the text for your title.');
 		$title->setBelongsTo('params');
 		$title->setRequired();
 		
@@ -179,8 +179,8 @@ class Dlayer_Form_Content_Jumbotron extends Dlayer_Form_Module_Content
 		$sub_title->setAttribs(array('cols'=>50, 'rows'=>10, 
 			'placeholder'=>'e.g., Short description of what you will find on my site', 
 			'class'=>'form-control input-sm'));
-		$sub_title->setDescription('Enter the sub text for the Jumbotron, this 
-			will appear below the title in a much smaller font.');
+		$sub_title->setDescription('Enter your sub text, this appears below the 
+			title in a much smaller font.');
 		$sub_title->setBelongsTo('params');
 		$sub_title->setRequired();
 		

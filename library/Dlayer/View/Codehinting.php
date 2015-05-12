@@ -435,6 +435,7 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @param integer $items The total number of content items within the 
 	* 	content row, this is to help with the addition of the visual movment 
 	* 	controls
+	* @param boolean $preview Is the view helper in preview mode?
 	* @return Dlayer_View_ContentImage
 	*/
 	public function contentImage(array $data, $selectable=FALSE,

@@ -190,7 +190,7 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 				$this->view->content()->selectedContentId(
 					$this->selected_content_id);
 				
-				$content = $this->view->content()->render();
+				$content = $this->view->content()->render($preview);
 				
 				$render_content = FALSE;
 				

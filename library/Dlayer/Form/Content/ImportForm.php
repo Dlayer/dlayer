@@ -159,8 +159,7 @@ class Dlayer_Form_Content_ImportForm extends Dlayer_Form_Module_Content
 	{
 		$form = new Zend_Form_Element_Select('form_id');
 		$form->setLabel('Form');
-		$form->setDescription('Select the form that you would like to 
-			import from the Form builder into this content row.');
+		$form->setDescription('Select a form from the Form builder.');
 		$form->setMultiOptions($this->elements_data);
 		$form->setAttribs(array('class'=>'form-control input-sm'));
 		$form->setBelongsTo('params');

@@ -194,7 +194,8 @@ class Dlayer_Form_Content_ImportHeading extends Dlayer_Form_Module_Content
 		$heading_type = new Zend_Form_Element_Select('heading_type');
 		$heading_type->setLabel('Heading type');
 		$heading_type->setMultiOptions($this->elements_data['heading_type']);
-		$heading_type->setDescription('Choose the type for the new heading.');
+		$heading_type->setDescription('Choose the heading type you want 
+			to use.');
 		$heading_type->setAttribs(array('class'=>'form-control input-sm'));
 		$heading_type->setBelongsTo('params');
 		$heading_type->setRequired();
