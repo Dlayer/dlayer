@@ -2016,7 +2016,7 @@ var dlayer = {
 			var content_container_background_colors = {};
 			var content_background_colors = {};
 			
-			$('div.container div.selectable').hover(
+			$('div.container > div.selectable').hover(
 				function() {
 					background_color = $(this).css('background-color');
 					$(this).css('background-color', '#e1dc50');
