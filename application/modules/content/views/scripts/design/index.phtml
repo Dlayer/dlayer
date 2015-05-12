@@ -17,15 +17,18 @@
 		<?php if($this->div_id != NULL && $this->content_row_id != NULL && 
 			$this->content_id == NULL && 
 			$this->tool['tool'] == 'content-row') { ?>
-			dlayer.selectors.contentItem();
+			dlayer.selectors.contentItem();			
 			dlayer.movers.contentItems();
 		<?php } ?>
-		<?php //if($this->div_id != NULL && $this->tool != NULL) { ?>
-			/*dlayer.designers.metrics.pageContainer();*/
-		<?php // } ?>
-		<?php // if($this->div_id) { ?>
-			/*dlayer.designers.metrics.contentBlocks();*/
-		<?php //} ?>
+		
+		<?php if($this->div_id != NULL && $this->content_row_id != NULL && 
+			$this->content_id != NULL && $this->tool != NULL && 
+			$this->tool['tool'] != 'content-row') { ?>
+			dlayer.selectors.contentItem();
+			
+			$('.row.selected-row').removeClass('selected-row');
+	
+		<?php } ?>
 		
 		// Toggles for tools section
 		$('div#tools h4').click(

@@ -165,15 +165,18 @@ class Dlayer_View_ContentRow extends Zend_View_Helper_Abstract
 					
 				if($this->selected_div_id != NULL && 
 					$this->selected_div_id == $this->div_id) {
+						
 					
-					if($this->selected_content_id == NULL && 
-					$content_row['id'] == $this->selected_content_row_id) {
-						$class .= ' selected-row';
-					} else {
+						if($content_row['id'] == $this->selected_content_row_id) {
+							$class .= ' selected-row';
+						} else {
+							$class .= ' selectable';
+						}
+					/*} else {
 						if($this->selected_content_row_id == NULL) {
 							$class .= ' selectable"';
 						}
-					}
+					}*/
 				}
 				
 				// Content row styles

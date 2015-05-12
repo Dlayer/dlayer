@@ -2090,7 +2090,7 @@ var dlayer = {
 					});
 				}			
 			);
-			$('div.container div.selectable').click(
+			$('div.container > div.selectable').click(
 				function() {
 					$(this).css('background-color', '#66a7ba');
 					
@@ -2114,7 +2114,7 @@ var dlayer = {
 			var item_container_background_color = null;
 			var item_background_color = null;
 			
-			$('div.selected-row .selectable').hover(
+			$('div.selected-row > .selectable').hover(
 				function() {
 					
 					var params = this.id.split(':');
@@ -2143,7 +2143,7 @@ var dlayer = {
 					$(this).find('.move').hide();
 				}
 			);
-			$('div.selected-row .selectable').click(
+			$('div.selected-row > .selectable').click(
 				function() {
 					$(this).css('background-color','#66a7ba');
 

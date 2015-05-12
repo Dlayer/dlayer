@@ -9,10 +9,11 @@
 
 $groups = array(
 	1=>'', 
-	2=>'Structure <small>Change the page structure</small>',
+	2=>'Structure <small>Change the page structure or select page 
+		elements</small>',
 	3=>'Create <small>Create a new content item</small>',
 	4=>'Import <small>Create a new content item using existing content 
-	data</small>'
+		data</small>'
 );
 
 foreach($this->tools as $group_id => $group) {
@@ -65,6 +66,17 @@ foreach($this->tools as $group_id => $group) {
 				* content id selected
 				*/
 				if($tool['tool'] == 'move-item' && $this->div_id != NULL && 
+					$this->content_row_id != NULL && 
+					$this->content_id != NULL) {
+						
+					$show = TRUE;
+				}
+				
+				/**
+				* Show move item tool if content area, content row and 
+				* content id selected
+				*/
+				if($tool['tool'] == 'select' && $this->div_id != NULL && 
 					$this->content_row_id != NULL && 
 					$this->content_id != NULL) {
 						
