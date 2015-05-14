@@ -844,19 +844,23 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	}
 	
 	/**
-	* Fetch the content type by the content id
+	* Fetch the content type and content manager tool for the given content id
 	* 
 	* @param integer $site_id
 	* @param integer $page_id
 	* @param integer $content_id
-	* @return string|FALSE Content type for given content id
+	* @return array|FALSE Either returns an array containing tool and content 
+	* 	content type or FALSE if data cannot be fetched
 	*/
-	public function contentTypeByContentId($site_id, $page_id, $content_id) 
+	public function contentTypeAndToolByContentId($site_id, $page_id, 
+		$content_id) 
 	{
-		$sql = 'SELECT dct.`name` 
+		$sql = 'SELECT dct.`name` AS content_type, dmt.tool 
 				FROM user_site_page_content_item uspci 
 				JOIN designer_content_type dct 
 					ON uspci.content_type = dct.id 
+				JOIN dlayer_module_tool dmt 
+					ON dct.tool_id = dmt.id 
 				WHERE uspci.site_id = :site_id 
 				AND uspci.page_id = :page_id 
 				AND uspci.id = :content_id';
@@ -869,7 +873,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$result = $stmt->fetch();
 		
 		if($result != FALSE) {
-			return $result['name'];
+			return $result;
 		} else {
 			return FALSE;
 		}

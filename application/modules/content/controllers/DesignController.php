@@ -488,6 +488,8 @@ class Content_DesignController extends Zend_Controller_Action
 	public function setSelectedDivAction()
 	{
 		$this->_helper->disableLayout(FALSE);
+		
+		$this->session_content->clearAll();
 
 		$id = $this->getRequest()->getParam('selected');
 		$this->session_content->setDivId($id);

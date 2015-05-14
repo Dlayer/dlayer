@@ -96,6 +96,10 @@ class Dlayer_Ribbon_Data_Content
 			case 'import-jumbotron':
 				$data = $this->importJumbotron();
 				break;
+				
+			case 'select':
+				$data = $this->select();
+				break;
 
 			default:
 				$data = FALSE;
@@ -408,6 +412,38 @@ class Dlayer_Ribbon_Data_Content
 				$ribbon_styling = 
 					new Dlayer_Ribbon_Content_Styling_Image();
 				$data = $ribbon_styling->viewData($this->site_id, 
+					$this->page_id, $this->div_id, $this->tool, $this->tab, 
+					$this->multi_use, $this->edit_mode, $this->content_row_id, 
+					$this->content_id);
+				break;
+			
+			/**
+			* No need to return any data to generate the view script, typically
+			* this will be for help tabs	
+			*/
+			default:
+				$data = FALSE;
+				break;
+		}
+
+		return $data;
+	}
+	
+	/**
+	* Fetch the view tab data for the select parent tool
+	* 
+	* @return array|FALSE 
+	*/
+	private function select() 
+	{
+		switch($this->tab) {
+			/**
+			* Fetch the data for the select tab, returns all the ids required 
+			* to generate the links
+			*/
+			case 'select':
+				$ribbon_select = new Dlayer_Ribbon_Content_Select();
+				$data = $ribbon_select->viewData($this->site_id, 
 					$this->page_id, $this->div_id, $this->tool, $this->tab, 
 					$this->multi_use, $this->edit_mode, $this->content_row_id, 
 					$this->content_id);

@@ -104,7 +104,7 @@ foreach($this->tools as $group_id => $group) {
 
 		if($show == TRUE) {
 			if($this->content_id != NULL) {
-				if($tool['tool'] != 'move-item') {
+				if(in_array($tool['tool'], array('move-item', 'select')) == FALSE) {
 					$reset = '/reset/1';
 				}
 			}
