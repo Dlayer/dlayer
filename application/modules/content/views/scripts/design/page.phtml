@@ -4,7 +4,11 @@
 
 <style>
 #design > div.content-manager * {
-	font-family: <?php echo $this->base_font_family; ?>;
+	font-family: <?php echo $this->base_font_family_content; ?>;
+}
+
+#design > div.content-manager div.imported-form * {
+	font-family: <?php echo $this->base_font_family_form; ?>;
 }
 
 <?php foreach($this->heading_styles as $heading) { ?>
