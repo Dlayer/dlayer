@@ -8,7 +8,7 @@
 }
 
 <?php foreach($this->heading_styles as $heading) { ?>
-#designer > #page <?php echo $this->escape($heading['tag']); ?> {
+#design > div.content-manager <?php echo $this->escape($heading['tag']); ?> {
 	<?php if($heading['style'] != 'normal') { ?>
 	font-style: <?php echo $this->escape($heading['style']); ?>;
 	<?php } ?>
