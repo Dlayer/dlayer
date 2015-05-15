@@ -187,6 +187,23 @@ class Dlayer_Form_Content_ImportJumbotron extends Dlayer_Form_Module_Content
 		$sub_title->setRequired();
 
 		$this->elements['sub_title'] = $sub_title;
+		
+		$button_label = new Zend_Form_Element_Text('button_label');
+		$button_label->setLabel('Button label');
+		$button_label->setAttribs(array('size'=>50, 'maxlength'=>255,  
+			'placeholder'=>'e.g., Download the specification', 
+			'class'=>'form-control input-sm'));
+		$button_label->setDescription('You can optionally add a button to the 
+			jumbotron, enter the label here. (Currently no way to add a link)');
+		$button_label->setBelongsTo('params');
+		
+		if(array_key_exists('button_label', $this->content_item) == TRUE 
+			&& $this->content_item['button_label'] != FALSE) {
+			
+			$button_label->setValue($this->content_item['button_label']);
+		}
+
+		$this->elements['button_label'] = $button_label;
 				
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));

@@ -137,6 +137,14 @@ class Dlayer_View_ContentJumbotron extends Zend_View_Helper_Abstract
 		$html .= '>';
 		$html .= '<h1>' . $this->view->escape($this->data['title']) . '</h1>';
 		$html .= '<p>' . $this->view->escape($this->data['sub_title']) . '</p>';
+		
+		if(strlen($this->data['button_label']) > 0) { 
+			$html .= '<p><a class="btn btn-primary btn-lg" '; 
+			$html .= 'href="#" role="button">'; 
+			$html .= $this->view->escape($this->data['button_label']);
+			$html .= '</a></p>';
+		}
+		
 		$html .= '</div>';
 		$html .= '</div>';
 

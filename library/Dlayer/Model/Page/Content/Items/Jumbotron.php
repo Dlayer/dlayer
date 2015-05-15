@@ -23,7 +23,8 @@ extends Dlayer_Model_Page_Content_Item
 	public function formData($site_id, $page_id, $div_id, $content_row_id, 
 		$content_id)
 	{
-		$sql = "SELECT uspci.id, uscj.`name`, uscj.content AS title
+		$sql = "SELECT uspci.id, uscj.`name`, uscj.content AS title, 
+				uspcij.button_label 
 				FROM user_site_page_content_item_jumbotron uspcij 
 				JOIN user_site_page_content_item uspci 
 					ON uspcij.content_id = uspci.id 
@@ -116,14 +117,16 @@ extends Dlayer_Model_Page_Content_Item
 		}
 		
 		$sql = "INSERT INTO user_site_page_content_item_jumbotron 
-				(site_id, page_id, content_id, data_id)
+				(site_id, page_id, content_id, data_id, button_label)
 				VALUES
-				(:site_id, :page_id, :content_id, :data_id)";
+				(:site_id, :page_id, :content_id, :data_id, :button_label)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
+		$stmt->bindValue(':button_label', $params['button_label'], 
+			PDO::PARAM_STR);
 		$stmt->execute();
 	}
 	
@@ -221,7 +224,8 @@ extends Dlayer_Model_Page_Content_Item
 		}
 		
 		$sql = "UPDATE user_site_page_content_item_jumbotron 
-				SET data_id = :data_id 
+				SET data_id = :data_id, 
+				button_label = :button_label 
 				WHERE site_id = :site_id
 				AND page_id = :page_id
 				AND content_id = :content_id
@@ -231,6 +235,8 @@ extends Dlayer_Model_Page_Content_Item
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->bindValue(':button_label', $params['button_label'], 
+			PDO::PARAM_STR);
 		$stmt->execute();
 	}
 	

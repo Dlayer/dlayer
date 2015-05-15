@@ -26,7 +26,8 @@ class Dlayer_Tool_Content_ImportJumbotron extends Dlayer_Tool_Module_Content
 	{
 		if(array_key_exists('name', $params) == TRUE && 
 			array_key_exists('title', $params) == TRUE && 
-			array_key_exists('sub_title', $params) == TRUE) {
+			array_key_exists('sub_title', $params) == TRUE && 
+			array_key_exists('button_label', $params) == TRUE) {
 			
 			return TRUE;
 		} else {
@@ -55,7 +56,8 @@ class Dlayer_Tool_Content_ImportJumbotron extends Dlayer_Tool_Module_Content
 		
 		if(strlen(trim($params['name'])) > 0 && 
 			strlen(trim($params['title'])) > 0 && 
-			strlen(trim($params['sub_title'])) > 0) {
+			strlen(trim($params['sub_title'])) > 0 && 
+			strlen(trim($params['button_label'])) >= 0) {
 			
 			$valid = TRUE;
 		}
@@ -76,7 +78,8 @@ class Dlayer_Tool_Content_ImportJumbotron extends Dlayer_Tool_Module_Content
 		$prepared = array(
 			'name'=>trim($params['name']),
 			'title'=>trim($params['title']), 
-			'sub_title'=>trim($params['sub_title']));
+			'sub_title'=>trim($params['sub_title']), 
+			'button_label'=>trim($params['button_label']));
 
 		return $prepared;
 	}

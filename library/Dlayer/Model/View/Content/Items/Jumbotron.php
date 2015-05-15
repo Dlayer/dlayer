@@ -26,7 +26,7 @@ class Dlayer_Model_View_Content_Items_Jumbotron extends Zend_Db_Table_Abstract
 	private function item($site_id, $page_id, $content_id)
 	{
 		$sql = "SELECT uspcij.content_id, uscj.content AS title, uspcis.size, 
-				uspcis.offset 
+				uspcis.offset, uspcij.button_label 
 				FROM user_site_page_content_item_jumbotron uspcij 
 				JOIN user_site_content_jumbotron uscj 
 					ON uspcij.data_id = uscj.id 

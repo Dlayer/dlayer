@@ -49,7 +49,7 @@ class Dlayer_Ribbon_Content_Jumbotron extends Dlayer_Ribbon_Module_Content
 	protected function contentItem()
 	{	
 		$data = array('id'=>FALSE, 'name'=>FALSE, 'title'=>FALSE, 
-			'sub_title'=>FALSE);
+			'sub_title'=>FALSE, 'button_label'=>FALSE);
 
 		if($this->content_id != NULL) {
 			$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
