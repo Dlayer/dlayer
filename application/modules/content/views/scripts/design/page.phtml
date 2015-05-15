@@ -3,14 +3,17 @@
 ?>
 
 <style>
+/*Content font family setting, defined in settings*/
 #design > div.content-manager * {
 	font-family: <?php echo $this->base_font_family_content; ?>;
 }
 
+/*Form font family setting, defined in settings*/
 #design > div.content-manager div.imported-form * {
 	font-family: <?php echo $this->base_font_family_form; ?>;
 }
 
+/*Heading styles define in settings*/
 <?php foreach($this->heading_styles as $heading) { ?>
 #design > div.content-manager <?php echo $this->escape($heading['tag']); ?> {
 	<?php if($heading['style'] != 'normal') { ?>
@@ -25,18 +28,20 @@
 }
 <?php } ?>
 
+/*Styles defined in form builder*/
 <?php
-/*foreach ($this->form_field_styles as $form_id => $form_styles) {
+foreach ($this->form_styles as $form_id => $form_styles) {
 	foreach($form_styles as $field_id => $field_styles) {
 		if(count($field_styles) > 0) {
-			echo '.form_' . $form_id . ' .row_' . $field_id . " {\r\n";
+			echo 'div.content-manager .content-' . $form_id . 
+				' .field_row.row_' . $field_id . " {\r\n";
 			foreach($field_styles as $style) {
 				echo $style . ";\r\n";
 			}
 			echo "}\r\n";
 		}
 	}
-} */
+} 
 ?>
 
 </style>

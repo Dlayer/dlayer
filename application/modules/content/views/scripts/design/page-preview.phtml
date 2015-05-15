@@ -22,12 +22,19 @@ $(document).ready(function() {
 </script>
 
 <style>
-#design > div.content-manager * {
-	font-family: <?php echo $this->base_font_family; ?>;
+/*Content font family setting, defined in settings*/
+div.container-fixed * {
+	font-family: <?php echo $this->base_font_family_content; ?>;
 }
 
+/*Form font family setting, defined in settings*/
+div.container-fixed div.imported-form * {
+	font-family: <?php echo $this->base_font_family_form; ?>;
+}
+
+/*Heading styles define in settings*/
 <?php foreach($this->heading_styles as $heading) { ?>
-#designer > #page <?php echo $this->escape($heading['tag']); ?> {
+div.container-fixed <?php echo $this->escape($heading['tag']); ?> {
 	<?php if($heading['style'] != 'normal') { ?>
 	font-style: <?php echo $this->escape($heading['style']); ?>;
 	<?php } ?>
@@ -39,6 +46,22 @@ $(document).ready(function() {
 	font-size: <?php echo $this->escape($heading['size']); ?>px;
 }
 <?php } ?>
+
+/*Styles defined in form builder*/
+<?php
+foreach ($this->form_styles as $form_id => $form_styles) {
+	foreach($form_styles as $field_id => $field_styles) {
+		if(count($field_styles) > 0) {
+			echo 'div.container-fixed .content-' . $form_id . 
+				' .field_row.row_' . $field_id . " {\r\n";
+			foreach($field_styles as $style) {
+				echo $style . ";\r\n";
+			}
+			echo "}\r\n";
+		}
+	}
+} 
+?>
 
 </style>
 

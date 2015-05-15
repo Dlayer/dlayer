@@ -66,8 +66,8 @@ class Dlayer_Designer_Page
 			new Dlayer_Model_View_Content_ContainerStyles();
 		$this->model_content_styles = 
 			new Dlayer_Model_View_Content_ItemStyles();
-
-		//$this->model_form_styles = new Dlayer_Model_View_Content_Styles_Forms();
+		$this->model_form_styles = 
+			new Dlayer_Model_View_Content_Styles_Forms();
 	}
 
 	/**
@@ -99,6 +99,18 @@ class Dlayer_Designer_Page
 
 		return $this->template_styles;
 	}*/
+	
+	/**
+	* Fetch the styles for all the assigned forms
+	* 
+	* @return array Array contains the styles for all the forms assigned to the 
+	* 	content page
+	*/
+	public function formStyles() 
+	{
+		return $this->model_form_styles->fieldStyles($this->site_id, 
+			$this->page_id);
+	}
 
 	/**
 	* Fetch all the page content that has been assigned to the selected

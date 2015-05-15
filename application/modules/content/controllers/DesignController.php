@@ -410,7 +410,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_container_styles = 
 			$designer_page->contentContainerStyles();
 		$this->view->content_styles = $designer_page->contentItemStyles();
-		$this->view->form_field_styles = array();
+		$this->view->form_styles = $designer_page->formStyles();
 		
 		/**
 		* Set the designer environment vars
@@ -446,8 +446,10 @@ class Content_DesignController extends Zend_Controller_Action
 		$model_settings = new Dlayer_Model_View_Settings();
 
 		$this->view->heading_styles = $model_settings->headingStyles($site_id);
-		$this->view->base_font_family = $model_settings->baseFontFamily(
+		$this->view->base_font_family_content = $model_settings->baseFontFamily(
 			$site_id, 'content');
+		$this->view->base_font_family_form = $model_settings->baseFontFamily(
+			$site_id, 'form');
 
 		/**
 		* Set the base page details, template structure, content rows and 
@@ -466,7 +468,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_container_styles = 
 			$designer_page->contentContainerStyles();
 		$this->view->content_styles = $designer_page->contentItemStyles();
-		$this->view->form_field_styles = array();
+		$this->view->form_styles = $designer_page->formStyles();
 		
 		/**
 		* Set the designer environment vars
