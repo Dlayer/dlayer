@@ -142,4 +142,15 @@ class Content_AjaxController extends Zend_Controller_Action
 		
 		echo Zend_Json::encode($json);
 	}
+	
+	/**
+	* Colour picker ajax request
+	* 
+	* Needs to either default all the values or just present the initial 
+	* category select
+	*/
+	function colorPickerAction() 
+	{
+		
+	}
 }
