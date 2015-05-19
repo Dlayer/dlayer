@@ -2670,9 +2670,9 @@ var dlayer = {
 		},
 		
 		/**
-		* Open the image picker, the state of the colour picker is worked 
-		* out by the AJAX action, it checks the dlayer session to see what 
-		* variables are set
+		* Open the image picker, the state of the image is calculated by 
+		* the action, it checks to see what session values are set and 
+		* generates the picker based on those vars
 		*
 		* @returns {Void}
 		*/
@@ -2690,6 +2690,18 @@ var dlayer = {
 					$('.image-picker-tool .loading').hide();
 					$('.image-picker-tool .form').html(html);
 				});
+			});
+		},
+		
+		/**
+		* Close the image picker
+		* 
+		* @returns {Void}
+		*/
+		imagePickerClose: function() 
+		{
+			$(".image-picker-tool .close").on("click", function() {
+				$('.image-picker-tool').hide();
 			});
 		}
 	}

@@ -153,13 +153,63 @@ class Content_AjaxController extends Zend_Controller_Action
 	*/
 	function imagePickerAction() 
 	{
+		$this->getResponse()->setHeader('Content-Type', 'application/html');
+		
 		$site_id = $this->session_dlayer->siteId();
 		
-		$category_id = $this->getRequest()->getParam('category_id', FALSE);
-		$sub_category_id = $this->getRequest()->getParam('sub_category_id', FALSE);
-		$image_id = $this->getRequest()->getParam('image_id', FALSE);
-		$version_id = $this->getRequest()->getParam('version_id', FALSE);
+		$category_id = $this->session_designer->imagePickerCategoryId();
+		$sub_category_id = $this->session_designer->imagePickerCategoryId();
+		$image_id = $this->session_designer->imagePickerCategoryId();
+		
+		$this->view->category = $this->imagePickerCategory($category_id);
+		$this->view->sub_category = $this->imagePickerSubCategory(
+			$sub_category_id, NULL);
+		$this->view->images = $this->imagePickerImages($image_id, NULL, NULL);
 		
 		echo $this->view->render('ajax/image-picker.phtml');
+	}
+	
+	/**
+	* Image picker category
+	* 
+	* @param integer|NULL $category_id
+	* @return string
+	*/
+	function imagePickerCategory($category_id) 
+	{
+		return $this->view->render('ajax/image-picker-category.phtml');
+	}
+	
+	/**
+	* Image picker sub category
+	* 
+	* @param integer|NULL $category_id 
+	* @param integer|NULL $sub_category_id
+	* @return string
+	*/
+	function imagePickerSubCategory($category_id, $sub_category_id) 
+	{
+		if($category_id == NULL) {
+			return NULL;
+		} else {
+			return $this->view->render('ajax/image-picker-sub-category.phtml');
+		}
+	}
+	
+	/**
+	* Image picker image list
+	* 
+	* @param integer|NULL $category_id
+	* @param integer|NULL $sub_category_id
+	* @param integer|NULL $image_id
+	* @return string
+	*/
+	function imagePickerImages($category_id, $sub_category_id, $image_id) 
+	{
+		if($category_id == NULL && $sub_category_id == NULL) {
+			return NULL;
+		} else {
+			return $this->view->render('ajax/image-picker-images.phtml');
+		}
 	}
 }
