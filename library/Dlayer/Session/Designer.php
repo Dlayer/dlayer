@@ -43,6 +43,48 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	{
 		return $this->image_picker_category_id = intval($id);
 	}
+	
+	/**
+	* Get the currently set image picker sub category id
+	*
+	* @return integer|NULL
+	*/
+	public function imagePickerSubCategoryId()
+	{
+		return $this->image_picker_sub_category_id;
+	}
+	
+	/**
+	* Set the sub category id for the image picker
+	* 
+	* @param integer $id
+	* @return void
+	*/
+	public function setImagePickerSubCategoryId($id) 
+	{
+		return $this->image_picker_sub_category_id = intval($id);
+	}
+
+	/**
+	* Set the image id for the image picker
+	* 
+	* @param integer $id
+	* @return void
+	*/
+	public function setImagePickerImageId($id) 
+	{
+		return $this->image_picker_image_id = intval($id);
+	}
+	
+	/**
+	* Get the currently set image picker image id
+	*
+	* @return integer|NULL
+	*/
+	public function imagePickerImageId()
+	{
+		return $this->image_picker_image_id;
+	}
 
 	/**
 	* Clear all the session values

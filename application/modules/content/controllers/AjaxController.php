@@ -158,13 +158,14 @@ class Content_AjaxController extends Zend_Controller_Action
 		$site_id = $this->session_dlayer->siteId();
 		
 		$category_id = $this->session_designer->imagePickerCategoryId();
-		$sub_category_id = $this->session_designer->imagePickerCategoryId();
-		$image_id = $this->session_designer->imagePickerCategoryId();
+		$sub_category_id = $this->session_designer->imagePickerSubCategoryId();
+		$image_id = $this->session_designer->imagePickerImageId();
 		
 		$this->view->category = $this->imagePickerCategory($category_id);
 		$this->view->sub_category = $this->imagePickerSubCategory(
-			$sub_category_id, NULL);
-		$this->view->images = $this->imagePickerImages($image_id, NULL, NULL);
+			$category_id, $sub_category_id);
+		$this->view->images = $this->imagePickerImages($category_id, 
+			$sub_category_id, $image_id);
 		
 		echo $this->view->render('ajax/image-picker.phtml');
 	}
