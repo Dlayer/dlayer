@@ -85,6 +85,42 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	{
 		return $this->image_picker_image_id;
 	}
+	
+	public function clearImagePickerCategoryId() 
+	{
+		$this->clearAllImagePicker();
+	}
+	
+	public function clearImagePickerSubCategoryId() 
+	{
+		$this->image_picker_sub_category_id = NULL;
+		$this->image_picker_image_id = NULL;
+		$this->image_picker_version_id = NULL;
+	}
+	
+	public function clearImagePickerImageId() 
+	{
+		$this->image_picker_image_id = NULL;
+		$this->image_picker_version_id = NULL;
+	}
+	
+	public function clearImagePickerVersionId() 
+	{
+		$this->image_picker_version_id = NULL;
+	}
+	
+	/**
+	* Clear all the session values for Image picker
+	* 
+	* @return void
+	*/
+	public function clearAllImagePicker() 
+	{
+		$this->image_picker_category_id = NULL;
+		$this->image_picker_sub_category_id = NULL;
+		$this->image_picker_image_id = NULL;
+		$this->image_picker_version_id = NULL;
+	}
 
 	/**
 	* Clear all the session values
@@ -93,9 +129,6 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	*/
 	public function clearAll() 
 	{
-		$this->image_picker_category_id = NULL;
-		$this->image_picker_sub_category_id = NULL;
-		$this->image_picker_image_id = NULL;
-		$this->image_picker_version_id = NULL;
+		$this->clearAllImagePicker();
 	}
 }
