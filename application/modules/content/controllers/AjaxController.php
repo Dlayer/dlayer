@@ -18,6 +18,7 @@ class Content_AjaxController extends Zend_Controller_Action
 
 	private $session_dlayer;
 	private $session_content;
+	private $session_designer;
 
 	/**
 	* Initialise the controller, run any required set up code and set
@@ -39,6 +40,7 @@ class Content_AjaxController extends Zend_Controller_Action
 
 		$this->session_dlayer = new Dlayer_Session();
 		$this->session_content = new Dlayer_Session_Content();
+		$this->session_designer = new Dlayer_Session_Designer();
 	}
 	
 	/**
@@ -144,13 +146,20 @@ class Content_AjaxController extends Zend_Controller_Action
 	}
 	
 	/**
-	* Colour picker ajax request
+	* Image picker ajax request
 	* 
 	* Needs to either default all the values or just present the initial 
 	* category select
 	*/
-	function colorPickerAction() 
+	function imagePickerAction() 
 	{
+		$site_id = $this->session_dlayer->siteId();
 		
+		$category_id = $this->getRequest()->getParam('category_id', FALSE);
+		$sub_category_id = $this->getRequest()->getParam('sub_category_id', FALSE);
+		$image_id = $this->getRequest()->getParam('image_id', FALSE);
+		$version_id = $this->getRequest()->getParam('version_id', FALSE);
+		
+		echo $this->view->render('ajax/image-picker.phtml');
 	}
 }

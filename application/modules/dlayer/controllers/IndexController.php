@@ -424,6 +424,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$session_form = new Dlayer_Session_Form();
 		$session_content = new Dlayer_Session_Content();
 		$session_image = new Dlayer_Session_Image();
+		$session_designer = new Dlayer_Session_Designer();
 		$session_dlayer = new Dlayer_Session();
 
 		$model_authentication = new Dlayer_Model_Authentication();
@@ -433,6 +434,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$session_form->clearAll(TRUE);
 		$session_content->clearAll(TRUE);
 		$session_dlayer->clearAll();
+		$session_designer->clearAll();
 		$session_image->clearAll();
 
 		$this->_redirect('/dlayer');

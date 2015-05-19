@@ -2667,6 +2667,30 @@ var dlayer = {
 					dlayer.designers.color_picker_close();
 				}
 			);
+		},
+		
+		/**
+		* Open the image picker, the state of the colour picker is worked 
+		* out by the AJAX action, it checks the dlayer session to see what 
+		* variables are set
+		*
+		* @returns {Void}
+		*/
+		imagePickerOpen: function()
+		{
+			$(".open-image-picker-tool").on("click", function() {
+				
+				$('.image-picker-tool').show();
+				
+				$.ajax({
+					url: '/content/ajax/image-picker',
+					mehtod: 'GET',
+					dataType: 'html'
+				}).done(function(html) {
+					$('.image-picker-tool .loading').hide();
+					$('.image-picker-tool .form').html(html);
+				});
+			});
 		}
 	}
 }
