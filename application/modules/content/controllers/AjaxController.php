@@ -155,6 +155,11 @@ class Content_AjaxController extends Zend_Controller_Action
 	{
 		$this->getResponse()->setHeader('Content-Type', 'application/html');
 		
+		$category_id = $this->getRequest()->getParam('category_id');
+		if($category_id != NULL) {
+			$this->session_designer->setImagePickerCategoryId(intval($category_id));
+		}
+		
 		$site_id = $this->session_dlayer->siteId();
 		
 		$category_id = $this->session_designer->imagePickerCategoryId();
@@ -178,6 +183,23 @@ class Content_AjaxController extends Zend_Controller_Action
 	*/
 	function imagePickerCategory($category_id) 
 	{
+		$site_id = $this->session_dlayer->siteId();
+		$show_options = TRUE;
+		
+		$model_image_picker = new Dlayer_Model_ImagePicker();
+		
+		if($category_id == NULL) {
+			$this->view->categories = $model_image_picker->categories($site_id);
+		} else {
+			$show_options = FALSE;
+			$this->view->category = $model_image_picker->category($site_id, 
+				$category_id);
+		}
+		
+		$this->view->show_options = $show_options;
+		
+		$categories = $model_image_picker->categories($site_id);
+		
 		return $this->view->render('ajax/image-picker-category.phtml');
 	}
 	
@@ -190,9 +212,22 @@ class Content_AjaxController extends Zend_Controller_Action
 	*/
 	function imagePickerSubCategory($category_id, $sub_category_id) 
 	{
-		if($category_id == NULL) {
+		$site_id = $this->session_dlayer->siteId();
+		$show_options = TRUE;
+		
+		if($category_id == NULL && $sub_category_id == NULL) {
 			return NULL;
 		} else {
+			
+			if($sub_category_id == NULL) {
+				// Fetch options				
+			} else {
+				$show_options = FALSE;
+				// Fetch category
+			}
+			
+			$this->view->show_options = $show_options;			
+			
 			return $this->view->render('ajax/image-picker-sub-category.phtml');
 		}
 	}

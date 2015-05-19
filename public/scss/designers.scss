@@ -287,3 +287,11 @@ div.color_picker_tool {
 		}
 	}
 }
+
+div.image-picker-tool {
+	display: none;
+	
+	span.image-picker-category {
+		cursor: pointer;
+	}
+}

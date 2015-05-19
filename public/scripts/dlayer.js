@@ -2703,6 +2703,35 @@ var dlayer = {
 			$(".image-picker-tool .close").on("click", function() {
 				$('.image-picker-tool').hide();
 			});
-		}
+		},
+		
+		/**
+		* Open the image picker, the state of the image is calculated by 
+		* the action, it checks to see what session values are set and 
+		* generates the picker based on those vars
+		*
+		* @returns {Void}
+		*/
+		imagePickerSetCategory: function()
+		{
+			$("#ip-category").on("change", function() {
+				
+				var category_id = $('#ip-category').val();
+				
+				if(category_id != 'null') {
+					$('.image-picker-tool').show();
+					
+					$.ajax({
+						url: '/content/ajax/image-picker',
+						mehtod: 'GET',
+						data: { category_id: category_id },
+						dataType: 'html'
+					}).done(function(html) {
+						$('.image-picker-tool .loading').hide();
+						$('.image-picker-tool .form').html(html);
+					});
+				}
+			});
+		},
 	}
 }

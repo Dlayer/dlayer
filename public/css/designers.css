@@ -143,4 +143,9 @@ div.color_picker_tool {
     float: left;
     width: 100%; }
 
+div.image-picker-tool {
+  display: none; }
+  div.image-picker-tool span.image-picker-category {
+    cursor: pointer; }
+
 /*# sourceMappingURL=designers.css.map */
