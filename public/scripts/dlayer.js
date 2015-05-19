@@ -2706,9 +2706,8 @@ var dlayer = {
 		},
 		
 		/**
-		* Open the image picker, the state of the image is calculated by 
-		* the action, it checks to see what session values are set and 
-		* generates the picker based on those vars
+		* When the user selects a category redo the ajax load sending 
+		* the category id
 		*
 		* @returns {Void}
 		*/

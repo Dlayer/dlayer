@@ -184,23 +184,17 @@ class Content_AjaxController extends Zend_Controller_Action
 	function imagePickerCategory($category_id) 
 	{
 		$site_id = $this->session_dlayer->siteId();
-		$show_options = TRUE;
 		
 		$model_image_picker = new Dlayer_Model_ImagePicker();
 		
 		if($category_id == NULL) {
 			$this->view->categories = $model_image_picker->categories($site_id);
+			return $this->view->render('ajax/image-picker-categories.phtml');
 		} else {
-			$show_options = FALSE;
 			$this->view->category = $model_image_picker->category($site_id, 
 				$category_id);
+			return $this->view->render('ajax/image-picker-category.phtml');
 		}
-		
-		$this->view->show_options = $show_options;
-		
-		$categories = $model_image_picker->categories($site_id);
-		
-		return $this->view->render('ajax/image-picker-category.phtml');
 	}
 	
 	/**
@@ -213,22 +207,22 @@ class Content_AjaxController extends Zend_Controller_Action
 	function imagePickerSubCategory($category_id, $sub_category_id) 
 	{
 		$site_id = $this->session_dlayer->siteId();
-		$show_options = TRUE;
 		
-		if($category_id == NULL && $sub_category_id == NULL) {
+		if($category_id == NULL) {
+			// No category chosen
 			return NULL;
 		} else {
-			
 			if($sub_category_id == NULL) {
-				// Fetch options				
+				
+				// Return the sub category select
+				return $this->view->render(
+					'ajax/image-picker-sub-categories.phtml');
 			} else {
-				$show_options = FALSE;
-				// Fetch category
+				
+				// Return the sub category name
+				return $this->view->render(
+					'ajax/image-picker-sub-category.phtml');
 			}
-			
-			$this->view->show_options = $show_options;			
-			
-			return $this->view->render('ajax/image-picker-sub-category.phtml');
 		}
 	}
 	
@@ -242,10 +236,22 @@ class Content_AjaxController extends Zend_Controller_Action
 	*/
 	function imagePickerImages($category_id, $sub_category_id, $image_id) 
 	{
-		if($category_id == NULL && $sub_category_id == NULL) {
+		if($category_id == NULL) {
+			//	No category		
 			return NULL;
 		} else {
-			return $this->view->render('ajax/image-picker-images.phtml');
+			if($sub_category_id == NULL) {
+				// No sub category
+				return NULL;
+			} else {
+				if($image_id == NULL) {
+					// No image
+					return $this->view->render('ajax/image-picker-images.phtml');
+				} else {
+					// Image
+					return $this->view->render('ajax/image-picker-images.phtml');					
+				}
+			}
 		}
 	}
 }
