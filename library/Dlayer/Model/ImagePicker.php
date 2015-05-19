@@ -15,13 +15,15 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 	* to them along witrh the number of images in each category
 	* 
 	* @param integer $site_id
-	* @return array Simple array to be passed to a select input object
+	* @return array Simple array to be passed to a select input 
 	*/
 	public function categories($site_id) 
 	{
-		$sql = 'SELECT usilc.id, usilc.`name`, COUNT(usil.id) AS number_of_images  
+		$sql = 'SELECT usilc.id, usilc.`name`, 
+					COUNT(usil.id) AS number_of_images 
 				FROM user_site_image_library usil 
-				JOIN user_site_image_library_category usilc ON usil.category_id = usilc.id 
+				JOIN user_site_image_library_category usilc 
+					ON usil.category_id = usilc.id 
 					AND usilc.site_id = :site_id 
 				WHERE usil.site_id = :site_id 
 				GROUP BY usil.category_id 
@@ -56,4 +58,14 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 			'number_of_images'=>6
 		);
 	}
+	
+	/**
+	* Fetch the sub category from the image library for the requested site id 
+	* and category id that have images. An all category should be appended to 
+	* to the array
+	* 
+	* @param integer $site_id
+	* @param integer $category_id
+	* @return array Simple array to be assign to a select input 
+	*/
 }
