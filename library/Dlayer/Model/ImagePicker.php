@@ -68,4 +68,8 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 	* @param integer $category_id
 	* @return array Simple array to be assign to a select input 
 	*/
+	public function subCategories($site_id, $category_id) 
+	{
+		
+	}
 }
