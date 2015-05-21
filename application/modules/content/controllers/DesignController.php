@@ -23,6 +23,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 	private $session_dlayer;
 	private $session_content;
+	private $session_designer;
 
 	private $layout;
 
@@ -44,6 +45,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$this->session_dlayer = new Dlayer_Session();
 		$this->session_content = new Dlayer_Session_Content();
+		$this->session_designer = new Dlayer_Session_Designer();
 
 		// Include js and css files in layout
 		$this->layout = Zend_Layout::getMvcInstance();
@@ -652,6 +654,8 @@ class Content_DesignController extends Zend_Controller_Action
 	private function cancelTool()
 	{
 		$this->session_content->clearAll();
+		$this->session_designer->clearAllImagePicker();
+		
 		$this->_redirect('/content/design');
 	}
 	

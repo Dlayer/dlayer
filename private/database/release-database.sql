@@ -313,7 +313,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-05-15 12:31:12','2015-05-15 13:00:46',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-04-23 11:58:19','2015-04-23 12:01:04',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-04-23 12:01:17','2015-04-23 12:03:24',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-05-21 15:59:55','2015-05-21 16:01:03',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-04-23 11:58:19','2015-04-23 12:01:04',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-04-23 12:01:17','2015-04-23 12:03:24',1);
 
 /*Table structure for table `dlayer_module` */
 
@@ -409,7 +409,7 @@ CREATE TABLE `dlayer_session` (
 
 /*Data for the table `dlayer_session` */
 
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('1g92ldopla00kt6kna7nhfqsk4','','PHPSESSID',1431559021,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1431562621;}}'),('lbbve5v0ig6cqbtt03a0mfm2h3','','PHPSESSID',1431881830,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1431885430;}}'),('mahvid2e290sqjda9nqjpvmss6','','PHPSESSID',1431685184,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1431688784;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1431687734;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1431687734;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1431687734;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1431687734;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:9:\"Jumbotron\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"form_id\";N;s:6:\"return\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}'),('rkls3nc716rm80d3lvuomgmke1','','PHPSESSID',1431532003,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1431535603;}}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('1g92ldopla00kt6kna7nhfqsk4','','PHPSESSID',1431559021,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1431562621;}}'),('choa4ergdl341oh6i43n29hen3','','PHPSESSID',1431964520,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1431968120;}}'),('ed1uo7ta7m0afn0eud3pd9h1l4','','PHPSESSID',1432220464,3601,'__ZF|a:6:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1432224064;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1432224064;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1432224064;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1432224064;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1432224064;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1432224064;}}dlayer_session_content|a:7:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"form_id\";N;s:6:\"return\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}'),('lbbve5v0ig6cqbtt03a0mfm2h3','','PHPSESSID',1431882210,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1431885810;}}'),('mahvid2e290sqjda9nqjpvmss6','','PHPSESSID',1431685184,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1431688784;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1431687734;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1431687734;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1431687734;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1431687734;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;s:10:\"tool_model\";s:9:\"Jumbotron\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"form_id\";N;s:6:\"return\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}'),('rkls3nc716rm80d3lvuomgmke1','','PHPSESSID',1431532003,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1431535603;}}');
 
 /*Table structure for table `dlayer_setting` */
 
@@ -821,7 +821,7 @@ CREATE TABLE `user_site_image_library` (
 
 /*Data for the table `user_site_image_library` */
 
-insert  into `user_site_image_library`(`id`,`site_id`,`name`,`description`,`category_id`,`sub_category_id`) values (1,1,'Autumn path','Public domain image.',1,1),(2,1,'Downtown Boston','Public domain image.',1,1),(3,1,'Horses','Public domain image.',1,1),(4,1,'Old lantern and brush','Public domain image.',1,1),(5,1,'Robin','Public domain image.',1,1),(6,1,'Signs','Public domain image.',1,1),(7,1,'Spring coffee','Public domain image.',1,1),(8,3,'Autumn path','Public domain image.',3,3),(9,3,'Downtown Boston','Public domain image.',3,3),(10,3,'Horses','Public domain image.',3,3),(11,3,'Old lantern and brush','Public domain image.',3,3),(12,3,'Robin','Public domain image.',3,3),(13,3,'Signs','Public domain image.',3,3),(14,3,'Spring coffee','Public domain image.',3,3),(15,2,'Autumn path','Public domain image.',2,2),(16,2,'Downtown Boston','Public domain image.',2,2),(17,2,'Horses','Public domain image.',2,2),(18,2,'Old lantern and brush','Public domain image.',2,2),(19,2,'Robin','Public domain image.',2,2),(20,2,'Signs','Public domain image.',2,2),(21,2,'Spring coffee','Public domain image.',2,2),(22,1,'Autumn path - Clone','Clone or original image.',1,1);
+insert  into `user_site_image_library`(`id`,`site_id`,`name`,`description`,`category_id`,`sub_category_id`) values (1,1,'Autumn path','Public domain image.',1,1),(2,1,'Downtown Boston','Public domain image.',1,1),(3,1,'Horses','Public domain image.',4,4),(4,1,'Old lantern and brush','Public domain image.',1,1),(5,1,'Robin','Public domain image.',4,4),(6,1,'Signs','Public domain image.',1,1),(7,1,'Spring coffee','Public domain image.',1,1),(8,3,'Autumn path','Public domain image.',3,3),(9,3,'Downtown Boston','Public domain image.',3,3),(10,3,'Horses','Public domain image.',3,3),(11,3,'Old lantern and brush','Public domain image.',3,3),(12,3,'Robin','Public domain image.',3,3),(13,3,'Signs','Public domain image.',3,3),(14,3,'Spring coffee','Public domain image.',3,3),(15,2,'Autumn path','Public domain image.',2,2),(16,2,'Downtown Boston','Public domain image.',2,2),(17,2,'Horses','Public domain image.',2,2),(18,2,'Old lantern and brush','Public domain image.',2,2),(19,2,'Robin','Public domain image.',2,2),(20,2,'Signs','Public domain image.',2,2),(21,2,'Spring coffee','Public domain image.',2,2),(22,1,'Autumn path - Clone','Clone or original image.',1,1);
 
 /*Table structure for table `user_site_image_library_category` */
 
@@ -834,11 +834,11 @@ CREATE TABLE `user_site_image_library_category` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   CONSTRAINT `user_site_image_library_category_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_category` */
 
-insert  into `user_site_image_library_category`(`id`,`site_id`,`name`) values (1,1,'Uncategorised'),(2,2,'Uncategorised'),(3,3,'Uncategorised');
+insert  into `user_site_image_library_category`(`id`,`site_id`,`name`) values (1,1,'Uncategorised'),(2,2,'Uncategorised'),(3,3,'Uncategorised'),(4,1,'Animals');
 
 /*Table structure for table `user_site_image_library_link` */
 
@@ -876,11 +876,11 @@ CREATE TABLE `user_site_image_library_sub_category` (
   KEY `category_id` (`category_id`),
   CONSTRAINT `user_site_image_library_sub_category_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_site_image_library_sub_category_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `user_site_image_library_category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_image_library_sub_category` */
 
-insert  into `user_site_image_library_sub_category`(`id`,`site_id`,`category_id`,`name`) values (1,1,1,'Misc.'),(2,2,2,'Misc.'),(3,3,3,'Misc.');
+insert  into `user_site_image_library_sub_category`(`id`,`site_id`,`category_id`,`name`) values (1,1,1,'Misc.'),(2,2,2,'Misc.'),(3,3,3,'Misc.'),(4,1,4,'Misc.');
 
 /*Table structure for table `user_site_image_library_version` */
 
