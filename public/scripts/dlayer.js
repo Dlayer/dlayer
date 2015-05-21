@@ -2706,8 +2706,8 @@ var dlayer = {
 		},
 		
 		/**
-		* When the user selects a category redo the ajax load sending 
-		* the category id
+		* When the user selects a category we recall the ajax with the 
+		* category id set
 		*
 		* @returns {Void}
 		*/
@@ -2734,7 +2734,7 @@ var dlayer = {
 		},
 		
 		/**
-		* When a user selects the clear category link we recall the AJAX will 
+		* When a user selects the clear category link we recall the AJAX with 
 		* the categorty id set to 'clear'
 		*
 		* @returns {Void}
@@ -2754,6 +2754,34 @@ var dlayer = {
 					$('.image-picker-tool .form').html(html);
 				});
 			});
-		}
+		}, 
+		
+		/**
+		* When the user selects a sub category we recall the AJAX with the 
+		* selected sub category set
+		*
+		* @returns {Void}
+		*/
+		imagePickerSetSubCategory: function()
+		{
+			/*$("#ip-category").on("change", function() {
+				
+				var category_id = $('#ip-category').val();
+				
+				if(category_id != 'null') {
+					$('.image-picker-tool').show();
+					
+					$.ajax({
+						url: '/content/ajax/image-picker',
+						mehtod: 'GET',
+						data: { category_id: category_id },
+						dataType: 'html'
+					}).done(function(html) {
+						$('.image-picker-tool .loading').hide();
+						$('.image-picker-tool .form').html(html);
+					});
+				}
+			});*/
+		},
 	}
 }

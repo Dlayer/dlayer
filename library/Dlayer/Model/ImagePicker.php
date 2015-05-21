@@ -104,7 +104,7 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 				$row['number_of_images'] . ')';
 		}
 		
-		$options = array(0=>'All');
+		$options[0] = 'Show all';
 		
 		return $options;
 	}
