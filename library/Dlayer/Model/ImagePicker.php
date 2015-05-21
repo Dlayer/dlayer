@@ -48,6 +48,8 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 	* Fetch the details for the requested category, need the name and the 
 	* number of images in the category
 	* 
+	* @param integer $site_id
+	* @param integer $category_id
 	* @return array
 	*/
 	public function category($site_id, $category_id) 
@@ -107,5 +109,46 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 		$options[0] = 'Show all';
 		
 		return $options;
+	}
+	
+	/**
+	* Fetch the details for the requested sub category, need the name and the 
+	* number of images in the sub category.
+	* 
+	* If 0 is provided as the sub category id we returns the details for all 
+	* the images in the category.
+	* 
+	* @param integer $site_id
+	* @param integer $category_id
+	* @param integer $sub_category_id
+	* @return array
+	*/
+	public function subCategory($site_id, $category_id, $sub_category_id) 
+	{
+		if($sub_category_id !== 0) {
+			$sql = 'SELECT usilsc.id, usilsc.`name`, 
+						(SELECT COUNT(usil.id) 
+						FROM user_site_image_library usil 
+						WHERE usil.site_id = :site_id
+						AND usil.category_id = :category_id 
+						AND usil.sub_category_id = :sub_category_id) AS number_of_images
+					FROM user_site_image_library_sub_category usilsc 
+					WHERE usilsc.site_id = :site_id 
+					AND usilsc.category_id = :category_id 
+					AND usilsc.id = :sub_category_id';
+			$stmt = $this->_db->prepare($sql);
+			$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+			$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+			$stmt->bindValue(':sub_category_id', $sub_category_id, PDO::PARAM_INT);
+			$stmt->execute();
+			
+			return $stmt->fetch();
+		} else {
+			$result = $this->category($site_id, $category_id);
+			
+			$result['name'] = 'All images';
+			
+			return $result;
+		}
 	}
 }

@@ -157,7 +157,8 @@ class Content_AjaxController extends Zend_Controller_Action
 	{
 		$this->getResponse()->setHeader('Content-Type', 'application/html');
 		
-		$category_id = $this->getRequest()->getParam('category_id', NULL);
+		$category_id = $this->getRequest()->getParam('category_id');
+		$sub_category_id = $this->getRequest()->getParam('sub_category_id');
 		
 		if($category_id != NULL) {
 			if($category_id != 'clear') {
@@ -165,6 +166,15 @@ class Content_AjaxController extends Zend_Controller_Action
 					intval($category_id));
 			} else {
 				$this->session_designer->clearImagePickerCategoryId();
+			}
+		}
+		
+		if($sub_category_id != NULL) {
+			if($sub_category_id != 'clear') {
+				$this->session_designer->setImagePickerSubCategoryId(
+					intval($sub_category_id));
+			} else {
+				$this->session_designer->clearImagePickerSubCategoryId();
 			}
 		}
 		
@@ -220,7 +230,7 @@ class Content_AjaxController extends Zend_Controller_Action
 		if($category_id == NULL) {
 			return NULL;
 		} else {
-			if($sub_category_id == NULL) {
+			if($sub_category_id === NULL) {
 				$this->view->sub_categories = 
 					$this->model_image_picker->subCategories($site_id, 
 					$category_id);
@@ -228,6 +238,9 @@ class Content_AjaxController extends Zend_Controller_Action
 				return $this->view->render(
 					'ajax/image-picker-sub-categories.phtml');
 			} else {
+				$this->view->sub_category = 
+					$this->model_image_picker->subCategory($site_id, 
+					$category_id, $sub_category_id);
 				
 				// Return the sub category name
 				return $this->view->render(
@@ -250,7 +263,7 @@ class Content_AjaxController extends Zend_Controller_Action
 			//	No category		
 			return NULL;
 		} else {
-			if($sub_category_id == NULL) {
+			if($sub_category_id === NULL) {
 				// No sub category
 				return NULL;
 			} else {

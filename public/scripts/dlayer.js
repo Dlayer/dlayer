@@ -2734,31 +2734,8 @@ var dlayer = {
 		},
 		
 		/**
-		* When a user selects the clear category link we recall the AJAX with 
-		* the categorty id set to 'clear'
-		*
-		* @returns {Void}
-		*/
-		imagePickerClearCategory: function()
-		{
-			$("span.clear-image-picker-category").on("click", function() {
-				$('.image-picker-tool').show();
-				
-				$.ajax({
-					url: '/content/ajax/image-picker',
-					mehtod: 'GET',
-					data: { category_id: 'clear' },
-					dataType: 'html'
-				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();
-					$('.image-picker-tool .form').html(html);
-				});
-			});
-		}, 
-		
-		/**
-		* When the user selects a sub category we recall the AJAX with the 
-		* selected sub category set
+		* When the user selects a sub category we recall the ajax with the 
+		* sub category id set
 		*
 		* @returns {Void}
 		*/
@@ -2783,5 +2760,53 @@ var dlayer = {
 				}
 			});
 		},
+		
+		/**
+		* When a user selects the clear category link we recall the AJAX with 
+		* the categorty id set to 'clear', the AJAX will clear the category, 
+		* sub category, image and version ids
+		*
+		* @returns {Void}
+		*/
+		imagePickerClearCategory: function()
+		{
+			$("span.clear-image-picker-category").on("click", function() {
+				$('.image-picker-tool').show();
+				
+				$.ajax({
+					url: '/content/ajax/image-picker',
+					mehtod: 'GET',
+					data: { category_id: 'clear' },
+					dataType: 'html'
+				}).done(function(html) {
+					$('.image-picker-tool .loading').hide();
+					$('.image-picker-tool .form').html(html);
+				});
+			});
+		}, 
+		
+		/**
+		* When a user selects the clear sub category link we recall the AJAX 
+		* with the sub category id set to 'clear', the AJAX will clear the 
+		* sub category, image and version ids
+		*
+		* @returns {Void}
+		*/
+		imagePickerClearSubCategory: function()
+		{
+			$("span.clear-image-picker-sub-category").on("click", function() {
+				$('.image-picker-tool').show();
+				
+				$.ajax({
+					url: '/content/ajax/image-picker',
+					mehtod: 'GET',
+					data: { sub_category_id: 'clear' },
+					dataType: 'html'
+				}).done(function(html) {
+					$('.image-picker-tool .loading').hide();
+					$('.image-picker-tool .form').html(html);
+				});
+			});
+		}, 
 	}
 }

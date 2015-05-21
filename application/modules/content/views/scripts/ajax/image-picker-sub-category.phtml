@@ -1,7 +1,9 @@
 <script>
-
+dlayer.designers.imagePickerClearSubCategory();
 </script>
 
-<h4>Sub category: <small>Misc (3)</small> 
-<span class="glyphicon glyphicon-remove image-picker-sub-category" 
+<h4>Sub category: <small><?php echo $this->escape($this->sub_category['name']); ?> (<?php echo $this->escape($this->sub_category['number_of_images']); ?>)</small> 
+<span class="glyphicon glyphicon-remove clear-image-picker-value clear-image-picker-sub-category" 
 	title="Clear sub category" aria-hidden="true"></span></h4>
+	
+<hr />
