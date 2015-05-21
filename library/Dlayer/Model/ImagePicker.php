@@ -70,6 +70,20 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 	*/
 	public function subCategories($site_id, $category_id) 
 	{
-		
+		$sql = 'SELECT usilsc.id, usilsc.`name`, 
+					COUNT(usil.id) AS number_of_images 
+				FROM user_site_image_library usil 
+				JOIN user_site_image_library_sub_category usilsc 
+					ON usil.sub_category_id = usilsc.id 
+					AND usilsc.category_id = :category_id 
+					AND usilsc.site_id = :site_id 
+				WHERE usil.site_id = :site_id 
+				AND usil.category_id = :category_id 
+				GROUP BY usilsc.id 
+				ORDER BY usilsc.`name` ASC ';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+		$stmt->execute();
 	}
 }
