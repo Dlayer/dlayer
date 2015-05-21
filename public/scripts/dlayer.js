@@ -2764,24 +2764,24 @@ var dlayer = {
 		*/
 		imagePickerSetSubCategory: function()
 		{
-			/*$("#ip-category").on("change", function() {
+			$("#ip-sub-category").on("change", function() {
 				
-				var category_id = $('#ip-category').val();
+				var sub_category_id = $('#ip-sub-category').val();
 				
-				if(category_id != 'null') {
+				if(sub_category_id != 'null') {
 					$('.image-picker-tool').show();
 					
 					$.ajax({
 						url: '/content/ajax/image-picker',
 						mehtod: 'GET',
-						data: { category_id: category_id },
+						data: { sub_category_id: sub_category_id },
 						dataType: 'html'
 					}).done(function(html) {
 						$('.image-picker-tool .loading').hide();
 						$('.image-picker-tool .form').html(html);
 					});
 				}
-			});*/
+			});
 		},
 	}
 }
