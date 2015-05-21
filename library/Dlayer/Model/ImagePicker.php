@@ -52,11 +52,20 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 	*/
 	public function category($site_id, $category_id) 
 	{
-		return array(
-			'id'=>1,
-			'name'=>'Uncategorised', 
-			'number_of_images'=>6
-		);
+		$sql = 'SELECT usilc.id, usilc.`name`, 
+					(SELECT COUNT(usil.id) 
+					FROM user_site_image_library usil 
+					WHERE usil.site_id = :site_id 
+					AND usil.category_id = :category_id) AS number_of_images 
+				FROM user_site_image_library_category usilc 
+				WHERE usilc.site_id = :site_id 
+				AND usilc.id = :category_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		return $stmt->fetch();
 	}
 	
 	/**
