@@ -85,5 +85,18 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
 		$stmt->execute();
+		
+		$result = $stmt->fetchAll();
+		
+		$options = array('null'=>'Select sub category');
+		
+		foreach($result as $row) {
+			$options[intval($row['id'])] = $row['name'] . '(' . 
+				$row['number_of_images'] . ')';
+		}
+		
+		$options = array(0=>'All');
+		
+		return $options;
 	}
 }

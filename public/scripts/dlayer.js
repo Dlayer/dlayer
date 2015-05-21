@@ -2732,5 +2732,28 @@ var dlayer = {
 				}
 			});
 		},
+		
+		/**
+		* When a user selects the clear category link we recall the AJAX will 
+		* the categorty id set to 'clear'
+		*
+		* @returns {Void}
+		*/
+		imagePickerClearCategory: function()
+		{
+			$("span.clear-image-picker-category").on("click", function() {
+				$('.image-picker-tool').show();
+				
+				$.ajax({
+					url: '/content/ajax/image-picker',
+					mehtod: 'GET',
+					data: { category_id: 'clear' },
+					dataType: 'html'
+				}).done(function(html) {
+					$('.image-picker-tool .loading').hide();
+					$('.image-picker-tool .form').html(html);
+				});
+			});
+		}
 	}
 }
