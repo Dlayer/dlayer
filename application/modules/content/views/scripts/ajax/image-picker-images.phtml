@@ -4,6 +4,9 @@
 <div class="image-list">
 	<h4>Images <small>Images for the selected category and 
 		sub category</small></h4>
+		
+	<p>You can either select the latest version of an imaage or click the 
+		'view versions' button to choose a specific version.</p>
 	
 	<!--<div class="row" style="padding-bottom: 10px;">
 		<div class="col-xs-12">
@@ -20,61 +23,44 @@
 			</div>
 		</div>
 	</div>-->
+	
+	<?php foreach($this->images as $image) { ?>
+	
+	<?php $src = $this->escape($image['image_id'] . 
+		'/' . $image['version_id'] . $image['extension']); ?>
+	<?php $dimensions = $this->escape($image['width'] . ' x ' . 
+		$image['height'] . ' pixels'); ?>
+	<?php $id = $this->escape('ip-image-' . $image['image_id'] . ':' . 
+		$image['version_id']); ?>
 
 	<div class="row" style="padding-bottom: 10px;">
 		<div class="col-xs-4">
-		<img src="/images/library/1/1.jpg" title="Autumn path" alt="Image library image" width="160" height="120" class="img-thumbnail">
+		<img src="/images/library/<?php echo $src; ?>" 
+			title="<?php echo $this->escape($image['name']); ?>" 
+			alt="Image library image" width="160" height="120" 
+			class="img-thumbnail">
 		</div>
 		<div class="col-xs-8">
 			<p>
-				<strong>Name:</strong> Autumn path<br />
-				<strong>Dimenisons:</strong> 615 X 453 pixels<br />
-				<strong>Size:</strong> 169.4 kb
+				<strong>Name:</strong> <?php echo $this->escape($image['name']); ?><br />
+				<strong>Dimenisons:</strong> <?php echo $dimensions; ?><br />
+				<strong>Size:</strong> <?php echo $this->escape($image['size']); ?>
 			</p>
 		</div>
 		<div class="col-xs-12 text-right">
 			<div class="btn-group btn-group-xs" role="group" aria-label="...">
 				<button type="button" class="btn btn-primary">Select</button>
-				<button type="button" class="btn btn-default">View versions</button>
+				<?php if($image['versions'] == 1) { ?>
+				<button type="button" id="<?php echo $id; ?>" 
+					class="btn btn-default ip-select-image" 
+					disabled="disabled">View versions</button>
+				<?php } else { ?>
+				<button type="button" class="btn btn-default">
+					View versions</button>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
 	
-	<div class="row" style="padding-bottom: 10px;">
-		<div class="col-xs-4">
-		<img src="/images/library/7/23.jpg" title="Spring coffee" alt="Image library image" width="160" height="120" class="img-thumbnail">
-		</div>
-		<div class="col-xs-8">
-			<p>
-				<strong>Name:</strong> Spring coffee<br />
-				<strong>Dimenisons:</strong> 561 X 367 pixels<br />
-				<strong>Size:</strong> 41.6 kb
-			</p>
-			</div>
-		<div class="col-xs-12 text-right">
-			<div class="btn-group btn-group-xs" role="group" aria-label="...">
-				<button type="button" class="btn btn-primary">Select</button>
-				<button type="button" class="btn btn-default" disabled="disabled">View versions</button>
-			</div>
-		</div>
-	</div>
-	
-	<div class="row" style="padding-bottom: 10px;">
-		<div class="col-xs-4">
-		<img src="/images/library/5/5.jpg" title="Spring coffee" alt="Image library image" width="160" height="120" class="img-thumbnail">
-		</div>
-		<div class="col-xs-8">
-			<p>
-				<strong>Name:</strong> Robin<br />
-				<strong>Dimenisons:</strong> 615 X 407 pixels<br />
-				<strong>Size:</strong> 32.0 kb
-			</p>
-		</div>
-		<div class="col-xs-12 text-right">
-			<div class="btn-group btn-group-xs" role="group" aria-label="...">
-				<button type="button" class="btn btn-primary">Select</button>
-				<button type="button" class="btn btn-default" disabled="disabled">View versions</button>
-			</div>
-		</div>
-	</div>
+	<?php } ?>
 </div>

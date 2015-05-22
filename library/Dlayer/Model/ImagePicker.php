@@ -185,7 +185,8 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 					AND usilv.site_id = :site_id 
 				WHERE usil.site_id = :site_id 
 				AND usil.category_id = :category_id 
-				AND usil.sub_category_id = :sub_category_id';
+				AND usil.sub_category_id = :sub_category_id 
+				ORDER BY usil.`name` ASC';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
