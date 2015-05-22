@@ -151,4 +151,41 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 			return $result;
 		}
 	}
+	
+	/**
+	* Fetch the images for a category and sub category, if the sub category is 
+	* set to 0 we don't include it in the query and retuirn all the images for 
+	* the category
+	* 
+	* @param integer $site_id
+	* @param integer $category_id
+	* @param integer $sub_category
+	* @return array Contains all the images assigned to the category and 
+	* 	sub category
+	*/
+	public function images($site_id, $category_id, $sub_category_id) 
+	{
+		$sql = 'SELECT usil.`name`, usil.id AS image_id, usilv.id AS version_id, 
+				usilvm.extension, usilvm.width, usilvm.height, usilvm.size, 
+				(SELECT COUNT(versions.id) 
+					FROM user_site_image_library_version versions 
+					WHERE versions.library_id = usil.id 
+					AND versions.site_id = 1) AS versions
+				FROM user_site_image_library usil 
+				JOIN user_site_image_library_link usill 
+					ON usil.id = usill.library_id 
+					AND usill.site_id = :site_id 
+				JOIN user_site_image_library_version usilv 
+					ON usill.version_id = usilv.id 
+					AND usill.library_id = usilv.library_id 
+					AND usill.site_id = :site_id 
+				JOIN user_site_image_library_version_meta usilvm 
+					ON usilv.id = usilvm.version_id 
+					AND usilv.library_id = usilvm.library_id 
+					AND usilv.site_id = :site_id 
+				WHERE usil.site_id = :site_id 
+				AND usil.category_id = :category_id 
+				AND usil.sub_category_id = :sub_category_id';
+		$stmt = $this->_db->prepare($sql);
+	}
 }

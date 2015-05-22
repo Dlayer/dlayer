@@ -227,7 +227,7 @@ class Content_AjaxController extends Zend_Controller_Action
 	{
 		$site_id = $this->session_dlayer->siteId();
 		
-		if($category_id == NULL) {
+		if($category_id === NULL) {
 			return NULL;
 		} else {
 			if($sub_category_id === NULL) {
@@ -259,7 +259,7 @@ class Content_AjaxController extends Zend_Controller_Action
 	*/
 	function imagePickerImages($category_id, $sub_category_id, $image_id) 
 	{
-		if($category_id == NULL) {
+		if($category_id === NULL) {
 			//	No category		
 			return NULL;
 		} else {
@@ -272,7 +272,7 @@ class Content_AjaxController extends Zend_Controller_Action
 					return $this->view->render('ajax/image-picker-images.phtml');
 				} else {
 					// Image
-					return $this->view->render('ajax/image-picker-images.phtml');					
+					return $this->view->render('ajax/image-picker-versions.phtml');					
 				}
 			}
 		}
