@@ -186,10 +186,11 @@ class Content_AjaxController extends Zend_Controller_Action
 		$sub_category_id = $this->session_designer->imagePickerSubCategoryId();
 		$image_id = $this->session_designer->imagePickerImageId();
 		
-		$this->view->category = $this->imagePickerCategory($category_id);
-		$this->view->sub_category = $this->imagePickerSubCategory(
+		$this->view->category = $this->imagePickerCategory($site_id, 
+			$category_id);
+		$this->view->sub_category = $this->imagePickerSubCategory($site_id, 
 			$category_id, $sub_category_id);
-		$this->view->images = $this->imagePickerImages($category_id, 
+		$this->view->images = $this->imagePickerImages($site_id, $category_id, 
 			$sub_category_id, $image_id);
 		
 		echo $this->view->render('ajax/image-picker.phtml');
@@ -198,13 +199,12 @@ class Content_AjaxController extends Zend_Controller_Action
 	/**
 	* Image picker category
 	* 
+	* @param integer $site_id
 	* @param integer|NULL $category_id
 	* @return string
 	*/
-	function imagePickerCategory($category_id) 
+	function imagePickerCategory($site_id, $category_id) 
 	{
-		$site_id = $this->session_dlayer->siteId();
-		
 		if($category_id == NULL) {
 			$this->view->categories = $this->model_image_picker->categories(
 				$site_id);
@@ -219,14 +219,13 @@ class Content_AjaxController extends Zend_Controller_Action
 	/**
 	* Image picker sub category
 	* 
+	* @param integer $site_id
 	* @param integer|NULL $category_id 
 	* @param integer|NULL $sub_category_id
 	* @return string
 	*/
-	function imagePickerSubCategory($category_id, $sub_category_id) 
+	function imagePickerSubCategory($site_id, $category_id, $sub_category_id) 
 	{
-		$site_id = $this->session_dlayer->siteId();
-		
 		if($category_id === NULL) {
 			return NULL;
 		} else {
@@ -252,12 +251,14 @@ class Content_AjaxController extends Zend_Controller_Action
 	/**
 	* Image picker image list
 	* 
+	* @param integer $site_id
 	* @param integer|NULL $category_id
 	* @param integer|NULL $sub_category_id
 	* @param integer|NULL $image_id
 	* @return string
 	*/
-	function imagePickerImages($category_id, $sub_category_id, $image_id) 
+	function imagePickerImages($site_id, $category_id, $sub_category_id, 
+		$image_id) 
 	{
 		if($category_id === NULL) {
 			//	No category		
@@ -268,8 +269,11 @@ class Content_AjaxController extends Zend_Controller_Action
 				return NULL;
 			} else {
 				if($image_id == NULL) {
-					// No image
-					return $this->view->render('ajax/image-picker-images.phtml');
+					$this->view->images = $this->model_image_picker->images(
+						$site_id, $category_id, $sub_category_id);
+
+					return $this->view->render(
+						'ajax/image-picker-images.phtml');
 				} else {
 					// Image
 					return $this->view->render('ajax/image-picker-versions.phtml');					

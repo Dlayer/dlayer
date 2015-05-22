@@ -187,5 +187,20 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 				AND usil.category_id = :category_id 
 				AND usil.sub_category_id = :sub_category_id';
 		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+		$stmt->bindValue(':sub_category_id', $sub_category_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$images = array();
+		
+		$result = $stmt->fetchAll();
+
+		foreach($result as $row) {
+			$row['size'] = Dlayer_Helper::readableFilesize($row['size']);
+			$images[] = $row;
+		}
+
+		return $images;
 	}
 }
