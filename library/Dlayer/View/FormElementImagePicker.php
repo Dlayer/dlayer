@@ -6,7 +6,7 @@
 */
 class Dlayer_View_FormElementImagePicker extends Zend_View_Helper_FormElement
 {
-	public function formElementImagePickler($name, $value = null, 
+	public function formElementImagePicker($name, $value = null, 
 		$attribs = null)
 	{
 		$info = $this->_getInfo($name, $value, $attribs);
@@ -19,11 +19,12 @@ class Dlayer_View_FormElementImagePicker extends Zend_View_Helper_FormElement
 			$disabled = ' disabled="disabled"';
 		}
 		
-		$xhtml .= '<input type="text"'
+		$xhtml = '<div class="clearfix"></div>'
+				. '<a class="btn btn-danger open-image-picker-tool" href="#" role="button">Select image</a>'  
+				. '<input type="hidden"'
 				. ' name="' . $this->view->escape($name) . '"'
 				. ' id="' . $this->view->escape($id) . '"'
-				. ' value="Click to choose an image"'
-				. $disabled
+				. ' value="' . $this->view->escape($value) . '"'
 				. $this->_htmlAttribs($attribs)
 				. $this->getClosingBracket();
 

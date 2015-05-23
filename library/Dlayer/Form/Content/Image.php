@@ -160,22 +160,21 @@ class Dlayer_Form_Content_Image extends Dlayer_Form_Module_Content
 	* 	$this->elements array
 	*/
 	private function userElements()
-	{
-		$image = new Zend_Form_Element_Select('version_id');
-		$image->setLabel('Image');
-		$image->setDescription('Select an image from your Image library.');
-		$image->setMultiOptions($this->elements_data);
-		$image->setAttribs(array('class'=>'form-control input-sm'));
-		$image->setBelongsTo('params');
-		$image->setRequired();
+	{		
+		$version = new Dlayer_Form_Element_ImagePicker('version_id');
+		$version->setLabel('Image');
+		$version->setDescription('Select an image from your Image library.');
+		$version->setAttribs(array('class'=>'form-control input-sm'));
+		$version->setBelongsTo('params');
+		$version->setRequired();
 		
 		if(array_key_exists('version_id', $this->content_item) == TRUE && 
 			$this->content_item['version_id'] != FALSE) {
 
-			$image->setValue($this->content_item['version_id']);
+			$version->setValue($this->content_item['version_id']);
 		}
 		
-		$this->elements['version_id'] = $image;
+		$this->elements['version_id'] = $version;
 		
 		$expand = new Zend_Form_Element_Select('expand');
 		$expand->setLabel('Expand?');
