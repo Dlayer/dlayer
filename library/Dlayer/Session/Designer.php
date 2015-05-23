@@ -41,7 +41,7 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	*/
 	public function setImagePickerCategoryId($id) 
 	{
-		return $this->image_picker_category_id = intval($id);
+		$this->image_picker_category_id = intval($id);
 	}
 	
 	/**
@@ -62,7 +62,7 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	*/
 	public function setImagePickerSubCategoryId($id) 
 	{
-		return $this->image_picker_sub_category_id = intval($id);
+		$this->image_picker_sub_category_id = intval($id);
 	}
 
 	/**
@@ -73,7 +73,18 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	*/
 	public function setImagePickerImageId($id) 
 	{
-		return $this->image_picker_image_id = intval($id);
+		$this->image_picker_image_id = intval($id);
+	}
+	
+	/**
+	* Set the version id for the image picker
+	* 
+	* @param integer $id
+	* @return void
+	*/
+	public function setImagePickerVersionId($id) 
+	{
+		$this->image_picker_version_id = intval($id);
 	}
 	
 	/**
@@ -84,6 +95,16 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	public function imagePickerImageId()
 	{
 		return $this->image_picker_image_id;
+	}
+	
+	/**
+	* Get the currently set image picker version id
+	*
+	* @return integer|NULL
+	*/
+	public function imagePickerVersionId()
+	{
+		return $this->image_picker_version_id;
 	}
 	
 	public function clearImagePickerCategoryId() 

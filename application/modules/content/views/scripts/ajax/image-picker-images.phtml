@@ -1,4 +1,5 @@
 <script>
+dlayer.designers.imagePickerSetImage();
 </script>
 
 <div class="image-list">
@@ -30,8 +31,9 @@
 		'/' . $image['version_id'] . $image['extension']); ?>
 	<?php $dimensions = $this->escape($image['width'] . ' x ' . 
 		$image['height'] . ' pixels'); ?>
-	<?php $id = $this->escape('ip-image-' . $image['image_id'] . ':' . 
+	<?php $select_id = $this->escape('ip-image-' . $image['image_id'] . ':' . 
 		$image['version_id']); ?>
+	<?php $set_id = $this->escape('ip-set-image-' . $image['image_id']); ?>	
 
 	<div class="row" style="padding-bottom: 10px;">
 		<div class="col-xs-4">
@@ -49,14 +51,16 @@
 		</div>
 		<div class="col-xs-12 text-right">
 			<div class="btn-group btn-group-xs" role="group" aria-label="...">
-				<button type="button" class="btn btn-primary">Select</button>
+				<button type="button" 
+					class="btn btn-primary ip-select-image" 
+					id="<?php echo $select_id; ?>">Select</button>
 				<?php if($image['versions'] == 1) { ?>
 				<button type="button" id="<?php echo $id; ?>" 
-					class="btn btn-default ip-select-image" 
+					class="btn btn-default" 
 					disabled="disabled">View versions</button>
 				<?php } else { ?>
-				<button type="button" class="btn btn-default">
-					View versions</button>
+				<button type="button" class="btn btn-default ip-image" 
+					id="<?php echo $set_id; ?>">View versions</button>
 				<?php } ?>
 			</div>
 		</div>

@@ -159,6 +159,7 @@ class Content_AjaxController extends Zend_Controller_Action
 		
 		$category_id = $this->getRequest()->getParam('category_id');
 		$sub_category_id = $this->getRequest()->getParam('sub_category_id');
+		$image_id = $this->getRequest()->getParam('image_id');
 		
 		if($category_id != NULL) {
 			if($category_id != 'clear') {
@@ -175,6 +176,15 @@ class Content_AjaxController extends Zend_Controller_Action
 					intval($sub_category_id));
 			} else {
 				$this->session_designer->clearImagePickerSubCategoryId();
+			}
+		}
+		
+		if($image_id != NULL) {
+			if($image_id != 'clear') {
+				$this->session_designer->setImagePickerImageId(
+					intval($image_id));
+			} else {
+				$this->session_designer->clearImagePickerImageId();
 			}
 		}
 		

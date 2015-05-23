@@ -2808,5 +2808,67 @@ var dlayer = {
 				});
 			});
 		}, 
+		
+		/**
+		* When a user selects an image we need to set the image id and version 
+		* id and then close the image picker
+		* 
+		* @returns {Void}
+		*/
+		imagePickerSelectImage: function() 
+		{
+			
+		},
+		
+		/**
+		* When a user selects the view versions button we need to set the image 
+		* id and then recall the AJAX to show the versions for the selected 
+		* image
+		* 
+		* @returns {Void}
+		*/
+		imagePickerSetImage: function() 
+		{
+			$(".ip-image").on("click", function() {
+				
+				var image_id = this.id.replace('ip-set-image-', '');
+				
+				$('.image-picker-tool').show();
+					
+				$.ajax({
+					url: '/content/ajax/image-picker',
+					mehtod: 'GET',
+					data: { image_id: image_id },
+					dataType: 'html'
+				}).done(function(html) {
+					$('.image-picker-tool .loading').hide();
+					$('.image-picker-tool .form').html(html);
+				});
+			});
+		}, 
+		
+		/**
+		* When a user selects the clear sub category link we recall the AJAX 
+		* with the sub category id set to 'clear', the AJAX will clear the 
+		* sub category, image and version ids
+		*
+		* @returns {Void}
+		*/
+		imagePickerClearImage: function()
+		{
+			$("span.clear-image-picker-image").on("click", function() {
+				$('.image-picker-tool').show();
+				
+				$.ajax({
+					url: '/content/ajax/image-picker',
+					mehtod: 'GET',
+					data: { image_id: 'clear' },
+					dataType: 'html'
+				}).done(function(html) {
+					$('.image-picker-tool .loading').hide();
+					$('.image-picker-tool .form').html(html);
+				});
+			});
+		}, 
 	}
 }
