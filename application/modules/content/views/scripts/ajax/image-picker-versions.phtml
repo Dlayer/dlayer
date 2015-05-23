@@ -2,8 +2,10 @@
 dlayer.designers.imagePickerClearImage();
 </script>
 
-<h4>Image: <small>[Name]</small> 
-<span class="glyphicon glyphicon-remove clear-image-picker-value clear-image-picker-image" 
+<h4>Image: <small title="<?php echo $this->escape($this->image['number_of_versions']); ?> image versions">
+	<?php echo $this->escape($this->image['name']); ?> 
+	<span class="badge"><?php echo $this->escape($this->image['number_of_versions']); ?></span></small> 
+	<span class="glyphicon glyphicon-remove clear-image-picker-value clear-image-picker-image" 
 	title="Clear image" aria-hidden="true"></span></h4>
 	
 <hr />

@@ -184,13 +184,18 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 					AND usilv.library_id = usilvm.library_id 
 					AND usilv.site_id = :site_id 
 				WHERE usil.site_id = :site_id 
-				AND usil.category_id = :category_id 
-				AND usil.sub_category_id = :sub_category_id 
-				ORDER BY usil.`name` ASC';
+				AND usil.category_id = :category_id ';
+		if($sub_category_id != 0) {
+			$sql .= 'AND usil.sub_category_id = :sub_category_id ';
+		}
+		$sql .= 'ORDER BY usil.`name` ASC';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
-		$stmt->bindValue(':sub_category_id', $sub_category_id, PDO::PARAM_INT);
+		if($sub_category_id != 0) {
+			$stmt->bindValue(':sub_category_id', $sub_category_id, 
+			PDO::PARAM_INT);
+		}
 		$stmt->execute();
 		
 		$images = array();
@@ -203,5 +208,34 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 		}
 
 		return $images;
+	}
+	
+	/**
+	* Fetch the details for the selected image, name and number of versions, 
+	* sub category id is not passed to method because it may be set as 0, for 
+	* all images, the three included values are enought to limit the query
+	* 
+	* @param integer $site_id
+	* @param integer $category_id
+	* @param integer $image_id
+	*/
+	public function image($site_id, $category_id, $image_id) 
+	{
+		$sql = 'SELECT usil.`name`, 
+				(SELECT COUNT(versions.id) 
+					FROM user_site_image_library_version versions 
+					WHERE versions.library_id = usil.id 
+					AND versions.site_id = :site_id) AS number_of_versions  
+				FROM user_site_image_library usil 
+				WHERE usil.site_id = :site_id 
+				AND usil.category_id = :category_id 
+				AND usil.id = :image_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+		$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		return $stmt->fetch();
 	}
 }

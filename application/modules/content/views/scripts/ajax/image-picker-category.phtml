@@ -2,7 +2,7 @@
 dlayer.designers.imagePickerClearCategory();
 </script>
 
-<h4>Category: <small><?php echo $this->escape($this->category['name']); ?> (<?php echo $this->escape($this->category['number_of_images']); ?>)</small> 
+<h4>Category: <small title="<?php echo $this->escape($this->category['number_of_images']); ?> images in category"><?php echo $this->escape($this->category['name']); ?> <span class="badge"><?php echo $this->escape($this->category['number_of_images']); ?></span></small> 
 <span class="glyphicon glyphicon-remove clear-image-picker-value clear-image-picker-category" 
 	title="Clear category" aria-hidden="true"></span></h4>
 	
