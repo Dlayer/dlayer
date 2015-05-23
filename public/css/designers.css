@@ -147,5 +147,7 @@ div.image-picker-tool {
   display: none; }
   div.image-picker-tool span.clear-image-picker-value {
     cursor: pointer; }
+  div.image-picker-tool span.close-image-picker {
+    cursor: pointer; }
 
 /*# sourceMappingURL=designers.css.map */

@@ -287,7 +287,10 @@ class Content_AjaxController extends Zend_Controller_Action
 				} else {
 					$this->view->image = $this->model_image_picker->image(
 						$site_id, $category_id, $image_id);
-					
+						
+					$this->view->versions = 
+						$this->model_image_picker->versions($site_id, 
+						$category_id, $image_id);
 					
 					return $this->view->render('ajax/image-picker-versions.phtml');					
 				}

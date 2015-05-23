@@ -238,4 +238,45 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 		
 		return $stmt->fetch();
 	}
+	
+	/**
+	* Fetch all the versions for the selected image
+	* 
+	* @param integer $site_id
+	* @param integer $category_id 
+	* @param integer $image_id 
+	* @return array
+	*/
+	public function versions($site_id, $category_id, $image_id) 
+	{
+		$sql = 'SELECT usil.`name`, usil.id AS image_id, 
+				usilv.id AS version_id, usilvm.extension, 
+				usilvm.width, usilvm.height, usilvm.size 
+				FROM user_site_image_library_version usilv 
+				JOIN user_site_image_library usil 
+					ON usilv.library_id = usil.id 
+					AND usil.site_id = :site_id 
+					AND usil.category_id = :category_id 
+				JOIN user_site_image_library_version_meta usilvm 
+					ON usilv.id = usilvm.version_id 
+					AND usilv.library_id = usilvm.library_id 
+				WHERE usilv.site_id = :site_id 
+				AND usilv.library_id = :image_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+		$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$images = array();
+		
+		$result = $stmt->fetchAll();
+
+		foreach($result as $row) {
+			$row['size'] = Dlayer_Helper::readableFilesize($row['size']);
+			$images[] = $row;
+		}
+
+		return $images;
+	}
 }

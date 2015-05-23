@@ -2700,7 +2700,7 @@ var dlayer = {
 		*/
 		imagePickerClose: function() 
 		{
-			$(".image-picker-tool .close").on("click", function() {
+			$(".image-picker-tool .close-image-picker").on("click", function() {
 				$('.image-picker-tool').hide();
 			});
 		},
