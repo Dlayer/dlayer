@@ -261,7 +261,8 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 					ON usilv.id = usilvm.version_id 
 					AND usilv.library_id = usilvm.library_id 
 				WHERE usilv.site_id = :site_id 
-				AND usilv.library_id = :image_id';
+				AND usilv.library_id = :image_id 
+				ORDER BY usilv.id DESC';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
@@ -278,5 +279,34 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 		}
 
 		return $images;
+	}
+	
+	/**
+	* Check that the given image id and version id are valid
+	* 
+	* @param integer $site_id 
+	* @param integer $image_id 
+	* @param integer $version_id 
+	* @return array|FALSE Either returns an array containing the image name 
+	* 	name of FALSE if the image cannot be selected
+	*/
+	public function validateImage($site_id, $image_id, $version_id) 
+	{
+		$sql = 'SELECT usil.`name` 
+				FROM user_site_image_library_version usilv 
+				JOIN user_site_image_library usil 
+					ON usilv.library_id = usil.id 
+					AND usil.id = :image_id 
+					AND usil.site_id = :site_id 
+				WHERE usilv.id = :version_id 
+				AND usilv.library_id = :image_id 
+				AND usilv.site_id = :site_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		return $result->fetch();
 	}
 }

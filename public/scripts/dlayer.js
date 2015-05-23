@@ -2817,7 +2817,19 @@ var dlayer = {
 		*/
 		imagePickerSelectImage: function() 
 		{
-			
+			$(".ip-select-image").on("click", function() {
+				
+				var ids = this.id.replace('ip-image-', '');
+				ids = ids.split(':');
+				
+				var image_id = ids[0];
+				var version_id = ids[1];
+				
+				console.log(image_id);
+				console.log(version_id);
+				
+				
+			});
 		},
 		
 		/**

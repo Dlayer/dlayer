@@ -74,7 +74,7 @@ class Content_AjaxController extends Zend_Controller_Action
 	* Fetches the data belonging to the option in the import select menu and 
 	* then returns the json so that the tool fields can be updated
 	* 
-	* @return void
+	* @return string
 	*/
 	public function importJumbotronAction() 
 	{
@@ -100,7 +100,7 @@ class Content_AjaxController extends Zend_Controller_Action
 	* Fetches the data belonging to the option in the import select menu and 
 	* then returns the json so that the tool fields can be updated
 	* 
-	* @return void
+	* @return string
 	*/
 	public function importHeadingAction() 
 	{
@@ -120,6 +120,23 @@ class Content_AjaxController extends Zend_Controller_Action
 		}
 		
 		echo Zend_Json::encode($json);
+	}
+	
+	/**
+	* Select the image, sets the image id and version id in the session and 
+	* the returns the name of the image to be passed to the image picker, 
+	* button is updated with the name
+	* 
+	* @return string
+	*/
+	public function imagePickerSelectImage() 
+	{
+		$this->getResponse()->setHeader('Content-Type', 'application/json');
+		
+		$image_id = $this->getRequest()->getParam('image_id');
+		$version_id = $this->getRequest()->getParam('version_id');
+		
+		// Fetch the details for the requested image
 	}
 	
 	/**
