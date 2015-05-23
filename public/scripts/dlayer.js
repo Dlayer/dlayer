@@ -2688,6 +2688,7 @@ var dlayer = {
 					dataType: 'html'
 				}).done(function(html) {
 					$('.image-picker-tool .loading').hide();
+					$('.image-picker-tool .form').show();
 					$('.image-picker-tool .form').html(html);
 				});
 			});
@@ -2825,10 +2826,20 @@ var dlayer = {
 				var image_id = ids[0];
 				var version_id = ids[1];
 				
-				console.log(image_id);
-				console.log(version_id);
+				$('.image-picker-tool .loading').show();
+				$('.image-picker-tool .form').hide();
 				
-				
+				$.ajax({
+					url: '/content/ajax/image-picker-select-image',
+					mehtod: 'GET',
+					data: { 
+						image_id: image_id, 
+						version_id: version_id
+					},
+					dataType: 'json'
+				}).done(function(data) {					
+					$('.image-picker-tool .close-image-picker').trigger('click');					
+				});
 			});
 		},
 		

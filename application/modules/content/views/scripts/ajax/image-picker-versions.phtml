@@ -13,9 +13,20 @@ dlayer.designers.imagePickerSelectImage();
 
 <div class="version-list">
 	<h4>Versions <small>Select a version of this image from the list 
-		below</small></h4>
+		below, the selected version will be highlighted if your are 
+		editing.</small></h4>
 
 	<?php foreach($this->versions as $image) { ?>
+	
+	<?php 
+		$selected = FALSE;
+		
+		if($this->version_id != NULL && 
+		$this->version_id == $image['version_id']) {
+			$selected = TRUE;
+			
+		}
+	?>
 	
 	<?php $src = $this->escape($image['image_id'] . 
 		'/' . $image['version_id'] . $image['extension']); ?>
@@ -25,7 +36,7 @@ dlayer.designers.imagePickerSelectImage();
 		$image['version_id']); ?>
 	<?php $set_id = $this->escape('ip-set-image-' . $image['image_id']); ?>	
 
-	<div class="row" style="padding-bottom: 10px;">
+	<div class="row<?php if($selected == TRUE) { echo ' bg-success'; } ?>" style="padding: 5px 0px;">
 		<div class="col-xs-4">
 		<img src="/images/library/<?php echo $src; ?>" 
 			title="<?php echo $this->escape($image['name']); ?>" 
@@ -43,7 +54,7 @@ dlayer.designers.imagePickerSelectImage();
 			<div class="btn-group btn-group-xs" role="group" aria-label="...">
 				<button type="button" 
 					class="btn btn-primary ip-select-image" 
-					id="<?php echo $select_id; ?>">Select</button>
+					id="<?php echo $select_id; ?>"><?php if($selected == FALSE) { echo 'Select'; } else { echo 'Selected'; } ?></button>
 			</div>
 		</div>
 	</div>

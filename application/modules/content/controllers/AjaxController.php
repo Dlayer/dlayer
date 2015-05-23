@@ -129,14 +129,29 @@ class Content_AjaxController extends Zend_Controller_Action
 	* 
 	* @return string
 	*/
-	public function imagePickerSelectImage() 
+	public function imagePickerSelectImageAction() 
 	{
 		$this->getResponse()->setHeader('Content-Type', 'application/json');
 		
 		$image_id = $this->getRequest()->getParam('image_id');
 		$version_id = $this->getRequest()->getParam('version_id');
 		
-		// Fetch the details for the requested image
+		$this->model_image_picker = new Dlayer_Model_ImagePicker();
+		
+		$image = $this->model_image_picker->validateImage(
+			$this->session_dlayer->siteId(), $image_id, $version_id);
+			
+		$json = array('data'=>FALSE);
+			
+		if($image != FALSE) {
+			
+			$this->session_designer->setImagePickerImageId($image_id);
+			$this->session_designer->setImagePickerVersionId($version_id);
+			
+			$json = array('data'=>true, "name"=>$image['name']);
+		}
+		
+		echo Zend_Json::encode($json);
 	}
 	
 	/**
@@ -212,6 +227,15 @@ class Content_AjaxController extends Zend_Controller_Action
 		$category_id = $this->session_designer->imagePickerCategoryId();
 		$sub_category_id = $this->session_designer->imagePickerSubCategoryId();
 		$image_id = $this->session_designer->imagePickerImageId();
+		$version_id = $this->session_designer->imagePickerVersionId();
+		
+		$this->view->visible = FALSE;
+		
+		if($category_id !== NULL && $sub_category_id !== NULL && 
+			$image_id !== NULL && $version_id !== NULL) {
+				
+			$this->view->visible = TRUE;
+		}
 		
 		$this->view->category = $this->imagePickerCategory($site_id, 
 			$category_id);
@@ -304,6 +328,9 @@ class Content_AjaxController extends Zend_Controller_Action
 				} else {
 					$this->view->image = $this->model_image_picker->image(
 						$site_id, $category_id, $image_id);
+						
+					$this->view->version_id = 
+						$this->session_designer->imagePickerVersionId();
 						
 					$this->view->versions = 
 						$this->model_image_picker->versions($site_id, 

@@ -307,6 +307,6 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
 		$stmt->execute();
 		
-		return $result->fetch();
+		return $stmt->fetch();
 	}
 }
