@@ -2838,7 +2838,13 @@ var dlayer = {
 					},
 					dataType: 'json'
 				}).done(function(data) {					
-					$('.image-picker-tool .close-image-picker').trigger('click');					
+					$('.image-picker-tool .close-image-picker').trigger('click');
+					
+					$(".open-image-picker-tool").text('Selected:' + data.name);
+					
+					$(".open-image-picker-tool").
+						removeClass('btn-danger').
+						addClass('btn-success');
 				});
 			});
 		},
