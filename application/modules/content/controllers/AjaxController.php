@@ -150,7 +150,10 @@ class Content_AjaxController extends Zend_Controller_Action
 			
 			$json = array(
 				'data'=>true, 
-				'name'=>$image['name']
+				'name'=>$image['name'], 
+				'dimensions'=>$image['dimensions'], 
+				'size'=>$image['size'], 
+				'extension'=>$image['extension']
 			);
 		}
 		

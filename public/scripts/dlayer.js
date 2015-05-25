@@ -2840,6 +2840,9 @@ var dlayer = {
 					},
 					dataType: 'json'
 				}).done(function(data) {
+					
+					console.log(data);
+					
 					dlayer.designers.imagePickerComplete(image_id, version_id, 
 						data.name, data.dimensions, data.size, data.extension);
 				});
@@ -2863,6 +2866,8 @@ var dlayer = {
 			$('.ipp-name').text('[Name]');
 			$('.ipp-dimensions').text('[Dimensions]');
 			$('.ipp-size').text('[Size]');
+			$('.ipp-image').attr('src', 
+				'/images/dlayer/image-picker-preview.jpg');
 			
 			$('.image-picker-preview').hide();
 		},
@@ -2896,6 +2901,8 @@ var dlayer = {
 			$('.ipp-name').text(name);
 			$('.ipp-dimensions').text(dimensions);
 			$('.ipp-size').text(size);
+			$('.ipp-image').attr('src', '/images/library/' + image_id + '/' + 
+				version_id + extension);
 			
 			$('.image-picker-preview').show();
 		},
