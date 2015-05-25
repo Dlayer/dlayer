@@ -125,7 +125,7 @@ extends Dlayer_Model_Page_Content_Item
 	{
 		$sql = 'SELECT usilv.library_id AS image_id, usilvm.version_id, 
 				usil.`name`, usilvm.width, usilvm.height, usilvm.size, 
-				usilvm.extension  
+				usilvm.extension, usil.category_id, usil.sub_category_id 
 				FROM user_site_page_content_item_image uspcii 
 				JOIN user_site_image_library_version usilv
 					ON uspcii.version_id = usilv.id  

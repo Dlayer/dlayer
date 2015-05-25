@@ -128,6 +128,15 @@ class Dlayer_Ribbon_Content_Image extends Dlayer_Ribbon_Module_Content
 						'size'=>$image['size'], 
 						'extension'=>$image['extension']
 					);
+					
+					$session_designer->setImagePickerCategoryId(
+						$image['category_id']);
+					$session_designer->setImagePickerSubCategoryId(
+						$image['sub_category_id']);
+					$session_designer->setImagePickerImageId(
+						$image['image_id']);
+					$session_designer->setImagePickerVersionId(
+						$image['version_id']);
 				}
 			}
 		}
