@@ -2840,9 +2840,6 @@ var dlayer = {
 					},
 					dataType: 'json'
 				}).done(function(data) {
-					
-					console.log(data);
-					
 					dlayer.designers.imagePickerComplete(image_id, version_id, 
 						data.name, data.dimensions, data.size, data.extension);
 				});

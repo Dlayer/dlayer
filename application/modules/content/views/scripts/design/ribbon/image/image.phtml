@@ -2,6 +2,19 @@
 
 <script>
 dlayer.designers.imagePickerOpen();
+
+<?php 
+if($this->data['selected_image'] != FALSE) { 
+$image = $this->data['selected_image'];	
+?>
+dlayer.designers.imagePickerComplete(
+	<?php echo $image['image_id']; ?>, 
+	<?php echo $image['version_id']; ?>, 
+	"<?php echo $image['name']; ?>", 
+	"<?php echo $image['dimensions']; ?>", 
+	"<?php echo $image['size']; ?>", 
+	"<?php echo $image['extension']; ?>");
+<?php } ?>
 </script>
 
 <div class="col-xs-12 small">

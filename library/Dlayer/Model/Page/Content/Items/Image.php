@@ -112,4 +112,94 @@ extends Dlayer_Model_Page_Content_Item
 		
 		return $stmt->fetch();
 	}
+	
+	/**
+	* Fetch the data for the currently selcted image
+	* 
+	* @param integer $site_id 
+	* @param integer $page_id 
+	* @param integer $content_id 
+	* @return array|FALSE
+	*/
+	public function selectedImage($site_id, $page_id, $content_id) 
+	{
+		$sql = 'SELECT usilv.library_id AS image_id, usilvm.version_id, 
+				usil.`name`, usilvm.width, usilvm.height, usilvm.size, 
+				usilvm.extension  
+				FROM user_site_page_content_item_image uspcii 
+				JOIN user_site_image_library_version usilv
+					ON uspcii.version_id = usilv.id  
+					AND usilv.site_id = 1 
+				JOIN user_site_image_library usil 
+					ON usilv.library_id = usil.id 
+					AND usil.site_id = 1 
+				JOIN user_site_image_library_version_meta usilvm 
+					ON usilv.id = usilvm.version_id 
+					AND usilv.library_id = usilvm.library_id 
+					AND usilvm.site_id = 1 
+				WHERE uspcii.site_id = 1 
+				AND uspcii.page_id = 1 
+				AND uspcii.content_id = 16';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			
+			$result['size'] = Dlayer_Helper::readableFilesize($result['size']);
+			$result['dimensions'] = $result['width'] . ' x ' . 
+				$result['height'] . ' pixels';
+			return $result;
+		} else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	* Fetch the data for the image defined in the designer session
+	* 
+	* @param integer $site_id 
+	* @param integer $image_id 
+	* @param integer $version_id 
+	* @return array|FALSE Either returns an array containing the image name 
+	* 	name of FALSE if the image cannot be selected
+	*/
+	public function sessionImage($site_id, $image_id, $version_id) 
+	{
+		$sql = 'SELECT usil.`name`, usilvm.width, usilvm.height, usilvm.size, 
+				usilvm.extension 
+				FROM user_site_image_library_version usilv 
+				JOIN user_site_image_library usil 
+					ON usilv.library_id = usil.id 
+					AND usil.id = :image_id 
+					AND usil.site_id = :site_id 
+				JOIN user_site_image_library_version_meta usilvm 
+					ON usilv.id = usilvm.version_id 
+					AND usilvm.library_id = :image_id 
+					AND usilvm.site_id = :site_id 
+				WHERE usilv.id = :version_id 
+				AND usilv.library_id = :image_id 
+				AND usilv.site_id = :site_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			
+			$result['size'] = Dlayer_Helper::readableFilesize($result['size']);
+			$result['dimensions'] = $result['width'] . ' x ' . 
+				$result['height'] . ' pixels';
+			return $result;
+		} else {
+			return FALSE;
+		}
+	}
 }

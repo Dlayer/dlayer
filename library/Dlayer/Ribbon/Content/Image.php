@@ -32,7 +32,8 @@ class Dlayer_Ribbon_Content_Image extends Dlayer_Ribbon_Module_Content
 
 		return array('form'=>new Dlayer_Form_Content_Image(
 			$this->page_id, $this->div_id, $this->content_row_id, 
-			$this->contentItem(), $this->edit_mode, $this->multi_use));
+			$this->contentItem(), $this->edit_mode, $this->multi_use), 
+			'selected_image'=>$this->selectedImage());
 	}
 	
 	/**
@@ -51,10 +52,11 @@ class Dlayer_Ribbon_Content_Image extends Dlayer_Ribbon_Module_Content
 	protected function contentItem()
 	{	
 		$data = array(
-			'id'=>FALSE, 
-			'version_id'=>FALSE, 
+			'id'=>FALSE, 			
 			'expand'=>FALSE, 
-			'caption'=>FALSE);
+			'caption'=>FALSE, 
+			'version_id'=>FALSE
+		);
 			
 		if($this->content_id != NULL) {
 			$model_image = new Dlayer_Model_Page_Content_Items_Image();
@@ -68,6 +70,68 @@ class Dlayer_Ribbon_Content_Image extends Dlayer_Ribbon_Module_Content
 			}
 		}
 
+		return $data;
+	}
+	
+	/**
+	* Fetch the currently selected image for the picker, used to set the 
+	* selected state.
+	* 
+	* Checks to see if the session has valid values and if so uses those 
+	* otherwise it fetches the values for the currently selected content 
+	* item
+	* 
+	* @return array|FALSE
+	*/
+	protected function selectedImage() 
+	{
+		$data = FALSE;
+		
+		$model_image = new Dlayer_Model_Page_Content_Items_Image();
+		
+		$session_designer = new Dlayer_Session_Designer();
+		
+		if($session_designer->imagePickerCategoryId() !== NULL && 
+			$session_designer->imagePickerSubCategoryId() !== NULL && 
+			$session_designer->imagePickerImageId() !== NULL && 
+			$session_designer->imagePickerVersionId() !== NULL) {
+				
+			$model_image = new Dlayer_Model_Page_Content_Items_Image();
+			
+			$image = $model_image->sessionImage($this->site_id, $this->page_id, 
+				$this->content_id);
+			
+			if($image != FALSE) {
+				$data = array(
+					'image_id'=>$image['image_id'], 
+					'version_id'=>$image['version_id'], 
+					'name'=>$image['name'],
+					'dimensions'=>$image['dimensions'],
+					'size'=>$image['size'], 
+					'extension'=>$image['extension']
+				);
+			}
+				
+		} else {
+			if($this->content_id != NULL) {
+				$model_image = new Dlayer_Model_Page_Content_Items_Image();
+				
+				$image = $model_image->selectedImage($this->site_id, 
+					$this->page_id, $this->content_id);
+				
+				if($image != FALSE) {
+					$data = array(
+						'image_id'=>$image['image_id'], 
+						'version_id'=>$image['version_id'], 
+						'name'=>$image['name'],
+						'dimensions'=>$image['dimensions'],
+						'size'=>$image['size'], 
+						'extension'=>$image['extension']
+					);
+				}
+			}
+		}
+		
 		return $data;
 	}
 }
