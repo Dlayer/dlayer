@@ -282,7 +282,8 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 	}
 	
 	/**
-	* Check that the given image id and version id are valid
+	* Check that the given image id and version id are valid, if valid returns 
+	* the name, dimensions and size
 	* 
 	* @param integer $site_id 
 	* @param integer $image_id 
@@ -292,12 +293,17 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 	*/
 	public function validateImage($site_id, $image_id, $version_id) 
 	{
-		$sql = 'SELECT usil.`name` 
+		$sql = 'SELECT usil.`name`, usilvm.width, usilvm.height, usilvm.size, 
+				usilvm.extension 
 				FROM user_site_image_library_version usilv 
 				JOIN user_site_image_library usil 
 					ON usilv.library_id = usil.id 
 					AND usil.id = :image_id 
 					AND usil.site_id = :site_id 
+				JOIN user_site_image_library_version_meta usilvm 
+					ON usilv.id = usilvm.version_id 
+					AND usilvm.library_id = :image_id 
+					AND usilvm.site_id = :site_id 
 				WHERE usilv.id = :version_id 
 				AND usilv.library_id = :image_id 
 				AND usilv.site_id = :site_id';
@@ -307,6 +313,18 @@ class Dlayer_Model_ImagePicker extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
 		$stmt->execute();
 		
-		return $stmt->fetch();
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			
+			$result['size'] = Dlayer_Helper::readableFilesize($result['size']);
+			$result['dimensions'] = $result['width'] . ' x ' . 
+				$result['height'] . ' pixels';
+			return $result;
+		} else {
+			return FALSE;
+		}
+		
+		
 	}
 }

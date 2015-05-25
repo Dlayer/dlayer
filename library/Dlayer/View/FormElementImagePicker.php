@@ -20,13 +20,28 @@ class Dlayer_View_FormElementImagePicker extends Zend_View_Helper_FormElement
 		}
 		
 		$xhtml = '<div class="clearfix"></div>'
-				. '<a class="btn btn-danger open-image-picker-tool" href="#" role="button">Select image</a>'  
+				. '<a class="btn btn-danger open-image-picker-tool" ' 
+				. 'href="#" role="button">Select image</a>'  
 				. '<input type="hidden"'
 				. ' name="' . $this->view->escape($name) . '"'
 				. ' id="' . $this->view->escape($id) . '"'
 				. ' value="' . $this->view->escape($value) . '"'
 				. $this->_htmlAttribs($attribs)
 				. $this->getClosingBracket();
+				
+		$xhtml .= '
+		<div class="row image-picker-preview" style="padding-top:5px;">
+			<div class="col-xs-4">
+				<img src="/images/dlayer/image-picker-preview.jpg" class="ipp-image" title="Image picker preview" alt="Selected image place holder" width="90" height="70" class="img-thumbnail">
+			</div>
+			<div class="col-xs-8">
+				<p>
+					<strong>Name:</strong> <span class="ipp-name">[Name]</span><br>
+					<strong>Dimenisons:</strong> <span class="ipp-dimensions">[Dimensions]</span><br>
+					<strong>Size:</strong> <span class="ipp-size">[Size]</span>
+				</p>
+			</div>
+		</div>';
 
 		return $xhtml;
 	}

@@ -148,7 +148,10 @@ class Content_AjaxController extends Zend_Controller_Action
 			$this->session_designer->setImagePickerImageId($image_id);
 			$this->session_designer->setImagePickerVersionId($version_id);
 			
-			$json = array('data'=>true, "name"=>$image['name']);
+			$json = array(
+				'data'=>true, 
+				'name'=>$image['name']
+			);
 		}
 		
 		echo Zend_Json::encode($json);

@@ -2781,6 +2781,7 @@ var dlayer = {
 					dataType: 'html'
 				}).done(function(html) {
 					$('.image-picker-tool .loading').hide();
+					dlayer.designers.imagePickerCancel();
 					$('.image-picker-tool .form').html(html);
 				});
 			});
@@ -2804,7 +2805,8 @@ var dlayer = {
 					data: { sub_category_id: 'clear' },
 					dataType: 'html'
 				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();
+					$('.image-picker-tool .loading').hide();					
+					dlayer.designers.imagePickerCancel();					
 					$('.image-picker-tool .form').html(html);
 				});
 			});
@@ -2837,16 +2839,65 @@ var dlayer = {
 						version_id: version_id
 					},
 					dataType: 'json'
-				}).done(function(data) {					
-					$('.image-picker-tool .close-image-picker').trigger('click');
-					
-					$(".open-image-picker-tool").text('Selected:' + data.name);
-					
-					$(".open-image-picker-tool").
-						removeClass('btn-danger').
-						addClass('btn-success');
+				}).done(function(data) {
+					dlayer.designers.imagePickerComplete(image_id, version_id, 
+						data.name, data.dimensions, data.size, data.extension);
 				});
 			});
+		},
+		
+		/**
+		* Cancel the request, clears the hidden view, resets the select 
+		* image button
+		*/
+		imagePickerCancel: function() 
+		{
+			$(".open-image-picker-tool").text('Select image');
+			
+			$(".open-image-picker-tool").
+				removeClass('btn-success').
+				addClass('btn-danger');
+				
+			$('#params-version_id').val('');
+			
+			$('.ipp-name').text('[Name]');
+			$('.ipp-dimensions').text('[Dimensions]');
+			$('.ipp-size').text('[Size]');
+			
+			$('.image-picker-preview').hide();
+		},
+		
+		/**
+		* Complete image picker request, set the version id in the hidden 
+		* field, update the button and also change the state of the select 
+		* image button
+		* 
+		* @param {Integer} Image id
+		* @param {Integer} Version id
+		* @param {String} Name of the selected image
+		* @param {String} Dimesions of the selected image
+		* @param {String} Size of the selected image
+		* @param {String} Extension for the selected image
+		* @returns {Void}
+		*/
+		imagePickerComplete: function(image_id, version_id, name, dimensions, 
+			size, extension) 
+		{
+			$('.image-picker-tool .close-image-picker').trigger('click');
+			
+			$(".open-image-picker-tool").text('Image selected');
+			
+			$(".open-image-picker-tool").
+				removeClass('btn-danger').
+				addClass('btn-success');
+				
+			$('#params-version_id').val(version_id);
+			
+			$('.ipp-name').text(name);
+			$('.ipp-dimensions').text(dimensions);
+			$('.ipp-size').text(size);
+			
+			$('.image-picker-preview').show();
 		},
 		
 		/**
@@ -2895,6 +2946,7 @@ var dlayer = {
 					dataType: 'html'
 				}).done(function(html) {
 					$('.image-picker-tool .loading').hide();
+					dlayer.designers.imagePickerCancel();
 					$('.image-picker-tool .form').html(html);
 				});
 			});

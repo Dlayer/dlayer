@@ -150,4 +150,7 @@ div.image-picker-tool {
   div.image-picker-tool span.close-image-picker {
     cursor: pointer; }
 
+div.image-picker-preview {
+  display: none; }
+
 /*# sourceMappingURL=designers.css.map */
