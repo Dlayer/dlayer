@@ -98,13 +98,14 @@ class Dlayer_Ribbon_Content_Image extends Dlayer_Ribbon_Module_Content
 				
 			$model_image = new Dlayer_Model_Page_Content_Items_Image();
 			
-			$image = $model_image->sessionImage($this->site_id, $this->page_id, 
-				$this->content_id);
-			
+			$image = $model_image->sessionImage($this->site_id, 
+				$session_designer->imagePickerImageId(), 
+				$session_designer->imagePickerVersionId());
+						
 			if($image != FALSE) {
 				$data = array(
-					'image_id'=>$image['image_id'], 
-					'version_id'=>$image['version_id'], 
+					'image_id'=>$session_designer->imagePickerImageId(), 
+					'version_id'=>$session_designer->imagePickerVersionId(), 
 					'name'=>$image['name'],
 					'dimensions'=>$image['dimensions'],
 					'size'=>$image['size'], 

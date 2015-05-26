@@ -129,17 +129,17 @@ extends Dlayer_Model_Page_Content_Item
 				FROM user_site_page_content_item_image uspcii 
 				JOIN user_site_image_library_version usilv
 					ON uspcii.version_id = usilv.id  
-					AND usilv.site_id = 1 
+					AND usilv.site_id = :site_id 
 				JOIN user_site_image_library usil 
 					ON usilv.library_id = usil.id 
-					AND usil.site_id = 1 
+					AND usil.site_id = :site_id 
 				JOIN user_site_image_library_version_meta usilvm 
 					ON usilv.id = usilvm.version_id 
 					AND usilv.library_id = usilvm.library_id 
-					AND usilvm.site_id = 1 
-				WHERE uspcii.site_id = 1 
-				AND uspcii.page_id = 1 
-				AND uspcii.content_id = 16';
+					AND usilvm.site_id = :site_id 
+				WHERE uspcii.site_id = :site_id 
+				AND uspcii.page_id = :page_id  
+				AND uspcii.content_id = :content_id';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);

@@ -245,7 +245,11 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 			$content_row_id, $this->suggested_maximum_size);
 			
 		if($suggested_size >= $this->minimum_size) {
-			return $suggested_size;
+			if($suggested_size > $this->suggested_maximum_size) {
+				return $this->suggested_maximum_size;
+			} else {
+				return $suggested_size;
+			}
 		} else {
 			return $this->suggested_maximum_size;
 		}
