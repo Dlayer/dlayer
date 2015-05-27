@@ -2231,25 +2231,31 @@ var dlayer = {
 		{
 			$('#design div.field_row').hover(
 				function() {
-					background_color = $(this).css('background-color');
-					$(this).css('background-color', '#e1dc50');
-					$(this).css('cursor', 'pointer');
-					$(this).find('.move').show();
+					if($(this).hasClass('selected') == false) {
+						background_color = $(this).css('background-color');
+						$(this).css('background-color', '#e1dc50');
+						$(this).css('cursor', 'pointer');
+						$(this).find('.move').show();
+					}
 				},
 				function() {
-					$(this).css('background-color', background_color);
-					$(this).find('.move').hide();
+					if($(this).hasClass('selected') == false) {
+						$(this).css('background-color', background_color);
+						$(this).find('.move').hide();
+					}
 				}
 			);
 			$('#design div.field_row').click(
 				function() {
-					$(this).css('background-color','#c3be50');
+					if($(this).hasClass('selected') == false) {
+						$(this).css('background-color','#c3be50');
+						
+						var params = this.id.split(':');
 
-					var params = this.id.split(':');
-
-					window.location.replace(
-					'/form/design/set-selected-field/selected/' + params[2] +
-					'/tool/' + params[1] + '/type/' + params[0]);
+						window.location.replace(
+						'/form/design/set-selected-field/selected/' + params[2] +
+						'/tool/' + params[1] + '/type/' + params[0]);
+					}
 				}
 			);
 		}

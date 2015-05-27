@@ -265,6 +265,7 @@ class Form_DesignController extends Zend_Controller_Action
 			$this->session_dlayer->siteId(), 'form');
 
 		$this->view->form = $designer_form->form();
+		$this->view->field_styles = $designer_form->fieldStyles();
 
 		return $this->view->render("design/form-preview.phtml");
 	}

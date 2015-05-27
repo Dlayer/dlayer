@@ -3,10 +3,11 @@
 <script type="text/javascript">
 $(document).ready(function() 
 	{
-		<?php if($this->field_id == NULL && $this->tool == NULL) { ?>
-			dlayer.selectors.form();
+		<?php if($this->field_id == NULL && $this->tool == NULL) { ?>			
 			dlayer.movers.formFields();
-			<?php } ?>
+		<?php } ?>
+		
+		dlayer.selectors.form();
 			
 		// Toggles for tools section
 		$('div#tools h4').click(
