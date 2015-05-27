@@ -1,0 +1,21 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+<style>
+div.builder-form * {
+	font-family: <?php echo $this->base_font_family; ?>;
+}
+
+<?php foreach ($this->field_styles as $field_id => $styles) {
+	if(count($styles) > 0) {
+		echo 'div.builder-form .row_' . $field_id . " {\r\n";
+		foreach($styles as $style) {
+			echo $style . "\r\n";
+		}
+	echo "}\r\n";
+	}
+} 
+?>
+</style>
+
+<div class="col-md-6 col-md-offset-3 builder-form">
+	<?php echo $this->form; ?>
+</div>

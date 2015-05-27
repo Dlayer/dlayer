@@ -2271,12 +2271,12 @@ var dlayer = {
 				var params = this.id.split(':');
 
 				if(index !== 0) {
-					$(this).prepend('<div class="btn btn-xs btn-default btn-block move move-' + params[1] +
-					'" id="up:' + params[0] + ':' + params[2] + '">Move up</div>');
+					$(this).prepend('<div class="btn btn-xs btn-primary btn-block move move-' + params[1] +
+					'" id="up:' + params[0] + ':' + params[2] + '">Display sooner</div>');
 				}
 				if(index !== fields) {
-					$(this).append('<div class="btn btn-xs btn-default btn-block move move-' + params[1] +
-					'" id="down:' + params[0] + ':' + params[2] + '">Move down</div>');
+					$(this).append('<div class="btn btn-xs btn-primary btn-block move move-' + params[1] +
+					'" id="down:' + params[0] + ':' + params[2] + '">Display later</div>');
 				}
 			});
 
@@ -2310,7 +2310,7 @@ var dlayer = {
 		button: function(base_class, move_class, direction, label, id) 
 		{
 			var button = '<div class="move">';
-			button += '<div class="btn btn-xs btn-default btn-block ';
+			button += '<div class="btn btn-xs btn-primary btn-block ';
 			button += move_class + '" id="' + direction + ':' + id + '">';
 			button += label;
 			button += '</div>';
@@ -2335,11 +2335,11 @@ var dlayer = {
 				
 				if(index !== 0) {
 					$(this).prepend(dlayer.movers.button('move', 
-						'move-up', 'up', 'Move up', id));
+						'move-up', 'up', 'Display sooner', id));
 				}
 				if(index !== (rows-1)) {
 					$(this).append(dlayer.movers.button('move', 
-						'move-down', 'down', 'Move down', id));
+						'move-down', 'down', 'Display later', id));
 				}
 			});
 			

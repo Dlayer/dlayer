@@ -59,6 +59,10 @@ class Form_DesignController extends Zend_Controller_Action
 	*/
 	public function indexAction()
 	{
+		$this->_helper->setLayout('designer');
+		
+		$this->layout->assign('preview_url', '/form/design/preview');
+		
 		$this->dlayerMenu('/form/index/index');
 		$this->view->dlayer_toolbar = $this->dlayerToolbar();
 		$this->view->dlayer_form = $this->dlayerForm();
@@ -70,6 +74,22 @@ class Form_DesignController extends Zend_Controller_Action
 		$this->layout->assign('css_include', 
 			array('css/dlayer.css', 'css/designers.css'));
 		$this->layout->assign('title', 'Dlayer.com - Form builder');
+	}
+	
+	/**
+	* Preview for the completed form
+	* 
+	* @return void
+	*/
+	public function previewAction() 
+	{
+		$this->_helper->setLayout('preview');
+
+		$this->view->dlayer_form = $this->dlayerFormPreview();
+
+		$this->layout->assign('css_include', 
+			array('css/dlayer.css', 'css/preview.css'));
+		$this->layout->assign('title', 'Dlayer.com - Form preview');
 	}
 
 	/**
@@ -217,18 +237,36 @@ class Form_DesignController extends Zend_Controller_Action
 			FALSE, $this->session_form->fieldId());
 
 		$model_settings = new Dlayer_Model_View_Settings();
-		$model_form_settings = new Dlayer_Model_View_Form_Settings();
 
 		$this->view->base_font_family = $model_settings->baseFontFamily(
 			$this->session_dlayer->siteId(), 'form');
 
-		$this->view->minimum_width = $model_form_settings->minimumWidth(
-			$this->session_dlayer->siteId(), $this->session_form->formId());
 		$this->view->form = $designer_form->form();
 		$this->view->field_id = $this->session_form->fieldId();        
 		$this->view->field_styles = $designer_form->fieldStyles();
 
 		return $this->view->render("design/form.phtml");
+	}
+	
+	/**
+	* Generate the preview form html
+	*
+	* @return string Html
+	*/
+	private function dlayerFormPreview()
+	{
+		$designer_form = new Dlayer_Designer_Form(
+			$this->session_dlayer->siteId(), $this->session_form->formId(),
+			TRUE, NULL);
+
+		$model_settings = new Dlayer_Model_View_Settings();
+
+		$this->view->base_font_family = $model_settings->baseFontFamily(
+			$this->session_dlayer->siteId(), 'form');
+
+		$this->view->form = $designer_form->form();
+
+		return $this->view->render("design/form-preview.phtml");
 	}
 
 	/**
