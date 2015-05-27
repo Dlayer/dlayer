@@ -120,6 +120,12 @@ div#designer {
         float: left;
         clear: left;
         cursor: pointer; }
+    div#designer #ribbon fieldset div.form-group-collapsed label span {
+      cursor: pointer; }
+    div#designer #ribbon fieldset div.form-group-collapsed .form-control {
+      display: none; }
+    div#designer #ribbon fieldset div.form-group-collapsed p.help-block {
+      display: none; }
 
 div.color_picker_tool {
   display: none; }

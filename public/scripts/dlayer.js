@@ -107,6 +107,43 @@ var dlayer = {
 					   },
 					   'html');
 			}
+		}, 
+		
+		form: {
+			
+			fn: {
+				
+				/**
+				* Toggle for the additional fields
+				* 
+				* @returns {Void}
+				*/
+				toggleAdditionalFields: function() 
+				{
+					$('div.form-group-collapsed span.toggle').on(
+						'click', function() {
+						
+						toggle = $(this);
+						var field = '#params-' + this.id.replace('fgc-', '');
+						
+						console.log(field);
+						
+						if(toggle.hasClass('glyphicon-plus')) {
+							toggle.removeClass('glyphicon-plus').
+								addClass('glyphicon-minus');
+								
+							$(field).show();
+							$(field).next('p.help-block').show();
+						} else {
+							toggle.removeClass('glyphicon-minus').
+								addClass('glyphicon-plus');
+								
+							$(field).hide();
+							$(field).next('p.help-block').hide();
+						}
+					});
+				}																
+			}
 		}
 	},
 	tools: {

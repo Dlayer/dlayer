@@ -246,6 +246,24 @@ div#designer {
 					cursor: pointer;
 				}
 			}
+			
+			div.form-group-collapsed {
+			
+				label {
+				
+					span {
+						cursor: pointer;
+					}
+				}
+			
+				.form-control {
+					display: none;
+				}
+				
+				p.help-block {
+					display: none;
+				}
+			}
 		}
 	}
 }

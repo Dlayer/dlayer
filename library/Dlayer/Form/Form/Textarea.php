@@ -176,7 +176,9 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$this->elements['placeholder'] = $placeholder;
 
 		$cols = new Dlayer_Form_Element_Number('cols');
-		$cols->setLabel('Width');
+		$cols->setLabel('<span class="glyphicon glyphicon-plus toggle" 
+			id="fgc-cols" title="Expand for more" aria-hidden="true">
+			</span> Width');
 		$cols->setValue(40);
 		$cols->setAttribs(array('maxlength'=>3, 'min'=>0, 
 			'class'=>'form-control input-sm'));
@@ -193,7 +195,9 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$this->elements['cols'] = $cols;
 
 		$rows = new Dlayer_Form_Element_Number('rows');
-		$rows->setLabel('Rows');
+		$rows->setLabel('<span class="glyphicon glyphicon-plus toggle" 
+			id="fgc-rows" title="Expand for more" aria-hidden="true">
+			</span> Rows');
 		$rows->setValue(3);
 		$rows->setAttribs(array('maxlength'=>3, 'min'=>0, 
 			'class'=>'form-control input-sm'));
@@ -229,5 +233,56 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 	protected function validationRules()
 	{
 
+	}
+	
+	/**
+	* Add any custom decorators, these are inputs where we need a little more
+	* control over the html, an example being the submit button
+	*
+	* @return void
+	*/
+	protected function addCustomElementDecorators()
+	{
+		parent::addCustomElementDecorators();
+		
+		$this->elements['cols']->setDecorators(
+			array(
+				array('ViewHelper'), 
+				array('Description', array('tag' => 'p', 'class'=>'help-block')),
+				array('Errors', array('class'=> 'alert alert-danger')), 
+				array('Label', array('escape'=>FALSE)), 
+				array('HtmlTag', array(
+					'tag' => 'div', 
+					'class'=> array(
+						'callback' => function($decorator) {
+							if($decorator->getElement()->hasErrors()) {
+								return 'form-group has-error';
+							} else {
+								return 'form-group form-group-collapsed';
+							}
+					})
+				))
+			)
+		);
+		
+		$this->elements['rows']->setDecorators(
+			array(
+				array('ViewHelper'), 
+				array('Description', array('tag' => 'p', 'class'=>'help-block')),
+				array('Errors', array('class'=> 'alert alert-danger')), 
+				array('Label', array('escape'=>FALSE)), 
+				array('HtmlTag', array(
+					'tag' => 'div', 
+					'class'=> array(
+						'callback' => function($decorator) {
+							if($decorator->getElement()->hasErrors()) {
+								return 'form-group has-error';
+							} else {
+								return 'form-group form-group-collapsed';
+							}
+					})
+				))
+			)
+		);
 	}
 }
