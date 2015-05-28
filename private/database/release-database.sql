@@ -262,6 +262,20 @@ CREATE TABLE `designer_form_field_type` (
 
 insert  into `designer_form_field_type`(`id`,`name`,`type`,`description`) values (1,'Text','text','A single line field'),(2,'Textarea','textarea','A multiple line field'),(3,'Password','password','A password field');
 
+/*Table structure for table `designer_form_layout` */
+
+DROP TABLE IF EXISTS `designer_form_layout`;
+
+CREATE TABLE `designer_form_layout` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `layout` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `designer_form_layout` */
+
+insert  into `designer_form_layout`(`id`,`layout`) values (1,NULL),(2,'Inline'),(3,'Horizontal');
+
 /*Table structure for table `designer_form_preview_method` */
 
 DROP TABLE IF EXISTS `designer_form_preview_method`;
@@ -328,7 +342,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-05-28 18:22:03','2015-05-28 18:51:11',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-04-23 11:58:19','2015-04-23 12:01:04',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-04-23 12:01:17','2015-04-23 12:03:24',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2015-05-28 18:54:00','2015-05-28 19:08:37',1),(2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-04-23 11:58:19','2015-04-23 12:01:04',1),(3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-04-23 12:01:17','2015-04-23 12:03:24',1);
 
 /*Table structure for table `dlayer_module` */
 
@@ -427,7 +441,7 @@ CREATE TABLE `dlayer_session` (
 
 /*Data for the table `dlayer_session` */
 
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('qgek8itq1nbep22lpc6fjsie40','','PHPSESSID',1432835474,3601,'__ZF|a:6:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1432839074;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1432839073;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1432839073;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1432839073;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1432839073;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1432839073;}}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:10:\"FormLayout\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_content|a:7:{s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('qgek8itq1nbep22lpc6fjsie40','','PHPSESSID',1432836521,3601,'__ZF|a:6:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1432840121;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1432840121;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1432840121;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1432840121;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1432840121;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1432840121;}}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:10:\"FormLayout\";}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_content|a:7:{s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
 
 /*Table structure for table `dlayer_setting` */
 
@@ -788,11 +802,16 @@ CREATE TABLE `user_site_form_layout` (
   `sub_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `submit_label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `reset_label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `layout_id` tinyint(3) unsigned NOT NULL,
+  `inline_width_label` tinyint(2) unsigned NOT NULL DEFAULT '3',
+  `inline_width_field` tinyint(2) unsigned NOT NULL DEFAULT '9',
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `form_id` (`form_id`),
+  KEY `layout_id` (`layout_id`),
   CONSTRAINT `user_site_form_layout_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-  CONSTRAINT `user_site_form_layout_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`)
+  CONSTRAINT `user_site_form_layout_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`),
+  CONSTRAINT `user_site_form_layout_ibfk_3` FOREIGN KEY (`layout_id`) REFERENCES `designer_form_layout` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form_layout` */

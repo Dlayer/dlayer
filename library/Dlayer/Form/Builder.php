@@ -74,8 +74,7 @@ class Dlayer_Form_Builder extends Zend_Form
 
 		$this->setUpFormElements();
 
-		$this->addElementsToForm('form_' . $this->form_id,
-			$this->settings['legend'], $this->elements);
+		$this->addElements($this->elements);
 
 		$this->addCustomElementDecorators();
 
@@ -242,11 +241,7 @@ class Dlayer_Form_Builder extends Zend_Form
 			'FormElements', 
 			array('Form', array('class'=>'form'))));
 
-		$this->setDisplayGroupDecorators(array(
-			'FormElements',
-			'Fieldset',
-		));
-
+		
 		foreach($this->form_fields as $form_field) {
 			$class = 'form-group field_row row_' . $form_field['id'];
 
