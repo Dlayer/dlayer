@@ -232,17 +232,22 @@ class Form_DesignController extends Zend_Controller_Action
 	*/
 	private function dlayerForm()
 	{
-		$designer_form = new Dlayer_Designer_Form(
-			$this->session_dlayer->siteId(), $this->session_form->formId(),
-			FALSE, $this->session_form->fieldId());
+		$site_id = $this->session_dlayer->siteId();
+		$form_id = $this->session_form->formId();
+		$field_id = $this->session_form->fieldId();
+		
+		$designer_form = new Dlayer_Designer_Form($site_id, $form_id, 
+			FALSE, $field_id);
 
 		$model_settings = new Dlayer_Model_View_Settings();
+		$model_layout = new Dlayer_Model_View_Form_Layout();
 
 		$this->view->base_font_family = $model_settings->baseFontFamily(
-			$this->session_dlayer->siteId(), 'form');
+			$site_id, 'form');
+		$this->view->titles = $model_layout->titles($site_id, $form_id);
 
 		$this->view->form = $designer_form->form();
-		$this->view->field_id = $this->session_form->fieldId();        
+		$this->view->field_id = $field_id;        
 		$this->view->field_styles = $designer_form->fieldStyles();
 
 		return $this->view->render("design/form.phtml");
@@ -255,14 +260,19 @@ class Form_DesignController extends Zend_Controller_Action
 	*/
 	private function dlayerFormPreview()
 	{
-		$designer_form = new Dlayer_Designer_Form(
-			$this->session_dlayer->siteId(), $this->session_form->formId(),
-			TRUE, NULL);
+		$site_id = $this->session_dlayer->siteId();
+		$form_id = $this->session_form->formId();
+		$field_id = $this->session_form->fieldId();
+		
+		$designer_form = new Dlayer_Designer_Form($site_id, $form_id, TRUE, 
+			NULL);
 
 		$model_settings = new Dlayer_Model_View_Settings();
+		$model_layout = new Dlayer_Model_View_Form_Layout();
 
 		$this->view->base_font_family = $model_settings->baseFontFamily(
 			$this->session_dlayer->siteId(), 'form');
+		$this->view->titles = $model_layout->titles($site_id, $form_id);
 
 		$this->view->form = $designer_form->form();
 		$this->view->field_styles = $designer_form->fieldStyles();

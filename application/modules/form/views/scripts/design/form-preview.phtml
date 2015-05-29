@@ -17,5 +17,15 @@ div.builder-form * {
 </style>
 
 <div class="builder-form">
+	<h3>
+	<?php 
+		echo $this->escape($this->titles['title']);
+		if(strlen($this->titles['sub_title']) > 0) {
+			echo ' <small>' . $this->escape($this->titles['sub_title']) . 
+				'</small>';
+		}
+	
+	?>
+	</h3>
 	<?php echo $this->form; ?>
 </div>
