@@ -27,7 +27,11 @@
 	
 	<script>
 	$('.set-form-display-size a').on('click', function() {
-		
+		if($(this).hasClass('btn-primary') == true) {
+			$(this).removeClass('btn-primary').addClass('btn-default');
+		} else {
+			$(this).removeClass('btn-default').addClass('btn-primary');
+		}
 	});
 	</script>
 	
