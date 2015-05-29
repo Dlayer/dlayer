@@ -31,4 +31,26 @@ class Dlayer_Model_View_Form_Layout extends Zend_Db_Table_Abstract
 		
 		return $stmt->fetch();
 	}
+	
+	/**
+	* Fetch the button values for the form
+	* 
+	* @param integer $site_id
+	* @param integer $form_id
+	* @return array
+	*/
+	public function buttons($site_id, $form_id) 
+	{
+		$sql = 'SELECT submit_label, reset_label 
+				FROM user_site_form_layout 
+				WHERE site_id = :site_id 
+				AND form_id = :form_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		return $stmt->fetch();
+	}
 }

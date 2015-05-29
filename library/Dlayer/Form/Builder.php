@@ -38,18 +38,15 @@ class Dlayer_Form_Builder extends Zend_Form
 	private $form_fields;
 
 	/**
-	* Form builder settings
-	* 
-	* @var array
-	*/
-	private $settings;
-
-	/**
 	* View mode, if TRUE don't add ids to form field rows
 	* 
 	* @var boolean
 	*/
 	private $view;
+	
+	private $buttons;
+	
+	private $model_layout;
 
 	/**
 	* Pass in any values that are needed to set up the form, optional
@@ -68,7 +65,10 @@ class Dlayer_Form_Builder extends Zend_Form
 		$this->field_id = $field_id;
 		$this->form_fields = $form_fields;
 		$this->view = $view;
-		$this->settings = $this->settings();
+		
+		$this->model_layout = new Dlayer_Model_View_Form_Layout();
+		
+		$this->buttons = $this->buttons();
 
 		$this->setMethod('post');
 
@@ -120,23 +120,49 @@ class Dlayer_Form_Builder extends Zend_Form
 					break;
 			}
 		}
-
-		$submit = new Zend_Form_Element_Submit('submit');
-		$submit->setLabel($this->settings['button']);
-		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		$this->elements['submit'] = $submit;
+		
+		if($this->buttons['submit'] == TRUE) {
+			$submit = new Zend_Form_Element_Submit('submit');
+			$submit->setLabel($this->buttons['submit_label']);
+			$submit->setAttribs(array('class'=>'btn btn-primary'));
+			$this->elements['submit'] = $submit;
+		}
+		
+		if($this->buttons['reset'] == TRUE) {
+			$reset = new Zend_Form_Element_Reset('reset');
+			$reset->setLabel($this->buttons['reset_label']);
+			$reset->setAttribs(array('class'=>'btn btn-default'));
+			$this->elements['reset'] = $reset;
+		}
 	}
-
+	
 	/**
-	* Fetch the settings for the form
+	* Fetch the button values for the form
 	* 
 	* @return array
 	*/
-	private function settings() 
+	private function buttons() 
 	{
-		$model_form = new Dlayer_Model_Form_Settings();
-		return $model_form->formBuilderSettings($this->form_id);
+		$session_dlayer = new Dlayer_Session();
+		
+		$data = $this->model_layout->buttons($session_dlayer->siteId(), 
+			$this->form_id);
+		
+		$buttons = array();
+		
+		$buttons['submit'] = TRUE;
+		$buttons['submit_label'] = $data['submit_label'];
+		if(strlen($data['reset_label']) > 0) {
+			$buttons['reset'] = TRUE;
+			$buttons['reset_label'] = $data['reset_label'];
+		} else {
+			$buttons['reset'] = FALSE;
+			$buttons['reset_label'] = NULL;
+		}
+		
+		return $buttons;
 	}
+	
 
 	/**
 	* Add the validation rules for the form elements and set the custom error
@@ -271,8 +297,21 @@ class Dlayer_Form_Builder extends Zend_Form
 			);
 		}
 
-		$this->elements['submit']->setDecorators(array(array('ViewHelper'),
-			array('HtmlTag', array('tag' => 'div', 'class'=>'form-group'))));
+		if(array_key_exists('submit', $this->elements)) {
+			$this->elements['submit']->setDecorators(
+				array(
+					array('ViewHelper'),
+				)
+			);
+		}
+		
+		if(array_key_exists('reset', $this->elements)) {
+			$this->elements['reset']->setDecorators(
+				array(
+					array('ViewHelper'),
+				)
+			);
+		}
 	}
 
 	/**

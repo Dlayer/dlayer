@@ -2222,8 +2222,8 @@ var dlayer = {
 		},
 		
 		/**
-		* Select function for the forms module, allows a form input to be selected so
-		* that it can be edited
+		* Select function for the forms module, allows a form input to be 
+		* selected so that it can be edited
 		*
 		* @returns {Void}
 		*/

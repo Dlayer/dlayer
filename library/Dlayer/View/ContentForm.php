@@ -143,6 +143,18 @@ class Dlayer_View_ContentForm extends Zend_View_Helper_Abstract
 		$html .= '<div class="' . $content_class . '"'; 
 		$html .= $content_item_styles;
 		$html .= '>';
+		
+		if($this->data['titles']['show'] == TRUE) {
+			$html .= '<h3>';
+			$html .= $this->view->escape($this->data['titles']['title']);
+			if(strlen($this->data['titles']['sub_title']) > 0) {
+				$html .= ' <small>' . 
+					$this->view->escape($this->data['titles']['sub_title']) . 
+					'</small>';
+			}
+			$html .= '</h3>';
+		}
+		
 		$html .= $this->data['form']->form();
 		$html .= '</div>';
 		$html .= '</div>';

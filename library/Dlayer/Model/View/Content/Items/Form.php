@@ -57,7 +57,31 @@ class Dlayer_Model_View_Content_Items_Form extends Zend_Db_Table_Abstract
 	public function data($site_id, $page_id, $content_id) 
 	{
 		$item = $this->item($site_id, $page_id, $content_id);   	
+		
+		$item['titles'] = $this->titles($site_id, $item['form_id']);
 
 		return $item;
 	}
+	
+	/**
+	* Fetch the title values for the form
+	* 
+	* @return array|FALSE
+	*/
+	private function titles($site_id, $form_id) 
+	{
+		$model_layout = new Dlayer_Model_View_Form_Layout();
+		
+		$titles = $model_layout->titles($site_id, $form_id);
+		
+		if($titles != FALSE) {
+			return array(
+				'show'=>TRUE,
+				'title'=>$titles['title'],
+				'sub_title'=>$titles['sub_title'],
+			);
+		} else {
+			return array('show'=>FALSE);
+		}		
+	}	
 }
