@@ -46,11 +46,19 @@ class Dlayer_Ribbon_Form_FormLayout extends Dlayer_Ribbon_Module_Form
 	*/
 	private function existingData() 
 	{
-		return array(
-			'title'=>NULL,
-			'sub_title'=>NULL,
-			'submit_label'=>NULL, 
-			'reset_label'=>NULL
-		);
+		$model_layout = new Dlayer_Model_Form_Layout();
+		
+		$layout = $model_layout->currentValues($this->site_id, $this->form_id);
+		
+		if($layout != FALSE) {
+			return $layout;
+		} else {
+			return array(
+				'title'=>Dlayer_Config::FORM_DEFAULT_TITLE,
+				'sub_title'=>Dlayer_Config::FORM_DEFAULT_SUB_TITLE,
+				'submit_label'=>Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL, 
+				'reset_label'=>Dlayer_Config::FORM_DEFAULT_RESET_LABEL
+			);
+		}
 	}
 }

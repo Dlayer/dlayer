@@ -129,8 +129,7 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 		
 		$submit_label = new Zend_Form_Element_Text('submit_label');
 		$submit_label->setLabel('Button label');
-		$submit_label->setDescription("Enter the text for the submit button, 
-			the default value is 'send'.");
+		$submit_label->setDescription("Enter the text for the submit button.");
 		$submit_label->setAttribs(array('maxlength'=>255, 'size'=>50, 
 			'class'=>'form-control input-sm'));
 		$submit_label->setValue($this->field_data['submit_label']);
@@ -148,7 +147,6 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 			'class'=>'form-control input-sm'));
 		$reset_label->setValue($this->field_data['reset_label']);
 		$reset_label->setBelongsTo('params');
-		$reset_label->setRequired();
 
 		$this->elements['reset_label'] = $reset_label;
 
