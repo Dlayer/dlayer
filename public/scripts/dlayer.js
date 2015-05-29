@@ -615,6 +615,35 @@ var dlayer = {
 					});
 				}
 			}
+		}, 
+		
+		form: {
+			
+			fn: {
+				
+				/**
+				* Toggle the width of the builder form designer
+				* 
+				* @returns {Void}
+				*/
+				toggleTestWidths: function() {
+					
+					$(".set-form-display-size a").on("click", function() {
+						
+						// Update button status
+						$('.set-form-display-size a').removeClass(
+							'btn-primary').addClass('btn-default');
+						$(this).addClass('btn-primary');
+						
+						// Fetch requested size
+						var size = this.id.replace('size-', '');
+						
+						$('.builder-form').removeClass(
+							'col-md-12 col-md-9 col-md-6 col-md-3').addClass(
+							'col-md-' + size);
+					});
+				}
+			}
 		}
 	},
 	

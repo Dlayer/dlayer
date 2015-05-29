@@ -1,4 +1,10 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
+<script>
+$(document).ready(function() {
+	dlayer.tools.form.fn.toggleTestWidths();
+});
+</script>
+
 <style>
 #design > div.builder-form * {
 	font-family: <?php echo $this->base_font_family; ?>;
@@ -25,22 +31,13 @@
 			form displays at different sizes</p>
 	</div>
 	
-	<script>
-	$('.set-form-display-size a').on('click', function() {
-		if($(this).hasClass('btn-primary') == true) {
-			$(this).removeClass('btn-primary').addClass('btn-default');
-		} else {
-			$(this).removeClass('btn-default').addClass('btn-primary');
-		}
-	});
-	</script>
-	
 	<div class="col-md-4">
-		<p><strong>Test widths</strong></p>
+		<p><strong>Test form widths</strong></p>
 		<div class="btn-group set-form-display-size">
-			<a title="" href="#" id="size-12" class="btn btn-primary btn-sm">Full width</a>
-			<a title="" href="#" id="size-6" class="btn btn-default btn-sm">Half width</a>
-			<a title="" href="#" id="size-3" class="btn btn-default btn-sm">Quarter width</a>
+			<a title="" href="#" id="size-12" class="btn btn-primary btn-sm">100%</a>
+			<a title="" href="#" id="size-9" class="btn btn-default btn-sm">75%</a>
+			<a title="" href="#" id="size-6" class="btn btn-default btn-sm">50%</a>
+			<a title="" href="#" id="size-3" class="btn btn-default btn-sm">25%</a>
 		</div>	
 	</div>
 </div>
