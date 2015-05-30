@@ -130,7 +130,7 @@ class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
 	* @param integer $inline_width_field
 	* @return void
 	*/
-	private function setDefaults($site_id, $form_id, $title, $sub_title, 
+	public function setDefaults($site_id, $form_id, $title, $sub_title, 
 		$submit_label, $reset_label, $layout_id, $inline_width_label, 
 		$inline_width_field) 
 	{

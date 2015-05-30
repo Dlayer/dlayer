@@ -59,12 +59,24 @@ class Dlayer_Form_Site_NewForm extends Dlayer_Form_Module_App
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');
-		$name->setDescription('Enter a name for the new form, this will 
-		only display within Dlayer, not on your site.');
+		$name->setDescription('Enter a name for your new form, this name will 
+			only appear within Dlayer, specifically the management pages and 
+			the form picker.');
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'placeholder'=>'e.g., Contact form', 'class'=>'form-control'));
+		$name->setRequired();
 
 		$this->elements['name'] = $name;
+		
+		$title = new Zend_Form_Element_Text('title');
+		$title->setLabel('Title');
+		$title->setDescription('Enter a title for your new form, this can be 
+			changed later in the Form builder using the settings tools.');
+		$title->setAttribs(array('size'=>50, 'maxlength'=>255, 
+			'placeholder'=>'e.g., Contact us', 'class'=>'form-control'));
+		$title->setRequired();
+
+		$this->elements['title'] = $title;
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setLabel('Save');
@@ -80,7 +92,6 @@ class Dlayer_Form_Site_NewForm extends Dlayer_Form_Module_App
 	*/
 	protected function validationRules() 
 	{
-		$this->elements['name']->setRequired();
 		$this->elements['name']->addValidator(
 			new Dlayer_Validate_FormNameUnique($this->site_id));
 	}

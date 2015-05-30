@@ -107,9 +107,10 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 	*
 	* @param integer $site_id
 	* @param string $name Name for the new form
+	* @param string $title
 	* @return integer New form id
 	*/
-	public function addForm($site_id, $name)
+	public function addForm($site_id, $name, $title)
 	{
 		$sql = "INSERT INTO user_site_form
 				(site_id, `name`)
@@ -121,20 +122,16 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 		$stmt->execute();
 
 		$form_id = $this->_db->lastInsertId('user_site_form');
-
-		// Insert initial settings
-		$sql = "INSERT INTO user_site_form_setting
-				(site_id, form_id, width, legend, button)
-				VALUES
-				(:site_id, :form_id, :width, :legend, :button)";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
-		$stmt->bindValue(':width', Dlayer_Config::FORM_MINIMUM_WIDTH,
-		PDO::PARAM_INT);
-		$stmt->bindValue(':legend', Dlayer_Config::FORM_LEGEND, PDO::PARAM_STR);
-		$stmt->bindValue(':button', Dlayer_Config::FORM_BUTTON, PDO::PARAM_STR);
-		$stmt->execute();
+		
+		// Insert the intial for settings
+		$model_layout = new Dlayer_Model_Form_Layout();
+		$model_layout->setDefaults($site_id, $form_id, $title, 
+			Dlayer_Config::FORM_DEFAULT_SUB_TITLE, 
+			Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL, 
+			Dlayer_Config::FORM_DEFAULT_RESET_LABEL, 
+			Dlayer_Config::FORM_DEFAULT_LAYOUT_ID, 
+			Dlayer_Config::FORM_DEFAULT_INLINE_WIDTH_LABEL, 
+			Dlayer_Config::FORM_DEFAULT_INLINE_WIDTH_FIELD);
 
 		return $form_id;
 	}

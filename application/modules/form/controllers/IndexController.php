@@ -165,7 +165,8 @@ class Form_IndexController extends Zend_Controller_Action
 			if($form->isValid($post)) {
 				$model_forms = new Dlayer_Model_Form();
 				$form_id = $model_forms->addForm(
-					$this->session_dlayer->siteId(), $post['name']);
+					$this->session_dlayer->siteId(), $post['name'], 
+					$post['title']);
 				$this->session_form->clearAll(TRUE);
 				$this->session_form->setFormId($form_id);
 				$this->_redirect('/form');
