@@ -40,7 +40,8 @@
 		</script>
 	</head>
 	<body>
-		<?php echo $this->bootstrapNavbar('Dlayer.com', 
+		<?php echo $this->bootstrapNavbar(
+			'<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" />', 
 			$this->layout()->nav['items'],  
 			$this->layout()->nav['active_url'])->inverted(); ?>
 		<div class="container-fixed">
