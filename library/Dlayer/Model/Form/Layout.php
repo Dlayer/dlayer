@@ -193,4 +193,20 @@ class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
 			return FALSE;
 		}
 	}
+	
+	/**
+	* Fetch the layout options from the database
+	* 
+	* @return array Returns a simple array, index and layout type
+	*/
+	public function layoutOptions() 
+	{
+		$sql = 'SELECT id, layout 
+				FROM designer_form_layout 
+				ORDER BY id ASC';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->execute();
+		
+		return Dlayer_Helper::convertToSimpleArray($stmt->fetchAll());
+	}	
 }
