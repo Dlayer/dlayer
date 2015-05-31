@@ -42,6 +42,8 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 		$this->setAction('/form/process/tool');
 
 		$this->setMethod('post');
+		
+		$this->getFormElementsData();
 
 		$this->setUpFormElements();
 
@@ -54,6 +56,18 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 		$this->addDefaultElementDecorators();
 
 		$this->addCustomElementDecorators();
+	}
+	
+	/**
+	* Fetch any data needed to generated the form elements, in this case the 
+	* layout options for the form
+	* 
+	* @return void Writes the data to the $this->elements_data property
+	*/
+	private function getFormElementsData() 
+	{
+		$model_layout = new Dlayer_Model_Form_Layout();
+		$this->elements_data = $model_layout->layoutOptions();
 	}
 
 	/**
@@ -149,6 +163,47 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 		$reset_label->setBelongsTo('params');
 
 		$this->elements['reset_label'] = $reset_label;
+		
+		$layout_option = new Zend_Form_Element_Select('layout_id');
+		$layout_option->setLabel('Layout option');
+		$layout_option->setDescription('Select the layout option for your 
+			form, standard, horizontal or inline, check the help tab for a 
+			description of each option.');
+		$layout_option->addMultiOptions($this->elements_data);
+		$layout_option->setRequired();
+		$layout_option->setAttrib('class', 'form-control input-sm');
+		$layout_option->setValue($this->field_data['layout_id']);
+		$layout_option->setBelongsTo('params');
+		
+		$this->elements['layout_id'] = $layout_option;
+		
+		$horizontal_width_label = new Dlayer_Form_Element_Number(
+			'horizontal_width_label');
+		$horizontal_width_label->setAttribs(array('max'=>12, 'min'=>1, 
+			'class'=>'form-control input-sm'));
+		$horizontal_width_label->setLabel('Label width (Horizontal mode)');
+		$horizontal_width_label->setDescription('Set the width of the label 
+			when using the horizontal layout option, should be a value between 
+			one and 12');
+		$horizontal_width_label->setBelongsTo('params');
+		$horizontal_width_label->setValue(
+			$this->field_data['horizontal_width_label']);
+		
+		$this->elements['horizontal_width_label'] = $horizontal_width_label;
+		
+		$horizontal_width_field = new Dlayer_Form_Element_Number(
+			'horizontal_width_field');
+		$horizontal_width_field->setAttribs(array('max'=>12, 'min'=>1, 
+			'class'=>'form-control input-sm'));
+		$horizontal_width_field->setLabel('Field width (Horizontal mode)');
+		$horizontal_width_field->setDescription('Set the width of the field 
+			when using the horizontal layout option, should be a value between 
+			one and 12');
+		$horizontal_width_field->setBelongsTo('params');
+		$horizontal_width_field->setValue(
+			$this->field_data['horizontal_width_field']);
+		
+		$this->elements['horizontal_width_field'] = $horizontal_width_field;
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttrib('class', 'submit');

@@ -130,8 +130,8 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 			Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL, 
 			Dlayer_Config::FORM_DEFAULT_RESET_LABEL, 
 			Dlayer_Config::FORM_DEFAULT_LAYOUT_ID, 
-			Dlayer_Config::FORM_DEFAULT_INLINE_WIDTH_LABEL, 
-			Dlayer_Config::FORM_DEFAULT_INLINE_WIDTH_FIELD);
+			Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_LABEL, 
+			Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_FIELD);
 
 		return $form_id;
 	}

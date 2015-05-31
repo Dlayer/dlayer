@@ -57,7 +57,12 @@ class Dlayer_Ribbon_Form_FormLayout extends Dlayer_Ribbon_Module_Form
 				'title'=>Dlayer_Config::FORM_DEFAULT_TITLE,
 				'sub_title'=>Dlayer_Config::FORM_DEFAULT_SUB_TITLE,
 				'submit_label'=>Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL, 
-				'reset_label'=>Dlayer_Config::FORM_DEFAULT_RESET_LABEL
+				'reset_label'=>Dlayer_Config::FORM_DEFAULT_RESET_LABEL, 
+				'layout_id'=>Dlayer_Config::FORM_DEFAULT_LAYOUT_ID, 
+				'horizontal_width_label'=>
+					Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_LABEL, 
+				'horizontal_width_field'=>
+					Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_FIELD
 			);
 		}
 	}

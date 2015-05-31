@@ -93,6 +93,32 @@ class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
 	}
 	
 	/**
+	* fetch the existing layout values, we only update the values if they 
+	* differ to the current values
+	* 
+	* @param integer $site_id 
+	* @param integer $form_id
+	* @return string Concatenated layout values
+	*/
+	private function layout($site_id, $form_id) 
+	{
+		$sql = 'SELECT layout_id, horizontal_width_label, horizontal_width_field 
+				FROM user_site_form_layout 
+				WHERE site_id = :site_id 
+				AND form_id = :form_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		return $result['layout_id'] . ':' . $result['horizontal_width_label'] . 
+			':' . $result['horizontal_width_field'];
+	}
+	
+	/**
 	* Fetch the existing button text
 	* 
 	* @param integer $site_id 
@@ -117,6 +143,41 @@ class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
 	}
 	
 	/**
+	* Save the new layout values
+	* 
+	* @param integer $layout_id
+	* @param integer $horizontal_width_label
+	* @param integer $horizontal_width_field
+	* @return void
+	*/
+	public function saveLayout($site_id, $form_id, $layout_id, 
+		$horizontal_width_label, $horizontal_width_field) 
+	{
+		$existing = $this->layout($site_id, $form_id);
+		
+		if($existing !== $layout_id . ':' . $horizontal_width_label . ':' . 
+			$horizontal_width_field) {
+		
+			$sql = 'UPDATE user_site_form_layout 
+					SET layout_id = :layout_id, 
+					horizontal_width_label = :horizontal_width_label, 
+					horizontal_width_field = :horizontal_width_field 
+					WHERE site_id = :site_id 
+					AND form_id = :form_id 
+					LIMIT 1';
+			$stmt = $this->_db->prepare($sql);
+			$stmt->bindValue(':layout_id', $layout_id, PDO::PARAM_INT);
+			$stmt->bindValue(':horizontal_width_label', $horizontal_width_label, 
+				PDO::PARAM_INT);
+			$stmt->bindValue(':horizontal_width_field', $horizontal_width_field, 
+				PDO::PARAM_INT);
+			$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+			$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+			$stmt->execute();
+		}
+	}
+	
+	/**
 	* Add the default values for a form
 	* 
 	* @param integer $site_id
@@ -126,21 +187,21 @@ class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
 	* @param string $submit_label
 	* @param string $reset_label
 	* @param integer $layout_id
-	* @param integer $inline_width_label
-	* @param integer $inline_width_field
+	* @param integer $horizontal_width_label
+	* @param integer $horizontal_width_field
 	* @return void
 	*/
 	public function setDefaults($site_id, $form_id, $title, $sub_title, 
-		$submit_label, $reset_label, $layout_id, $inline_width_label, 
-		$inline_width_field) 
+		$submit_label, $reset_label, $layout_id, $horizontal_width_label, 
+		$horizontal_width_field) 
 	{
 		$sql = 'INSERT INTO user_site_form_layout  
 				(site_id, form_id, title, sub_title, submit_label, reset_label, 
-				layout_id, inline_width_label, inline_width_field) 
+				layout_id, horizontal_width_label, horizontal_width_field) 
 				VALUES 
 				(:site_id, :form_id, :title, :sub_title, :submit_label, 
-				:reset_label, :layout_id, :inline_width_label, 
-				:inline_width_field)';
+				:reset_label, :layout_id, :horizontal_width_label, 
+				:horizontal_width_field)';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
@@ -149,9 +210,9 @@ class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':submit_label', $submit_label, PDO::PARAM_STR);
 		$stmt->bindValue(':reset_label', $reset_label, PDO::PARAM_STR);
 		$stmt->bindValue(':layout_id', $layout_id, PDO::PARAM_INT);
-		$stmt->bindValue(':inline_width_label', $inline_width_label, 
+		$stmt->bindValue(':horizontal_width_label', $horizontal_width_label, 
 			PDO::PARAM_INT);
-		$stmt->bindValue(':inline_width_field', $inline_width_field, 
+		$stmt->bindValue(':horizontal_width_field', $horizontal_width_field, 
 			PDO::PARAM_INT);
 		$stmt->execute();
 	}
@@ -167,7 +228,7 @@ class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
 	public function currentValues($site_id, $form_id) 
 	{
 		$sql = 'SELECT title, sub_title, submit_label, reset_label, 
-				layout_id, inline_width_label, inline_width_field 
+				layout_id, horizontal_width_label, horizontal_width_field 
 				FROM user_site_form_layout 
 				WHERE site_id = :site_id 
 				AND form_id = :form_id';
@@ -187,8 +248,8 @@ class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
 				Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL, 
 				Dlayer_Config::FORM_DEFAULT_RESET_LABEL, 
 				Dlayer_Config::FORM_DEFAULT_LAYOUT_ID, 
-				Dlayer_Config::FORM_DEFAULT_INLINE_WIDTH_LABEL,
-				Dlayer_Config::FORM_DEFAULT_INLINE_WIDTH_FIELD);
+				Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_LABEL,
+				Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_FIELD);
 			
 			return FALSE;
 		}
@@ -207,6 +268,7 @@ class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->execute();
 		
-		return Dlayer_Helper::convertToSimpleArray($stmt->fetchAll());
+		return Dlayer_Helper::convertToSimpleArray($stmt->fetchAll(), 'id', 
+			'layout');
 	}	
 }

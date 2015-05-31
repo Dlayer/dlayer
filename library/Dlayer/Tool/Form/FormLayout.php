@@ -72,7 +72,10 @@ class Dlayer_Tool_Form_FormLayout extends Dlayer_Tool_Module_Form
 		if(array_key_exists('title', $params) == TRUE && 
 			array_key_exists('sub_title', $params) == TRUE && 
 			array_key_exists('submit_label', $params) == TRUE && 
-			array_key_exists('reset_label', $params) == TRUE) {
+			array_key_exists('reset_label', $params) == TRUE && 
+			array_key_exists('layout_id', $params) == TRUE && 
+			array_key_exists('horizontal_width_label', $params) == TRUE && 
+			array_key_exists('horizontal_width_field', $params) == TRUE) {
 							
 			return TRUE;
 		} else {
@@ -93,7 +96,14 @@ class Dlayer_Tool_Form_FormLayout extends Dlayer_Tool_Module_Form
 		if(strlen(trim($params['title'])) > 0 && 
 			strlen(trim($params['sub_title'])) >= 0 && 
 			strlen(trim($params['submit_label'])) > 0 && 
-			strlen(trim($params['reset_label'])) >= 0) {
+			strlen(trim($params['reset_label'])) >= 0 && 
+			in_array(intval($params['layout_id']), array(1,2,3)) == TRUE && 
+			(intval($params['horizontal_width_label']) >= 1 && 
+				intval($params['horizontal_width_label']) <= 12) && 
+			(intval($params['horizontal_width_field']) >= 1 && 
+				intval($params['horizontal_width_field']) <= 12) && 
+			(intval($params['horizontal_width_field']) + 
+				intval($params['horizontal_width_label'])) == 12) {
 
 			return TRUE;
 		} else {
@@ -115,7 +125,10 @@ class Dlayer_Tool_Form_FormLayout extends Dlayer_Tool_Module_Form
 			'title'=>trim($params['title']),
 			'sub_title'=>trim($params['sub_title']),
 			'submit_label'=>trim($params['submit_label']),
-			'reset_label'=>trim($params['reset_label'])
+			'reset_label'=>trim($params['reset_label']), 
+			'layout_id'=>intval($params['layout_id']),
+			'horizontal_width_label'=>intval($params['horizontal_width_label']), 
+			'horizontal_width_field'=>intval($params['horizontal_width_field'])
 		);
 	}
 	
@@ -137,5 +150,10 @@ class Dlayer_Tool_Form_FormLayout extends Dlayer_Tool_Module_Form
 			
 		$model_layout->saveButtonLabels($site_id, $form_id, 
 			$this->params['submit_label'], $this->params['reset_label']);
+			
+		$model_layout->saveLayout($site_id, $form_id, 
+			$this->params['layout_id'], 
+			$this->params['horizontal_width_label'], 
+			$this->params['horizontal_width_field']);
 	}
 }
