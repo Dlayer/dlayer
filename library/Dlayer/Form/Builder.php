@@ -10,6 +10,13 @@
 class Dlayer_Form_Builder extends Zend_Form
 {
 	/**
+	* Id of the site
+	* 
+	* @var integer
+	*/
+	private $site_id;
+	
+	/**
 	* Id of the form
 	*
 	* @var integer
@@ -45,6 +52,7 @@ class Dlayer_Form_Builder extends Zend_Form
 	private $view;
 	
 	private $buttons;
+	private $layout_mode;
 	
 	private $model_layout;
 
@@ -61,6 +69,9 @@ class Dlayer_Form_Builder extends Zend_Form
 	public function __construct($form_id, array $form_fields=array(),
 		$view=FALSE, $field_id=NULL, $options=NULL)
 	{
+		$session_dlayer = new Dlayer_Session();
+		$this->site_id = $session_dlayer->siteId();
+		
 		$this->form_id = $form_id;
 		$this->field_id = $field_id;
 		$this->form_fields = $form_fields;
@@ -69,6 +80,8 @@ class Dlayer_Form_Builder extends Zend_Form
 		$this->model_layout = new Dlayer_Model_View_Form_Layout();
 		
 		$this->buttons = $this->buttons();
+		
+		$this->layout_mode = $this->layout();
 
 		$this->setMethod('post');
 
@@ -134,6 +147,30 @@ class Dlayer_Form_Builder extends Zend_Form
 			$reset->setAttribs(array('class'=>'btn btn-default'));
 			$this->elements['reset'] = $reset;
 		}
+	}
+	
+	/**
+	* Fetch the layout mode for the form, in horizontal mode we also have 
+	* the widths for the label and field columns
+	* 
+	* @return array
+	*/
+	private function layout() 
+	{
+		$data = $this->model_layout->layout($this->site_id, $this->form_id);
+		
+		$layout = array(
+			'mode'=>$data['class'], 
+			'label'=>NULL, 
+			'field'=>NULL
+		);
+		
+		if($layout['mode'] == 'form-horizontal') {
+			$layout['label'] = 'col-sm-' . $data['horizontal_width_label'];
+			$layout['field'] = 'col-sm-' . $data['horizontal_width_field'];
+		}
+		
+		return $layout;
 	}
 	
 	/**
