@@ -58,6 +58,13 @@ Dlayer_Form_LayoutDecorator_Base
 				'ViewHelper'
 			),
 			array(
+				'Description', 
+				array(
+					'tag' => 'p', 
+					'class'=>'help-block'
+				)
+			),
+			array(
 				array(
 					'ElementWrapper' => 'HtmlTag'
 				),
