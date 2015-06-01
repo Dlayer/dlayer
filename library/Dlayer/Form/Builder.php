@@ -300,14 +300,19 @@ class Dlayer_Form_Builder extends Zend_Form
 	*/
 	private function addCustomElementDecorators()
 	{
-		$form_decorators = new Dlayer_Form_LayoutDecorator(
+		$decorators = new Dlayer_Form_LayoutDecorator(
 			$this->layout_mode['mode'], $this->layout_mode['label'], 
-			$this->layout_mode['field']);
+			$this->layout_mode['field'], $this->view, $this->field_id);
 		
-		$this->setDecorators($form_decorators->form());
+		$this->setDecorators($decorators->form());
 		
 		foreach($this->form_fields as $form_field) {
-			$class = 'form-group field_row row_' . $form_field['id'];
+			
+			$field_decorators = $decorators->field($form_field['id'], 
+				array('tool'=>$form_field['tool'], 
+					'type'=>$form_field['type']));
+			
+			/*$class = 'form-group field_row row_' . $form_field['id'];
 
 			if($this->field_id != NULL &&
 			$this->field_id == $form_field['id']) {
@@ -319,20 +324,10 @@ class Dlayer_Form_Builder extends Zend_Form
 				':' . $form_field['id'];
 			} else {
 				$row_id = '';
-			}
+			}*/
 
 			$this->elements['field_' . $form_field['id']]->setDecorators(
-				array(array('ViewHelper'),
-					array('Description', array('tag' => 'p', 'class'=>'help-block')),
-					array('Errors', array('class'=> 'alert alert-danger')), 
-					array('Label'), 
-					array('HtmlTag', array(
-						'tag' => 'div', 
-						'class'=> $class,
-						'id'=>$row_id)
-					)
-				)
-			);
+				$field_decorators);
 		}
 
 		if(array_key_exists('submit', $this->elements)) {
