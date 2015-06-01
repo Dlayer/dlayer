@@ -148,9 +148,9 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 			'placeholder'=>'e.g., Please enter your comment', 
 			'class'=>'form-control input-sm'));
 		$description->setDescription('Enter a description, this should indicate
-			to the user what they should enter in the textarea.');
+			to the user what they should enter in the textarea. (Not 
+			applicable when form layout mode set to inline)');
 		$description->setBelongsTo('params');
-		$description->setRequired();
 
 		$value = $this->fieldValue('description');
 		if($value != FALSE) {

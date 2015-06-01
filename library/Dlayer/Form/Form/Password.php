@@ -146,9 +146,9 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Module_Form
 			'placeholder'=>'e.g., Enter your password', 
 			'class'=>'form-control input-sm'));
 		$description->setDescription('Enter a description, this should indicate
-			to the user what they should enter in the password field.');
+			to the user what they should enter in the password field. (Not 
+			applicable when form layout mode set to inline)');
 		$description->setBelongsTo('params');
-		$description->setRequired();
 
 		$value = $this->fieldValue('description');
 		if($value != FALSE) {

@@ -147,9 +147,9 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 			'placeholder'=>'e.g., Please enter your name', 
 			'class'=>'form-control input-sm'));
 		$description->setDescription('Enter a description, this should indicate
-		to the user what they should enter in the text field.');
+			to the user what they should enter in the text field. (Not 
+			applicable when form layout mode set to inline)');
 		$description->setBelongsTo('params');
-		$description->setRequired();
 
 		$value = $this->fieldValue('description');
 		if($value != FALSE) {
