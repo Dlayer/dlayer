@@ -10,10 +10,12 @@ div#designer {
     width: 996px;
     min-height: 500px;
     float: left; }
-    div#designer #design > div.builder-form > form div.move {
-      display: none; }
-    div#designer #design > div.builder-form > form div.selected {
-      border: 1px solid #93d0e1; }
+    div#designer #design > div.builder-form {
+      padding: 0px 15px; }
+      div#designer #design > div.builder-form > form div.move {
+        display: none; }
+      div#designer #design > div.builder-form > form div.selected {
+        border: 1px solid #93d0e1; }
     div#designer #design > div.website-manager h3 {
       cursor: pointer; }
     div#designer #design > div.library ul.pager {
