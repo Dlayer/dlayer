@@ -16,6 +16,11 @@ div#designer {
         display: none; }
       div#designer #design > div.builder-form > form div.selected {
         border: 1px solid #93d0e1; }
+      div#designer #design > div.builder-form > form.form-horizontal div.move {
+        float: left;
+        display: none; }
+      div#designer #design > div.builder-form > form.form-horizontal div.selected {
+        border: 1px solid #93d0e1; }
     div#designer #design > div.website-manager h3 {
       cursor: pointer; }
     div#designer #design > div.library ul.pager {

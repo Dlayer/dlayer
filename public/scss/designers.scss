@@ -35,6 +35,18 @@ div#designer {
 					@include selected-state();
 				}
 			}
+			
+			> form.form-horizontal {
+			
+				div.move {
+					float: left;
+					display: none;
+				}
+				
+				div.selected {
+					@include selected-state();
+				}
+			}
 		}
 		
 		> div.website-manager {
