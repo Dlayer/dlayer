@@ -85,6 +85,9 @@ class Dlayer_Form_LayoutDecorator
 	*/
 	public function field($field_id, array $options=array()) 
 	{
+		$options['label_width'] = $this->horizontal_width_label;
+		$options['field_width'] = $this->horizontal_width_field;
+		
 		return $this->decorator_class->field($field_id, $options);
 	}
 }
