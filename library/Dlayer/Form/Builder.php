@@ -300,9 +300,11 @@ class Dlayer_Form_Builder extends Zend_Form
 	*/
 	private function addCustomElementDecorators()
 	{
-		$form_decorators = Dlayer_Form_LayoutDecorator_Form::form();
+		$form_decorators = new Dlayer_Form_LayoutDecorator(
+			$this->layout_mode['mode'], $this->layout_mode['label'], 
+			$this->layout_mode['field']);
 		
-		$this->setDecorators($form_decorators);
+		$this->setDecorators($form_decorators->form());
 		
 		foreach($this->form_fields as $form_field) {
 			$class = 'form-group field_row row_' . $form_field['id'];
