@@ -115,11 +115,7 @@ class Dlayer_Form_Builder extends Zend_Form
 				case 'text':
 					$this->textInput($form_field);
 					break;
-
-				case 'name':
-					$this->nameInput($form_field);
-					break;
-
+					
 				case 'email':
 					$this->emailInput($form_field);
 					break;
@@ -257,7 +253,7 @@ class Dlayer_Form_Builder extends Zend_Form
 	*/
 	private function emailInput(array $form_field)
 	{
-		$input = new Zend_Form_Element_Text('field_' . $form_field['id']);
+		$input = new Dlayer_Form_Element_Email('field_' . $form_field['id']);
 		$input->setLabel($form_field['label']);
 		$input->setDescription($form_field['description']);
 		$input->setAttribs($form_field['attributes']);

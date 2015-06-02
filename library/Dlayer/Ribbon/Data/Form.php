@@ -57,8 +57,8 @@ class Dlayer_Ribbon_Data_Form
 				$data = $this->name();
 			break;
 			
-			case 'email':
-				$data = $this->email();
+			case 'preset-email':
+				$data = $this->presetEmail();
 			break;
 
 			case 'textarea':
@@ -162,11 +162,11 @@ class Dlayer_Ribbon_Data_Form
 	*
 	* @return array|FALSE
 	*/
-	private function email()
+	private function presetEmail()
 	{
 		switch($this->tab) {
-			case 'email':
-				$ribbon_email = new Dlayer_Ribbon_Form_Email();
+			case 'preset-email':
+				$ribbon_email = new Dlayer_Ribbon_Form_PresetEmail();
 				$data = $ribbon_email->viewData($this->site_id,
 				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
 				$this->field_id, $this->edit_mode);
