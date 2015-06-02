@@ -309,22 +309,10 @@ class Dlayer_Form_Builder extends Zend_Form
 		foreach($this->form_fields as $form_field) {
 			
 			$field_decorators = $decorators->field($form_field['id'], 
-				array('tool'=>$form_field['tool'], 
-					'type'=>$form_field['type']));
-			
-			/*$class = 'form-group field_row row_' . $form_field['id'];
-
-			if($this->field_id != NULL &&
-			$this->field_id == $form_field['id']) {
-				$class .= ' selected';
-			}
-
-			if($this->view == FALSE) {
-				$row_id = $form_field['type'] . ':' . $form_field['tool'] . 
-				':' . $form_field['id'];
-			} else {
-				$row_id = '';
-			}*/
+				array(
+					'tool'=>$form_field['tool'], 
+					'type'=>$form_field['type'], 
+					'description'=>$form_field['description']));
 
 			$this->elements['field_' . $form_field['id']]->setDecorators(
 				$field_decorators);
@@ -345,20 +333,5 @@ class Dlayer_Form_Builder extends Zend_Form
 				)
 			);
 		}
-	}
-
-	/**
-	* Add the elements to the form set up the fieldset/legend
-	*
-	* @param string $id Fieldset id
-	* @param string $label Label for fieldset
-	* @param array $elements Elements to add to form and pass to display group
-	* @retrun void
-	*/
-	private function addElementsToForm($id, $label, array $elements)
-	{
-		$this->addElements($elements);
-
-		$this->addDisplayGroup($elements, $id, array('legend'=>$label));
 	}
 }
