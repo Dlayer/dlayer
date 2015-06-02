@@ -29,7 +29,7 @@ $(document).ready(function()
 		<?php if($this->tool == FALSE) { ?>
 		$('div#tools h4.tool-row-4').trigger('click');
 		<?php } else { ?>
-		<?php if(in_array($this->tool, array('text', 'password', 'textarea')) == FALSE) { ?>
+		<?php if(in_array($this->tool, array('text', 'password', 'textarea', 'email')) == FALSE) { ?>
 		$('div#tools h4.tool-row-4').trigger('click');
 		<?php } ?>
 		<?php } ?>

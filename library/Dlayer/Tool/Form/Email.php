@@ -35,7 +35,10 @@ class Dlayer_Tool_Form_Email extends Dlayer_Tool_Module_Form
 				$this->editFormField($site_id, $form_id, $field_id);
 			}
 
-			return $field_id;
+			return array(
+				array('type'=>'field', 'id'=>$field_id), 
+				array('type'=>'tool', 'id'=>$this->tool)
+			);
 		}
 	}
 

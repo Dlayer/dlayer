@@ -31,7 +31,7 @@ class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
 	public function __construct($form_id, array $field_data, $edit_mode=FALSE,
 		$multi_use, $options=NULL)
 	{
-		$this->tool = 'text';
+		$this->tool = 'name';
 		$this->field_type = 'text';
 		
 		parent::__construct($form_id, $field_data, $edit_mode, $multi_use, 

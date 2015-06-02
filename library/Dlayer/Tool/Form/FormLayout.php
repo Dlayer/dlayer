@@ -23,7 +23,9 @@ class Dlayer_Tool_Form_FormLayout extends Dlayer_Tool_Module_Form
 		if($this->validated == TRUE) {            
 			$this->saveSettings($site_id, $form_id);
 			
-			return NULL;
+			return array(
+				array('type'=>'tool', 'id'=>$this->tool)
+			);
 		}
 	}
 

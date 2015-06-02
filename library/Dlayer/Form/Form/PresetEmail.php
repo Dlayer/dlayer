@@ -30,7 +30,7 @@ class Dlayer_Form_Form_PresetEmail extends Dlayer_Form_Module_Form
 	public function __construct($form_id, array $field_data, $edit_mode=FALSE,
 		$multi_use, $options=NULL)
 	{
-		$this->tool = 'email';
+		$this->tool = 'preset-email';
 		$this->field_type = 'email';
 
 		parent::__construct($form_id, $field_data, $edit_mode, $multi_use, 

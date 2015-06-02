@@ -57,6 +57,10 @@ class Dlayer_Ribbon_Data_Form
 				$data = $this->name();
 			break;
 			
+			case 'email':
+				$data = $this->email();
+			break;
+			
 			case 'preset-email':
 				$data = $this->presetEmail();
 			break;
@@ -145,6 +149,29 @@ class Dlayer_Ribbon_Data_Form
 			case 'name':
 				$ribbon_name = new Dlayer_Ribbon_Form_Name();
 				$data = $ribbon_name->viewData($this->site_id,
+				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+				$this->field_id, $this->edit_mode);
+			break;
+
+			default:
+				$data = FALSE;
+			break;
+		}
+
+		return $data;
+	}
+	
+	/**
+	* Fetch the view tab data for the name tool
+	*
+	* @return array|FALSE
+	*/
+	private function email()
+	{
+		switch($this->tab) {
+			case 'email':
+				$ribbon_email = new Dlayer_Ribbon_Form_Email();
+				$data = $ribbon_email->viewData($this->site_id,
 				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
 				$this->field_id, $this->edit_mode);
 			break;
