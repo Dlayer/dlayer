@@ -50,12 +50,14 @@ class Dlayer_Form_LayoutDecorator
 		switch($this->mode) {
 			case 'form-inline':
 				$this->decorator_class = new 
-					Dlayer_Form_LayoutDecorator_FormInline();
+					Dlayer_Form_LayoutDecorator_FormInline(
+						$this->preview_mode, $this->selected_field_id);
 			break;
 			
 			case 'form-horizontal':
 				$this->decorator_class = new 
-					Dlayer_Form_LayoutDecorator_FormHorizontal();
+					Dlayer_Form_LayoutDecorator_FormHorizontal(
+						$this->preview_mode, $this->selected_field_id);
 			break;
 			
 			default:
