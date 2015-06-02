@@ -111,48 +111,5 @@ Dlayer_Form_LayoutDecorator_Base
 		);
 		
 		return $view_helpers;
-			
-		/*return array(
-			array(
-				'ViewHelper'
-			),
-			array(
-				'Description', 
-				array(
-					'tag' => 'p', 
-					'class'=>'help-block'
-				)
-			),
-			array(
-				array(
-					'ElementWrapper' => 'HtmlTag'
-				),
-				array(
-					'tag' => 'div', 
-					'class' => $options['field_width']
-				)
-			),
-			array(
-				'Label', 
-				array(
-					'class'=>'control-label ' . $options['label_width']
-				)
-			),
-			array('Errors', 
-				array(
-					'class'=> 'alert alert-danger'
-				)
-			), 
-			array(
-				array(
-					'divWrapper' => 'HtmlTag'
-				), 
-				array(
-					'tag' => 'div', 
-					'class' => $wrapper_class,
-					'id' => $wrapper_id, 
-				)
-			)
-		);*/
 	}
 }

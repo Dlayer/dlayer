@@ -39,6 +39,7 @@ Dlayer_Form_LayoutDecorator_Base
 	public function field($field_id, array $options=array()) 
 	{
 		$wrapper_class = 'form-group field_row row_' . $field_id;
+		$description = FALSE;
 
 		if($this->selected_field_id != NULL && 
 			$this->selected_field_id == $field_id) {
@@ -52,29 +53,51 @@ Dlayer_Form_LayoutDecorator_Base
 		} else {
 			$wrapper_id = '';
 		}
+		
+		if(array_key_exists('description', $options) == TRUE && 
+			strlen($options['description']) > 0) {
 			
-		return array(
-			array('ViewHelper'),
-			array(
+			$description = TRUE;
+		}
+		
+		$view_helpers = array();
+		
+		$view_helpers = array();
+		
+		$view_helpers[] = array(
+			'ViewHelper'
+		);
+		
+		if($description == TRUE) {
+			$view_helpers[] = array(
 				'Description', 
 				array(
 					'tag' => 'p', 
 					'class'=>'help-block'
 				)
-			),
-			array('Errors', 
-				array(
-					'class'=> 'alert alert-danger'
-				)
-			), 
-			array('Label'), 
-			array('HtmlTag', 
-				array(
-					'tag' => 'div', 
-					'class'=> $wrapper_class,
-					'id'=>$wrapper_id
-				)
+			);
+		}
+		
+		$view_helpers[] = array(
+			'Errors', 
+			array(
+				'class'=> 'alert alert-danger'
 			)
 		);
+		
+		$view_helpers[] = array(
+			'Label'
+		);
+		
+		$view_helpers[] = array(
+			'HtmlTag', 
+			array(
+				'tag' => 'div', 
+				'class'=> $wrapper_class,
+				'id'=>$wrapper_id
+			)
+		);
+		
+		return $view_helpers;
 	}
 }
