@@ -114,7 +114,7 @@ class Form_ProcessController extends Zend_Controller_Action
 				foreach($return_ids as $id) {
 					
 					switch($id['type']) {
-						case 'field_id':
+						case 'field':
 							$this->session_form->setFieldId($id['id'], 
 								$_POST['field_type']);
 							break;
