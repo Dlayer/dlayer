@@ -7,7 +7,7 @@ dlayer.preview.form.fn.row_attribute(<?php echo $this->escape(
 	$this->data['preview_data']['field']['label']); ?>');
 dlayer.preview.form.fn.row_attribute(<?php echo $this->escape(
 	$this->data['preview_data']['field']['id']); ?>, 'description', 'p.help-block', '<?php echo $this->escape(
-	$this->data['preview_data']['field']['description']); ?>');
+	$this->data['preview_data']['field']['description']); ?>', true);
 <?php foreach($this->data['preview_data']['preview_js'] as $preview) { ?>
 	dlayer.preview.form.fn.<?php echo $this->escape(
 		$preview['method']); ?>(<?php echo $this->escape(
