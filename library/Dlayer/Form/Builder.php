@@ -105,6 +105,11 @@ class Dlayer_Form_Builder extends Zend_Form
 		foreach($this->form_fields as $form_field) {
 			
 			$form_field['attributes']['class'] = 'form-control';
+			
+			// Remove size attribute when in inline mode
+			if($this->layout_mode['mode'] == 'form-inline') {
+				unset($form_field['attributes']['size']);
+			}
 
 			switch($form_field['tool']) {
 				case 'text':
