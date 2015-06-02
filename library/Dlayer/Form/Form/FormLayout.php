@@ -181,7 +181,10 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 			'horizontal_width_label');
 		$horizontal_width_label->setAttribs(array('max'=>12, 'min'=>1, 
 			'class'=>'form-control input-sm'));
-		$horizontal_width_label->setLabel('Label width (Horizontal mode)');
+		$horizontal_width_label->setLabel(
+			'<span class="glyphicon glyphicon-plus toggle" 
+			id="fgc-horizontal_width_label" title="Expand for more" aria-hidden="true">
+			</span> Label width (Horizontal mode)');
 		$horizontal_width_label->setDescription('Set the width of the label 
 			when using the horizontal layout option, should be a value between 
 			one and 12');
@@ -195,7 +198,10 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 			'horizontal_width_field');
 		$horizontal_width_field->setAttribs(array('max'=>12, 'min'=>1, 
 			'class'=>'form-control input-sm'));
-		$horizontal_width_field->setLabel('Field width (Horizontal mode)');
+		$horizontal_width_field->setLabel(
+			'<span class="glyphicon glyphicon-plus toggle" 
+			id="fgc-horizontal_width_field" title="Expand for more" aria-hidden="true">
+			</span> Field width (Horizontal mode)');
 		$horizontal_width_field->setDescription('Set the width of the field 
 			when using the horizontal layout option, should be a value between 
 			one and 12');
@@ -222,5 +228,56 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 	protected function validationRules()
 	{
 
+	}
+	
+	/**
+	* Add any custom decorators, these are inputs where we need a little more
+	* control over the html, an example being the submit button
+	*
+	* @return void
+	*/
+	protected function addCustomElementDecorators()
+	{
+		parent::addCustomElementDecorators();
+		
+		$this->elements['horizontal_width_label']->setDecorators(
+			array(
+				array('ViewHelper'), 
+				array('Description', array('tag' => 'p', 'class'=>'help-block')),
+				array('Errors', array('class'=> 'alert alert-danger')), 
+				array('Label', array('escape'=>FALSE)), 
+				array('HtmlTag', array(
+					'tag' => 'div', 
+					'class'=> array(
+						'callback' => function($decorator) {
+							if($decorator->getElement()->hasErrors()) {
+								return 'form-group has-error';
+							} else {
+								return 'form-group form-group-collapsed';
+							}
+					})
+				))
+			)
+		);
+		
+		$this->elements['horizontal_width_field']->setDecorators(
+			array(
+				array('ViewHelper'), 
+				array('Description', array('tag' => 'p', 'class'=>'help-block')),
+				array('Errors', array('class'=> 'alert alert-danger')), 
+				array('Label', array('escape'=>FALSE)), 
+				array('HtmlTag', array(
+					'tag' => 'div', 
+					'class'=> array(
+						'callback' => function($decorator) {
+							if($decorator->getElement()->hasErrors()) {
+								return 'form-group has-error';
+							} else {
+								return 'form-group form-group-collapsed';
+							}
+					})
+				))
+			)
+		);
 	}
 }
