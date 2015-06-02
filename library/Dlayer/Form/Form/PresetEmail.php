@@ -2,16 +2,18 @@
 /**
 * Form for the email field tool
 * 
-* Allows the user to add an email field to their form, the user needs to define 
-* the label, description, placeholder text and size and maxlength, the size 
-* and maxlength values will be defaulted
+* Allows the user to quickly add an email field to the form, the user simply 
+* needs to click save, they can still override the preset values if they want, 
+* 
+* @todo In addition to adding the field this tool also defines some validation 
+* and other settings
 *  
 * This form is used for the add and edit version of the tool
 *
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Form_Form_Email extends Dlayer_Form_Module_Form
+class Dlayer_Form_Form_PresetEmail extends Dlayer_Form_Module_Form
 {
 	/**
 	* Set the initial properties for the form
@@ -52,13 +54,13 @@ class Dlayer_Form_Form_Email extends Dlayer_Form_Module_Form
 		$this->validationRules();
 		
 		if($this->edit_mode == FALSE) {
-			$legend = 'Add <small>Add an email field</small>'; 
+			$legend = 'Add <small>Add a preset email field</small>'; 
 		} else {
 			$legend = 'Edit <small>Edit the email field</small>';
 		}
 
 		$this->addElementsToForm('email_field', $legend, $this->elements);
-			
+					
 		$this->addDefaultElementDecorators();
 
 		$this->addCustomElementDecorators();
@@ -127,16 +129,16 @@ class Dlayer_Form_Form_Email extends Dlayer_Form_Module_Form
 		$label = new Zend_Form_Element_Text('label');
 		$label->setLabel('Label');
 		$label->setAttribs(array('maxlength'=>255, 
-			'placeholder'=>'e.g., Your email', 
-			'class'=>'form-control input-sm'));
-		$label->setDescription('Enter the label for the email field, this will
-			appear to the left of the email field.');
+			'placeholder'=>'Your email', 'class'=>'form-control input-sm'));
+		$label->setDescription("Enter the label for the email field, defaulted 
+			to 'Your email'.");
 		$label->setBelongsTo('params');
-		$label->setRequired();
 
 		$value = $this->fieldValue('label');
 		if($value != FALSE) {
 			$label->setValue($value);
+		} else {
+			$label->setValue('Your email');
 		}
 
 		$this->elements['label'] = $label;
@@ -144,16 +146,17 @@ class Dlayer_Form_Form_Email extends Dlayer_Form_Module_Form
 		$description = new Zend_Form_Element_Textarea('description');
 		$description->setLabel('Description');
 		$description->setAttribs(array('rows'=>2, 'cols'=>30, 
-			'placeholder'=>'e.g., Please enter your email address', 
+			'placeholder'=>'Please enter your email', 
 			'class'=>'form-control input-sm'));
-		$description->setDescription('Enter a description, this should indicate
-			to the user what they should enter in the email field. (Not 
-			applicable when form layout mode set to inline)');
+		$description->setDescription("Enter the description for the email 
+			field, defaulted to 'Please enter your email address'.");
 		$description->setBelongsTo('params');
 
 		$value = $this->fieldValue('description');
 		if($value != FALSE) {
 			$description->setValue($value);
+		} else {
+			$description->setValue('Please enter your email address');
 		}
 
 		$this->elements['description'] = $description;
@@ -161,30 +164,29 @@ class Dlayer_Form_Form_Email extends Dlayer_Form_Module_Form
 		$placeholder = new Zend_Form_Element_Text('placeholder');
 		$placeholder->setLabel('Placeholder text');
 		$placeholder->setAttribs(array('maxlength'=>255, 
-			'placeholder'=>'e.g., email@email.com', 
+			'placeholder'=>'Enter your email', 
 			'class'=>'form-control input-sm'));
-		$placeholder->setDescription('Set the help text to display in the 
-		field before any user input.');
+		$placeholder->setDescription("Set the help text to display for the 
+			email field, defaulted to 'Enter you email'.");
 		$placeholder->setBelongsTo('params');
 
 		$value = $this->fieldAttributeValue('placeholder');
 		if($value != FALSE) {
 			$placeholder->setValue($value);
+		} else {
+			$placeholder->setValue('Enter your email');
 		}
 
 		$this->elements['placeholder'] = $placeholder;
 
 		$size = new Dlayer_Form_Element_Number('size');
-		$size->setLabel('<span class="glyphicon glyphicon-plus toggle" 
-			id="fgc-size" title="Expand for more" aria-hidden="true">
-			</span> Size');
+		$size->setLabel('Size');
 		$size->setValue(40);
-		$size->setAttribs(array('maxlength'=>3, 
-			'min'=>0, 'class'=>'form-control input-sm'));
+		$size->setAttribs(array('maxlength'=>3, 'min'=>0, 
+			'class'=>'form-control input-sm'));
 		$size->setDescription('Set the size of the email field in characters,
 			we default to 40 characters.');
 		$size->setBelongsTo('params');
-		$size->setRequired();
 
 		$value = $this->fieldAttributeValue('size');
 		if($value != FALSE) {
@@ -194,16 +196,13 @@ class Dlayer_Form_Form_Email extends Dlayer_Form_Module_Form
 		$this->elements['size'] = $size;
 
 		$maxlength = new Dlayer_Form_Element_Number('maxlength');
-		$maxlength->setLabel('<span class="glyphicon glyphicon-plus toggle" 
-			id="fgc-maxlength" title="Expand for more" aria-hidden="true">
-			</span> Max length');
+		$maxlength->setLabel('Max length');
 		$maxlength->setValue(255);
-		$maxlength->setAttribs(array('maxlength'=>3, 
-			'class'=>'form-control input-sm', 'min'=>0));
+		$maxlength->setAttribs(array('maxlength'=>3, 'min'=>0, 
+			'class'=>'form-control input-sm'));
 		$maxlength->setDescription('Set the maximum number of characters that
-			can be entered into this field, we default to 255 characters.');
+			can be entered into the email field, we default to 255 characters.');
 		$maxlength->setBelongsTo('params');
-		$maxlength->setRequired();
 
 		$value = $this->fieldAttributeValue('maxlengh');
 		if($value != FALSE) {
@@ -233,56 +232,5 @@ class Dlayer_Form_Form_Email extends Dlayer_Form_Module_Form
 	protected function validationRules()
 	{
 
-	}
-	
-	/**
-	* Add any custom decorators, these are inputs where we need a little more
-	* control over the html, an example being the submit button
-	*
-	* @return void
-	*/
-	protected function addCustomElementDecorators()
-	{
-		parent::addCustomElementDecorators();
-		
-		$this->elements['size']->setDecorators(
-			array(
-				array('ViewHelper'), 
-				array('Description', array('tag' => 'p', 'class'=>'help-block')),
-				array('Errors', array('class'=> 'alert alert-danger')), 
-				array('Label', array('escape'=>FALSE)), 
-				array('HtmlTag', array(
-					'tag' => 'div', 
-					'class'=> array(
-						'callback' => function($decorator) {
-							if($decorator->getElement()->hasErrors()) {
-								return 'form-group has-error';
-							} else {
-								return 'form-group form-group-collapsed';
-							}
-					})
-				))
-			)
-		);
-		
-		$this->elements['maxlength']->setDecorators(
-			array(
-				array('ViewHelper'), 
-				array('Description', array('tag' => 'p', 'class'=>'help-block')),
-				array('Errors', array('class'=> 'alert alert-danger')), 
-				array('Label', array('escape'=>FALSE)), 
-				array('HtmlTag', array(
-					'tag' => 'div', 
-					'class'=> array(
-						'callback' => function($decorator) {
-							if($decorator->getElement()->hasErrors()) {
-								return 'form-group has-error';
-							} else {
-								return 'form-group form-group-collapsed';
-							}
-					})
-				))
-			)
-		);
 	}
 }
