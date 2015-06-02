@@ -24,7 +24,7 @@ class Dlayer_Form_Form_Styling_Email extends Dlayer_Form_Module_Form
 		$multi_use, $options=NULL)
 	{
 		$this->tool = 'email';
-		$this->field_type = 'text';
+		$this->field_type = 'email';
 		$this->sub_tool_model = 'Styling_Email';
 
 		parent::__construct($form_id, $field_data, $edit_mode, $multi_use, 

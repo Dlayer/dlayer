@@ -175,6 +175,13 @@ class Dlayer_Ribbon_Data_Form
 				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
 				$this->field_id, $this->edit_mode);
 			break;
+			
+			case 'styling':
+				$ribbon_styling = new Dlayer_Ribbon_Form_Styling_Email();
+				$data = $ribbon_styling->viewData($this->site_id,
+				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+				$this->field_id, $this->edit_mode);
+			break;
 
 			default:
 				$data = FALSE;

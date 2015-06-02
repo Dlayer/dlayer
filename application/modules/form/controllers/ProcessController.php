@@ -120,7 +120,7 @@ class Form_ProcessController extends Zend_Controller_Action
 							break;
 							
 						case 'tool':
-							$this->session_content->setTool($id['id']);
+							$this->session_form->setTool($id['id']);
 							break;
 							
 						default:
