@@ -27,17 +27,29 @@
 			</tr>
 			
 			<?php foreach($this->updates as $update) { ?>
-
-			<?php if($update['release'] == 0) {
-				$class = NULL;
-			} else {
-				$class = ' class="info"';
-			}
+			
+			<?php
+			switch($update['release']) {
+				case 1:
+					$class = ' class="info"';
+					$append = '<span class="label label-success">Release</span> ';
+				break;
+				
+				case 2:
+					$class = NULL;
+					$append = '<span class="label label-danger">Bug</span> ';
+				break;
+				
+				default:
+					$class = NULL;
+					$append = NULL;	
+				break;				
+			}			
 			?>
 
 			<tr<?php echo $class; ?>>
 				<td><?php echo $this->escape($update['change_date']); ?></td>
-				<td><?php echo $this->escape($update['change']); ?></td>
+				<td><?php echo $append . $this->escape($update['change']); ?></td>
 			</tr>
 			<?php } ?>
 		</table>
