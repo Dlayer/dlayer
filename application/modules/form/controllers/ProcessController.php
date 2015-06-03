@@ -108,6 +108,8 @@ class Form_ProcessController extends Zend_Controller_Action
 				
 			// Clear session vars
 			$this->session_form->clearAll();
+			
+			//var_dump($return_ids); die;
 
 			// Set new vars
 			if(is_array($return_ids) == TRUE) {
@@ -121,6 +123,10 @@ class Form_ProcessController extends Zend_Controller_Action
 							
 						case 'tool':
 							$this->session_form->setTool($id['id']);
+							break;
+							
+						case 'tab':
+							$this->session_form->setRibbonTab($id['id']);
 							break;
 							
 						default:

@@ -14,7 +14,7 @@
 * @copyright G3D Development Limited
 * @version $Id: Name.php 1738 2014-04-17 15:44:36Z Dean.Blackborough $
 */
-class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
+class Dlayer_Form_Form_PresetName extends Dlayer_Form_Module_Form
 {
 	/**
 	* Set the initial properties for the form
@@ -31,7 +31,7 @@ class Dlayer_Form_Form_Name extends Dlayer_Form_Module_Form
 	public function __construct($form_id, array $field_data, $edit_mode=FALSE,
 		$multi_use, $options=NULL)
 	{
-		$this->tool = 'name';
+		$this->tool = 'preset-name';
 		$this->field_type = 'text';
 		
 		parent::__construct($form_id, $field_data, $edit_mode, $multi_use, 

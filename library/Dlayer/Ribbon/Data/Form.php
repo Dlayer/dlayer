@@ -53,8 +53,8 @@ class Dlayer_Ribbon_Data_Form
 				$data = $this->text();
 			break;
 			
-			case 'name':
-				$data = $this->name();
+			case 'preset-name':
+				$data = $this->presetName();
 			break;
 			
 			case 'email':
@@ -143,11 +143,11 @@ class Dlayer_Ribbon_Data_Form
 	*
 	* @return array|FALSE
 	*/
-	private function name()
+	private function presetName()
 	{
 		switch($this->tab) {
-			case 'name':
-				$ribbon_name = new Dlayer_Ribbon_Form_Name();
+			case 'preset-name':
+				$ribbon_name = new Dlayer_Ribbon_Form_PresetName();
 				$data = $ribbon_name->viewData($this->site_id,
 				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
 				$this->field_id, $this->edit_mode);

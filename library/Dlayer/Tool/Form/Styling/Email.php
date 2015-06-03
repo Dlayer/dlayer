@@ -1,15 +1,14 @@
 <?php
 /**
-* Styling sub tool for the password field input, allows the user to style the 
+* Styling sub tool for the email field input, allows the user to style the 
 * row and field
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Password.php 1861 2014-05-27 11:30:18Z Dean.Blackborough $
 */
-class Dlayer_Tool_Form_Styling_Password extends Dlayer_Tool_Module_Form
+class Dlayer_Tool_Form_Styling_Email extends Dlayer_Tool_Module_Form
 {
-	protected $tool = 'password';
+	protected $tool = 'email';
 	protected $tab = 'styling';
 	
 	/**

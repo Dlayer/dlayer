@@ -90,7 +90,7 @@ class Dlayer_Designer_Form
 	private function rowBackgroundColors() 
 	{
 		$background_colors = $this->model_styles->rowBackgroundColors(
-		$this->site_id, $this->form_id, $this->field_id);
+		$this->site_id, $this->form_id);
 		
 		if($background_colors != FALSE) {
 			foreach($background_colors as $field_id => $color_hex) {
