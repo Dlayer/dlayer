@@ -1,0 +1,20 @@
+<?php /** @var $this Dlayer_View_Codehinting */ ?>
+
+<div class="col-xs-12">
+	<p class="dev-note bg-danger unsaved">Data has been modified!</p>
+</div>
+
+<div class="col-xs-12 small">
+	<?php 
+	if($this->data != FALSE) {
+		echo $this->data['form'];
+	}
+	?>
+</div>
+
+<div class="col-xs-12">
+	<p class="dev-note bg-info">This is just a preview of the actions tool, 
+		I will add the above functionality and more when the Form builder is 
+		a little further along in development.</p>
+</div>
+
