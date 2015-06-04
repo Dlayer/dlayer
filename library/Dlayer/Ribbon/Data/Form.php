@@ -80,6 +80,10 @@ class Dlayer_Ribbon_Data_Form
 			case 'form-actions': 
 				$data = $this->formActions();
 			break;
+			
+			case 'form-settings': 
+				$data = $this->formSettings();
+			break;
 
 			default:
 				$data = FALSE;
@@ -153,6 +157,29 @@ class Dlayer_Ribbon_Data_Form
 			case 'form-actions':
 				$ribbon_actions = new Dlayer_Ribbon_Form_FormActions();
 				$data = $ribbon_actions->viewData($this->site_id,
+				$this->form_id, $this->tool, $this->tab, $this->multi_use,
+				$this->field_id, $this->edit_mode);
+			break;
+			
+			default:
+				$data = FALSE;
+			break;
+		}
+
+		return $data;
+	}
+	
+	/**
+	* Fetch the view tab data for the selected tab of the form settings tool
+	*
+	* @return array|FALSE
+	*/
+	private function formSettings()
+	{
+		switch($this->tab) {
+			case 'form-settings':
+				$ribbon_settings = new Dlayer_Ribbon_Form_FormSettings();
+				$data = $ribbon_settings->viewData($this->site_id,
 				$this->form_id, $this->tool, $this->tab, $this->multi_use,
 				$this->field_id, $this->edit_mode);
 			break;

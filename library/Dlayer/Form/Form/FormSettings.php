@@ -1,14 +1,14 @@
 <?php
 /**
-* Form for the form actions tool
+* Form for the form settings tool
 * 
-* Allows a user to define the action for a form, these are the functions and 
-* tasks that happen after a form is submitted
+* Allows a user to define the settings for a form, these are the settings 
+* that control the make up of the form
 *  
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Form_Form_FormActions extends Dlayer_Form_Module_Form
+class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
 {
 	/**
 	* Set the initial properties for the form
@@ -25,7 +25,7 @@ class Dlayer_Form_Form_FormActions extends Dlayer_Form_Module_Form
 	public function __construct($form_id, array $field_data, $edit_mode=FALSE,
 		$multi_use, $options=NULL)
 	{
-		$this->tool = 'form-actions';
+		$this->tool = 'form-settings';
 
 		parent::__construct($form_id, $field_data, $edit_mode, $multi_use, 
 			$options);
@@ -47,8 +47,8 @@ class Dlayer_Form_Form_FormActions extends Dlayer_Form_Module_Form
 
 		$this->validationRules();
 
-		$this->addElementsToForm('form_actions', 
-			'Form actions <small>Set the actions for your form</small>', 
+		$this->addElementsToForm('form_setting', 
+			'Form settings <small>Set the settings for your form</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();
@@ -104,29 +104,40 @@ class Dlayer_Form_Form_FormActions extends Dlayer_Form_Module_Form
 	*/
 	private function userElements()
 	{
-		$email = new Zend_Form_Element_Select('email');
-		$email->setLabel('Email');
-		$email->setDescription('Would you like Dlayer to send you an 
-			email after each submission?');
-		$email->addMultiOptions(
-			array(1=>'No thank you', 2=>'Yes please'));
-		$email->setRequired();
-		$email->setAttrib('class', 'form-control input-sm');
-		$email->setBelongsTo('params');
+		$http = new Zend_Form_Element_Select('http');
+		$http->setLabel('Email');
+		$http->setDescription('Set the HTTP method to use for form submission');
+		$http->addMultiOptions(
+			array(1=>'POST', 2=>'GET'));
+		$http->setRequired();
+		$http->setAttrib('class', 'form-control input-sm');
+		$http->setBelongsTo('params');
 		
-		$this->elements['email'] = $email;
+		$this->elements['http'] = $http;
 		
-		$save = new Zend_Form_Element_Select('save');
-		$save->setLabel('Email');
-		$save->setDescription('Would you like Dlayer to save a copy of 
-			each submission?');
-		$save->addMultiOptions(
-			array(1=>'No thank you', 2=>'Yes please'));
-		$save->setRequired();
-		$save->setAttrib('class', 'form-control input-sm');
-		$save->setBelongsTo('params');
+		$url = new Zend_Form_Element_Text('url');
+		$url->setLabel('Custom URL');
+		$url->setAttribs(array('maxlength'=>255, 
+			'placeholder'=>'e.g., https://your-url/handler', 
+			'class'=>'form-control input-sm'));
+		$url->setDescription('Set a custom URL to submit the form to, leave 
+			blank to let Dlayer handle the submissions.');
+		$url->setBelongsTo('params');
+		$url->setRequired();
 		
-		$this->elements['save'] = $save;
+		$this->elements['url'] = $url;
+		
+		$lock = new Zend_Form_Element_Select('lock');
+		$lock->setLabel('Lock form?');
+		$lock->setDescription('If the form is locked it cannot be changed in 
+			anyway.');
+		$lock->addMultiOptions(
+			array(1=>'Unlock', 2=>'Lock'));
+		$lock->setRequired();
+		$lock->setAttrib('class', 'form-control input-sm');
+		$lock->setBelongsTo('params');
+		
+		$this->elements['lock'] = $lock;
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttrib('class', 'submit');
