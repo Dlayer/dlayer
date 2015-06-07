@@ -214,6 +214,10 @@ class Content_SettingsController extends Zend_Controller_Action
 						'title'=>'Dlayer Template designer'))),
 			array('url'=>'/content/settings/index', 
 				'name'=>'Settings', 'title'=>'Content manager settings'), 
+			array('url'=>'http://specification.dlayer.com', 
+				'name'=>'<span class="glyphicon glyphicon-new-window" 
+					aria-hidden="true"></span> Specification', 
+				'title'=>'Current specification'),
 			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
 				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of my app'));
 
