@@ -70,36 +70,25 @@ class Widget_SettingsController extends Zend_Controller_Action
 	*/
 	private function dlayerMenu($url) 
 	{
-		$items = array(array('url'=>'/widget/index/index', 
-			'name'=>'Widget designer', 'title'=>'Dlayer Widget designer'), 
-			array('url'=>'', 'name'=>'Designers', 'title'=>'Choose a designer', 
-				'children'=>array(
-					array('url'=>'/content/index/index', 
-						'name'=>'Content manager', 
-						'title'=>'Dlayer Content manager'), 
-					array('url'=>'/form/index/index', 
-						'name'=>'Form builder', 
-						'title'=>'Dlayer Form builder'), 
-					array('url'=>'/image/index/index', 
-						'name'=>'Image library', 
-						'title'=>'Dlayer Image library'),
-					array('url'=>'/website/index/index', 
-						'name'=>'Web site manager', 
-						'title'=>'Dlayer Website manager'), 
-					array('url'=>'/template/index/index', 
-						'name'=>'Template designer', 
-						'title'=>'Dlayer Template designer'))),
-			array('url'=>'/widget/settings/index', 
-				'name'=>'Settings', 'title'=>'Widget designer settings'), 
-			array('url'=>'http://specification.dlayer.com', 
+		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
+		'title'=>'Dlayer.com: Web development simplified'), 
+		array('url'=>'/widget/settings/index', 'name'=>'Settings', 
+		'title'=>'Widget designer settings'), 
+		array('url'=>'/dlayer/index/development-plan', 
+		'name'=>'Dev plan', 'title'=>'Current Dlayer development plan'), 
+		array('url'=>'/dlayer/index/development-log', 
+		'name'=>'Dev log', 'title'=>'Dlayer development log'), 
+		array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
+		'title'=>'Known bugs'), 
+		array('url'=>'http://specification.dlayer.com', 
 				'name'=>'<span class="glyphicon glyphicon-new-window" 
 					aria-hidden="true"></span> Specification', 
 				'title'=>'Current specification'),
-			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of my app'));
-
+		array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Logout of site'));
+		
 		$this->layout->assign('nav', array('class'=>'top_nav', 
-			'items'=>$items, 'active_url'=>$url));
+		'items'=>$items, 'active_url'=>$url));
 	}
 	
 	/**
