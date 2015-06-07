@@ -110,15 +110,16 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 	* @param string $title
 	* @return integer New form id
 	*/
-	public function addForm($site_id, $name, $title)
+	public function addForm($site_id, $name, $title, $email)
 	{
 		$sql = "INSERT INTO user_site_form
-				(site_id, `name`)
+				(site_id, `name`, email)
 				VALUES
-				(:site_id, :name)";
+				(:site_id, :name, :email)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':email', $email, PDO::PARAM_STR);
 		$stmt->execute();
 
 		$form_id = $this->_db->lastInsertId('user_site_form');
@@ -164,16 +165,19 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 	* @param integer $site_id
 	* @param integer $form_id
 	* @param string $name
+	* @param string $email
 	* @return void
 	*/
-	public function editForm($site_id, $form_id, $name)
+	public function editForm($site_id, $form_id, $name, $email)
 	{
 		$sql = "UPDATE user_site_form
-				SET `name` = :name
+				SET `name` = :name, 
+				email = :email 
 				WHERE site_id = :site_id
 				AND id = :form_id";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':email', $email, PDO::PARAM_STR);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
 		$stmt->execute();

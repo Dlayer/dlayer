@@ -80,14 +80,31 @@ class Dlayer_Form_Site_EditForm extends Dlayer_Form_Module_App
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');
-		$name->setDescription('Enter the new name for your form, this will 
-		only display within Dlayer');
+		$name->setDescription('Enter a name for your new form, this name will 
+			only appear within Dlayer, specifically the management pages and 
+			the form picker.');
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'class'=>'form-control'));
+		$name->setRequired();
+		
 		if(array_key_exists('name', $this->data) == TRUE) {
 			$name->setValue($this->data['name']);
 		}
 		$this->elements['name'] = $name;
+		
+		$email = new Dlayer_Form_Element_Email('email');
+		$email->setLabel('Email');
+		$email->setDescription('Enter the email address that submissions will 
+			be sent to, Dlayer defaults to not sending through submissions, 
+			the option needs to be turned on.');
+		$email->setAttribs(array('size'=>50, 'maxlength'=>255, 
+			'placeholder'=>'e.g., email@email.com us', 'class'=>'form-control'));
+		$email->setRequired();
+		
+		if(array_key_exists('name', $this->data) == TRUE) {
+			$name->setValue($this->data['name']);
+		}
+		$this->elements['email'] = $email;
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setLabel('Save');
@@ -103,8 +120,10 @@ class Dlayer_Form_Site_EditForm extends Dlayer_Form_Module_App
 	*/
 	protected function validationRules() 
 	{
-		$this->elements['name']->setRequired();
 		$this->elements['name']->addValidator(
 			new Dlayer_Validate_FormNameUnique($this->site_id, $this->form_id));
+			
+		$this->elements['email']->addValidator(
+			new Zend_Validate_EmailAddress());
 	}
 }

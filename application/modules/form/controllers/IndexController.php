@@ -170,7 +170,7 @@ class Form_IndexController extends Zend_Controller_Action
 				$model_forms = new Dlayer_Model_Form();
 				$form_id = $model_forms->addForm(
 					$this->session_dlayer->siteId(), $post['name'], 
-					$post['title']);
+					$post['title'], $post['email']);
 				$this->session_form->clearAll(TRUE);
 				$this->session_form->setFormId($form_id);
 				$this->_redirect('/form');
@@ -205,7 +205,8 @@ class Form_IndexController extends Zend_Controller_Action
 			if($form->isValid($post)) {
 				$model_forms = new Dlayer_Model_Form();
 				$model_forms->editForm($this->session_dlayer->siteId(), 
-					$this->session_form->formId(), $post['name']);
+					$this->session_form->formId(), $post['name'], 
+					$post['email']);
 				$this->_redirect('/form');
 			}
 		}

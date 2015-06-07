@@ -75,8 +75,19 @@ class Dlayer_Form_Site_NewForm extends Dlayer_Form_Module_App
 		$title->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'placeholder'=>'e.g., Contact us', 'class'=>'form-control'));
 		$title->setRequired();
-
+		
 		$this->elements['title'] = $title;
+		
+		$email = new Dlayer_Form_Element_Email('email');
+		$email->setLabel('Email');
+		$email->setDescription('Enter the email address that submissions will 
+			be sent to, Dlayer defaults to not sending through submissions, 
+			the option needs to be turned on.');
+		$email->setAttribs(array('size'=>50, 'maxlength'=>255, 
+			'placeholder'=>'e.g., email@email.com us', 'class'=>'form-control'));
+		$email->setRequired();
+
+		$this->elements['email'] = $email;
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setLabel('Save');
@@ -94,5 +105,8 @@ class Dlayer_Form_Site_NewForm extends Dlayer_Form_Module_App
 	{
 		$this->elements['name']->addValidator(
 			new Dlayer_Validate_FormNameUnique($this->site_id));
+			
+		$this->elements['email']->addValidator(
+			new Zend_Validate_EmailAddress());
 	}
 }
