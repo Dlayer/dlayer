@@ -495,5 +495,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* 	after http://specification.dlayer.com/
 	* @return Dlayer_View_Navigation
 	*/
-	public function furtherReading($url=NULL) { }
+	public function furtherReading($url=NULL) { }  
+	
+	/**
+	* Generates a bootstrap label html fragment, class and label text can be 
+	* defined
+	* 
+	* @param string $text Text for the label
+	* @param string $class Bootstrap class for label
+	* @return Dlayer_View_BootstrapLabel
+	*/
+	public function bootstrapLabel($text, $class='default') { }
 }
