@@ -82,15 +82,14 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 	{
 		// Start color picker container
 		$this->html = '<div class="color_picker_tool panel panel-default">';
-		$this->html .= '<div class="panel-heading">Colour picker</div>';
+		$this->html .= '<div class="panel-heading"><h4>Colour picker 
+			<small>Select a colour</small> <span class="glyphicon
+			 glyphicon-remove close-color-picker pull-right" title="Close colour picker" 
+			 aria-hidden="true"></span></h4></div>';
 		$this->html .= '<div class="panel-body">';
 		$this->html .= $this->palettes($palettes);
 		$this->html .= $this->history($history);
 		$this->html .= $this->custom($custom);
-		// End color picker and add close link
-		$this->html .= '<button type="button" class="close" 
-			title="Close" aria-label="Close"><span aria-hidden="true">
-			&times;</span></button>';
 		$this->html .= '</div>';
 		$this->html .= '</div>';
 		
@@ -110,12 +109,14 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		if($palettes != FALSE) {
 			if(count($palettes) == 2) {
 				foreach($palettes as $palette) {
-					$html .= '<div class="palette">';
-					$html .= '<h5>' . $this->view->escape($palette['name']) . 
-						'</h5>';
+					$html .= '<div class="palette row">';
+					$html .= '<div class="col-xs-12"><h4>' . $this->view->escape($palette['name']) . 
+						' <small>The five colours defined for this palette</small></h4></div>';
 					
 					$colors = '';
 					$labels = '';
+					
+					$html .= '<div class="col-xs-1">&nbsp;</div>';
 					
 					foreach($palette['colors'] as $color) {
 						$colors .= '<div class="color col-xs-2" style="background-color:' . 
@@ -124,6 +125,7 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 					}
 					
 					$html .= $colors;
+					$html .= '<hr />';
 					
 					$html .= '</div>';
 				}
@@ -148,13 +150,13 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		$html = '';
 		
 		if($history != FALSE) {
-			$html .= '<div class="history">';
-			$html .= '<h5>Last (5) used custom colours</h5>';
+			$html .= '<div class="history row">';
+			$html .= '<div class="col-xs-12"><h4>History <small>Last five colours you used across Dlayer</small></h4></div>';
 			
 			foreach($history as $color) {
-				$html .= '<div class="color col-xs-4" style="background-color:' . 
+				$html .= '<div class="color col-xs-offset-1 col-xs-2" style="background-color:' . 
 				$this->view->escape($color['color_hex']) . ';">&nbsp;</div>';
-				$html .= '<div class="color-name col-xs-8 small">' . 
+				$html .= '<div class="color-name col-xs-9 text-muted">' . 
 				$this->view->escape($color['color_hex']) . '</div>';
 				$html .= '<div class="clearfix"></div>';
 			}
@@ -176,11 +178,11 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		$html = '';
 		
 		if($custom == TRUE) {
-			$html .= '<div class="custom">
-			<h5>New custom colour</h5>
+			$html .= '<div class="custom row">
+			<div class="col-xs-12"><h4>Custom <small>Select a custom colour</small></h4>
 			<label>Choose colour</label> <input type="color" name="color" class="color" size="7" 
 			maxlength="7" value="000000"> 
-			</div>';
+			</div></div>';
 		}
 		
 		return $html;

@@ -136,22 +136,16 @@ div#designer {
 
 div.color_picker_tool {
   display: none; }
-  div.color_picker_tool div.panel-body div.palette {
-    float: left;
-    width: 100%; }
-    div.color_picker_tool div.panel-body div.palette h5 {
-      margin: 10px 0px 5px 0px; }
-    div.color_picker_tool div.panel-body div.palette div.color {
-      border-radius: 3px;
-      border: 1px solid #CCC;
-      cursor: pointer; }
-  div.color_picker_tool div.panel-body div.history {
-    float: left;
-    width: 100%; }
-    div.color_picker_tool div.panel-body div.history div.color {
-      border-radius: 3px;
-      border: 1px solid #CCC;
-      cursor: pointer; }
+  div.color_picker_tool span.close-color-picker {
+    cursor: pointer; }
+  div.color_picker_tool div.panel-body div.palette div.color {
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    cursor: pointer; }
+  div.color_picker_tool div.panel-body div.history div.color {
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    cursor: pointer; }
   div.color_picker_tool div.panel-body div.custom {
     float: left;
     width: 100%; }

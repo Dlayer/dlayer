@@ -2703,7 +2703,7 @@ var dlayer = {
 		*/
 		color_picker: function()
 		{
-			$('#ribbon .color_picker_tool .close').click(
+			$('#ribbon .color_picker_tool .close-color-picker').click(
 				function() {
 					dlayer.designers.color_picker_close();
 				}
