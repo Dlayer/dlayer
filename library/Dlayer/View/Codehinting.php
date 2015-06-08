@@ -484,5 +484,16 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	*/
 	public function pagePreview(array $template, array $content_rows, 
 		array $content, array $template_styles, array $content_row_styles, 
-		array $content_container_styles, array $content_styles) { }
+		array $content_container_styles, array $content_styles) { } 
+		
+	/**
+	* Generates a further reading section with a button to go to the 
+	* specification site and optionally a button to go the specific section 
+	* in the specification
+	* 
+	* @param string $url URL to use for second button, just the fragment 
+	* 	after http://specification.dlayer.com/
+	* @return Dlayer_View_Navigation
+	*/
+	public function furtherReading($url=NULL) { }
 }
