@@ -138,7 +138,7 @@ class Dlayer_Form_Content_Styling_Image extends Dlayer_Form_Module_Content
 		// Content container background colour
 		$container_background_color = new Dlayer_Form_Element_ColorPicker(
 			'container_background_color');
-		$container_background_color->setLabel('Text container background 
+		$container_background_color->setLabel('Image container background 
 			colour');
 		$container_background_color->setDescription('Choose a background 
 			colour for the image item content container, to clear the 
