@@ -37,30 +37,10 @@
 		  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3";
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
-		<nav class="navbar navbar-inverse" role="navigation">
-			<div class="container">
-			<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/">
-			<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" /></a>
-			</div>
-			<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-			<li class="active"><a href="/dlayer/index/index" title="Dlayer.com: Web development simplified">Dlayer <span class="sr-only">(current)</span></a></li>
-			<li><a href="/dlayer/index/dlayer" title="What is Dlayer">What is Dlayer?</a></li>
-			<li><a href="/dlayer/index/dlayer-history" title="How Dlayer came to be">History of Dlayer</a></li>
-			<li><a href="/dlayer/index/development-plan" title="Dlayer development plan">Development plan</a></li>
-			<li><a href="/dlayer/index/development-log" title="Dlayer development log">Development log</a></li>
-			<li><a href="/dlayer/index/bugs" title="Dlayer known bugs">Bugs</a></li>
-			</ul>
-			</div><!-- /.navbar-collapse -->
-			</div><!-- /.container-fluid -->
-			</nav>
+		<?php echo $this->bootstrapNavbar(
+			'<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" />', 
+			$this->layout()->nav['items'],  
+			$this->layout()->nav['active_url'])->inverted(); ?>
 		<div class="container">
 		
 			<div class="row">
