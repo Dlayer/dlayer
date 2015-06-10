@@ -44,6 +44,15 @@ foreach($this->tools as $group_id => $group) {
 				}
 				
 				/**
+				* Show the content area tool if a content area is selected
+				*/
+				if($tool['tool'] == 'content-area' && $this->div_id != NULL && 
+					$this->tool['tool'] == 'content-area') {
+						
+					$show = TRUE;
+				}
+				
+				/**
 				* Show the content row tool if a content area and content row 
 				* is selected
 				*/

@@ -503,6 +503,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$id = $this->getRequest()->getParam('selected');
 		$this->session_content->setDivId($id);
+		$this->session_content->setTool('content-area');		
 		$this->_redirect('/content/design');
 	}
 
