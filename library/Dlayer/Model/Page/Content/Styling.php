@@ -78,6 +78,40 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	
 	/**
 	* Check to see if a background colour has been defined for the selected 
+	* content area
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_area_id
+	* @return integer|FALSE Either returns the id of the assigned background 
+	* 	colour or FALSE if no background colour has been defined
+	*/
+	public function existingAreaBackgroundColor($site_id, $page_id, 
+		$content_area_id) 
+	{
+		$sql = 'SELECT uspsabc.id 
+				FROM user_site_page_styles_area_background_color uspsabc
+				WHERE uspsabc.site_id = :site_id 
+				AND uspsabc.page_id = :page_id 
+				AND uspsabc.content_area_id = :content_area_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_area_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			return intval($result['id']);
+		} else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	* Check to see if a background colour has been defined for the selected 
 	* content item
 	* 
 	* @param integer $site_id
