@@ -148,8 +148,10 @@ class Content_ProcessController extends Zend_Controller_Action
 	* Process method for the auto tools.
 	* 
 	* Simpler than the standard tool action because the auto tool action tools 
-	* don't take into account any user input, the tools don'ty also manage 
+	* don't take into account any user input, the tools don't also manage 
 	* items so there is no concept of an edit mode.
+	* 
+	* Typical uses in the content manager are the structure tools.
 	*
 	* @return void
 	*/
