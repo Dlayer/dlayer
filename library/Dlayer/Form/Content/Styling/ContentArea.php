@@ -1,14 +1,14 @@
 <?php
 /**
-* Form for the content row styling sub tool
+* Form for the content area styling sub tool
 * 
-* The tool is used by the styling tab of the content row tool to allow a user 
-* to define the background colour for the row
+* The tool is used by the styling tab of the content area tool to allow a user 
+* to define the background colour for the content area
 *
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Form_Content_Styling_ContentRow extends 
+class Dlayer_Form_Content_Styling_ContentArea extends 
 Dlayer_Form_Module_Content
 {
 	/**
@@ -27,9 +27,9 @@ Dlayer_Form_Module_Content
 	public function __construct($page_id, $div_id, $content_row_id, 
 		array $content_item, $edit_mode=FALSE, $multi_use=0, $options=NULL)
 	{
-		$this->tool = 'content-row';
-		$this->content_type = 'row';
-		$this->sub_tool_model = 'Styling_ContentRow';
+		$this->tool = 'content-area';
+		$this->content_type = 'area';
+		$this->sub_tool_model = 'Styling_ContentArea';
 
 		parent::__construct($page_id, $div_id, $content_row_id, 
 			$content_item, $edit_mode, $multi_use, $options);
@@ -51,8 +51,8 @@ Dlayer_Form_Module_Content
 
 		$this->validationRules();
 
-		$legend = 'Styling <small>Set the styles for the content row</small>'; 
-		$this->addElementsToForm('styling_content_row', $legend, 
+		$legend = 'Styling <small>Set the styles for the content area</small>'; 
+		$this->addElementsToForm('styling_content_area', $legend, 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();
@@ -126,25 +126,25 @@ Dlayer_Form_Module_Content
 	*/
 	private function userElements()
 	{
-		$row_background_color = new Dlayer_Form_Element_ColorPicker(
-			'row_background_color');
-		$row_background_color->setLabel('Content row background colour');
-		$row_background_color->setDescription('Choose a background 
-			colour for the content row, to clear the background colour use the 
-			clear link.');
-		$row_background_color->setBelongsTo('params');
-		$row_background_color->addClearLink();
-		$row_background_color->setRequired();
+		$area_background_color = new Dlayer_Form_Element_ColorPicker(
+			'area_background_color');
+		$area_background_color->setLabel('Content area background colour');
+		$area_background_color->setDescription('Choose a background 
+			colour for the content area, to clear the background colour use 
+			the clear link.');
+		$area_background_color->setBelongsTo('params');
+		$area_background_color->addClearLink();
+		$area_background_color->setRequired();
 		
-		if(array_key_exists('row_background_color', 
+		if(array_key_exists('area_background_color', 
 			$this->content_item) == TRUE 
-			&& $this->content_item['row_background_color'] != FALSE) {
+			&& $this->content_item['area_background_color'] != FALSE) {
 			
 			$row_background_color->setValue(
-				$this->content_item['row_background_color']);
+				$this->content_item['area_background_color']);
 		}
 
-		$this->elements['row_background_color'] = $row_background_color;
+		$this->elements['area_background_color'] = $area_background_color;
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
