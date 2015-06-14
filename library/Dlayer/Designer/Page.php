@@ -147,10 +147,10 @@ class Dlayer_Designer_Page
 	}
 	
 	/**
-	* Fetch all the styles assigned to the content rows that makde up the 
+	* Fetch all the styles assigned to the content rows that make up the 
 	* page, the styles are grouped by type and then merged
 	* 
-	* @return Array contents all the defined content row styles grouped by 
+	* @return Array contains all the defined content row styles grouped by 
 	* 	style type and content row id
 	*/
 	public function contentRowStyles() 
@@ -158,6 +158,21 @@ class Dlayer_Designer_Page
 		$this->contentRowBackgroundStyles();
 		
 		return $this->content_row_styles;
+	}
+	
+	/**
+	* Fetch all the styles assign to the content areas that make up the 
+	* current content page, the styles are grouped by type and then merged into 
+	* once base array
+	* 
+	* @return Array contains all the defined content area styles groupled by 
+	* 	style group and then content area id
+	*/
+	public function contentAreaStyles() 
+	{
+		
+		
+		return $this->content_area_styles;
 	}
 	
 	/**
