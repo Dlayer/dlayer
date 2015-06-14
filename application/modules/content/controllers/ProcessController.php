@@ -222,6 +222,10 @@ class Content_ProcessController extends Zend_Controller_Action
 						$this->session_content->setTool($id['id']);
 						break;
 						
+					case 'tab':
+						$this->session_content->setRibbonTab($id['id']);
+						break;
+						
 					default:
 						break;
 				}

@@ -439,12 +439,12 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	* 
 	* @param integer $site_id
 	* @param integer $page_id
-	* @param integer $content_row_id
+	* @param integer $content_area_id
 	* @param integer $id
 	* @return void
 	*/
 	public function clearAreaBackgroundColor($site_id, $page_id, 
-		$content_row_id, $id) 
+		$content_area_id, $id) 
 	{
 		$sql = 'DELETE FROM user_site_page_styles_area_background_color 
 				WHERE site_id = :site_id 

@@ -100,6 +100,7 @@ class Dlayer_Tool_Content_Styling_ContentArea extends Dlayer_Tool_Module_Content
 		return array(
 			array('type'=>'div_id', 'id'=>$div_id), 
 			array('type'=>'tool', 'id'=>'content-area'),
+			array('type'=>'tab', 'id'=>'styling')
 		);
 	}
 
