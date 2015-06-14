@@ -17,16 +17,16 @@ class Dlayer_Designer_Page
 	private $selected_content_row_id = NULL;
 	private $selected_content_id = NULL;
 
-	private $template_styles = array();
+	private $content_area_styles = array();
 	private $content_row_styles = array();
 	private $content_container_styles = array();
 	private $content_styles = array();
 	private $form_styles = array();
 
 	private $model_template;
-	private $model_template_styles;
 	private $model_page;
 
+	private $model_content_area_styles;
 	private $model_content_row_styles;
 	private $model_content_container_styles;
 	private $model_content_styles;
@@ -52,14 +52,14 @@ class Dlayer_Designer_Page
 		$this->selected_content_row_id = $content_row_id;
 		$this->selected_content_id = $content_id;
 
-		$this->template_styles = array();
 		$this->content_styles = array();
 		$this->form_styles = array();
 
 		$this->model_template = new Dlayer_Model_View_Template();
-		$this->model_template_styles = new Dlayer_Model_View_Template_Styles();
 		$this->model_page = new Dlayer_Model_View_Page();
 		
+		$this->model_content_area_styles = 
+			new Dlayer_Model_View_Content_AreaStyles();
 		$this->model_content_row_styles = 
 			new Dlayer_Model_View_Content_RowStyles();
 		$this->model_content_container_styles = 
@@ -83,22 +83,6 @@ class Dlayer_Designer_Page
 		return $this->model_template->template($this->site_id, 
 			$this->template_id);
 	}
-
-	/**
-	* Fetch any styles that have been attached to the template dics, all the
-	* assigned styles groups for the template are pulled and then passed to
-	* the page view helper as one single array
-	*
-	* @return array Indexed array of styles
-	*/
-	/*public function templateStyles()
-	{
-		$this->templateBackgroundColorStyles();
-
-		$this->borderStyles();
-
-		return $this->template_styles;
-	}*/
 	
 	/**
 	* Fetch the styles for all the assigned forms

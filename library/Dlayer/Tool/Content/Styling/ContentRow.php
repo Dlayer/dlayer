@@ -101,6 +101,7 @@ class Dlayer_Tool_Content_Styling_ContentRow extends Dlayer_Tool_Module_Content
 			array('type'=>'div_id', 'id'=>$div_id), 
 			array('type'=>'content_row_id', 'id'=>$content_row_id),
 			array('type'=>'tool', 'id'=>'content-row'),
+			array('type'=>'tab', 'id'=>'styling')
 		);
 	}
 
