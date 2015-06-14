@@ -217,6 +217,30 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	}
 	
 	/**
+	* Add a background colour for the selected content area
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id
+	* @param string $hex
+	* @return void
+	*/
+	public function addAreaBackgroundColor($site_id, $page_id, $content_area_id, 
+		$hex) 
+	{
+		$sql = 'INSERT INTO user_site_page_styles_area_background_color 
+				(site_id, page_id, content_area_id, color_hex) 
+				VALUES 
+				(:site_id, :page_id, :content_area_id, :color_hex)';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);		
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);		
+		$stmt->bindValue(':content_area_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':color_hex', $hex, PDO::PARAM_STR);
+		$stmt->execute();
+	}
+	
+	/**
 	* Update the background colour for the selected content item container
 	* 
 	* @param integer $site_id
@@ -304,6 +328,35 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 	}
 	
 	/**
+	* Update the background colour for the selected content area
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_area_id
+	* @param integer $id
+	* @param string $hex
+	* @return void
+	*/
+	public function updateAreaBackgroundColor($site_id, $page_id, 
+		$content_area_id, $id, $hex) 
+	{
+		$sql = 'UPDATE user_site_page_styles_area_background_color 
+				SET color_hex = :hex 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_area_id = :content_area_id 
+				AND id = :id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_area_id', $content_area_id, PDO::PARAM_INT);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':hex', $hex, PDO::PARAM_STR);
+		$stmt->execute();
+	}
+	
+	/**
 	* Clear the background color for the selected content item container
 	* 
 	* @param integer $site_id
@@ -377,6 +430,32 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+	
+	/**
+	* Clear the background color for the selected content area
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $content_row_id
+	* @param integer $id
+	* @return void
+	*/
+	public function clearAreaBackgroundColor($site_id, $page_id, 
+		$content_row_id, $id) 
+	{
+		$sql = 'DELETE FROM user_site_page_styles_area_background_color 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_area_id = :content_area_id 
+				AND id = :id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_area_id', $content_area_id, PDO::PARAM_INT);
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 		$stmt->execute();
 	}

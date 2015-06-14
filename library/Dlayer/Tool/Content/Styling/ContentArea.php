@@ -38,7 +38,7 @@ class Dlayer_Tool_Content_Styling_ContentArea extends Dlayer_Tool_Module_Content
 	* @param integer $page_id
 	* @param integer $div_id
 	* @param integer|NULL $content_row_id
-	* @param array $params Params array to validte
+	* @param array $params Params array to validate
 	* @param integer|NULL $content_id
 	* @return boolean Returns TRUE if all the values are of the expected size 
 	* 	or within range
@@ -95,7 +95,7 @@ class Dlayer_Tool_Content_Styling_ContentArea extends Dlayer_Tool_Module_Content
 	protected function structure($site_id, $page_id, $div_id, 
 		$content_row_id=NULL) 
 	{
-		//$this->rowBackgroundColor($site_id, $page_id, $div_id, $content_row_id);
+		$this->areaBackgroundColor($site_id, $page_id, $div_id);
 		
 		return array(
 			array('type'=>'div_id', 'id'=>$div_id), 
@@ -123,35 +123,31 @@ class Dlayer_Tool_Content_Styling_ContentArea extends Dlayer_Tool_Module_Content
 	* @param integer $div_id Content area id
 	* @return void
 	*/
-	protected function rowBackgroundColor($site_id, $page_id, $div_id) 
+	protected function areaBackgroundColor($site_id, $page_id, $div_id) 
 	{
 		$model_styling = new Dlayer_Model_Page_Content_Styling();
 		
 		$id = $model_styling->existingAreaBackgroundColor($site_id, $page_id, 
 			$div_id);
-			
-			
-						
+
 		if($id == FALSE) {
 			if($this->params_auto['area_clear_background'] == FALSE) {
-				$model_styling->addRowBackgroundColor($site_id, $page_id, 
-					$content_row_id, 
-					$this->params_auto['area_background_color']);
+				$model_styling->addAreaBackgroundColor($site_id, $page_id, 
+					$div_id, $this->params_auto['area_background_color']);
 					
 				$this->addToColorHistory($site_id, 
 					$this->params_auto['area_background_color']);
 			}
 		} else {
 			if($this->params_auto['area_clear_background'] == FALSE) {
-				$model_styling->updateRowBackgroundColor($site_id, $page_id, 
-					$content_row_id, $id, 
-					$this->params_auto['area_background_color']);
+				$model_styling->updateAreaBackgroundColor($site_id, $page_id, 
+					$div_id, $id, $this->params_auto['area_background_color']);
 					
 				$this->addToColorHistory($site_id, 
 					$this->params_auto['area_background_color']);
 			} else {
-				$model_styling->clearRowBackgroundColor($site_id, $page_id, 
-					$content_row_id, $id);
+				$model_styling->clearAreaBackgroundColor($site_id, $page_id, 
+					$div_id, $id);
 			}
 		}
 	}
