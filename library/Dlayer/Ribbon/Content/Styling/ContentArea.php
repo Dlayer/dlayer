@@ -52,26 +52,25 @@ Dlayer_Ribbon_Module_Content
 			'area_background_color'=>FALSE
 		);
 		
-		
-		//$this->rowBackgroundColor();
+		$this->areaBackgroundColour();
 
 		return $this->data;
 	}
 	
 	/**
-	* Fetch the background colour for the content row
+	* Fetch the background colour for the content area
 	* 
-	* @retrun void Writes the data directly to $this->data
+	* @return void Writes the data directly to the $this->data field
 	*/
-	/*protected function rowBackgroundColor() 
+	protected function areaBackgroundColour() 
 	{
 		$model_styling = new Dlayer_Model_Page_Content_Styling();
 		
-		$color = $model_styling->rowBackgroundColor($this->site_id, 
-			$this->page_id, $this->content_row_id);
+		$color = $model_styling->areaBackgroundColor($this->site_id, 
+			$this->page_id, $this->div_id);
 			
 		if($color != FALSE) {
-			$this->data['row_background_color'] = $color;
+			$this->data['area_background_color'] = $color;
 		}
-	}*/
+	}
 }

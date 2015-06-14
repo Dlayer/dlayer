@@ -140,7 +140,7 @@ Dlayer_Form_Module_Content
 			$this->content_item) == TRUE 
 			&& $this->content_item['area_background_color'] != FALSE) {
 			
-			$row_background_color->setValue(
+			$area_background_color->setValue(
 				$this->content_item['area_background_color']);
 		}
 

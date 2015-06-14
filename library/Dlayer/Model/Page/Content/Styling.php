@@ -98,7 +98,7 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_area_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_area_id', $content_area_id, PDO::PARAM_INT);
 		$stmt->execute();
 		
 		$result = $stmt->fetch();
@@ -235,7 +235,7 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);		
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);		
-		$stmt->bindValue(':content_area_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_area_id', $content_area_id, PDO::PARAM_INT);
 		$stmt->bindValue(':color_hex', $hex, PDO::PARAM_STR);
 		$stmt->execute();
 	}
@@ -547,6 +547,38 @@ class Dlayer_Model_Page_Content_Styling extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->execute();
+		
+		$result = $stmt->fetch();
+		
+		if($result != FALSE) {
+			return $result['color_hex'];
+		} else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	* Fetch the background colour for the content area
+	* 
+	* @param integer site_id
+	* @param integer $page_id
+	* @param integer $content_area_id
+	* @return string|FALSE Either the background colour hex or FALSE if there 
+	* 	is no current value
+	*/
+	public function areaBackgroundColor($site_id, $page_id, $content_area_id) 
+	{
+		$sql = 'SELECT color_hex 
+				FROM user_site_page_styles_area_background_color 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_area_id = :content_area_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_area_id', $content_area_id, PDO::PARAM_INT);
 		$stmt->execute();
 		
 		$result = $stmt->fetch();
