@@ -74,9 +74,9 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	* @param array $content Content data array for page, contains the
 	* 	raw data for all the content items that have been assigned to the
 	* 	current page
-	* @param array $template_styles Template styles data array, contains all
-	* 	the styles for the divs that make up the template the page is based
-	* 	upon
+	* @param array $content_area_styles Content area styles data array, 
+	* 	contains all the styles for the divs that make up the 
+	* 	content page / template
 	* @param array $content_row_styles Content row styles data array, contains 
 	* 	all the styles that have been assigned to the content rows for the 
 	* 	current page
@@ -93,7 +93,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_Page
 	*/
 	public function page(array $template, array $content_rows, array $content,
-		array $template_styles, array $content_row_styles, 
+		array $content_area_styles, array $content_row_styles, 
 		array $content_container_styles, array $content_styles, 
 		$selected_div_id=NULL, $selected_content_row_id=NULL, 
 		$selected_content_id=NULL)
@@ -112,7 +112,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		* view helper, the template styles view helper will call child view 
 		* helpers for each of the defined style groups
 		*/
-		$this->view->templateStyles()->setStyles($template_styles);
+		//$this->view->templateStyles()->setStyles($template_styles);
 		
 		/**
 		* Pass in the content row styles indexed by style type for all the 

@@ -447,6 +447,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$content_row_id = $this->session_content->contentRowId();
 		$content_id = $this->session_content->contentId();
 		
+		// Instantiate page object
 		$designer_page = new Dlayer_Designer_Page($site_id, $template_id, 
 			$page_id, $div_id, $content_row_id, $content_id);
 
@@ -470,7 +471,7 @@ class Content_DesignController extends Zend_Controller_Action
 		* Set all the defined styles for the template, content rows, 
 		* content item containers, content items, assigned forms
 		*/
-		$this->view->template_styles = array();
+		$this->view->content_area_styles = $designer_page->contentAreaStyles();
 		$this->view->content_row_styles = $designer_page->contentRowStyles();
 		$this->view->content_container_styles = 
 			$designer_page->contentContainerStyles();

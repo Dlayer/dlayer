@@ -232,7 +232,7 @@ class Dlayer_Designer_Page
 	*/
 	private function contentAreaBackgroundStyles() 
 	{
-		$styless = $this->model_content_area_styles->backgroundColors(
+		$styles = $this->model_content_area_styles->backgroundColors(
 			$this->site_id, $this->page_id);
 			
 		if($styles != FALSE) {
