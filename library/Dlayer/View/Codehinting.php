@@ -86,22 +86,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	public function content() { }
 
 	/** 
-	* Template background color style view helper, generates the background 
-	* color style attributes for each of the template divs
-	* 
-	* @return Dlayer_View_TemplateStylesBackgroundColors
-	*/
-	public function templateStylesBackgroundColors() { }
-
-	/** 
-	* Border style view helper, generates the border styling for each of the 
-	* template divs
-	* 
-	* @return Dlayer_View_TemplateStylesBorders
-	*/
-	public function templateStylesBorders() { }
-
-	/** 
 	* Template layout view helper, generates the html for the selected template,
 	* essentially it just loops through the divs that make up the template
 	* adding the styles as necessary

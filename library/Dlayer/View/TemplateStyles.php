@@ -140,16 +140,6 @@ class Dlayer_View_TemplateStyles extends Zend_View_Helper_Abstract
 	public function setStyles(array $styles)
 	{
 		$this->styles = $styles;
-
-		if(array_key_exists('background_colors', $this->styles) == TRUE) {
-			$this->view->templateStylesBackgroundColors()->setStyles(
-			$this->styles['background_colors']);
-		}
-		
-		if(array_key_exists('borders', $this->styles) == TRUE) {
-			$this->view->templateStylesBorders()->setStyles(
-			$this->styles['borders']);
-		}
 		
 		return $this;
 	}
@@ -182,10 +172,6 @@ class Dlayer_View_TemplateStyles extends Zend_View_Helper_Abstract
 			}
 		}
 		
-		$this->html .= $this->view->templateStylesBackgroundColors()->div(
-		$this->id);
-		$this->html .= $this->view->templateStylesBorders()->div($this->id);
-
 		$this->html .= '"';
 	
 		return $this->html;
