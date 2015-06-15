@@ -107,36 +107,16 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		$this->selected_content_row_id = $selected_content_row_id;
 		$this->selected_content_id = $selected_content_id;
 		
-		/** 
-		* Pass the template styles data array to the base template styles 
-		* view helper, the template styles view helper will call child view 
-		* helpers for each of the defined style groups
-		*/
-		//$this->view->templateStyles()->setStyles($template_styles);
-		
 		/**
-		* Pass in the content row styles indexed by style type for all the 
-		* content row defined on the content page. The content row styles 
-		* view helper will call a child view helper for each of the defined 
-		* styles
+		* Pass the style data array to the relevant base style view helper, 
+		* there is one for each item type. These base view helpers will call 
+		* a child view helper for each of the style groups that can be assigned 
+		* to the content type
 		*/
+		$this->view->contentAreaStyles()->setStyles($content_area_styles);
 		$this->view->contentRowStyles()->setStyles($content_row_styles);
-		
-		/**
-		* Pass in the content item container styles indexed by style type for 
-		* all the content items defined on the content page. The content 
-		* container styles view helper will call a child view helper for 
-		* each of the defined styles
-		*/
 		$this->view->contentContainerStyles()->setStyles(
 			$content_container_styles);
-			
-		/**
-		* Pass in the content item styles indexed by style type for 
-		* all the content items defined on the content page. The content 
-		* styles view helper will call a child view helper for each of the 
-		* defined styles
-		*/
 		$this->view->contentItemStyles()->setStyles($content_styles);
 		
 		/** 
@@ -172,7 +152,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		/**
 		* Reset the data arrays for all the depeendant view helpers
 		*/
-		$this->view->templateStyles()->setStyles(array());
+		$this->view->contentAreaStyles()->setStyles(array());
 		$this->view->contentContainerStyles()->setStyles(array());
 		$this->view->content()->setContent(array());
 
@@ -200,7 +180,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 				$this->html .= "<div id=\"template_div_{$div['id']}\"";
 				
 				// Set the styles for the template div
-				$this->html .= $this->templateStyles($div['id'], 
+				$this->html .= $this->contentAreaStyles($div['id'], 
 					$div['sizes'], $params['children'], FALSE);
 				
 				// Set the css classes
@@ -270,7 +250,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 				}
 
 				$html .= "<div id=\"template_div_{$div['id']}\"";
-				$html .= $this->templateStyles($div['id'], $div['sizes'],
+				$html .= $this->contentAreaStyles($div['id'], $div['sizes'],
 					$params['children'], $content);
 				$html .= "{$params['class']}>" . PHP_EOL;
 				$html .= $this->childHtml($div['id'], $div['children'],
@@ -314,21 +294,21 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 
 		return $html;
 	}
-
+	
 	/**
-	* Generate the style style for the given tem,plate div, calls a view helper 
-	* which in turns calls a child view helper for each style group
+	* Generate the style string for the given content area, a child view helper 
+	* will be called for each style group
 	*
-	* @param integer $id Div id
-	* @param array $sizes Sizes data array for the div
-	* @param boolean $children Does the div have any children?
+	* @param integer $id Content area id
+	* @param array $sizes Sizes data array for the content area
+	* @param boolean $children Does the content area have any children?
 	* @param boolean $content Is there defined content for the content area
 	* @return string
 	*/
-	private function templateStyles($id, $sizes, $children, $content=FALSE)
+	private function contentAreaStyles($id, $sizes, $children, $content=FALSE)
 	{
-		return $this->view->templateStyles()->div($id, $sizes, $children, 
-			$content);
+		return $this->view->contentAreaStyles()->contentArea($id, $sizes, 
+			$children, $content);
 	}
 
 	/**

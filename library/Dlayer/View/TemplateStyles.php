@@ -103,7 +103,7 @@ class Dlayer_View_TemplateStyles extends Zend_View_Helper_Abstract
 	* previous calls within the current view
 	* 
 	* @param integer $id Id of the current div
-	* @param array $sizes Sizes data array, contains indexes for widget, height, 
+	* @param array $sizes Sizes data array, contains indexes for width, height, 
 	*                     design_height and whether the div is a fixed height
 	*                     div
 	* @param boolean $children Does the current div have children

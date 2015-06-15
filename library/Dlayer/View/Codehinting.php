@@ -61,6 +61,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_TemplateStyles
 	*/
 	public function templateStyles() { }
+	
+	/** 
+	* Content area styles view helper, generates the style string for each of 
+	* the content areas on the page, it will call a child view helper for each 
+	* of the styling groups that can be assigned to content areas
+	* 
+	* @return Dlayer_View_ContentAreaStyles
+	*/
+	public function contentAreaStyles() { }
 
 	/** 
 	* This is the base content view helper, it is called by the content row 
