@@ -170,7 +170,7 @@ class Dlayer_Designer_Page
 	*/
 	public function contentAreaStyles() 
 	{
-		
+		$this->contentAreaBackgroundStyles();
 		
 		return $this->content_area_styles;
 	}
@@ -221,6 +221,22 @@ class Dlayer_Designer_Page
 			
 		if($styles != FALSE) {
 			$this->content_row_styles['background_colors'] = $styles;
+		}
+	}
+	
+	/**
+	* Fetch all the background colour styles defined for the content areas 
+	* that make up the page
+	* 
+	* @return void Writes the data to the $content_area_styles private property
+	*/
+	private function contentAreaBackgroundStyles() 
+	{
+		$styless = $this->model_content_area_styles->backgroundColors(
+			$this->site_id, $this->page_id);
+			
+		if($styles != FALSE) {
+			$this->content_area_styles['background_colors'] = $styles;
 		}
 	}
 }
