@@ -52,6 +52,8 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		for($i=2;$i<=$rows;$i++){
 			$this->addContentRow($site_id, $page_id, $div_id);
 		}
+		
+		return $content_row_id;
 	}
 	
 	/**
