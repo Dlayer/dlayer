@@ -45,6 +45,14 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	* @param integer $rows Number of rows to create
 	* @return integer Id of the first row created
 	*/
+	public function addContentRows($site_id, $page_id, $div_id, $rows) 
+	{
+		$content_row_id = $this->addContentRow($site_id, $page_id, $div_id);
+				
+		for($i=2;$i<=$rows;$i++){
+			$this->addContentRow($site_id, $page_id, $div_id);
+		}
+	}
 	
 	/**
 	* Add a new content item into the content items table, this is not the 

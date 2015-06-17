@@ -47,7 +47,7 @@ class Dlayer_Tool_Content_AddContentRow extends Dlayer_Tool_Module_Content
 	{
 		$valid = FALSE;
 		
-		if(intval($params['rows']) > 0 && 
+		if(intval($params['rows']) >= 1 && 
 			intval($params['rows']) <= 10) {
 			
 			$valid = TRUE;
@@ -90,7 +90,7 @@ class Dlayer_Tool_Content_AddContentRow extends Dlayer_Tool_Module_Content
 				$div_id);
 		} else {
 			$content_row_id = $model_content->addContentRows($site_id, 
-				$page_id, $div_id, $this->params_auto['row']);
+				$page_id, $div_id, $this->params_auto['rows']);
 		}
 		
 		return array(
