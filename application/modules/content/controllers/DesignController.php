@@ -390,7 +390,7 @@ class Content_DesignController extends Zend_Controller_Action
 		
 		// Instantiate the page object
 		$designer_page = new Dlayer_Designer_Page($site_id, $template_id, 
-			$page_id, $div_id, $content_row_id, $content_id);
+			$page_id, $content_row_id, $content_id);
 
 		// Fetch all the user defind settings 
 		$this->view->heading_styles = $designer_page->headingStyles();
@@ -448,7 +448,7 @@ class Content_DesignController extends Zend_Controller_Action
 		
 		// Instantiate page object
 		$designer_page = new Dlayer_Designer_Page($site_id, $template_id, 
-			$page_id, $div_id, $content_row_id, $content_id);
+			$page_id, $content_row_id, $content_id);
 
 		// Fetch all the user defind settings 
 		$this->view->heading_styles = $designer_page->headingStyles();

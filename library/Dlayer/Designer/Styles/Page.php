@@ -1,29 +1,21 @@
 <?php
 /**
-* The content manager page designed class is responsible for fetching all the 
-* data requested to generate a content page so it can be passed off to the 
-* relevant actions in the designer controller
+* Styles object for a page, fetches all the styling data to be passed off to 
+* the view
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 */
-class Dlayer_Designer_Page
+class Dlayer_Designer_Styles_Page
 {
 	private $site_id;
-	private $template_id;
 	private $page_id;
 
-	private $selected_content_row_id = NULL;
-	private $selected_content_id = NULL;
-
-	private $content_area_styles = array();
-	private $content_row_styles = array();
-	private $content_container_styles = array();
-	private $content_styles = array();
-	private $form_styles = array();
-
-	private $model_template;
-	private $model_page;
+	private $content_area_styles;
+	private $content_row_styles;
+	private $content_container_styles;
+	private $content_styles;
+	private $form_styles;
 
 	private $model_content_area_styles;
 	private $model_content_row_styles;
@@ -36,25 +28,18 @@ class Dlayer_Designer_Page
 	* Initialise the object, run setup methods and set initial properties
 	*
 	* @param integer $site_id
-	* @param integer $template_id
 	* @param integer $page_id
-	* @param integer|NULL $content_id
 	*/
-	public function __construct($site_id, $template_id, $page_id, 
-		$content_row_id=NULL, $content_id=NULL)
+	public function __construct($site_id, $page_id)
 	{
 		$this->site_id = $site_id;
-		$this->template_id = $template_id;
 		$this->page_id = $page_id;
-
-		$this->selected_content_row_id = $content_row_id;
-		$this->selected_content_id = $content_id;
-
+		
+		$this->content_area_styles = array();
+		$this->content_row_styles = array();
+		$this->content_container_styles = array();
 		$this->content_styles = array();
 		$this->form_styles = array();
-
-		$this->model_template = new Dlayer_Model_View_Template();
-		$this->model_page = new Dlayer_Model_View_Page();
 		
 		$this->model_content_area_styles = 
 			new Dlayer_Model_View_Content_AreaStyles();
@@ -69,20 +54,6 @@ class Dlayer_Designer_Page
 		$this->model_settings = 
 			new Dlayer_Model_View_Settings();
 	}
-
-	/**
-	* Fetch the template data array, all the divs that make up the template are
-	* pulled and then arranged in a multi dimensional array. The template
-	* styles and content rows are attached or added to the divs as the template
-	* is created from the array
-
-	* @return array
-	*/
-	public function template()
-	{
-		return $this->model_template->template($this->site_id, 
-			$this->template_id);
-	}
 	
 	/**
 	* Fetch the styles for all the assigned forms
@@ -94,28 +65,6 @@ class Dlayer_Designer_Page
 	{
 		return $this->model_form_styles->fieldStyles($this->site_id, 
 			$this->page_id);
-	}
-
-	/**
-	* Fetch all the page content that has been assigned to the selected
-	* content poge, the content is indexed by content row id and then assigned
-	* as the page is created by the view helpers
-	*
-	* @return array
-	*/
-	public function content()
-	{
-		return $this->model_page->content($this->site_id, $this->page_id);
-	}
-
-	/**
-	* Fetch all the content rows that have been assigned to the divs that make
-	* up this page, these are passed to the page view helper which then calls
-	* the content view helper to generate the content items
-	*/
-	public function contentRows()
-	{
-		return $this->model_page->contentRows($this->site_id, $this->page_id);
 	}
 	
 	/**
@@ -238,36 +187,5 @@ class Dlayer_Designer_Page
 		if($styles != FALSE) {
 			$this->content_area_styles['background_colors'] = $styles;
 		}
-	}
-	
-	/**
-	* Fetch the heading styles defined in settings
-	* 
-	* @return array
-	*/
-	public function headingStyles() 
-	{                                
-		return $this->model_settings->headingStyles($this->site_id);
-	}
-	
-	/**
-	* Fetch the base font familty for the content manager
-	* 
-	* @return string
-	*/
-	public function baseFontFamilyContentManager() 
-	{
-		return $this->model_settings->baseFontFamily($this->site_id, 'content');
-	}
-	
-	/**
-	* Fetch the base font family for the Form builder, used for the imported 
-	* forms
-	* 
-	* @return string
-	*/
-	public function baseFontFamilyFormBuilder() 
-	{
-		return $this->model_settings->baseFontFamily($this->site_id, 'form');
 	}
 }
