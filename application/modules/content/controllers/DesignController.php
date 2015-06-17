@@ -392,13 +392,12 @@ class Content_DesignController extends Zend_Controller_Action
 		$designer_page = new Dlayer_Designer_Page($site_id, $template_id, 
 			$page_id, $div_id, $content_row_id, $content_id);
 
-		$model_settings = new Dlayer_Model_View_Settings();
-
-		$this->view->heading_styles = $model_settings->headingStyles($site_id);
-		$this->view->base_font_family_content = $model_settings->baseFontFamily(
-			$site_id, 'content');
-		$this->view->base_font_family_form = $model_settings->baseFontFamily(
-			$site_id, 'form');
+		// Fetch all the user defind settings 
+		$this->view->heading_styles = $designer_page->headingStyles();
+		$this->view->base_font_family_content = 
+			$designer_page->baseFontFamilyContentManager();
+		$this->view->base_font_family_form = 
+			$designer_page->baseFontFamilyFormBuilder();
 
 		/**
 		* Set the base page details, template structure, content rows and 
@@ -451,26 +450,19 @@ class Content_DesignController extends Zend_Controller_Action
 		$designer_page = new Dlayer_Designer_Page($site_id, $template_id, 
 			$page_id, $div_id, $content_row_id, $content_id);
 
-		$model_settings = new Dlayer_Model_View_Settings();
-
-		$this->view->heading_styles = $model_settings->headingStyles($site_id);
-		$this->view->base_font_family_content = $model_settings->baseFontFamily(
-			$site_id, 'content');
-		$this->view->base_font_family_form = $model_settings->baseFontFamily(
-			$site_id, 'form');
-
-		/**
-		* Set the base page details, template structure, content rows and 
-		* data for content items
-		*/
+		// Fetch all the user defind settings 
+		$this->view->heading_styles = $designer_page->headingStyles();
+		$this->view->base_font_family_content = 
+			$designer_page->baseFontFamilyContentManager();
+		$this->view->base_font_family_form = 
+			$designer_page->baseFontFamilyFormBuilder();
+			
+		// Fetch the page structure details and the content
 		$this->view->template = $designer_page->template();
 		$this->view->content_rows = $designer_page->contentRows();
 		$this->view->content = $designer_page->content();
 		
-		/**
-		* Set all the defined styles for the template, content rows, 
-		* content item containers, content items, assigned forms
-		*/
+		// Fetch the styles for the different content types
 		$this->view->content_area_styles = $designer_page->contentAreaStyles();
 		$this->view->content_row_styles = $designer_page->contentRowStyles();
 		$this->view->content_container_styles = 
@@ -478,9 +470,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_styles = $designer_page->contentItemStyles();
 		$this->view->form_styles = $designer_page->formStyles();
 		
-		/**
-		* Set the designer environment vars
-		*/
+		// Set the designer environment vars
 		$this->view->div_id = $div_id;
 		$this->view->content_row_id = $content_row_id;
 		$this->view->content_id = $content_id;
