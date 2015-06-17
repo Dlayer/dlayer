@@ -85,6 +85,10 @@ class Dlayer_Tool_Content_AddContentRow extends Dlayer_Tool_Module_Content
 	{
 		$model_content = new Dlayer_Model_Page_Content();
 		
+		var_dump($params); die;
+		
+		
+		
 		$content_row_id = $model_content->addContentRow($site_id, $page_id, 
 			$div_id);
 		
