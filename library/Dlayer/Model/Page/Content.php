@@ -37,6 +37,16 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	}
 	
 	/**
+	* Add new content rows to the requested content area (div id)
+	* 
+	* @param integer $site_id
+	* @param integer $page_id
+	* @param integer $div_id
+	* @param integer $rows Number of rows to create
+	* @return integer Id of the first row created
+	*/
+	
+	/**
 	* Add a new content item into the content items table, this is not the 
 	* data for the item itself, just the base definition for an item, the 
 	* specific item data will be stored in a sub table
