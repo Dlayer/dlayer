@@ -21,7 +21,11 @@ class Dlayer_Tool_Content_AddContentRow extends Dlayer_Tool_Module_Content
 	*/
 	protected function validateFields(array $params=array(), $content_id=NULL)
 	{
-		return TRUE; // No params data required by tool
+		if(array_key_exists('rows', $params) == TRUE) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 
 	/**
@@ -41,7 +45,15 @@ class Dlayer_Tool_Content_AddContentRow extends Dlayer_Tool_Module_Content
 	protected function validateValues($site_id, $page_id, $div_id, 
 		$content_row_id=NULL, array $params=array(), $content_id=NULL)
 	{
-		return TRUE; // No params data required by tool
+		$valid = FALSE;
+		
+		if(intval($params['rows']) > 0 && 
+			intval($params['rows']) <= 10) {
+			
+			$valid = TRUE;
+		}
+		
+		return $valid;
 	}
 
 	/**
@@ -54,7 +66,7 @@ class Dlayer_Tool_Content_AddContentRow extends Dlayer_Tool_Module_Content
 	*/
 	protected function prepare(array $params) 
 	{
-		return array();
+		return array('rows'=>intval($params['rows']));
 	}
 	
 	/**
