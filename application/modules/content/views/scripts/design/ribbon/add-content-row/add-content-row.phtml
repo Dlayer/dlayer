@@ -4,8 +4,9 @@
 	<h3>Row <small>Add a new content row</small></h3>
 	
 	<p>Click <mark>add row</mark> below to add a new content row, it will be 
-		placed after any existing content rows and you will immediately be 
-		able to add new content items to it.</p>
+		placed after any existing content rows and will automatically be 
+		selected so that you can immediately start adding content items to 
+		it.</p>
 </div>
 
 <div class="col-xs-12 small">
@@ -28,6 +29,44 @@
 			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-primary" name="submit" value="Add row" />
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<div class="col-xs-12" style="padding-top: 15px;">		
+	<h3>Rows <small>Add multiple content rows</small></h3>
+	
+	<p>Click <mark>add rows</mark> below to add multiple content rows, the new 
+		content rows will be added after any existing content rows. The first 
+		content row will be selected so that you can immediately start 
+		adding conteent items to it.</p>
+</div>
+
+<div class="col-xs-12 small">
+	<form action="/content/process/auto-tool" method="post" class="form">
+		<fieldset>
+			<div class="form-group">
+				<input type="hidden" name="div_id" value="<?php echo $this->escape($this->div_id); ?>" />
+			</div>
+			<div class="form-group">
+				<input type="hidden" name="page_id" value="<?php echo $this->escape($this->page_id); ?>" />
+			</div>			
+			<div class="form-group">
+				<input type="hidden" name="tool" value="add-content-row" />
+			</div>
+			<div class="form-group">
+				<input type="hidden" name="params[multi_use]" value="0" />
+			</div>
+			<div class="form-group">
+				<label for="params-rows" class="required">Number of content rows</label>
+				<input type="number" name="params[rows]" id="params-rows" 
+					value="1" min="1" max="10" class="form-control input-sm" />
+				<p class="help-block">Please choose the number of content rows 
+					you would like to create</p>
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" name="submit" value="Add rows" />
 			</div>
 		</fieldset>
 	</form>
