@@ -16,13 +16,14 @@ class Dlayer_Designer_Styles_Page
 	private $content_container_styles;
 	private $content_styles;
 	private $form_styles;
+	
+	private $model_settings;
 
 	private $model_content_area_styles;
 	private $model_content_row_styles;
 	private $model_content_container_styles;
 	private $model_content_styles;
 	private $model_form_styles;
-	private $model_settings;
 
 	/**
 	* Initialise the object, run setup methods and set initial properties
@@ -41,6 +42,9 @@ class Dlayer_Designer_Styles_Page
 		$this->content_styles = array();
 		$this->form_styles = array();
 		
+		$this->model_settings = 
+			new Dlayer_Model_View_Settings();
+		
 		$this->model_content_area_styles = 
 			new Dlayer_Model_View_Content_AreaStyles();
 		$this->model_content_row_styles = 
@@ -51,8 +55,6 @@ class Dlayer_Designer_Styles_Page
 			new Dlayer_Model_View_Content_ItemStyles();
 		$this->model_form_styles = 
 			new Dlayer_Model_View_Content_Styles_Forms();
-		$this->model_settings = 
-			new Dlayer_Model_View_Settings();
 	}
 	
 	/**
@@ -187,5 +189,36 @@ class Dlayer_Designer_Styles_Page
 		if($styles != FALSE) {
 			$this->content_area_styles['background_colors'] = $styles;
 		}
+	}
+	
+	/**
+	* Fetch the heading styles defined in settings
+	* 
+	* @return array
+	*/
+	public function headingStyles() 
+	{                                
+		return $this->model_settings->headingStyles($this->site_id);
+	}
+	
+	/**
+	* Fetch the base font familty for the content manager
+	* 
+	* @return string
+	*/
+	public function baseFontFamilyContentManager() 
+	{
+		return $this->model_settings->baseFontFamily($this->site_id, 'content');
+	}
+	
+	/**
+	* Fetch the base font family for the Form builder, used for the imported 
+	* forms
+	* 
+	* @return string
+	*/
+	public function baseFontFamilyFormBuilder() 
+	{
+		return $this->model_settings->baseFontFamily($this->site_id, 'form');
 	}
 }
