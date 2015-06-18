@@ -1,8 +1,12 @@
 <?php
 /**
-* The content manager page designed class is responsible for fetching all the 
-* data requested to generate a content page so it can be passed off to the 
-* relevant actions in the designer controller
+* The page designer class is collects togther all the logic to fetch the data 
+* required to build the structure of the page and the content items attached 
+* to the page.
+* 
+* All the data is passed off to the views where there is a view helper for 
+* each type of content and then a base page view helper which generated the 
+* final HTNL
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited

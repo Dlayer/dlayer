@@ -1,7 +1,13 @@
 <?php
 /**
-* Styles object for a page, fetches all the styling data to be passed off to 
-* the view
+* The page styles object fetches the styling data for all the structural 
+* page items and then all the content items, this data will be passed to the 
+* view eher an army of style view helpers generate the style strings for each 
+* content item.
+* 
+* When dlayer is futher along development wise this object can be replaced with 
+* another object which will generate the classes to be used so that as few 
+* inline styles can be used as possible.
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
