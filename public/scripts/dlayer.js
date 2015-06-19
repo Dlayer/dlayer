@@ -34,9 +34,42 @@ var dlayer = {
 			rgb: null,
 			value: null,
 			
+			/**
+			* Open colour picker and clear currently selected colour events, 
+			* opens the colour picker and resets all the environment vars
+			* 
+			* @returns {Void}
+			*/
 			open: function() 
 			{
-				
+				$('#ribbon .color_picker').click(
+					function() {
+						$('.color_picker_tool').slideDown();
+						
+						dlayer.fn.colorPicker.value = null;
+						dlayer.fn.colorPicker.element = 
+							this.id.replace('picker_', '');
+					}
+				);
+
+				/**
+				* Clear the currently selected value and close the picker
+				* 
+				* @returns {false}
+				*/
+				$('#ribbon a.color_picker_clear').click(
+					function() {
+						var element =
+						$(this).siblings('.color_picker').attr('id').
+							replace('picker_', '');
+
+						$('#ribbon #picker_' + element).css(
+							'background-color', 'inherit');
+						$('#' + element).val('').trigger('change');
+
+						return false;
+					}
+				);
 			}, 
 			
 			/**
@@ -58,7 +91,7 @@ var dlayer = {
 				}
 			}, 
 			
-			setUp: function() 
+			events: function() 
 			{
 				
 			}
