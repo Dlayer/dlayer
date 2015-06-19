@@ -17,6 +17,27 @@ var dlayer = {
 	fn: {
 		
 		/**
+		* Convert an RGB value into a Hex value for use in the designer, 
+		* returns either a valid hex value or false
+		*
+		* @returns {String|false}
+		*/
+		rgbToHex: function(colorStr)
+		{		
+			if(colorStr != 'rgba(0, 0, 0, 0)') {
+				var hex = '#';
+				$.each(colorStr.substring(4).split(','), function(i, str){
+					var h = ($.trim(str.replace(')',''))*1).toString(16);
+					hex += (h.length == 1) ? "0" + h : h;
+				});
+			} else {
+				hex = false;
+			}
+			
+			return hex;
+		},
+		
+		/**
 		* If a user selects a colour field the colour picker opens allowing 
 		* them to pick a colour from one of their palettes, from their history 
 		* or by choosing a custom colour
@@ -111,7 +132,7 @@ var dlayer = {
 						dlayer.fn.colorPicker.rgb = 
 							$(this).css('background-color');
 						dlayer.fn.colorPicker.value = 
-							dlayer.rgbToHex($(this).css('background-color'));
+							dlayer.fn.rgbToHex($(this).css('background-color'));
 							
 						dlayer.fn.colorPicker.close();
 					}
@@ -122,7 +143,7 @@ var dlayer = {
 						dlayer.fn.colorPicker.rgb = 
 							$(this).css('background-color');
 						dlayer.fn.colorPicker.value = 
-							dlayer.rgbToHex($(this).css('background-color'));
+							dlayer.fn.rgbToHex($(this).css('background-color'));
 							
 						dlayer.fn.colorPicker.close();
 					}
@@ -138,26 +159,6 @@ var dlayer = {
 				);
 			}			
 		}
-	},
-
-	/**
-	* Convert the rgb value in a hex for the inputs
-	*
-	* @returns {String|false}
-	*/
-	rgbToHex: function(colorStr)
-	{		
-		if(colorStr != 'rgba(0, 0, 0, 0)') {
-			var hex = '#';
-			$.each(colorStr.substring(4).split(','), function(i, str){
-				var h = ($.trim(str.replace(')',''))*1).toString(16);
-				hex += (h.length == 1) ? "0" + h : h;
-			});
-		} else {
-			hex = false;
-		}
-		
-		return hex;
 	},
 	
 	ribbon: {
@@ -2154,7 +2155,7 @@ var dlayer = {
 					$('#' + area_id + ' > div.row').each(function() 
 					{
 						var row = this;
-						var bg_color = dlayer.rgbToHex($(row).css(
+						var bg_color = dlayer.fn.rgbToHex($(row).css(
 							'background-color'));
 							
 						if(bg_color != false) {
@@ -2229,7 +2230,7 @@ var dlayer = {
 						var params = this.id.split(':');
 						var item_id = params[2];
 						
-						var bg_color = dlayer.rgbToHex(
+						var bg_color = dlayer.fn.rgbToHex(
 							$('.content-container-' + item_id).css(
 							'background-color'));
 																					
@@ -2242,7 +2243,7 @@ var dlayer = {
 								'background-color', 'transparent');
 						}
 						
-						var bg_color = dlayer.rgbToHex(
+						var bg_color = dlayer.fn.rgbToHex(
 							$('.content-' + item_id).css('background-color'));
 																					
 						if(bg_color != false) {
@@ -2843,7 +2844,7 @@ var dlayer = {
 					dlayer.designers.color_picker_rgb =
 					$(this).css('background-color');
 					dlayer.designers.color_picker_value =
-					dlayer.rgbToHex($(this).css('background-color'));
+					dlayer.fn.rgbToHex($(this).css('background-color'));
 
 					dlayer.designers.color_picker_close();
 				}
@@ -2854,7 +2855,7 @@ var dlayer = {
 					dlayer.designers.color_picker_rgb =
 					$(this).css('background-color');
 					dlayer.designers.color_picker_value =
-					dlayer.rgbToHex($(this).css('background-color'));
+					dlayer.fn.rgbToHex($(this).css('background-color'));
 
 					dlayer.designers.color_picker_close();
 				}
