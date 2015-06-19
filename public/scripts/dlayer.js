@@ -12,7 +12,7 @@ var dlayer = {
 	debug: debug,
 	
 	/** 
-	* Base functions for Dlayer
+	* Base functions for Dlayer, used by multiple designers across the app
 	*/
 	fn: {
 		
