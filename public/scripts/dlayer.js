@@ -91,13 +91,53 @@ var dlayer = {
 				}
 			}, 
 			
+			/**
+			* All the events to make the colour picker, they set the selected 
+			* colour to the value for the hidden element and then trigger 
+			* to the close event
+			* 
+			* @returns {Void}
+			*/
 			events: function() 
 			{
-				
-			}
-			
-		}
+				$('#ribbon .color_picker_tool .close-color-picker').click(
+					function() {
+						dlayer.fn.colorPicker.close();
+					}
+				);
+
+				$('#ribbon .color_picker_tool .palette .color').click(
+					function() {
+						dlayer.fn.colorPicker.rgb = 
+							$(this).css('background-color');
+						dlayer.fn.colorPicker.value = 
+							dlayer.rgbToHex($(this).css('background-color'));
+							
+						dlayer.fn.colorPicker.close();
+					}
+				);
+
+				$('#ribbon .color_picker_tool .history .color').click(
+					function() {
+						dlayer.fn.colorPicker.rgb = 
+							$(this).css('background-color');
+						dlayer.fn.colorPicker.value = 
+							dlayer.rgbToHex($(this).css('background-color'));
+							
+						dlayer.fn.colorPicker.close();
+					}
+				);
+
+				$('#ribbon .color_picker_tool .custom .color').change(
+					function() {
+						dlayer.fn.colorPicker.rgb = $(this).val();
+						dlayer.fn.colorPicker.value = $(this).val();
 						
+						dlayer.fn.colorPicker.close();
+					}
+				);
+			}			
+		}
 	},
 
 	/**
