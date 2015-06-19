@@ -10,6 +10,62 @@ var contents = null;
 var dlayer = {
 	
 	debug: debug,
+	
+	/** 
+	* Base functions
+	*/
+	fn: {
+		
+		/**
+		* If a user selects a colour field the colour picker opens allowing 
+		* them to pick a colour from one of their palettes, from their history 
+		* or by choosing a custom colour
+		* 
+		* The colour picker can be called multiple times within the same view 
+		* by different fields, the picker itself is universal, when opened it 
+		* stores the id of the element that opened it and then sets the value 
+		* to the relevant hidden field
+		* 
+		* @returns {Void}
+		*/
+		colorPicker: {
+			
+			element: null,
+			rgb: null,
+			value: null,
+			
+			open: function() 
+			{
+				
+			}, 
+			
+			/**
+			* Close the colour picker and set the value of the picker element 
+			* and hidden element to the value selected
+			* 
+			* @returns {Void}
+			*/
+			close: function() 
+			{
+				$('.color_picker_tool').slideUp();
+				
+				if(dlayer.fn.colorPicker.value != null) {
+					$('#ribbon #picker_' + dlayer.fn.colorPicker.element).css(
+						'background-color', dlayer.fn.colorPicker.rgb);
+						
+					$('#' + dlayer.fn.colorPicker.element).val(
+						dlayer.fn.colorPicker.value).trigger('change');
+				}
+			}, 
+			
+			setUp: function() 
+			{
+				
+			}
+			
+		}
+						
+	},
 
 	/**
 	* Convert the rgb value in a hex for the inputs
