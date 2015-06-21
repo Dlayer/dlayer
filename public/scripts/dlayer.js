@@ -10,25 +10,155 @@ var contents = null;
 var dlayer = {
 	
 	debug: debug,
-
-	/**
-	* Convert the rgb value in a hex for the inputs
-	*
-	* @returns {String|false}
+	
+	/** 
+	* Base functions for Dlayer, used by multiple designers across the app
 	*/
-	rgbToHex: function(colorStr)
-	{		
-		if(colorStr != 'rgba(0, 0, 0, 0)') {
-			var hex = '#';
-			$.each(colorStr.substring(4).split(','), function(i, str){
-				var h = ($.trim(str.replace(')',''))*1).toString(16);
-				hex += (h.length == 1) ? "0" + h : h;
-			});
-		} else {
-			hex = false;
-		}
+	fn: {
 		
-		return hex;
+		/**
+		* Convert an RGB value into a Hex value for use in the designer, 
+		* returns either a valid hex value or false
+		*
+		* @returns {String|false}
+		*/
+		rgbToHex: function(colorStr)
+		{		
+			if(colorStr != 'rgba(0, 0, 0, 0)') {
+				var hex = '#';
+				$.each(colorStr.substring(4).split(','), function(i, str){
+					var h = ($.trim(str.replace(')',''))*1).toString(16);
+					hex += (h.length == 1) ? "0" + h : h;
+				});
+			} else {
+				hex = false;
+			}
+			
+			return hex;
+		},
+		
+		/**
+		* If a user selects a colour field the colour picker opens allowing 
+		* them to pick a colour from one of their palettes, from their history 
+		* or by choosing a custom colour
+		* 
+		* The colour picker can be called multiple times within the same view 
+		* by different fields, the picker itself is universal, when opened it 
+		* stores the id of the element that opened it and then sets the value 
+		* to the relevant hidden field
+		* 
+		* @returns {Void}
+		*/
+		colorPicker: {
+			
+			element: null,
+			rgb: null,
+			value: null,
+			
+			/**
+			* Open colour picker and clear currently selected colour events, 
+			* opens the colour picker and resets all the environment vars
+			* 
+			* @returns {Void}
+			*/
+			open: function() 
+			{
+				$('#ribbon .color_picker').click(
+					function() {
+						$('.color_picker_tool').slideDown();
+						
+						dlayer.fn.colorPicker.value = null;
+						dlayer.fn.colorPicker.element = 
+							this.id.replace('picker_', '');
+					}
+				);
+
+				/**
+				* Clear the currently selected value and close the picker
+				* 
+				* @returns {false}
+				*/
+				$('#ribbon a.color_picker_clear').click(
+					function() {
+						var element =
+						$(this).siblings('.color_picker').attr('id').
+							replace('picker_', '');
+
+						$('#ribbon #picker_' + element).css(
+							'background-color', 'inherit');
+						$('#' + element).val('').trigger('change');
+
+						return false;
+					}
+				);
+			}, 
+			
+			/**
+			* Close the colour picker and set the value of the picker element 
+			* and hidden element to the value selected
+			* 
+			* @returns {Void}
+			*/
+			close: function() 
+			{
+				$('.color_picker_tool').slideUp();
+				
+				if(dlayer.fn.colorPicker.value != null) {
+					$('#ribbon #picker_' + dlayer.fn.colorPicker.element).css(
+						'background-color', dlayer.fn.colorPicker.rgb);
+						
+					$('#' + dlayer.fn.colorPicker.element).val(
+						dlayer.fn.colorPicker.value).trigger('change');
+				}
+			}, 
+			
+			/**
+			* All the events to make the colour picker, they set the selected 
+			* colour to the value for the hidden element and then trigger 
+			* to the close event
+			* 
+			* @returns {Void}
+			*/
+			events: function() 
+			{
+				$('#ribbon .color_picker_tool .close-color-picker').click(
+					function() {
+						dlayer.fn.colorPicker.close();
+					}
+				);
+
+				$('#ribbon .color_picker_tool .palette .color').click(
+					function() {
+						dlayer.fn.colorPicker.rgb = 
+							$(this).css('background-color');
+						dlayer.fn.colorPicker.value = 
+							dlayer.fn.rgbToHex($(this).css('background-color'));
+							
+						dlayer.fn.colorPicker.close();
+					}
+				);
+
+				$('#ribbon .color_picker_tool .history .color').click(
+					function() {
+						dlayer.fn.colorPicker.rgb = 
+							$(this).css('background-color');
+						dlayer.fn.colorPicker.value = 
+							dlayer.fn.rgbToHex($(this).css('background-color'));
+							
+						dlayer.fn.colorPicker.close();
+					}
+				);
+
+				$('#ribbon .color_picker_tool .custom .color').change(
+					function() {
+						dlayer.fn.colorPicker.rgb = $(this).val();
+						dlayer.fn.colorPicker.value = $(this).val();
+						
+						dlayer.fn.colorPicker.close();
+					}
+				);
+			}			
+		}
 	},
 	
 	ribbon: {
@@ -2025,7 +2155,7 @@ var dlayer = {
 					$('#' + area_id + ' > div.row').each(function() 
 					{
 						var row = this;
-						var bg_color = dlayer.rgbToHex($(row).css(
+						var bg_color = dlayer.fn.rgbToHex($(row).css(
 							'background-color'));
 							
 						if(bg_color != false) {
@@ -2100,7 +2230,7 @@ var dlayer = {
 						var params = this.id.split(':');
 						var item_id = params[2];
 						
-						var bg_color = dlayer.rgbToHex(
+						var bg_color = dlayer.fn.rgbToHex(
 							$('.content-container-' + item_id).css(
 							'background-color'));
 																					
@@ -2113,7 +2243,7 @@ var dlayer = {
 								'background-color', 'transparent');
 						}
 						
-						var bg_color = dlayer.rgbToHex(
+						var bg_color = dlayer.fn.rgbToHex(
 							$('.content-' + item_id).css('background-color'));
 																					
 						if(bg_color != false) {
@@ -2714,7 +2844,7 @@ var dlayer = {
 					dlayer.designers.color_picker_rgb =
 					$(this).css('background-color');
 					dlayer.designers.color_picker_value =
-					dlayer.rgbToHex($(this).css('background-color'));
+					dlayer.fn.rgbToHex($(this).css('background-color'));
 
 					dlayer.designers.color_picker_close();
 				}
@@ -2725,7 +2855,7 @@ var dlayer = {
 					dlayer.designers.color_picker_rgb =
 					$(this).css('background-color');
 					dlayer.designers.color_picker_value =
-					dlayer.rgbToHex($(this).css('background-color'));
+					dlayer.fn.rgbToHex($(this).css('background-color'));
 
 					dlayer.designers.color_picker_close();
 				}
