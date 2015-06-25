@@ -158,6 +158,10 @@ var dlayer = {
 					}
 				);
 			}			
+		}, 
+		
+		imagePicker: {
+			
 		}
 	},
 	
@@ -2766,109 +2770,6 @@ var dlayer = {
 					}
 				);
 			}
-		},
-		
-		color_picker_value: null,
-		
-		color_picker_rgb: null,
-		
-		color_picker_element: null,
-		
-		/**
-		* Invoke the color picker, resets the color value for the object and stores
-		* id of the element that is calling the picker
-		*
-		* @returns {Void}
-		*/
-		color_picker_invoke: function()
-		{
-			$('#ribbon .color_picker').click(
-				function() {
-					$('.color_picker_tool').slideDown();
-
-					var element = this.id;
-
-					dlayer.designers.color_picker_value = null;
-					dlayer.designers.color_picker_element =
-					this.id.replace('picker_', '');
-				}
-			);
-
-			$('#ribbon a.color_picker_clear').click(
-				function() {
-					var element =
-					$(this).siblings('.color_picker').attr('id').replace('picker_', '');
-
-					$('#ribbon #picker_' + element).css('background-color', 'inherit');
-					$('#' + element).val('').trigger('change');
-
-					return false;
-				}
-			);
-		},
-		
-		/**
-		* Close the color picker, set the invoker element and invoker div to the
-		* selected color and value
-		*
-		* @returns {Void}
-		*/
-		color_picker_close: function()
-		{
-			$('.color_picker_tool').slideUp();
-
-			if(dlayer.designers.color_picker_value != null) {
-				$('#ribbon #picker_' + dlayer.designers.color_picker_element).css(
-				'background-color', dlayer.designers.color_picker_rgb);
-				$('#' + dlayer.designers.color_picker_element).val(
-				dlayer.designers.color_picker_value).trigger('change');
-
-			}
-		},
-		
-		/**
-		* Click events for the color picker, sets the values in the object
-		*
-		* @returns {Void}
-		*/
-		color_picker: function()
-		{
-			$('#ribbon .color_picker_tool .close-color-picker').click(
-				function() {
-					dlayer.designers.color_picker_close();
-				}
-			);
-
-			$('#ribbon .color_picker_tool .palette .color').click(
-				function() {
-					dlayer.designers.color_picker_rgb =
-					$(this).css('background-color');
-					dlayer.designers.color_picker_value =
-					dlayer.fn.rgbToHex($(this).css('background-color'));
-
-					dlayer.designers.color_picker_close();
-				}
-			);
-
-			$('#ribbon .color_picker_tool .history .color').click(
-				function() {
-					dlayer.designers.color_picker_rgb =
-					$(this).css('background-color');
-					dlayer.designers.color_picker_value =
-					dlayer.fn.rgbToHex($(this).css('background-color'));
-
-					dlayer.designers.color_picker_close();
-				}
-			);
-
-			$('#ribbon .color_picker_tool .custom .color').change(
-				function() {
-					dlayer.designers.color_picker_rgb = $(this).val();
-					dlayer.designers.color_picker_value = $(this).val();
-
-					dlayer.designers.color_picker_close();
-				}
-			);
 		},
 		
 		/**
