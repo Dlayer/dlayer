@@ -1,7 +1,8 @@
 <?php
 /**
-* Generates a further reading section with a button to go to the specification 
-* site and optionally a button to go the specific section in the specification
+* Generates a further reading section with a button to go to the Dlayer alpha 
+* specification site and optionally a button to go the specific section in 
+* the specification
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
@@ -18,21 +19,23 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 	
 	private $domain = 'http://specification.dlayer.com/';
 	private $url;
+	private $well = FALSE;
 	
 	/**
-	* Generates a further reading section with a button to go to the 
-	* specification site and optionally a button to go the specific section 
-	* in the specification
+	* Set the url and well setting for the further reading view helper
 	* 
-	* @param string $url URL to use for second button, just the fragment 
-	* 	after http://specification.dlayer.com/
+	* @param string $url Optional URL to use for second button, just the 
+	* 	fragment after the domain, http://specification.dlayer.com/
+	* @param boolean $well Should the content be placed inside a bootstrap 
+	* 	well, useful to separate the further section from other content
 	* @return Dlayer_View_Navigation
 	*/
-	public function furtherReading($url=NULL) 
+	public function furtherReading($url=NULL, $well=FALSE) 
 	{
 		$this->resetParams();
 		
 		$this->url = $url;
+		$this->well = $well;
 		
 		return $this;
 	}
@@ -46,6 +49,7 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 	public function resetParams() 
 	{
 		$this->url = NULL;
+		$this->well = FALSE;
 	}
 	
 	/**
@@ -55,7 +59,13 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 	*/
 	private function render() 
 	{
-		$html = '<h3>Further reading <small>Do you want to know 
+		$html = '';
+		
+		if($this->well == TRUE) {
+			$html .= '<div class="well well-sm">';
+		}
+		
+		$html .= '<h3>Further reading <small>Do you want to know 
 			more?</small></h3>
 			
 			<p>You can read the current specification for Dlayer by visiting 
@@ -78,6 +88,10 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 		}
 				
 		$html .= '</p>';
+		
+		if($this->well == TRUE) {
+			$html .= '</div>';
+		}
 				
 		return $html;
 	}

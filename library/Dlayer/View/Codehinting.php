@@ -479,15 +479,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 		array $content_container_styles, array $content_styles) { }
 		
 	/**
-	* Generates a further reading section with a button to go to the 
-	* specification site and optionally a button to go the specific section 
-	* in the specification
+	* Set the url and well setting for the further reading view helper
 	* 
-	* @param string $url URL to use for second button, just the fragment 
-	* 	after http://specification.dlayer.com/
+	* @param string $url Optional URL to use for second button, just the 
+	* 	fragment after the domain, http://specification.dlayer.com/
+	* @param boolean $well Should the content be placed inside a bootstrap 
+	* 	well, useful to separate the further section from other content
 	* @return Dlayer_View_Navigation
 	*/
-	public function furtherReading($url=NULL) { }  
+	public function furtherReading($url=NULL, $well=FALSE) { }
 	
 	/**
 	* Generates a bootstrap label html fragment, class and label text can be 
