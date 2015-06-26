@@ -1,12 +1,13 @@
 <?php
 /**
-* Generates the html and javascript for the color picker, called on ribbon 
-* tabs that have color inputs that need to be replaced by calls to the color 
-* picker
+* Generates the HTML and javascript calls for the colour picker, can be called 
+* anywhere in the app but typically the user will see it inside the right 
+* hand side tool bar.
+* 
+* Can be attached anywhere there is a colour input or multiple colour inputs
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: ColorPicker.php 1685 2014-03-16 20:48:23Z Dean.Blackborough $
 */
 class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract 
 {
@@ -21,13 +22,10 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 	private $html;
 	
 	/**
-	* Generates the html and javascript for the color picker, called on ribbon 
-	* tabs that have color inputs that need to the replaced by calls to the 
-	* color picker
+	* Resets the params for the colour picker.
 	* 
-	* The color picker and javscript methods should be returned individually 
-	* in different parts of the script, javascript at the end of the script 
-	* after all html, color picker before any contols
+	* The Javascript and html methods need to be called individually, examples 
+	* below.
 	* 
 	* Example usage, <?php echo $this->colorPicker()->javascript(); ?> 
 	* and <?php echo $this->colorPicker()->picker(TRUE, FALSE, TRUE); ?>
@@ -60,10 +58,10 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 	*/
 	public function javascript() 
 	{
-		$this->html = '<script type="text/javascript">
-		dlayer.designers.color_picker();
-		dlayer.designers.color_picker_invoke();
-		</script>';
+		$this->html = '<script>
+			dlayer.fn.colorPicker.events();
+			dlayer.fn.colorPicker.open();
+			</script>';
 		
 		return $this;
 	}
@@ -151,10 +149,12 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		
 		if($history != FALSE) {
 			$html .= '<div class="history row">';
-			$html .= '<div class="col-xs-12"><h4>History <small>Last five colours you used across Dlayer</small></h4></div>';
+			$html .= '<div class="col-xs-12"><h4>History <small>Last five 
+				colours you used across Dlayer</small></h4></div>';
 			
 			foreach($history as $color) {
-				$html .= '<div class="color col-xs-offset-1 col-xs-2" style="background-color:' . 
+				$html .= '<div class="color col-xs-offset-1 col-xs-2" 
+					style="background-color:' . 
 				$this->view->escape($color['color_hex']) . ';">&nbsp;</div>';
 				$html .= '<div class="color-name col-xs-9 text-muted">' . 
 				$this->view->escape($color['color_hex']) . '</div>';

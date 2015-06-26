@@ -56,8 +56,7 @@ var dlayer = {
 			value: null,
 			
 			/**
-			* Open colour picker and clear currently selected colour events, 
-			* opens the colour picker and resets all the environment vars
+			* Opens the colour picker and resets all the environment vars
 			* 
 			* @returns {Void}
 			*/
@@ -113,9 +112,9 @@ var dlayer = {
 			}, 
 			
 			/**
-			* All the events to make the colour picker, they set the selected 
-			* colour to the value for the hidden element and then trigger 
-			* to the close event
+			* All the events to make the colour picker work, they set the 
+			* selected colour to the value for the hidden element and then 
+			* trigger the close event
 			* 
 			* @returns {Void}
 			*/
