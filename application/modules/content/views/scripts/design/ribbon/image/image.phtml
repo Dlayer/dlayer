@@ -1,13 +1,13 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <script>
-dlayer.designers.imagePickerOpen();
+dlayer.fn.imagePicker.open();
 
 <?php 
 if($this->data['selected_image'] != FALSE) { 
 $image = $this->data['selected_image'];	
 ?>
-dlayer.designers.imagePickerComplete(
+dlayer.fn.imagePicker.complete(
 	<?php echo $image['image_id']; ?>, 
 	<?php echo $image['version_id']; ?>, 
 	"<?php echo $image['name']; ?>", 
