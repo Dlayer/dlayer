@@ -162,6 +162,308 @@ var dlayer = {
 		
 		imagePicker: {
 			
+			url: '/content/ajax/image-picker',
+			method: 'GET',
+			dataType: 'html',
+			
+			/**
+			* Close the image picker
+			* 
+			* @returns {Void}
+			*/
+			close: function() 
+			{
+				$(".image-picker-tool .close-image-picker").on("click", 
+					function() {
+						$('.image-picker-tool').hide();
+					}
+				);
+			},
+			
+			/**
+			* Cancel the request, clears the hidden field and resets the 
+			* select image button and clears any preview
+			* 
+			* @returns {Void}
+			*/
+			cancel: function() 
+			{
+				$(".open-image-picker-tool").text('Select image');
+				
+				$(".open-image-picker-tool").
+					removeClass('btn-success').
+					addClass('btn-danger');
+					
+				$('#params-version_id').val('');
+				
+				$('.ipp-name').text('[Name]');
+				$('.ipp-dimensions').text('[Dimensions]');
+				$('.ipp-size').text('[Size]');
+				$('.ipp-image').attr('src', 
+					'/images/dlayer/image-picker-preview.jpg');
+				
+				$('.image-picker-preview').hide();
+			},
+			
+			/**
+			* When a user selects the clear category link the base AJAX 
+			* request is made with the category id set to 'clear', the request 
+			* will clear the category, sub category, image and image 
+			* version ids
+			*
+			* @returns {Void}
+			*/
+			clearCategory: function()
+			{
+				$("span.clear-image-picker-category").on("click", function() {
+					$('.image-picker-tool').show();
+					
+					$.ajax({
+						url: dlayer.fn.imagePicker.url,
+						method: dlayer.fn.imagePicker.method,
+						data: { category_id: 'clear' },
+						dataType: dlayer.fn.imagePicker.dataType
+					}).done(function(html) {
+						$('.image-picker-tool .loading').hide();
+						dlayer.fn.imagePicker.cancel();
+						$('.image-picker-tool .form').html(html);
+					});
+				});
+			}, 
+			
+			/**
+			* When a user selects the clear sub category link the base AJAX 
+			* request is made with the sub category id set to 'clear', the 
+			* request will clear the sub category, image and image version ids
+			*
+			* @returns {Void}
+			*/
+			clearSubCategory: function()
+			{
+				$("span.clear-image-picker-sub-category").on("click", function() {
+					$('.image-picker-tool').show();
+					
+					$.ajax({
+						url: dlayer.fn.imagePicker.url,
+						method: dlayer.fn.imagePicker.method,
+						data: { sub_category_id: 'clear' },
+						dataType: dlayer.fn.imagePicker.dataType
+					}).done(function(html) {
+						$('.image-picker-tool .loading').hide();					
+						dlayer.fn.imagePicker.cancel();
+						$('.image-picker-tool .form').html(html);
+					});
+				});
+			}, 
+			
+			/**
+			* When a user selects the clear image link the base AJAX request is 
+			* made with the image id set to 'clear', the request will clear
+			* the image and image version ids
+			*
+			* @returns {Void}
+			*/
+			clearImage: function()
+			{
+				$("span.clear-image-picker-image").on("click", function() {
+					$('.image-picker-tool').show();
+					
+					$.ajax({
+						url: dlayer.fn.imagePicker.url,
+						method: dlayer.fn.imagePicker.method,
+						data: { image_id: 'clear' },
+						dataType: dlayer.fn.imagePicker.dataType
+					}).done(function(html) {
+						$('.image-picker-tool .loading').hide();
+						dlayer.fn.imagePicker.cancel();
+						$('.image-picker-tool .form').html(html);
+					});
+				});
+			}, 
+			
+			/**
+			* Complete the image picker request, passes the selected version 
+			* id to the image pickers hidden field updates the select image 
+			* button and populates the preview section with the selected image 
+			* and version
+			* 
+			* @param {Integer} Image id
+			* @param {Integer} Version id
+			* @param {String} Name of the selected image
+			* @param {String} Dimesions of the selected image
+			* @param {String} Size of the selected image
+			* @param {String} Extension for the selected image
+			* @returns {Void}
+			*/
+			complete: function(image_id, version_id, name, dimensions, size, 
+				extension) 
+			{
+				$('.image-picker-tool .close-image-picker').trigger('click');
+				
+				$(".open-image-picker-tool").text('Image selected');
+				
+				$(".open-image-picker-tool").
+					removeClass('btn-danger').
+					addClass('btn-success');
+					
+				$('#params-version_id').val(version_id);
+				
+				$('.ipp-name').text(name);
+				$('.ipp-dimensions').text(dimensions);
+				$('.ipp-size').text(size);
+				$('.ipp-image').attr('src', '/images/library/' + image_id + '/' + 
+					version_id + extension);
+				
+				$('.image-picker-preview').show();
+			},
+			
+			/**
+			* Open the image picker, the AJAX request checks the session to 
+			* see if any session values are set and then displays the picker in 
+			* the correct context
+			*
+			* @returns {Void}
+			*/
+			open: function()
+			{
+				$(".open-image-picker-tool").on("click", function() {
+					
+					$('.image-picker-tool').show();
+					
+					$.ajax({
+						url: dlayer.fn.imagePicker.url,
+						method: dlayer.fn.imagePicker.method,
+						dataType: dlayer.fn.imagePicker.dataType
+					}).done(function(html) {
+						$('.image-picker-tool .loading').hide();
+						$('.image-picker-tool .form').show();
+						$('.image-picker-tool .form').html(html);
+					});
+				});
+			},
+			
+			/**
+			* When a user selects an image the image and image version id are 
+			* set in the session and then the image picker is closed
+			* 
+			* @returns {Void}
+			*/
+			selectImage: function() 
+			{
+				$(".ip-select-image").on("click", function() {
+					
+					var ids = this.id.replace('ip-image-', '');
+					ids = ids.split(':');
+					
+					var image_id = ids[0];
+					var version_id = ids[1];
+					
+					$('.image-picker-tool .loading').show();
+					$('.image-picker-tool .form').hide();
+					
+					$.ajax({
+						url: '/content/ajax/image-picker-select-image',
+						method: dlayer.fn.imagePicker.method,
+						data: { 
+							image_id: image_id, 
+							version_id: version_id
+						},
+						dataType: 'json'
+					}).done(function(data) {
+						dlayer.fn.imagePicker.complete(image_id, version_id, 
+							data.name, data.dimensions, data.size, 
+							data.extension);
+					});
+				});
+			},
+			
+			/**
+			* When a user selects a category the base AJAX request is made with 
+			* the category set to the chosen value, the AJAX will then return 
+			* showing the sub categories
+			*
+			* @returns {Void}
+			*/
+			setCategory: function()
+			{
+				$("#ip-category").on("change", function() {
+					
+					var category_id = $('#ip-category').val();
+					
+					if(category_id != 'null') {
+						$('.image-picker-tool').show();
+						
+						$.ajax({
+							url: dlayer.fn.imagePicker.url,
+							method: dlayer.fn.imagePicker.method,
+							data: { category_id: category_id },
+							dataType: dlayer.fn.imagePicker.dataType
+						}).done(function(html) {
+							$('.image-picker-tool .loading').hide();
+							$('.image-picker-tool .form').html(html);
+						});
+					}
+				});
+			},
+			
+			/**
+			* When the user selects a sub category the base AJAX is called with 
+			* the selected sub category id, the AJAX will return either the 
+			* images for that category or all the images if the 'all' sub 
+			* category was selected
+			*
+			* @returns {Void}
+			*/
+			setSubCategory: function()
+			{
+				$("#ip-sub-category").on("change", function() {
+					
+					var sub_category_id = $('#ip-sub-category').val();
+					
+					if(sub_category_id != 'null') {
+						$('.image-picker-tool').show();
+						
+						$.ajax({
+							url: dlayer.fn.imagePicker.url,
+							method: dlayer.fn.imagePicker.method,
+							data: { sub_category_id: sub_category_id },
+							dataType: dlayer.fn.imagePicker.dataType
+						}).done(function(html) {
+							$('.image-picker-tool .loading').hide();
+							$('.image-picker-tool .form').html(html);
+						});
+					}
+				});
+			},
+			
+			/**
+			* When the user selects an image the base AJAX is called with the 
+			* image id set, the AJAX returns with all the versions of the 
+			* selected image.
+			* 
+			* This method is only called when the image has versions
+			* 
+			* @returns {Void}
+			*/
+			setImage: function() 
+			{
+				$(".ip-image").on("click", function() {
+					
+					var image_id = this.id.replace('ip-set-image-', '');
+					
+					$('.image-picker-tool').show();
+						
+					$.ajax({
+						url: dlayer.fn.imagePicker.url,
+						method: dlayer.fn.imagePicker.method,
+						data: { image_id: image_id },
+						dataType: dlayer.fn.imagePicker.dataType
+					}).done(function(html) {
+						$('.image-picker-tool .loading').hide();
+						$('.image-picker-tool .form').html(html);
+					});
+				});
+			}, 
 		}
 	},
 	
@@ -2770,293 +3072,6 @@ var dlayer = {
 					}
 				);
 			}
-		},
-		
-		/**
-		* Open the image picker, the state of the image is calculated by 
-		* the action, it checks to see what session values are set and 
-		* generates the picker based on those vars
-		*
-		* @returns {Void}
-		*/
-		imagePickerOpen: function()
-		{
-			$(".open-image-picker-tool").on("click", function() {
-				
-				$('.image-picker-tool').show();
-				
-				$.ajax({
-					url: '/content/ajax/image-picker',
-					mehtod: 'GET',
-					dataType: 'html'
-				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();
-					$('.image-picker-tool .form').show();
-					$('.image-picker-tool .form').html(html);
-				});
-			});
-		},
-		
-		/**
-		* Close the image picker
-		* 
-		* @returns {Void}
-		*/
-		imagePickerClose: function() 
-		{
-			$(".image-picker-tool .close-image-picker").on("click", function() {
-				$('.image-picker-tool').hide();
-			});
-		},
-		
-		/**
-		* When the user selects a category we recall the ajax with the 
-		* category id set
-		*
-		* @returns {Void}
-		*/
-		imagePickerSetCategory: function()
-		{
-			$("#ip-category").on("change", function() {
-				
-				var category_id = $('#ip-category').val();
-				
-				if(category_id != 'null') {
-					$('.image-picker-tool').show();
-					
-					$.ajax({
-						url: '/content/ajax/image-picker',
-						mehtod: 'GET',
-						data: { category_id: category_id },
-						dataType: 'html'
-					}).done(function(html) {
-						$('.image-picker-tool .loading').hide();
-						$('.image-picker-tool .form').html(html);
-					});
-				}
-			});
-		},
-		
-		/**
-		* When the user selects a sub category we recall the ajax with the 
-		* sub category id set
-		*
-		* @returns {Void}
-		*/
-		imagePickerSetSubCategory: function()
-		{
-			$("#ip-sub-category").on("change", function() {
-				
-				var sub_category_id = $('#ip-sub-category').val();
-				
-				if(sub_category_id != 'null') {
-					$('.image-picker-tool').show();
-					
-					$.ajax({
-						url: '/content/ajax/image-picker',
-						mehtod: 'GET',
-						data: { sub_category_id: sub_category_id },
-						dataType: 'html'
-					}).done(function(html) {
-						$('.image-picker-tool .loading').hide();
-						$('.image-picker-tool .form').html(html);
-					});
-				}
-			});
-		},
-		
-		/**
-		* When a user selects the clear category link we recall the AJAX with 
-		* the categorty id set to 'clear', the AJAX will clear the category, 
-		* sub category, image and version ids
-		*
-		* @returns {Void}
-		*/
-		imagePickerClearCategory: function()
-		{
-			$("span.clear-image-picker-category").on("click", function() {
-				$('.image-picker-tool').show();
-				
-				$.ajax({
-					url: '/content/ajax/image-picker',
-					mehtod: 'GET',
-					data: { category_id: 'clear' },
-					dataType: 'html'
-				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();
-					dlayer.designers.imagePickerCancel();
-					$('.image-picker-tool .form').html(html);
-				});
-			});
-		}, 
-		
-		/**
-		* When a user selects the clear sub category link we recall the AJAX 
-		* with the sub category id set to 'clear', the AJAX will clear the 
-		* sub category, image and version ids
-		*
-		* @returns {Void}
-		*/
-		imagePickerClearSubCategory: function()
-		{
-			$("span.clear-image-picker-sub-category").on("click", function() {
-				$('.image-picker-tool').show();
-				
-				$.ajax({
-					url: '/content/ajax/image-picker',
-					mehtod: 'GET',
-					data: { sub_category_id: 'clear' },
-					dataType: 'html'
-				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();					
-					dlayer.designers.imagePickerCancel();					
-					$('.image-picker-tool .form').html(html);
-				});
-			});
-		}, 
-		
-		/**
-		* When a user selects an image we need to set the image id and version 
-		* id and then close the image picker
-		* 
-		* @returns {Void}
-		*/
-		imagePickerSelectImage: function() 
-		{
-			$(".ip-select-image").on("click", function() {
-				
-				var ids = this.id.replace('ip-image-', '');
-				ids = ids.split(':');
-				
-				var image_id = ids[0];
-				var version_id = ids[1];
-				
-				$('.image-picker-tool .loading').show();
-				$('.image-picker-tool .form').hide();
-				
-				$.ajax({
-					url: '/content/ajax/image-picker-select-image',
-					mehtod: 'GET',
-					data: { 
-						image_id: image_id, 
-						version_id: version_id
-					},
-					dataType: 'json'
-				}).done(function(data) {
-					dlayer.designers.imagePickerComplete(image_id, version_id, 
-						data.name, data.dimensions, data.size, data.extension);
-				});
-			});
-		},
-		
-		/**
-		* Cancel the request, clears the hidden view, resets the select 
-		* image button
-		*/
-		imagePickerCancel: function() 
-		{
-			$(".open-image-picker-tool").text('Select image');
-			
-			$(".open-image-picker-tool").
-				removeClass('btn-success').
-				addClass('btn-danger');
-				
-			$('#params-version_id').val('');
-			
-			$('.ipp-name').text('[Name]');
-			$('.ipp-dimensions').text('[Dimensions]');
-			$('.ipp-size').text('[Size]');
-			$('.ipp-image').attr('src', 
-				'/images/dlayer/image-picker-preview.jpg');
-			
-			$('.image-picker-preview').hide();
-		},
-		
-		/**
-		* Complete image picker request, set the version id in the hidden 
-		* field, update the button and also change the state of the select 
-		* image button
-		* 
-		* @param {Integer} Image id
-		* @param {Integer} Version id
-		* @param {String} Name of the selected image
-		* @param {String} Dimesions of the selected image
-		* @param {String} Size of the selected image
-		* @param {String} Extension for the selected image
-		* @returns {Void}
-		*/
-		imagePickerComplete: function(image_id, version_id, name, dimensions, 
-			size, extension) 
-		{
-			$('.image-picker-tool .close-image-picker').trigger('click');
-			
-			$(".open-image-picker-tool").text('Image selected');
-			
-			$(".open-image-picker-tool").
-				removeClass('btn-danger').
-				addClass('btn-success');
-				
-			$('#params-version_id').val(version_id);
-			
-			$('.ipp-name').text(name);
-			$('.ipp-dimensions').text(dimensions);
-			$('.ipp-size').text(size);
-			$('.ipp-image').attr('src', '/images/library/' + image_id + '/' + 
-				version_id + extension);
-			
-			$('.image-picker-preview').show();
-		},
-		
-		/**
-		* When a user selects the view versions button we need to set the image 
-		* id and then recall the AJAX to show the versions for the selected 
-		* image
-		* 
-		* @returns {Void}
-		*/
-		imagePickerSetImage: function() 
-		{
-			$(".ip-image").on("click", function() {
-				
-				var image_id = this.id.replace('ip-set-image-', '');
-				
-				$('.image-picker-tool').show();
-					
-				$.ajax({
-					url: '/content/ajax/image-picker',
-					mehtod: 'GET',
-					data: { image_id: image_id },
-					dataType: 'html'
-				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();
-					$('.image-picker-tool .form').html(html);
-				});
-			});
-		}, 
-		
-		/**
-		* When a user selects the clear sub category link we recall the AJAX 
-		* with the sub category id set to 'clear', the AJAX will clear the 
-		* sub category, image and version ids
-		*
-		* @returns {Void}
-		*/
-		imagePickerClearImage: function()
-		{
-			$("span.clear-image-picker-image").on("click", function() {
-				$('.image-picker-tool').show();
-				
-				$.ajax({
-					url: '/content/ajax/image-picker',
-					mehtod: 'GET',
-					data: { image_id: 'clear' },
-					dataType: 'html'
-				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();
-					dlayer.designers.imagePickerCancel();
-					$('.image-picker-tool .form').html(html);
-				});
-			});
-		}, 
+		}
 	}
 }
