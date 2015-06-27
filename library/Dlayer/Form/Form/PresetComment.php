@@ -116,7 +116,7 @@ class Dlayer_Form_Form_PresetComment extends Dlayer_Form_Module_Form
 	{		
 		$label = new Zend_Form_Element_Text('label');
 		$label->setBelongsTo('params');
-		$label->setValue('Comment');
+		$label->setValue('Your comment');
 
 		$this->elements['label'] = $label;
 
