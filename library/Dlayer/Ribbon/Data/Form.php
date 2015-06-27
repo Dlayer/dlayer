@@ -38,7 +38,7 @@ class Dlayer_Ribbon_Data_Form
 	*                     view script how to handle the return value
 	*/
 	public function viewData($site_id, $form_id, $tool, $tab, $multi_use, 
-	$field_id=NULL, $edit_mode=FALSE)
+		$field_id=NULL, $edit_mode=FALSE)
 	{
 		$this->site_id = $site_id;
 		$this->form_id = $form_id;
@@ -51,43 +51,47 @@ class Dlayer_Ribbon_Data_Form
 		switch($this->tool) {
 			case 'text':
 				$data = $this->text();
-			break;
-			
+				break;
+
 			case 'preset-name':
 				$data = $this->presetName();
-			break;
-			
+				break;
+
 			case 'email':
 				$data = $this->email();
-			break;
-			
+				break;
+
 			case 'preset-email':
 				$data = $this->presetEmail();
-			break;
+				break;
 
 			case 'textarea':
 				$data = $this->textarea();
-			break;
+				break;
 
 			case 'password':
 				$data = $this->password();
-			break;
-			
+				break;
+
 			case 'form-layout': 
 				$data = $this->formLayout();
-			break;
-			
+				break;
+
 			case 'form-actions': 
 				$data = $this->formActions();
-			break;
-			
+				break;
+
 			case 'form-settings': 
 				$data = $this->formSettings();
-			break;
+				break;
+
+			case 'preset-comment': 
+				$data = $this->presetComment();
+				break;
 
 			default:
 				$data = FALSE;
-			break;
+				break;
 		}
 
 		return $data;
@@ -104,25 +108,25 @@ class Dlayer_Ribbon_Data_Form
 			case 'text':
 				$ribbon_text = new Dlayer_Ribbon_Form_Text();
 				$data = $ribbon_text->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
-			
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
+
 			case 'styling':
 				$ribbon_styling = new Dlayer_Ribbon_Form_Styling_Text();
 				$data = $ribbon_styling->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
 
 			default:
 				$data = FALSE;
-			break;
+				break;
 		}
 
 		return $data;
 	}
-	
+
 	/**
 	* Fetch the view tab data for the selected tab of the form layout tool
 	*
@@ -134,18 +138,18 @@ class Dlayer_Ribbon_Data_Form
 			case 'form-layout':
 				$ribbon_layout = new Dlayer_Ribbon_Form_FormLayout();
 				$data = $ribbon_layout->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use,
-				$this->field_id, $this->edit_mode);
-			break;
-			
+					$this->form_id, $this->tool, $this->tab, $this->multi_use,
+					$this->field_id, $this->edit_mode);
+				break;
+
 			default:
 				$data = FALSE;
-			break;
+				break;
 		}
 
 		return $data;
 	}
-	
+
 	/**
 	* Fetch the view tab data for the selected tab of the form actions tool
 	*
@@ -157,18 +161,18 @@ class Dlayer_Ribbon_Data_Form
 			case 'form-actions':
 				$ribbon_actions = new Dlayer_Ribbon_Form_FormActions();
 				$data = $ribbon_actions->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use,
-				$this->field_id, $this->edit_mode);
-			break;
-			
+					$this->form_id, $this->tool, $this->tab, $this->multi_use,
+					$this->field_id, $this->edit_mode);
+				break;
+
 			default:
 				$data = FALSE;
-			break;
+				break;
 		}
 
 		return $data;
 	}
-	
+
 	/**
 	* Fetch the view tab data for the selected tab of the form settings tool
 	*
@@ -180,18 +184,18 @@ class Dlayer_Ribbon_Data_Form
 			case 'form-settings':
 				$ribbon_settings = new Dlayer_Ribbon_Form_FormSettings();
 				$data = $ribbon_settings->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use,
-				$this->field_id, $this->edit_mode);
-			break;
-			
+					$this->form_id, $this->tool, $this->tab, $this->multi_use,
+					$this->field_id, $this->edit_mode);
+				break;
+
 			default:
 				$data = FALSE;
-			break;
+				break;
 		}
 
 		return $data;
 	}
-	
+
 	/**
 	* Fetch the view tab data for the name tool
 	*
@@ -203,18 +207,18 @@ class Dlayer_Ribbon_Data_Form
 			case 'preset-name':
 				$ribbon_name = new Dlayer_Ribbon_Form_PresetName();
 				$data = $ribbon_name->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
 
 			default:
 				$data = FALSE;
-			break;
+				break;
 		}
 
 		return $data;
 	}
-	
+
 	/**
 	* Fetch the view tab data for the name tool
 	*
@@ -226,25 +230,25 @@ class Dlayer_Ribbon_Data_Form
 			case 'email':
 				$ribbon_email = new Dlayer_Ribbon_Form_Email();
 				$data = $ribbon_email->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
-			
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
+
 			case 'styling':
 				$ribbon_styling = new Dlayer_Ribbon_Form_Styling_Email();
 				$data = $ribbon_styling->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
 
 			default:
 				$data = FALSE;
-			break;
+				break;
 		}
 
 		return $data;
 	}
-	
+
 	/**
 	* Fetch the view tab data for the email tool
 	*
@@ -256,13 +260,13 @@ class Dlayer_Ribbon_Data_Form
 			case 'preset-email':
 				$ribbon_email = new Dlayer_Ribbon_Form_PresetEmail();
 				$data = $ribbon_email->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
 
 			default:
 				$data = FALSE;
-			break;
+				break;
 		}
 
 		return $data;
@@ -279,20 +283,20 @@ class Dlayer_Ribbon_Data_Form
 			case 'password':
 				$ribbon_password = new Dlayer_Ribbon_Form_Password();
 				$data = $ribbon_password->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
-			
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
+
 			case 'styling':
 				$ribbon_styling = new Dlayer_Ribbon_Form_Styling_Password();
 				$data = $ribbon_styling->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
 
 			default:
 				$data = FALSE;
-			break;
+				break;
 		}
 
 		return $data;
@@ -309,20 +313,45 @@ class Dlayer_Ribbon_Data_Form
 			case 'textarea':
 				$ribbon_textarea = new Dlayer_Ribbon_Form_Textarea();
 				$data = $ribbon_textarea->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
-			
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
+
 			case 'styling':
 				$ribbon_styling = new Dlayer_Ribbon_Form_Styling_Textarea();
 				$data = $ribbon_styling->viewData($this->site_id,
-				$this->form_id, $this->tool, $this->tab, $this->multi_use, 
-				$this->field_id, $this->edit_mode);
-			break;
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
 
 			default:
 				$data = FALSE;
-			break;
+				break;
+		}
+
+		return $data;
+	}
+
+	/**
+	* Fetch the view tab data for the comment tool, for preset tools there are 
+	* only two tabs, the tab with the form and the help tab, the help tab 
+	* doesn't need any data
+	*
+	* @return array|FALSE
+	*/
+	private function presetComment()
+	{
+		switch($this->tab) {
+			case 'preset-comment':
+				$ribbon_comment = new Dlayer_Ribbon_Form_PresetComment();
+				$data = $ribbon_comment->viewData($this->site_id,
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
+
+			default:
+				$data = FALSE;
+				break;
 		}
 
 		return $data;
