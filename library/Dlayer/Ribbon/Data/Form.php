@@ -356,4 +356,29 @@ class Dlayer_Ribbon_Data_Form
 
 		return $data;
 	}
+	
+	/**
+	* Fetch the view tab data for the password tool, for preset tools there are 
+	* only two tabs, the tab with the form and the help tab, the help tab 
+	* doesn't need any data
+	*
+	* @return array|FALSE
+	*/
+	private function presetPassword()
+	{
+		switch($this->tab) {
+			case 'preset-password':
+				$ribbon_password = new Dlayer_Ribbon_Form_PresetPassword();
+				$data = $ribbon_password->viewData($this->site_id,
+					$this->form_id, $this->tool, $this->tab, $this->multi_use, 
+					$this->field_id, $this->edit_mode);
+				break;
+
+			default:
+				$data = FALSE;
+				break;
+		}
+
+		return $data;
+	}
 }
