@@ -88,6 +88,10 @@ class Dlayer_Ribbon_Data_Form
 			case 'preset-comment': 
 				$data = $this->presetComment();
 				break;
+				
+			case 'preset-password':
+				$data = $this->presetPassword();
+				break;
 
 			default:
 				$data = FALSE;
