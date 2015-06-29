@@ -27,6 +27,10 @@ set_include_path(implode(PATH_SEPARATOR, array(
 	get_include_path(),
 )));
 
+// Version number, date and copyright
+define('VERSION_NO', 'v0.80');
+define('VERSION_DATE', '27th June 2015');
+
 /** Zend_Application */
 require_once 'Zend/Application.php';
 

@@ -19,7 +19,7 @@
 		<link href="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.custom.min.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
 		<link href="<?php echo $this->baseUrl('plugins/bootstrap-3.3.1/css/bootstrap.min.css'); ?>" rel="stylesheet">
 		<script type="text/javascript" src="<?php echo $this->baseUrl('plugins/bootstrap-3.3.1/js/bootstrap.min.js'); ?>"></script>
-		<script type="text/javascript">
+		<script>
 		var debug = <?php echo $this->layout()->debug; ?>;
 		</script>
 		<?php foreach($this->layout()->js_include as $include) { ?>
@@ -58,8 +58,10 @@
 			
 			<div class="row footer">
 				<div class="col-md-12 col-xs-12">
-					<p class="text-center"><small>Version 0.80 - Copyright &copy; 
-					G3D Development Limited 2010-<?php echo date('Y'); ?> - 
+					<p class="text-center"><small>
+					<?php echo VERSION_NO . ' (Released ' . VERSION_DATE . ') '; ?> 
+					- Copyright &copy; 
+					G3D Development Limited 2010-<?php echo date('Y'); ?>, 
 					Dlayer 2008-<?php echo date('Y'); ?></small></p>
 				</div>
 				

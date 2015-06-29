@@ -3,25 +3,27 @@
 <?php echo $this->doctype(Zend_View_Helper_Doctype::HTML5) . PHP_EOL; ?>
 
 <html lang="en">
-    <head>
-        <title>Dlayer.com: Development</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/jquery-1.10.2.min.js'); ?>"></script>
-        <script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/js/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
-        <link href="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.custom.min.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
-        <link href="<?php echo $this->baseUrl('styles/app.css'); ?>" rel="stylesheet" media="screen" type="text/css" />        
-    </head>
-    <body>
-        <div id="container">
-            <div id="content">
-                <?php echo $this->layout()->content; ?>
-                
-                <div><p><a href="/dev">Return to library development.</a></p></div>
-            </div>
-            <div id="footer">
-                <p class="text-center"><small>Copyright &copy; 
-					G3D Development Limited 2010-<?php echo date('Y'); ?> - 
+	<head>
+		<title>Dlayer.com: Development</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/jquery-1.10.2.min.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/js/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
+		<link href="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.custom.min.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
+		<link href="<?php echo $this->baseUrl('styles/app.css'); ?>" rel="stylesheet" media="screen" type="text/css" />        
+	</head>
+	<body>
+		<div id="container">
+			<div id="content">
+				<?php echo $this->layout()->content; ?>
+				
+				<div><p><a href="/dev">Return to library development.</a></p></div>
+			</div>
+			<div id="footer">
+				<p class="text-center"><small>
+					<?php echo VERSION_NO . ' (Released ' . VERSION_DATE . ') '; ?> 
+					- Copyright &copy; 
+					G3D Development Limited 2010-<?php echo date('Y'); ?>, 
 					Dlayer 2008-<?php echo date('Y'); ?></small></p>
-            </div>
-    </body>
+			</div>
+	</body>
 </html>
