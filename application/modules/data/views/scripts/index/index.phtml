@@ -1,0 +1,49 @@
+<?php /** @var Dlayer_View_Codehinting */ $this ?>
+
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		<h1>Form builder <small>Form management</small></h1>
+
+		<h3>Welcome to the Form builder</h3>
+		
+		<p>A form allows you to capture information from your users or within 
+			a widget to control flow. </p>
+		
+		<p>You can add forms to templates, widgets or directly to content 
+			pages as content items, forms consist of any number of fields.</p>
+		
+		<p>There are no artificial limits on the number of forms that you 
+			can create for a website, the number of fields on a form or the 
+			number of times an individual forms can be linked to a content 
+			page, widget or template.</p>
+			
+		<h2>Forms <small>All your forms</small></h2>
+		
+		<p>Select a form from the list below, once selected you can build it 
+			in the Form builder, edit the base details or copy the structure 
+			of the form to create a brand new form.</p>
+		
+		<?php foreach($this->forms as $form) { ?>
+			<?php if($form['id'] == $this->form_id) { ?>
+				<p>
+					<button type="button" class="btn btn-default btn-xs">
+						<?php echo $this->escape($form['name']); ?> 
+					</button>
+					<a href="/form/design/" class="btn btn-default btn-xs">Manage</a> 
+					<a href="/form/index/edit-form" class="btn btn-default btn-xs">Edit</a> 
+					<a href="#" class="btn btn-default btn-xs disabled">Copy structure</a> 
+					<span class="label label-success">Selected</span>
+				</p>
+			<?php } else { ?>
+				<p>
+					<a href="/form/index/activate/form-id/<?php echo $this->escape($form['id']); ?>" 
+					class="btn btn-default btn-xs">
+					<?php echo $this->escape($form['name']); ?></a>
+				</p>
+			<?php } ?>
+		<?php } ?>
+		<p><a href="/form/index/new-form" class="btn btn-primary">New form</a></p>
+		
+		<?php echo $this->furtherReading('the-designers/form-builder/'); ?>
+	</div>
+</div>
