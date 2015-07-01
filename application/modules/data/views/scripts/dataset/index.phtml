@@ -1,0 +1,90 @@
+<?php /** @var Dlayer_View_Codehinting */ $this ?>
+
+<div class="row">
+	<div class="col-md-12">
+		<h1>Dataset designer <small>Define the structure for your 
+			data</small></h1>
+		
+		<p>Use the tools below to create a new datset or edit your existing 
+			datasets, all your datasets can be managed within this view. When 
+			you are happy with the structure you can jump to the Data manager 
+			view to manage the data for the selected dataset.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<h3>Filter <small>Filter the dataset designer</small></h3>
+		
+		<p>Select the dataset you want to design or use the options to create 
+			a new dataset, new categories or new sub categories. If you create 
+			a new dataset it will immediately be selected to allow you to 
+			get started.</p>
+			
+		<form class="form-inline">
+			<div class="input-group">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-info dropdown-toggle" 
+						data-toggle="dropdown" aria-haspopup="true" 
+						aria-expanded="false">Category 
+						<span class="caret"></span></button>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li><a href="#">New category</a></li>
+						<li><a href="#">Edit category</a></li>
+					</ul>
+				</div>
+				<select class="form-control" aria-label="...">
+					<option>Uncategorised</option>
+				</select>
+			</div>
+			
+			<div class="input-group">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-info dropdown-toggle" 
+						data-toggle="dropdown" aria-haspopup="true" 
+						aria-expanded="false">Sub category 
+						<span class="caret"></span></button>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li><a href="#">New sub category</a></li>
+						<li><a href="#">Edit sub category</a></li>
+					</ul>
+				</div>
+				<select class="form-control" aria-label="...">
+					<option>All</option>
+				</select>
+			</div>
+			
+			<div class="input-group">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-info dropdown-toggle" 
+						data-toggle="dropdown" aria-haspopup="true" 
+						aria-expanded="false">Dataset 
+						<span class="caret"></span></button>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li><a href="#">New dataset</a></li>
+						<li><a href="#">Edit dataset</a></li>
+					</ul>
+				</div>
+				<select class="form-control" aria-label="...">
+					<option>Web pages</option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary">Select</button>			
+		</form>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12" style="min-height:200px;">
+		<h3>Designer <small>Dataset: Web pages</small> 
+			<?php echo $this->bootstrapLabel('Unlocked', 'warning'); ?></h3>
+		
+		<p>Use the options below to add elements to your dataset, don't worry 
+			about making a mistake, you can move, edit and delete elements at 
+			will.</p>
+			
+		<p>When you are happy with your dataset you can lock it, this will 
+			allow you to use it throughout Dlayer, Dlayer can only create 
+			links to locked datasets.</p>
+	</div>
+</div>
