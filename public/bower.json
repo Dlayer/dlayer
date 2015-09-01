@@ -1,0 +1,9 @@
+{
+	"name": "dlayer",
+	"version": "1.0.0",
+	"dependencies": {
+		"bootstrap": "3.3.5",
+		"jqueryui" : "latest"
+	},
+	"private": true
+}
