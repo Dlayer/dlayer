@@ -1,15 +1,5 @@
-body {
-	padding-bottom: 2em;
-}
-
 .footer {
 	padding-top: 2em;
-}
-
-.container-fixed {
-	margin: 0 auto;
-	max-width: 970px;
-	padding: 0px 15px;
 }
 
 p.dev-note {
@@ -19,24 +9,20 @@ p.dev-note {
 ul.alert-danger {
 	list-style-type: none;
 	margin: 0;
-
-	li {
-		
-	}
 }
 
 fieldset {
-	
+
 	legend {
-	
+
 		small {
 			font-size: 65%;
 			color: #777;
 		}
 	}
-	
+
 	div.form-group {
-		
+
 		label.required:after {
 			content: ' *';
 			display:inline;
@@ -53,11 +39,11 @@ div.heading-styles {
 	div.form-group {
 		margin-right: 15px;
 		margin-bottom: 15px;
-		
+
 		input.font_sizes {
 			width: 90px;
 		}
-		
+
 		input.font_colors {
 			width: 50px;
 		}

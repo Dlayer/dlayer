@@ -1,6 +1,7 @@
 .container-fixed {
   margin: 0 auto;
   max-width: 1366px;
+  width: 1366px;
   padding: 0px 15px; }
 
 div#designer {

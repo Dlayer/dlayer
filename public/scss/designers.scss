@@ -1,11 +1,8 @@
 .container-fixed {
 	margin: 0 auto;
 	max-width: 1366px;
+	width: 1366px;
 	padding: 0px 15px;
-}
-
-.img-caption {
-	
 }
 
 @mixin selected-state() {
@@ -15,116 +12,116 @@
 div#designer {
 	width: 1336px;
 	float: left;
-	
+
 	#design {
 		width: 996px;
 		min-height: 500px;
 		float: left;
-		
+
 		> div.builder-form {
-		
+
 			padding: 0px 15px;
-		
+
 			> form {
-			
+
 				div.move {
 					display: none;
 				}
-				
+
 				div.selected {
 					@include selected-state();
 				}
 			}
-			
+
 			> form.form-horizontal {
-			
+
 				div.move {
 					float: left;
 					display: none;
 				}
-				
+
 				div.selected {
 					@include selected-state();
 				}
 			}
 		}
-		
+
 		> div.website-manager {
-			
+
 			h3 {
 				cursor: pointer;
 			}
 		}
-		
+
 		> div.library {
-			
+
 			ul.pager {
 				margin: 0;
 				text-align: right;
 			}
 		}
-		
+
 		> div.template-designer {
-			
+
 			div.selected {
 				@include selected-state();
-				
+
 				div.horizontal-splitter {
 					float: left;
 					display: block;
 					border-bottom: 1px dashed #FFFFFF;
 				}
 			}
-			
+
 			div.tool-horizontal-split:hover {
 				cursor: ns-resize;
 			}
-			
+
 			div.selectable {
 				cursor: pointer;
 			}
 		}
-		
+
 		> div.content-manager {
-			
+
 			div.selected-area {
 				@include selected-state();
-				
+
 				div.horizontal-splitter {
 					float: left;
 					display: block;
 					border-bottom: 1px dashed #FFFFFF;
 				}
 			}
-			
+
 			div.selected-row {
 				@include selected-state();
-				
+
 				div.move {
 					width: 100%;
 					float: left;
 					display: none;
 				}
-				
+
 				div.imported-form {
-				
+
 					> div {
 						width: 100%;
 						float: left;
 					}
 				}
 			}
-			
+
 			.selected-item {
 				@include selected-state();
 			}
-			
+
 			div.selectable {
 				cursor: pointer;
 			}
-			
+
 			div.row.selectable {
-				
+
 				> div.move {
 					width: 100%;
 					float: left;
@@ -133,124 +130,124 @@ div#designer {
 			}
 		}
 	}
-	
+
 	#filter {
 		width: 320px;
 		margin: 0px 10px;
 		float: left;
-		
+
 		div.row {
 			padding-bottom: 10px;
 		}
 	}
-	
+
 	#tools {
 		width: 320px;
 		margin: 0px 10px;
 		float: left;
-		
+
 		div.row {
 			padding-bottom: 10px;
-			
+
 			.btn-group .btn {
 				margin-bottom: 2px;
 			}
 		}
-		
+
 		h4 {
 			margin: 0px 0px 5px 0px;
 			cursor: pointer;
 		}
 	}
-	
+
 	#return {
 		width: 320px;
 		margin: 0px 10px 10px 10px;
 		float: left;
 	}
-	
+
 	#content-block-metrics {
 		width: 320px;
 		margin: 0px 10px;
 		float: left;
-		
+
 		.metrics-title {
 			cursor: pointer;
 		}
-		
+
 		.metrics {
 			display: none;
-			cursor: pointer;			
+			cursor: pointer;
 			margin-bottom: 15px;
-			
+
 			ul {
 				padding: 15px 0px 15px 40px;
 			}
 		}
 	}
-	
+
 	#ribbon {
 		width: 320px;
 		margin: 10px 10px 0px 10px;
 		float: left;
-				
+
 		ul.nav-tabs {
 			margin-bottom: 10px;
-			
+
 			> li {
-				
+
 				> a {
 					padding: 5px 10px;
 				}
 			}
 		}
-		
+
 		div.content {
 			display: none;
-			
+
 			p.unsaved {
 				display: none;
 			}
-			
+
 			div.col-xs-7 {
-				
+
 				h4 {
 					margin-top: 0px;
 				}
 			}
-			
+
 			div.col-xs-12 {
-				
+
 				h3 {
 					margin-top: 0px;
 				}
-				
+
 				h2 {
 					margin-top: 0px;
 				}
 			}
 		}
-		
+
 		div.open {
 			display: block;
 		}
-		
+
 		fieldset {
-		
+
 			legend {
 				margin-bottom: 10px;
-			
+
 			}
-			
+
 			div.form-group {
 				margin-bottom: 5px;
-				
+
 				label.required:after {
 					content: ' *';
 					display:inline;
 					color: #d9534f;
 				}
-				
+
 				div.color_picker {
 					border: 1px solid #CCC;
 					border-radius: 3px;
@@ -260,20 +257,20 @@ div#designer {
 					cursor: pointer;
 				}
 			}
-			
+
 			div.form-group-collapsed {
-			
+
 				label {
-				
+
 					span {
 						cursor: pointer;
 					}
 				}
-			
+
 				.form-control {
 					display: none;
 				}
-				
+
 				p.help-block {
 					display: none;
 				}
@@ -284,31 +281,31 @@ div#designer {
 
 div.color_picker_tool {
 	display: none;
-	
+
 	span.close-color-picker {
 		cursor: pointer;
 	}
-	
+
 	div.panel-body {
-		
+
 		div.palette {
-			
+
 			div.color {
 				border-radius: 3px;
 				border: 1px solid #ddd;
 				cursor: pointer;
 			}
 		}
-		
+
 		div.history {
-			
+
 			div.color {
 				border-radius: 3px;
 				border: 1px solid #ddd;
 				cursor: pointer;
 			}
 		}
-		
+
 		div.custom {
 			float: left;
 			width: 100%;
@@ -318,11 +315,11 @@ div.color_picker_tool {
 
 div.image-picker-tool {
 	display: none;
-	
+
 	span.clear-image-picker-value {
 		cursor: pointer;
 	}
-	
+
 	span.close-image-picker {
 		cursor: pointer;
 	}
