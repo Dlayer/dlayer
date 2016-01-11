@@ -170,24 +170,14 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	{
 		$session_dlayer = new Dlayer_Session();
 
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
-			'title'=>'Dlayer.com: Web development simplified'), 
-			array('url'=>'/dlayer/settings/index', 'name'=>'Settings', 
-				'title'=>'Dlayer settings'), 
-			array('url'=>'/dlayer/index/development-plan', 
-				'name'=>'Dev plan', 'title'=>'Dlayer development plan'), 
-			array('url'=>'/dlayer/index/development-log', 
-				'name'=>'Dev log', 'title'=>'Dlayer development log'), 
-			array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
-				'title'=>'Dlayer known bugs'), 
-			array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'),
-			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer',
+			'title'=>'Dlayer.com: Web development simplified'),
+			array('url'=>'/dlayer/settings/index', 'name'=>'Settings',
+				'title'=>'Dlayer settings'),
+			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' .
 				$session_dlayer->identity() . ')', 'title'=>'Logout of site'));
 
-		$this->layout->assign('nav', array('class'=>'top_nav', 
+		$this->layout->assign('nav', array('class'=>'top_nav',
 			'items'=>$items, 'active_url'=>$url));
 	}
 
@@ -200,157 +190,11 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	private function dlayerMenuPublic($url)
 	{
 		$items = array(
-			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer', 
-				'title'=>'Dlayer.com: Web development simplified'), 
-			array('url'=>'/dlayer/index/dlayer', 'name'=>'What is Dlayer?', 
-				'title'=>'What is it?'), 
-			array('url'=>'/dlayer/index/why', 'name'=>'Why use Dlayer?', 
-				'title'=>'Why will I use it?'), 
-			array('url'=>'/dlayer/index/dlayer-history', 
-				'name'=>'History', 'title'=>'How Dlayer came to be'), 
-			array('url'=>'/dlayer/index/development-plan', 
-				'name'=>'Dev plan', 'title'=>'Dlayer development plan'), 
-			array('url'=>'/dlayer/index/development-log', 
-				'name'=>'Dev log', 'title'=>'Dlayer development log'), 
-			array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
-				'title'=>'Dlayer known bugs'), 
-			array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'));
+			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer',
+				'title'=>'Dlayer.com: Web development simplified'));
 
-		$this->layout->assign('nav', array('class'=>'top_nav', 
+		$this->layout->assign('nav', array('class'=>'top_nav',
 			'items'=>$items, 'active_url'=>$url));
-	}
-
-	/**
-	* Development log for application, shows all public changes to app
-	*
-	* @return void
-	*/
-	public function developmentLogAction()
-	{
-		$session_dlayer = new Dlayer_Session();
-
-		if($session_dlayer->identityId() == FALSE) {
-			$this->dlayerMenuPublic('/dlayer/index/development-log');
-		} else {
-			$this->_helper->authenticate();
-			$this->dlayerMenu('/dlayer/index/development-log');
-		}
-
-		$per_page = 30;
-		$start = Dlayer_Helper::getInteger('start', 0);
-
-		$model_development_log = new Dlayer_Model_Development();
-		$updates = $model_development_log->updates($per_page, $start);
-
-		$this->view->updates = $updates['results'];
-		$this->view->updates_count = $updates['count'];
-		$this->view->start = $start;
-		$this->view->per_page = $per_page;
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Development log');
-	}
-
-	/**
-	* Development plan action
-	*
-	* @return void
-	*/
-	public function developmentPlanAction()
-	{
-		$session_dlayer = new Dlayer_Session();
-
-		if($session_dlayer->identityId() == FALSE) {
-			$this->dlayerMenuPublic('/dlayer/index/development-plan');
-		} else {
-			$this->_helper->authenticate();
-			$this->dlayerMenu('/dlayer/index/development-plan');
-		}
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Development plan');
-	}
-
-	/**
-	* Known bugs
-	*
-	* @return void
-	*/
-	public function bugsAction()
-	{
-		$session_dlayer = new Dlayer_Session();
-
-		if($session_dlayer->identityId() == FALSE) {
-			$this->dlayerMenuPublic('/dlayer/index/bugs');
-		} else {
-			$this->_helper->authenticate();
-			$this->dlayerMenu('/dlayer/index/bugs');
-		}
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Known bugs');
-	}
-
-	/**
-	* Dlayer info page
-	*
-	* @return void
-	*/
-	public function dlayerAction()
-	{
-		$this->dlayerMenuPublic('/dlayer/index/dlayer');
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - What is Dlayer?');
-	}
-	
-	/**
-	* Dlayer why page
-	*
-	* @return void
-	*/
-	public function whyAction()
-	{
-		$this->dlayerMenuPublic('/dlayer/index/why');
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - How will I use Dlayer?');
-	}
-
-	/**
-	* SVN & release policy
-	*
-	* @return void
-	*/
-	public function svnReleasePolicyAction()
-	{
-		$session_dlayer = new Dlayer_Session();
-
-		if($session_dlayer->identityId() == FALSE) {
-			$this->dlayerMenuPublic('/dlayer/index/index');
-		} else {
-			$this->_helper->authenticate();
-			$this->dlayerMenu('/dlayer/index/index');
-		}
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - SVN & release policy');
-	}
-
-	/**
-	* Dlayer history page
-	*
-	* @return void
-	*/
-	public function dlayerHistoryAction()
-	{
-		$this->dlayerMenuPublic('/dlayer/index/dlayer-history');
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - The history of Dlayer');
 	}
 
 	/**

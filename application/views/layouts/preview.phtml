@@ -14,11 +14,11 @@
 		<link rel="shortcut icon" href="<?php echo $this->baseUrl('images/favicon.ico'); ?>" />
 		<link rel="icon" type="image/x-icon" href="<?php echo $this->baseUrl('images/favicon.ico'); ?>" />
 		<link rel="icon" sizes="192x192" href="<?php echo $this->baseUrl('images/favicon-192x192.png'); ?>" />
-		<script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/jquery-1.10.2.min.js'); ?>"></script>
-		<script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/js/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
-		<link href="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.custom.min.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
-		<link href="<?php echo $this->baseUrl('plugins/bootstrap-3.3.1/css/bootstrap.min.css'); ?>" rel="stylesheet">
-		<script type="text/javascript" src="<?php echo $this->baseUrl('plugins/bootstrap-3.3.1/js/bootstrap.min.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl('bower_components/jquery/dist/jquery.min.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl('bower_components/jqueryui/jquery-ui.min.js'); ?>"></script>
+		<link href="<?php echo $this->baseUrl('bower_components/jqueryui/themes/ui-lightness/jquery-ui.min.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
+		<link href="<?php echo $this->baseUrl('bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
+		<script type="text/javascript" src="<?php echo $this->baseUrl('bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
 		<script type="text/javascript">
 		var debug = <?php echo $this->layout()->debug; ?>;
 		</script>
@@ -40,7 +40,7 @@
 		</script>
 	</head>
 	<body>
-		<div class="container-fixed">
+		<div class="container">
 			<?php echo $this->layout()->content; ?>
 		</div>
 	</body>

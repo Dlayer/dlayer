@@ -6,17 +6,17 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">	
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Dlayer.com: Error</title>
 		<meta name="application-name" content="Dlayer.com: Error"/>
 		<link rel="shortcut icon" href="<?php echo $this->baseUrl('images/favicon.ico'); ?>" />
 		<link rel="icon" type="image/x-icon" href="<?php echo $this->baseUrl('images/favicon.ico'); ?>" />
 		<link rel="icon" sizes="192x192" href="<?php echo $this->baseUrl('images/favicon-192x192.png'); ?>" />
-		<script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/jquery-1.10.2.min.js'); ?>"></script>
-		<script type="text/javascript" src="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/js/jquery-ui-1.10.4.custom.min.js'); ?>"></script>
-		<link href="<?php echo $this->baseUrl('plugins/jquery/ui-1.10.4/css/ui-lightness/jquery-ui-1.10.4.custom.min.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
-		<link href="<?php echo $this->baseUrl('plugins/bootstrap-3.3.1/css/bootstrap.min.css'); ?>" rel="stylesheet">
-		<script type="text/javascript" src="<?php echo $this->baseUrl('plugins/bootstrap-3.3.1/js/bootstrap.min.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl('bower_components/jquery/dist/jquery.min.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo $this->baseUrl('bower_components/jqueryui/jquery-ui.min.js'); ?>"></script>
+		<link href="<?php echo $this->baseUrl('bower_components/jqueryui/themes/ui-lightness/jquery-ui.min.css'); ?>" rel="stylesheet" media="screen" type="text/css" />
+		<link href="<?php echo $this->baseUrl('bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet">
+		<script type="text/javascript" src="<?php echo $this->baseUrl('bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
 		<link href="<?php echo $this->baseUrl('/css/dlayer.css'); ?>" rel="stylesheet">
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -30,39 +30,31 @@
 		</script>
 	</head>
 	<body>
-		<div id="fb-root"></div>
-		<script>(function(d, s, id) {
-		  var js, fjs = d.getElementsByTagName(s)[0];
-		  if (d.getElementById(id)) return;
-		  js = d.createElement(s); js.id = id;
-		  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3";
-		  fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));</script>
 		<?php echo $this->bootstrapNavbar(
-			'<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" />', 
-			$this->layout()->nav['items'],  
+			'<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" />',
+			$this->layout()->nav['items'],
 			$this->layout()->nav['active_url'])->inverted(); ?>
 		<div class="container">
-		
 			<div class="row">
 				<div class="col-xs-12">
-				
+
 					<div class="jumbotron">
 						<h1>Sorry <small>something bad happened</small></h1>
-						<p>There appears to have been an error processing 
-							your request, please try again. If that doesn't 
-							work the event has been logged and I will try to 
-							fix the issue as soon as possible.</p>
-							
-						<p>In the mean time why not read the specification 
-							for Dlayer on 
-							<a href="http://www.g3d-development.com">G3D Development.com</a>.</p>
-							
-						 <p><a class="btn btn-primary" 
-							href="http://www.g3d-development.com/blog/specification/" 
-							role="button">Specification</a></p>
+						<p>There appears to have been an error processing
+							your request, please try again. If the problems 
+							persist please let me know at 
+							<a href="https://github.com/Dlayer/dlayer/issues">GitHub</a> 
+							by raising an issue.</p>
+
+						<p>In the mean time why not read the documation for 
+							Dlayer at 
+							<a href="http://www.dlayer.com/">Dlayer.com</a>.</p>
+
+						 <p><a class="btn btn-primary"
+							href="http://www.dlayer.com/docs/"
+							role="button">Documentation</a></p>
 					</div>
-					
+
 					<div class="panel panel-default">
 						<div class="panel-heading">Error details</div>
 							<div class="panel-body">
@@ -71,41 +63,20 @@
 						</div>
 					<div>
 				</div>
-			</div>			
-			
-			<div class="row footer">
-				<div class="col-md-12 col-xs-12">
-					<p class="text-center"><small>
-					<?php echo VERSION_NO . ' (Released ' . VERSION_DATE . ') '; ?> 
-					- Copyright &copy; 
-					G3D Development Limited 2010-<?php echo date('Y'); ?>, 
-					Dlayer 2008-<?php echo date('Y'); ?></small></p>
-				</div>
-				
-				<div class="col-md-12 col-xs-12">
-					<p class="text-center">
-						<small>
-						<a href="http://www.g3d-development.com/blog" 
-							title="The G3D Development Limited blog">G3D Development Blog</a> - 
-						<a href="http://www.deanblackborough.com/" 
-							title="Dean Blackborough: My thoughts on anything and everything with a bias towards development">My blog</a> - 
-						<a href="/dlayer/index/svn-release-policy" 
-							title="Dlayer.com: Git development and release policy">Versioning & release policy</a> - 
-						<a href="/dlayer/index/development-plan" 
-							title="Dlayer.com: Development plan">Dev plan</a> - 
-						<a href="/dlayer/index/development-log" 
-							title="Dlayer.com: Development log">Dev log</a> - 
-						<a href="/dlayer/index/bugs" 
-							title="Dlayer.com: Bugs, past and present">Bugs</a> - 
-						<a href="https://specification.dlayer.com">Current Specifcation <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
-						</small>
-					</p>
-				</div>
-				<div class="col-md-6 col-xs-12 text-left">
-					<a href="https://twitter.com/Dlayer_app" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @Dlayer_app</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script> 
-				</div>
-				<div class="col-md-6 col-xs-12 text-right">
-					<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			</div>
+		</div>
+		<div class="container-fluid footer">
+			<div class="row">
+				<div class="col-md-12 col-xs-12 text-center small">
+					<p><?php echo VERSION_NO . ' (Released ' . VERSION_DATE . ') '; ?>
+						Dlayer originaly developed by
+						<a href="http://www.g3d-development.com/blog/">G3D
+						Development Limited</a> /
+						<a href="http://www.deanblackborough.com">Dean
+						Blackborough</a></p>
+					<p>Dlayer Copyright © G3D Development 2015</p>
+					<p>Maintained by <a href="http://www.deanblackborough.com/">Dean Blackborough</a></p>
+					<p>Code <a href="https://github.com/Dlayer/dlayer/blob/master/LICENSE">licensed</a> under MIT</p>
 				</div>
 			</div>
 		</div>
