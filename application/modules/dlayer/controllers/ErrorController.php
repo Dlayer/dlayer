@@ -113,24 +113,8 @@ class Dlayer_ErrorController extends Zend_Controller_Action
 	private function dlayerMenuPublic($url)
 	{
 		$items = array(
-			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer', 
-				'title'=>'Dlayer.com: Web development simplified'), 
-			array('url'=>'/dlayer/index/dlayer', 'name'=>'What is Dlayer?', 
-				'title'=>'What is it?'), 
-			array('url'=>'/dlayer/index/why', 'name'=>'Why use Dlayer?', 
-				'title'=>'Why will I use it?'), 
-			array('url'=>'/dlayer/index/dlayer-history', 
-				'name'=>'History', 'title'=>'How Dlayer came to be'), 
-			array('url'=>'/dlayer/index/development-plan', 
-				'name'=>'Dev plan', 'title'=>'Dlayer development plan'), 
-			array('url'=>'/dlayer/index/development-log', 
-				'name'=>'Dev log', 'title'=>'Dlayer development log'), 
-			array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
-				'title'=>'Dlayer known bugs'), 
-			array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'));
+			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer',
+				'title'=>'Dlayer.com: Web development simplified'));
 
 		$this->layout->assign('nav', array('class'=>'top_nav', 
 			'items'=>$items, 'active_url'=>$url));
