@@ -6,7 +6,6 @@
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: Login.php 1724 2014-04-13 15:12:59Z Dean.Blackborough $
 */
 class Dlayer_Form_Login extends Dlayer_Form 
 {
@@ -38,7 +37,7 @@ class Dlayer_Form_Login extends Dlayer_Form
 		$this->validationRules();
 		
 		$this->addElementsToForm('login_form', 
-			'Sign in <small>and start testing my app</small>', 
+			'Sign in <small>and start playing with the demo</small>', 
 			$this->elements);
 		
 		$this->addDefaultElementDecorators();
@@ -56,16 +55,12 @@ class Dlayer_Form_Login extends Dlayer_Form
 	{
 		$identity = new Zend_Form_Element_Text('identity');
 		$identity->setLabel('Username');
-		$identity->setDescription('Please enter a username, try one of the 
-		combinations in the Test credentials section.');
 		$identity->setAttribs(array('size'=>30, 'maxlength'=>255, 
 		'placeholder'=>'e.g., user-1@dlayer.com', 'class'=>'form-control'));
 		$this->elements['identity'] = $identity;
 		
 		$credentials = new Zend_Form_Element_Password('credentials');
 		$credentials->setLabel('Passsword');
-		$credentials->setDescription('Please enter a password, try one of the 
-		combinations in the Test credentials section.');
 		$credentials->setAttribs(array('placeholder'=>'********', 
 		'class'=>'form-control'));
 		$this->elements['credentials'] = $credentials;
