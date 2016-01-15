@@ -5,6 +5,7 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_Tool_Content_AddContentRow extends Dlayer_Tool_Module_Content
 {
