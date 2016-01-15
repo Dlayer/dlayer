@@ -11,7 +11,7 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: ProcessController.php 1228 2013-11-13 13:08:41Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Template_ProcessController extends Zend_Controller_Action
 {

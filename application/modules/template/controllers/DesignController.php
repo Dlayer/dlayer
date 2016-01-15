@@ -9,7 +9,7 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: DesignController.php 1842 2014-05-19 14:59:09Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Template_DesignController extends Zend_Controller_Action
 {

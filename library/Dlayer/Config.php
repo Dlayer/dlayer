@@ -4,7 +4,6 @@
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: Config.php 1421 2014-01-20 16:23:02Z Dean.Blackborough $
 */
 abstract class Dlayer_Config 
 {

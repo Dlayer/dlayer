@@ -5,6 +5,7 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 {

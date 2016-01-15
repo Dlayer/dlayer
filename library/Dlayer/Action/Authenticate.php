@@ -7,7 +7,6 @@
 *
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: Authenticate.php 1228 2013-11-13 13:08:41Z Dean.Blackborough $
 */
 class Dlayer_Action_Authenticate extends Zend_Controller_Action_Helper_Abstract
 {

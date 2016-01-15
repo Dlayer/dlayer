@@ -9,7 +9,7 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: DesignController.php 1942 2014-06-15 12:52:34Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Form_DesignController extends Zend_Controller_Action
 {

@@ -7,7 +7,7 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: CodeHinting.php 1251 2013-11-17 20:17:34Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract 
 {

@@ -10,6 +10,7 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 * @category Model
 */
 class Dlayer_Model_Tool extends Zend_Db_Table_Abstract

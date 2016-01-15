@@ -5,7 +5,7 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Bootstrap.php 1532 2014-02-07 15:41:19Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Question_Bootstrap extends Zend_Application_Module_Bootstrap 
 {

@@ -5,7 +5,7 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: FontSize.php 913 2013-09-16 15:57:30Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_Validate_FontSize extends Zend_Validate_Abstract 
 {

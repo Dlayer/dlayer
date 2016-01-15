@@ -4,7 +4,6 @@
 * and then a div to invoke the color picker, extension of Zend
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
-* @version $Id: ColorPicker.php 1685 2014-03-16 20:48:23Z Dean.Blackborough $
 */
 class Dlayer_Form_Element_ColorPicker extends Zend_Form_Element_Text 
 {

@@ -6,7 +6,7 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: ColorHex.php 817 2013-08-27 23:51:09Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_Validate_ColorHex extends Zend_Validate_Abstract 
 {

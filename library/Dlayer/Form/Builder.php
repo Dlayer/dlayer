@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: Builder.php 1942 2014-06-15 12:52:34Z Dean.Blackborough $
 */
 class Dlayer_Form_Builder extends Zend_Form
 {

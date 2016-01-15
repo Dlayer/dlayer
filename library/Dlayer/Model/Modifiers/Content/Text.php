@@ -5,7 +5,7 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Text.php 1774 2014-04-30 16:17:34Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_Model_Modifiers_Content_Text extends Zend_Db_Table_Abstract
 {

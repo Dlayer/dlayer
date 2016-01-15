@@ -5,7 +5,7 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: SiteNameUnique.php 1240 2013-11-14 16:27:15Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_Validate_SiteNameUnique extends Zend_Validate_Abstract 
 {

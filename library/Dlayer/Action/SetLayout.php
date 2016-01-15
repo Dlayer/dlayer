@@ -5,7 +5,6 @@
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: SetLayout.php 47 2012-06-23 15:25:29Z Dean.Blackborough $
 */
 class Dlayer_Action_SetLayout extends Zend_Controller_Action_Helper_Abstract
 {

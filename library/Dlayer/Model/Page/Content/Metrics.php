@@ -5,7 +5,7 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Metrics.php 1861 2014-05-27 11:30:18Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_Model_Page_Content_Metrics extends Zend_Db_Table_Abstract
 {

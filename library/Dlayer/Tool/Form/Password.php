@@ -4,7 +4,7 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Password.php 1738 2014-04-17 15:44:36Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_Tool_Form_Password extends Dlayer_Tool_Module_Form
 {

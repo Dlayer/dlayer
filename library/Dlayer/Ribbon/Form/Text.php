@@ -11,7 +11,7 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Text.php 1894 2014-06-03 00:10:11Z Dean.Blackborough $
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_Ribbon_Form_Text extends Dlayer_Ribbon_Module_Form
 {

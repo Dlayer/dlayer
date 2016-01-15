@@ -6,7 +6,6 @@
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: DisableLayout.php 1942 2014-06-15 12:52:34Z Dean.Blackborough $
 */
 class Dlayer_Action_DisableLayout extends Zend_Controller_Action_Helper_Abstract
 {

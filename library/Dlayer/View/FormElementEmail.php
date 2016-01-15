@@ -3,7 +3,8 @@
 * View helper for HTML5 number input type
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
-* @version $Id: FormElementNumber.php 1458 2014-01-25 01:10:15Z Dean.Blackborough $
+* @copyright G3D Development Limited
+* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 class Dlayer_View_FormElementEmail extends Zend_View_Helper_FormElement
 {
