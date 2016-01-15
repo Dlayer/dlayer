@@ -3,7 +3,7 @@
 * View helper for HTML5 range input type
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
-* @version $Id: FormElementNumber.php 1458 2014-01-25 01:10:15Z Dean.Blackborough $
+* @copyright G3D Development Limited
 */
 class Dlayer_View_FormElementRange extends Zend_View_Helper_FormElement
 {

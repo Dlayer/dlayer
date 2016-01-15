@@ -7,7 +7,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Module.php 1595 2014-02-20 00:38:26Z Dean.Blackborough $
 * @category Model
 */
 class Dlayer_Model_Module extends Zend_Db_Table_Abstract

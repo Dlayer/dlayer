@@ -5,7 +5,6 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Session.php 1568 2014-02-14 14:59:50Z Dean.Blackborough $
 */
 class Dlayer_Session extends Zend_Session_Namespace 
 {

@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Template.php 1861 2014-05-27 11:30:18Z Dean.Blackborough $
 */
 abstract class Dlayer_Tool_Module_Template extends Dlayer_Tool
 {

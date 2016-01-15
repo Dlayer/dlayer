@@ -6,7 +6,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Border.php 1018 2013-09-29 18:18:37Z Dean.Blackborough $
 */
 class Dlayer_Ribbon_Template_Border extends Dlayer_Ribbon_Module_Template
 {

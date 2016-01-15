@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: BackgroundColor.php 1458 2014-01-25 01:10:15Z Dean.Blackborough $
 */
 class Dlayer_Ribbon_Template_BackgroundColor extends
 Dlayer_Ribbon_Module_Template

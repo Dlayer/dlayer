@@ -4,7 +4,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: AjaxController.php 1949 2014-06-16 00:34:49Z Dean.Blackborough $
 */
 class Content_AjaxController extends Zend_Controller_Action
 {

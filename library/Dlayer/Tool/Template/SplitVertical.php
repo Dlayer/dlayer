@@ -4,7 +4,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: SplitVertical.php 1842 2014-05-19 14:59:09Z Dean.Blackborough $
 */
 class Dlayer_Tool_Template_SplitVertical extends Dlayer_Tool_Module_Template
 {

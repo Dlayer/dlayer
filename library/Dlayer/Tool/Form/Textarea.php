@@ -4,7 +4,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Textarea.php 1738 2014-04-17 15:44:36Z Dean.Blackborough $
 */
 class Dlayer_Tool_Form_Textarea extends Dlayer_Tool_Module_Form
 {

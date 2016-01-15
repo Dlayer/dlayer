@@ -4,7 +4,6 @@
 *
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: Form.php 1831 2014-05-12 21:44:14Z Dean.Blackborough $
 */
 abstract class Dlayer_Form_Module_Form extends Dlayer_Form
 {

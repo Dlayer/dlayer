@@ -7,7 +7,6 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: TemplateStyles.php 1685 2014-03-16 20:48:23Z Dean.Blackborough $
 */
 class Dlayer_View_TemplateStyles extends Zend_View_Helper_Abstract 
 {

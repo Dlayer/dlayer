@@ -6,7 +6,6 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Resize.php 1421 2014-01-20 16:23:02Z Dean.Blackborough $
 */
 class Dlayer_Ribbon_Template_Resize extends Dlayer_Ribbon_Module_Template 
 {

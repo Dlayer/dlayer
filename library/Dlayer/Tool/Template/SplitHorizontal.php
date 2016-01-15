@@ -4,7 +4,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: SplitHorizontal.php 1842 2014-05-19 14:59:09Z Dean.Blackborough $
 */
 class Dlayer_Tool_Template_SplitHorizontal extends Dlayer_Tool_Module_Template
 {

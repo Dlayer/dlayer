@@ -11,7 +11,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: ProcessController.php 1738 2014-04-17 15:44:36Z Dean.Blackborough $
 */
 class Content_ProcessController extends Zend_Controller_Action
 {

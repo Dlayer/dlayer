@@ -11,7 +11,6 @@
 *  
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: Name.php 1738 2014-04-17 15:44:36Z Dean.Blackborough $
 */
 class Dlayer_Form_Form_PresetComment extends Dlayer_Form_Module_Form
 {

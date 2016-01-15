@@ -5,7 +5,6 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: FormNameUnique.php 1211 2013-11-10 14:54:33Z Dean.Blackborough $
 */
 class Dlayer_Validate_FormNameUnique extends Zend_Validate_Abstract 
 {

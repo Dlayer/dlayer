@@ -13,7 +13,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Form.php 1894 2014-06-03 00:10:11Z Dean.Blackborough $
 */
 abstract class Dlayer_Ribbon_Module_Form
 {

@@ -7,7 +7,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Password.php 1882 2014-06-01 15:01:22Z Dean.Blackborough $
 */
 class Dlayer_Ribbon_Form_Styling_Password extends Dlayer_Ribbon_Module_Form
 {

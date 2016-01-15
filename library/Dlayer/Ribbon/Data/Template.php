@@ -9,7 +9,6 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id
 */
 class Dlayer_Ribbon_Data_Template 
 {

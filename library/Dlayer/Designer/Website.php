@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Website.php 1614 2014-02-24 23:35:13Z Dean.Blackborough $
 */
 class Dlayer_Designer_Website 
 {

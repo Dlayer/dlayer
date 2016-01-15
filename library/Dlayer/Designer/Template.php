@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Template.php 1029 2013-09-30 17:29:24Z Dean.Blackborough $
 */
 class Dlayer_Designer_Template
 {

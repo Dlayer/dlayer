@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Form.php 1785 2014-05-02 00:49:57Z Dean.Blackborough $
 */
 class Dlayer_Model_Modifiers_Content_Form extends Zend_Db_Table_Abstract
 {

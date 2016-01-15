@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Form.php 1942 2014-06-15 12:52:34Z Dean.Blackborough $
 */
 class Dlayer_Designer_Form
 {

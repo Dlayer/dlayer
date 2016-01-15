@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Heading.php 1861 2014-05-27 11:30:18Z Dean.Blackborough $
 */
 class Dlayer_Model_Modifiers_Content_Heading extends Zend_Db_Table_Abstract
 {

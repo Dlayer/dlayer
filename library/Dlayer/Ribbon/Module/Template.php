@@ -13,7 +13,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Template.php 998 2013-09-27 17:14:57Z Dean.Blackborough $
 */
 abstract class Dlayer_Ribbon_Module_Template
 {

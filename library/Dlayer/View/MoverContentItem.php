@@ -5,7 +5,6 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: MoverContentItem.php 1640 2014-03-06 10:04:29Z Dean.Blackborough $
 */
 class Dlayer_View_MoverContentItem extends Zend_View_Helper_Abstract 
 {

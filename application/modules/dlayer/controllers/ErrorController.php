@@ -4,7 +4,6 @@
 * 
 * @author Dean Blackborough <dean@g3d-development.com
 * @copyright G3D Development Limited
-* @version $Id: ErrorController.php 1515 2014-02-01 23:15:22Z Dean.Blackborough $
 */
 class Dlayer_ErrorController extends Zend_Controller_Action
 {

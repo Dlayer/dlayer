@@ -5,7 +5,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Bootstrap.php 1306 2013-12-01 12:21:22Z Dean.Blackborough $
 */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {

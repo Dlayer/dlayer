@@ -5,7 +5,6 @@
 * 
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: Heading.php 1724 2014-04-13 15:12:59Z Dean.Blackborough $
 */
 class Dlayer_Form_Settings_Content_Heading extends Dlayer_Form_Module_App 
 {

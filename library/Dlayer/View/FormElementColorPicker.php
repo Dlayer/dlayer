@@ -4,7 +4,7 @@
 * div to invoke the color picker
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
-* @version $Id: FormElementColorPicker.php 1685 2014-03-16 20:48:23Z Dean.Blackborough $
+* @copyright G3D Development Limited
 */
 class Dlayer_View_FormElementColorPicker extends Zend_View_Helper_FormElement
 {

@@ -8,7 +8,6 @@
 *
 * @author Dean Blackborough
 * @copyright G3D Development Limited
-* @version $Id: SetModule.php 1211 2013-11-10 14:54:33Z Dean.Blackborough $
 */
 class Dlayer_Action_SetModule extends Zend_Controller_Action_Helper_Abstract
 {

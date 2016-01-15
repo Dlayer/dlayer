@@ -7,7 +7,6 @@
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
-* @version $Id: Ribbon.php 1685 2014-03-16 20:48:23Z Dean.Blackborough $
 * @category Model
 */
 class Dlayer_Model_Ribbon extends Zend_Db_Table_Abstract
