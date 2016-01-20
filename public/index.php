@@ -17,16 +17,9 @@ defined('APPLICATION_ENV')
 	(getenv('APPLICATION_ENV') ? 
 	getenv('APPLICATION_ENV') : $environemnt));
 	
-$include = NULL;
-
-if(APPLICATION_ENV == 'production') {
-	$include = realpath(APPLICATION_PATH . '/../../Zend-Framework/Zend-1.12.3');
-}
-
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
 	realpath(APPLICATION_PATH . '/../library'),
-	$include,
 	get_include_path(),
 )));
 
