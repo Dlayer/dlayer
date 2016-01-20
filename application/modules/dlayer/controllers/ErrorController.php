@@ -90,8 +90,7 @@ class Dlayer_ErrorController extends Zend_Controller_Action
 	}
 
 	/**
-	* Returns the eror log
-	* 
+	* Returns the erorr log
 	*/
 	public function getLog()
 	{
@@ -112,7 +111,7 @@ class Dlayer_ErrorController extends Zend_Controller_Action
 	private function dlayerMenuPublic($url)
 	{
 		$items = array(
-			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer',
+			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer Demo',
 				'title'=>'Dlayer.com: Web development simplified'));
 
 		$this->layout->assign('nav', array('class'=>'top_nav', 

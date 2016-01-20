@@ -171,12 +171,12 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	{
 		$session_dlayer = new Dlayer_Session();
 
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer',
+		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer Demo',
 			'title'=>'Dlayer.com: Web development simplified'),
-			array('url'=>'/dlayer/settings/index', 'name'=>'Settings',
-				'title'=>'Dlayer settings'),
+			array('url'=>'/dlayer/settings/index', 'name'=>'App settings',
+				'title'=>'App settings'),
 			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' .
-				$session_dlayer->identity() . ')', 'title'=>'Logout of site'));
+				$session_dlayer->identity() . ')', 'title'=>'Sign out of demo'));
 
 		$this->layout->assign('nav', array('class'=>'top_nav',
 			'items'=>$items, 'active_url'=>$url));
@@ -191,7 +191,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	private function dlayerMenuPublic($url)
 	{
 		$items = array(
-			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer',
+			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer Demo',
 				'title'=>'Dlayer.com: Web development simplified'));
 
 		$this->layout->assign('nav', array('class'=>'top_nav',
