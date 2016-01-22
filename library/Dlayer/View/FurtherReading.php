@@ -18,7 +18,7 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 	*/
 	public $view;
 	
-	private $domain = 'http://specification.dlayer.com/';
+	private $domain = 'http://www.dlayer.com/docs';
 	private $url;
 	private $well = FALSE;
 	
@@ -66,14 +66,13 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 			$html .= '<div class="well well-sm">';
 		}
 		
-		$html .= '<h3>Further reading <small>Do you want to know 
-			more?</small></h3>
+		$html .= '<h4>Further reading <small>Do you want to know 
+			more?</small></h4>
 			
-			<p>You can read the current specification for Dlayer by visiting 
-				<a href="http://specification.dlayer.com/" 
-				title="Read the Dlayer specification">specification.dlayer.com</a>, 
-				it details all the functionality that is public as well 
-				occasionally having details for features coming soon. - ';
+			<p>Checks the docs at 
+				<a href="http://www.dlayer.com">Dlayer.com</a>, it has an 
+				overview for each designer as well as notes on each tool and 
+				feature. ';
 		
 		if($this->url == NULL) {
 			$primary = TRUE;
@@ -81,7 +80,7 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 			$primary = FALSE;
 		}
 			
-		$html .= $this->button('Go to specification', $primary);
+		$html .= $this->button('Go to docs', $primary);
 				
 		if($this->url != NULL) {
 			$html .= ' - ' . $this->button('Go to this section', TRUE, 

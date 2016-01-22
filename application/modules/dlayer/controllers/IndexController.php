@@ -173,8 +173,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer Demo',
 			'title'=>'Dlayer.com: Web development simplified'),
-			array('url'=>'/dlayer/settings/index', 'name'=>'App settings',
-				'title'=>'App settings'),
+			array('url'=>'/dlayer/settings/index', 'name'=>'Settings',
+				'title'=>'Settings'),
 			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' .
 				$session_dlayer->identity() . ')', 'title'=>'Sign out of demo'));
 
