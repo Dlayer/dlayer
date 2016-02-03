@@ -312,6 +312,20 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @return Dlayer_View_ColorPicker
 	*/
 	public function colorPicker() { } 
+	
+	/**
+	* Generates a simple bootstrap navbar
+	*
+	* @param string $brand Brand name/img, appears to let of navbar
+	* @param array $navbar_items Array containing the navbar items, each item
+	* 	should be an array with the folowing keys, uri, title, name and and
+	* 	optionally children. A driop down will created for all the items in the 
+	* 	children array
+	* @param string $active_uri The Uri of the active item
+	* @return Dlayer_View_Bootstrap3Navbar
+	*/
+	public function bootstrap3Navbar($brand, array $navbar_items,
+		$active_url='') { }
 		
 	/**
 	* Generate the html for a bootstrap navbar, allows the developer to define 

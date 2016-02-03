@@ -80,10 +80,10 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 			$primary = FALSE;
 		}
 			
-		$html .= $this->button('Go to docs', $primary);
+		$html .= $this->button('Go to the docs', $primary);
 				
 		if($this->url != NULL) {
-			$html .= ' - ' . $this->button('Go to this section', TRUE, 
+			$html .= ' - ' . $this->button('Go to section in docs', TRUE, 
 				$this->url);
 		}
 				

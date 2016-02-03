@@ -41,11 +41,11 @@
 		</script>
 	</head>
 	<body>
-		<?php echo $this->bootstrapNavbar(
+		<?php echo $this->bootstrap3Navbar(
 			'<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" />',
-			$this->layout()->nav['items'],
-			$this->layout()->nav['active_url'])->inverted(); ?>
-		<div class="container">
+			$this->layout()->nav['items'], 
+			$this->layout()->nav['active_uri'])->inverted(); ?>
+		<div class="container container-970">
 			<?php echo $this->layout()->content; ?>
 		</div>
 	</body>
