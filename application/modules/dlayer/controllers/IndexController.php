@@ -197,8 +197,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	/**
 	* Allows the user to create a new site
 	*
-	* Currently the only data that is required to create a site is a name, the
-	* name needs to be unique for the user
+	* Currently the only data that is required to create a site is the name. 
+	* the name needs to be unique for the user
 	*
 	* @return void
 	*/
@@ -207,7 +207,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$this->_helper->authenticate();
 
 		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Create web site');
+		$this->layout->assign('title', 'Dlayer.com - New web site');
 
 		$session_dlayer = new Dlayer_Session();
 		$form = new Dlayer_Form_Site_NewSite($session_dlayer->identityId());
@@ -226,7 +226,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		}
 
 		$this->view->form = $form;
-		$this->dlayerMenu('/dlayer/index/home');
+		$this->navBar('/dlayer/index/home', FALSE);
 	}
 
 	/**
