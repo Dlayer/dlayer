@@ -2,9 +2,9 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Dlayer settings</h1>
+		<h1>Settings</h1>
 		
-		<h2>Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h2>
+		<h3>Selected Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h3>
 		    
 	    <nav class="visible-md-block visible-lg-block">
 	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
@@ -28,10 +28,17 @@
 	    $this->settings['active_url'], 'nav nav-pills nav-stacked'); ?>
 	    </nav>
 	    
-	    <h3>Overview <small>What can you manage in this section?</small></h3>
+	    <h4>Dlayer <small>App level settings</small></h4>
 	    
-	    <p>This section allows you to manage settings that affect the entire 
-	    	app, for example the colour palattes and the defaults for new 
-	    	templates, forms and widgets.</p>
+	    <p>This section allows you to manage the app level settings for Dlayer, 
+	    	these settings affect the entire application.</p>
+	    	
+	    <ol>
+	    	<li>Colour palettes</li>
+	    </ol>
+	</div>
+	<div class="col-md-12 col-xs-12 further-reading">
+		<!--Need to upload content for settings-->
+		<?php echo $this->furtherReading('/#settings', TRUE); ?>
 	</div>
 </div>

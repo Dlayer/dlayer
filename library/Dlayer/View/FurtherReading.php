@@ -35,7 +35,10 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 	{
 		$this->resetParams();
 		
-		$this->url = $url;
+		if(strlen($url) > 0) 
+		{
+			$this->url = $url;
+		}
 		$this->well = $well;
 		
 		return $this;
@@ -72,7 +75,7 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 			<p>Checks the docs at 
 				<a href="http://www.dlayer.com">Dlayer.com</a>, it has an 
 				overview for each designer as well as notes on each tool and 
-				feature. ';
+				feature.<br />';
 		
 		if($this->url == NULL) {
 			$primary = TRUE;
@@ -83,7 +86,7 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 		$html .= $this->button('Go to the docs', $primary);
 				
 		if($this->url != NULL) {
-			$html .= ' - ' . $this->button('Go to section in docs', TRUE, 
+			$html .= ' - ' . $this->button('Go to this section in docs', TRUE, 
 				$this->url);
 		}
 				

@@ -48,7 +48,7 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 		
-		$this->dlayerMenu('/dlayer/settings/index');
+		$this->navBar('/dlayer/settings/index');
 		$this->settingsMenus('App', '/dlayer/settings/index', 
 		'/dlayer/settings/index');
 		
@@ -61,32 +61,25 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	}
 	
 	/**
-	* Generate the base menu bar for the application.
-	*
-	* @param string $url Active url
-	* @return string Html
+	* Assign the content for the nav bar
+	* 
+	* @param string $active_uri Uri
+	* @return void Assigns values to the layout
 	*/
-	private function dlayerMenu($url='')
+	private function navBar($active_uri) 
 	{
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
-		'title'=>'Dlayer.com: Web development simplified'), 
-		array('url'=>'/dlayer/settings/index', 'name'=>'Settings', 
-		'title'=>'Dlayer settings'), 
-		array('url'=>'/dlayer/index/development-plan', 
-		'name'=>'Dev plan', 'title'=>'Current Dlayer development plan'), 
-		array('url'=>'/dlayer/index/development-log', 
-		'name'=>'Dev log', 'title'=>'Dlayer development log'), 
-		array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
-		'title'=>'Known bugs'), 
-		array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'),
-		array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Logout of site'));
+		$items = array(
+			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/dlayer/settings/index', 
+				'name'=>'Settings', 'title'=>'Settings'), 
+			array('uri'=>'/dlayer/index/logout', 
+				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of demo')		
+		);
 		
-		$this->layout->assign('nav', array('class'=>'top_nav', 
-		'items'=>$items, 'active_url'=>$url));
+		$this->layout->assign('nav', array(
+			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
 	
 	/**
