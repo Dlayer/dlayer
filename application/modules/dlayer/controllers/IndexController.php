@@ -259,7 +259,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		}
 
 		$this->view->form = $form;
-		$this->dlayerMenu('/dlayer/index/home');
+		$this->navBar('/dlayer/index/home', FALSE);
 	}
 
 	/**
