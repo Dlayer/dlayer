@@ -301,51 +301,6 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch all the active setting groups, only pulls back groups for active
-	* modules
-	*
-	* @return array
-	*/
-	public function settingGroups()
-	{
-		$sql = "SELECT dsg.title, dsg.tab_title as `name`, dsg.url
-				FROM dlayer_setting_group dsg
-				JOIN dlayer_module dm ON dsg.module_id = dm.id
-				AND dm.enabled = 1
-				WHERE dsg.enabled = 1
-				ORDER BY dsg.sort_order ASC";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->execute();
-
-		return $stmt->fetchAll();
-	}
-
-	/**
-	* Fetch all the active settings for the requested setting group, setting,
-	* group and module all need to be active
-	*
-	* @param string $group
-	* @return array
-	*/
-	public function settings($group)
-	{
-		$sql = "SELECT ds.`name`, ds.title, ds.url
-				FROM dlayer_setting ds
-				JOIN dlayer_setting_group dsg ON ds.setting_group_id = dsg.id
-				AND ds.enabled = 1
-				JOIN dlayer_module dm ON dsg.module_id = dm.id
-				AND dm.enabled = 1
-				WHERE ds.enabled = 1
-				AND dsg.`name` = :group
-				ORDER BY ds.sort_order ASC";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':group', $group, PDO::PARAM_STR);
-		$stmt->execute();
-
-		return $stmt->fetchAll();
-	}
-
-	/**
 	* Setting details
 	*
 	* @param string $url

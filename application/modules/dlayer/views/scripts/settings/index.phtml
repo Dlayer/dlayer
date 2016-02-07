@@ -1,42 +1,46 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <div class="row">
-	<div class="col-md-12 col-xs-12">
-		<h1>Settings</h1>
+	<div class="col-md-9 col-xs-12">
+		<h1>Settings <small>Dlayer</small></h1>
 		
-		<h3>Selected Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h3>
-		    
-	    <nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url']); ?>
-	    </nav>
-	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
-	    
-	    <hr />
-	    
-	    <nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills'); ?>
-	    </nav>
-	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
-	    
-	    <h4>Dlayer <small>App level settings</small></h4>
+		<h2>Selected Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h2>
+		
+		<h3>Overview</h3>
 	    
 	    <p>This section allows you to manage the app level settings for Dlayer, 
 	    	these settings affect the entire application.</p>
 	    	
-	    <ol>
-	    	<li>Colour palettes</li>
-	    </ol>
+	    <ul>
+	    	<li><a href="/dlayer/settings/palettes">Colour palettes</a>: 
+	    		The quick select colours that display on the colour picker.</li>
+	    </ul>
 	</div>
+	<div class="col-md-3 col-xs-12">
+		<ul class="list-unstyled settings-menu">
+			<li>Dlayer
+				<ul>
+					<li><a href="/dlayer/settings/index" class="active">Overview</a></li>
+					<li><a href="/dlayer/settings/palettes">Color palettes</a></li>
+				</ul>
+			</li>
+			<li>Content manager
+				<ul>
+					<li><a href="/content/settings/index">Overview</a></li>
+					<li><a href="/content/settings/base-font-family">Base font family</a></li>
+					<li><a href="/content/settings/headings">Headings</a></li>
+				</ul>
+			</li>
+			<li>Form builder
+				<ul>
+					<li><a href="/form/settings/index">Overview</a></li>
+					<li><a href="/form/settings/base-font-family">Base font family</a></li>
+				</ul>
+			</li>
+		</ul>	
+	</div>
+</div>
+<div class="row">
 	<div class="col-md-12 col-xs-12 further-reading">
 		<!--Need to upload content for settings-->
 		<?php echo $this->furtherReading('/#settings', TRUE); ?>

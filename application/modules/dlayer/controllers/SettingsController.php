@@ -40,7 +40,8 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	}
 
 	/**
-	* Settings action, gives an overview of the settings page
+	* Settings overview page, short description of each settings page for the 
+	* section
 	* 
 	* @return void
 	*/
@@ -49,15 +50,11 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 		$model_sites = new Dlayer_Model_Site();
 		
 		$this->navBar('/dlayer/settings/index');
-		$this->settingsMenus('App', '/dlayer/settings/index', 
-		'/dlayer/settings/index');
 		
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 		
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Settings');
-		
-		//$this->_redirect('/dlayer/settings/palettes');
 	}
 	
 	/**
@@ -83,28 +80,6 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	}
 	
 	/**
-	* Generate the setting and section menus for settings
-	*
-	* @param string $group Settings group to fetch settings for
-	* @param string $group_url Active setting group url
-	* @param string $setting_url Active setting url
-	* @return string Html
-	*/
-	private function settingsMenus($group, $group_url='', $setting_url='')
-	{
-		$model_settings = new Dlayer_Model_Settings();
-		$setting_groups = $model_settings->settingGroups();
-		
-		$settings = $model_settings->settings($group);
-		
-		$this->view->setting_groups = array('class'=>'setting_groups', 
-		'items'=>$setting_groups, 'active_url'=>$group_url);
-		
-		$this->view->settings = array('class'=>'settings', 
-		'items'=>$settings, 'active_url'=>$setting_url);
-	}
-	
-	/**
 	* Set the colors for the three color palettes
 	* 
 	* @return void
@@ -112,22 +87,10 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	public function palettesAction()
 	{
 		$model_sites = new Dlayer_Model_Site();
-		$model_settings = new Dlayer_Model_Settings();
 		
-		$this->dlayerMenu('/dlayer/settings/index');
-		$this->settingsMenus('App', '/dlayer/settings/index', 
-		'/dlayer/settings/palettes');
-		
-		$setting = $model_settings->setting(
-		$this->getRequest()->getRequestUri());
-		
-		if($setting == FALSE) {
-			$this->_redirect('/dlayer/index/home');
-		}
-		
-		$this->view->setting = $setting;
-		$this->view->site = $model_sites->site(
-		$this->session_dlayer->siteId());
+		$this->navBar('/dlayer/settings/index');
+				
+		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 		
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Colour palettes');

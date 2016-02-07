@@ -2,6 +2,14 @@
 	max-width: 970px;
 }
 
+.settings-menu {
+	padding-top: 2em;
+	
+	a.active {
+		font-weight: 600;
+	}
+}
+
 .further-reading {
 	padding-top: 2em;
 }
