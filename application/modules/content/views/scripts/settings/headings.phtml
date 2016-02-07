@@ -57,56 +57,56 @@
 	});
 </script>
 
-
 <div class="row">
-	<div class="col-md-12 col-xs-12">
-		<h1>Content manager settings 
-			<small><?php echo $this->escape($this->setting['title']); ?></small></h1>
-
-		<h2>Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h2>
-
-		<nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url']); ?>
-	    </nav>
-	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
-	    
-	    <hr />
-	    
-	    <nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills'); ?>
-	    </nav>
-	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
-
-		<h3>Scope: <?php echo $this->escape($this->setting['scope']); ?> 
-			<small><?php echo $this->escape($this->setting['scope_details']); ?></small></h3>
-
-		<?php echo $this->setting['description']; ?>
-	</div>
-
-	<div class="col-md-12 col-xs-12">
-		<h3>Heading styles <small>Set styles for each heading type</small></h3>
-	</div>
-</div>
-
-<?php foreach($this->heading_forms as $id => $form) { ?>
-<div class="row heading-styles">
 	<div class="col-md-9 col-xs-12">
-		<div class="form" id="form_<?php echo $id; ?>">
-			<?php echo $form; ?>
+		<h1>Settings <small>Content manager <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
+		
+		<h2>Headings <small>Styles for the six heading tags</small></h2>
+		
+		<p>There are six heading tags in HTML, H1 through to H6, using the 
+			forms below you can style each of the headings.</p>
+		
+		<?php foreach($this->heading_forms as $id => $form) { ?>
+		<div class="row heading-styles">
+			<div class="col-md-8 col-xs-12">
+				<div class="form" id="form_<?php echo $id; ?>">
+					<?php echo $form; ?>
+				</div>
+			</div>
+			<div class="col-md-4  col-xs-12 bg-warning text-center" id="preview_<?php echo $id; ?>">
+				<h2 style="font-style: normal; font-weight: 700; text-decoration: none; font-size: 20px; color: #17365D;"><?php echo $this->heading_settings[$id]['name']; ?></h2>
+			</div>
 		</div>
+		<?php } ?>
+					
 	</div>
-	<div class="col-md-3  col-xs-12 bg-warning text-center" id="preview_<?php echo $id; ?>">
-		<h2 style="font-style: normal; font-weight: 700; text-decoration: none; font-size: 20px; color: #17365D;"><?php echo $this->heading_settings[$id]['name']; ?></h2>
+	<div class="col-md-3 col-xs-12">
+		<ul class="list-unstyled settings-menu">
+			<li><strong>Dlayer</strong>
+				<ul>
+					<li><a href="/dlayer/settings/index">Overview</a></li>
+					<li><a href="/dlayer/settings/palettes">Color palettes</a></li>
+				</ul>
+			</li>
+			<li><strong>Content manager</strong>
+				<ul>
+					<li><a href="/content/settings/index">Overview</a></li>
+					<li><a href="/content/settings/base-font-family">Base font family</a></li>
+					<li><a href="/content/settings/headings" class="active">Headings</a></li>
+				</ul>
+			</li>
+			<li><strong>Form builder</strong>
+				<ul>
+					<li><a href="/form/settings/index">Overview</a></li>
+					<li><a href="/form/settings/base-font-family">Base font family</a></li>
+				</ul>
+			</li>
+		</ul>	
 	</div>
 </div>
-<?php } ?>
+<div class="row">
+	<div class="col-md-12 col-xs-12 further-reading">
+		<!--Need to upload content for settings-->
+		<?php echo $this->furtherReading('/#settings', TRUE); ?>
+	</div>
+</div>

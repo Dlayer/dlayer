@@ -29,11 +29,10 @@ fieldset div.form-group label.required:after {
   font-weight: bold; }
 
 div.heading-styles {
-  border-bottom: 1px solid;
-  margin-top: 15px; }
+  padding-top: 2em;
+  border-top: 1px solid #e5e5e5; }
   div.heading-styles div.form-group {
-    margin-right: 15px;
-    margin-bottom: 15px; }
+    margin: 0 1em 1em 0; }
     div.heading-styles div.form-group input.font_sizes {
       width: 90px; }
     div.heading-styles div.form-group input.font_colors {

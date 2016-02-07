@@ -122,9 +122,7 @@ class Content_SettingsController extends Zend_Controller_Action
 		$this->view->heading_styles = $heading_styles;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->dlayerMenu('/content/settings/index');
-		$this->settingsMenus('Content', '/content/settings/index', 
-			'/content/settings/headings');
+		$this->navBar('/dlayer/settings/index');
 
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Heading styles');
