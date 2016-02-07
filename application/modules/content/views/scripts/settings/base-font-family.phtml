@@ -18,74 +18,76 @@
     });        
 </script>
 
+<?php /** @var Dlayer_View_Codehinting */ $this ?>
+
 <div class="row">
-	<div class="col-md-12 col-xs-12">
-		<h1>Content manager settings 
-		<small><?php echo $this->escape($this->setting['title']); ?></small></h1>
+	<div class="col-md-9 col-xs-12">
+		<h1>Settings <small>Content manager <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
 		
-		<h2>Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h2>
-		    
-	    <nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url']); ?>
-	    </nav>
-	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
-	    
-	    <hr />
-	    
-	    <nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills'); ?>
-	    </nav>
-	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
+		<h2>Base font family <small>Default font for all text</small></h2>
 		
-		<h3>Scope: <?php echo $this->escape($this->setting['scope']); ?> 
-	    <small><?php echo $this->escape($this->setting['scope_details']); ?></small></h3>
-	    
-	    <?php echo $this->setting['description']; ?>
-	</div>
-	
-	<div class="col-md-8 col-xs-12">
+		<p>Ideally the content on a web site will be consistently styled, 
+			select a base font family using the select menu below, the 
+			selected font will be used for all text within the Content manager 
+			unless overridden by other settings.</p>
+			
 		<?php echo $this->form; ?>
-	</div>
-	
-	<div class="col-md-12 col-xs-12">
-		<div id="preview">
-	        <h2>Font previews</h2>
-	        
-	        <p>The sentances below show what every letter of the alphabet looks 
-	        like in both upper and lower case for the selected font family.</p>
-	        
-	        <div class="font_preview">
-	        
-	        <p class="switch dev-note bg-warning">
-	        The quick brown fox jumps over the lazy dog. THE 
-	        QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The quick brown fox jumps 
-	        over the lazy dog. THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The 
-	        quick brown fox jumps over the lazy dog. THE QUICK BROWN FOX JUMPS 
-	        OVER THE LAZY DOG.</p>
-	        
-	        <p class="switch dev-note bg-warning">
-	        The five boxing wizards jump quickly. THE FIVE 
-	        BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump quickly. 
-	        THE FIVE BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump 
-	        quickly. THE FIVE BOXING WIZARDS JUMP QUICKLY.</p>
-	        
-	        <p class="switch dev-note bg-warning">
-	        Fix problem quickly with galvanized jets. FIX PROBLEM 
-	        QUICKLY WITH GALVANIZED JETS. Fix problem quickly with galvanized 
-	        jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS. Fix problem quickly 
-	        with galvanized jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS.</p>
-	        
+		
+		<h3>Font previews</h3>
+			
+			<p>The sentances below show what every letter of the alphabet 
+				looks like in both upper and lower case for the font family you 
+				have selected above.</p>
+				
+			<div class="font_preview">	        
+		        <p class="switch dev-note bg-warning">
+		        The quick brown fox jumps over the lazy dog. THE 
+		        QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The quick brown fox jumps 
+		        over the lazy dog. THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. The 
+		        quick brown fox jumps over the lazy dog. THE QUICK BROWN FOX JUMPS 
+		        OVER THE LAZY DOG.</p>
+		        
+		        <p class="switch dev-note bg-warning">
+		        The five boxing wizards jump quickly. THE FIVE 
+		        BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump quickly. 
+		        THE FIVE BOXING WIZARDS JUMP QUICKLY. The five boxing wizards jump 
+		        quickly. THE FIVE BOXING WIZARDS JUMP QUICKLY.</p>
+		        
+		        <p class="switch dev-note bg-warning">
+		        Fix problem quickly with galvanized jets. FIX PROBLEM 
+		        QUICKLY WITH GALVANIZED JETS. Fix problem quickly with galvanized 
+		        jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS. Fix problem quickly 
+		        with galvanized jets. FIX PROBLEM QUICKLY WITH GALVANIZED JETS.</p>	        
 	        </div>
-	    </div>
+
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<ul class="list-unstyled settings-menu">
+			<li><strong>Dlayer</strong>
+				<ul>
+					<li><a href="/dlayer/settings/index">Overview</a></li>
+					<li><a href="/dlayer/settings/palettes">Color palettes</a></li>
+				</ul>
+			</li>
+			<li><strong>Content manager</strong>
+				<ul>
+					<li><a href="/content/settings/index">Overview</a></li>
+					<li><a href="/content/settings/base-font-family" class="active">Base font family</a></li>
+					<li><a href="/content/settings/headings">Headings</a></li>
+				</ul>
+			</li>
+			<li><strong>Form builder</strong>
+				<ul>
+					<li><a href="/form/settings/index">Overview</a></li>
+					<li><a href="/form/settings/base-font-family">Base font family</a></li>
+				</ul>
+			</li>
+		</ul>	
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12 further-reading">
+		<!--Need to upload content for settings-->
+		<?php echo $this->furtherReading('/#settings', TRUE); ?>
 	</div>
 </div>

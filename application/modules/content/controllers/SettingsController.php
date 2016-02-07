@@ -54,9 +54,7 @@ class Content_SettingsController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 
-		$this->dlayerMenu('/content/settings/index');
-		$this->settingsMenus('Content', '/content/settings/index', 
-			'/content/settings/index');
+		$this->navBar('/dlayer/settings/index');
 
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
@@ -139,26 +137,15 @@ class Content_SettingsController extends Zend_Controller_Action
 	*/
 	public function baseFontFamilyAction()
 	{
-		$model_sites = new Dlayer_Model_Site();
-		$model_settings = new Dlayer_Model_Settings();
+		// Validate and save posted form 
 		$model_settings_content = new Dlayer_Model_Settings_Content();
-
-		$setting = $model_settings->setting(
-			$this->getRequest()->getRequestUri());
-
-		if($setting == FALSE) {
-			$this->_redirect('/dlayer/index/home');
-		}
-
+		
 		$base_font_family = $model_settings_content->baseFontFamily(
 			$this->session_dlayer->siteId());
-
-		$font_families = $model_settings->fontFamilies();
-
+		
 		$form = new Dlayer_Form_Settings_Content_BaseFont(
 			$base_font_family['id']);
-
-		// Validate and save the posted data
+		
 		if($this->getRequest()->isPost()) {
 
 			$post = $this->getRequest()->getPost();
@@ -169,17 +156,19 @@ class Content_SettingsController extends Zend_Controller_Action
 				$this->_redirect('/content/settings/base-font-family');
 			}
 		}
+		
+		// Display page
+		$model_sites = new Dlayer_Model_Site();
+		$model_settings = new Dlayer_Model_Settings();
 
-		// Assign content view vars
-		$this->view->setting = $setting;
+		$font_families = $model_settings->fontFamilies();
+
 		$this->view->form = $form;
 		$this->view->font_families = $font_families;
 		$this->view->base_font_family = $base_font_family;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->dlayerMenu('/content/settings/index');
-		$this->settingsMenus('Content', '/content/settings/index', 
-			'/content/settings/base-font-family');
+		$this->navBar('/dlayer/settings/index');
 
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Base font family - 
@@ -187,32 +176,25 @@ class Content_SettingsController extends Zend_Controller_Action
 	}
 
 	/**
-	* Generate the base menu bar for the application.
+	* Assign the content for the nav bar
 	* 
-	* @param string $url Selected url
-	* @return string Html
+	* @param string $active_uri Uri
+	* @return void Assigns values to the layout
 	*/
-	private function dlayerMenu($url) 
+	private function navBar($active_uri) 
 	{
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
-		'title'=>'Dlayer.com: Web development simplified'), 
-		array('url'=>'/content/settings/index', 'name'=>'Settings', 
-		'title'=>'Content manager settings'), 
-		array('url'=>'/dlayer/index/development-plan', 
-		'name'=>'Dev plan', 'title'=>'Current Dlayer development plan'), 
-		array('url'=>'/dlayer/index/development-log', 
-		'name'=>'Dev log', 'title'=>'Dlayer development log'), 
-		array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
-		'title'=>'Known bugs'), 
-		array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'),
-		array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Logout of site'));
+		$items = array(
+			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/dlayer/settings/index', 
+				'name'=>'Settings', 'title'=>'Settings'), 
+			array('uri'=>'/dlayer/index/logout', 
+				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of demo')		
+		);
 		
-		$this->layout->assign('nav', array('class'=>'top_nav', 
-		'items'=>$items, 'active_url'=>$url));
+		$this->layout->assign('nav', array(
+			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
 
 	/**
