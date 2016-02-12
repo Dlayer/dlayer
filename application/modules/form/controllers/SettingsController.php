@@ -17,7 +17,6 @@ class Form_SettingsController extends Zend_Controller_Action
 	protected $_helper;
 
 	private $session_dlayer;
-	private $session_form;
 
 	private $layout;
 
@@ -36,7 +35,6 @@ class Form_SettingsController extends Zend_Controller_Action
 		$this->_helper->validateSiteId();
 
 		$this->session_dlayer = new Dlayer_Session();
-		$this->session_form = new Dlayer_Session_Form();
 
 		// Include js and css files in layout
 		$this->layout = Zend_Layout::getMvcInstance();
@@ -53,44 +51,35 @@ class Form_SettingsController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$model_sites = new Dlayer_Model_Site();
-
-		$this->dlayerMenu('/form/settings/index');
-		$this->settingsMenus('Form', '/form/settings/index', 
-			'/form/settings/index');
-
+		
+		$this->navBar('/dlayer/settings/index');
+		
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-
+		
 		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Form builder settings');
+		$this->layout->assign('title', 'Dlayer.com - Settings');
 	}
 
 	/**
-	* Generate the base menu bar for the application.
+	* Assign the content for the nav bar
 	* 
-	* @param string $url Selected url
-	* @return string Html
+	* @param string $active_uri Uri
+	* @return void Assigns values to the layout
 	*/
-	private function dlayerMenu($url) 
+	private function navBar($active_uri) 
 	{
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
-		'title'=>'Dlayer.com: Web development simplified'), 
-		array('url'=>'/form/settings/index', 'name'=>'Settings', 
-		'title'=>'Form builder settings'), 
-		array('url'=>'/dlayer/index/development-plan', 
-		'name'=>'Dev plan', 'title'=>'Current Dlayer development plan'), 
-		array('url'=>'/dlayer/index/development-log', 
-		'name'=>'Dev log', 'title'=>'Dlayer development log'), 
-		array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
-		'title'=>'Known bugs'), 
-		array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'),
-		array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Logout of site'));
+		$items = array(
+			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/dlayer/settings/index', 
+				'name'=>'Settings', 'title'=>'Settings'), 
+			array('uri'=>'/dlayer/index/logout', 
+				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of demo')		
+		);
 		
-		$this->layout->assign('nav', array('class'=>'top_nav', 
-		'items'=>$items, 'active_url'=>$url));
+		$this->layout->assign('nav', array(
+			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
 
 	/**
