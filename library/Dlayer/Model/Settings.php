@@ -301,27 +301,6 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Setting details
-	*
-	* @param string $url
-	* @return array|FALSE
-	*/
-	public function setting($url)
-	{
-		$sql = "SELECT ds.`name`, ds.title, ds.description, dss.scope,
-				ds.scope_details
-				FROM dlayer_setting ds
-				JOIN dlayer_setting_scope dss ON ds.scope_id = dss.id
-				WHERE ds.url = :url
-				AND ds.enabled = 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':url', $url, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetch();
-	}
-
-	/**
 	* Set the initial values for the color history table, just use three
 	* colors from one tablet and two from another
 	*

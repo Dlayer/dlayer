@@ -17,7 +17,6 @@ class Content_SettingsController extends Zend_Controller_Action
 	protected $_helper;
 
 	private $session_dlayer;
-	private $session_content;
 
 	private $layout;
 
@@ -36,7 +35,6 @@ class Content_SettingsController extends Zend_Controller_Action
 		$this->_helper->validateSiteId();
 
 		$this->session_dlayer = new Dlayer_Session();
-		$this->session_content = new Dlayer_Session_Content();
 
 		// Include js and css files in layout
 		$this->layout = Zend_Layout::getMvcInstance();
@@ -69,26 +67,11 @@ class Content_SettingsController extends Zend_Controller_Action
 	*/
 	public function headingsAction()
 	{
-		$model_sites = new Dlayer_Model_Site();
-		$model_settings = new Dlayer_Model_Settings();
 		$model_settings_content = new Dlayer_Model_Settings_Content();
-
+		
 		$heading_settings = $model_settings_content->headings(
 			$this->session_dlayer->siteId());
-
-		$setting = $model_settings->setting(
-			$this->getRequest()->getRequestUri());
-
-		if($setting == FALSE) {
-			$this->_redirect('/dlayer/index/home');
-		}
-
-		$heading_styles = array();
-		$heading_styles['font_styles'] = $model_settings->fontStyles();
-		$heading_styles['font_weights'] = $model_settings->fontWeights();
-		$heading_styles['font_decorations'] = 
-		$model_settings->fontDecorations();
-
+		
 		// Create the heading setting forms
 		$heading_forms = array();
 
@@ -96,7 +79,7 @@ class Content_SettingsController extends Zend_Controller_Action
 			$heading_forms[$heading['id']] = 
 			new Dlayer_Form_Settings_Content_Heading($heading);            
 		}
-
+		
 		// Validate and save the posted data
 		if($this->getRequest()->isPost()) {
 
@@ -114,9 +97,17 @@ class Content_SettingsController extends Zend_Controller_Action
 				}
 			}
 		}
+		
+		$model_sites = new Dlayer_Model_Site();
+		$model_settings = new Dlayer_Model_Settings();		
+
+		$heading_styles = array(
+			'font_styles' => $model_settings->fontStyles(),
+			'font_weights' => $model_settings->fontWeights(),
+			'font_decorations' => $model_settings->fontDecorations()
+		);
 
 		// Assign content view vars
-		$this->view->setting = $setting;
 		$this->view->heading_settings = $heading_settings;
 		$this->view->heading_forms = $heading_forms;
 		$this->view->heading_styles = $heading_styles;

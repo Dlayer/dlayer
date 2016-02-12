@@ -1,15 +1,9 @@
+/* Base styles */
 .container-970 {
 	max-width: 970px;
 }
 
-.settings-menu {
-	padding-top: 2em;
-	
-	a.active {
-		font-weight: 600;
-	}
-}
-
+/* Content */
 .further-reading {
 	padding-top: 2em;
 }
@@ -22,6 +16,33 @@ p.dev-note {
 	padding: 15px;
 }
 
+/* Settings */
+.settings-menu {
+	padding-top: 2em;
+	
+	a.active {
+		font-weight: 600;
+	}
+}
+
+div.heading-styles {
+	padding-top: 2em;
+	border-top: 1px solid #e5e5e5;
+
+	div.form-group {
+		margin: 0 1em 1em 0;
+
+		input.font_sizes {
+			width: 90px;
+		}
+
+		input.font_colors {
+			width: 50px;
+		}
+	}
+}
+
+/* Forms */
 ul.alert-danger {
 	list-style-type: none;
 	margin: 0;
@@ -44,23 +65,6 @@ fieldset {
 			display:inline;
 			color: #d9534f;
 			font-weight: bold;
-		}
-	}
-}
-
-div.heading-styles {
-	padding-top: 2em;
-	border-top: 1px solid #e5e5e5;
-
-	div.form-group {
-		margin: 0 1em 1em 0;
-
-		input.font_sizes {
-			width: 90px;
-		}
-
-		input.font_colors {
-			width: 50px;
 		}
 	}
 }
