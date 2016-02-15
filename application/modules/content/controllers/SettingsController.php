@@ -185,26 +185,4 @@ class Content_SettingsController extends Zend_Controller_Action
 		$this->layout->assign('nav', array(
 			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
-
-	/**
-	* Generate the setting and section menus for settings
-	*
-	* @param string $group Settings group to fetch settings for
-	* @param string $group_url Active setting group url
-	* @param string $setting_url Active setting url
-	* @return string Html
-	*/
-	private function settingsMenus($group, $group_url='', $setting_url='')
-	{
-		$model_settings = new Dlayer_Model_Settings();
-		$setting_groups = $model_settings->settingGroups();
-
-		$settings = $model_settings->settings($group);
-
-		$this->view->setting_groups = array('class'=>'setting_groups', 
-			'items'=>$setting_groups, 'active_url'=>$group_url);
-
-		$this->view->settings = array('class'=>'settings', 
-			'items'=>$settings, 'active_url'=>$setting_url);
-	}
 }

@@ -2975,6 +2975,8 @@ var dlayer = {
 				/**
 				* Update the font family for the preview paragraphs
 				*
+				* @todo No need for this to be duplicated, same as content 
+				* manager code
 				* @param {Integer} Font family id
 				* @returns {Void}
 				*/

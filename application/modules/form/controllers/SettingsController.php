@@ -88,73 +88,42 @@ class Form_SettingsController extends Zend_Controller_Action
 	* @return void
 	*/
 	public function baseFontFamilyAction()
-	{
-		$model_sites = new Dlayer_Model_Site();
-		$model_settings = new Dlayer_Model_Settings();
+	{		
+		// Validate and save posted form 
 		$model_settings_form = new Dlayer_Model_Settings_Form();
-
-		$setting = $model_settings->setting(
-			$this->getRequest()->getRequestUri());
-
-		if($setting == FALSE) {
-			$this->_redirect('/dlayer/index/home');
-		}
-
+		
 		$base_font_family = $model_settings_form->baseFontFamily(
 			$this->session_dlayer->siteId());
-
-		$font_families = $model_settings->fontFamilies();
-
-		$form = new Dlayer_Form_Settings_Form_BaseFont(
-			$base_font_family['id']);
-
-		// Validate and save the posted data
-		if($this->getRequest()->isPost()) {
-
+		
+		$form = new Dlayer_Form_Settings_Form_BaseFont($base_font_family['id']);
+		
+		if($this->getRequest()->isPost()) 
+		{
 			$post = $this->getRequest()->getPost();
 
-			if($form->isValid($post)) {
+			if($form->isValid($post)) 
+			{
 				$model_settings_form->updateFontFamily(
 					$this->session_dlayer->siteId(), $post['font_family']);
 				$this->_redirect('/form/settings/base-font-family');
 			}
 		}
+		
+		// Display page
+		$model_sites = new Dlayer_Model_Site();
+		$model_settings = new Dlayer_Model_Settings();
 
-		// Assign content view vars
-		$this->view->setting = $setting;
+		$font_families = $model_settings->fontFamilies();
+
 		$this->view->form = $form;
 		$this->view->font_families = $font_families;
 		$this->view->base_font_family = $base_font_family;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->dlayerMenu('/form/settings/index');
-		$this->settingsMenus('Form', '/form/settings/index', 
-			'/form/settings/base-font-family');
+		$this->navBar('/dlayer/settings/index');
 
 		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Base font family -
-		form builder');
-	}
-
-	/**
-	* Generate the setting and section menus for settings
-	*
-	* @param string $group Settings group to fetch settings for
-	* @param string $group_url Active setting group url
-	* @param string $setting_url Active setting url
-	* @return string Html
-	*/
-	private function settingsMenus($group, $group_url='', $setting_url='')
-	{
-		$model_settings = new Dlayer_Model_Settings();
-		$setting_groups = $model_settings->settingGroups();
-
-		$settings = $model_settings->settings($group);
-
-		$this->view->setting_groups = array('class'=>'setting_groups', 
-			'items'=>$setting_groups, 'active_url'=>$group_url);
-
-		$this->view->settings = array('class'=>'settings', 
-			'items'=>$settings, 'active_url'=>$setting_url);
+		$this->layout->assign('title', 'Dlayer.com - Base font family - 
+		Form builder');
 	}
 }
