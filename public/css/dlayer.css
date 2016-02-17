@@ -3,8 +3,11 @@
   max-width: 970px; }
 
 /* Content */
+ul.listing li {
+  padding: 0.2em 0; }
+
 .further-reading {
-  padding-top: 2em; }
+  padding-top: 1em; }
 
 .footer {
   padding-top: 2em; }

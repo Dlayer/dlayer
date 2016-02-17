@@ -30,24 +30,26 @@
 		
 		<h3>Demo sites <small>Play at will, reset periodically</small></h3>
 
+		<ul class="listing">
 		<?php foreach($this->sites as $site) { ?>
 			<?php if($site['id'] == $this->site_id) { ?>
-				<p>
+				<li>
 					<button type="button" class="btn btn-default btn-xs"><?php echo $this->escape($site['name']); ?></button>  
 					<?php if($site['name'] != 'Sample site 1') { ?>
 						<a href="/dlayer/index/edit-site" class="btn btn-default btn-xs">Edit</a> 
 					<?php } ?>
 					<a href="#" class="btn btn-default btn-xs disabled">Copy</a> 
 					<span class="label label-success">Selected</span>
-				</p>
+				</li>
 				<?php } else { ?>
-				<p>
+				<li>
 					<a href="/dlayer/index/activate/site/<?php echo $this->escape($site['id']); ?>" class="btn btn-default btn-xs">
 					<?php echo $this->escape($site['name']); ?></a>
-				</p>
+				</li>
 				<?php } ?>
 			<?php } ?>
-		<p><a href="/dlayer/index/new-site" class="btn btn-primary btn">New web site</a></p>
+			<li><a href="/dlayer/index/new-site" class="btn btn-primary btn-xs">New web site</a></li>
+		</ul>
 	</div>
 </div>
 <div class="row">
