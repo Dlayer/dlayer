@@ -34,6 +34,7 @@ div.heading-styles {
 /* Forms */
 ul.alert-danger {
   list-style-type: none;
+  padding: 0.5em;
   margin: 0; }
 
 fieldset legend small {

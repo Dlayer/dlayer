@@ -2,27 +2,27 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Content management <small>Create a new content page</small></h1>
+		<h1>Content manager <small>Content management <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
 
-		<p>Use the form below to add a new content page to your web site. 
-			Once you have added the new page you can immediately start 
-			working on it in the Content manager.</p>
-			
-		<p class="dev-note bg-info">At the moment whilst Dlayer is in early 
-			development all that needs to be defined for a page is the name 
-			and the template to use, as the system evolves additional data 
-			will need to be defined.</p>
+		<p>Use the form below to create a new content page, you need to provide 
+			a unique name for your content page, select the template to base it 
+			upon and enter the title and description.</p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-6 col-xs-12">
-		<?php if($this->form != NULL) { ?>
-		<?php echo $this->form; ?>
-		<?php } else { ?>
-		<p class="dev-note bg-warning">To create a new content page you first 
-			need a template, you can create a template in the 
-			<a href="/template">Template designer</a>.</p>
+		<?php 
+		if($this->form != NULL) {
+			echo $this->form;
+		} else { 
+		?>
+		<p class="dev-note bg-warning">You can't create a content page until 
+			you have created a template to base it upon, please go to the 
+			<a href="/template">Template designer</a> to create a template.</p>
 		<?php } ?>
+	</div>
+	<div class="col-md-12 col-xs-12 further-reading">
+		<?php echo $this->furtherReading('/#content-manager', TRUE); ?>
 	</div>
 </div>
