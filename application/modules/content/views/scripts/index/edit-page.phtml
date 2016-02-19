@@ -2,20 +2,18 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Content management <small>Edit the selected content page</small></h1>
+		<h1>Content manager <small>Content management <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
 
-		<p>Edit the details for the selected content page using the form 
-			below.</p>
-			
-		<p class="dev-note bg-info">At the moment whilst Dlayer is in early 
-			development all that needs to be defined for a page is the name 
-			and the template to use, as the system evolves additional data 
-			will need to be defined.</p>
+		<p>Use the form below to edit the details for the selected 
+			content page.</p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-6 col-xs-12">
 		<?php echo $this->form; ?>
+	</div>
+	<div class="col-md-12 col-xs-12 further-reading">
+		<?php echo $this->furtherReading('/#content-manager', TRUE); ?>
 	</div>
 </div>

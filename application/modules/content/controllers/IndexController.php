@@ -206,6 +206,6 @@ class Content_IndexController extends Zend_Controller_Action
 
 		$this->view->form = $form;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->dlayerMenu('/content/index/index');
+		$this->navBar('/dlayer/index/home');
 	}
 }

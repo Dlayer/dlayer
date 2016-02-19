@@ -88,9 +88,9 @@ class Dlayer_Form_Site_EditPage extends Dlayer_Form_Module_App
 	protected function setUpFormElements() 
 	{
 		$name = new Zend_Form_Element_Text('name');
-		$name->setLabel('Name');
-		$name->setDescription('Enter the new name for your page, this will 
-		only display within Dlayer.');
+		$name->setLabel('Page name');
+		$name->setDescription('Enter the new name for this content page, 
+			this will only display within Dlayer, not anywehre on your site.');
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'class'=>'form-control'));
 		if(array_key_exists('name', $this->data['data']) == TRUE) {
@@ -100,9 +100,9 @@ class Dlayer_Form_Site_EditPage extends Dlayer_Form_Module_App
 		$this->elements['name'] = $name;
 
 		$title = new Zend_Form_Element_Text('title');
-		$title->setLabel('Title');
-		$title->setDescription('Enter the new title for your page, this will 
-		display in the menu bar of the user\'s web browser.');
+		$title->setLabel('Page title');
+		$title->setDescription("Enter the new title for this content page, this 
+			will be shown in the title bar of the user's web browser");
 		$title->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'class'=>'form-control'));
 		if(array_key_exists('title', $this->data['data']) == TRUE) {
@@ -112,10 +112,9 @@ class Dlayer_Form_Site_EditPage extends Dlayer_Form_Module_App
 		$this->elements['title'] = $title;
 
 		$description = new Zend_Form_Element_Textarea('description');
-		$description->setLabel('Description');
-		$description->setDescription('Enter a description for the page, 
-			currently the description is only shown within Dlayer, it will not 
-		be public.');
+		$description->setLabel('Page description');
+		$description->setDescription('Enter the new description, this will be 
+			used to populate the description meta tag.');
 		$description->setAttribs(array('cols'=>50, 'rows'=>4, 
 			'placeholder'=>'e.g., Displays the top five news items', 
 			'class'=>'form-control'));
