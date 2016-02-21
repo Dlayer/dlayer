@@ -57,7 +57,7 @@ class Dlayer_Form_Site_NewForm extends Dlayer_Form_Module_App
 	protected function setUpFormElements() 
 	{
 		$name = new Zend_Form_Element_Text('name');
-		$name->setLabel('Name');
+		$name->setLabel('Form name');
 		$name->setDescription('Enter a name for your new form, this name will 
 			only appear within Dlayer, specifically the management pages and 
 			the form picker.');
@@ -68,9 +68,9 @@ class Dlayer_Form_Site_NewForm extends Dlayer_Form_Module_App
 		$this->elements['name'] = $name;
 		
 		$title = new Zend_Form_Element_Text('title');
-		$title->setLabel('Title');
-		$title->setDescription('Enter a title for your new form, this can be 
-			changed later in the Form builder using the settings tools.');
+		$title->setLabel('Form title');
+		$title->setDescription('Enter a title for your new form, it is 
+			displayed just above the form.');
 		$title->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'placeholder'=>'e.g., Contact us', 'class'=>'form-control'));
 		$title->setRequired();

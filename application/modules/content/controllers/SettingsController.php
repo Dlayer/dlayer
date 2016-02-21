@@ -175,6 +175,8 @@ class Content_SettingsController extends Zend_Controller_Action
 		$items = array(
 			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
 				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/content/index/index', 
+				'name'=>'Content manager', 'title'=>'Content manager'), 
 			array('uri'=>'/dlayer/settings/index', 
 				'name'=>'Settings', 'title'=>'Settings'), 
 			array('uri'=>'/dlayer/index/logout', 

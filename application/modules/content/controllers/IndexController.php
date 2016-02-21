@@ -56,7 +56,7 @@ class Content_IndexController extends Zend_Controller_Action
 		$model_sites = new Dlayer_Model_Site();
 		$model_pages = new Dlayer_Model_Page();
 
-		$this->navBar('/dlayer/index/home');
+		$this->navBar('/content/index/index');
 		
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 		$this->view->pages = $model_pages->pages(
@@ -78,6 +78,8 @@ class Content_IndexController extends Zend_Controller_Action
 		$items = array(
 			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
 				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/content/index/index', 
+				'name'=>'Content manager', 'title'=>'Content manager'), 
 			array('uri'=>'/dlayer/settings/index', 
 				'name'=>'Settings', 'title'=>'Settings'), 
 			array('uri'=>'/dlayer/index/logout', 
@@ -172,7 +174,7 @@ class Content_IndexController extends Zend_Controller_Action
 		}
 
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->navBar('/dlayer/index/home');
+		$this->navBar('/content/index/index');
 	}
 
 	/**
@@ -206,6 +208,6 @@ class Content_IndexController extends Zend_Controller_Action
 
 		$this->view->form = $form;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->navBar('/dlayer/index/home');
+		$this->navBar('/content/index/index');
 	}
 }

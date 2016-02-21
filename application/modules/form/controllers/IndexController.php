@@ -58,7 +58,7 @@ class Form_IndexController extends Zend_Controller_Action
 		$model_forms = new Dlayer_Model_Form();
 		$model_sites = new Dlayer_Model_Site();
 
-		$this->navBar('/dlayer/index/home');
+		$this->navBar('/form/index/index');
 		$this->view->forms = $model_forms->forms(
 			$this->session_dlayer->siteId());
 		$this->view->form_id = $this->session_form->formId();
@@ -79,6 +79,8 @@ class Form_IndexController extends Zend_Controller_Action
 		$items = array(
 			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
 				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/form/index/index', 
+				'name'=>'Form builder', 'title'=>'Form builder'), 
 			array('uri'=>'/dlayer/settings/index', 
 				'name'=>'Settings', 'title'=>'Settings'), 
 			array('uri'=>'/dlayer/index/logout', 
@@ -164,7 +166,7 @@ class Form_IndexController extends Zend_Controller_Action
 
 		$this->view->form = $form;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->dlayerMenu('/form/index/index');
+		$this->navBar('/form/index/index');
 	}
 
 	/**
@@ -198,6 +200,6 @@ class Form_IndexController extends Zend_Controller_Action
 
 		$this->view->form = $form;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->dlayerMenu('/form/index/index');
+		$this->navBar('/form/index/index');
 	}
 }

@@ -71,6 +71,8 @@ class Form_SettingsController extends Zend_Controller_Action
 		$items = array(
 			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
 				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/form/index/index', 
+				'name'=>'Form builder', 'title'=>'Form builder'), 
 			array('uri'=>'/dlayer/settings/index', 
 				'name'=>'Settings', 'title'=>'Settings'), 
 			array('uri'=>'/dlayer/index/logout', 
