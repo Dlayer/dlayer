@@ -179,6 +179,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 				'title'=>'Dlayer.com: Web development simplified');
 			$items[] = array('uri'=>'/dlayer/settings/index', 
 				'name'=>'Settings', 'title'=>'Settings');
+			$items[] = array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 
+				'title'=>'Read the Docs for Dlayer');
 			$items[] = array('uri'=>'/dlayer/index/logout', 
 				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
 				$session_dlayer->identity() . ')', 'title'=>'Sign out of demo');
@@ -188,6 +191,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 			$items[] = array('uri'=>'/dlayer/index/index', 
 				'name'=>'Dlayer Demo', 
 				'title'=>'Dlayer.com: Web development simplified');
+			$items[] = array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 
+				'title'=>'Read the Docs for Dlayer');
 		}
 		
 		$this->layout->assign('nav', array(
