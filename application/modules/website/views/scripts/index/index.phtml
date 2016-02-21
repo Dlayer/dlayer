@@ -1,34 +1,24 @@
-<?php /** @var Dlayer_View_Codehinting */ $this ?>
+<?php /** @var Dlayer_View_Codehinting */ $this; ?>
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Web site manager 
-			<small>Content page relationship and management</small></h1>
-
-		<h3>Welcome to the Web site manager</h3>
-
-		<p>Within the Web site manager you define the relationships between 
-			all your content pages to create the structure of your web 
-			site.</p>
+		<h1>Web site manager <small>Web site management <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
 		
-		<p>When a new content page is created it will initially be placed in 
-			the unassigned pages bucket, from there you can assign its parent 
-			and control its relationship with its siblings.</p>
+		<h2>Overview</h2>
 		
-		<p class="dev-note bg-info">The Web site manager is currently only a 
-			preview, I'm still trying to work on something approaching the 
-			final design. I need to develop the Template designer, Content 
-			manager, Form builder and Widget designer further before 
-			developing the Web site manager. This preview is here to give 
-			you an idea of how the Web site manager could look and work.</p>
-			
-		<h2>Actions <small>Web site manager actions</small></h2>
+		<p>The web site manager allows you to define the relationship between 
+			all your content pages, this creates the structure of you web 
+			site</p>
 		
 		<p>
 			<a href="/website/design/index/" class="btn btn-primary">
-				Go to content page management</a>
+				Go to web site manager</a>
 		</p>
-		
-		<?php echo $this->furtherReading('the-designers/web-site-manager/'); ?>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12 col-xs-12 further-reading">
+		<?php echo $this->furtherReading('/#web-site-manager', TRUE); ?>
 	</div>
 </div>
