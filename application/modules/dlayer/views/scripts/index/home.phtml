@@ -34,7 +34,7 @@
 		<?php foreach($this->sites as $site) { ?>
 			<?php if($site['id'] == $this->site_id) { ?>
 				<li>
-					<button type="button" class="btn btn-default btn-xs"><?php echo $this->escape($site['name']); ?></button>  
+					<button type="button" class="btn btn-info btn-xs"><?php echo $this->escape($site['name']); ?></button>  
 					<?php if($site['name'] != 'Sample site 1') { ?>
 						<a href="/dlayer/index/edit-site" class="btn btn-default btn-xs">Edit</a> 
 					<?php } ?>
