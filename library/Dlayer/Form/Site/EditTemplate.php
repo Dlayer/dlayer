@@ -79,9 +79,9 @@ class Dlayer_Form_Site_EditTemplate extends Dlayer_Form_Module_App
     protected function setUpFormElements() 
     {
     	$name = new Zend_Form_Element_Text('name');
-    	$name->setLabel('Name');
+    	$name->setLabel('Template name');
     	$name->setDescription('Enter the new name for your template, this will 
-    	only display within Dlayer.');
+    		only display within Dlayer, not anywhere on your site.');
         $name->setAttribs(array('size'=>50, 'maxlength'=>255, 
         	'class'=>'form-control'));
         if(array_key_exists('name', $this->data) == TRUE) {
