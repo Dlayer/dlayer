@@ -83,6 +83,8 @@ class Form_IndexController extends Zend_Controller_Action
 				'name'=>'Form builder', 'title'=>'Form builder'), 
 			array('uri'=>'/form/settings/index', 
 				'name'=>'Settings', 'title'=>'Settings'), 
+			array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
 			array('uri'=>'/dlayer/index/logout', 
 				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
 				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of demo')		
