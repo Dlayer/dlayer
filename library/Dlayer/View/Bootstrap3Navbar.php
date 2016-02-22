@@ -20,6 +20,7 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 
 	private $navbar_id = NULL;
 	private $navbar_class;
+	private $container_class;
 
 	private $brand;
 	private $navbar_items;
@@ -71,6 +72,7 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 		$this->active_uri = '';
 
 		$this->navbar_class = 'navbar-default';
+		$this->container_class = 'container';
 	}
 
 	/**
@@ -152,7 +154,7 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 	private function render()
 	{
 		$html = '<nav class="navbar ' . $this->navbar_class . 
-			'" role="navigation"><div class="container">';
+			'" role="navigation"><div class="' . $this->container_class . '">';
 
 		$html .= $this->brandAndToggle();
 		$html .= $this->navbarItems();
@@ -171,6 +173,19 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 	{
 		$this->navbar_class = 'navbar-inverse';
 
+		return $this;
+	}
+	
+	/**
+	* Override the container class for the container div
+	* 
+	* @param string $container_class Defaults to container
+	* @return Dlayer_View_Bootstrap3Navbar
+	*/
+	public function containerClass($container_class) 
+	{
+		$this->container_class = $container_class;
+		
 		return $this;
 	}
 
