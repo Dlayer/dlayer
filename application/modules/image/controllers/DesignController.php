@@ -44,9 +44,12 @@ class Image_DesignController extends Zend_Controller_Action
 		// Include js and css files in layout
 		$this->layout = Zend_Layout::getMvcInstance();
 		$this->layout->assign('js_include', array('scripts/dlayer.js'));
-		$this->layout->assign('css_include', array('styles/designer.css',
-			'styles/designer/image.css', 'styles/ribbon.css', 
-			'styles/ribbon/image.css'));
+		$this->layout->assign('css_include', 
+			array(
+				'css/dlayer.css', 
+				'css/designer-970.css',
+			)
+		);
 
 		// Set category and sub category values if currently NULL
 		$category_id = $this->session_image->imageId(
@@ -108,9 +111,7 @@ class Image_DesignController extends Zend_Controller_Action
 		$this->view->filter_form = $this->designer_image_library->filterForm();
 
 		$this->view->image_id = $this->session_image->imageId();
-		
-		$this->layout->assign('css_include', 
-			array('css/dlayer.css', 'css/designers.css'));
+				
 		$this->layout->assign('title', 'Dlayer.com - Image library');
 	}
 	

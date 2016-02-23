@@ -1,0 +1,36 @@
+div#designer {
+	max-width: 970px;
+	
+	.well {
+		margin-bottom: 0px;
+	}
+
+	#design {
+		max-width: 970px;
+		margin-bottom: 15px;
+
+		&> div.library {
+			min-height: 200px;
+
+			ul.pager {
+				margin: 0;
+				text-align: right;
+			}
+		}
+	}
+	
+	.tools {
+		margin-bottom: 15px;
+	}
+	
+	legend {
+		padding: 5px 0px;
+		margin-bottom: 15px;
+	}
+	
+	.col-sm-12 {
+		.form-group {
+			padding: 5px;
+		}
+	}
+}

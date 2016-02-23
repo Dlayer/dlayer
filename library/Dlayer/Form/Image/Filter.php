@@ -51,7 +51,7 @@ class Dlayer_Form_Image_Filter extends Dlayer_Form
 
 		$this->addElements($this->elements);
 		$this->addElementsToForm('filter', 
-			'Filter <small>Filter the Image library</small>',
+			'Filter <small>Filter the Image library by category and sub category</small>',
 			$this->elements);
 
 		$this->validationRules();
@@ -114,7 +114,7 @@ class Dlayer_Form_Image_Filter extends Dlayer_Form
 	{
 		$this->setDecorators(array(
 			'FormElements', 
-			array('Form', array('class'=>'form'))));
+			array('Form', array('class'=>'form-inline'))));
 
 		$this->setElementDecorators(array(
 			array('ViewHelper'), 

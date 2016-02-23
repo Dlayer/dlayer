@@ -41,28 +41,12 @@
 		</script>
 	</head>
 	<body>
-		<?php echo $this->bootstrapNavbarPreview('<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" />',
-			$this->layout()->nav['items'],
-			$this->layout()->nav['active_url'],
-			$this->layout()->preview_url)->inverted(); ?>
-
-		<div class="container container-fixed">
+		<?php echo $this->bootstrap3Navbar(
+			'<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" />',
+			$this->layout()->nav['items'], 
+			$this->layout()->nav['active_uri'])->inverted()->containerClass('container-1170'); ?>
+		<div class="container container-1170">
 			<?php echo $this->layout()->content; ?>
-		</div>
-		<div class="container-fluid footer">
-			<div class="row">
-				<div class="col-md-12 col-xs-12 text-center small">
-					<p><?php echo VERSION_NO . ' (Released ' . VERSION_DATE . ') '; ?>
-						Dlayer originaly developed by
-						<a href="http://www.g3d-development.com/blog/">G3D
-						Development Limited</a> /
-						<a href="http://www.deanblackborough.com">Dean
-						Blackborough</a></p>
-					<p>Dlayer Copyright © G3D Development 2015</p>
-					<p>Maintained by <a href="http://www.deanblackborough.com/">Dean Blackborough</a></p>
-					<p>Code <a href="https://github.com/Dlayer/dlayer/blob/master/LICENSE">licensed</a> under MIT</p>
-				</div>
-			</div>
 		</div>
 	</body>
 </html>

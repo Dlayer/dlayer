@@ -183,6 +183,10 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
 	/**
 	* Add any custom decorators, these are inputs where we need a little more
 	* control over the html, an example being the submit button
+	* 
+	* 
+	* Need to switch forms to form-horizontal
+	* 
 	*
 	* @return void
 	*/
@@ -195,6 +199,9 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
 				array('Errors', array('class'=> 'alert alert-danger')), 
 				array('Label'), 
 				array('HtmlTag', array('tag'=>'div', 'class'=>'form-group'))));
+				
+		$this->elements['tool']->setDecorators(array(array('ViewHelper')));
+		$this->elements['multi_use']->setDecorators(array(array('ViewHelper')));
 
 		parent::addCustomElementDecorators();
 	}
