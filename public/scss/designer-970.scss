@@ -7,7 +7,7 @@ div#designer {
 
 	#design {
 		max-width: 970px;
-		margin-bottom: 15px;
+		margin-bottom: 1em;
 
 		&> div.library {
 			min-height: 200px;
@@ -20,17 +20,19 @@ div#designer {
 	}
 	
 	.tools {
-		margin-bottom: 15px;
+		margin-bottom: 1em;
+	
+		.row {
+			margin-bottom: 0.5em;
+			
+			&:last-child {
+				margin-bottom: 0px;
+			}
+		}		
 	}
 	
 	legend {
-		padding: 5px 0px;
-		margin-bottom: 15px;
-	}
-	
-	.col-sm-12 {
-		.form-group {
-			padding: 5px;
-		}
+		padding: 0.3em 0px;
+		margin-bottom: 0.3em;
 	}
 }

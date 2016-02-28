@@ -4,18 +4,20 @@ div#designer {
     margin-bottom: 0px; }
   div#designer #design {
     max-width: 970px;
-    margin-bottom: 15px; }
+    margin-bottom: 1em; }
     div#designer #design > div.library {
       min-height: 200px; }
       div#designer #design > div.library ul.pager {
         margin: 0;
         text-align: right; }
   div#designer .tools {
-    margin-bottom: 15px; }
+    margin-bottom: 1em; }
+    div#designer .tools .row {
+      margin-bottom: 0.5em; }
+      div#designer .tools .row:last-child {
+        margin-bottom: 0px; }
   div#designer legend {
-    padding: 5px 0px;
-    margin-bottom: 15px; }
-  div#designer .col-sm-12 .form-group {
-    padding: 5px; }
+    padding: 0.3em 0px;
+    margin-bottom: 0.3em; }
 
 /*# sourceMappingURL=designer-970.css.map */

@@ -50,7 +50,7 @@ abstract class Dlayer_Form_Module_Image extends Dlayer_Form
 	{
 		$this->setDecorators(array(
         	'FormElements', 
-        	array('Form', array('class'=>'form-inline'))));
+        	array('Form', array('class'=>'form'))));
     	
         $this->setElementDecorators(array(
         	array('ViewHelper'), 
