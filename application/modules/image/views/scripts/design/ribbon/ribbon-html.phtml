@@ -10,8 +10,8 @@ $(document).ready(function()
 </script>
 
 <div class="row">
-	<div class="col-sm-12 col-xs-12">
-		<ul class="nav nav-tabs small">
+	<div class="col-xs-12">
+		<ul class="nav nav-tabs">
 			<?php foreach($this->tabs as $tab) { ?>
 			<?php if($tab['tab'] == $this->tab) { $class = 'active'; } else { $class = NULL; } ?>
 			<li id="tab_<?php echo $this->escape($tab['tab']); ?>" 

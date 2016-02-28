@@ -35,4 +35,22 @@ div#designer {
 		padding: 0.3em 0px;
 		margin-bottom: 0.3em;
 	}
+	
+	.ribbon {
+		ul.nav-tabs {
+			margin-bottom: 0.5em;
+		}
+
+		div.content {
+			display: none;
+
+			p.unsaved {
+				display: none;
+			}
+		}
+
+		div.open {
+			display: block;
+		}
+	}
 }

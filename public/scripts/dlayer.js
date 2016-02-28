@@ -483,33 +483,35 @@ var dlayer = {
 			* @returns {Void}
 			*/
 			clicks: function(module, tool) {
-				$('#ribbon .nav-tabs > li').click(
+				$('.ribbon .nav-tabs > li').click(
 					function() {
 						/* Only switch if the tab is not already selected */
 						if($(this).hasClass('selected') == false) {			                
 							if(dlayer.preview.changed == true) {
-							   $('#ribbon .nav-tabs > li').removeClass('active');
+							   $('.ribbon .nav-tabs > li').removeClass('active');
 							   $(this).addClass('active');
 
 							   var tab = this.id.replace('tab_', '');
 
-							   $('#ribbon > .content').removeClass('open');
+							   $('.ribbon > .content').removeClass('open');
 							   $('#tab_content_' + tab).addClass('open');
 							   
 							   dlayer.ribbon.tabs.content(tab, tool, 
 							   module, true);
 							} else {
-							   $('#ribbon .nav-tabs > li').removeClass('active');
+							   $('.ribbon .nav-tabs > li').removeClass('active');
 							   $(this).addClass('active');
 							   
 							   var tab = this.id.replace('tab_', '');
 							   
-							   $('#ribbon > .content').removeClass('open');
+							   $('.ribbon > .content').removeClass('open');
 							   $('#tab_content_' + tab).addClass('open');
 							
 							   dlayer.ribbon.tabs.content(tab, tool, module);
 							}
 						}
+						
+						return false;
 					}
 				);
 			},
