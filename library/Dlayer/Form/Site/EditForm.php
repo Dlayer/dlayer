@@ -79,10 +79,10 @@ class Dlayer_Form_Site_EditForm extends Dlayer_Form_Module_App
 	protected function setUpFormElements() 
 	{
 		$name = new Zend_Form_Element_Text('name');
-		$name->setLabel('Name');
-		$name->setDescription('Enter a name for your new form, this name will 
-			only appear within Dlayer, specifically the management pages and 
-			the form picker.');
+		$name->setLabel('Form name');
+		$name->setDescription('Enter the new name for this form, this will only 
+			appear within Dlayer, specifically the management pages and the 
+			form picker.');
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'class'=>'form-control'));
 		$name->setRequired();

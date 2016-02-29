@@ -13,9 +13,10 @@
 					<?php } ?>
 			</h2>
 		</div>
-
+	</div>
+    <div class="row">
 		<?php if(count($this->images) > 0) { ?>
-			<div class="col-md-6">
+			<div class="col-md-6 col-xs-12">
 				<div class="btn-toolbar">
 					<div class="btn-group">
 						<?php if($this->sort != 'name') { ?>
@@ -48,10 +49,10 @@
 					</div>
 				</div>
 			</div>
-		<?php } ?>
+		<?php } ?>	
 
 		<?php if($this->images_count > Dlayer_Config::IMAGE_LIBRARY_THUMB_PER_PAGE) { ?>
-			<div class="col-md-6 small">
+			<div class="col-md-6 col-xs-12 small">
 			<?php echo $this->bootstrapPagination($this->per_page, $this->start, 
 				$this->images_count, '/image/design/index', 1, 'Previous', 'Next', 
 				'Image', 'Images'); ?>
@@ -61,40 +62,37 @@
 
 	<?php if(count($this->images) > 0) { ?>
 		<?php foreach($this->images as $row) { ?>
-			<div class="row" style="padding-top:15px;">
+			<div class="row" style="padding-top:1.5em;">
 				<?php foreach($row as $image) { ?>
-					<div id="image_<?php echo $this->escape($image['image_id']); ?>" 
-						class="col-md-2">
+					<div class="col-md-2 col-sm-4 col-xs-12" style="margin-bottom:0.5em;" id="image_<?php echo $this->escape($image['image_id']); ?>">
 						<div class="row">
-							<div class="col-md-12">
-							<a href="/image/design/set-selected-image/image/<?php echo $this->escape(
-									$image['image_id']); ?>/version/<?php echo $this->escape(
-									$image['version_id']); ?>">
-								<img src="/images/library/<?php echo $this->escape(
-										$image['image_id']); ?>/<?php echo $this->escape(
-										$image['version_id']); ?><?php echo $this->escape(
-										$image['extension']); ?>" title="<?php echo $this->escape(
-										$image['name']); ?>" alt="Image library image" 
-									width="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_WIDTH; ?>" 
-									height="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_HEIGHT; ?>" 
-									class="img-thumbnail" /></a>
+							<div class="col-xs-12" style="margin-bottom:0.5em;">
+								<a href="/image/design/set-selected-image/image/<?php echo $this->escape(
+										$image['image_id']); ?>/version/<?php echo $this->escape(
+										$image['version_id']); ?>">
+									<img src="/images/library/<?php echo $this->escape(
+											$image['image_id']); ?>/<?php echo $this->escape(
+											$image['version_id']); ?><?php echo $this->escape(
+											$image['extension']); ?>" title="<?php echo $this->escape(
+											$image['name']); ?>" alt="Image library image" 
+										width="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_WIDTH; ?>" 
+										height="<?php echo Dlayer_Config::IMAGE_LIBRARY_THUMB_HEIGHT; ?>" 
+										class="img-thumbnail img-responsive" /></a>
 							</div>
-						</div>
-						<div class="row" style="padding: 5px 0px;">
-							<div class="col-md-12">
+							<div class="col-xs-12" style="margin-bottom:0.5em;">
 								<a title="Select image and go to detail view" 
 									href="/image/design/set-selected-image/image/<?php echo $this->escape(
 										$image['image_id']); ?>/version/<?php echo $this->escape(
 										$image['version_id']); ?>" class="btn btn-primary btn-xs">
 									<?php echo $this->escape(
 									$image['name']); ?> <span title="Number of versions" class="badge"><?php echo $this->escape(
-									$image['versions']); ?></span></a> </div>
-						</div>
-						<div class="row small">
-							<div class="col-md-5 small" title="Size"><?php echo $this->escape(
+									$image['versions']); ?></span></a>
+							</div>
+							<div class="col-xs-12 small" title="Size">Size: <?php echo $this->escape(
 								$image['size']); ?></div>
-							<div class="col-md-7 small" title="Date uploaded to library"><?php echo $this->escape(
+							<div class="col-xs-12 small" title="Date uploaded to library">Uploaded: <?php echo $this->escape(
 								$image['uploaded']); ?></div>
+							<div class="clearfix visible-xs-block"></div>
 						</div>
 					</div>
 				<?php } ?>

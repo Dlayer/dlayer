@@ -17,7 +17,6 @@ class Content_SettingsController extends Zend_Controller_Action
 	protected $_helper;
 
 	private $session_dlayer;
-	private $session_content;
 
 	private $layout;
 
@@ -36,7 +35,6 @@ class Content_SettingsController extends Zend_Controller_Action
 		$this->_helper->validateSiteId();
 
 		$this->session_dlayer = new Dlayer_Session();
-		$this->session_content = new Dlayer_Session_Content();
 
 		// Include js and css files in layout
 		$this->layout = Zend_Layout::getMvcInstance();
@@ -54,9 +52,7 @@ class Content_SettingsController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 
-		$this->dlayerMenu('/content/settings/index');
-		$this->settingsMenus('Content', '/content/settings/index', 
-			'/content/settings/index');
+		$this->navBar('/dlayer/settings/index');
 
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
@@ -71,26 +67,11 @@ class Content_SettingsController extends Zend_Controller_Action
 	*/
 	public function headingsAction()
 	{
-		$model_sites = new Dlayer_Model_Site();
-		$model_settings = new Dlayer_Model_Settings();
 		$model_settings_content = new Dlayer_Model_Settings_Content();
-
+		
 		$heading_settings = $model_settings_content->headings(
 			$this->session_dlayer->siteId());
-
-		$setting = $model_settings->setting(
-			$this->getRequest()->getRequestUri());
-
-		if($setting == FALSE) {
-			$this->_redirect('/dlayer/index/home');
-		}
-
-		$heading_styles = array();
-		$heading_styles['font_styles'] = $model_settings->fontStyles();
-		$heading_styles['font_weights'] = $model_settings->fontWeights();
-		$heading_styles['font_decorations'] = 
-		$model_settings->fontDecorations();
-
+		
 		// Create the heading setting forms
 		$heading_forms = array();
 
@@ -98,7 +79,7 @@ class Content_SettingsController extends Zend_Controller_Action
 			$heading_forms[$heading['id']] = 
 			new Dlayer_Form_Settings_Content_Heading($heading);            
 		}
-
+		
 		// Validate and save the posted data
 		if($this->getRequest()->isPost()) {
 
@@ -116,17 +97,23 @@ class Content_SettingsController extends Zend_Controller_Action
 				}
 			}
 		}
+		
+		$model_sites = new Dlayer_Model_Site();
+		$model_settings = new Dlayer_Model_Settings();		
+
+		$heading_styles = array(
+			'font_styles' => $model_settings->fontStyles(),
+			'font_weights' => $model_settings->fontWeights(),
+			'font_decorations' => $model_settings->fontDecorations()
+		);
 
 		// Assign content view vars
-		$this->view->setting = $setting;
 		$this->view->heading_settings = $heading_settings;
 		$this->view->heading_forms = $heading_forms;
 		$this->view->heading_styles = $heading_styles;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->dlayerMenu('/content/settings/index');
-		$this->settingsMenus('Content', '/content/settings/index', 
-			'/content/settings/headings');
+		$this->navBar('/dlayer/settings/index');
 
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Heading styles');
@@ -139,26 +126,15 @@ class Content_SettingsController extends Zend_Controller_Action
 	*/
 	public function baseFontFamilyAction()
 	{
-		$model_sites = new Dlayer_Model_Site();
-		$model_settings = new Dlayer_Model_Settings();
+		// Validate and save posted form 
 		$model_settings_content = new Dlayer_Model_Settings_Content();
-
-		$setting = $model_settings->setting(
-			$this->getRequest()->getRequestUri());
-
-		if($setting == FALSE) {
-			$this->_redirect('/dlayer/index/home');
-		}
-
+		
 		$base_font_family = $model_settings_content->baseFontFamily(
 			$this->session_dlayer->siteId());
-
-		$font_families = $model_settings->fontFamilies();
-
+		
 		$form = new Dlayer_Form_Settings_Content_BaseFont(
 			$base_font_family['id']);
-
-		// Validate and save the posted data
+		
 		if($this->getRequest()->isPost()) {
 
 			$post = $this->getRequest()->getPost();
@@ -169,17 +145,19 @@ class Content_SettingsController extends Zend_Controller_Action
 				$this->_redirect('/content/settings/base-font-family');
 			}
 		}
+		
+		// Display page
+		$model_sites = new Dlayer_Model_Site();
+		$model_settings = new Dlayer_Model_Settings();
 
-		// Assign content view vars
-		$this->view->setting = $setting;
+		$font_families = $model_settings->fontFamilies();
+
 		$this->view->form = $form;
 		$this->view->font_families = $font_families;
 		$this->view->base_font_family = $base_font_family;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->dlayerMenu('/content/settings/index');
-		$this->settingsMenus('Content', '/content/settings/index', 
-			'/content/settings/base-font-family');
+		$this->navBar('/dlayer/settings/index');
 
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Base font family - 
@@ -187,53 +165,28 @@ class Content_SettingsController extends Zend_Controller_Action
 	}
 
 	/**
-	* Generate the base menu bar for the application.
+	* Assign the content for the nav bar
 	* 
-	* @param string $url Selected url
-	* @return string Html
+	* @param string $active_uri Uri
+	* @return void Assigns values to the layout
 	*/
-	private function dlayerMenu($url) 
+	private function navBar($active_uri) 
 	{
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
-		'title'=>'Dlayer.com: Web development simplified'), 
-		array('url'=>'/content/settings/index', 'name'=>'Settings', 
-		'title'=>'Content manager settings'), 
-		array('url'=>'/dlayer/index/development-plan', 
-		'name'=>'Dev plan', 'title'=>'Current Dlayer development plan'), 
-		array('url'=>'/dlayer/index/development-log', 
-		'name'=>'Dev log', 'title'=>'Dlayer development log'), 
-		array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
-		'title'=>'Known bugs'), 
-		array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'),
-		array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Logout of site'));
+		$items = array(
+			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/content/index/index', 
+				'name'=>'Content manager', 'title'=>'Content manager'), 
+			array('uri'=>'/dlayer/settings/index', 
+				'name'=>'Settings', 'title'=>'Settings'), 
+			array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+			array('uri'=>'/dlayer/index/logout', 
+				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of demo')		
+		);
 		
-		$this->layout->assign('nav', array('class'=>'top_nav', 
-		'items'=>$items, 'active_url'=>$url));
-	}
-
-	/**
-	* Generate the setting and section menus for settings
-	*
-	* @param string $group Settings group to fetch settings for
-	* @param string $group_url Active setting group url
-	* @param string $setting_url Active setting url
-	* @return string Html
-	*/
-	private function settingsMenus($group, $group_url='', $setting_url='')
-	{
-		$model_settings = new Dlayer_Model_Settings();
-		$setting_groups = $model_settings->settingGroups();
-
-		$settings = $model_settings->settings($group);
-
-		$this->view->setting_groups = array('class'=>'setting_groups', 
-			'items'=>$setting_groups, 'active_url'=>$group_url);
-
-		$this->view->settings = array('class'=>'settings', 
-			'items'=>$settings, 'active_url'=>$setting_url);
+		$this->layout->assign('nav', array(
+			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
 }

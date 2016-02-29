@@ -2,18 +2,18 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Web site management <small>Edit web site details</small></h1>
+		<h1>Web site manager <small>Web site management</small></h1>
 
-		<p>You can create edit the web site using the form below.</p>
-		
-		<p class="bg-info dev-note">At the moment whilst Dlayer is in early 
-		development all that needs to be defined for a site is the name, 
-		as the system evolves additional data will need to be defined.</p>
+		<p>Use the form below to edit the details for the selected web 
+			site.</p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-6 col-xs-12">
 		<?php echo $this->form; ?>
+	</div>	
+	<div class="col-md-12 col-xs-12 further-reading">
+		<?php echo $this->furtherReading('', TRUE); ?>
 	</div>
 </div>

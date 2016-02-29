@@ -1,26 +1,28 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
-<div id="designer">
-    <section id="design">
-        <?php echo $this->dlayer_library; ?>
-    </section>
-    <?php if($this->image_id == NULL) { ?>
-    <section id="filter">
-    	<div class="row">
-    		<div class="col-xs-12 small">
+<div id="designer">	
+	<?php if($this->image_id == NULL) { ?>
+    <div class="row">
+    	<div class="col-md-12 col-sm-12 col-xs-12">
+    		<div class="well well-sm">
     			<?php echo $this->filter_form; ?>
     		</div>
     	</div>
-    </section>
+    </div>
     <?php } ?>
-    <?php if(strlen($this->dlayer_toolbar) > 1) { ?>
-    <section id="tools">
-        <?php echo $this->dlayer_toolbar; ?>
+    <section id="design">
+        <?php echo $this->dlayer_library; ?>
     </section>
-    <?php } ?>
-    <section id="ribbon">
-        <?php echo $this->dlayer_ribbon; ?>
-    </section>
+    <div class="row">
+    	<div class="col-md-4 col-sm-4 col-xs-12 tools">
+    		<div class="well well-sm">    			
+    			<?php echo $this->dlayer_toolbar; ?>
+    		</div>
+    	</div>
+		<div class="col-md-8 col-sm-8 col-xs-12 ribbon">
+    		<?php echo $this->dlayer_ribbon; ?>
+    	</div>
+    </div>
 </div>
 
 <script type="text/javascript">

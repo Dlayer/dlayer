@@ -1,38 +1,49 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <div class="row">
-	<div class="col-md-12 col-xs-12">
-		<h1>Dlayer settings <small><?php echo $this->escape($this->setting['title']); ?></small></h1>
-		
-		<h2>Web site: <small><?php echo $this->escape($this->site['name']); ?></small></h2>
-		    
-	    <nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url']); ?>
-	    </nav>
+	<div class="col-md-9 col-xs-12">
+		<h1>Settings <small>Dlayer <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
+				
+		<h2>Colour palettes</h2>
 	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
-	    
-	    <hr />
-	    
-	    <nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills'); ?>
-	    </nav>
-	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
-		
-		<h3>Scope: <?php echo $this->escape($this->setting['scope']); ?> 
-	    <small><?php echo $this->escape($this->setting['scope_details']); ?></small></h3>
-	    
-	    <?php echo $this->setting['description']; ?>
-	    
-	    <p class="bg-info dev-note">Not yet developed!</p>
+	    <p>A web site will typically have base a colour scheme comprised of 
+	    	three colours, a primary, secondary and tertiary colour. The colour 
+	    	pickers in the designers will default to showing the colours for 
+	    	your defined colour palettes. You will always retain the ability 
+	    	to choose a custom colour or pick from a list of recently used 
+	    	colours.</p>
+	    	
+	    <p class="dev-note bg-info">UI not yet developed although data is 
+	    	in the database.</p>
+
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<ul class="list-unstyled settings-menu">
+			<li><strong>Dlayer</strong>
+				<ul>
+					<li><a href="/dlayer/settings/index">Overview</a></li>
+					<li><a href="/dlayer/settings/palettes" class="active">Color palettes</a></li>
+				</ul>
+			</li>
+			<li>Content manager
+				<ul>
+					<li><a href="/content/settings/index">Overview</a></li>
+					<li><a href="/content/settings/base-font-family">Base font family</a></li>
+					<li><a href="/content/settings/headings">Headings</a></li>
+				</ul>
+			</li>
+			<li>Form builder
+				<ul>
+					<li><a href="/form/settings/index">Overview</a></li>
+					<li><a href="/form/settings/base-font-family">Base font family</a></li>
+				</ul>
+			</li>
+		</ul>	
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12 further-reading">
+		<!--Need to upload content for settings-->
+		<?php echo $this->furtherReading('/#settings', TRUE); ?>
 	</div>
 </div>

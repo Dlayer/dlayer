@@ -85,8 +85,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
 					}
 				} else {
 					$form->getElement('identity')->addError('Username and
-						password combination invalid or the account is currently
-					logged into Dlayer, please try again.');
+						password combination invalid or the account is 
+						already logged into Dlayer, please try again.');
 					$form->markAsError();
 				}
 			}
@@ -94,7 +94,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 		$this->view->test_identities = $model_authentication->testIdentities();
 		$this->view->form = $form;
-		$this->dlayerMenuPublic('/dlayer/index/index');
+		$this->navBar('/dlayer/index/index');
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Sign in');
 	}
@@ -121,8 +121,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$model_modules = new Dlayer_Model_Module();
 
 		$this->view->modules_enabled = $model_modules->byStatus();
-		$this->view->modules_disabled = $model_modules->byStatus(FALSE);
-		$this->dlayerMenu('/dlayer/index/home');
+		$this->navBar('/dlayer/index/home', FALSE);
 		$this->view->sites = $model_sites->byIdentity(
 			$session_dlayer->identityId());
 		$this->view->site_id = $session_dlayer->siteId();
@@ -160,49 +159,52 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 		$this->_redirect('/dlayer/index/home');
 	}
-
+	
 	/**
-	* Generate the base menu bar for the application.
-	*
-	* @param string $url Active url
-	* @return string Html
+	* Assign the content for the nav bar
+	* 
+	* @param string $active_uri Uri
+	* @param bool $public Public page?
+	* @return void Assigns values to the layout
 	*/
-	private function dlayerMenu($url='')
+	private function navBar($active_uri, $public=TRUE) 
 	{
-		$session_dlayer = new Dlayer_Session();
-
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer',
-			'title'=>'Dlayer.com: Web development simplified'),
-			array('url'=>'/dlayer/settings/index', 'name'=>'Settings',
-				'title'=>'Dlayer settings'),
-			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' .
-				$session_dlayer->identity() . ')', 'title'=>'Logout of site'));
-
-		$this->layout->assign('nav', array('class'=>'top_nav',
-			'items'=>$items, 'active_url'=>$url));
-	}
-
-	/**
-	* Generate the base menu bar for the public version of the menu
-	*
-	* @param string $url Active url
-	* @return string html
-	*/
-	private function dlayerMenuPublic($url)
-	{
-		$items = array(
-			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer',
-				'title'=>'Dlayer.com: Web development simplified'));
-
-		$this->layout->assign('nav', array('class'=>'top_nav',
-			'items'=>$items, 'active_url'=>$url));
+		$items = array();
+		
+		if($public === FALSE) 
+		{
+			$session_dlayer = new Dlayer_Session();
+			
+			$items[] = array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified');
+			$items[] = array('uri'=>'/dlayer/settings/index', 
+				'name'=>'Settings', 'title'=>'Settings');
+			$items[] = array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 
+				'title'=>'Read the Docs for Dlayer');
+			$items[] = array('uri'=>'/dlayer/index/logout', 
+				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$session_dlayer->identity() . ')', 'title'=>'Sign out of demo');
+		}
+		else 
+		{
+			$items[] = array('uri'=>'/dlayer/index/index', 
+				'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified');
+			$items[] = array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 
+				'title'=>'Read the Docs for Dlayer');
+		}
+		
+		$this->layout->assign('nav', array(
+			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
 
 	/**
 	* Allows the user to create a new site
 	*
-	* Currently the only data that is required to create a site is a name, the
-	* name needs to be unique for the user
+	* Currently the only data that is required to create a site is the name. 
+	* the name needs to be unique for the user
 	*
 	* @return void
 	*/
@@ -211,7 +213,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$this->_helper->authenticate();
 
 		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Create web site');
+		$this->layout->assign('title', 'Dlayer.com - New web site');
 
 		$session_dlayer = new Dlayer_Session();
 		$form = new Dlayer_Form_Site_NewSite($session_dlayer->identityId());
@@ -230,7 +232,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		}
 
 		$this->view->form = $form;
-		$this->dlayerMenu('/dlayer/index/home');
+		$this->navBar('/dlayer/index/home', FALSE);
 	}
 
 	/**
@@ -263,7 +265,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		}
 
 		$this->view->form = $form;
-		$this->dlayerMenu('/dlayer/index/home');
+		$this->navBar('/dlayer/index/home', FALSE);
 	}
 
 	/**

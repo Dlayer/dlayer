@@ -2,21 +2,19 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Form management <small>Create a new form</small></h1>
+		<h1>Form builder <small>Form management <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
 
-		<p>Use the form below to add a new form to use within your site, 
-			once the form has been created you can immediately begin 
-			working on it in the Form builder.</p>
-			
-		<p class="dev-note bg-info">Whilst the Form builder is still in 
-			active development you only need to define the name and a title 
-			for your new form. As the app matures I will allow more of the 
-			form settings to be defined here at form creation.</p>
+		<p>Use the form below to create a new form, you need to provide 
+			a unique name for the form, a title which appears above the form 
+			and an email address that any submissions will be sent to.</p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-6 col-xs-12">
 		<?php echo $this->form; ?>
+	</div>
+	<div class="col-md-12 col-xs-12 further-reading">
+		<?php echo $this->furtherReading('/#form-builder', TRUE); ?>
 	</div>
 </div>

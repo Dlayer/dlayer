@@ -2,37 +2,23 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">	
-		<h1><?php echo $this->bootstrapLabel('Alpha', 'danger'); ?> 
-			Dlayer <small>Web development simplified</small></h1>
+		<h1>Dlayer Demo <small>Web development simplified</small></h1>
 		
-		<h3>Welcome to Dlayer</h3>
+		<h2>Welcome to Dlayer</h2>
 		
-		<p class="bg-info dev-note">
-			There are currently eight sections within Dlayer, each one is 
-			tailored to a specific part of the web development process, please 
-			check out each of them and if you have any feedback I would be 
-			very happy to hear it, you can contact me either via my 
-			<a class="btn btn-primary btn-xs" href="http://www.g3d-development.com" role="button">Development blog</a>
-			 or by 
-			<a class="btn btn-primary btn-xs" href="mailto:dean@g3d-development.com" role="button">Emailing me</a>
-		</p>
-
-		<p class="bg-warning dev-note">The entire app should be considered as a 
-			very early alpha, as you will see below almost every section is 
-			still in development or planning.</p>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-12 col-xs-12">
-		<h2>Enabled sections <small>Either partial functionality or a 
-			preview of my intended design</small></h2>
-
-		<p>The <?php echo count($this->modules_enabled); ?> section(s) listed 
-			below are all accessible. The current development status for each 
-			section is displayed to the right, these change over time so please 
-			take the development status into account when reviewing a 
-			section.</p>
+		<p>The goal of this demo is simple, it is meant to showcase 
+			the designers that are currently in development, please check the 
+			docs at <a href="http://www.dlayer.com">Dlayer.com</a> to see what 
+			other designers are planned.</p>
+		
+		<p>Dlayer is an Open Source project so if you see something you 
+			think could be better you can let me know on 
+			<a href="https://github.com/Dlayer/dlayer">GitHub</a> or code it 
+			yourself, if you spot a bug please check the issues list on 
+			<a href="https://github.com/Dlayer/dlayer">GitHub</a>, if your bug 
+			is not listed please add it.</p>
+		
+		<h3>Designers <small>All still in development</small></h3>
 
 		<ol>
 			<?php foreach($this->modules_enabled as $module) { ?>
@@ -41,44 +27,33 @@
 				<?php echo $module['description']; ?></li>
 				<?php } ?>
 		</ol>
+		
+		<h3>Demo sites <small>Play at will, reset periodically</small></h3>
 
-		<h2>Disabled sections <small>Not for public consumption</small></h2>
-
-		<p>The <?php echo count($this->modules_disabled); ?> section(s) listed 
-			below are not accessible, this could be because they are still in 
-			early development, planning or in a transition period, they are not 
-			ready for prime time.</p>
-
-		<ol>
-			<?php foreach($this->modules_disabled as $module) { ?>
-				<li><?php echo $this->escape($module['title']); ?> - 
-				<?php echo $module['description']; ?></li>
-				<?php } ?>
-		</ol>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-12 col-xs-12">
-		<h2>Web site <small>Your web sites</small></h2>
-
+		<ul class="listing">
 		<?php foreach($this->sites as $site) { ?>
 			<?php if($site['id'] == $this->site_id) { ?>
-				<p>
-					<button type="button" class="btn btn-default btn-xs"><?php echo $this->escape($site['name']); ?></button>  
+				<li>
+					<button type="button" class="btn btn-info btn-xs"><?php echo $this->escape($site['name']); ?></button>  
 					<?php if($site['name'] != 'Sample site 1') { ?>
 						<a href="/dlayer/index/edit-site" class="btn btn-default btn-xs">Edit</a> 
 					<?php } ?>
 					<a href="#" class="btn btn-default btn-xs disabled">Copy</a> 
 					<span class="label label-success">Selected</span>
-				</p>
+				</li>
 				<?php } else { ?>
-				<p>
+				<li>
 					<a href="/dlayer/index/activate/site/<?php echo $this->escape($site['id']); ?>" class="btn btn-default btn-xs">
 					<?php echo $this->escape($site['name']); ?></a>
-				</p>
+				</li>
 				<?php } ?>
 			<?php } ?>
-		<p><a href="/dlayer/index/new-site" class="btn btn-primary btn">New web site</a></p>
+			<li><a href="/dlayer/index/new-site" class="btn btn-primary btn-xs">New web site</a></li>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12 further-reading">
+		<?php echo $this->furtherReading('', TRUE); ?>
 	</div>
 </div>

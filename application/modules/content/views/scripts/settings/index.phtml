@@ -1,37 +1,48 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <div class="row">
-	<div class="col-md-12 col-xs-12">
-		<h1>Content manager settings</h1>
-		
-		<h2>Web site: 
-		<small><?php echo $this->escape($this->site['name']); ?></small></h2>
-		    
-	    <nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url']); ?>
-	    </nav>
+	<div class="col-md-9 col-xs-12">
+		<h1>Settings <small>Content manager <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
+				
+		<h2>Overview</h2>
 	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->setting_groups['items'], 
-	    $this->setting_groups['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
-	    
-	    <hr />
-	    
-	    <nav class="visible-md-block visible-lg-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills'); ?>
-	    </nav>
-	    
-	    <nav class="visible-xs-block visible-sm-block">
-	    <?php echo $this->bootstrapNav($this->settings['items'], 
-	    $this->settings['active_url'], 'nav nav-pills nav-stacked'); ?>
-	    </nav>
-	    
-	    <h3>Overview <small>What can you manage in this section?</small></h3>
-	    
-	    <p>This section allows you to manage settings for the tools in the 
-	    	Content manager and set the defaults for the module.</p>
+	    <p>This section of the settings lets you modify all the settings 
+	    	that relate to the Content manager.</p>
+	    	
+	    <ul>
+	    	<li><a href="/form/settings/base-font-family">Base font family</a>: 
+	    		Font style to use for content created in the Form builder.</li>
+	    	<li><a href="/content/settings/headings">Heading</a>: 
+	    		Styling options for headings</li>
+	    </ul>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<ul class="list-unstyled settings-menu">
+			<li>Dlayer
+				<ul>
+					<li><a href="/dlayer/settings/index">Overview</a></li>
+					<li><a href="/dlayer/settings/palettes">Color palettes</a></li>
+				</ul>
+			</li>
+			<li><strong>Content manager</strong>
+				<ul>
+					<li><a href="/content/settings/index" class="active">Overview</a></li>
+					<li><a href="/content/settings/base-font-family">Base font family</a></li>
+					<li><a href="/content/settings/headings">Headings</a></li>
+				</ul>
+			</li>
+			<li>Form builder
+				<ul>
+					<li><a href="/form/settings/index">Overview</a></li>
+					<li><a href="/form/settings/base-font-family">Base font family</a></li>
+				</ul>
+			</li>
+		</ul>	
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12 further-reading">
+		<!--Need to upload content for settings-->
+		<?php echo $this->furtherReading('/#settings', TRUE); ?>
 	</div>
 </div>

@@ -8,29 +8,24 @@
 // Define path to application directory
 defined('APPLICATION_PATH')
 	|| define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
+	
+include(APPLICATION_PATH . '/configs/environment.php');
 
 // Define application environment
 defined('APPLICATION_ENV') 
 	|| define('APPLICATION_ENV', 
 	(getenv('APPLICATION_ENV') ? 
-	getenv('APPLICATION_ENV') : 'production'));
+	getenv('APPLICATION_ENV') : $environemnt));
 	
-$include = NULL;
-
-if(APPLICATION_ENV == 'production') {
-	$include = realpath(APPLICATION_PATH . '/../../Zend-Framework/Zend-1.12.3');
-}
-
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
 	realpath(APPLICATION_PATH . '/../library'),
-	$include,
 	get_include_path(),
 )));
 
-// Version number, date and copyright
-define('VERSION_NO', 'v0.80');
-define('VERSION_DATE', '27th June 2015');
+// Version number and release date
+define('VERSION_NO', $version_no);
+define('VERSION_DATE', $version_release_date);
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
@@ -40,5 +35,6 @@ $application = new Zend_Application(
 	APPLICATION_ENV,
 	APPLICATION_PATH . '/configs/application.ini'
 );
+
 $application->bootstrap()
 			->run();

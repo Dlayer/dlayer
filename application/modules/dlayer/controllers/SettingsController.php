@@ -40,7 +40,8 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	}
 
 	/**
-	* Settings action, gives an overview of the settings page
+	* Settings overview page, short description of each settings page for the 
+	* section
 	* 
 	* @return void
 	*/
@@ -48,67 +49,36 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 		
-		$this->dlayerMenu('/dlayer/settings/index');
-		$this->settingsMenus('App', '/dlayer/settings/index', 
-		'/dlayer/settings/index');
+		$this->navBar('/dlayer/settings/index');
 		
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 		
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Settings');
-		
-		//$this->_redirect('/dlayer/settings/palettes');
 	}
 	
 	/**
-	* Generate the base menu bar for the application.
-	*
-	* @param string $url Active url
-	* @return string Html
+	* Assign the content for the nav bar
+	* 
+	* @param string $active_uri Uri
+	* @return void Assigns values to the layout
 	*/
-	private function dlayerMenu($url='')
+	private function navBar($active_uri) 
 	{
-		$items = array(array('url'=>'/dlayer/index/home', 'name'=>'Dlayer', 
-		'title'=>'Dlayer.com: Web development simplified'), 
-		array('url'=>'/dlayer/settings/index', 'name'=>'Settings', 
-		'title'=>'Dlayer settings'), 
-		array('url'=>'/dlayer/index/development-plan', 
-		'name'=>'Dev plan', 'title'=>'Current Dlayer development plan'), 
-		array('url'=>'/dlayer/index/development-log', 
-		'name'=>'Dev log', 'title'=>'Dlayer development log'), 
-		array('url'=>'/dlayer/index/bugs', 'name'=>'Bugs', 
-		'title'=>'Known bugs'), 
-		array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'),
-		array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Logout of site'));
+		$items = array(
+			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/dlayer/settings/index', 
+				'name'=>'Settings', 'title'=>'Settings'), 
+			array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+			array('uri'=>'/dlayer/index/logout', 
+				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of demo')		
+		);
 		
-		$this->layout->assign('nav', array('class'=>'top_nav', 
-		'items'=>$items, 'active_url'=>$url));
-	}
-	
-	/**
-	* Generate the setting and section menus for settings
-	*
-	* @param string $group Settings group to fetch settings for
-	* @param string $group_url Active setting group url
-	* @param string $setting_url Active setting url
-	* @return string Html
-	*/
-	private function settingsMenus($group, $group_url='', $setting_url='')
-	{
-		$model_settings = new Dlayer_Model_Settings();
-		$setting_groups = $model_settings->settingGroups();
-		
-		$settings = $model_settings->settings($group);
-		
-		$this->view->setting_groups = array('class'=>'setting_groups', 
-		'items'=>$setting_groups, 'active_url'=>$group_url);
-		
-		$this->view->settings = array('class'=>'settings', 
-		'items'=>$settings, 'active_url'=>$setting_url);
+		$this->layout->assign('nav', array(
+			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
 	
 	/**
@@ -119,22 +89,10 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	public function palettesAction()
 	{
 		$model_sites = new Dlayer_Model_Site();
-		$model_settings = new Dlayer_Model_Settings();
 		
-		$this->dlayerMenu('/dlayer/settings/index');
-		$this->settingsMenus('App', '/dlayer/settings/index', 
-		'/dlayer/settings/palettes');
-		
-		$setting = $model_settings->setting(
-		$this->getRequest()->getRequestUri());
-		
-		if($setting == FALSE) {
-			$this->_redirect('/dlayer/index/home');
-		}
-		
-		$this->view->setting = $setting;
-		$this->view->site = $model_sites->site(
-		$this->session_dlayer->siteId());
+		$this->navBar('/dlayer/settings/index');
+				
+		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 		
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Colour palettes');

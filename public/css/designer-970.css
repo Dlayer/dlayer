@@ -1,0 +1,31 @@
+div#designer {
+  max-width: 970px; }
+  div#designer .well {
+    margin-bottom: 0px; }
+  div#designer #design {
+    max-width: 970px;
+    margin-bottom: 1em; }
+    div#designer #design > div.library {
+      min-height: 200px; }
+      div#designer #design > div.library ul.pager {
+        margin: 0;
+        text-align: right; }
+  div#designer .tools {
+    margin-bottom: 1em; }
+    div#designer .tools .row {
+      margin-bottom: 0.5em; }
+      div#designer .tools .row:last-child {
+        margin-bottom: 0px; }
+  div#designer legend {
+    padding: 0.3em 0px;
+    margin-bottom: 0.3em; }
+  div#designer .ribbon ul.nav-tabs {
+    margin-bottom: 0.5em; }
+  div#designer .ribbon div.content {
+    display: none; }
+    div#designer .ribbon div.content p.unsaved {
+      display: none; }
+  div#designer .ribbon div.open {
+    display: block; }
+
+/*# sourceMappingURL=designer-970.css.map */

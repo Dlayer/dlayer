@@ -1,3 +1,20 @@
+/* Base styles */
+.container-970 {
+	max-width: 970px;
+	margin: 0 auto;
+}
+
+/* Content */
+ul.listing {
+	li {
+		padding: 0.2em 0;
+	}
+}
+
+.further-reading {
+	padding-top: 1em;
+}
+
 .footer {
 	padding-top: 2em;
 }
@@ -6,8 +23,36 @@ p.dev-note {
 	padding: 15px;
 }
 
+/* Settings */
+.settings-menu {
+	padding-top: 2em;
+	
+	a.active {
+		font-weight: 600;
+	}
+}
+
+div.heading-styles {
+	padding-top: 2em;
+	border-top: 1px solid #e5e5e5;
+
+	div.form-group {
+		margin: 0 1em 1em 0;
+
+		input.font_sizes {
+			width: 90px;
+		}
+
+		input.font_colors {
+			width: 50px;
+		}
+	}
+}
+
+/* Forms */
 ul.alert-danger {
 	list-style-type: none;
+	padding: 0.5em;
 	margin: 0;
 }
 
@@ -28,24 +73,6 @@ fieldset {
 			display:inline;
 			color: #d9534f;
 			font-weight: bold;
-		}
-	}
-}
-
-div.heading-styles {
-	border-bottom: 1px solid;
-	margin-top: 15px;
-
-	div.form-group {
-		margin-right: 15px;
-		margin-bottom: 15px;
-
-		input.font_sizes {
-			width: 90px;
-		}
-
-		input.font_colors {
-			width: 50px;
 		}
 	}
 }

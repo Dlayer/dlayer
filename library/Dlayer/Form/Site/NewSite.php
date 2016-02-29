@@ -40,7 +40,7 @@ class Dlayer_Form_Site_NewSite extends Dlayer_Form_Module_App
 		$this->validationRules();
 
 		$this->addElementsToForm('new_site', 
-			'New web site <small>Create new site</small>', $this->elements);
+			'Web site <small>Create new site</small>', $this->elements);
 
 		$this->addDefaultElementDecorators();
 
@@ -56,10 +56,10 @@ class Dlayer_Form_Site_NewSite extends Dlayer_Form_Module_App
 	protected function setUpFormElements() 
 	{
 		$name = new Zend_Form_Element_Text('name');
-		$name->setLabel('Name');
-		$name->setDescription('Enter a name for your site, this will only 
-			display within Dlayer, you can define the URL and other details 
-		later.');
+		$name->setLabel('Web site name');
+		$name->setDescription('Enter a name for your new web site, this 
+			will only display within Dlayer, you can define the URL and other 
+			details later.');
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'placeholder'=>'e.g., My new site', 'class'=>'form-control'));
 		$this->elements['name'] = $name;

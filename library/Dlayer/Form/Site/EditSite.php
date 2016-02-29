@@ -46,7 +46,7 @@ class Dlayer_Form_Site_EditSite extends Dlayer_Form_Module_App
 		$this->validationRules();
 
 		$this->addElementsToForm('edit_site', 
-			'Edit web site <small>Edit selected web site</small>', 
+			'Web site <small>Edit web site</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();
@@ -79,9 +79,9 @@ class Dlayer_Form_Site_EditSite extends Dlayer_Form_Module_App
 	protected function setUpFormElements() 
 	{
 		$name = new Zend_Form_Element_Text('name');
-		$name->setLabel('Name');
-		$name->setDescription('Enter the new name for your site, this will 
-		only display within Dlayer.');
+		$name->setLabel('Web site name');
+		$name->setDescription('Enter a name for your web site, this 
+			will only display within Dlayer.');
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'class'=>'form-control'));
 		if(array_key_exists('name', $this->data) == TRUE) {

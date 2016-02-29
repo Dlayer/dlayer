@@ -2,71 +2,44 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Content manager <small>Content page management</small></h1>
+		<h1>Content manager <small>Content management <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
 		
-		<h3>Welcome to the Content manager</h3>
+		<h2>Overview</h2>
 		
-		<p>Websites are essentially a collection of content pages consisting 
-			of content items. Content is a generic term, a content item could 
-			be a single image, text block, form, poll or a widget in the form 
-			of an image gallery, blog or simply a twitter feed.</p>
-		
-		<p>A content page is created from a template, the content areas 
-			defined in the template block out the general layout of a page, 
-			examples being the header, footer, side bar and main content area.</p>
-		
-		<p>There are two base types for content items, standard and dynamic. 
-			Forms, polls and widgets are dynamic content items, everything 
-			else is a standard content item, all content items are attached 
-			by reference so there is never any duplication.</p>
-		
-		<p>To create a content item you select the content area you want to 
-			work in, add a content row and then choose the content type you 
-			want to create, content rows act as invisible guides to ease 
-			with lining up content items. To edit an existing content items 
-			you simply select the content area, the content row and then 
-			finally the content item itself.</p>
-		
-		<p>There are no artificial limits to the number or content pages you 
-			can create or the number of content items that can be assigned to 
-			either a page or content area, you have full control over 
-			everything.</p>
-		
-		<p class="dev-note bg-warning">The tools in the Content manger are 
-			not at per my final design, they are a stepping stone. As it 
-			stands today when adding or editing content all data is managed 
-			in the side panel, as development continues the tools will be 
-			updated to allow more data to be managed directly within the 
-			design view.</p>
+		<p>The Content manager allows you to manage all your site content, 
+			content can be anything, a single image, text block, form, poll 
+			or widget in the form of an image gallery ot twitter feed.</p>
 			
-		<h2>Content pages <small>All your content pages</small></h2>
+		<h3>Content pages <small>Content pages for this web site</small></h3>
 		
-		<p>Select a content page from the list below, once selected you can 
-			manage its content, edit the base details or copy it to create a 
-			brand new content page.</p>
-		
-		<?php foreach($this->pages as $page) { ?>
-			<?php if($page['id'] == $this->page_id) { ?>
-				<p>
-					<button type="button" class="btn btn-default btn-xs">
-						<?php echo $this->escape($page['name']); ?>
-					</button>
-					<span class="label label-info"><?php echo $this->escape($page['template']); ?></span>
-					<a href="/content/design/" class="btn btn-default btn-xs">Design</a> 
-					<a href="/content/index/edit-page" class="btn btn-default btn-xs">Edit</a> 
-					<a href="#" class="btn btn-default btn-xs disabled">Copy</a> 
-					<span class="label label-success">Selected</span>
-				</p>
-			<?php } else { ?>
-				<p>
-					<a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>" 
-					class="btn btn-default btn-xs">
-					<?php echo $this->escape($page['name']); ?> (<?php echo $this->escape($page['template']); ?>)</a>
-				</p>    			
+		<ul class="listing">
+			<?php foreach($this->pages as $page) { ?>
+				<?php if($page['id'] == $this->page_id) { ?>
+					<li>
+						<button type="button" class="btn btn-info btn-xs">
+							<?php echo $this->escape($page['name']); ?>
+						</button>
+						<span class="label label-info"><?php echo $this->escape($page['template']); ?></span>
+						<a href="/content/design/" class="btn btn-default btn-xs">Design</a> 
+						<a href="/content/index/edit-page" class="btn btn-default btn-xs">Edit</a> 
+						<a href="#" class="btn btn-default btn-xs disabled">Copy</a> 
+						<span class="label label-success">Selected</span>
+					</li>
+				<?php } else { ?>
+					<li>
+						<a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>" 
+						class="btn btn-default btn-xs">
+						<?php echo $this->escape($page['name']); ?> (<?php echo $this->escape($page['template']); ?>)</a>
+					</li>    			
+				<?php } ?>
 			<?php } ?>
-		<?php } ?>
-		<p><a href="/content/index/new-page" class="btn btn-primary">New page</a></p>
-		
-		<?php echo $this->furtherReading('the-designers/content-manager/'); ?>
+			<li><a href="/content/index/new-page" class="btn btn-primary btn-xs">New content page</a></li>		
+		</ul>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12 col-xs-12 further-reading">
+		<?php echo $this->furtherReading('/#content-manager', TRUE); ?>
 	</div>
 </div>

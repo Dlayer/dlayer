@@ -56,7 +56,8 @@ class Content_IndexController extends Zend_Controller_Action
 		$model_sites = new Dlayer_Model_Site();
 		$model_pages = new Dlayer_Model_Page();
 
-		$this->dlayerMenu('/content/index/index');
+		$this->navBar('/content/index/index');
+		
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 		$this->view->pages = $model_pages->pages(
 			$this->session_dlayer->siteId());
@@ -67,46 +68,29 @@ class Content_IndexController extends Zend_Controller_Action
 	}
 
 	/**
-	* Generate the base menu bar for the application.
+	* Assign the content for the nav bar
 	* 
-	* @param string $url Selected url
-	* @return string Html
+	* @param string $active_uri Uri
+	* @return void Assigns values to the layout
 	*/
-	private function dlayerMenu($url) 
+	private function navBar($active_uri) 
 	{
-		$items = array(array('url'=>'/content/index/index', 
-			'name'=>'Content manager', 'title'=>'Dlayer Content manager'), 
-			array('url'=>'', 'name'=>'Designers', 'title'=>'Choose a designer', 
-				'children'=>array(
-					array('url'=>'/widget/index/index', 
-						'name'=>'Widget designer', 
-						'title'=>'Dlayer Widget designer'), 
-					array('url'=>'/form/index/index', 
-						'name'=>'Form builder', 
-						'title'=>'Dlayer Form builder'), 
-					array('url'=>'/image/index/index', 
-						'name'=>'Image library', 
-						'title'=>'Dlayer Image library'),
-					array('url'=>'/website/index/index', 
-						'name'=>'Web site manager', 
-						'title'=>'Dlayer Website manager'), 
-					array('url'=>'/data/index/index', 
-						'name'=>'Data manager', 
-						'title'=>'Dlayer Data manager'),
-					array('url'=>'/template/index/index', 
-						'name'=>'Template designer', 
-						'title'=>'Dlayer Template designer'))), 
-			array('url'=>'/content/settings/index', 
-				'name'=>'Settings', 'title'=>'Content manager settings'), 
-			array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'),
-			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of my app'));
-
-		$this->layout->assign('nav', array('class'=>'top_nav', 
-			'items'=>$items, 'active_url'=>$url));
+		$items = array(
+			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/content/index/index', 
+				'name'=>'Content manager', 'title'=>'Content manager'), 
+			array('uri'=>'/content/settings/index', 
+				'name'=>'Settings', 'title'=>'Settings'), 
+			array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+			array('uri'=>'/dlayer/index/logout', 
+				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of demo')		
+		);
+		
+		$this->layout->assign('nav', array(
+			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
 
 	/**
@@ -192,7 +176,7 @@ class Content_IndexController extends Zend_Controller_Action
 		}
 
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->dlayerMenu('/content/index/index');
+		$this->navBar('/content/index/index');
 	}
 
 	/**
@@ -226,6 +210,6 @@ class Content_IndexController extends Zend_Controller_Action
 
 		$this->view->form = $form;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->dlayerMenu('/content/index/index');
+		$this->navBar('/content/index/index');
 	}
 }
