@@ -23,14 +23,12 @@ class Dlayer_Model_Ribbon extends Zend_Db_Table_Abstract
 	*/
 	public function tabs($module, $tool, $edit_mode=FALSE)
 	{
-		$sql = "SELECT dmtt.`name` AS tab_name, dmtt.view_script AS tab, 
-				dg.glyphicon 
+		$sql = "SELECT dmtt.`name` AS tab_name, dmtt.view_script AS tab 
 				FROM dlayer_module_tool_tab dmtt
 				JOIN dlayer_module_tool dmt ON dmtt.tool_id = dmt.id 
-				JOIN dlayer_glyphicon dg ON dmtt.glyphicon_id = dg.id 
-				AND dmt.enabled = 1
-				AND dmt.folder = :tool
-				AND dmtt.module_id = dmt.module_id
+					AND dmt.enabled = 1
+					AND dmt.folder = :tool
+					AND dmtt.module_id = dmt.module_id
 				JOIN dlayer_module dm ON dmt.module_id = dm.id
 				WHERE dm.`name` = :module
 				AND dm.enabled = 1
