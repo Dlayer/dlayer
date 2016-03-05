@@ -17,6 +17,14 @@ div#designer {
 				text-align: right;
 			}
 		}
+		
+		&> div.website-manager {
+			h3 {
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
 	}
 	
 	.tools {

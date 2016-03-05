@@ -46,9 +46,12 @@ class Website_DesignController extends Zend_Controller_Action
 		// Include js and css files in layout
 		$this->layout = Zend_Layout::getMvcInstance();
 		$this->layout->assign('js_include', array('scripts/dlayer.js'));
-		$this->layout->assign('css_include', array('styles/ribbon.css',
-			'styles/designer.css', 'styles/designer/website.css', 
-			'styles/ribbon/website.css'));
+		$this->layout->assign('css_include', 
+			array(
+				'css/dlayer.css', 
+				'css/designer-970.css',
+			)
+		);
 	}
 
 	/**
@@ -59,57 +62,38 @@ class Website_DesignController extends Zend_Controller_Action
 	*/
 	public function indexAction()
 	{
-		$this->dlayerMenu('/website/index/index');
+		$this->navBar('/website/index/index');
 		$this->view->dlayer_toolbar = $this->dlayerToolbar();
 		$this->view->dlayer_website = $this->dlayerWebsite();
 		$this->view->dlayer_ribbon = $this->dlayerRibbon();
-
-		$this->layout->assign('css_include', 
-			array('css/dlayer.css', 'css/designers.css'));
+		
 		$this->layout->assign('title', 'Dlayer.com - Web site manager');
 	}
 
 	/**
-	* Generate the base menu bar for the application.
+	* Assign the content for the nav bar
 	* 
-	* @param string $url Selected url
-	* @return string Html
+	* @param string $active_uri Uri
+	* @return void Assigns values to the layout
 	*/
-	private function dlayerMenu($url) 
+	private function navBar($active_uri) 
 	{
-		$items = array(array('url'=>'/website/index/index', 
-			'name'=>'Web site manager', 'title'=>'Dlayer Web site manager'), 
-			array('url'=>'', 'name'=>'Designers', 'title'=>'Choose a designer', 
-				'children'=>array(
-					array('url'=>'/content/index/index', 
-						'name'=>'Content manager', 
-						'title'=>'Dlayer Content manager'), 
-					array('url'=>'/widget/index/index', 
-						'name'=>'Widget designer', 
-						'title'=>'Dlayer Widget designer'), 
-					array('url'=>'/form/index/index', 
-						'name'=>'Form builder', 
-						'title'=>'Dlayer Form builder'), 
-					array('url'=>'/image/index/index', 
-						'name'=>'Image library', 
-						'title'=>'Dlayer Image library'),
-					array('url'=>'/data/index/index', 
-						'name'=>'Data manager', 
-						'title'=>'Dlayer Data manager'),
-					array('url'=>'/template/index/index', 
-						'name'=>'Template designer', 
-						'title'=>'Dlayer Template designer'))),
-			array('url'=>'/website/settings/index', 
-				'name'=>'Settings', 'title'=>'Website manager settings'), 
-			array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'),
-			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of my app'));
-
-		$this->layout->assign('nav', array('class'=>'top_nav', 
-			'items'=>$items, 'active_url'=>$url));
+		$items = array(
+			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/website/index/index', 
+				'name'=>'Web site manager', 'title'=>'Web site management'), 
+			array('uri'=>'/dlayer/settings/index', 
+				'name'=>'Settings', 'title'=>'Settings'), 
+			array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+			array('uri'=>'/dlayer/index/logout', 
+				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
+				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of demo')		
+		);
+		
+		$this->layout->assign('nav', array(
+			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
 
 	/**

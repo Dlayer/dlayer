@@ -5,6 +5,11 @@
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
 
+if(file_exists('dlayer.lck') === true)
+{
+	header("Location: http://www.dlayer.com/down.html"); exit();
+}
+
 // Define path to application directory
 defined('APPLICATION_PATH')
 	|| define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));

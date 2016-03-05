@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script>
 $(document).ready(function() 
 {
     dlayer.ribbon.tabs.clicks('<?php echo $this->escape($this->module); ?>', 
@@ -11,7 +11,7 @@ $(document).ready(function()
 
 <div class="row">
 	<div class="col-xs-12">
-		<ul class="nav nav-tabs small">
+		<ul class="nav nav-tabs">
 			<?php foreach($this->tabs as $tab) { ?>
 			<?php if($tab['tab'] == $this->tab) { $class = 'active'; } else { $class = NULL; } ?>
 			<li id="tab_<?php echo $this->escape($tab['tab']); ?>" 

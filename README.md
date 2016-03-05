@@ -20,7 +20,7 @@ Requires
 Documentation 
 ---------
 
-Check https://www.dlayer.com/docs/ for the latest docs and a link to the current 
+Check http://www.dlayer.com/docs/ for the latest docs and a link to the current 
 demo.
 
 Setup

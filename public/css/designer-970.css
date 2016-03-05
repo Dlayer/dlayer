@@ -10,6 +10,8 @@ div#designer {
       div#designer #design > div.library ul.pager {
         margin: 0;
         text-align: right; }
+    div#designer #design > div.website-manager h3:hover {
+      cursor: pointer; }
   div#designer .tools {
     margin-bottom: 1em; }
     div#designer .tools .row {

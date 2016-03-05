@@ -1,15 +1,17 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
-<div id="designer">
+<div id="designer">	
     <section id="design">
         <?php echo $this->dlayer_website; ?>
     </section>
-    <?php if(strlen($this->dlayer_toolbar) > 1) { ?>
-    <section id="tools">
-        <?php echo $this->dlayer_toolbar; ?>
-    </section>
-    <?php } ?>
-    <section id="ribbon">
-        <?php echo $this->dlayer_ribbon; ?>
-    </section>
+    <div class="row">
+    	<div class="col-md-4 col-sm-4 col-xs-12 tools">
+    		<div class="well well-sm">    			
+    			<?php echo $this->dlayer_toolbar; ?>
+    		</div>
+    	</div>
+		<div class="col-md-8 col-sm-8 col-xs-12 ribbon">
+    		<?php echo $this->dlayer_ribbon; ?>
+    	</div>
+    </div>
 </div>
