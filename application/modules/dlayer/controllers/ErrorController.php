@@ -41,7 +41,7 @@ class Dlayer_ErrorController extends Zend_Controller_Action
 	*/
 	public function errorAction()
 	{
-		$this->dlayerMenuPublic('/dlayer/index/index');
+		$this->navBar('/dlayer/index/index');
 		
 		$errors = $this->_getParam('error_handler');
 		
@@ -103,18 +103,22 @@ class Dlayer_ErrorController extends Zend_Controller_Action
 	}
 	
 	/**
-	* Generate the base menu bar for the public version of the menu
-	*
-	* @param string $url Active url
-	* @return string html
-	*/
-	private function dlayerMenuPublic($url)
-	{
-		$items = array(
-			array('url'=>'/dlayer/index/index', 'name'=>'Dlayer Demo',
-				'title'=>'Dlayer.com: Web development simplified'));
-
-		$this->layout->assign('nav', array('class'=>'top_nav', 
-			'items'=>$items, 'active_url'=>$url));
-	}
+    * Assign the content for the nav bar
+    * 
+    * @param string $active_uri Uri
+    * @param bool $public Public page?
+    * @return void Assigns values to the layout
+    */
+    private function navBar($active_uri, $public=TRUE) 
+    {
+        $items = array(
+            array('uri'=>'/dlayer/index/index', 'name'=>'Dlayer Demo', 
+                'title'=>'Dlayer.com: Web development simplified'),
+            array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 
+                'title'=>'Read the Docs for Dlayer')
+        );
+        
+        $this->layout->assign('nav', array(
+            'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));        
+    }
 }

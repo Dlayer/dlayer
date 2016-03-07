@@ -23,6 +23,7 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 	private $container_class;
 
 	private $brand;
+    private $brand_url;
 	private $navbar_items;
 	private $active_uri;
 
@@ -30,6 +31,7 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 	* Generates a simple bootstrap navbar
 	*
 	* @param string $brand Brand name/img, appears to let of navbar
+    * @param string $brand_url URL to use for branch text, icon
 	* @param array $navbar_items Array containing the navbar items, each item
 	* 	should be an array with the folowing keys, uri, title, name and and
 	* 	optionally children. A driop down will created for all the items in the 
@@ -37,12 +39,13 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 	* @param string $active_uri The Uri of the active item
 	* @return Dlayer_View_Bootstrap3Navbar
 	*/
-	public function bootstrap3Navbar($brand, array $navbar_items,
+	public function bootstrap3Navbar($brand, $brand_url, array $navbar_items,
 		$active_url='')
 	{
 		$this->resetParams();
 
-		$this->brand = $brand;
+        $this->brand = $brand;
+		$this->brand_url = $brand_url;
 		$this->navbar_items = $navbar_items;
 		$this->active_uri = $active_url;
 
@@ -67,7 +70,8 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 	*/
 	public function resetParams()
 	{
-		$this->brand = '';
+        $this->brand = '';
+		$this->brand_url = '';
 		$this->navbar_items = array();
 		$this->active_uri = '';
 
@@ -89,8 +93,8 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 			'<span class="sr-only">Toggle navigation</span>' . 
 			'<span class="icon-bar"></span><span class="icon-bar"></span>' . 
 			'<span class="icon-bar"></span></button>' . 
-			'<a class="navbar-brand" href="/">' . $this->brand . 
-			'</a></div>';
+			'<a class="navbar-brand" href="' . $this->brand_url . 
+            '">' . $this->brand . '</a></div>';
 	}
 
 	/**

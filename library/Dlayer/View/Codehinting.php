@@ -314,35 +314,19 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	public function colorPicker() { } 
 	
 	/**
-	* Generates a simple bootstrap navbar
-	*
-	* @param string $brand Brand name/img, appears to let of navbar
-	* @param array $navbar_items Array containing the navbar items, each item
-	* 	should be an array with the folowing keys, uri, title, name and and
-	* 	optionally children. A driop down will created for all the items in the 
-	* 	children array
-	* @param string $active_uri The Uri of the active item
-	* @return Dlayer_View_Bootstrap3Navbar
-	*/
-	public function bootstrap3Navbar($brand, array $navbar_items,
-		$active_url='') { }
-		
-	/**
-	* Generate the html for a bootstrap navbar, allows the developer to define 
-	* the brand name, navbar items including dropdowns and allow the inverted 
-	* style to be selected
-	* 
-	* @param string $brand Brand name, appears to let of navbar
-	* @param array $navbar_items Array containing the navbar items, each item 
-	* 							 should be an array with url, title and name 
-	* 							 fields, dropdowns can be created by defining 
-	* 							 a children field with the same format array
-	* @param string $active_url The URL of the active item, not always the 
-	* 							current URL
-	* @return Dlayer_View_BootstrapNavbar
-	*/
-	public function bootstrapNavbar($brand, array $navbar_items, 
-	$active_url='') { }
+    * Generates a simple bootstrap navbar
+    *
+    * @param string $brand Brand name/img, appears to let of navbar
+    * @param string $brand_url URL to use for branch text, icon
+    * @param array $navbar_items Array containing the navbar items, each item
+    *     should be an array with the folowing keys, uri, title, name and and
+    *     optionally children. A driop down will created for all the items in the 
+    *     children array
+    * @param string $active_uri The Uri of the active item
+    * @return Dlayer_View_Bootstrap3Navbar
+    */
+    public function bootstrap3Navbar($brand, $brand_url, array $navbar_items,
+        $active_url='') { }
 	
 	/**
 	* Generates the HTML for a bootstrap nav item
@@ -460,7 +444,7 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	* @param string $active_url The URL of the active item, not always the 
 	* 							current URL
 	* @param string $preview_url
-	* @return Dlayer_View_BootstrapNavbar
+	* @return Dlayer_View_BootstrapNavbarPreview
 	*/
 	public function bootstrapNavbarPreview($brand, array $navbar_items, 
 		$active_url='', $preview_url='') { } 
