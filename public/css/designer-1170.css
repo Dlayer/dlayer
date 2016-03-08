@@ -1,3 +1,25 @@
-
+div#designer {
+  max-width: 1170px; }
+  div#designer .well {
+    margin-bottom: 0px; }
+  div#designer .design {
+    margin-bottom: 1em; }
+  div#designer .tools {
+    margin-bottom: 1em; }
+    div#designer .tools .row {
+      margin-bottom: 0.5em; }
+      div#designer .tools .row:last-child {
+        margin-bottom: 0px; }
+  div#designer legend {
+    padding: 0.3em 0px;
+    margin-bottom: 0.3em; }
+  div#designer .ribbon ul.nav-tabs {
+    margin-bottom: 0.5em; }
+  div#designer .ribbon div.content {
+    display: none; }
+    div#designer .ribbon div.content p.unsaved {
+      display: none; }
+  div#designer .ribbon div.open {
+    display: block; }
 
 /*# sourceMappingURL=designer-1170.css.map */
