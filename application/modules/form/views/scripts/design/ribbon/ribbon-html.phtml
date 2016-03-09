@@ -17,7 +17,7 @@ $(document).ready(function()
 			<li id="tab_<?php echo $this->escape($tab['tab']); ?>" 
 				role="presentation" class="<?php echo $class; ?>">
 				<a href="#" title="<?php echo $this->escape($tab['tab_name']); ?>">
-				<span class="<?php echo $tab['glyphicon']; ?>" aria-hidden="true"></span> 
+				<?php echo $this->escape($tab['tab_name']); ?> 
 				</a>
 			</li>
 			<?php } ?>
