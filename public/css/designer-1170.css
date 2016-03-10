@@ -4,12 +4,16 @@ div#designer {
     margin-bottom: 0px; }
   div#designer .design {
     margin-bottom: 1em; }
+    div#designer .design div.builder-form div.selected {
+      border: 1px solid #93d0e1; }
   div#designer .tools {
     margin-bottom: 1em; }
     div#designer .tools .row {
       margin-bottom: 0.5em; }
       div#designer .tools .row:last-child {
         margin-bottom: 0px; }
+      div#designer .tools .row h4:hover {
+        cursor: pointer; }
   div#designer legend {
     padding: 0.3em 0px;
     margin-bottom: 0.3em; }

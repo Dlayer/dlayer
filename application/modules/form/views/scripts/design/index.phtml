@@ -10,7 +10,7 @@ $(document).ready(function()
 		dlayer.selectors.form();
 			
 		// Toggles for tools section
-		$('div#tools h4').click(
+		$('div.tools h4').click(
 			function() 
 			{
 				var selector = this.className;
@@ -27,10 +27,10 @@ $(document).ready(function()
 		)
 		
 		<?php if($this->tool == FALSE) { ?>
-		$('div#tools h4.tool-row-4').trigger('click');
+		$('div.tools h4.tool-row-4').trigger('click');
 		<?php } else { ?>
 		<?php if(in_array($this->tool, array('text', 'password', 'textarea', 'email')) == FALSE) { ?>
-		$('div#tools h4.tool-row-4').trigger('click');
+		$('div.tools h4.tool-row-4').trigger('click');
 		<?php } ?>
 		<?php } ?>
 });

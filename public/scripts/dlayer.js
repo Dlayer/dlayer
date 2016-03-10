@@ -2695,7 +2695,7 @@ var dlayer = {
 		*/
 		form: function()
 		{
-			$('#design div.field_row').hover(
+			$('div.design div.field_row').hover(
 				function() {
 					if($(this).hasClass('selected') == false) {
 						background_color = $(this).css('background-color');
@@ -2711,7 +2711,7 @@ var dlayer = {
 					}
 				}
 			);
-			$('#design div.field_row').click(
+			$('div.design div.field_row').click(
 				function() {
 					if($(this).hasClass('selected') == false) {
 						$(this).css('background-color','#c3be50');

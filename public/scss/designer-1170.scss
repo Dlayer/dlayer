@@ -1,3 +1,7 @@
+@mixin selected-state() {
+	border: 1px solid #93d0e1;
+}
+
 div#designer {
 	max-width: 1170px;
 	
@@ -7,6 +11,12 @@ div#designer {
 
 	.design {
 		margin-bottom: 1em;		
+		
+		div.builder-form {
+			div.selected {
+				@include selected-state();
+			}
+		}
 	}
 	
 	.tools {
@@ -18,7 +28,15 @@ div#designer {
 			&:last-child {
 				margin-bottom: 0px;
 			}
-		}		
+			
+			h4 {
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+		
+				
 	}
 	
 	legend {
