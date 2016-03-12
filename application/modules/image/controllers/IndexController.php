@@ -76,10 +76,7 @@ class Image_IndexController extends Zend_Controller_Action
 			array('uri'=>'/dlayer/settings/index', 
 				'name'=>'Settings', 'title'=>'Settings'), 
 			array('uri'=>'http://www.dlayer.com/docs/', 
-				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
-			array('uri'=>'/dlayer/index/logout', 
-				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of demo')		
+				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
 		);
 		
 		$this->layout->assign('nav', array(
