@@ -12,8 +12,10 @@ div#designer {
       margin-bottom: 0.5em; }
       div#designer .tools .row:last-child {
         margin-bottom: 0px; }
-      div#designer .tools .row h5:hover {
-        cursor: pointer; }
+      div#designer .tools .row h5 {
+        margin-top: 0.3em; }
+        div#designer .tools .row h5:hover {
+          cursor: pointer; }
   div#designer legend {
     padding: 0.3em 0px;
     margin-bottom: 0.3em; }
