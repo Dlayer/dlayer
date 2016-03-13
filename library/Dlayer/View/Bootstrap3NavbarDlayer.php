@@ -204,7 +204,7 @@ class Dlayer_View_Bootstrap3NavbarDlayer extends Zend_View_Helper_Abstract
 	private function signOutAndVersion() 
 	{
 		$html = '<p class="navbar-text navbar-inverse navbar-right">';
-		$html .= '<a href="/dlayer/index/logout" class="navbar-link" title="Sign out of demo"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out</a>';
+		$html .= '<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> <a href="/dlayer/index/logout" class="navbar-link" title="Sign out of demo">Sign out</a>';
 		$html .= ' - <small>' . VERSION_NO . ' (' . VERSION_DATE . ')</small>';
 		$html .= '<p>';
 		return $html;

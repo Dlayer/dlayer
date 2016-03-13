@@ -48,8 +48,12 @@ div#designer {
 	}
 	
 	.ribbon {
-		ul.nav-tabs {
-			margin-bottom: 0.5em;
+		.nav {
+			& > li {
+				& a {
+					padding: 0.3em 0.5em;
+				}
+			}
 		}
 
 		div.content {
