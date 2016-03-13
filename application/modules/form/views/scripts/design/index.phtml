@@ -44,6 +44,14 @@ $(document).ready(function()
     	<div class="col-lg-3 col-md-12">
     		<div class="row">
     			<div class="col-lg-12 col-md-8 col-sm-8 col-xs-12 ribbon">
+    				<?php if($this->field_id !== NULL || $this->tool !== FALSE) { ?>
+    				<div class="row">
+    					<div class="col-xs-12 cancel-button visible-lg">
+    						<a class="btn btn-danger btn-block " href="/form/design/set-tool/cancel/reset/1">Cancel</a>
+    					</div>
+    				</div>
+    				<?php } ?>
+    			
     				<?php echo $this->dlayer_ribbon; ?>
     			</div>
     			

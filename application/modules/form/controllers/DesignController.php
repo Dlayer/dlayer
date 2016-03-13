@@ -75,6 +75,8 @@ class Form_DesignController extends Zend_Controller_Action
 		$this->view->return = $this->session_form->returnModule();
 
 		$this->view->module = $this->getRequest()->getModuleName();
+		$this->view->field_id = $this->session_form->fieldId();
+		$this->view->tool = $this->session_form->tool();
 		
 		$this->layout->assign('title', 'Dlayer.com - Form builder');
 	}

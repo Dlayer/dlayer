@@ -16,6 +16,8 @@ div#designer {
         margin-top: 0.3em; }
         div#designer .tools .row h5:hover {
           cursor: pointer; }
+      div#designer .tools .row .btn-xs {
+        margin-bottom: 5px; }
   div#designer legend {
     padding: 0.3em 0px;
     margin-bottom: 0.3em; }
@@ -27,5 +29,7 @@ div#designer {
       display: none; }
   div#designer .ribbon div.open {
     display: block; }
+  div#designer .ribbon div.cancel-button {
+    margin-bottom: 1em; }
 
 /*# sourceMappingURL=designer-1170.css.map */

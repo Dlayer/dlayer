@@ -35,9 +35,11 @@ div#designer {
 					cursor: pointer;
 				}
 			}
-		}
-		
-				
+			
+			.btn-xs {
+				margin-bottom: 5px;
+			}
+		}						
 	}
 	
 	legend {
@@ -60,6 +62,10 @@ div#designer {
 
 		div.open {
 			display: block;
+		}
+		
+		div.cancel-button {
+			margin-bottom: 1em;
 		}
 	}
 }
