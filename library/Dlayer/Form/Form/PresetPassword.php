@@ -52,7 +52,7 @@ class Dlayer_Form_Form_PresetPassword extends Dlayer_Form_Module_Form
 
 		$this->validationRules();
 		
-		$legend = 'Add <small>Add a preset password field</small>'; 
+		$legend = 'Add <small>Password field</small>'; 
 		$this->addElementsToForm('password_field', $legend, $this->elements);
 
 		$this->addDefaultElementDecorators();
@@ -115,37 +115,42 @@ class Dlayer_Form_Form_PresetPassword extends Dlayer_Form_Module_Form
 	{		
 		$label = new Zend_Form_Element_Text('label');
 		$label->setBelongsTo('params');
+		$label->setAttribs(array('class'=>'form-control input-sm'));
 		$label->setValue('Your password');
 
 		$this->elements['label'] = $label;
 
 		$description = new Zend_Form_Element_Textarea('description');
 		$description->setBelongsTo('params');
+		$description->setAttribs(array('class'=>'form-control input-sm', 'rows'=>5));
 		$description->setValue('Please enter your password');
 
 		$this->elements['description'] = $description;
 
 		$placeholder = new Zend_Form_Element_Text('placeholder');
 		$placeholder->setBelongsTo('params');
+		$placeholder->setAttribs(array('class'=>'form-control input-sm'));
 		$placeholder->setValue('******');
 
 		$this->elements['placeholder'] = $placeholder;
 
 		$size = new Dlayer_Form_Element_Number('size');
 		$size->setValue(20);
+		$size->setAttribs(array('class'=>'form-control input-sm'));
 		$size->setBelongsTo('params');
 
 		$this->elements['size'] = $size;
 
 		$max_length = new Dlayer_Form_Element_Number('maxlength');
 		$max_length->setValue(255);
+		$max_length->setAttribs(array('class'=>'form-control input-sm'));
 		$max_length->setBelongsTo('params');
 
 		$this->elements['maxlength'] = $max_length;
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		$submit->setLabel('Add');
+		$submit->setLabel('Add password field');
 
 		$this->elements['submit'] = $submit;
 	}
