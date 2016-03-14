@@ -546,37 +546,35 @@ var dlayer = {
 			}
 		}, 
 		
-		form: {
-			
+		form: {			
 			fn: {
-				
-				/**
-				* Toggle for the additional fields
+                /** 
+                * Toggle for the additional fields on tool forms, these are 
+                * fields that the user can change but the vast majority of the 
+                * time the defaults will suffice
 				* 
 				* @returns {Void}
 				*/
 				toggleAdditionalFields: function() 
 				{
-					$('div.form-group-collapsed span.toggle').on(
-						'click', function() {
+					$('div.form-group-collapsed label').on('click', function() 
+                    {
+                        var toggle_element = $(this).find('span');
+                        var field_to_show = '#params-' + 
+                            toggle_element.attr('id').replace('fgc-', '');
 						
-						toggle = $(this);
-						var field = '#params-' + this.id.replace('fgc-', '');
-						
-						console.log(field);
-						
-						if(toggle.hasClass('glyphicon-plus')) {
-							toggle.removeClass('glyphicon-plus').
-								addClass('glyphicon-minus');
+						if(toggle_element.hasClass('glyphicon-plus')) 
+                        {
+                            toggle_element.removeClass('glyphicon-plus').addClass('glyphicon-minus');
 								
-							$(field).show();
-							$(field).next('p.help-block').show();
+							$(field_to_show).show();
+							$(field_to_show).next('p.help-block').show();
 						} else {
-							toggle.removeClass('glyphicon-minus').
-								addClass('glyphicon-plus');
+							toggle_element.removeClass('glyphicon-minus').
+                                addClass('glyphicon-plus');
 								
-							$(field).hide();
-							$(field).next('p.help-block').hide();
+							$(field_to_show).hide();
+							$(field_to_show).next('p.help-block').hide();
 						}
 					});
 				}																

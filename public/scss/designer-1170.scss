@@ -62,6 +62,20 @@ div#designer {
 			p.unsaved {
 				display: none;
 			}
+            
+            div.form-group-collapsed {
+                & > label:hover {
+                    cursor: pointer;
+                }
+            
+                & > input {
+                    display: none;
+                }
+                
+                & > p.help-block {
+                    display: none;
+                }
+            }
 		}
 
 		div.open {
