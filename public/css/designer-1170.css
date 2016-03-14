@@ -4,8 +4,10 @@ div#designer {
     margin-bottom: 0px; }
   div#designer .design {
     margin-bottom: 1em; }
-    div#designer .design div.builder-form div.selected {
-      border: 1px solid #93d0e1; }
+    div#designer .design div.builder-form {
+      background-color: #F7F7F7; }
+      div#designer .design div.builder-form div.selected {
+        border: 1px solid #93d0e1; }
   div#designer .tools {
     margin-bottom: 1em; }
     div#designer .tools .row {

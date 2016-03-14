@@ -13,6 +13,7 @@ div#designer {
 		margin-bottom: 1em;		
 		
 		div.builder-form {
+            background-color: #F7F7F7;
 			div.selected {
 				@include selected-state();
 			}

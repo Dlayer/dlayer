@@ -2693,8 +2693,9 @@ var dlayer = {
 		*/
 		form: function()
 		{
-			$('div.design div.field_row').hover(
-				function() {
+			$('div.builder-form div.field_row').hover(
+                function() {
+                    console.log('here');
 					if($(this).hasClass('selected') == false) {
 						background_color = $(this).css('background-color');
 						$(this).css('background-color', '#e1dc50');
@@ -2709,7 +2710,7 @@ var dlayer = {
 					}
 				}
 			);
-			$('div.design div.field_row').click(
+			$('div.builder-form div.field_row').click(
 				function() {
 					if($(this).hasClass('selected') == false) {
 						$(this).css('background-color','#c3be50');
