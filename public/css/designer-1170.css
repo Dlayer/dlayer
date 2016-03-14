@@ -19,8 +19,8 @@ div#designer {
       div#designer .tools .row .btn-xs {
         margin-bottom: 5px; }
   div#designer legend {
-    padding: 0.3em 0px;
-    margin-bottom: 0.3em; }
+    padding: 0.3em 0 0 0;
+    margin-bottom: 0; }
   div#designer .ribbon .nav > li a {
     padding: 0.3em 0.5em; }
   div#designer .ribbon div.content {
@@ -33,6 +33,8 @@ div#designer {
       display: none; }
     div#designer .ribbon div.content div.form-group-collapsed > p.help-block {
       display: none; }
+    div#designer .ribbon div.content .further-reading {
+      padding-bottom: 2em; }
   div#designer .ribbon div.open {
     display: block; }
   div#designer .ribbon div.cancel-button {

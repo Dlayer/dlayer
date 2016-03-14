@@ -43,8 +43,8 @@ div#designer {
 	}
 	
 	legend {
-		padding: 0.3em 0px;
-		margin-bottom: 0.3em;
+		padding: 0.3em 0 0 0;
+		margin-bottom: 0;
 	}
 	
 	.ribbon {
@@ -75,6 +75,10 @@ div#designer {
                 & > p.help-block {
                     display: none;
                 }
+            }
+            
+            .further-reading {
+                padding-bottom: 2em;
             }
 		}
 
