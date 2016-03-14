@@ -14,11 +14,11 @@ div#designer {
       margin-bottom: 0.5em; }
       div#designer .tools .row:last-child {
         margin-bottom: 0px; }
-      div#designer .tools .row h5 {
+      div#designer .tools .row h4 {
         margin-top: 0.3em; }
-        div#designer .tools .row h5:hover {
+        div#designer .tools .row h4:hover {
           cursor: pointer; }
-      div#designer .tools .row .btn-xs {
+      div#designer .tools .row .btn-sm {
         margin-bottom: 5px; }
   div#designer legend {
     padding: 0.3em 0 0 0;

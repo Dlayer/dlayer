@@ -47,9 +47,7 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
 
 		$this->validationRules();
 
-		$this->addElementsToForm('form_setting', 
-			'Form settings <small>Set the settings for your form</small>', 
-			$this->elements);
+		$this->addElementsToForm('form_setting', 'Options', $this->elements);
 
 		$this->addDefaultElementDecorators();
 
@@ -105,8 +103,9 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
 	private function userElements()
 	{
 		$http = new Zend_Form_Element_Select('http');
-		$http->setLabel('Email');
-		$http->setDescription('Set the HTTP method to use for form submission');
+		$http->setLabel('Method');
+		$http->setDescription('Set the HTTP method to use for form submission, 
+            unless building a widget leave at POST.');
 		$http->addMultiOptions(
 			array(1=>'POST', 2=>'GET'));
 		$http->setRequired();
@@ -141,9 +140,13 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Module_Form
 		
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttrib('class', 'submit');
-		$submit->setAttribs(array('class'=>'btn btn-primary', 
-			'disabled'=>'disabled'));
-		$submit->setLabel('Save');
+		$submit->setAttribs(
+            array(
+                'class'=>'btn btn-primary', 
+                'disabled'=>'disabled',
+            )
+        );
+		$submit->setLabel('Save changes');
 
 		$this->elements['submit'] = $submit;
 	}

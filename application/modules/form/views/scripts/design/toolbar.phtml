@@ -9,7 +9,7 @@
 
 $groups = array(
 	1=>'', 
-	2=>'Settings <small>Form settings</small>',
+	2=>'Options <small>Form options</small>',
 	3=>'Preset fields <small>Quickly create fields using presets</small>',
 	4=>'Standard fields <small>Create fields using the base types</small>'
 );
@@ -53,10 +53,10 @@ foreach($this->tools as $group_id => $group) {
 				$reset = '/reset/1';
 			}
 			
-			$class = "btn btn-default btn-xs";
+			$class = "btn btn-default btn-sm";
 			
 			if($selected == TRUE) {
-				$class = "btn btn-primary btn-xs";
+				$class = "btn btn-primary btn-sm";
 			}
 			
 			if($tool['tool'] == 'cancel') {
@@ -73,10 +73,10 @@ foreach($this->tools as $group_id => $group) {
 		echo '<div class="row">';
 		echo '<div class="col-xs-12">';
 		if(strlen($groups[$group_id]) > 0) {
-			echo '<h5 class="tool-row-' . $group_id . '"> 
+			echo '<h4 class="tool-row-' . $group_id . '"> 
 				<span class="glyphicon glyphicon-minus" 
 				aria-hidden="true"></span> ' . 
-				$groups[$group_id] . '</h5>';
+				$groups[$group_id] . '</h4>';
 		}
 		echo '<div class="tool-row-' . $group_id . '">';
 		echo $html;

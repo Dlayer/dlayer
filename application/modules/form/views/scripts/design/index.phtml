@@ -10,28 +10,24 @@ $(document).ready(function()
 		dlayer.selectors.form();
 			
 		// Toggles for tools section
-		$('div.tools h5').click(
+		$('div.tools h4').click(
 			function() 
 			{
 				var selector = this.className;
 				$('div.' + selector).toggle();
 				
-				if($('h5.' + selector + ' > span').hasClass('glyphicon-minus')) {
-					$('h5.' + selector + ' > span').removeClass('glyphicon-minus');
-					$('h5.' + selector + ' > span').addClass('glyphicon-plus');
+				if($('h4.' + selector + ' > span').hasClass('glyphicon-minus')) {
+					$('h4.' + selector + ' > span').removeClass('glyphicon-minus');
+					$('h4.' + selector + ' > span').addClass('glyphicon-plus');
 				} else {
-					$('h5.' + selector + ' > span').removeClass('glyphicon-plus');
-					$('h5.' + selector + ' > span').addClass('glyphicon-minus');
+					$('h4.' + selector + ' > span').removeClass('glyphicon-plus');
+					$('h4.' + selector + ' > span').addClass('glyphicon-minus');
 				}
 			}
 		)
 		
 		<?php if($this->tool == FALSE) { ?>
 		$('div.tools h4.tool-row-4').trigger('click');
-		<?php } else { ?>
-		<?php if(in_array($this->tool, array('text', 'password', 'textarea', 'email')) == FALSE) { ?>
-		$('div.tools h4.tool-row-4').trigger('click');
-		<?php } ?>
 		<?php } ?>
 });
 </script>
