@@ -50,7 +50,7 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 		$this->validationRules();
 
 		$this->addElementsToForm('form_layout', 
-			'Form layout <small>Change how the form appears</small>', 
+			'Layout <small>Change how the form appears</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();
@@ -120,8 +120,7 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 	{
 		$title = new Zend_Form_Element_Text('title');
 		$title->setLabel('Title');
-		$title->setDescription('Enter a title for the form, this will appear 
-			above the form.');
+		$title->setDescription('Enter the  title for the form.');
 		$title->setAttribs(array('maxlength'=>255, 'size'=>50, 
 			'class'=>'form-control input-sm'));
 		$title->setValue($this->field_data['title']);
@@ -132,8 +131,7 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 		
 		$sub_title = new Zend_Form_Element_Text('sub_title');
 		$sub_title->setLabel('Sub title');
-		$sub_title->setDescription('Enter an optional sub title, this appear 
-			to the right of the title in a smaller and light font.');
+		$sub_title->setDescription('Enter an optional sub title.');
 		$sub_title->setAttribs(array('maxlength'=>255, 'size'=>50, 
 			'class'=>'form-control input-sm'));
 		$sub_title->setValue($this->field_data['sub_title']);
@@ -154,9 +152,8 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 		
 		$reset_label = new Zend_Form_Element_Text('reset_label');
 		$reset_label->setLabel('Reset label');
-		$reset_label->setDescription("If you would like your form to have 
-			a reset button please enter the name for the button here, if left 
-			blank the form will not have a reset button.");
+		$reset_label->setDescription("Enter the text for the reset blank or 
+            leave blank if you dont require a reset button.");
 		$reset_label->setAttribs(array('maxlength'=>255, 'size'=>50, 
 			'class'=>'form-control input-sm'));
 		$reset_label->setValue($this->field_data['reset_label']);
@@ -167,8 +164,7 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 		$layout_option = new Zend_Form_Element_Select('layout_id');
 		$layout_option->setLabel('Layout option');
 		$layout_option->setDescription('Select the layout option for your 
-			form, standard, horizontal or inline, check the help tab for a 
-			description of each option.');
+			form, standard, horizontal or inline.');
 		$layout_option->addMultiOptions($this->elements_data);
 		$layout_option->setRequired();
 		$layout_option->setAttrib('class', 'form-control input-sm');
@@ -214,7 +210,7 @@ class Dlayer_Form_Form_FormLayout extends Dlayer_Form_Module_Form
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttrib('class', 'submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		$submit->setLabel('Save');
+		$submit->setLabel('Save changes');
 
 		$this->elements['submit'] = $submit;
 	}
