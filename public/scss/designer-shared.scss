@@ -1,0 +1,70 @@
+div.color-picker-tool {
+	display: none;
+	margin-top: 1em;
+	
+	span.close-color-picker {
+		cursor: pointer;
+	}
+	
+	div.palette {
+		
+		div.color {
+			border-radius: 3px;
+			border: 1px solid #ddd;
+			
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+	
+	div.history {
+		
+		div.color {
+			border-radius: 3px;
+			border: 1px solid #ddd;
+			
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+div.color-picker {
+	border-radius: 3px;
+	border: 1px solid #ddd;
+	margin-right: 5px;
+	
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+
+	/*div.panel-body {
+
+		div.palette {
+
+			div.color {
+				border-radius: 3px;
+				border: 1px solid #ddd;
+				cursor: pointer;
+			}
+		}
+
+		div.history {
+
+			div.color {
+				border-radius: 3px;
+				border: 1px solid #ddd;
+				cursor: pointer;
+			}
+		}
+
+		div.custom {
+			float: left;
+			width: 100%;
+		}
+	}*/
+//}

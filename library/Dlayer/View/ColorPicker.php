@@ -60,8 +60,8 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 	public function javascript() 
 	{
 		$this->html = '<script>
-			dlayer.fn.colorPicker.events();
-			dlayer.fn.colorPicker.open();
+			dlayerDesigner.colorPicker.start();
+			dlayerDesigner.colorPicker.events();
 			</script>';
 		
 		return $this;
@@ -80,7 +80,7 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 	public function picker($palettes, $history, $custom=TRUE) 
 	{
 		// Start color picker container
-		$this->html = '<div class="color_picker_tool panel panel-default">';
+		$this->html = '<div class="color-picker-tool panel panel-default">';
 		$this->html .= '<div class="panel-heading"><h4>Colour picker 
 			<small>Select a colour</small> <span class="glyphicon
 			 glyphicon-remove close-color-picker pull-right" title="Close colour picker" 
@@ -113,17 +113,28 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 						' <small>The five colours defined for this palette</small></h4></div>';
 					
 					$colors = '';
-					$labels = '';
+					$x = 0;
 					
-					$html .= '<div class="col-xs-1">&nbsp;</div>';
-					
-					foreach($palette['colors'] as $color) {
-						$colors .= '<div class="color col-xs-2" style="background-color:' . 
-						$this->view->escape($color['color_hex']) . ';" title="' . 
-						$this->view->escape($color['name']) . '">&nbsp;</div>';
+					foreach($palette['colors'] as $color) 
+					{
+						if($x === 0) 
+						{
+							$offset = ' col-xs-offset-1';
+						}
+						else 
+						{
+							$offset = NULL;
+						}
+						
+						$colors .= '<div class="color col-xs-2' . $offset . 
+						'" style="background-color:' . $this->view->escape($color['color_hex']) . 
+						';" title="' . $this->view->escape($color['name']) . '">&nbsp;</div>';
+						
+						$x++;
 					}
 					
 					$html .= $colors;
+					
 					$html .= '<hr />';
 					
 					$html .= '</div>';
