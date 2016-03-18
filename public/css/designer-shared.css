@@ -1,50 +1,32 @@
-div.color-picker-tool {
-  display: none;
+.color-picker-tool {
+  /*display: none;*/
   margin-top: 1em; }
-  div.color-picker-tool span.close-color-picker {
+  .color-picker-tool .panel-heading {
+    padding: 5px 10px; }
+  .color-picker-tool .panel-body {
+    padding: 5px 10px; }
+  .color-picker-tool .close-color-picker {
     cursor: pointer; }
-  div.color-picker-tool div.palette div.color {
+  .color-picker-tool .palette .color {
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    margin-top: 5px; }
+    .color-picker-tool .palette .color:hover {
+      cursor: pointer; }
+  .color-picker-tool .history .color {
     border-radius: 3px;
     border: 1px solid #ddd; }
-    div.color-picker-tool div.palette div.color:hover {
+    .color-picker-tool .history .color:hover {
       cursor: pointer; }
-  div.color-picker-tool div.history div.color {
+  .color-picker-tool .history .color-label {
     border-radius: 3px;
-    border: 1px solid #ddd; }
-    div.color-picker-tool div.history div.color:hover {
-      cursor: pointer; }
+    border: 1px solid #fff; }
 
-div.color-picker {
+.color-picker {
   border-radius: 3px;
   border: 1px solid #ddd;
   margin-right: 5px; }
-  div.color-picker:hover {
+  .color-picker:hover {
     cursor: pointer; }
-
-	/*div.panel-body {
-
-		div.palette {
-
-			div.color {
-				border-radius: 3px;
-				border: 1px solid #ddd;
-				cursor: pointer;
-			}
-		}
-
-		div.history {
-
-			div.color {
-				border-radius: 3px;
-				border: 1px solid #ddd;
-				cursor: pointer;
-			}
-		}
-
-		div.custom {
-			float: left;
-			width: 100%;
-		}
-	}*/
 
 /*# sourceMappingURL=designer-shared.css.map */

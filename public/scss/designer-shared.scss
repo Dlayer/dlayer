@@ -1,14 +1,34 @@
-div.color-picker-tool {
-	display: none;
+.color-picker-tool {
+	/*display: none;*/
 	margin-top: 1em;
 	
-	span.close-color-picker {
+	.panel-heading {
+		padding: 5px 10px;
+	}
+	.panel-body {
+		padding: 5px 10px;
+	}
+	
+	.close-color-picker {
 		cursor: pointer;
 	}
 	
-	div.palette {
+	.palette {
 		
-		div.color {
+		.color {
+			border-radius: 3px;
+			border: 1px solid #ddd;
+			margin-top: 5px;
+			
+			&:hover {
+				cursor: pointer;
+			}
+		}		
+	}
+	
+	.history {
+		
+		.color {
 			border-radius: 3px;
 			border: 1px solid #ddd;
 			
@@ -16,22 +36,15 @@ div.color-picker-tool {
 				cursor: pointer;
 			}
 		}
-	}
-	
-	div.history {
 		
-		div.color {
+		.color-label {
 			border-radius: 3px;
-			border: 1px solid #ddd;
-			
-			&:hover {
-				cursor: pointer;
-			}
+			border: 1px solid #fff;
 		}
 	}
 }
 
-div.color-picker {
+.color-picker {
 	border-radius: 3px;
 	border: 1px solid #ddd;
 	margin-right: 5px;
@@ -41,30 +54,3 @@ div.color-picker {
 	}
 }
 
-
-	/*div.panel-body {
-
-		div.palette {
-
-			div.color {
-				border-radius: 3px;
-				border: 1px solid #ddd;
-				cursor: pointer;
-			}
-		}
-
-		div.history {
-
-			div.color {
-				border-radius: 3px;
-				border: 1px solid #ddd;
-				cursor: pointer;
-			}
-		}
-
-		div.custom {
-			float: left;
-			width: 100%;
-		}
-	}*/
-//}
