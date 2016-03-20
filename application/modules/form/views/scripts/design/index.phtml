@@ -10,7 +10,7 @@ $(document).ready(function()
 		dlayer.selectors.form();
 			
 		// Toggles for tools section
-		$('div#tools h4').click(
+		$('div.tools h4').click(
 			function() 
 			{
 				var selector = this.className;
@@ -27,33 +27,36 @@ $(document).ready(function()
 		)
 		
 		<?php if($this->tool == FALSE) { ?>
-		$('div#tools h4.tool-row-4').trigger('click');
-		<?php } else { ?>
-		<?php if(in_array($this->tool, array('text', 'password', 'textarea', 'email')) == FALSE) { ?>
-		$('div#tools h4.tool-row-4').trigger('click');
-		<?php } ?>
+		$('div.tools h4.tool-row-4').trigger('click');
 		<?php } ?>
 });
 </script>
 
-<div id="designer">
-	<div id="design">
-		<?php echo $this->dlayer_form; ?>
-	</div>
-	<div id="tools">
-		<?php echo $this->dlayer_toolbar; ?>
-	</div>
-	<?php if($this->return != NULL) { ?>
-	<div id="return">
-		<div class="row">
-			<div class="col-xs-12">
-				<a href="/<?php echo $this->escape($this->return); ?>/design" 
-				class="btn btn-info btn-sm">Return to previous designer</a>
-			</div>
-		</div>
-	</div>
-	<?php } ?>
-	<div id="ribbon">
-		<?php echo $this->dlayer_ribbon; ?>
-	</div>
+<div id="designer">	
+    <div class="row">
+    	<div class="col-lg-9 design">
+    		<?php echo $this->dlayer_form; ?>
+    	</div>
+    	<div class="col-lg-3">
+    		<div class="row">
+    			<div class="col-lg-12 col-md-8 col-sm-8 ribbon">
+    				<?php if($this->field_id !== NULL || $this->tool !== FALSE) { ?>
+    				<div class="row">
+    					<div class="cancel-button visible-lg">
+    						<a class="btn btn-danger btn-block " href="/form/design/set-tool/cancel/reset/1">Cancel</a>
+    					</div>
+    				</div>
+    				<?php } ?>
+    			
+    				<?php echo $this->dlayer_ribbon; ?>
+    			</div>
+    			
+    			<div class="col-lg-12 col-md-4 col-sm-4 tools">
+    				<div class="well well-sm">    			
+    					<?php echo $this->dlayer_toolbar; ?>
+    				</div>
+    			</div>
+    		</div>    		
+    	</div>
+    </div>
 </div>

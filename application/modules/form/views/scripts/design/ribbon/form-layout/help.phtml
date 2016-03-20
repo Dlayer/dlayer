@@ -1,7 +1,7 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
-<div class="col-xs-12">
-	<h3>Help <small>Set the layout options for your form</small></h3>
+<div class="col-md-12 col-sm-12">
+	<h3>Help <small>Layout options</small></h3>
 	
 	<p>This tool allows you to set the layout options for your form.</p>
 	
@@ -16,15 +16,15 @@
 	<h4>Layout options:</h4>
 	
 	<ul>
-		<li><strong>Standard:</strong> Label appears above the field, both 
-			are the full width of the container.</li>
-		<li><strong>Horizontal:</strong> Label and field appear on the 
-			same row according to the defined widths.</li>
+		<li><strong>Standard:</strong> Labels appears above their fields, 
+            both are the full width of the container.</li>
+		<li><strong>Horizontal:</strong> Labels and fields appear on the line 
+            according to the defined widths.</li>
 		<li><strong>Inline:</strong> Labels and fields sit inline flowing left 
 			to right.</li>
 	</ul>
-		
-	<p class="dev-note bg-info">There is no live preview when changing any of the 
-		values below, live preview for layout changes is on the task list and 
-		will hopefully be completed soon(tm).</p>
+</div>
+
+<div class="col-md-12 col-sm-12 further-reading">
+    <?php echo $this->furtherReading('/#form-builder'); ?>
 </div>

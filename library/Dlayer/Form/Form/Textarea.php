@@ -52,9 +52,9 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$this->validationRules();
 			
 		if($this->edit_mode == FALSE) {
-			$legend = 'Add <small>Add a textarea field</small>'; 
+			$legend = 'Add <small>Text area field</small>'; 
 		} else {
-			$legend = 'Edit <small>Edit the textarea field</small>';
+			$legend = 'Edit <small>Text area field</small>';
 		}
 
 		$this->addElementsToForm('textarea_field', $legend, $this->elements);
@@ -129,8 +129,7 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$label->setAttribs(array('maxlength'=>255, 
 			'placeholder'=>'e.g., Comment', 
 			'class'=>'form-control input-sm'));
-		$label->setDescription('Enter the label for the textarea, this will
-			appear to the left of the textarea.');
+		$label->setDescription('Enter a label.');
 		$label->setBelongsTo('params');
 		$label->setRequired();
 
@@ -146,9 +145,8 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$description->setAttribs(array('rows'=>2, 'cols'=>30, 
 			'placeholder'=>'e.g., Please enter your comment', 
 			'class'=>'form-control input-sm'));
-		$description->setDescription('Enter a description, this should indicate
-			to the user what they should enter in the textarea. (Not 
-			applicable when form layout mode set to inline)');
+		$description->setDescription('Enter a description, if necessary give 
+            the user instructions.');
 		$description->setBelongsTo('params');
 
 		$value = $this->fieldValue('description');
@@ -163,8 +161,8 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$placeholder->setAttribs(array('maxlength'=>255, 
 			'placeholder'=>'e.g., I love your app, thank you :)', 
 			'class'=>'form-control input-sm'));
-		$placeholder->setDescription('Set the help text to display in the 
-			field before any user input.');
+		$placeholder->setDescription('Enter the help text, displays 
+            when the field is empty.');
 		$placeholder->setBelongsTo('params');
 
 		$value = $this->fieldAttributeValue('placeholder');
@@ -177,12 +175,12 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$cols = new Dlayer_Form_Element_Number('cols');
 		$cols->setLabel('<span class="glyphicon glyphicon-plus toggle" 
 			id="fgc-cols" title="Expand for more" aria-hidden="true">
-			</span> Width');
+			</span> Display width');
 		$cols->setValue(40);
 		$cols->setAttribs(array('maxlength'=>3, 'min'=>0, 
 			'class'=>'form-control input-sm'));
-		$cols->setDescription('Set the width of the textarea in characters,
-			we default to 40 characters.');
+		$cols->setDescription('Visual size of the field, overridden by 
+            styling, legacy setting.');
 		$cols->setBelongsTo('params');
 		$cols->setRequired();
 
@@ -196,12 +194,12 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$rows = new Dlayer_Form_Element_Number('rows');
 		$rows->setLabel('<span class="glyphicon glyphicon-plus toggle" 
 			id="fgc-rows" title="Expand for more" aria-hidden="true">
-			</span> Rows');
-		$rows->setValue(3);
+			</span> Display rows');
+		$rows->setValue(4);
 		$rows->setAttribs(array('maxlength'=>3, 'min'=>0, 
 			'class'=>'form-control input-sm'));
-		$rows->setDescription('Set the number of rows for the textarea,
-			we default to three rows.');
+		$rows->setDescription('Number of lines of text before scroll bars 
+            appear, defaults to four.');
 		$rows->setBelongsTo('params');
 		$rows->setRequired();
 
@@ -215,9 +213,9 @@ class Dlayer_Form_Form_Textarea extends Dlayer_Form_Module_Form
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
 		if($this->edit_mode == FALSE) {
-			$submit->setLabel('Add');
+			$submit->setLabel('Add text area field');
 		} else {
-			$submit->setLabel('Save');
+			$submit->setLabel('Save changes');
 		}
 
 		$this->elements['submit'] = $submit;

@@ -9,11 +9,9 @@
 
 $groups = array(
 	1=>'', 
-	2=>'Settings <small>Change the settings for the form</small>',
-	3=>'Preset fields <small>Quickly create fields using these presets, all 
-		their options can be managed after creation</small>',
-	4=>'Standard fields <small>Create fields using the base types, you will 
-		need to define all the field values</small>'
+	2=>'Options <small>Form options</small>',
+	3=>'Preset fields <small>Quickly create fields using presets</small>',
+	4=>'Standard fields <small>Create fields using the base types</small>'
 );
 
 foreach($this->tools as $group_id => $group) {
@@ -55,14 +53,14 @@ foreach($this->tools as $group_id => $group) {
 				$reset = '/reset/1';
 			}
 			
-			$class = "btn btn-default";
+			$class = "btn btn-default btn-sm";
 			
 			if($selected == TRUE) {
-				$class = "btn btn-primary";
+				$class = "btn btn-primary btn-sm";
 			}
 			
 			if($tool['tool'] == 'cancel') {
-				$class = "btn btn-danger";
+				$class = "btn btn-danger hidden-lg";
 			}
 			
 			$html .= '<a href="/form/design/set-tool/tool/' . 
@@ -80,8 +78,7 @@ foreach($this->tools as $group_id => $group) {
 				aria-hidden="true"></span> ' . 
 				$groups[$group_id] . '</h4>';
 		}
-		echo '<div class="btn-group btn-group-sm tool-row-' . $group_id . 
-			'" role="group">';
+		echo '<div class="tool-row-' . $group_id . '">';
 		echo $html;
 		echo '</div>';
 		echo '</div>';

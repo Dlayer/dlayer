@@ -123,7 +123,7 @@ class Dlayer_Form_Form_Styling_Password extends Dlayer_Form_Module_Form
 			'background_color');
 		$background_color->setLabel('Row background colour');
 		$background_color->setDescription('Choose a background colour for 
-			form field row, to clear the background colour use the clear link.');
+			the row, to clear the colour using the clear button.');
 		$background_color->setBelongsTo('params');
 		$background_color->addClearLink();
 		$background_color->setRequired();
@@ -137,7 +137,7 @@ class Dlayer_Form_Form_Styling_Password extends Dlayer_Form_Module_Form
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		$submit->setLabel('Save');
+		$submit->setLabel('Save changes');
 
 		$this->elements['submit'] = $submit;
 	}

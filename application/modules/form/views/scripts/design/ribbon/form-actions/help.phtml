@@ -1,22 +1,22 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
-<div class="col-xs-12">
-	<h3>Help <small>Set the actions for your form</small></h3>
+<div class="col-md-12 col-sm-12">
+	<h3>Help <small>Submission actions</small></h3>
 	
 	<p>This tool allows you to set the actions for your form, these are the 
 		tasks that you want to happen after the form has been submitted.</p>
 		
-	<h4>Settings:</h4>
+	<h4>Options:</h4>
 	
 	<ul>
-		<li><strong>Email:</strong> Set this to yes if you would like to 
-			receive an email after each submission, the email address can be 
-			set when creating and editing the form.</li>
-		<li><strong>Save:</strong> Do you want Dlayer to save a copy of 
-			all submissions?</li>
+		<li><strong>Email copy of submission:</strong> Set this to yes if you 
+            would like to receive an email after each submission, the email 
+            address can be set when creating and editing the form.</li>
+		<li><strong>Save submissions:</strong> Do you want Dlayer to save a 
+            copy of all submissions?</li>
 	</ul>
-	
-	<p class="dev-note bg-info">This is just a preview of the actions tool, 
-		I will add the above functionality and more when the Form builder is a 
-		little further along in development.</p>
+</div>
+
+<div class="col-md-12 col-sm-12 further-reading">
+    <?php echo $this->furtherReading('/#form-builder'); ?>
 </div>

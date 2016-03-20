@@ -14,5 +14,5 @@ $environemnt = 'development';
 /**
 * Version number and version release date
 */
-$version_no = 'v0.80';
-$version_release_date = '27th June 2015';
+$version_no = 'v0.83';
+$version_release_date = '5th March 2016';

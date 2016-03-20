@@ -182,9 +182,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
 			$items[] = array('uri'=>'http://www.dlayer.com/docs/', 
 				'name'=>'Dlayer Docs', 
 				'title'=>'Read the Docs for Dlayer');
-			$items[] = array('uri'=>'/dlayer/index/logout', 
-				'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$session_dlayer->identity() . ')', 'title'=>'Sign out of demo');
 		}
 		else 
 		{

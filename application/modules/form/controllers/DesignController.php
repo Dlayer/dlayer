@@ -47,8 +47,19 @@ class Form_DesignController extends Zend_Controller_Action
 
 		// Include js and css files in layout
 		$this->layout = Zend_Layout::getMvcInstance();
-		$this->layout->assign('js_include', array('scripts/dlayer.js'));
-		$this->layout->assign('css_include', array());
+		$this->layout->assign('js_include', 
+			array(
+				'scripts/dlayer.js',
+				'scripts/designer.js',
+			)
+		);
+		$this->layout->assign('css_include', 
+			array(
+				'css/dlayer.css', 
+				'css/designer-shared.css',
+				'css/designer-1170.css',
+			)
+		);
 	}
 
 	/**
@@ -63,16 +74,16 @@ class Form_DesignController extends Zend_Controller_Action
 		
 		$this->layout->assign('preview_url', '/form/design/preview');
 		
-		$this->dlayerMenu('/form/index/index');
+		$this->navBar('/form/index/index');
 		$this->view->dlayer_toolbar = $this->dlayerToolbar();
 		$this->view->dlayer_form = $this->dlayerForm();
 		$this->view->dlayer_ribbon = $this->dlayerRibbon();
 		$this->view->return = $this->session_form->returnModule();
 
 		$this->view->module = $this->getRequest()->getModuleName();
-
-		$this->layout->assign('css_include', 
-			array('css/dlayer.css', 'css/designers.css'));
+		$this->view->field_id = $this->session_form->fieldId();
+		$this->view->tool = $this->session_form->tool();
+		
 		$this->layout->assign('title', 'Dlayer.com - Form builder');
 	}
 	
@@ -89,6 +100,7 @@ class Form_DesignController extends Zend_Controller_Action
 
 		$this->layout->assign('css_include', 
 			array('css/dlayer.css', 'css/preview.css'));
+		
 		$this->layout->assign('title', 'Dlayer.com - Form preview');
 	}
 
@@ -381,46 +393,26 @@ class Form_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	* Generate the base menu bar for the application.
+	* Assign the content for the nav bar
 	* 
-	* @param string $url Selected url
-	* @return string Html
+	* @param string $active_uri Uri
+	* @return void Assigns values to the layout
 	*/
-	private function dlayerMenu($url) 
+	private function navBar($active_uri) 
 	{
-		$items = array(array('url'=>'/form/index/index', 
-			'name'=>'Form builder', 'title'=>'Dlayer Form builder'), 
-			array('url'=>'', 'name'=>'Designers', 'title'=>'Choose a designer', 
-				'children'=>array(
-					array('url'=>'/content/index/index', 
-						'name'=>'Content manager', 
-						'title'=>'Dlayer Content manager'), 
-					array('url'=>'/widget/index/index', 
-						'name'=>'Widget designer', 
-						'title'=>'Dlayer Widget designer'), 
-					array('url'=>'/image/index/index', 
-						'name'=>'Image library', 
-						'title'=>'Dlayer Image library'),
-					array('url'=>'/website/index/index', 
-						'name'=>'Web site manager', 
-						'title'=>'Dlayer Website manager'), 
-					array('url'=>'/data/index/index', 
-						'name'=>'Data manager', 
-						'title'=>'Dlayer Data manager'),
-					array('url'=>'/template/index/index', 
-						'name'=>'Template designer', 
-						'title'=>'Dlayer Template designer'))),
-			array('url'=>'/form/settings/index', 
-				'name'=>'Settings', 'title'=>'Form builder settings'), 
-			array('url'=>'http://specification.dlayer.com', 
-				'name'=>'<span class="glyphicon glyphicon-new-window" 
-					aria-hidden="true"></span> Specification', 
-				'title'=>'Current specification'),
-			array('url'=>'/dlayer/index/logout', 'name'=>'<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign out (' . 
-				$this->session_dlayer->identity() . ')', 'title'=>'Sign out of my app'));
-
-		$this->layout->assign('nav', array('class'=>'top_nav', 
-			'items'=>$items, 'active_url'=>$url));
+		$items = array(
+			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
+				'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/form/index/index', 
+				'name'=>'Form builder', 'title'=>'Form management'), 
+			array('uri'=>'/dlayer/settings/index', 
+				'name'=>'Settings', 'title'=>'Settings'), 
+			array('uri'=>'http://www.dlayer.com/docs/', 
+				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
+		);
+		
+		$this->layout->assign('nav', array(
+			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
 	}
 
 	/**

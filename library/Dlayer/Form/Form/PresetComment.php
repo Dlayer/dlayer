@@ -52,7 +52,7 @@ class Dlayer_Form_Form_PresetComment extends Dlayer_Form_Module_Form
 
 		$this->validationRules();
 		
-		$legend = 'Add <small>Add a preset comment field</small>'; 
+		$legend = 'Add <small>Comment field</small>'; 
 		$this->addElementsToForm('comment_field', $legend, $this->elements);
 
 		$this->addDefaultElementDecorators();
@@ -115,37 +115,42 @@ class Dlayer_Form_Form_PresetComment extends Dlayer_Form_Module_Form
 	{		
 		$label = new Zend_Form_Element_Text('label');
 		$label->setBelongsTo('params');
+		$label->setAttribs(array('class'=>'form-control input-sm'));
 		$label->setValue('Your comment');
 
 		$this->elements['label'] = $label;
 
 		$description = new Zend_Form_Element_Textarea('description');
 		$description->setBelongsTo('params');
+		$description->setAttribs(array('class'=>'form-control input-sm', 'rows'=>5));
 		$description->setValue('Please enter your comment');
 
 		$this->elements['description'] = $description;
 
 		$placeholder = new Zend_Form_Element_Text('placeholder');
 		$placeholder->setBelongsTo('params');
+		$placeholder->setAttribs(array('class'=>'form-control input-sm'));
 		$placeholder->setValue('I think that it would.....');
 
 		$this->elements['placeholder'] = $placeholder;
 
 		$cols = new Dlayer_Form_Element_Number('cols');
 		$cols->setValue(40);
+		$cols->setAttribs(array('class'=>'form-control input-sm'));
 		$cols->setBelongsTo('params');
 
 		$this->elements['cols'] = $cols;
 
 		$rows = new Dlayer_Form_Element_Number('rows');
 		$rows->setValue(3);
+		$rows->setAttribs(array('class'=>'form-control input-sm'));
 		$rows->setBelongsTo('params');
 
 		$this->elements['rows'] = $rows;
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		$submit->setLabel('Add');
+		$submit->setLabel('Add comment field');
 
 		$this->elements['submit'] = $submit;
 	}

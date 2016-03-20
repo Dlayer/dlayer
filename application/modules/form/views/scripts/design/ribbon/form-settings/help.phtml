@@ -1,23 +1,23 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
-<div class="col-xs-12">
-	<h3>Help <small>Set the settings for your form</small></h3>
+<div class="col-md-12 col-sm-12">
+	<h3>Help <small>Options</small></h3>
 	
-	<p>This tool allows you to set the settings for your form, these settings 
+	<p>This tool allows you to set the options for your form, these options 
 		control how the form will function.</p>
 		
-	<h4>Settings:</h4>
+	<h4>Options:</h4>
 	
 	<ul>
-		<li><strong>HTTP method:</strong> Set the HTTP method to use for form 
-			submission.</li>
-		<li><strong>Custom URL:</strong> Set a custom URL to submit the form 
-			to, leave blank to let Dlayer handle the submissions.</li>
-		<li><strong>Lock:</strong> If a form is locked if cannot be 
-			altered.</li>
+		<li><strong>HTTP method:</strong> The HTTP method to use for form 
+            submission, either POST or GET.</li>
+		<li><strong>Custom URL:</strong> A custom URL to submit the form 
+			to, if blank Dlayer will handle the submissions.</li>
+		<li><strong>Lock:</strong> If a form is locked it can only be modified 
+            by the owner.</li>
 	</ul>
-	
-	<p class="dev-note bg-info">This is just a preview of the settings tool, 
-		I will add the above functionality and more when the Form builder is a 
-		little further along in development.</p>
+</div>
+
+<div class="col-md-12 col-sm-12 further-reading">
+    <?php echo $this->furtherReading('/#form-builder'); ?>
 </div>

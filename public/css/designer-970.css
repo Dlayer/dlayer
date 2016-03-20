@@ -2,15 +2,14 @@ div#designer {
   max-width: 970px; }
   div#designer .well {
     margin-bottom: 0px; }
-  div#designer #design {
-    max-width: 970px;
+  div#designer .design {
     margin-bottom: 1em; }
-    div#designer #design > div.library {
+    div#designer .design > div.library {
       min-height: 200px; }
-      div#designer #design > div.library ul.pager {
+      div#designer .design > div.library ul.pager {
         margin: 0;
         text-align: right; }
-    div#designer #design > div.website-manager h3:hover {
+    div#designer .design > div.website-manager h3:hover {
       cursor: pointer; }
   div#designer .tools {
     margin-bottom: 1em; }

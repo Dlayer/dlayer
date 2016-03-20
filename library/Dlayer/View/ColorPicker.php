@@ -60,8 +60,8 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 	public function javascript() 
 	{
 		$this->html = '<script>
-			dlayer.fn.colorPicker.events();
-			dlayer.fn.colorPicker.open();
+			dlayerDesigner.colorPicker.start();
+			dlayerDesigner.colorPicker.events();
 			</script>';
 		
 		return $this;
@@ -80,7 +80,7 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 	public function picker($palettes, $history, $custom=TRUE) 
 	{
 		// Start color picker container
-		$this->html = '<div class="color_picker_tool panel panel-default">';
+		$this->html = '<div class="color-picker-tool panel panel-default">';
 		$this->html .= '<div class="panel-heading"><h4>Colour picker 
 			<small>Select a colour</small> <span class="glyphicon
 			 glyphicon-remove close-color-picker pull-right" title="Close colour picker" 
@@ -109,22 +109,33 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 			if(count($palettes) == 2) {
 				foreach($palettes as $palette) {
 					$html .= '<div class="palette row">';
-					$html .= '<div class="col-xs-12"><h4>' . $this->view->escape($palette['name']) . 
-						' <small>The five colours defined for this palette</small></h4></div>';
+					$html .= '<div class="col-lg-12 col-xs-12 col-sm-6"><h4>' . $this->view->escape($palette['name']) . 
+						' <small>Your chosen colours</small></h4></div>';
 					
 					$colors = '';
-					$labels = '';
+					$x = 0;
 					
-					$html .= '<div class="col-xs-1">&nbsp;</div>';
-					
-					foreach($palette['colors'] as $color) {
-						$colors .= '<div class="color col-xs-2" style="background-color:' . 
-						$this->view->escape($color['color_hex']) . ';" title="' . 
-						$this->view->escape($color['name']) . '">&nbsp;</div>';
+					foreach($palette['colors'] as $color) 
+					{
+						if($x === 0) 
+						{
+							$offset = ' col-lg-offset-1 col-sm-offset-0 col-xs-offset-1';
+						}
+						else 
+						{
+							$offset = NULL;
+						}
+						
+						$colors .= '<div class="color col-lg-2 col-xs-2 col-sm-1' . $offset .  
+						'" style="background-color:' . $this->view->escape($color['color_hex']) . 
+						';" title="' . $this->view->escape($color['name']) . '">&nbsp;</div>';
+						
+						$x++;
 					}
 					
 					$html .= $colors;
-					$html .= '<hr />';
+					
+					//$html .= '<hr />';
 					
 					$html .= '</div>';
 				}
@@ -150,16 +161,24 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		
 		if($history != FALSE) {
 			$html .= '<div class="history row">';
-			$html .= '<div class="col-xs-12"><h4>History <small>Last five 
+			$html .= '<div class="col-xs-12 col-sm-12"><h4>History <small>Last five 
 				colours you used across Dlayer</small></h4></div>';
+				
+			$x = 0;
 			
-			foreach($history as $color) {
-				$html .= '<div class="color col-xs-offset-1 col-xs-2" 
-					style="background-color:' . 
-				$this->view->escape($color['color_hex']) . ';">&nbsp;</div>';
-				$html .= '<div class="color-name col-xs-9 text-muted">' . 
-				$this->view->escape($color['color_hex']) . '</div>';
-				$html .= '<div class="clearfix"></div>';
+			foreach($history as $color) 
+			{
+				$html .= '<div class="color col-lg-offset-1 col-lg-2 col-xs-offset-1 col-xs-2 col-sm-1" style="background-color:' . 
+					$this->view->escape($color['color_hex']) . ';">&nbsp;</div>';
+				$html .= '<div class="color-label col-lg-9 col-xs-9 col-sm-2 text-muted">' . 
+					$this->view->escape($color['color_hex']) . '</div>';
+					
+				if($x === 2) 
+				{
+					$html .= '<div class="clearfix visbile-sm"></div>';
+				}
+				
+				$x++;
 			}
 			
 			$html .= '</div>';
@@ -180,7 +199,8 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 		
 		if($custom == TRUE) {
 			$html .= '<div class="custom row">
-			<div class="col-xs-12"><h4>Custom <small>Select a custom colour</small></h4>
+			<div class="col-lg-12 col-sm-6 col-xs-12"><h4>Custom <small>Select a custom colour</small></h4></div>
+			<div class="col-lg-12 col-sm-6 col-xs-12" style="margin-top: 5px;">
 			<label>Choose colour</label> <input type="color" name="color" class="color" size="7" 
 			maxlength="7" value="000000"> 
 			</div></div>';

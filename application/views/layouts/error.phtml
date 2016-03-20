@@ -30,25 +30,22 @@
 		</script>
 	</head>
 	<body>
-		<?php echo $this->bootstrapNavbar(
-			'<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" />',
-			$this->layout()->nav['items'],
-			$this->layout()->nav['active_url'])->inverted(); ?>
-		<div class="container">
+		<?php echo $this->bootstrap3Navbar(
+            '<img src="/images/dlayer/brand.jpg" width="25" height="25" alt="Brand" />',
+            'http://www.dlayer.com', $this->layout()->nav['items'], 
+            $this->layout()->nav['active_uri'])->inverted()->containerClass('container-970'); ?>
+		<div class="container-970">
 			<div class="row">
-				<div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12">
-					<div class="jumbotron">
-						<h1>Oops!</h1>
-						<p>It appears as though you found an error, please 
-							let me know at 
-							<a href="https://github.com/Dlayer/dlayer/issues">GitHub</a> 
-							by raising an issue, in the mean time why not 
-							read the docs.</p>
-
-						 <p><a class="btn btn-primary"
-							href="http://www.dlayer.com/docs/"
-							role="button">Documentation</a></p>
-					</div>
+				<div class="col-md-12 col-xs-12">
+				    <h1>Oops!</h1>
+					
+                    <p>It appears as though you found an error, please 
+						let me know at 
+						<a href="https://github.com/Dlayer/dlayer/issues">GitHub</a> 
+						by raising an issue, in the mean time why not 
+						read the <a href="http://www.dlayer.com/docs">docs</a>.</p>
+                        
+                    <hr />
 
 					<div class="panel panel-default">
 						<div class="panel-heading">Error details</div>

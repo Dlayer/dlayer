@@ -52,9 +52,9 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$this->validationRules();
 		
 		if($this->edit_mode == FALSE) {
-			$legend = 'Add <small>Add a text field</small>'; 
+			$legend = 'Add <small>Text field</small>'; 
 		} else {
-			$legend = 'Edit <small>Edit the text field</small>';
+			$legend = 'Edit <small>Text field</small>';
 		}
 
 		$this->addElementsToForm('text_field', $legend, $this->elements);
@@ -129,8 +129,7 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$label->setAttribs(array('maxlength'=>255, 
 			'placeholder'=>'e.g., Your name', 
 			'class'=>'form-control input-sm'));
-		$label->setDescription('Enter the label for the text field, this will
-		appear to the left of the text field.');
+		$label->setDescription('Enter a label.');
 		$label->setBelongsTo('params');
 		$label->setRequired();
 
@@ -146,9 +145,8 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$description->setAttribs(array('rows'=>2, 'cols'=>30, 
 			'placeholder'=>'e.g., Please enter your name', 
 			'class'=>'form-control input-sm'));
-		$description->setDescription('Enter a description, this should indicate
-			to the user what they should enter in the text field. (Not 
-			applicable when form layout mode set to inline)');
+		$description->setDescription('Enter a description, if necessary give the 
+            user instructions.');
 		$description->setBelongsTo('params');
 
 		$value = $this->fieldValue('description');
@@ -163,8 +161,8 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$placeholder->setAttribs(array('maxlength'=>255, 
 			'placeholder'=>'e.g., Joe Bloggs', 
 			'class'=>'form-control input-sm'));
-		$placeholder->setDescription('Set the help text to display in the 
-		field before any user input.');
+		$placeholder->setDescription('Enter the help text, displays when the 
+            field is empty.');
 		$placeholder->setBelongsTo('params');
 
 		$value = $this->fieldAttributeValue('placeholder');
@@ -177,12 +175,12 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$size = new Dlayer_Form_Element_Number('size');
 		$size->setLabel('<span class="glyphicon glyphicon-plus toggle" 
 			id="fgc-size" title="Expand for more" aria-hidden="true">
-			</span> Size');
+			</span> Display size');
 		$size->setValue(40);
 		$size->setAttribs(array('maxlength'=>3, 
 			'min'=>0, 'class'=>'form-control input-sm'));
-		$size->setDescription('Set the size of the text field in characters,
-		we default to 40 characters.');
+		$size->setDescription('Visual size of the field, overridden by styling, 
+            legacy setting.');
 		$size->setBelongsTo('params');
 		$size->setRequired();
 
@@ -196,12 +194,12 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$maxlength = new Dlayer_Form_Element_Number('maxlength');
 		$maxlength->setLabel('<span class="glyphicon glyphicon-plus toggle" 
 			id="fgc-maxlength" title="Expand for more" aria-hidden="true">
-			</span> Max length');
+			</span> Character limit');
 		$maxlength->setValue(255);
 		$maxlength->setAttribs(array('maxlength'=>3, 
 			'class'=>'form-control input-sm', 'min'=>0));
-		$maxlength->setDescription('Set the maximum number of characters that
-		can be entered into this field, we default to 255 characters.');
+		$maxlength->setDescription('Maximum number of characters, defaults to 
+            255 characters.');
 		$maxlength->setBelongsTo('params');
 		$maxlength->setRequired();
 
@@ -216,9 +214,9 @@ class Dlayer_Form_Form_Text extends Dlayer_Form_Module_Form
 		$submit->setAttrib('class', 'submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
 		if($this->edit_mode == FALSE) {
-			$submit->setLabel('Add');
+			$submit->setLabel('Add text field');
 		} else {
-			$submit->setLabel('Save');
+			$submit->setLabel('Save changes');
 		}
 
 		$this->elements['submit'] = $submit;

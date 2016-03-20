@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 <?php foreach ($this->field_styles as $field_id => $styles) {
 	if(count($styles) > 0) {
-		echo '#design .row_' . $field_id . " {\r\n";
+		echo '.builder-form .row_' . $field_id . " {\r\n";
 		foreach($styles as $style) {
 			echo $style . "\r\n";
 		}
@@ -23,15 +23,13 @@ $(document).ready(function() {
 </style>
 
 <div class="row">
-	<div class="col-md-8">
-		<p class="dev-note bg-info"><strong>Note:</strong> Your form will not 
-			be this size when imported into the Content manager or Widget 
-			designer, it will automatically size itself to fill the container 
-			it is placed into, use the buttons to the right to see how your 
-			form displays at different sizes</p>
+	<div class="col-md-8 col-sm-8 col-xs-12">
+		<p class="dev-note bg-info"><strong>Note:</strong> The form will not 
+			auto size to the container it is imported into, use the test widths 
+			to view the form at different sizes.</p>
 	</div>
 	
-	<div class="col-md-4">
+	<div class="col-md-4 col-sm-4 col-xs-12">
 		<p><strong>Test form widths</strong></p>
 		<div class="btn-group set-form-display-size">
 			<a title="" href="#" id="size-12" class="btn btn-primary btn-sm">100%</a>
@@ -42,7 +40,8 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<div class="builder-form">
+<div class="row">
+<div class="col-md-12 builder-form">
 	<h3>
 	<?php 
 		echo $this->escape($this->titles['title']);
@@ -54,4 +53,5 @@ $(document).ready(function() {
 	?>
 	</h3>
 	<?php echo $this->form; ?>
+</div>
 </div>

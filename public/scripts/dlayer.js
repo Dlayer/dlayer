@@ -37,128 +37,6 @@ var dlayer = {
 			return hex;
 		},
 		
-		/**
-		* If a user selects a colour field the colour picker opens allowing 
-		* them to pick a colour from one of their palettes, from their history 
-		* or by choosing a custom colour
-		* 
-		* The colour picker can be called multiple times within the same view 
-		* by different fields, the picker itself is universal, when opened it 
-		* stores the id of the element that opened it and then sets the value 
-		* to the relevant hidden field
-		* 
-		* @returns {Void}
-		*/
-		colorPicker: {
-			
-			element: null,
-			rgb: null,
-			value: null,
-			
-			/**
-			* Opens the colour picker and resets all the environment vars
-			* 
-			* @returns {Void}
-			*/
-			open: function() 
-			{
-				$('#ribbon .color_picker').click(
-					function() {
-						$('.color_picker_tool').slideDown();
-						
-						dlayer.fn.colorPicker.value = null;
-						dlayer.fn.colorPicker.element = 
-							this.id.replace('picker_', '');
-					}
-				);
-
-				/**
-				* Clear the currently selected value and close the picker
-				* 
-				* @returns {false}
-				*/
-				$('#ribbon a.color_picker_clear').click(
-					function() {
-						var element =
-						$(this).siblings('.color_picker').attr('id').
-							replace('picker_', '');
-
-						$('#ribbon #picker_' + element).css(
-							'background-color', 'inherit');
-						$('#' + element).val('').trigger('change');
-
-						return false;
-					}
-				);
-			}, 
-			
-			/**
-			* Close the colour picker and set the value of the picker element 
-			* and hidden element to the value selected
-			* 
-			* @returns {Void}
-			*/
-			close: function() 
-			{
-				$('.color_picker_tool').slideUp();
-				
-				if(dlayer.fn.colorPicker.value != null) {
-					$('#ribbon #picker_' + dlayer.fn.colorPicker.element).css(
-						'background-color', dlayer.fn.colorPicker.rgb);
-						
-					$('#' + dlayer.fn.colorPicker.element).val(
-						dlayer.fn.colorPicker.value).trigger('change');
-				}
-			}, 
-			
-			/**
-			* All the events to make the colour picker work, they set the 
-			* selected colour to the value for the hidden element and then 
-			* trigger the close event
-			* 
-			* @returns {Void}
-			*/
-			events: function() 
-			{
-				$('#ribbon .color_picker_tool .close-color-picker').click(
-					function() {
-						dlayer.fn.colorPicker.close();
-					}
-				);
-
-				$('#ribbon .color_picker_tool .palette .color').click(
-					function() {
-						dlayer.fn.colorPicker.rgb = 
-							$(this).css('background-color');
-						dlayer.fn.colorPicker.value = 
-							dlayer.fn.rgbToHex($(this).css('background-color'));
-							
-						dlayer.fn.colorPicker.close();
-					}
-				);
-
-				$('#ribbon .color_picker_tool .history .color').click(
-					function() {
-						dlayer.fn.colorPicker.rgb = 
-							$(this).css('background-color');
-						dlayer.fn.colorPicker.value = 
-							dlayer.fn.rgbToHex($(this).css('background-color'));
-							
-						dlayer.fn.colorPicker.close();
-					}
-				);
-
-				$('#ribbon .color_picker_tool .custom .color').change(
-					function() {
-						dlayer.fn.colorPicker.rgb = $(this).val();
-						dlayer.fn.colorPicker.value = $(this).val();
-						
-						dlayer.fn.colorPicker.close();
-					}
-				);
-			}			
-		}, 
-		
 		imagePicker: {
 			
 			url: '/content/ajax/image-picker',
@@ -546,37 +424,35 @@ var dlayer = {
 			}
 		}, 
 		
-		form: {
-			
+		form: {			
 			fn: {
-				
-				/**
-				* Toggle for the additional fields
+                /** 
+                * Toggle for the additional fields on tool forms, these are 
+                * fields that the user can change but the vast majority of the 
+                * time the defaults will suffice
 				* 
 				* @returns {Void}
 				*/
 				toggleAdditionalFields: function() 
 				{
-					$('div.form-group-collapsed span.toggle').on(
-						'click', function() {
+					$('div.form-group-collapsed label').on('click', function() 
+                    {
+                        var toggle_element = $(this).find('span');
+                        var field_to_show = '#params-' + 
+                            toggle_element.attr('id').replace('fgc-', '');
 						
-						toggle = $(this);
-						var field = '#params-' + this.id.replace('fgc-', '');
-						
-						console.log(field);
-						
-						if(toggle.hasClass('glyphicon-plus')) {
-							toggle.removeClass('glyphicon-plus').
-								addClass('glyphicon-minus');
+						if(toggle_element.hasClass('glyphicon-plus')) 
+                        {
+                            toggle_element.removeClass('glyphicon-plus').addClass('glyphicon-minus');
 								
-							$(field).show();
-							$(field).next('p.help-block').show();
+							$(field_to_show).show();
+							$(field_to_show).next('p.help-block').show();
 						} else {
-							toggle.removeClass('glyphicon-minus').
-								addClass('glyphicon-plus');
+							toggle_element.removeClass('glyphicon-minus').
+                                addClass('glyphicon-plus');
 								
-							$(field).hide();
-							$(field).next('p.help-block').hide();
+							$(field_to_show).hide();
+							$(field_to_show).next('p.help-block').hide();
 						}
 					});
 				}																
@@ -2695,8 +2571,9 @@ var dlayer = {
 		*/
 		form: function()
 		{
-			$('#design div.field_row').hover(
-				function() {
+			$('div.builder-form div.field_row').hover(
+                function() {
+                    console.log('here');
 					if($(this).hasClass('selected') == false) {
 						background_color = $(this).css('background-color');
 						$(this).css('background-color', '#e1dc50');
@@ -2711,7 +2588,7 @@ var dlayer = {
 					}
 				}
 			);
-			$('#design div.field_row').click(
+			$('div.builder-form div.field_row').click(
 				function() {
 					if($(this).hasClass('selected') == false) {
 						$(this).css('background-color','#c3be50');

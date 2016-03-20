@@ -48,7 +48,7 @@ class Dlayer_Form_Form_FormActions extends Dlayer_Form_Module_Form
 		$this->validationRules();
 
 		$this->addElementsToForm('form_actions', 
-			'Form actions <small>Set the actions for your form</small>', 
+			'Actions <small>Submission actions</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();
@@ -105,7 +105,7 @@ class Dlayer_Form_Form_FormActions extends Dlayer_Form_Module_Form
 	private function userElements()
 	{
 		$email = new Zend_Form_Element_Select('email');
-		$email->setLabel('Email');
+		$email->setLabel('Email copy of submission');
 		$email->setDescription('Would you like Dlayer to send you an 
 			email after each submission?');
 		$email->addMultiOptions(
@@ -117,9 +117,9 @@ class Dlayer_Form_Form_FormActions extends Dlayer_Form_Module_Form
 		$this->elements['email'] = $email;
 		
 		$save = new Zend_Form_Element_Select('save');
-		$save->setLabel('Email');
+		$save->setLabel('Save submissions');
 		$save->setDescription('Would you like Dlayer to save a copy of 
-			each submission?');
+			each submission in the database?');
 		$save->addMultiOptions(
 			array(1=>'No thank you', 2=>'Yes please'));
 		$save->setRequired();
@@ -132,7 +132,7 @@ class Dlayer_Form_Form_FormActions extends Dlayer_Form_Module_Form
 		$submit->setAttrib('class', 'submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary', 
 			'disabled'=>'disabled'));
-		$submit->setLabel('Save');
+		$submit->setLabel('Save changes');
 
 		$this->elements['submit'] = $submit;
 	}

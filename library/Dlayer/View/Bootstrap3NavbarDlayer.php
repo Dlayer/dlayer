@@ -1,14 +1,15 @@
 <?php
 /**
-* Generate the html for a bootstrap 3 navbar, the navbar name/image can be 
-* defined as well as the menu items, if a children key exists a drop down will 
-* be created. The inverted style can be set by calling the inverted() method
+* Modified version of the Dlayer_View_Bootstrap3Navbar to add some custom links 
+* for Dlayer
+* 
+* @todo Update the default view helper to support left and right sections
 * 
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
+class Dlayer_View_Bootstrap3NavbarDlayer extends Zend_View_Helper_Abstract
 {
 	/**
 	* Override the hinting for the view property so that we can see the view
@@ -37,9 +38,9 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 	* 	optionally children. A driop down will created for all the items in the 
 	* 	children array
 	* @param string $active_uri The Uri of the active item
-	* @return Dlayer_View_Bootstrap3Navbar
+	* @return Dlayer_View_Bootstrap3NavbarDlayer
 	*/
-	public function bootstrap3Navbar($brand, $brand_url, array $navbar_items,
+	public function bootstrap3NavbarDlayer($brand, $brand_url, array $navbar_items,
 		$active_url='')
 	{
 		$this->resetParams();
@@ -133,7 +134,9 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 			}
 		}
 
-		$html .= '</ul></div>';
+		$html .= '</ul>';
+		$html .= $this->signOutAndVersion();
+		$html .= '</div>';
 
 		return $html;
 	}
@@ -171,7 +174,7 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 	/**
 	* Switch the navbar style to the inverted style
 	*
-	* @return Dlayer_View_Bootstrap3Navbar
+	* @return Dlayer_View_Bootstrap3NavbarDlayer
 	*/
 	public function inverted()
 	{
@@ -184,13 +187,27 @@ class Dlayer_View_Bootstrap3Navbar extends Zend_View_Helper_Abstract
 	* Override the container class for the container div
 	* 
 	* @param string $container_class Defaults to container
-	* @return Dlayer_View_Bootstrap3Navbar
+	* @return Dlayer_View_Bootstrap3NavbarDlayer
 	*/
 	public function containerClass($container_class) 
 	{
 		$this->container_class = $container_class;
 		
 		return $this;
+	}
+	
+	/**
+	* Sing out link and current version
+	* 
+	* @return string
+	*/
+	private function signOutAndVersion() 
+	{
+		$html = '<p class="navbar-text navbar-inverse navbar-right">';
+		$html .= '<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> <a href="/dlayer/index/logout" class="navbar-link" title="Sign out of demo">Sign out</a>';
+		$html .= ' - <small>' . VERSION_NO . ' (' . VERSION_DATE . ')</small>';
+		$html .= '<p>';
+		return $html;
 	}
 
 	/**

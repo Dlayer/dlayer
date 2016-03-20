@@ -1,0 +1,55 @@
+.color-picker-tool {
+	display: none;
+	margin-top: 1em;
+	
+	.panel-heading {
+		padding: 5px 10px;
+	}
+	.panel-body {
+		padding: 5px 10px;
+	}
+	
+	.close-color-picker {
+		cursor: pointer;
+	}
+	
+	.palette {
+		
+		.color {
+			border-radius: 3px;
+			border: 1px solid #ddd;
+			margin-top: 5px;
+			
+			&:hover {
+				cursor: pointer;
+			}
+		}		
+	}
+	
+	.history {
+		
+		.color {
+			border-radius: 3px;
+			border: 1px solid #ddd;
+			
+			&:hover {
+				cursor: pointer;
+			}
+		}
+		
+		.color-label {
+			border-radius: 3px;
+			border: 1px solid #fff;
+		}
+	}
+}
+
+.color-picker {
+	border-radius: 3px;
+	border: 1px solid #ddd;
+	margin-right: 5px;
+	
+	&:hover {
+		cursor: pointer;
+	}
+}

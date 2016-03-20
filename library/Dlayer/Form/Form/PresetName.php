@@ -53,12 +53,7 @@ class Dlayer_Form_Form_PresetName extends Dlayer_Form_Module_Form
 
 		$this->validationRules();
 		
-		if($this->edit_mode == FALSE) {
-			$legend = 'Add <small>Add a preset name field</small>'; 
-		} else {
-			$legend = 'Edit <small>Edit the name field</small>';
-		}
-
+		$legend = 'Add <small>Name field</small>'; 
 		$this->addElementsToForm('name_field', $legend, $this->elements);
 
 		$this->addDefaultElementDecorators();
@@ -99,13 +94,6 @@ class Dlayer_Form_Form_PresetName extends Dlayer_Form_Module_Form
 
 		$this->elements['tool'] = $tool;
 
-		if(array_key_exists('id', $this->field_data) == TRUE 
-		&& $this->field_data['id'] != FALSE) {
-			$field_id = new Zend_Form_Element_Hidden('field_id');
-			$field_id->setValue($this->field_data['id']);
-			$this->elements['field_id'] = $field_id;
-		}
-
 		$field_type = new Zend_Form_Element_Hidden('field_type');
 		$field_type->setValue($this->field_type);
 
@@ -133,13 +121,7 @@ class Dlayer_Form_Form_PresetName extends Dlayer_Form_Module_Form
 		$label->setDescription("Enter the label for the name field, defaulted 
 		to 'Your name'.");
 		$label->setBelongsTo('params');
-
-		$value = $this->fieldValue('label');
-		if($value != FALSE) {
-			$label->setValue($value);
-		} else {
-			$label->setValue('Your name');
-		}
+		$label->setValue('Your name');
 
 		$this->elements['label'] = $label;
 
@@ -150,13 +132,7 @@ class Dlayer_Form_Form_PresetName extends Dlayer_Form_Module_Form
 		$description->setDescription("Enter the description for the name field, 
 		defaulted to 'Please enter your name'.");
 		$description->setBelongsTo('params');
-
-		$value = $this->fieldValue('description');
-		if($value != FALSE) {
-			$description->setValue($value);
-		} else {
-			$description->setValue('Please enter your name');
-		}
+		$description->setValue('Please enter your name');
 
 		$this->elements['description'] = $description;
 
@@ -167,13 +143,7 @@ class Dlayer_Form_Form_PresetName extends Dlayer_Form_Module_Form
 		$placeholder->setDescription("Set the help text to display for the 
 		name field, defaulted to 'Enter you name'.");
 		$placeholder->setBelongsTo('params');
-
-		$value = $this->fieldAttributeValue('placeholder');
-		if($value != FALSE) {
-			$placeholder->setValue($value);
-		} else {
-			$placeholder->setValue('Enter your name');
-		}
+		$placeholder->setValue('Enter your name');
 
 		$this->elements['placeholder'] = $placeholder;
 
@@ -186,11 +156,6 @@ class Dlayer_Form_Form_PresetName extends Dlayer_Form_Module_Form
 		we default to 40 characters.');
 		$size->setBelongsTo('params');
 
-		$value = $this->fieldAttributeValue('size');
-		if($value != FALSE) {
-			$size->setValue($value);
-		}
-
 		$this->elements['size'] = $size;
 
 		$maxlength = new Dlayer_Form_Element_Number('maxlength');
@@ -202,20 +167,11 @@ class Dlayer_Form_Form_PresetName extends Dlayer_Form_Module_Form
 		can be entered into the name field, we default to 255 characters.');
 		$maxlength->setBelongsTo('params');
 
-		$value = $this->fieldAttributeValue('maxlengh');
-		if($value != FALSE) {
-			$maxlength->setValue($value);
-		}
-
 		$this->elements['maxlength'] = $maxlength;
 
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		if($this->edit_mode == FALSE) {
-			$submit->setLabel('Add');
-		} else {
-			$submit->setLabel('Save');
-		}
+		$submit->setLabel('Add name field');
 
 		$this->elements['submit'] = $submit;
 	}
