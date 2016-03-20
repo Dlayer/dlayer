@@ -28,7 +28,8 @@ div#designer {
   div#designer .ribbon div.content {
     display: none; }
     div#designer .ribbon div.content p.unsaved {
-      display: none; }
+      display: none;
+      margin-top: 1em; }
     div#designer .ribbon div.content div.form-group-collapsed > label:hover {
       cursor: pointer; }
     div#designer .ribbon div.content div.form-group-collapsed > input {

@@ -1,6 +1,6 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
-<div class="col-xs-12">
+<div class="col-md-12 col-sm-12">
 <?php if($this->edit_mode == TRUE) { ?>
 	<script type="text/javascript">
 		dlayer.preview.form.fn.rowBackgroundColor(<?php echo $this->escape(
@@ -12,12 +12,12 @@
 <?php } ?>
 </div>
 
-<div class="col-xs-12 small">
+<div class="col-md-12 col-sm-12">
 <?php echo $this->colorPicker()->picker($this->color_picker_data['palettes'], 
 	$this->color_picker_data['history'], TRUE, TRUE); ?>
 </div>
 
-<div class="col-xs-12 small">
+<div class="col-md-12 col-sm-12">
 <?php 
 if($this->data != FALSE) {
 	echo $this->data['form'];
