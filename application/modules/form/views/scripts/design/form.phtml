@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 <?php foreach ($this->field_styles as $field_id => $styles) {
 	if(count($styles) > 0) {
-		echo '#design .row_' . $field_id . " {\r\n";
+		echo '.builder-form .row_' . $field_id . " {\r\n";
 		foreach($styles as $style) {
 			echo $style . "\r\n";
 		}
