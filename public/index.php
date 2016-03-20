@@ -20,7 +20,7 @@ include(APPLICATION_PATH . '/configs/environment.php');
 defined('APPLICATION_ENV') 
 	|| define('APPLICATION_ENV', 
 	(getenv('APPLICATION_ENV') ? 
-	getenv('APPLICATION_ENV') : $environemnt));
+	getenv('APPLICATION_ENV') : $environment));
 	
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
