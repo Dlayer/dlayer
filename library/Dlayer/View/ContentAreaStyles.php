@@ -29,7 +29,6 @@ class Dlayer_View_ContentAreaStyles extends Zend_View_Helper_Abstract
 	*/
 	private $id; 
 	
-	private $sizes;
 	private $children;
 	private $content;
 	
@@ -75,7 +74,6 @@ class Dlayer_View_ContentAreaStyles extends Zend_View_Helper_Abstract
 	{
 		$this->html = '';
 		$this->id = NULL;
-		$this->sizes = array();
 		$this->children = FALSE;
 		$this->content = FALSE;
 	}
@@ -85,18 +83,15 @@ class Dlayer_View_ContentAreaStyles extends Zend_View_Helper_Abstract
 	* reset method to clear any previousy set values
 	* 
 	* @param integer $id
-	* @param array $sizes
 	* @param boolean $children
 	* @param boolean $content
 	* @return Dlayer_View_ContentAreaStyles
 	*/
-	public function contentArea($id, array $sizes, $children=FALSE, 
-		$content=FALSE) 
+	public function contentArea($id, $children=FALSE, $content=FALSE) 
 	{
 		$this->resetParams();
 		
 		$this->id = $id;
-		$this->sizes = $sizes;
 		$this->children = $children;
 		$this->content = $content;
 
@@ -137,26 +132,6 @@ class Dlayer_View_ContentAreaStyles extends Zend_View_Helper_Abstract
 	private function render() 
 	{
 		$html = '';
-		
-		
-		$html = "width:{$this->sizes['width']}px;";
-
-		/**
-		* The actual height of a div is either fixed or dynamic, scales with 
-		* content. In the designer div without children need a height so that 
-		* they can be selected by the user, in those cases a min height is set
-		*/
-		if($this->sizes['height'] != 0) {
-			$html .= ' height:' . $this->view->escape($this->sizes['height']) . 
-				'px;';
-		} else {
-			if($this->children == FALSE) {
-				if($this->content == FALSE) {
-					$html .= ' min-height:' . $this->view->escape(
-					$this->sizes['design_height']) . 'px;';
-				}
-			}
-		}
 		
 		if(array_key_exists('background_colors', $this->styles) == TRUE && 
 			array_key_exists($this->id, 
