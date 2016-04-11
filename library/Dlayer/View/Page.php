@@ -320,6 +320,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	private function divParams(array $children, $id)
 	{
 		$child_divs = FALSE;
+		$class = NULL;
 
 		if(count($children) == 0) 
         {			

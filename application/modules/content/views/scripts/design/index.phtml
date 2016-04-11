@@ -76,9 +76,11 @@
                 </div>
                 
                 <div class="col-lg-12 col-md-4 col-sm-4 tools">
+					<?php if(strlen($this->dlayer_toolbar) > 1) { ?>						
                     <div class="well well-sm">                
                         <?php echo $this->dlayer_toolbar; ?>
                     </div>
+					<?php } ?>
                 </div>
             </div>            
         </div>

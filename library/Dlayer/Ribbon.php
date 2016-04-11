@@ -73,24 +73,4 @@ class Dlayer_Ribbon
 	{
 		return 'design/ribbon/selected.phtml';
 	}
-	
-	/**
-	* Get the selected content area view script for the Content manager ribbon
-	* 
-	* @return string
-	*/
-	public function cmSelectedAreaViewScriptPath() 
-	{
-		return 'design/ribbon/selected-area.phtml';
-	}
-	
-	/**
-	* Get the selected content row view script for the Content manager ribbon
-	* 
-	* @return string
-	*/
-	public function cmSelectedRowViewScriptPath() 
-	{
-		return 'design/ribbon/selected-row.phtml';
-	}
 }

@@ -118,14 +118,14 @@ foreach($this->tools as $group_id => $group) {
 				}
 			}
 			
-			$class = "btn btn-default";
+			$class = "btn btn-default btn-sm";
 			
 			if($selected == TRUE) {
-				$class = "btn btn-primary";
+				$class = "btn btn-primary btn-sm";
 			}
 			
 			if($tool['tool'] == 'cancel') {
-				$class = "btn btn-danger";
+				$class = "btn btn-danger hidden-lg";
 			}
 			
 			$html .= '<a href="/content/design/set-tool/tool/' . 
@@ -134,7 +134,8 @@ foreach($this->tools as $group_id => $group) {
 		}
 	}
 
-	if(strlen($html) > 0) {
+	if(strlen($html) > 0) 
+	{
 		echo '<div class="row">';
 		echo '<div class="col-xs-12">';
 		if(strlen($groups[$group_id]) > 0) {
@@ -143,8 +144,7 @@ foreach($this->tools as $group_id => $group) {
 				aria-hidden="true"></span> ' . 
 				$groups[$group_id] . '</h4>';
 		}
-		echo '<div class="btn-group btn-group-sm tool-row-' . $group_id . 
-			'" role="group">';
+		echo '<div class="tool-row-' . $group_id . '">';
 		echo $html;
 		echo '</div>';
 		echo '</div>';
