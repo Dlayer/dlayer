@@ -18,6 +18,38 @@ div#designer {
 				@include selected-state();
 			}
 		}
+		
+		div.content-manager {
+			div.selected-area {
+				@include selected-state();
+			}
+			
+			div.selected-row {
+				@include selected-state();
+
+				div.move {
+					width: 100%;
+					float: left;
+					display: none;
+				}
+			}
+
+			/*.selected-item {
+				@include selected-state();
+			}*/
+
+			div.selectable {
+				cursor: pointer;
+			}
+
+			div.row.selectable {				
+				&> div.move {
+					width: 100%;
+					float: left;
+					display: none;
+				}
+			}
+		}
 	}
 	
 	.tools {

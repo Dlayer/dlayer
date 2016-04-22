@@ -327,18 +327,18 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 			if($this->selected_div_id != NULL) {
 				if($this->selected_content_row_id == NULL && 
 				$this->selected_div_id == $id) {
-					$class = 'selected-area';	
+					$class = 'selected-area col-md-12';	
 				}				
 			} else {
 				if($this->selected_div_id == NULL) {
 					if($this->selected_content_row_id == NULL) {}
-					$class = 'selectable';
+					$class = 'selectable col-md-12';
 				}
 			}
 			
 			$class = 'class="' . $class . '"';			
 		} else {
-			$class = '';
+			$class = 'class="row"';
 			$child_divs = TRUE;
 		}
 

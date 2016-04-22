@@ -409,8 +409,14 @@ class Form_DesignController extends Zend_Controller_Action
 				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
 		);
 		
-		$this->layout->assign('nav', array(
-			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
+		$this->layout->assign('nav', 
+			array(
+				'class'=>'top_nav', 
+				'items'=>$items, 
+				'active_uri'=>$active_uri,
+				'preview_uri' => '/form/design/preview'
+			)
+		);
 	}
 
 	/**

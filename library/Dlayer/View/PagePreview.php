@@ -148,18 +148,22 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 
 			$this->html  = '';
 
-			foreach($this->template as $div) {
-
-				$params = $this->divParams($div['children'], $div['id']);
+			foreach($this->template as $div) 
+			{
+				$children = FALSE;
+				if(count($div['children']) > 0) 
+				{
+					$children = TRUE;
+				}
 
 				$this->html .= "<div id=\"template_div_{$div['id']}\"";
 				
 				// Set the styles for the template div
 				$this->html .= $this->contentAreaStyles($div['id'], 
-					$div['sizes'], $params['children'], FALSE);
+					$div['sizes'], $children, FALSE);
 				
 				// Set the css classes
-				$this->html .= "{$params['class']}>";
+				$this->html .= 'class="row">';
 				
 				/**
 				* Generate all the child html by calling the recursive 
@@ -196,9 +200,13 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 		$html = '';
 
 		if(count($children) > 0) {
-			foreach($children as $div) {
-
-				$params = $this->divParams($div['children'], $div['id']);
+			foreach($children as $div) 
+			{
+				$children = FALSE;
+				if(count($div['children']) > 0) 
+				{
+					$children = TRUE;
+				}
 				
 				// Generate the content row html
 				$this->view->contentRow()->divId($div['id']);
@@ -213,8 +221,8 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 
 				$html .= "<div id=\"template_div_{$div['id']}\"";
 				$html .= $this->contentAreaStyles($div['id'], $div['sizes'],
-					$params['children'], $content);
-				$html .= "{$params['class']}>" . PHP_EOL;
+					$children, $content);
+				$html .= 'class="col-md-12">';
 				$html .= $this->childHtml($div['id'], $div['children'],
 					$div['sizes']['fixed']);
 				$html .= '</div>' . PHP_EOL;
@@ -247,27 +255,6 @@ class Dlayer_View_PagePreview extends Zend_View_Helper_Abstract
 	{
 		return $this->view->contentAreaStyles()->contentArea($id, $sizes, 
 			$children, $content);
-	}
-
-	/**
-	* Set the params for the current div, this is the selector class, bootstrap 
-	* container class and a boolean stating whether or not the div has children
-	* 
-	* @return array
-	*/
-	private function divParams(array $children, $id)
-	{
-		$child_divs = FALSE;
-		$class = 'container';
-
-		if(count($children) == 0) {
-			$class = 'class="container"';			
-		} else {
-			$class = '';
-			$child_divs = TRUE;
-		}
-
-		return array('children'=>$child_divs, 'class'=>$class);
 	}
 
 	/**
