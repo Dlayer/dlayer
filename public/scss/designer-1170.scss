@@ -34,9 +34,9 @@ div#designer {
 				}
 			}
 
-			/*.selected-item {
+			.selected-item {
 				@include selected-state();
-			}*/
+			}
 
 			div.selectable {
 				cursor: pointer;

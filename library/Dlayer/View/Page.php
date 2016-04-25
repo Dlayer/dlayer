@@ -322,17 +322,22 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 		$child_divs = FALSE;
 		$class = NULL;
 
-		if(count($children) == 0) 
+		if(count($children) == 0)
         {			
 			if($this->selected_div_id != NULL) {
 				if($this->selected_content_row_id == NULL && 
 				$this->selected_div_id == $id) {
 					$class = 'selected-area col-md-12';	
-				}				
+				}
+				else
+				{
+					$class = 'col-md-12';
+				}
 			} else {
 				if($this->selected_div_id == NULL) {
-					if($this->selected_content_row_id == NULL) {}
-					$class = 'selectable col-md-12';
+					if($this->selected_content_row_id == NULL) {
+						$class = 'selectable col-md-12';
+					}
 				}
 			}
 			

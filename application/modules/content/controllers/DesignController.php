@@ -22,8 +22,17 @@ class Content_DesignController extends Zend_Controller_Action
 	*/
 	protected $_helper;
 
+	/**
+	 * @var Dlayer_Session
+	 */
 	private $session_dlayer;
+	/**
+	 * @var Dlayer_Session_Content
+	 */
 	private $session_content;
+	/**
+	 * @var Dlayer_Session_Designer
+	 */
 	private $session_designer;
 
 	private $layout;
@@ -277,11 +286,11 @@ class Content_DesignController extends Zend_Controller_Action
 		$tab = $this->getRequest()->getParam('tab');
 		$module = $this->getRequest()->getModuleName();
 
-		if($tab != NULL && $tool != NULL) {
+		$ribbon = new Dlayer_Ribbon();
+		$ribbon_tab = new Dlayer_Ribbon_Tab();
 
-			$ribbon = new Dlayer_Ribbon();
-			$ribbon_tab = new Dlayer_Ribbon_Tab();
-
+		if($tab != NULL && $tool != NULL)
+		{
 			$view_script = $ribbon_tab->viewScript(
 				$this->getRequest()->getModuleName(), $tool, $tab);
 			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);

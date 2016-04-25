@@ -10,7 +10,7 @@ $(document).ready(function()
 </script>
 
 <div class="row">
-	<div class="col-xs-12 col-sm-12">
+	<div class="col-md-12 col-sm-12">
 		<ul class="nav nav-tabs">
 			<?php foreach($this->tabs as $tab) { ?>
 			<?php if($tab['tab'] == $this->tab) { $class = 'active'; } else { $class = NULL; } ?>
@@ -29,3 +29,4 @@ $(document).ready(function()
 	<?php if($tab['tab'] == $this->tab) { $class = ' open'; } else { $class = NULL; } ?>
 	<div id="tab_content_<?php echo $this->escape($tab['tab']); ?>" class="row content<?php echo $class; ?>"></div>
 <?php } ?>
+
