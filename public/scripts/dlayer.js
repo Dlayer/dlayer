@@ -2395,7 +2395,7 @@ var dlayer = {
 			var content_container_background_colors = {};
 			var content_background_colors = {};
 			
-			$('div.container > div.selectable').hover(
+			$('div.selected-area > div.selectable').hover(
 				function() {
 					background_color = $(this).css('background-color');
 					$(this).css('background-color', '#e1dc50');
@@ -2469,7 +2469,7 @@ var dlayer = {
 					});
 				}			
 			);
-			$('div.container > div.selectable').click(
+			$('div.selected-area > div.selectable').click(
 				function() {
 					$(this).css('background-color', '#66a7ba');
 					

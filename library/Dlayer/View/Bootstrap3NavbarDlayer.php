@@ -27,6 +27,7 @@ class Dlayer_View_Bootstrap3NavbarDlayer extends Zend_View_Helper_Abstract
     private $brand_url;
 	private $navbar_items;
 	private $active_uri;
+	private $preview_uri;
 
 	/**
 	* Generates a simple bootstrap navbar
@@ -38,22 +39,30 @@ class Dlayer_View_Bootstrap3NavbarDlayer extends Zend_View_Helper_Abstract
 	* 	optionally children. A driop down will created for all the items in the 
 	* 	children array
 	* @param string $active_uri The Uri of the active item
+	* @param string|NULL $preview_uri Include preview link
 	* @return Dlayer_View_Bootstrap3NavbarDlayer
 	*/
 	public function bootstrap3NavbarDlayer($brand, $brand_url, array $navbar_items,
-		$active_url='')
+		$active_uri='', $preview_uri=NULL)
 	{
 		$this->resetParams();
 
         $this->brand = $brand;
 		$this->brand_url = $brand_url;
 		$this->navbar_items = $navbar_items;
-		$this->active_uri = $active_url;
+		$this->active_uri = $active_uri;
+		if($preview_uri !== NULL)
+		{
+			$this->preview_uri = $preview_uri;
+		}
 
 		// Custom id incase called multiple times withion a view
-		if($this->navbar_id == NULL) {
+		if($this->navbar_id == NULL) 
+		{
 			$this->navbar_id = 1;
-		} else {
+		} 
+		else 
+		{
 			$this->navbar_id += 1;
 		}
 
@@ -75,6 +84,7 @@ class Dlayer_View_Bootstrap3NavbarDlayer extends Zend_View_Helper_Abstract
 		$this->brand_url = '';
 		$this->navbar_items = array();
 		$this->active_uri = '';
+		$this->preview_uri = NULL;
 
 		$this->navbar_class = 'navbar-default';
 		$this->container_class = 'container';
@@ -136,6 +146,10 @@ class Dlayer_View_Bootstrap3NavbarDlayer extends Zend_View_Helper_Abstract
 
 		$html .= '</ul>';
 		$html .= $this->signOutAndVersion();
+		if($this->preview_uri !== NULL)
+		{
+			$html .= $this->preview();
+		}
 		$html .= '</div>';
 
 		return $html;
@@ -197,7 +211,20 @@ class Dlayer_View_Bootstrap3NavbarDlayer extends Zend_View_Helper_Abstract
 	}
 	
 	/**
-	* Sing out link and current version
+	* Preview link
+	* 
+	* @return string
+	*/
+	private function preview() 
+	{
+		$html = '<p class="navbar-text navbar-inverse navbar-right">';
+		$html .= '<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <a href="' . $this->preview_uri . '" class="navbar-link" title="Preview">Live preview</a>';
+		$html .= '</p>';
+		return $html;
+	}
+	
+	/**
+	* Sign out link and current version
 	* 
 	* @return string
 	*/
@@ -206,7 +233,7 @@ class Dlayer_View_Bootstrap3NavbarDlayer extends Zend_View_Helper_Abstract
 		$html = '<p class="navbar-text navbar-inverse navbar-right">';
 		$html .= '<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> <a href="/dlayer/index/logout" class="navbar-link" title="Sign out of demo">Sign out</a>';
 		$html .= ' - <small>' . VERSION_NO . ' (' . VERSION_DATE . ')</small>';
-		$html .= '<p>';
+		$html .= '</p>';
 		return $html;
 	}
 

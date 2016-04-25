@@ -182,7 +182,7 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 				
 				// Set the styles for the template div
 				$this->html .= $this->contentAreaStyles($div['id'], 
-					$div['sizes'], $params['children'], FALSE);
+                    $params['children'], FALSE);
 				
 				// Set the css classes
 				$this->html .= "{$params['class']}>";
@@ -301,15 +301,14 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	* will be called for each style group
 	*
 	* @param integer $id Content area id
-	* @param array $sizes Sizes data array for the content area
 	* @param boolean $children Does the content area have any children?
 	* @param boolean $content Is there defined content for the content area
 	* @return string
 	*/
-	private function contentAreaStyles($id, $sizes, $children, $content=FALSE)
+	private function contentAreaStyles($id, $children, $content=FALSE)
 	{
-		return $this->view->contentAreaStyles()->contentArea($id, $sizes, 
-			$children, $content);
+		return $this->view->contentAreaStyles()->contentArea($id, $children, 
+            $content);
 	}
 
 	/**
@@ -321,26 +320,30 @@ class Dlayer_View_Page extends Zend_View_Helper_Abstract
 	private function divParams(array $children, $id)
 	{
 		$child_divs = FALSE;
-		$class = 'container';
+		$class = NULL;
 
-		if(count($children) == 0) {
-			$class = 'container';
-			
+		if(count($children) == 0)
+        {			
 			if($this->selected_div_id != NULL) {
 				if($this->selected_content_row_id == NULL && 
 				$this->selected_div_id == $id) {
-					$class .= ' selected-area';	
-				}				
+					$class = 'selected-area col-md-12';	
+				}
+				else
+				{
+					$class = 'col-md-12';
+				}
 			} else {
 				if($this->selected_div_id == NULL) {
-					if($this->selected_content_row_id == NULL) {}
-					$class .= ' selectable';
+					if($this->selected_content_row_id == NULL) {
+						$class = 'selectable col-md-12';
+					}
 				}
 			}
 			
 			$class = 'class="' . $class . '"';			
 		} else {
-			$class = '';
+			$class = 'class="row"';
 			$child_divs = TRUE;
 		}
 

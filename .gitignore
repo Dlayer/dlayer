@@ -1,3 +1,7 @@
 *.db
 *.scssc
+.idea/
 public/bower_components/
+public/.sass-cache/
+public/css/*.css
+public/css/*.css.map

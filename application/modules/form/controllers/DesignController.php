@@ -72,8 +72,6 @@ class Form_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->setLayout('designer');
 		
-		$this->layout->assign('preview_url', '/form/design/preview');
-		
 		$this->navBar('/form/index/index');
 		$this->view->dlayer_toolbar = $this->dlayerToolbar();
 		$this->view->dlayer_form = $this->dlayerForm();
@@ -411,8 +409,14 @@ class Form_DesignController extends Zend_Controller_Action
 				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
 		);
 		
-		$this->layout->assign('nav', array(
-			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
+		$this->layout->assign('nav', 
+			array(
+				'class'=>'top_nav', 
+				'items'=>$items, 
+				'active_uri'=>$active_uri,
+				'preview_uri' => '/form/design/preview'
+			)
+		);
 	}
 
 	/**
