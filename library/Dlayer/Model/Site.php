@@ -88,17 +88,17 @@ class Dlayer_Model_Site extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch the details for the requested site.
-	*
-	* Don't need to check that the site id exists, will already have been taken
-	* care of by the code in the init method for the controller
-	*
-	* @param integer $site_id
-	* @return array|FALSE Data array for site
-	*/
+	 * Fetch the details for the requested web site
+	 * 
+	 * The method should only be called after the validateSiteId(); action helper, the helper checks that the
+	 * site id exists and belongs to the currently logged in user
+	 *
+	 * @param integer $site_id
+	 * @return array|FALSE Either and indexed array of the site data or FALSE
+	 */
 	public function site($site_id)
 	{
-		$sql = "SELECT id, `name`
+		$sql = "SELECT id, `name` 
 				FROM user_site
 				WHERE id = :site_id
 				LIMIT 1";

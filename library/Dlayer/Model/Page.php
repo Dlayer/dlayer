@@ -129,13 +129,22 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	* @return array Array of the pages for the site, includes the name of the
 	*               template to create the page
 	*/
+	
+	/**
+	 * Fetch all the pages that have been added to the requested site
+	 *
+	 * The method should only be called after the validateSiteId(); action helper, the helper checks that the
+	 * site id exists and belongs to the currently logged in user
+	 *
+	 * @param integer $site_id
+	 * @return array If there are no pages and empty array is returned
+	 */
 	public function pages($site_id)
 	{
-		$sql = "SELECT usp.id, usp.`name`, ust.`name` AS template
-		FROM user_site_page usp
-		JOIN user_site_template ust ON usp.template_id = ust.id
-		WHERE usp.site_id = :site_id
-		ORDER BY usp.`name` ASC";
+		$sql = "SELECT usp.id, usp.`name` 
+				FROM user_site_page usp 
+				WHERE usp.site_id = :site_id 
+				ORDER BY usp.`name` ASC";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->execute();

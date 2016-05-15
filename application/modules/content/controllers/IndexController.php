@@ -1,13 +1,12 @@
 <?php
 /**
-* Root controller for the module. The controller should show the user a list of 
-* the pages in their site and the corresponding templates, they can either edit 
-* a page or create a new page using a template.
-*  
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
+ * Root controller for the Content Manager, shows a lits of all the pages in the selected web site as well as links
+ * the setting pages for the Content Manager
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
 class Content_IndexController extends Zend_Controller_Action
 {
 	/**
@@ -17,62 +16,60 @@ class Content_IndexController extends Zend_Controller_Action
 	* @var Dlayer_Action_CodeHinting
 	*/
 	protected $_helper;
-
-	private $session_dlayer;
+	/**
+	 * @var Dlayer_Session_Content
+	 */
 	private $session_content;
 
 	private $layout;
+	private $site_id;
 
 	/**
-	* Init the controller, run any set up code required by all the actions 
-	* in the controller
-	* 
-	* @return void
-	*/
+	 * Execute the setup methods for the controller and set the properties
+	 *
+	 * @return void
+	 */
 	public function init()
 	{
 		$this->_helper->authenticate();
-
 		$this->_helper->setModule();
-
 		$this->_helper->validateSiteId();
 
-		$this->session_dlayer = new Dlayer_Session();
-		$this->session_content = new Dlayer_Session_Content();
-
-		// Include js and css files in layout
 		$this->layout = Zend_Layout::getMvcInstance();
-		$this->layout->assign('js_include', array());
-		$this->layout->assign('css_include', array());
+
+		$session_dlayer = new Dlayer_Session();
+		$this->site_id = $session_dlayer->siteId();
+		$this->session_content = new Dlayer_Session_Content();
 	}
 
 	/**
-	* Root action, should show the user a list of their current content
-	* 
-	* @return void
-	*/
+	 * Show a list of the pages that belong to the currently selected site along with add new page and edit/management
+	 * options
+	 *
+	 * @return void
+	 */
 	public function indexAction()
 	{
 		$model_sites = new Dlayer_Model_Site();
 		$model_pages = new Dlayer_Model_Page();
 
-		$this->navBar('/content/index/index');
-		
-		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->view->pages = $model_pages->pages(
-			$this->session_dlayer->siteId());
+		$this->view->site = $model_sites->site($this->site_id);
+		$this->view->pages = $model_pages->pages($this->site_id);
 		$this->view->page_id = $this->session_content->pageId();
 
+		// Set layout properties, JS, CSS, page title and navbar
+		$this->layout->assign('js_include', array());
 		$this->layout->assign('css_include', array('css/dlayer.css'));
 		$this->layout->assign('title', 'Dlayer.com - Content manager');
+		$this->navBar('/content/index/index');
 	}
 
 	/**
-	* Assign the content for the nav bar
-	* 
-	* @param string $active_uri Uri
-	* @return void Assigns values to the layout
-	*/
+	 * Setup the navbar for the module
+	 *
+	 * @param string $active_uri The uri that should display as active
+	 * @return void Assigns the data to the layout
+	 */
 	private function navBar($active_uri) 
 	{
 		$items = array(
@@ -115,7 +112,7 @@ class Content_IndexController extends Zend_Controller_Action
 		if($page_id != NULL) {           
 			$model_pages = new Dlayer_Model_Page();
 			if($model_pages->valid($page_id, 
-			$this->session_dlayer->siteId()) == TRUE) {
+			$this->site_id) == TRUE) {
 				$page = $model_pages->page($page_id);
 				if($page != FALSE) {
 					$this->session_content->clearAll();
@@ -136,21 +133,18 @@ class Content_IndexController extends Zend_Controller_Action
 	*/
 	public function newPageAction() 
 	{
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - New content page');
-
 		$model_sites = new Dlayer_Model_Site();
 		$model_templates = new Dlayer_Model_Template();
 
 		$templates = $model_templates->templateNames(
-			$this->session_dlayer->siteId());
+			$this->site_id);
 
 		$form = NULL;
 
 		if(count($templates) > 0) {
 
 			$form = new Dlayer_Form_Site_NewPage(
-				$this->session_dlayer->siteId(), $templates);
+				$this->site_id, $templates);
 
 			// Validate and save the posted data
 			if($this->getRequest()->isPost()) {
@@ -160,7 +154,7 @@ class Content_IndexController extends Zend_Controller_Action
 				if($form->isValid($post)) {
 					$model_pages = new Dlayer_Model_Page();
 					$page_id = $model_pages->addPage(
-						$this->session_dlayer->siteId(), $post['name'], 
+						$this->site_id, $post['name'], 
 						$post['template'], $post['title'], $post['description']);
 					$this->session_content->clearAll(TRUE);
 					$this->session_content->setPageId($page_id);
@@ -172,7 +166,12 @@ class Content_IndexController extends Zend_Controller_Action
 			$this->view->form = $form;
 		}
 
-		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
+		$this->view->site = $model_sites->site($this->site_id);
+
+		// Set layout properties, JS, CSS, page title and navbar
+		$this->layout->assign('js_include', array());
+		$this->layout->assign('css_include', array('css/dlayer.css'));
+		$this->layout->assign('title', 'Dlayer.com - New content page');
 		$this->navBar('/content/index/index');
 	}
 
@@ -183,12 +182,9 @@ class Content_IndexController extends Zend_Controller_Action
 	*/
 	public function editPageAction() 
 	{
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Edit page');
-
 		$model_sites = new Dlayer_Model_Site();
 
-		$form = new Dlayer_Form_Site_EditPage($this->session_dlayer->siteId(), 
+		$form = new Dlayer_Form_Site_EditPage($this->site_id, 
 			$this->session_content->pageId());
 
 		// Validate and save the posted data
@@ -198,7 +194,7 @@ class Content_IndexController extends Zend_Controller_Action
 
 			if($form->isValid($post)) {
 				$model_pages = new Dlayer_Model_Page();
-				$model_pages->editPage($this->session_dlayer->siteId(), 
+				$model_pages->editPage($this->site_id, 
 					$this->session_content->pageId(), $post['name'], 
 					$post['title'], $post['description']);
 				$this->_redirect('/content');
@@ -206,7 +202,12 @@ class Content_IndexController extends Zend_Controller_Action
 		}
 
 		$this->view->form = $form;
-		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
+		$this->view->site = $model_sites->site($this->site_id);
+
+		// Set layout properties, JS, CSS, page title and navbar
+		$this->layout->assign('js_include', array());
+		$this->layout->assign('css_include', array('css/dlayer.css'));
+		$this->layout->assign('title', 'Dlayer.com - Edit page');
 		$this->navBar('/content/index/index');
 	}
 }

@@ -69,13 +69,12 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 			$html .= '<div class="well well-sm">';
 		}
 		
-		$html .= '<h4>Further reading <small>Do you want to know 
+		$html .= "<h4>Further reading <small>Do you want to know 
 			more?</small></h4>
 			
-			<p>Checks the docs at 
-				<a href="http://www.dlayer.com">Dlayer.com</a>, it has an 
-				overview for each designer as well as notes on each tool and 
-				feature.<br />';
+			<p>Check the documentation at <a href=\"http://www.dlayer.com\">Dlayer.com</a>, I'm working towards moving 
+				my all private docs online, eventually there will be an overview of each designer as well as a section 
+				on every tool and feature in Dlayer.<br />";
 		
 		if($this->url == NULL) {
 			$primary = TRUE;
