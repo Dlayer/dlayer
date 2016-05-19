@@ -1,70 +1,66 @@
 <?php
 /**
-* Custom form class, contains base functionality and sets up the structure for 
-* a form class
-* 
-* @author Dean Blackborough
-* @copyright G3D Development Limited
-*/
-abstract class Dlayer_Form extends Zend_Form 
+ * Base form class for Dlayer
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
+abstract class Dlayer_Form extends Zend_Form
 {
 	/**
-	* Form elments
-	* 
-	* @var array
-	*/
+	 * @var array Form elements array
+	 */
 	protected $elements = array();
 
 	/**
-	* Pass in any values that are needed to set up the form, optional
-	* 
-	* @param array|NULL Options for form
-	* @return void
-	*/
+	 * Dlayer_Form constructor. Pass in anything needed to set up the form and set options
+	 *
+	 * @param array|NULL $options
+	 * @return void
+	 */
 	public function __construct($options=NULL)
 	{
 		parent::__construct($options=NULL);
 	}
 
-	/** 
-	* Set up the form elements needed for this form
-	* 
-	* @return void Form elements are written to the private $this->elements 
-	*              property
-	*/
+	/**
+	 * Create the form elements and assign them to $this->elements, array will be passed to
+	 * Dlayer_Form::addElementsToForm()
+	 *
+	 * @return void
+	 */
 	abstract protected function setUpFormElements();
 
 	/**
-	* Add the validation rules for the form elements and set the custom error 
-	* messages
-	* 
-	* @return void
-	*/
+	 * Add validation rules
+	 *
+	 * @return void
+	 */
 	abstract protected function validationRules();
 
 	/**
-	* Add the default decorators to use for the form inputs
-	* 
-	* @return void
-	*/
+	 * Add the default element decorators
+	 *
+	 * @return void
+	 */
 	abstract protected function addDefaultElementDecorators();
 
 	/**
-	* Add any custom decorators, these are inputs where we need a little more 
-	* control over the html, an example being the submit button
-	* 
-	* @return void
-	*/
+	 * Add any custom element decorators
+	 *
+	 * @return void
+	 */
 	abstract protected function addCustomElementDecorators();    
 
-	/** 
-	* Add the elements to the form set up the fieldset/legend
-	* 
-	* @param string $id Fieldset id
-	* @param string $label Label for fieldset
-	* @param array $elements Elements to add to form and pass to display group
-	* @retrun void
-	*/
+	/**
+	 * Assign the elements to the form, calls Zend_Form::addElements and Zend_Form::addDisplayGroup
+	 *
+	 * @param string $id Id for fieldset
+	 * @param string $label Legend for fieldset
+	 * @param array $elements The elements top assign
+	 * @throws Zend_Form_Exception
+	 */
 	protected function addElementsToForm($id, $label, array $elements) 
 	{
 		$this->addElements($elements);

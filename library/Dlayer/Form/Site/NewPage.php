@@ -1,41 +1,37 @@
 <?php
 /**
-* New page
-* 
-* Allows the user to create a new page for use within the current site, they 
-* need to choose the template to use and set a name
-*  
-* @author Dean Blackborough
-* @copyright G3D Development Limited
-*/
+ * Create a new content page
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
 class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App 
 {
+	/**
+	 * @var integer
+	 */
 	private $site_id;
-	private $data;
 
 	/**
-	* Pass in any values that are needed to set up the form
-	* 
-	* @param integer $site_id
-	* @param array $templates Array of templates for site
-	* @param array|NULL Options for form
-	* @return void
-	*/
-	public function __construct($site_id, array $templates=array(), 
-		$options=NULL)
+	 * Dlayer_Form_Site_NewPage constructor. Pass in anything needed to set up the form and set options
+	 *
+	 * @param null $site_id
+	 * @param array|NULL $options
+	 * @return void
+	 */
+	public function __construct($site_id, array $options=NULL)
 	{
 		$this->site_id = $site_id;
-		$this->data['templates'] = $templates;
 
 		parent::__construct($options=NULL);
 	}
 
 	/**
-	* Initialise the form, sets the url and submit method and then calls 
-	* the methods that set up the form itself
-	* 
-	* @return void
-	*/
+	 * Initialise the form, set the process uri and method and then call the setup methods which create the form
+	 *
+	 * @return void
+	 */
 	public function init() 
 	{        
 		$this->setAction('/content/index/new-page');
@@ -46,21 +42,19 @@ class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App
 
 		$this->validationRules();
 
-		$this->addElementsToForm('new_page', 
-			'New content page <small>Create new page</small>', 
-			$this->elements);
+		$this->addElementsToForm('content_page', 'Content page <small>Create a new content page</small>', $this->elements);
 
 		$this->addDefaultElementDecorators();
 
 		$this->addCustomElementDecorators();
 	}
 
-	/** 
-	* Set up the form elements needed for this form
-	* 
-	* @return void Form elements are written to the private $this->elements 
-	*              property
-	*/
+	/**
+	 * Create the form elements and assign them to $this->elements, array will be passed to
+	 * Dlayer_Form::addElementsToForm()
+	 *
+	 * @return void
+	 */
 	protected function setUpFormElements() 
 	{
 		$name = new Zend_Form_Element_Text('name');
@@ -70,15 +64,7 @@ class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
 			'placeholder'=>'e.g., News page', 'class'=>'form-control'));
 		$this->elements['name'] = $name;
-
-		$template = new Zend_Form_Element_Select('template');
-		$template->setLabel('Template');
-		$template->setDescription('Select the template that the content page 
-			will be based upon.');
-		$template->setAttribs(array('class'=>'form-control'));
-		$template->setMultiOptions($this->data['templates']);
-		$this->elements['template'] = $template;
-
+		
 		$title = new Zend_Form_Element_Text('title');
 		$title->setLabel('Page title');
 		$title->setDescription("Enter a title for the new content page, 
@@ -105,19 +91,15 @@ class Dlayer_Form_Site_NewPage extends Dlayer_Form_Module_App
 	}
 
 	/**
-	* Add the validation rules for the form elements and set the custom error 
-	* messages
-	* 
-	* @return void
-	*/
+	 * Add validation rules
+	 *
+	 * @return void
+	 */
 	protected function validationRules() 
 	{
 		$this->elements['name']->setRequired();
-		$this->elements['name']->addValidator(
-			new Dlayer_Validate_PageNameUnique($this->site_id));
-
+		$this->elements['name']->addValidator(new Dlayer_Validate_PageNameUnique($this->site_id));
 		$this->elements['description']->setRequired();
-
 		$this->elements['title']->setRequired();
 	}
 }

@@ -73,14 +73,10 @@ class Content_IndexController extends Zend_Controller_Action
 	private function navBar($active_uri) 
 	{
 		$items = array(
-			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
-				'title'=>'Dlayer.com: Web development simplified'),
-			array('uri'=>'/content/index/index', 
-				'name'=>'Content manager', 'title'=>'Content manager'), 
-			array('uri'=>'/content/settings/index', 
-				'name'=>'Settings', 'title'=>'Settings'), 
-			array('uri'=>'http://www.dlayer.com/docs/', 
-				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
+			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
+			array('uri'=>'/content/index/index', 'name'=>'Content manager', 'title'=>'Content manager'),
+			array('uri'=>'/content/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
+			array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
 		);
 		
 		$this->layout->assign('nav', array(
@@ -122,7 +118,7 @@ class Content_IndexController extends Zend_Controller_Action
 			}
 		}
 
-		$this->_redirect('/content');
+		$this->redirect('/content');
 	}
 
 	/**
@@ -131,20 +127,18 @@ class Content_IndexController extends Zend_Controller_Action
 	* 
 	* @return void
 	*/
+
+	/**
+	 * Create a new content page for the currently selected site, users needs to enter a name to identify the
+	 * page within Dlayer as well as the title and description for the html
+	 *
+	 * @return void
+	 */
 	public function newPageAction() 
 	{
 		$model_sites = new Dlayer_Model_Site();
-		$model_templates = new Dlayer_Model_Template();
 
-		$templates = $model_templates->templateNames(
-			$this->site_id);
-
-		$form = NULL;
-
-		if(count($templates) > 0) {
-
-			$form = new Dlayer_Form_Site_NewPage(
-				$this->site_id, $templates);
+		$form = new Dlayer_Form_Site_NewPage($this->site_id);
 
 			// Validate and save the posted data
 			if($this->getRequest()->isPost()) {
@@ -164,7 +158,7 @@ class Content_IndexController extends Zend_Controller_Action
 			}
 
 			$this->view->form = $form;
-		}
+		//}
 
 		$this->view->site = $model_sites->site($this->site_id);
 
