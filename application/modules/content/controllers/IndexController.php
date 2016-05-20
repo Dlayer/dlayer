@@ -23,6 +23,7 @@ class Content_IndexController extends Zend_Controller_Action
 
 	private $layout;
 	private $site_id;
+	private $content_page_form;
 
 	/**
 	 * Execute the setup methods for the controller and set the properties
@@ -57,11 +58,8 @@ class Content_IndexController extends Zend_Controller_Action
 		$this->view->pages = $model_pages->pages($this->site_id);
 		$this->view->page_id = $this->session_content->pageId();
 
-		// Set layout properties, JS, CSS, page title and navbar
-		$this->layout->assign('js_include', array());
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Content manager');
-		$this->navBar('/content/index/index');
+		$this->setLayoutProperties(array(), array('css/dlayer.css'), 'Dlayer.com - Content manager',
+			'/content/index/index');
 	}
 
 	/**
@@ -120,13 +118,28 @@ class Content_IndexController extends Zend_Controller_Action
 
 		$this->redirect('/content');
 	}
-
+	
 	/**
-	* Allows the user to create a new page for the currently selected site, 
-	* they need to choose the template to use and provide a name
-	* 
-	* @return void
-	*/
+	 * Handle add content page
+	 */
+	private function handleAddContentPage() 
+	{
+		$post = $this->getRequest()->getPost();
+		
+		if($this->content_page_form->isValid($post)) 
+		{
+			$model_pages = new Dlayer_Model_Page();
+			$page_id = $model_pages->addPage($this->site_id, $post['name'], $post['title'], $post['description']);
+
+			if($page_id !== FALSE)
+			{
+				$this->session_content->clearAll(TRUE);
+				$this->session_content->setPageId($page_id);
+			}
+
+			$this->redirect('/content');
+		}
+	}
 
 	/**
 	 * Create a new content page for the currently selected site, users needs to enter a name to identify the
@@ -138,35 +151,18 @@ class Content_IndexController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 
-		$form = new Dlayer_Form_Site_NewPage($this->site_id);
+		$this->content_page_form = new Dlayer_Form_Site_NewPage($this->site_id);
 
-			// Validate and save the posted data
-			if($this->getRequest()->isPost()) {
+		if($this->getRequest()->isPost())
+		{
+			$this->handleAddContentPage();
+		}
 
-				$post = $this->getRequest()->getPost();
-
-				if($form->isValid($post)) {
-					$model_pages = new Dlayer_Model_Page();
-					$page_id = $model_pages->addPage(
-						$this->site_id, $post['name'], 
-						$post['template'], $post['title'], $post['description']);
-					$this->session_content->clearAll(TRUE);
-					$this->session_content->setPageId($page_id);
-					$this->session_content->setTemplateId($post['template']);
-					$this->_redirect('/content');
-				}
-			}
-
-			$this->view->form = $form;
-		//}
-
+		$this->view->form = $this->content_page_form;
 		$this->view->site = $model_sites->site($this->site_id);
 
-		// Set layout properties, JS, CSS, page title and navbar
-		$this->layout->assign('js_include', array());
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - New content page');
-		$this->navBar('/content/index/index');
+		$this->setLayoutProperties(array(), array('css/dlayer.css'), 'Dlayer.com - New content page',
+			'/content/index/index');
 	}
 
 	/**
@@ -198,10 +194,24 @@ class Content_IndexController extends Zend_Controller_Action
 		$this->view->form = $form;
 		$this->view->site = $model_sites->site($this->site_id);
 
-		// Set layout properties, JS, CSS, page title and navbar
-		$this->layout->assign('js_include', array());
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Edit page');
-		$this->navBar('/content/index/index');
+		$this->setLayoutProperties(array(), array('css/dlayer.css'), 'Dlayer.com - Edit page',
+			'/content/index/index');
+	}
+
+	/**
+	 * Set layout properties for action, js and css files to include, page title and the active uri for the navbar
+	 *
+	 * @param array $js_includes Javascript includes array
+	 * @param array $css_includes CSS includes array
+	 * @param string $title Page title
+	 * @param string $active_uri Active uri for navbar
+	 * @return void
+	 */
+	private function setLayoutProperties(array $js_includes, array $css_includes, $title, $active_uri)
+	{
+		$this->layout->assign('js_include', $js_includes);
+		$this->layout->assign('css_include', $css_includes);
+		$this->layout->assign('title', $title);
+		$this->navBar($active_uri);
 	}
 }
