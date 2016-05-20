@@ -28,27 +28,6 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	* Set the id for the site template that the user wants to work on
-	* 
-	* @param integer $id
-	* @return void
-	*/
-	public function setTemplateId($id) 
-	{
-		$this->template_id = intval($id);
-	}
-
-	/**
-	* Get the id of the template that the user is currently working on
-	* 
-	* @return integer|NULL
-	*/
-	public function templateId() 
-	{
-		return $this->template_id;
-	}
-
-	/**
 	* Set the id for the selected page
 	* 
 	* @param integer $id

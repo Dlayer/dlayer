@@ -213,30 +213,64 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Add a new page to the requested site
-	*
-	* @param integer $site_id
-	* @param string $name Name for the new page
-	* @param integer $template Template id
-	* @param string $title Title for page
-	* @param string $description Description of page
-	* @return integer New page id
-	*/
-	public function addPage($site_id, $name, $template, $title, $description)
+	 * Add a new content page to the requested web site
+	 *
+	 * @param integer $site_id
+	 * @param string $name
+	 * @param string $title
+	 * @param integer $description
+	 * @return integer|FALSE
+	 */
+	public function addPage($site_id, $name, $title, $description)
 	{
-		$sql = "INSERT INTO user_site_page
-				(site_id, template_id, `name`, title, description)
+		$sql = "INSERT INTO user_site_page 
+				(site_id, `name`, title, description) 
 				VALUES
-				(:site_id, :template_id, :name, :title, :description)";
+				(:site_id, :name, :title, :description)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-		$stmt->bindValue(':template_id', $template, PDO::PARAM_INT);
 		$stmt->bindValue(':title', $title, PDO::PARAM_STR);
 		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
-		$stmt->execute();
+		$result = $stmt->execute();
 
-		return $this->_db->lastInsertId('user_site_page');
+		if($result === TRUE)
+		{
+			$page_id = intval($this->_db->lastInsertId('user_site_page'));
+			if($this->addPageMeta($page_id, $title, $description) == TRUE)
+			{
+				return $page_id;
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Add the meta data for a content page
+	 *
+	 * @param integer $page_id
+	 * @param string $title
+	 * @param string $description
+	 * @return boolean
+	 */
+	private function addPageMeta($page_id, $title, $description)
+	{
+		$sql = "INSERT INTO user_site_page_meta  
+				(page_id, title, description) 
+				VALUES
+				(:page_id, :title, :description)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':title', $title, PDO::PARAM_STR);
+		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
+		return $stmt->execute();
 	}
 
 	/**
