@@ -120,7 +120,10 @@ class Content_IndexController extends Zend_Controller_Action
 	}
 	
 	/**
-	 * Handle add content page
+	 * Handle add content page, if successful the user is redirected after the ids for the new page has been set in
+	 * the session
+	 *
+	 * @return void
 	 */
 	private function handleAddContentPage() 
 	{
@@ -129,7 +132,7 @@ class Content_IndexController extends Zend_Controller_Action
 		if($this->content_page_form->isValid($post)) 
 		{
 			$model_pages = new Dlayer_Model_Page();
-			$page_id = $model_pages->addPage($this->site_id, $post['name'], $post['title'], $post['description']);
+			$page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description']);
 
 			if($page_id !== FALSE)
 			{
