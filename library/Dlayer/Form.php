@@ -14,6 +14,11 @@ abstract class Dlayer_Form extends Zend_Form
 	protected $elements = array();
 
 	/**
+	 * @var array Data for form elements
+	 */
+	protected $elementsData = array();
+
+	/**
 	 * Dlayer_Form constructor. Pass in anything needed to set up the form and set options
 	 *
 	 * @param array|NULL $options
@@ -51,7 +56,15 @@ abstract class Dlayer_Form extends Zend_Form
 	 *
 	 * @return void
 	 */
-	abstract protected function addCustomElementDecorators();    
+	abstract protected function addCustomElementDecorators();
+
+	/**
+	 * Fetch the data for the form elements if in edit mode, also responsible for fetching the data for dynamic
+	 * elements like select menus and radio boxes
+	 *
+	 * @return void
+	 */
+	abstract protected function elementsData();
 
 	/**
 	 * Assign the elements to the form, calls Zend_Form::addElements and Zend_Form::addDisplayGroup
@@ -65,7 +78,6 @@ abstract class Dlayer_Form extends Zend_Form
 	{
 		$this->addElements($elements);
 
-		$this->addDisplayGroup($elements, $id, 
-			array('legend'=>$label, 'escape'=>false));
+		$this->addDisplayGroup($elements, $id, array('legend'=>$label, 'escape'=>false));
 	}
 }

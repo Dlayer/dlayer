@@ -42,38 +42,6 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Check to see if the given div id belongs to the requested page. To do
-	* this we check to see if the div id exists for the template the page is
-	* based upon
-	*
-	* No need to check the site id in this method ebacuse it will have already
-	* been check by the valid() method
-	*
-	* @param integer $div_id
-	* @param integer $page_id
-	* @return boolean TRUE if the div id is valid
-	*/
-	public function divValid($div_id, $page_id)
-	{
-		$sql = "SELECT ustd.id
-				FROM user_site_template_div ustd
-				WHERE ustd.template_id = (SELECT template_id
-				FROM user_site_page WHERE id = :page_id)
-				AND ustd.id = :div_id
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		if($stmt->fetch() != FALSE) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-
-	/**
 	* Check to see if the content id is valid, needs to be a child of all the
 	* supplied params and also be the correct content type
 	* 
@@ -159,11 +127,20 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	* @param integer $page_id
 	* @return array|FALSE
 	*/
+
+	/**
+	 * Fetch the data for the selected content page, array contains the combined data for user_site_page table and
+	 * user_site_page_meta table
+	 *
+	 * @param $page_id
+	 * @return array|FALSE
+	 */
 	public function page($page_id)
 	{
-		$sql = "SELECT template_id, `name`, title, description
-				FROM user_site_page
-				WHERE id = :page_id";
+		$sql = 'SELECT usp.`name`, uspm.title, uspm.description 
+ 				FROM user_site_page usp 
+ 				JOIN user_site_page_meta uspm ON uspm.page_id = usp.id
+ 				WHERE uspm.id = :page_id';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->execute();
@@ -219,11 +196,11 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	 * @param string $title Page title
 	 * @param string $description Page description
 	 * @param integer|NULL $id Page id for edit
-	 * @return integer|FALSE Either the page id of FALSE upon failure
+	 * @return integer|FALSE Either the page id or FALSE upon failure
 	 */
 	public function savePage($site_id, $name, $title, $description, $id=NULL)
 	{
-		if($id !== NULL)
+		if($id === NULL)
 		{
 			$id = $this->addPage($site_id, $name);
 
@@ -233,13 +210,22 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 			}
 			else
 			{
-				return FALSE;
+				$id = FALSE;
 			}
 		}
 		else
 		{
-			return $id;
+			if($this->editPage($id, $name) !== false)
+			{
+				$this->savePageMeta($id, $title, $description);
+			}
+			else
+			{
+				$id = false;
+			}
 		}
+
+		return $id;
 	}
 
 	/**
@@ -291,6 +277,25 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 		{
 			return FALSE;
 		}
+	}
+
+	/**
+	 * Edit the details for a page
+	 *
+	 * @param integer $id
+	 * @param string $name
+	 * @return boolean
+	 */
+	private function editPage($id, $name)
+	{
+		$sql = 'UPDATE user_site_page 
+				SET `name` = :name  
+				WHERE id = :id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		return $stmt->execute();
 	}
 
 	/**

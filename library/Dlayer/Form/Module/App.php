@@ -1,10 +1,11 @@
 <?php
 /**
-* Base form class for app level forms
-*
-* @author Dean Blackborough
-* @copyright G3D Development Limited
-*/
+ * Dlayer base form class for app forms
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
 abstract class Dlayer_Form_Module_App extends Dlayer_Form
 {
 	/**
