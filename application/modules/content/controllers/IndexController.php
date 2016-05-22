@@ -138,9 +138,30 @@ class Content_IndexController extends Zend_Controller_Action
 			{
 				$this->session_content->clearAll(TRUE);
 				$this->session_content->setPageId($page_id);
+				$this->redirect('/content');
 			}
+		}
+	}
 
-			$this->redirect('/content');
+	/**
+	 * Handle edit content page, if successful the user is redirected back to Content manager root
+	 *
+	 * @return void
+	 */
+	private function handleEditContentPage()
+	{
+		$post = $this->getRequest()->getPost();
+
+		if($this->content_page_form->isValid($post))
+		{
+			$model_pages = new Dlayer_Model_Page();
+			$page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description'],
+				$this->session_content->pageId());
+
+			if($page_id !== FALSE)
+			{
+				$this->redirect('/content');
+			}
 		}
 	}
 
@@ -154,7 +175,7 @@ class Content_IndexController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 
-		$this->content_page_form = new Dlayer_Form_Site_NewPage($this->site_id);
+		$this->content_page_form = new Dlayer_Form_Site_ContentPage('/content/index/new-page', $this->site_id);
 
 		if($this->getRequest()->isPost())
 		{
@@ -167,34 +188,25 @@ class Content_IndexController extends Zend_Controller_Action
 		$this->setLayoutProperties(array(), array('css/dlayer.css'), 'Dlayer.com - New content page',
 			'/content/index/index');
 	}
-
+	
 	/**
-	* Allows the user to edit the details for the currently selected page
-	* 
-	* @return void
-	*/
+	 * Edit the selected content page
+	 * 
+	 * @return void
+	 */
 	public function editPageAction() 
 	{
 		$model_sites = new Dlayer_Model_Site();
-
-		$form = new Dlayer_Form_Site_EditPage($this->site_id, 
+		
+		$this->content_page_form = new Dlayer_Form_Site_ContentPage('/content/index/edit-page', $this->site_id,
 			$this->session_content->pageId());
-
-		// Validate and save the posted data
-		if($this->getRequest()->isPost()) {
-
-			$post = $this->getRequest()->getPost();
-
-			if($form->isValid($post)) {
-				$model_pages = new Dlayer_Model_Page();
-				$model_pages->editPage($this->site_id, 
-					$this->session_content->pageId(), $post['name'], 
-					$post['title'], $post['description']);
-				$this->_redirect('/content');
-			}
+		
+		if($this->getRequest()->isPost()) 
+		{
+			$this->handleEditContentPage();
 		}
-
-		$this->view->form = $form;
+		
+		$this->view->form = $this->content_page_form;
 		$this->view->site = $model_sites->site($this->site_id);
 
 		$this->setLayoutProperties(array(), array('css/dlayer.css'), 'Dlayer.com - Edit page',
