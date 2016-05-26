@@ -91,19 +91,18 @@ class Content_IndexController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
+		$model_pages = new Dlayer_Model_Page();
+
 		$page_id = Dlayer_Helper::getInteger('page-id');
 
-		if($page_id != NULL)
+		if($page_id !== NULL && $model_pages->valid($page_id, $this->site_id) == TRUE)
 		{
-			$model_pages = new Dlayer_Model_Page();
-			if($model_pages->valid($page_id, $this->site_id) == TRUE)
+			$page = $model_pages->page($page_id);
+			
+			if($page !== FALSE)
 			{
-				$page = $model_pages->page($page_id);
-				if($page != FALSE)
-				{
-					$this->session_content->clearAll();
-					$this->session_content->setPageId($page_id);
-				}
+				$this->session_content->clearAll();
+				$this->session_content->setPageId($page_id);
 			}
 		}
 
