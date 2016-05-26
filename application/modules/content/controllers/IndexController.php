@@ -82,36 +82,27 @@ class Content_IndexController extends Zend_Controller_Action
 	}
 
 	/**
-	* Activate another page, checks that the given page id is valid and 
-	* that it belongs to the site id in the session. If valid the page is 
-	* activated and the user is sent back to the index action. 
-	* 
-	* In addition to setting the page id the action sets the template id that 
-	* matches the page, required to pull the data for the page and it means 
-	* that when the user uses the mode buttons in the top right they will 
-	* be taken to the template for the current page when they click the 
-	* template button
-	* 
-	* The content id is cleared in the content session because the set value 
-	* may relate to an existing template
-	* 
-	* @return void
-	*/
+	 * Activate another content page, check that the id is valid and also check that it belongs tpo the site set
+	 * in the session
+	 *
+	 * @return void
+	 */
 	public function activateAction() 
 	{
 		$this->_helper->disableLayout(FALSE);
 
 		$page_id = Dlayer_Helper::getInteger('page-id');
 
-		if($page_id != NULL) {           
+		if($page_id != NULL)
+		{
 			$model_pages = new Dlayer_Model_Page();
-			if($model_pages->valid($page_id, 
-			$this->site_id) == TRUE) {
+			if($model_pages->valid($page_id, $this->site_id) == TRUE)
+			{
 				$page = $model_pages->page($page_id);
-				if($page != FALSE) {
+				if($page != FALSE)
+				{
 					$this->session_content->clearAll();
 					$this->session_content->setPageId($page_id);
-					$this->session_content->setTemplateId($page['template_id']);
 				}
 			}
 		}
