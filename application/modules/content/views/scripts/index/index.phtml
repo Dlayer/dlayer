@@ -2,15 +2,16 @@
 
 <div class="row">
 	<div class="col-md-12 col-xs-12">
-		<h1>Content manager <small>Content management <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
+		<h1>Content manager <small>Content management
+				<span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
 		
 		<h2>Overview</h2>
 		
-		<p>The Content manager allows you to manage all your site content, 
-			content can be anything, a single image, text block, form, poll 
-			or widget in the form of an image gallery ot twitter feed.</p>
+		<p>The Content manager allows you to manage the content for a specific page as well as the content for linked
+			content items. Content can be anything, a single image, a text block, a form, poll or even a widget in the
+			form of an image gallery of Twitter feed.</p>
 			
-		<h3>Content pages <small>Content pages for this web site</small></h3>
+		<h3>Content pages <small>Select a content page from the list below</small></h3>
 		
 		<ul class="listing">
 			<?php foreach($this->pages as $page) { ?>
@@ -19,8 +20,7 @@
 						<button type="button" class="btn btn-info btn-xs">
 							<?php echo $this->escape($page['name']); ?>
 						</button>
-						<span class="label label-info"><?php echo $this->escape($page['template']); ?></span>
-						<a href="/content/design/" class="btn btn-default btn-xs">Design</a> 
+						<a href="/content/design/" class="btn btn-default btn-xs">Design</a>
 						<a href="/content/index/edit-page" class="btn btn-default btn-xs">Edit</a> 
 						<a href="#" class="btn btn-default btn-xs disabled">Copy</a> 
 						<span class="label label-success">Selected</span>
@@ -29,7 +29,7 @@
 					<li>
 						<a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>" 
 						class="btn btn-default btn-xs">
-						<?php echo $this->escape($page['name']); ?> (<?php echo $this->escape($page['template']); ?>)</a>
+						<?php echo $this->escape($page['name']); ?></a>
 					</li>    			
 				<?php } ?>
 			<?php } ?>

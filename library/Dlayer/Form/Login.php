@@ -44,6 +44,8 @@ class Dlayer_Form_Login extends Dlayer_Form
 		
 		$this->addCustomElementDecorators();
 	}
+
+	protected function elementsData() { }
 	
 	/** 
 	* Set up the form elements needed for this form

@@ -85,61 +85,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	*/
 	public function content() { }
 
-	/** 
-	* Template layout view helper, generates the html for the selected template,
-	* essentially it just loops through the divs that make up the template
-	* adding the styles as necessary
-	* 
-	* @param array $template Div template data array
-	* @param array $styles Styles data array for template
-	* @param integer|NULL $div_id Selected element in designer
-	* @param boolean $has_content Are there dependant content items for the 
-	* 	selected content area
-	* @return Dlayer_View_Template
-	*/
-	public function template(array $template, array $styles, 
-		$div_id=NULL, $has_content=FALSE) { }
-
-	/**
-	* Content page view helper, generates all the html for a content page by
-	* first creating the template, adding the content rows to the content
-	* areas and then assigning the content items to the content rows.
-	*
-	* The content items, rows, and all styles, template and content items
-	* have been passed into the view helper, these are passed to the relevant
-	* view helpers as soon as possible for performance reasons and then it
-	* is down to each dependant view helper to check for data in the base
-	* data arrays
-	*
-	* @param array $template Template div data array
-	* @param array $content_rows Content row data array for the page
-	* @param array $content Content data array for page, contains the
-	* 	raw data for all the content items that have been assigned to the
-	* 	current page
-	* @param array $content_area_styles Content area styles data array, 
-	* 	contains all the styles for the divs that make up the 
-	* 	content page / template
-	* @param array $content_row_styles Content row styles data array, contains 
-	* 	all the styles that have been assigned to the content rows for the 
-	* 	current page
-	* @param array $content_container_styles Content container styles data 
-	* 	array, contains all the styles that have been assigned to the content 
-	* 	item containers for the current page
-	* @param array $content_styles Content styles data array, contains all
-	* 	the styles that have been assigned to content items for the current
-	* 	page
-	* @param integer|NULL $div_id Id of the currently selected div, referred to
-	* 	later as the content area
-	* @param integer|NULL $content_row_id Id of the selected content row
-	* @param integer|NULL $content_id Id of the selected content item
-	* @return Dlayer_View_Page
-	*/
-	public function page(array $template, array $content_rows, array $content,
-		array $content_area_styles, array $content_row_styles, 
-		array $content_container_styles, array $content_styles, 
-		$selected_div_id=NULL, $selected_content_row_id=NULL, 
-		$selected_content_id=NULL) { }
-
 	/**
 	* A text block is simple a string of text enclosed with p tags
 	*

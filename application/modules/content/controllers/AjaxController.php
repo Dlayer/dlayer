@@ -43,6 +43,7 @@ class Content_AjaxController extends Zend_Controller_Action
 		$this->session_dlayer = new Dlayer_Session();
 		$this->session_content = new Dlayer_Session_Content();
 		$this->session_designer = new Dlayer_Session_Designer();
+		
 	}
 	
 	/**

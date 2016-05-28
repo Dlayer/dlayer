@@ -4,24 +4,18 @@
 	<div class="col-md-12 col-xs-12">
 		<h1>Content manager <small>Content management <span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></small></h1>
 
-		<p>Use the form below to create a new content page, you need to provide 
-			a unique name for your content page, select the template to base it 
-			upon and enter the title and description.</p>
+		<p>Use the form below to create a new content page, you need to set a name which is visible within Dlayer and
+			then define the page title and description which will be added to the HTML head.</p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-6 col-xs-12">
-		<?php 
-		if($this->form != NULL) {
-			echo $this->form;
-		} else { 
-		?>
-		<p class="dev-note bg-warning">You can't create a content page until 
-			you have created a template to base it upon, please go to the 
-			<a href="/template">Template designer</a> to create a template.</p>
-		<?php } ?>
+		<?php echo $this->form; ?>
 	</div>
+</div>
+
+<div class="row">
 	<div class="col-md-12 col-xs-12 further-reading">
 		<?php echo $this->furtherReading('/#content-manager', TRUE); ?>
 	</div>

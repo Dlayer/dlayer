@@ -3,11 +3,7 @@
 * Custom session class for the content module, stores all the vars that we 
 * need to manager the environment, attempting to not have any visible get vars 
 * which may confused the user. 
-* 
-* The session class handles the page id, corresponding template id, tool and 
-* ribbon and depending on what the user is doing either the div id or the 
-* template id
-* 
+*
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
@@ -25,27 +21,6 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 		parent::__construct($namespace, $singleInstance);
 
 		$this->setExpirationSeconds(3600);
-	}
-
-	/**
-	* Set the id for the site template that the user wants to work on
-	* 
-	* @param integer $id
-	* @return void
-	*/
-	public function setTemplateId($id) 
-	{
-		$this->template_id = intval($id);
-	}
-
-	/**
-	* Get the id of the template that the user is currently working on
-	* 
-	* @return integer|NULL
-	*/
-	public function templateId() 
-	{
-		return $this->template_id;
 	}
 
 	/**
@@ -251,7 +226,6 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 		$this->tab = NULL;
 		if($reset==TRUE) {
 			$this->page_id = NULL;
-			$this->template_id = NULL;
 		}
 	}
 }

@@ -42,38 +42,6 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Check to see if the given div id belongs to the requested page. To do
-	* this we check to see if the div id exists for the template the page is
-	* based upon
-	*
-	* No need to check the site id in this method ebacuse it will have already
-	* been check by the valid() method
-	*
-	* @param integer $div_id
-	* @param integer $page_id
-	* @return boolean TRUE if the div id is valid
-	*/
-	public function divValid($div_id, $page_id)
-	{
-		$sql = "SELECT ustd.id
-				FROM user_site_template_div ustd
-				WHERE ustd.template_id = (SELECT template_id
-				FROM user_site_page WHERE id = :page_id)
-				AND ustd.id = :div_id
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		if($stmt->fetch() != FALSE) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-
-	/**
 	* Check to see if the content id is valid, needs to be a child of all the
 	* supplied params and also be the correct content type
 	* 
@@ -129,13 +97,22 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	* @return array Array of the pages for the site, includes the name of the
 	*               template to create the page
 	*/
+	
+	/**
+	 * Fetch all the pages that have been added to the requested site
+	 *
+	 * The method should only be called after the validateSiteId(); action helper, the helper checks that the
+	 * site id exists and belongs to the currently logged in user
+	 *
+	 * @param integer $site_id
+	 * @return array If there are no pages and empty array is returned
+	 */
 	public function pages($site_id)
 	{
-		$sql = "SELECT usp.id, usp.`name`, ust.`name` AS template
-		FROM user_site_page usp
-		JOIN user_site_template ust ON usp.template_id = ust.id
-		WHERE usp.site_id = :site_id
-		ORDER BY usp.`name` ASC";
+		$sql = "SELECT usp.id, usp.`name` 
+				FROM user_site_page usp 
+				WHERE usp.site_id = :site_id 
+				ORDER BY usp.`name` ASC";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->execute();
@@ -150,11 +127,20 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	* @param integer $page_id
 	* @return array|FALSE
 	*/
+
+	/**
+	 * Fetch the data for the selected content page, array contains the combined data for user_site_page table and
+	 * user_site_page_meta table
+	 *
+	 * @param $page_id
+	 * @return array|FALSE
+	 */
 	public function page($page_id)
 	{
-		$sql = "SELECT template_id, `name`, title, description
-				FROM user_site_page
-				WHERE id = :page_id";
+		$sql = 'SELECT usp.`name`, uspm.title, uspm.description 
+ 				FROM user_site_page usp 
+ 				JOIN user_site_page_meta uspm ON uspm.page_id = usp.id
+ 				WHERE uspm.id = :page_id';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->execute();
@@ -163,15 +149,14 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Check to see if the supplied page name is unique
-	*
-	* @param string $name
-	* @param integer $site_id Site id to limit results by
-	* @param integer|NULL $page_id If in edit mode we need to supply the id of
-	*                              the current template so that the row can be
-	*                               excluded from the query
-	* @return boolean TRUE if the tested form name is unique
-	*/
+	 * Check to see if the given page name if unique for the site, optionally a page id can be defined which will be
+	 * excluded from the check
+	 *
+	 * @param $name Name to check
+	 * @param $site_id Site id to check against
+	 * @param null $page_id Page id to exclude from the check
+	 * @return boolean TRUE if the name is unique
+	 */
 	public function nameUnique($name, $site_id, $page_id=NULL)
 	{
 		$where = NULL;
@@ -204,149 +189,184 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Add a new page to the requested site
-	*
-	* @param integer $site_id
-	* @param string $name Name for the new page
-	* @param integer $template Template id
-	* @param string $title Title for page
-	* @param string $description Description of page
-	* @return integer New page id
-	*/
-	public function addPage($site_id, $name, $template, $title, $description)
+	 * Save the content page, either inserts a new record or updates the given record
+	 *
+	 * @param integer $site_id
+	 * @param string $name Name of page within Dlayer
+	 * @param string $title Page title
+	 * @param string $description Page description
+	 * @param integer|NULL $id Page id for edit
+	 * @return integer|FALSE Either the page id or FALSE upon failure
+	 */
+	public function savePage($site_id, $name, $title, $description, $id=NULL)
 	{
-		$sql = "INSERT INTO user_site_page
-				(site_id, template_id, `name`, title, description)
+		if($id === NULL)
+		{
+			$id = $this->addPage($site_id, $name);
+
+			if($id !== FALSE)
+			{
+				$this->savePageMeta($id, $title, $description);
+			}
+			else
+			{
+				$id = FALSE;
+			}
+		}
+		else
+		{
+			if($this->editPage($id, $name) !== false)
+			{
+				$this->savePageMeta($id, $title, $description);
+			}
+			else
+			{
+				$id = false;
+			}
+		}
+
+		return $id;
+	}
+
+	/**
+	 * Save the page meta data, either inserts a new record or updates the details for the record matching the given
+	 * Page Id
+	 *
+	 * @param integer $page_id
+	 * @param string $title Page title
+	 * @param string $description Page description
+	 * @return void
+	 */
+	private function savePageMeta($page_id, $title, $description)
+	{
+		$id = $this->pageMetaExists($page_id);
+
+		if($id === FALSE)
+		{
+			$this->addPageMeta($page_id, $title, $description);
+		}
+		else
+		{
+			$this->editPageMeta($id, $title, $description);
+		}
+	}
+
+	/**
+	 * Insert a new page record
+	 *
+	 * @param $site_id Site the page belongs to
+	 * @param $name Name of the page within Dlayer
+	 * @return boolean|FALSE Either the id of the new page or FALSE upon failure
+	 */
+	private function addPage($site_id, $name)
+	{
+		$sql = "INSERT INTO user_site_page 
+				(site_id, `name`) 
 				VALUES
-				(:site_id, :template_id, :name, :title, :description)";
+				(:site_id, :name)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-		$stmt->bindValue(':template_id', $template, PDO::PARAM_INT);
-		$stmt->bindValue(':title', $title, PDO::PARAM_STR);
-		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
-		$stmt->execute();
+		$result = $stmt->execute();
 
-		return $this->_db->lastInsertId('user_site_page');
+		if($result === TRUE)
+		{
+			return intval($this->_db->lastInsertId('user_site_page'));
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
-	* Edit the details for the selected site page
-	*
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param string $name
-	* @param string $title
-	* @param string $description
-	* @return void
-	*/
-	public function editPage($site_id, $page_id, $name, $title, $description)
+	 * Edit the details for a page
+	 *
+	 * @param integer $id
+	 * @param string $name
+	 * @return boolean
+	 */
+	private function editPage($id, $name)
 	{
-		$sql = "UPDATE user_site_page
-				SET `name` = :name,
-				title = :title,
-				description = :description
-				WHERE site_id = :site_id
-				AND id = :page_id";
+		$sql = 'UPDATE user_site_page 
+				SET `name` = :name  
+				WHERE id = :id 
+				LIMIT 1';
 		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-		$stmt->bindValue(':title', $title, PDO::PARAM_STR);
-		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		return $stmt->execute();
+	}
+
+	/**
+	 * Add the meta data for a content page
+	 *
+	 * @param integer $page_id
+	 * @param string $title
+	 * @param string $description
+	 * @return boolean
+	 */
+	private function addPageMeta($page_id, $title, $description)
+	{
+		$sql = "INSERT INTO user_site_page_meta  
+				(page_id, title, description) 
+				VALUES
+				(:page_id, :title, :description)";
+		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->execute();
+		$stmt->bindValue(':title', $title, PDO::PARAM_STR);
+		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
+		return $stmt->execute();
 	}
 
 	/**
-	* Check to see if a page has been created from the requested template
-	*
-	* @param integer $template_id
-	* @param integer $site_id
-	* @return boolean TRUE if a page has been created using the template
-	*/
-	public function pageCreatedUsingTemplate($template_id, $site_id)
+	 * Edit the meta entry for a page
+	 *
+	 * @param integer $id
+	 * @param string $title
+	 * @param string $description
+	 * @return boolean
+	 */
+	private function editPageMeta($id, $title, $description)
 	{
-		$sql = "SELECT id
-				FROM user_site_page
-				WHERE site_id = :site_id
-				AND template_id = :template_id
-				LIMIT 1";
+		$sql = 'UPDATE user_site_page_meta 
+				SET title = :title, description = :description 
+				WHERE id = :id 
+				LIMIT 1';
 		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':template_id', $template_id, PDO::PARAM_INT);
+		$stmt->bindValue(':title', $title, PDO::PARAM_STR);
+		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		return $stmt->execute();
+	}
+
+	/**
+	 * Check to see if a meta entry exists for the current page
+	 *
+	 * @param integer $page_id
+	 * @return integer|FALSE Either the id of the row in the meta table or FALSE if no entry
+	 */
+	private function pageMetaExists($page_id)
+	{
+		$sql = 'SELECT id 
+				FROM user_site_page_meta 
+				WHERE page_id = :page_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		$result = $stmt->fetch();
 
-		if($result == FALSE) {
+		if($result !== FALSE)
+		{
+			return $result['id'];
+		}
+		else
+		{
 			return FALSE;
-		} else {
-			return TRUE;
 		}
 	}
 
-	/**
-	* Check to see if the specific template div id has content items defined 
-	* on any pages
-	*
-	* @param integer $div_id Template div id
-	* @param integer $site_id
-	* @param integer $template_id
-	* @return boolean TRUE if the template div has content has content assigned
-	* 				  to it on at least one page
-	*/
-	public function templateDivHasContent($div_id, $site_id, $template_id)
-	{
-		$sql = "SELECT uspci.id 
-				FROM user_site_page_content_item uspci 
-				JOIN user_site_page_content_rows uspcr 
-					ON uspci.content_row_id = uspcr.id 
-					AND uspcr.site_id = :site_id 
-					AND uspcr.div_id = :div_id 
-				WHERE uspci.site_id = :site_id";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':template_id', $template_id, PDO::PARAM_INT);
-		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		$result = $stmt->fetchAll();
-
-		if(count($result) == 0) {
-			return FALSE;
-		} else {
-			return TRUE;
-		}
-	}
-
-	/**
-	* Fetch the content ids and content types for the requested page template
-	* div
-	*
-	* @param integer $div_id
-	* @param integer $site_id
-	* @param integer $template_id
-	* @return array Result array includes the content type and content id
-	*/
-	public function templateDivContent($div_id, $site_id, $template_id)
-	{
-		$sql = "SELECT uspc.id, dct.`name` AS `type`
-				FROM user_site_page_content uspc
-				JOIN user_site_page usp ON uspc.page_id = usp.id
-				AND usp.site_id = :site_id
-				AND usp.template_id = :template_id
-				JOIN designer_content_type dct ON uspc.content_type = dct.id
-				WHERE uspc.site_id = :site_id
-				AND uspc.div_id = :div_id";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':template_id', $template_id, PDO::PARAM_INT);
-		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetchAll();
-	}
-	
 	/**
 	* Fetch the content areas that have been defined for the supplied content 
 	* page ignoring the currently selected div id, only returns the ids of the 
