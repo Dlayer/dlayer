@@ -3,7 +3,7 @@ Dlayer
 
 Warning
 --------
-Until the official v1.00 beta release the master branch can't be trusted, I will be pushing updates from my personal fork which will break the app. Up until this point (22nd May 2016) master was always stable(ish), after the the v1.00 release it will be again, for now though it is just easier for me to commit a cardinal sin. 
+Until the official v1.00 beta release the master branch can't be trusted, I will be pushing updates from my personal fork which will both break section of the app and remove some of the current functionality. Up until this point (28nd May 2016) master has always been stable(ish), after the the v1.00 release it will be again, for now though it is just easier for me to commit a cardinal sin. 
 
 Overview
 --------

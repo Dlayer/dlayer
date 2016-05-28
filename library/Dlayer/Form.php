@@ -64,7 +64,7 @@ abstract class Dlayer_Form extends Zend_Form
 	 *
 	 * @return void
 	 */
-	abstract protected function elementsData();
+	//abstract protected function elementsData();
 
 	/**
 	 * Assign the elements to the form, calls Zend_Form::addElements and Zend_Form::addDisplayGroup

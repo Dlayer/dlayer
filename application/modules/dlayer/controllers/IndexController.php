@@ -272,7 +272,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	*/
 	public function logoutAction()
 	{
-		$session_template = new Dlayer_Session_Template();
 		$session_form = new Dlayer_Session_Form();
 		$session_content = new Dlayer_Session_Content();
 		$session_image = new Dlayer_Session_Image();
@@ -282,7 +281,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$model_authentication = new Dlayer_Model_Authentication();
 		$model_authentication->logoutIdentity($session_dlayer->identityId());
 
-		$session_template->clearAll(TRUE);
 		$session_form->clearAll(TRUE);
 		$session_content->clearAll(TRUE);
 		$session_dlayer->clearAll();
