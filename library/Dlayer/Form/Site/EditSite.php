@@ -54,6 +54,8 @@ class Dlayer_Form_Site_EditSite extends Dlayer_Form_Module_App
 		$this->addCustomElementDecorators();
 	}
 
+	protected function elementsData() { }
+
 	/**
 	* Fetch the current data for the site, gets assigned to the form 
 	* fields

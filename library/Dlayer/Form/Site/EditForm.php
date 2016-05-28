@@ -54,6 +54,8 @@ class Dlayer_Form_Site_EditForm extends Dlayer_Form_Module_App
 		$this->addCustomElementDecorators();
 	}
 
+	protected function elementsData() { }
+
 	/**
 	* Fetch the current data for the template so that the values can be 
 	* assigned to the form fields

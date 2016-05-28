@@ -98,7 +98,7 @@ class Content_IndexController extends Zend_Controller_Action
 		if($page_id !== NULL && $model_pages->valid($page_id, $this->site_id) == TRUE)
 		{
 			$page = $model_pages->page($page_id);
-			
+
 			if($page !== FALSE)
 			{
 				$this->session_content->clearAll();

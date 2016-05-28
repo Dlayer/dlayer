@@ -48,6 +48,8 @@ class Dlayer_Form_Site_NewForm extends Dlayer_Form_Module_App
 		$this->addCustomElementDecorators();
 	}
 
+	protected function elementsData() { }
+
 	/** 
 	* Set up the form elements needed for this form
 	* 
