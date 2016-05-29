@@ -66,22 +66,7 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 	* @return Dlayer_Action_ValidateSiteId
 	*/
 	public function validateSiteId() { }
-	
-	/**
-	* Validate that a template id is set and valid, it also needs to belong to 
-	* the site id in the session. If for some reason the template id is not 
-	* valid the user will be returned to the home page
-	* 
-	* The helper is used by both the template designer and the content manager, 
-	* the content param dictates which session class to use, template session 
-	* or content session
-	* 
-	* @param boolean $content Should check use the content session, default to 
-	*                         template session
-	* @return Dlayer_Action_ValidateTemplateId
-	*/
-	public function validateTemplateId($content=FALSE) { }
-	
+
 	/**
 	* Validate that a form id is set and valid, it needs to belong to the 
 	* site id in the session. If for some reason the form id is not valid the 
@@ -89,7 +74,7 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 	* 
 	* @return Dlayer_Action_ValidateFormId
 	*/
-	function validateFormId() { } 
+	public function validateFormId() { }
 	
 	/**
 	* Authenticate the request, checks that the user is logged in, there will 
@@ -97,5 +82,18 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 	*
 	* @return void Redirects the user if identity id not set
 	*/
-	function authenticate() { }
+	public function authenticate() { }
+
+	/**
+	 * Pass in the values which need to be passed to the layout
+	 *
+	 * @param array $nav_bar_items
+	 * @param string $active_nav_bar_uri
+	 * @param array $css_includes
+	 * @param array $js_includes
+	 * @param string $title
+	 * @return void
+	 */
+	public function setLayoutProperties(array $nav_bar_items, $active_nav_bar_uri, array $css_includes,
+		array $js_includes, $title) { }
 }
