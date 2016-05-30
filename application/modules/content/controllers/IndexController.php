@@ -21,9 +21,18 @@ class Content_IndexController extends Zend_Controller_Action
 	 */
 	private $session_content;
 
-	private $layout;
 	private $site_id;
 	private $content_page_form;
+
+	/**
+	 * @var array Nav bar items
+	 */
+	private $nav_bar_items = array(
+		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
+		array('uri'=>'/content/index/index', 'name'=>'Content manager', 'title'=>'Content manager'),
+		array('uri'=>'/content/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
+		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+	);
 
 	/**
 	 * Execute the setup methods for the controller and set the properties
@@ -36,9 +45,8 @@ class Content_IndexController extends Zend_Controller_Action
 		$this->_helper->setModule();
 		$this->_helper->validateSiteId();
 
-		$this->layout = Zend_Layout::getMvcInstance();
-
 		$session_dlayer = new Dlayer_Session();
+
 		$this->site_id = $session_dlayer->siteId();
 		$this->session_content = new Dlayer_Session_Content();
 	}
@@ -58,27 +66,8 @@ class Content_IndexController extends Zend_Controller_Action
 		$this->view->pages = $model_pages->pages($this->site_id);
 		$this->view->page_id = $this->session_content->pageId();
 
-		$this->setLayoutProperties(array(), array('css/dlayer.css'), 'Dlayer.com - Content manager',
-			'/content/index/index');
-	}
-
-	/**
-	 * Setup the navbar for the module
-	 *
-	 * @param string $active_uri The uri that should display as active
-	 * @return void Assigns the data to the layout
-	 */
-	private function navBar($active_uri) 
-	{
-		$items = array(
-			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
-			array('uri'=>'/content/index/index', 'name'=>'Content manager', 'title'=>'Content manager'),
-			array('uri'=>'/content/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
-			array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
-		);
-		
-		$this->layout->assign('nav', array(
-			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - Content manager');
 	}
 
 	/**
@@ -175,8 +164,8 @@ class Content_IndexController extends Zend_Controller_Action
 		$this->view->form = $this->content_page_form;
 		$this->view->site = $model_sites->site($this->site_id);
 
-		$this->setLayoutProperties(array(), array('css/dlayer.css'), 'Dlayer.com - New content page',
-			'/content/index/index');
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - New content page');
 	}
 	
 	/**
@@ -199,24 +188,7 @@ class Content_IndexController extends Zend_Controller_Action
 		$this->view->form = $this->content_page_form;
 		$this->view->site = $model_sites->site($this->site_id);
 
-		$this->setLayoutProperties(array(), array('css/dlayer.css'), 'Dlayer.com - Edit page',
-			'/content/index/index');
-	}
-
-	/**
-	 * Set layout properties for action, js and css files to include, page title and the active uri for the navbar
-	 *
-	 * @param array $js_includes Javascript includes array
-	 * @param array $css_includes CSS includes array
-	 * @param string $title Page title
-	 * @param string $active_uri Active uri for navbar
-	 * @return void
-	 */
-	private function setLayoutProperties(array $js_includes, array $css_includes, $title, $active_uri)
-	{
-		$this->layout->assign('js_include', $js_includes);
-		$this->layout->assign('css_include', $css_includes);
-		$this->layout->assign('title', $title);
-		$this->navBar($active_uri);
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - Edit content page');
 	}
 }

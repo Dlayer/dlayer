@@ -23,7 +23,15 @@ class Form_IndexController extends Zend_Controller_Action
 	private $session_dlayer;
 	private $session_form;
 
-	private $layout;
+	/**
+	 * @var array Nav bar items
+	 */
+	private $nav_bar_items = array(
+		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
+		array('uri'=>'/form/index/index','name'=>'Form builder', 'title'=>'Form builder'),
+		array('uri'=>'/form/settings/index','name'=>'Settings', 'title'=>'Settings'),
+		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+	);
 
 	/**
 	* Init the controller, run any set up code required by all the actions 
@@ -41,11 +49,6 @@ class Form_IndexController extends Zend_Controller_Action
 
 		$this->session_dlayer = new Dlayer_Session();
 		$this->session_form = new Dlayer_Session_Form();
-
-		// Include js and css files in layout
-		$this->layout = Zend_Layout::getMvcInstance();
-		$this->layout->assign('js_include', array());
-		$this->layout->assign('css_include', array());
 	}
 
 	/**
@@ -58,37 +61,12 @@ class Form_IndexController extends Zend_Controller_Action
 		$model_forms = new Dlayer_Model_Form();
 		$model_sites = new Dlayer_Model_Site();
 
-		$this->navBar('/form/index/index');
-		$this->view->forms = $model_forms->forms(
-			$this->session_dlayer->siteId());
+		$this->view->forms = $model_forms->forms($this->session_dlayer->siteId());
 		$this->view->form_id = $this->session_form->formId();
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Form builder');
-	}
-
-	/**
-	* Assign the content for the nav bar
-	* 
-	* @param string $active_uri Uri
-	* @return void Assigns values to the layout
-	*/
-	private function navBar($active_uri) 
-	{
-		$items = array(
-			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
-				'title'=>'Dlayer.com: Web development simplified'),
-			array('uri'=>'/form/index/index', 
-				'name'=>'Form builder', 'title'=>'Form builder'), 
-			array('uri'=>'/form/settings/index', 
-				'name'=>'Settings', 'title'=>'Settings'), 
-			array('uri'=>'http://www.dlayer.com/docs/', 
-				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
-		);
-		
-		$this->layout->assign('nav', array(
-			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - Form builder');
 	}
 
 	/**
@@ -127,9 +105,9 @@ class Form_IndexController extends Zend_Controller_Action
 		if($load != NULL && $return != NULL && $load == 1 && 
 		in_array($return, array('content')) == TRUE) {
 			$this->session_form->setReturnModule($return);
-			$this->_redirect('/form/design/');
+			$this->redirect('/form/design/');
 		} else {
-			$this->_redirect('/form');
+			$this->redirect('/form');
 		}
 	}
 
@@ -140,9 +118,6 @@ class Form_IndexController extends Zend_Controller_Action
 	*/
 	public function newFormAction() 
 	{
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - New form');
-
 		$model_sites = new Dlayer_Model_Site();
 
 		$form = new Dlayer_Form_Site_NewForm($this->session_dlayer->siteId());
@@ -159,13 +134,15 @@ class Form_IndexController extends Zend_Controller_Action
 					$post['title'], $post['email']);
 				$this->session_form->clearAll(TRUE);
 				$this->session_form->setFormId($form_id);
-				$this->_redirect('/form');
+				$this->redirect('/form');
 			}
 		}
 
 		$this->view->form = $form;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->navBar('/form/index/index');
+
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - New form');
 	}
 
 	/**
@@ -175,9 +152,6 @@ class Form_IndexController extends Zend_Controller_Action
 	*/
 	public function editFormAction() 
 	{
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Edit form');
-
 		$model_sites = new Dlayer_Model_Site();
 
 		$form = new Dlayer_Form_Site_EditForm($this->session_dlayer->siteId(), 
@@ -199,6 +173,8 @@ class Form_IndexController extends Zend_Controller_Action
 
 		$this->view->form = $form;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		$this->navBar('/form/index/index');
+
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - Edit form');
 	}
 }
