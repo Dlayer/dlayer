@@ -28,7 +28,7 @@ class Content_IndexController extends Zend_Controller_Action
 		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
 		array('uri'=>'/content/index/index', 'name'=>'Content manager', 'title'=>'Content manager'),
 		array('uri'=>'/content/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
-		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
+		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
 	);
 
 	/**

@@ -17,7 +17,22 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	*/
 	protected $_helper;
 
-	private $layout;
+	/**
+	 * @var array Nav bar items for logged in version of nav bar
+	 */
+	private $nav_bar_items_private = array(
+		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
+		array('uri'=>'/dlayer/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
+		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+	);
+
+	/**
+	 * @var array Nav bar items for public version of nav bar
+	 */
+	private $nav_bar_items_public = array(
+		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
+		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+	);
 
 	/**
 	* Init the controller, run any set up code required by all the actions
@@ -27,10 +42,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	*/
 	public function init()
 	{
-		// Include js and css files in layout
-		$this->layout = Zend_Layout::getMvcInstance();
-		$this->layout->assign('js_include', array());
-		$this->layout->assign('css_include', array());
+
 	}
 
 	/**
@@ -46,8 +58,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$model_authentication->logoutInactiveIdenties($session['timeout']);
 
 		$session_dlayer = new Dlayer_Session();
-		if($session_dlayer->identityId() != FALSE) {
-			$this->_redirect('/dlayer/index/home');
+		if($session_dlayer->identityId() != FALSE)
+		{
+			$this->redirect('/dlayer/index/home');
 		}
 
 		$model_authentication = new Dlayer_Model_Authentication();
@@ -94,9 +107,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 		$this->view->test_identities = $model_authentication->testIdentities();
 		$this->view->form = $form;
-		$this->navBar('/dlayer/index/index');
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Sign in');
+
+		$this->_helper->setLayoutProperties($this->nav_bar_items_public, '/dlayer/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - Sign in');
 	}
 
 	/**
@@ -112,8 +125,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$session_dlayer = new Dlayer_Session();
 
 		$model_sites = new Dlayer_Model_Site();
-		$last_accessed = $model_sites->lastAccessedSite(
-			$session_dlayer->identityId());
+		$last_accessed = $model_sites->lastAccessedSite($session_dlayer->identityId());
 
 		$session_dlayer = new Dlayer_Session();
 		$session_dlayer->setSiteId($last_accessed['site_id']);
@@ -121,15 +133,12 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$model_modules = new Dlayer_Model_Module();
 
 		$this->view->modules_enabled = $model_modules->byStatus();
-		$this->navBar('/dlayer/index/home', FALSE);
-		$this->view->sites = $model_sites->byIdentity(
-			$session_dlayer->identityId());
+		$this->view->sites = $model_sites->byIdentity($session_dlayer->identityId());
 		$this->view->site_id = $session_dlayer->siteId();
 		$this->view->last_accessed_site = $last_accessed['name'];
 
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Web site development
-		simplified');
+		$this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
+			array(), 'Dlayer.com - Web site development');
 	}
 
 	/**
@@ -157,44 +166,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 			}
 		}
 
-		$this->_redirect('/dlayer/index/home');
-	}
-	
-	/**
-	* Assign the content for the nav bar
-	* 
-	* @param string $active_uri Uri
-	* @param bool $public Public page?
-	* @return void Assigns values to the layout
-	*/
-	private function navBar($active_uri, $public=TRUE) 
-	{
-		$items = array();
-		
-		if($public === FALSE) 
-		{
-			$session_dlayer = new Dlayer_Session();
-			
-			$items[] = array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
-				'title'=>'Dlayer.com: Web development simplified');
-			$items[] = array('uri'=>'/dlayer/settings/index', 
-				'name'=>'Settings', 'title'=>'Settings');
-			$items[] = array('uri'=>'http://www.dlayer.com/docs/', 
-				'name'=>'Dlayer Docs', 
-				'title'=>'Read the Docs for Dlayer');
-		}
-		else 
-		{
-			$items[] = array('uri'=>'/dlayer/index/index', 
-				'name'=>'Dlayer Demo', 
-				'title'=>'Dlayer.com: Web development simplified');
-			$items[] = array('uri'=>'http://www.dlayer.com/docs/', 
-				'name'=>'Dlayer Docs', 
-				'title'=>'Read the Docs for Dlayer');
-		}
-		
-		$this->layout->assign('nav', array(
-			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
+		$this->redirect('/dlayer/index/home');
 	}
 
 	/**
@@ -209,9 +181,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	{
 		$this->_helper->authenticate();
 
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - New web site');
-
 		$session_dlayer = new Dlayer_Session();
 		$form = new Dlayer_Form_Site_NewSite($session_dlayer->identityId());
 
@@ -224,12 +193,14 @@ class Dlayer_IndexController extends Zend_Controller_Action
 				$model_sites = new Dlayer_Model_Site();
 				$model_sites->addSite($session_dlayer->identityId(),
 					$post['name']);
-				$this->_redirect('/dlayer/index/home');
+				$this->redirect('/dlayer/index/home');
 			}
 		}
 
 		$this->view->form = $form;
-		$this->navBar('/dlayer/index/home', FALSE);
+
+		$this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
+			array(), 'Dlayer.com - New web site');
 	}
 
 	/**
@@ -240,9 +211,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	public function editSiteAction()
 	{
 		$this->_helper->authenticate();
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Edit web site');
 
 		$session_dlayer = new Dlayer_Session();
 		$form = new Dlayer_Form_Site_EditSite($session_dlayer->identityId(),
@@ -257,12 +225,14 @@ class Dlayer_IndexController extends Zend_Controller_Action
 				$model_sites = new Dlayer_Model_Site();
 				$model_sites->editSite($session_dlayer->siteId(),
 					$post['name']);
-				$this->_redirect('/dlayer/index/home');
+				$this->redirect('/dlayer/index/home');
 			}
 		}
 
 		$this->view->form = $form;
-		$this->navBar('/dlayer/index/home', FALSE);
+
+		$this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
+			array(), 'Dlayer.com - Edit web site');
 	}
 
 	/**
@@ -287,6 +257,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$session_designer->clearAll();
 		$session_image->clearAll();
 
-		$this->_redirect('/dlayer');
+		$this->redirect('/dlayer');
 	}
 }
