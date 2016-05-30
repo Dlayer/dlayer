@@ -15,9 +15,17 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	* @var Dlayer_Action_CodeHinting
 	*/
 	protected $_helper;
-	
-	private $layout;
+
 	private $session_dlayer;
+
+	/**
+	 * @var array Nav bar items for logged in version of nav bar
+	 */
+	private $nav_bar_items = array(
+		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
+		array('uri'=>'/dlayer/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
+		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+	);
 	
 	/**
 	* Init the controller, run any set up code required by all the actions 
@@ -32,11 +40,6 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 		$this->_helper->validateSiteId();
 		
 		$this->session_dlayer = new Dlayer_Session();
-		
-		// Include js and css files in layout
-		$this->layout = Zend_Layout::getMvcInstance();
-		$this->layout->assign('js_include', array());
-		$this->layout->assign('css_include', array('styles/settings.css'));
 	}
 
 	/**
@@ -49,35 +52,12 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 		
-		$this->navBar('/dlayer/settings/index');
-		
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Settings');
+
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/dlayer/settings/index', array('css/dlayer.css'),
+			array(), 'Settings - Dlayer');
 	}
-	
-	/**
-	* Assign the content for the nav bar
-	* 
-	* @param string $active_uri Uri
-	* @return void Assigns values to the layout
-	*/
-	private function navBar($active_uri) 
-	{
-		$items = array(
-			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
-				'title'=>'Dlayer.com: Web development simplified'),
-			array('uri'=>'/dlayer/settings/index', 
-				'name'=>'Settings', 'title'=>'Settings'), 
-			array('uri'=>'http://www.dlayer.com/docs/', 
-				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
-		);
-		
-		$this->layout->assign('nav', array(
-			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
-	}
-	
+
 	/**
 	* Set the colors for the three color palettes
 	* 
@@ -87,11 +67,9 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 		
-		$this->navBar('/dlayer/settings/index');
-				
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-		
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Colour palettes');
+
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/dlayer/settings/index', array('css/dlayer.css'),
+			array(), 'Settings - Dlayer: Colour palettes');
 	}
 }

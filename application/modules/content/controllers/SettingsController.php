@@ -18,7 +18,15 @@ class Content_SettingsController extends Zend_Controller_Action
 
 	private $session_dlayer;
 
-	private $layout;
+	/**
+	 * @var array Nav bar items
+	 */
+	private $nav_bar_items = array(
+		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
+		array('uri'=>'/content/index/index', 'name'=>'Content manager', 'title'=>'Content manager'),
+		array('uri'=>'/content/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
+		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+	);
 
 	/**
 	* Init the controller, run any set up code required by all the actions 
@@ -35,12 +43,6 @@ class Content_SettingsController extends Zend_Controller_Action
 		$this->_helper->validateSiteId();
 
 		$this->session_dlayer = new Dlayer_Session();
-
-		// Include js and css files in layout
-		$this->layout = Zend_Layout::getMvcInstance();
-		$this->layout->assign('js_include', array('scripts/dlayer.js'));
-		$this->layout->assign('css_include', array('styles/forms.css', 
-			'styles/settings.css', 'styles/settings/content.css'));
 	}
 
 	/**
@@ -52,12 +54,10 @@ class Content_SettingsController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 
-		$this->navBar('/dlayer/settings/index');
-
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Content manager settings');
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/settings/index', array('css/dlayer.css'),
+			array(), 'Settings - Content manager');
 	}
 
 	/**
@@ -113,10 +113,8 @@ class Content_SettingsController extends Zend_Controller_Action
 		$this->view->heading_styles = $heading_styles;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->navBar('/dlayer/settings/index');
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Heading styles');
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/settings/index', array('css/dlayer.css'),
+			array('scripts/dlayer.js'), 'Settings - Content manager: Heading styles');
 	}
 
 	/**
@@ -157,33 +155,7 @@ class Content_SettingsController extends Zend_Controller_Action
 		$this->view->base_font_family = $base_font_family;
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->navBar('/dlayer/settings/index');
-
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Base font family - 
-		Content manager');
-	}
-
-	/**
-	* Assign the content for the nav bar
-	* 
-	* @param string $active_uri Uri
-	* @return void Assigns values to the layout
-	*/
-	private function navBar($active_uri) 
-	{
-		$items = array(
-			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
-				'title'=>'Dlayer.com: Web development simplified'),
-			array('uri'=>'/content/index/index', 
-				'name'=>'Content manager', 'title'=>'Content manager'), 
-			array('uri'=>'/dlayer/settings/index', 
-				'name'=>'Settings', 'title'=>'Settings'), 
-			array('uri'=>'http://www.dlayer.com/docs/', 
-				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
-		);
-		
-		$this->layout->assign('nav', array(
-			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/settings/index', array('css/dlayer.css'),
+			array('scripts/dlayer.js'), 'Settings - Content manager: Base font family');
 	}
 }

@@ -24,6 +24,9 @@ class Content_IndexController extends Zend_Controller_Action
 	private $site_id;
 	private $content_page_form;
 
+	/**
+	 * @var array Nav bar items
+	 */
 	private $nav_bar_items = array(
 		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
 		array('uri'=>'/content/index/index', 'name'=>'Content manager', 'title'=>'Content manager'),

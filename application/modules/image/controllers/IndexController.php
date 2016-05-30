@@ -20,7 +20,15 @@ class Image_IndexController extends Zend_Controller_Action
 
 	private $session_dlayer;
 
-	private $layout;
+	/**
+	 * @var array Nav bar items
+	 */
+	private $nav_bar_items = array(
+		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
+		array('uri'=>'/image/index/index', 'name'=>'Image library', 'title'=>'Media management'),
+		array('uri'=>'/dlayer/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
+		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+	);
 
 	/**
 	* Init the controller, run any set up code required by all the actions 
@@ -37,11 +45,6 @@ class Image_IndexController extends Zend_Controller_Action
 		$this->_helper->validateSiteId();
 
 		$this->session_dlayer = new Dlayer_Session();
-
-		// Include js and css files in layout
-		$this->layout = Zend_Layout::getMvcInstance();
-		$this->layout->assign('js_include', array());
-		$this->layout->assign('css_include', array());
 	}
 
 	/**
@@ -53,33 +56,9 @@ class Image_IndexController extends Zend_Controller_Action
 	{
 		$model_sites = new Dlayer_Model_Site();
 
-		$this->navBar('/image/index/index');
 		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
 
-		$this->layout->assign('css_include', array('css/dlayer.css'));
-		$this->layout->assign('title', 'Dlayer.com - Image library');
-	}
-
-	/**
-	* Assign the content for the nav bar
-	* 
-	* @param string $active_uri Uri
-	* @return void Assigns values to the layout
-	*/
-	private function navBar($active_uri) 
-	{
-		$items = array(
-			array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 
-				'title'=>'Dlayer.com: Web development simplified'),
-			array('uri'=>'/image/index/index', 
-				'name'=>'Image library', 'title'=>'Media management'), 
-			array('uri'=>'/dlayer/settings/index', 
-				'name'=>'Settings', 'title'=>'Settings'), 
-			array('uri'=>'http://www.dlayer.com/docs/', 
-				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
-		);
-		
-		$this->layout->assign('nav', array(
-			'class'=>'top_nav', 'items'=>$items, 'active_uri'=>$active_uri));		
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/image/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - Image library');
 	}
 }
