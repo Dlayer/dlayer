@@ -63,42 +63,45 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Check to see if the supplied form name is unique
-	*
-	* @param string $name
-	* @param integer $site_id Site id to limit results by
-	* @param integer|NULL $form_id If in edit mode we need to supply the id of
-	* 							   the current template so that the row can be
-	* 							   excluded from the query
-	* @return boolean TRUE if the tested form name is unique
-	*/
-	public function nameUnique($name, $site_id, $form_id=NULL)
+	 * Check to see if the supplied form name is unique for the site
+	 *
+	 * @param string $name Name for form
+	 * @param integer $site_id Id of the site the form belongs to
+	 * @param integer|NULL $id Id of form to exclude from query
+	 * @return boolean
+	 */
+	public function nameUnique($name, $site_id, $id=NULL)
 	{
 		$where = NULL;
 
-		if($form_id != NULL) {
+		if($id != NULL)
+		{
 			$where = 'AND id != :form_id ';
 		}
 
-		$sql = "SELECT id
+		$sql = 'SELECT id
 				FROM user_site_form
 				WHERE UPPER(`name`) = :name
-				AND site_id = :site_id ";
+				AND site_id = :site_id ';
 		$sql .= $where;
-		$sql .= "LIMIT 1";
+		$sql .= 'LIMIT 1';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':name', strtoupper($name), PDO::PARAM_STR);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		if($form_id != NULL) {
-			$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+		if($id != NULL)
+		{
+			$stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
 		}
 		$stmt->execute();
 
 		$result = $stmt->fetch();
 
-		if($result == FALSE) {
+		if($result == FALSE)
+		{
 			return TRUE;
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
@@ -143,24 +146,24 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 			return FALSE;
 		}
 	}
-	
+
 	/**
-	 * Fetch the details for the requested form
+	 * Fetch the details for the requested form, used on edit page
 	 *
-	 * @param integer $form_id
-	 * @param integer $site_id
+	 * @param $id
+	 * @param $site_id
 	 * @return array|FALSE
 	 */
-	public function form($form_id, $site_id)
+	public function form($id, $site_id)
 	{
-		$sql = "SELECT id, `name`, email, 
-				FROM user_site_form
+		$sql = "SELECT `name`, email  
+				FROM user_site_form 
 				WHERE site_id = :site_id
-				AND id = :form_id
+				AND id = :form_id 
 				LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+		$stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		return $stmt->fetch();

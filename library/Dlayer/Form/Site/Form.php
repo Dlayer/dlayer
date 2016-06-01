@@ -66,11 +66,11 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 
 		if($this->form_id === NULL)
 		{
-			$legend = '<small>Create a new form</small>';
+			$legend = ' <small>Create a new form</small>';
 		}
 		else
 		{
-			$legend = '<small>Edit form details</small>';
+			$legend = ' <small>Edit form details</small>';
 		}
 		$this->addElementsToForm('form_page', 'Form' . $legend, $this->elements);
 
@@ -94,8 +94,7 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 			if($form !== false)
 			{
 				$this->elementsData['name'] = $form['name'];
-				$this->elementsData['title'] = $form['title'];
-				$this->elementsData['email'] = $form['description'];
+				$this->elementsData['email'] = $form['email'];
 			}
 		}
 	}
@@ -118,28 +117,36 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 		$name->setValue($this->elementsData['name']);
 
 		$this->elements['name'] = $name;
-		
-		$title = new Zend_Form_Element_Text('title');
-		$title->setLabel('Form title');
-		$title->setDescription('Enter a title for your form, it will be display above the form.');
-		$title->setAttribs(array(
-			'size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Contact us', 'class'=>'form-control')
-		);
-		$title->setValue($this->elementsData['title']);
 
-		$this->elements['title'] = $title;
+		if($this->form_id === NULL)
+		{
+			$title = new Zend_Form_Element_Text('title');
+			$title->setLabel('Form title');
+			$title->setDescription('Enter a title for your form, it will be display above the form.');
+			$title->setAttribs(array(
+					'size' => 50, 'maxlength' => 255, 'placeholder' => 'e.g., Contact us', 'class' => 'form-control'
+				)
+			);
+			$title->setValue($this->elementsData['title']);
 
-		$sub_title = new Zend_Form_Element_Text('sub_title');
-		$sub_title->setLabel('Form sub title');
-		$sub_title->setDescription('Enter an optional sub title, this displays in a smaller/ligther font after the 
-		    main title.');
-		$sub_title->setAttribs(array(
-			'size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., and we will get back to you a.s.a.p',
-			'class'=>'form-control')
-		);
-		$sub_title->setValue($this->elementsData['sub_title']);
+			$this->elements['title'] = $title;
+		}
 
-		$this->elements['sub_title'] = $sub_title;
+		if($this->form_id === NULL)
+		{
+			$sub_title = new Zend_Form_Element_Text('sub_title');
+			$sub_title->setLabel('Form sub title');
+			$sub_title->setDescription('Enter an optional sub title, this displays in a smaller/ligther font after the 
+			    main title.');
+			$sub_title->setAttribs(array(
+					'size' => 50, 'maxlength' => 255, 'placeholder' => 'e.g., and we will get back to you a.s.a.p',
+					'class' => 'form-control'
+				)
+			);
+			$sub_title->setValue($this->elementsData['sub_title']);
+
+			$this->elements['sub_title'] = $sub_title;
+		}
 		
 		$email = new Dlayer_Form_Element_Email('email');
 		$email->setLabel('Email');
@@ -164,11 +171,14 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 	* 
 	* @return void
 	*/
-	protected function validationRules() 
+	protected function validationRules()
 	{
 		$this->elements['name']->setRequired();
-		$this->elements['name']->addValidator(new Dlayer_Validate_FormNameUnique($this->site_id));
-		$this->elements['title']->setRequired();
+		$this->elements['name']->addValidator(new Dlayer_Validate_FormNameUnique($this->site_id, $this->form_id));
+		if($this->form_id === NULL)
+		{
+			$this->elements['title']->setRequired();
+		}
 		$this->elements['email']->setRequired();
 		$this->elements['email']->addValidator(new Zend_Validate_EmailAddress());
 	}

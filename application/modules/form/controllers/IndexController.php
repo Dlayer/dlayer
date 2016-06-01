@@ -150,39 +150,23 @@ class Form_IndexController extends Zend_Controller_Action
 	 *
 	 * @return void
 	 */
-	public function editForm()
-
-	/**
-	* Allows the user to edit the details for the currently selected form
-	* 
-	* @return void
-	*/
-	public function editFormAction() 
+	public function editFormAction()
 	{
-		/*$model_sites = new Dlayer_Model_Site();
+		$model_sites = new Dlayer_Model_Site();
 
-		$form = new Dlayer_Form_Site_EditForm($this->session_dlayer->siteId(), 
+		$this->form_form = new Dlayer_Form_Site_Form('/form/index/edit-form', $this->site_id,
 			$this->session_form->formId());
 
-		// Validate and save the posted data
-		if($this->getRequest()->isPost()) {
-
-			$post = $this->getRequest()->getPost();
-
-			if($form->isValid($post)) {
-				$model_forms = new Dlayer_Model_Form();
-				$model_forms->save($this->session_dlayer->siteId(),
-					$this->session_form->formId(), $post['name'], 
-					$post['email']);
-				$this->_redirect('/form');
-			}
+		if($this->getRequest()->isPost())
+		{
+			$this->handleEditForm();
 		}
 
-		$this->view->form = $form;
-		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
+		$this->view->form = $this->form_form;
+		$this->view->site = $model_sites->site($this->site_id);
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
-			array(), 'Dlayer.com - Edit form');*/
+			array(), 'Dlayer.com - Edit form');
 	}
 
 	/**
@@ -204,6 +188,28 @@ class Form_IndexController extends Zend_Controller_Action
 			{
 				$this->session_form->clearAll(TRUE);
 				$this->session_form->setFormId($form_id);
+				$this->redirect('/form');
+			}
+		}
+	}
+
+	/**
+	 * Handle edit form, if successful the user is redirected back to form builder root
+	 *
+	 * @return void
+	 */
+	private function handleEditForm()
+	{
+		$post = $this->getRequest()->getPost();
+
+		if($this->form_form->isValid($post))
+		{
+			$model_forms = new Dlayer_Model_Form();
+			$form_id = $model_forms->saveForm($this->site_id, $post['name'], $post['email'], NULL, NULL,
+				$this->session_form->formId());
+
+			if($form_id !== FALSE)
+			{
 				$this->redirect('/form');
 			}
 		}
