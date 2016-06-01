@@ -10,12 +10,12 @@
 class Content_IndexController extends Zend_Controller_Action
 {
 	/**
-	* Type hinting for action helpers, hints the property to the code 
-	* hinting class which exists in the library
+	* Type hinting for action helpers
 	* 
 	* @var Dlayer_Action_CodeHinting
 	*/
 	protected $_helper;
+	
 	/**
 	 * @var Dlayer_Session_Content
 	 */

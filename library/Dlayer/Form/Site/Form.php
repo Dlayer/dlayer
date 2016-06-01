@@ -21,7 +21,7 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 	/**
 	 * @var integer|NULL
 	 */
-	private $page_id;
+	private $form_id;
 
 	/**
 	 * Dlayer_Form_Site_NewPage constructor. Pass in anything needed to set up the form and set options
@@ -31,7 +31,7 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 	 * @param integer|NULL $form_id Form id if we are editing
 	 * @param array|NULL $options
 	 */
-	public function __construct($post_uri, $site_id, $form_id, $options=NULL)
+	public function __construct($post_uri, $site_id, $form_id=NULL, $options=NULL)
 	{
 		$this->post_uri = $post_uri;
 		$this->site_id = $site_id;
@@ -40,6 +40,7 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 		$this->elementsData = array(
 			'name' => NULL,
 			'title' => NULL,
+			'sub_title' => NULL,
 			'email' => NULL,
 		);
 
@@ -127,13 +128,25 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 		$title->setValue($this->elementsData['title']);
 
 		$this->elements['title'] = $title;
+
+		$sub_title = new Zend_Form_Element_Text('sub_title');
+		$sub_title->setLabel('Form sub title');
+		$sub_title->setDescription('Enter an optional sub title, this displays in a smaller/ligther font after the 
+		    main title.');
+		$sub_title->setAttribs(array(
+			'size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., and we will get back to you a.s.a.p',
+			'class'=>'form-control')
+		);
+		$sub_title->setValue($this->elementsData['sub_title']);
+
+		$this->elements['sub_title'] = $sub_title;
 		
 		$email = new Dlayer_Form_Element_Email('email');
 		$email->setLabel('Email');
-		$email->setDescription('Enter the email address that you would like a copy of submissios to be emailed to, 
+		$email->setDescription('Enter the email address that you would like a copy of submissions to be emailed to, 
 		    Dlayer defaults to not sending copies of submissions, the option needs to be turned on in form settings');
 		$email->setAttribs(array(
-			'size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., email@email.com us', 'class'=>'form-control')
+			'size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., email@email.com', 'class'=>'form-control')
 		);
 		$email->setValue($this->elementsData['email']);
 
