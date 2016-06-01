@@ -145,9 +145,17 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 	* @param integer $site_id
 	* @return array|FALSE Data array for site
 	*/
+
+	/**
+	 * Fetch the details for the requested form
+	 *
+	 * @param integer $form_id
+	 * @param integer $site_id
+	 * @return array|FALSE
+	 */
 	public function form($form_id, $site_id)
 	{
-		$sql = "SELECT id, `name`
+		$sql = "SELECT id, `name`, email, 
 				FROM user_site_form
 				WHERE site_id = :site_id
 				AND id = :form_id
