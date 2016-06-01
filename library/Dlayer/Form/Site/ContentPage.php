@@ -65,11 +65,11 @@ class Dlayer_Form_Site_ContentPage extends Dlayer_Form_Module_App
 
 		if($this->page_id === NULL)
 		{
-			$legend = '<small>Create a new content page</small>';
+			$legend = ' <small>Create a new content page</small>';
 		}
 		else
 		{
-			$legend = '<small>Edit content page details</small>';
+			$legend = ' <small>Edit content page details</small>';
 		}
 		$this->addElementsToForm('content_page', 'Content page' . $legend, $this->elements);
 
@@ -85,7 +85,7 @@ class Dlayer_Form_Site_ContentPage extends Dlayer_Form_Module_App
 	 */
 	protected function elementsData()
 	{
-		if($this->page_id != NULL)
+		if($this->page_id !== NULL)
 		{
 			$model_pages = new Dlayer_Model_Page();
 			$page = $model_pages->page($this->page_id);

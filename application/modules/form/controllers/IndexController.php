@@ -13,15 +13,23 @@
 class Form_IndexController extends Zend_Controller_Action
 {
 	/**
-	* Type hinting for action helpers, hints the property to the code 
-	* hinting class which exists in the library
-	* 
-	* @var Dlayer_Action_CodeHinting
-	*/
+	 * Type hinting for action helpers
+	 *
+	 * @var Dlayer_Action_CodeHinting
+	 */
 	protected $_helper;
 
-	private $session_dlayer;
+	/**
+	 * @var Dlayer_Session_Form
+	 */
 	private $session_form;
+
+	private $site_id;
+
+	/**
+	 * @var Zend_Form
+	 */
+	private $form_form;
 
 	/**
 	 * @var array Nav bar items
@@ -47,7 +55,9 @@ class Form_IndexController extends Zend_Controller_Action
 
 		$this->_helper->validateSiteId();
 
-		$this->session_dlayer = new Dlayer_Session();
+		$session_dlayer = new Dlayer_Session();
+
+		$this->site_id = $session_dlayer->siteId();
 		$this->session_form = new Dlayer_Session_Form();
 	}
 
@@ -61,9 +71,9 @@ class Form_IndexController extends Zend_Controller_Action
 		$model_forms = new Dlayer_Model_Form();
 		$model_sites = new Dlayer_Model_Site();
 
-		$this->view->forms = $model_forms->forms($this->session_dlayer->siteId());
+		$this->view->forms = $model_forms->forms($this->site_id);
 		$this->view->form_id = $this->session_form->formId();
-		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
+		$this->view->site = $model_sites->site($this->site_id);
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
 			array(), 'Dlayer.com - Form builder');
@@ -112,69 +122,96 @@ class Form_IndexController extends Zend_Controller_Action
 	}
 
 	/**
-	* Allows the user to create a new form for the currently selected site
-	* 
-	* @return void
-	*/
+	 * Create a new form for use on the site, initially user needs to define the name for the form, a title and
+	 * the email to use if the form is to send copy of submissions
+	 *
+	 * @return void
+	 */
 	public function newFormAction() 
 	{
 		$model_sites = new Dlayer_Model_Site();
 
-		$form = new Dlayer_Form_Site_NewForm($this->session_dlayer->siteId());
+		$this->form_form = new Dlayer_Form_Site_Form('/form/index/new-form', $this->site_id);
 
-		// Validate and save the posted data
-		if($this->getRequest()->isPost()) {
+		if($this->getRequest()->isPost())
+		{
+			$this->handleAddForm();
+		}
 
-			$post = $this->getRequest()->getPost();
+		$this->view->form = $this->form_form;
+		$this->view->site = $model_sites->site($this->site_id);
 
-			if($form->isValid($post)) {
-				$model_forms = new Dlayer_Model_Form();
-				$form_id = $model_forms->addForm(
-					$this->session_dlayer->siteId(), $post['name'], 
-					$post['title'], $post['email']);
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - New content page');
+	}
+
+	/**
+	 * Edit the details for the selected form
+	 *
+	 * @return void
+	 */
+	public function editFormAction()
+	{
+		$model_sites = new Dlayer_Model_Site();
+
+		$this->form_form = new Dlayer_Form_Site_Form('/form/index/edit-form', $this->site_id,
+			$this->session_form->formId());
+
+		if($this->getRequest()->isPost())
+		{
+			$this->handleEditForm();
+		}
+
+		$this->view->form = $this->form_form;
+		$this->view->site = $model_sites->site($this->site_id);
+
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
+			array(), 'Dlayer.com - Edit form');
+	}
+
+	/**
+	 * Handle add form, if successful the user is redirected after the id for the new form has been set in the session
+	 *
+	 * @return void
+	 */
+	private function handleAddForm()
+	{
+		$post = $this->getRequest()->getPost();
+
+		if($this->form_form->isValid($post))
+		{
+			$model_forms = new Dlayer_Model_Form();
+			$form_id = $model_forms->saveForm($this->site_id, $post['name'], $post['email'], $post['title'],
+				$post['sub_title']);
+
+			if($form_id !== FALSE)
+			{
 				$this->session_form->clearAll(TRUE);
 				$this->session_form->setFormId($form_id);
 				$this->redirect('/form');
 			}
 		}
-
-		$this->view->form = $form;
-		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-
-		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
-			array(), 'Dlayer.com - New form');
 	}
 
 	/**
-	* Allows the user to edit the details for the currently selected form
-	* 
-	* @return void
-	*/
-	public function editFormAction() 
+	 * Handle edit form, if successful the user is redirected back to form builder root
+	 *
+	 * @return void
+	 */
+	private function handleEditForm()
 	{
-		$model_sites = new Dlayer_Model_Site();
+		$post = $this->getRequest()->getPost();
 
-		$form = new Dlayer_Form_Site_EditForm($this->session_dlayer->siteId(), 
-			$this->session_form->formId());
+		if($this->form_form->isValid($post))
+		{
+			$model_forms = new Dlayer_Model_Form();
+			$form_id = $model_forms->saveForm($this->site_id, $post['name'], $post['email'], NULL, NULL,
+				$this->session_form->formId());
 
-		// Validate and save the posted data
-		if($this->getRequest()->isPost()) {
-
-			$post = $this->getRequest()->getPost();
-
-			if($form->isValid($post)) {
-				$model_forms = new Dlayer_Model_Form();
-				$model_forms->editForm($this->session_dlayer->siteId(), 
-					$this->session_form->formId(), $post['name'], 
-					$post['email']);
-				$this->_redirect('/form');
+			if($form_id !== FALSE)
+			{
+				$this->redirect('/form');
 			}
 		}
-
-		$this->view->form = $form;
-		$this->view->site = $model_sites->site($this->session_dlayer->siteId());
-
-		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
-			array(), 'Dlayer.com - Edit form');
 	}
 }
