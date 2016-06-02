@@ -23,6 +23,11 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	private $site_form;
 
 	/**
+	 * @var Zend_Form
+	 */
+	private $login_form;
+
+	/**
 	 * @var array Nav bar items for logged in version of nav bar
 	 */
 	private $nav_bar_items_private = array(
@@ -63,55 +68,23 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$model_authentication->logoutInactiveIdenties($session['timeout']);
 
 		$session_dlayer = new Dlayer_Session();
-		if($session_dlayer->identityId() != FALSE)
+
+		if($session_dlayer->identityId() !== FALSE)
 		{
 			$this->redirect('/dlayer/index/home');
 		}
 
 		$model_authentication = new Dlayer_Model_Authentication();
 
-		$form = new Dlayer_Form_Login();
+		$this->login_form = new Dlayer_Form_Login();
 
-		// Validate and save the posted data
-		if($this->getRequest()->isPost()) {
-
-			$post = $this->getRequest()->getPost();
-
-			if($form->isValid($post)) {
-
-				$authentication_options =
-				$this->getInvokeArg('bootstrap')->getOption('authentication');
-
-				$model_authentication->setSalt(
-					$authentication_options['salt']);
-
-				if($model_authentication->checkCredentials($post['identity'],
-				$post['credentials']) == TRUE) {
-					$identity_id = $model_authentication->identityId();
-
-					if($identity_id != FALSE) {
-						$session_dlayer = new Dlayer_Session();
-						$session_dlayer->setIdentityId($identity_id);
-
-						$model_authentication->loginIdentity($identity_id);
-
-						$this->_redirect('/dlayer/index/home');
-					} else {
-						$form->getElement('identity')->addError('There
-						was an error fetching your details, please try again.');
-						$form->markAsError();
-					}
-				} else {
-					$form->getElement('identity')->addError('Username and
-						password combination invalid or the account is 
-						already logged into Dlayer, please try again.');
-					$form->markAsError();
-				}
-			}
+		if($this->getRequest()->isPost())
+		{
+			$this->handleLogin();
 		}
 
 		$this->view->test_identities = $model_authentication->testIdentities();
-		$this->view->form = $form;
+		$this->view->form = $this->login_form;
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items_public, '/dlayer/index/index', array('css/dlayer.css'),
 			array(), 'Dlayer.com - Sign in');
@@ -228,22 +201,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	*/
 	public function logoutAction()
 	{
-		$session_form = new Dlayer_Session_Form();
-		$session_content = new Dlayer_Session_Content();
-		$session_image = new Dlayer_Session_Image();
-		$session_designer = new Dlayer_Session_Designer();
-		$session_dlayer = new Dlayer_Session();
-
-		$model_authentication = new Dlayer_Model_Authentication();
-		$model_authentication->logoutIdentity($session_dlayer->identityId());
-
-		$session_form->clearAll(TRUE);
-		$session_content->clearAll(TRUE);
-		$session_dlayer->clearAll();
-		$session_designer->clearAll();
-		$session_image->clearAll();
-
-		$this->redirect('/dlayer');
+		$this->handleLogout();
 	}
 
 	/**
@@ -289,5 +247,76 @@ class Dlayer_IndexController extends Zend_Controller_Action
 				$this->redirect('/dlayer/index/home');
 			}
 		}
+	}
+
+	/**
+	 * Handle login
+	 *
+	 * @return void
+	 */
+	private function handleLogin()
+	{
+		$model_authentication = new Dlayer_Model_Authentication();
+
+		$post = $this->getRequest()->getPost();
+
+		if($this->login_form->isValid($post))
+		{
+			$authentication_options = $this->getInvokeArg('bootstrap')->getOption('authentication');
+
+			$model_authentication->setSalt($authentication_options['salt']);
+
+			if($model_authentication->checkCredentials($post['identity'], $post['credentials']) === TRUE)
+			{
+				$identity_id = $model_authentication->identityId();
+
+				if($identity_id !== FALSE)
+				{
+					$session_dlayer = new Dlayer_Session();
+					$session_dlayer->setIdentityId($identity_id);
+
+					$model_authentication->loginIdentity($identity_id);
+
+					$this->redirect('/dlayer/index/home');
+				}
+				else
+				{
+					$this->login_form->getElement('identity')->addError('There was an error fetching your details,
+						    please try again.');
+					$this->login_form->markAsError();
+				}
+			}
+			else
+			{
+				$this->login_form->getElement('identity')->addError('Username and password combination invalid or 
+					    the account is already logged into Dlayer, please try again.');
+				$this->login_form->markAsError();
+			}
+		}
+	}
+
+	/**
+	 * Logout the user
+	 *
+	 * @return void
+	 */
+	private function handleLogout()
+	{
+		$session_form = new Dlayer_Session_Form();
+		$session_content = new Dlayer_Session_Content();
+		$session_image = new Dlayer_Session_Image();
+		$session_designer = new Dlayer_Session_Designer();
+		$session_dlayer = new Dlayer_Session();
+
+		$model_authentication = new Dlayer_Model_Authentication();
+		$model_authentication->logoutIdentity($session_dlayer->identityId());
+
+		$session_form->clearAll(TRUE);
+		$session_content->clearAll(TRUE);
+		$session_dlayer->clearAll();
+		$session_designer->clearAll();
+		$session_image->clearAll();
+
+		$this->redirect('/dlayer');
 	}
 }
