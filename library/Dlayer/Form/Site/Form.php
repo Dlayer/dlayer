@@ -166,11 +166,10 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 	}
 
 	/**
-	* Add the validation rules for the form elements and set the custom error 
-	* messages
-	* 
-	* @return void
-	*/
+	 * Add the validation rules for the form elements and set the custom error messages
+	 *
+	 * @return void
+	 */
 	protected function validationRules()
 	{
 		$this->elements['name']->setRequired();

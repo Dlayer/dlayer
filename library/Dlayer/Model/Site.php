@@ -197,48 +197,79 @@ class Dlayer_Model_Site extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Add the new site to the database
-	*
-	* @param integer $identity_id
-	* @param string $name
-	* @return integer Id of the new site
-	*/
-	public function addSite($identity_id, $name)
+	 * Add a new web site and set the defaul options
+	 * 
+	 * @param string $name Site name
+	 * @param integer $identity_id Id of the user site belongs to
+	 * @return integer|FALSE Either the id of the new site or FALSE upon failure
+	 */
+	private function addSite($name, $identity_id)
 	{
-		$sql = "INSERT INTO user_site
-				(identity_id, `name`)
-				VALUES
-				(:identity_id, :name)";
+		$sql = 'INSERT INTO user_site 
+				(identity_id, `name`) 
+				VALUES 
+				(:identity_id, :name)';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
 		$stmt->bindValue(':identity_id', $identity_id, PDO::PARAM_INT);
-		$stmt->execute();
+		$result = $stmt->execute();
 
-		$site_id = $this->_db->lastInsertId('user_site');
+		if($result === TRUE)
+		{
+			$site_id = $this->_db->lastInsertId('user_site');
 
-		$model_settings = new Dlayer_Model_Settings();
-		$model_settings->setDefaultColorPalettes($site_id);
-		$model_settings->setDefaultColourPaletteColors($site_id);
-		$model_settings->setDefaultBaseFontFamilies($site_id);
-		$model_settings->setDefaultHeadingStyles($site_id);
-		$model_settings->setDefaultHistoryColors($site_id);
+			$model_settings = new Dlayer_Model_Settings();
+			$model_settings->setDefaultColorPalettes($site_id);
+			$model_settings->setDefaultColourPaletteColors($site_id);
+			$model_settings->setDefaultBaseFontFamilies($site_id);
+			$model_settings->setDefaultHeadingStyles($site_id);
+			$model_settings->setDefaultHistoryColors($site_id);
+
+			return $site_id;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
-	* Edit the details for the selected site
-	*
-	* @param integer $site_id
-	* @param string $name
-	* @return void
-	*/
-	public function editSite($site_id, $name)
+	 * Edit the details for the requested web site
+	 *
+	 * @param string $name
+	 * @param inetger $id
+	 * @return boolean
+	 */
+	private function editSite($name, $id)
 	{
 		$sql = "UPDATE user_site
 				SET `name` = :name
 				WHERE id = :site_id";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->execute();
+		$stmt->bindValue(':site_id', $id, PDO::PARAM_INT);
+		return $stmt->execute();
+	}
+
+	/**
+	 * Save the web site, either inserts a new record or updates the given record
+	 *
+	 * @param string $name Name of site within Dlayer
+	 * @param integer|NULL $id Site id when editing
+	 * @return integer|FALSE Either the site id or FALSE upon failure
+	 */
+	public function saveSite($name, $id=NULL)
+	{
+		if($id === NULL)
+		{
+			$session_dlayer = new Dlayer_Session();
+			$id = $this->addSite($name, $session_dlayer->identityId());
+		}
+		else
+		{
+			$id = $this->editSite($name, $id);
+		}
+
+		return $id;
 	}
 }

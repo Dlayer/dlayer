@@ -18,6 +18,11 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	protected $_helper;
 
 	/**
+	 * @var Zend_Form
+	 */
+	private $site_form;
+
+	/**
 	 * @var array Nav bar items for logged in version of nav bar
 	 */
 	private $nav_bar_items_private = array(
@@ -142,27 +147,27 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	}
 
 	/**
-	* Activate another web site, checks that the given site id is valid and
-	* then activates the site by setting the session value, updating the
-	* site history and then sending the user back to home
-	*
-	* @return void
-	*/
+	 * Activate another web site, checks site is accessible to user and then activates it
+	 *
+	 * @return void
+	 */
 	public function activateAction()
 	{
-		$this->_helper->authenticate();
 		$this->_helper->disableLayout(FALSE);
+
+		$this->_helper->authenticate();
 
 		$site_id = Dlayer_Helper::getInteger('site');
 
-		if($site_id != NULL) {
+		if($site_id != NULL)
+		{
 			$model_sites = new Dlayer_Model_Site();
 			$session_dlayer = new Dlayer_Session();
-			if($model_sites->valid($site_id,
-			$session_dlayer->identityId()) == TRUE) {
+
+			if($model_sites->valid($site_id, $session_dlayer->identityId()) == TRUE)
+			{
 				$session_dlayer->setSiteId($site_id);
-				$model_sites->setLastAccessedSite($site_id,
-					$session_dlayer->identityId());
+				$model_sites->setLastAccessedSite($site_id, $session_dlayer->identityId());
 			}
 		}
 
@@ -170,66 +175,47 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	}
 
 	/**
-	* Allows the user to create a new site
-	*
-	* Currently the only data that is required to create a site is the name. 
-	* the name needs to be unique for the user
-	*
-	* @return void
-	*/
+	 * Create a new web site, at the moment a user only needs to define the name they want to use, later there
+	 * will be an updated to set additional data as well as some Dlayer options
+	 *
+	 * @return void
+	 */
 	public function newSiteAction()
 	{
 		$this->_helper->authenticate();
 
-		$session_dlayer = new Dlayer_Session();
-		$form = new Dlayer_Form_Site_NewSite($session_dlayer->identityId());
+		$this->site_form = new Dlayer_Form_Site_Site('/dlayer/index/new-site');
 
-		// Validate and save the posted data
-		if($this->getRequest()->isPost()) {
-
-			$post = $this->getRequest()->getPost();
-
-			if($form->isValid($post)) {
-				$model_sites = new Dlayer_Model_Site();
-				$model_sites->addSite($session_dlayer->identityId(),
-					$post['name']);
-				$this->redirect('/dlayer/index/home');
-			}
+		if($this->getRequest()->isPost())
+		{
+			$this->handleAddSite();
 		}
 
-		$this->view->form = $form;
+		$this->view->form = $this->site_form;
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
 			array(), 'Dlayer.com - New web site');
 	}
 
 	/**
-	* Allows the user to edit the details for the currently selected site
-	*
-	* @return void
-	*/
+	 * Edit the selected web site
+	 *
+	 * @return void
+	 */
 	public function editSiteAction()
 	{
 		$this->_helper->authenticate();
 
 		$session_dlayer = new Dlayer_Session();
-		$form = new Dlayer_Form_Site_EditSite($session_dlayer->identityId(),
-			$session_dlayer->siteId());
 
-		// Validate and save the posted data
-		if($this->getRequest()->isPost()) {
+		$this->site_form = new Dlayer_Form_Site_Site('/dlayer/index/edit-site', $session_dlayer->siteId());
 
-			$post = $this->getRequest()->getPost();
-
-			if($form->isValid($post)) {
-				$model_sites = new Dlayer_Model_Site();
-				$model_sites->editSite($session_dlayer->siteId(),
-					$post['name']);
-				$this->redirect('/dlayer/index/home');
-			}
+		if($this->getRequest()->isPost())
+		{
+			$this->handleEditSite();
 		}
 
-		$this->view->form = $form;
+		$this->view->form = $this->site_form;
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
 			array(), 'Dlayer.com - Edit web site');
@@ -258,5 +244,50 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$session_image->clearAll();
 
 		$this->redirect('/dlayer');
+	}
+
+	/**
+	 * Handle add web site, if successful the user is redirected back to app root, site is not automatically activate 
+	 * done by a different action because it is more involved than just setting an id
+	 *
+	 * @return void
+	 */
+	private function handleAddSite()
+	{
+		$post = $this->getRequest()->getPost();
+
+		if($this->site_form->isValid($post))
+		{
+			$model_sites = new Dlayer_Model_Site();
+			$site_id = $model_sites->saveSite($post['name']);
+
+			if($site_id !== FALSE)
+			{
+				$this->redirect('/dlayer/index/home');
+			}
+		}
+	}
+
+	/**
+	 * Handle edit web site, if successful the user is redirected back to app root
+	 *
+	 * @return void
+	 */
+	private function handleEditSite()
+	{
+		$post = $this->getRequest()->getPost();
+
+		if($this->site_form->isValid($post))
+		{
+			$session_dlayer = new Dlayer_Session();
+
+			$model_sites = new Dlayer_Model_Site();
+			$site_id = $model_sites->saveSite($post['name'], $session_dlayer->siteId());
+
+			if($site_id !== FALSE)
+			{
+				$this->redirect('/dlayer/index/home');
+			}
+		}
 	}
 }
