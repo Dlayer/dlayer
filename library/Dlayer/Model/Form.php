@@ -114,7 +114,7 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 	 * @param string $email Email address for copy of submissions
 	 * @param string $title Title/legend for form
 	 * @param string|NULL $sub_title Sub title/legend
-	 * @return boolean|FALSE Either the id of the new page or FALSE upon failure
+	 * @return integer|FALSE Either the id of the new page or FALSE upon failure
 	 */
 	private function addForm($site_id, $name, $email, $title, $sub_title)
 	{

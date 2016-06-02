@@ -100,21 +100,6 @@ class Dlayer_Session extends Zend_Session_Namespace
     }
     
     /**
-    * Identity (Email)
-    * 
-    * @return string|NULL 
-    */
-    public function identity() 
-    {
-		if(isset($this->identity_id) && $this->identity_id != NULL) {
-			$model_authentication = new Dlayer_Model_Authentication();
-			return $model_authentication->identity($this->identity_id);
-		} else {
-			return NULL;
-		}
-    }
-    
-    /**
     * Clear all session vars
     * 
     * @return void

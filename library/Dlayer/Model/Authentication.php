@@ -152,49 +152,7 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':timeout', $timeout, PDO::PARAM_INT);
 		$stmt->execute();
 	}
-
-	/**
-	* Check to see if the given username and password are valid
-	*
-	* @param mixed $username
-	* @param mixed $password
-	* @param string $salt
-	* @return integer|FALSE Either the identity_id or FALSE for a failed
-	*                       login
-	*/
-	public function checkUserExists($username, $password, $salt)
-	{
-		$sql = "SELECT rc.id, rc.password, rc.enabled
-				FROM riviam_credentials rc
-				JOIN riviam_users ru ON rc.user_id = ru.id
-				WHERE rc.username = :username
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':username', strtolower($username));
-		$stmt->execute();
-
-		$result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if($result != FALSE) {
-			if($result['enabled'] == 1) {
-				$salt = '$6$rounds=5000$' . $salt . '$';
-
-				if($result['password'] === crypt($password, $salt)) {
-					$this->successfulLogin($result['id']);
-					return $result['id'];
-				} else {
-					$this->failedLogin($result['id']);
-					return FALSE; // Password incorrect
-				}
-			} else {
-				$this->failedLogin($result['id']);
-				return FALSE; // Account disabled
-			}
-		} else {
-			return FALSE;
-		}
-	}
-
+	
 	/**
 	* Update the last action time for an identity
 	*
@@ -226,25 +184,5 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 		$stmt->execute();
 
 		return $stmt->fetchAll();
-	}
-
-	/**
-	* Fetch the identity for an identity_id
-	*
-	* @param integer $identity_id
-	* @return string Identity (Email)
-	*/
-	public function identity($identity_id)
-	{
-		$sql = "SELECT identity
-				FROM dlayer_identity
-				WHERE id = :identity_id";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':identity_id', $identity_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		$result = $stmt->fetch();
-
-		return $result['identity'];
 	}
 }

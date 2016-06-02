@@ -256,7 +256,7 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	 *
 	 * @param $site_id Site the page belongs to
 	 * @param $name Name of the page within Dlayer
-	 * @return boolean|FALSE Either the id of the new page or FALSE upon failure
+	 * @return integer|FALSE Either the id of the new page or FALSE upon failure
 	 */
 	private function addPage($site_id, $name)
 	{
