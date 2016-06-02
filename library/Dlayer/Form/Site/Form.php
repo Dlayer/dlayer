@@ -37,7 +37,7 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 		$this->site_id = $site_id;
 		$this->form_id = $form_id;
 
-		$this->elementsData = array(
+		$this->elements_data = array(
 			'name' => NULL,
 			'title' => NULL,
 			'sub_title' => NULL,
@@ -93,8 +93,8 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 
 			if($form !== false)
 			{
-				$this->elementsData['name'] = $form['name'];
-				$this->elementsData['email'] = $form['email'];
+				$this->elements_data['name'] = $form['name'];
+				$this->elements_data['email'] = $form['email'];
 			}
 		}
 	}
@@ -114,7 +114,7 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 		$name->setAttribs(array(
 			'size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Contact form', 'class'=>'form-control')
 		);
-		$name->setValue($this->elementsData['name']);
+		$name->setValue($this->elements_data['name']);
 
 		$this->elements['name'] = $name;
 
@@ -127,7 +127,7 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 					'size' => 50, 'maxlength' => 255, 'placeholder' => 'e.g., Contact us', 'class' => 'form-control'
 				)
 			);
-			$title->setValue($this->elementsData['title']);
+			$title->setValue($this->elements_data['title']);
 
 			$this->elements['title'] = $title;
 		}
@@ -143,7 +143,7 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 					'class' => 'form-control'
 				)
 			);
-			$sub_title->setValue($this->elementsData['sub_title']);
+			$sub_title->setValue($this->elements_data['sub_title']);
 
 			$this->elements['sub_title'] = $sub_title;
 		}
@@ -155,7 +155,7 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
 		$email->setAttribs(array(
 			'size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., email@email.com', 'class'=>'form-control')
 		);
-		$email->setValue($this->elementsData['email']);
+		$email->setValue($this->elements_data['email']);
 
 		$this->elements['email'] = $email;
 

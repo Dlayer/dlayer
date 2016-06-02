@@ -17,7 +17,7 @@ abstract class Dlayer_Form extends Zend_Form
 	 * @var array Data for form elements
 	 * @todo Why is this camelCase?
 	 */
-	protected $elementsData = array();
+	protected $elements_data = array();
 
 	/**
 	 * Dlayer_Form constructor. Pass in anything needed to set up the form and set options

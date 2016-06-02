@@ -30,7 +30,7 @@ class Dlayer_Form_Site_Site extends Dlayer_Form_Module_App
 		$this->post_uri = $post_uri;
 		$this->site_id = $site_id;
 
-		$this->elementsData = array(
+		$this->elements_data = array(
 			'name' => NULL,
 		);
 
@@ -84,7 +84,7 @@ class Dlayer_Form_Site_Site extends Dlayer_Form_Module_App
 
 			if($site !== false)
 			{
-				$this->elementsData['name'] = $site['name'];
+				$this->elements_data['name'] = $site['name'];
 			}
 		}
 	}
@@ -103,7 +103,7 @@ class Dlayer_Form_Site_Site extends Dlayer_Form_Module_App
 		    on your web site.');
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., My new site',
 			'class'=>'form-control'));
-		$name->setValue($this->elementsData['name']);
+		$name->setValue($this->elements_data['name']);
 
 		$this->elements['name'] = $name;
 
