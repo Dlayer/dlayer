@@ -2,12 +2,10 @@
 /**
  * Name field ribbon data class.
  *
- * Returns the data for the requested tool tab ready to be passed to the view
- * script. The methods needs to return an array, other than that there are no
- * specific requirements for ribbon tool data classes.
+ * Returns the data for the requested tool tab ready to be passed to the view script. The viewData method needs to
+ * always return an array, other than that there are no specific requirements for tools
  *
- * Each view file needs to check for the expected indexes, tools and tool tabs
- * can and do operate differently
+ * Each view file needs to check for the expected indexes itself, tools and tool tabs can and do operate differently
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
@@ -27,11 +25,9 @@ class Dlayer_Ribbon_Form_PresetName extends Dlayer_Ribbon_Module_Form
 	 * @param boolean $edit_mode Are we in edit mode
 	 * @return array
 	 */
-	public function viewData($site_id, $form_id, $tool, $tab,
-		$multi_use, $field_id = NULL, $edit_mode = FALSE)
+	public function viewData($site_id, $form_id, $tool, $tab, $multi_use, $field_id = NULL, $edit_mode = FALSE)
 	{
-		$this->writeParams($site_id, $form_id, $tool, $tab, $multi_use,
-			$field_id, $edit_mode);
+		$this->writeParams($site_id, $form_id, $tool, $tab, $multi_use, $field_id, $edit_mode);
 
 		return array(
 			'form' => new Dlayer_Form_Form_PresetName('preset-name', 'text', '/form/process/tool/', $this->form_id,
