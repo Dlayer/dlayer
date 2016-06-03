@@ -17,8 +17,8 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 	private $edit_mode;
 	private $multi_use;
 
-	private $legend_add = 'Add';
-	private $legend_edit = 'Edit';
+	private $legend_add;
+	private $legend_edit;
 
 	/**
 	 * Set the properties for the form
@@ -85,7 +85,7 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 	 * @param string $edit Title for the edit legend
 	 * @return void
 	 */
-	public function setTitles($add, $edit)
+	protected function setTitles($add='Add', $edit='Edit')
 	{
 		$this->legend_add = $add;
 		$this->legend_edit = $edit;
@@ -112,7 +112,7 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 	 *
 	 * @return void The elements are written to the $this->elements private property
 	 */
-	private function addToolElements()
+	protected function addToolElements()
 	{
 		$form_id = new Zend_Form_Element_Hidden('form_id');
 		$form_id->setValue($this->form_id);
@@ -148,7 +148,7 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 	 *
 	 * @return void The elements are written to the $this->elements private property
 	 */
-	private function addUserElements()
+	protected function addUserElements()
 	{
 
 	}
@@ -158,7 +158,7 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 	 *
 	 * @return void The elements are written to the $this->elements private property
 	 */
-	private function addSubmitElement()
+	protected function addSubmitElement()
 	{
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttrib('class', 'submit');
