@@ -7,18 +7,20 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
+abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 {
-	private $tool;
-	private $field_type;
-	private $post_uri;
-	private $form_id;
-	private $field_data;
-	private $edit_mode;
-	private $multi_use;
+	protected $tool;
+	protected $field_type;
+	protected $post_uri;
+	protected $form_id;
+	protected $field_data;
+	protected $edit_mode;
+	protected $multi_use;
 
-	private $legend_add;
-	private $legend_edit;
+	protected $label_add = 'Add';
+	protected $label_edit = 'Edit';
+	protected $legend_add = 'Add';
+	protected $legend_edit = 'Save';
 
 	/**
 	 * Set the properties for the form
@@ -27,8 +29,7 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 	 * @param string $field_type Field type, will match database
 	 * @param string $post_uri Uri to post form to
 	 * @param integer $form_id Id of the form selected in Form builder
-	 * @param array $field_data An array with a field for every element, the data will either be the current data if
-	 * editing or FALSE if adding a new field
+	 * @param array $field_data An array with a field for every element, the data will either be the current data if 	 * editing or FALSE if adding a new field
 	 * @param boolean $edit_mode Are we in edit mode? Lets us see context for labels etc
 	 * @param boolean $multi_use Is the tool or multi-use, if so tool stays selected after processing
 	 * @param array|NULL $options Zend form options
@@ -76,19 +77,6 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 		$this->addDefaultElementDecorators();
 
 		$this->addCustomElementDecorators();
-	}
-
-	/**
-	 * Set the titles for the form
-	 *
-	 * @param string $add Title for the add legend
-	 * @param string $edit Title for the edit legend
-	 * @return void
-	 */
-	protected function setTitles($add='Add', $edit='Edit')
-	{
-		$this->legend_add = $add;
-		$this->legend_edit = $edit;
 	}
 
 	/**
@@ -148,10 +136,7 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 	 *
 	 * @return void The elements are written to the $this->elements private property
 	 */
-	protected function addUserElements()
-	{
-
-	}
+	abstract protected function addUserElements();
 
 	/**
 	 * Add the submit button to the form
@@ -163,10 +148,13 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 		$submit = new Zend_Form_Element_Submit('submit');
 		$submit->setAttrib('class', 'submit');
 		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		if($this->edit_mode == FALSE) {
-			$submit->setLabel('Add text field');
-		} else {
-			$submit->setLabel('Save changes');
+		if($this->edit_mode == FALSE) 
+		{
+			$submit->setLabel($this->label_add);
+		}
+		else
+		{
+			$submit->setLabel($this->label_edit);
 		}
 
 		$this->elements['submit'] = $submit;
@@ -183,12 +171,114 @@ class Dlayer_Form_Form_Tool extends Dlayer_Form_Module_FormNew
 	}
 
 	/**
-	 * Add any custom element decorators required for just this form
+	 * Add the default decorators to use for the form inputs
+	 *
+	 * @return void
+	 */
+	protected function addDefaultElementDecorators()
+	{
+		$this->setDecorators(array(
+			'FormElements',
+			array('Form', array('class'=>'form'))));
+
+		$this->setElementDecorators(array(
+			array('ViewHelper'),
+			array('Description', array('tag' => 'p', 'class'=>'help-block')),
+			array('Errors', array('class'=> 'alert alert-danger')),
+			array('Label'),
+			array('HtmlTag', array(
+				'tag' => 'div',
+				'class'=> array(
+					'callback' => function($decorator) {
+						if($decorator->getElement()->hasErrors()) {
+							return 'form-group has-error';
+						} else {
+							return 'form-group';
+						}
+					})
+			))
+		));
+
+		$this->setDisplayGroupDecorators(array(
+			'FormElements',
+			'Fieldset',
+		));
+	}
+
+	/**
+	 * Add any custom decorators, these are inputs where we need a little more
+	 * control over the html, an example being the submit button
 	 *
 	 * @return void
 	 */
 	protected function addCustomElementDecorators()
 	{
-		parent::addCustomElementDecorators();
+		$this->elements['submit']->setDecorators(array(array('ViewHelper'),
+			array('HtmlTag', array(
+				'tag' => 'div',
+				'class'=>'form-group form-group-submit')
+			)
+		));
+	}
+
+	/**
+	 * Check field array for field value, either return assigned value or FALSE
+	 * if field value not set in data array
+	 *
+	 * @param string $field
+	 * @return string|FALSE
+	 */
+	protected function fieldValue($field)
+	{
+		if(array_key_exists($field, $this->field_data) == TRUE
+			&& $this->field_data[$field] != FALSE) {
+			return $this->field_data[$field];
+		} else {
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Check field array for field attribute value, either return assigned
+	 * attribute value or FALSE if field attribute value not set in data array
+	 *
+	 * @param string $attribute
+	 * @return string|FALSE
+	 */
+	protected function fieldAttributeValue($attribute)
+	{
+		if(array_key_exists('attributes', $this->field_data) == TRUE
+			&& array_key_exists($attribute, $this->field_data['attributes']) == TRUE
+			&& $this->field_data['attributes'][$attribute] != FALSE) {
+			return $this->field_data['attributes'][$attribute];
+		} else {
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Set the titles for the form
+	 *
+	 * @param string $add Title for the add legend
+	 * @param string $edit Title for the edit legend
+	 * @return void
+	 */
+	protected function setTitles($add='Add', $edit='Edit')
+	{
+		$this->legend_add = $add;
+		$this->legend_edit = $edit;
+	}
+
+	/**
+	 * Set the labels for the submit button
+	 *
+	 * @param string $add Label in add mode
+	 * @param string $edit Label in edit mode
+	 * @return void
+	 */
+	protected function setLabels($add='Add', $edit='Edit')
+	{
+		$this->label_add = $add;
+		$this->label_edit = $edit;
 	}
 }

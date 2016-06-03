@@ -16,8 +16,7 @@ class Dlayer_Form_Form_PresetName extends Dlayer_Form_Form_Tool
 	 * @param string $field_type Field type, will match database
 	 * @param string $post_uri Uri to post form to
 	 * @param integer $form_id Id of the form selected in Form builder
-	 * @param array $field_data An array with a field for every element, the data will either be the current data if
-	 * editing or FALSE if adding a new field
+	 * @param array $field_data An array with a field for every element, the data will either be the current data if 	 * editing or FALSE if adding a new field
 	 * @param boolean $edit_mode Are we in edit mode? Lets us see context for labels etc
 	 * @param boolean $multi_use Is the tool or multi-use, if so tool stays selected after processing
 	 * @param array|NULL $options Zend form options
@@ -26,6 +25,8 @@ class Dlayer_Form_Form_PresetName extends Dlayer_Form_Form_Tool
 		$multi_use=TRUE, $options=NULL)
 	{
 		$this->setTitles('Add <small>Name field</small>');
+		
+		$this->setLabels('Add name field', 'Save');
 
 		parent::__construct($tool, $field_type, $post_uri, $form_id, $field_data, $edit_mode, $multi_use, $options);
 	}
