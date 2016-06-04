@@ -99,24 +99,29 @@ class Form_IndexController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$site_id = $this->session_dlayer->siteId();
+		$session_dlayer = new Dlayer_Session();
+
 		$form_id = Dlayer_Helper::getInteger('form-id');
 		$load = Dlayer_Helper::getInteger('load');
 		$return = $this->getRequest()->getParam('return');
 
-		if($form_id != NULL) {           
+		if($form_id !== NULL)
+		{
 			$model_forms = new Dlayer_Model_Form();        
-			if($model_forms->valid($form_id, $site_id) == TRUE) {
+			if($model_forms->valid($form_id, $session_dlayer->siteId()) === TRUE)
+			{
 				$this->session_form->clearAll();
 				$this->session_form->setFormId($form_id);
 			}
 		}
 
-		if($load != NULL && $return != NULL && $load == 1 && 
-		in_array($return, array('content')) == TRUE) {
+		if($load !== NULL && $return !== NULL && $load == 1 && in_array($return, array('content')) == TRUE)
+		{
 			$this->session_form->setReturnModule($return);
 			$this->redirect('/form/design/');
-		} else {
+		}
+		else
+		{
 			$this->redirect('/form');
 		}
 	}

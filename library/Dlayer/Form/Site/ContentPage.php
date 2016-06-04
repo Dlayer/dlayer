@@ -37,7 +37,7 @@ class Dlayer_Form_Site_ContentPage extends Dlayer_Form_Module_App
 		$this->site_id = $site_id;
 		$this->page_id = $page_id;
 
-		$this->elementsData = array(
+		$this->elements_data = array(
 			'name' => NULL,
 			'title' => NULL,
 			'description' => NULL,
@@ -92,9 +92,9 @@ class Dlayer_Form_Site_ContentPage extends Dlayer_Form_Module_App
 
 			if($page !== false)
 			{
-				$this->elementsData['name'] = $page['name'];
-				$this->elementsData['title'] = $page['title'];
-				$this->elementsData['description'] = $page['description'];
+				$this->elements_data['name'] = $page['name'];
+				$this->elements_data['title'] = $page['title'];
+				$this->elements_data['description'] = $page['description'];
 			}
 		}
 	}
@@ -112,7 +112,7 @@ class Dlayer_Form_Site_ContentPage extends Dlayer_Form_Module_App
 		$name->setDescription('Enter a name for your content page, this will only display within Dlayer, not anywhere 
 			on your web site.');
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., News page', 'class'=>'form-control'));
-		$name->setValue($this->elementsData['name']);
+		$name->setValue($this->elements_data['name']);
 		$this->elements['name'] = $name;
 		
 		$title = new Zend_Form_Element_Text('title');
@@ -121,7 +121,7 @@ class Dlayer_Form_Site_ContentPage extends Dlayer_Form_Module_App
 			web browser.");
 		$title->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>"e.g., All the news for 'My new site'",
 			'class'=>'form-control'));
-		$title->setValue($this->elementsData['description']);
+		$title->setValue($this->elements_data['description']);
 		$this->elements['title'] = $title;
 
 		$description = new Zend_Form_Element_Textarea('description');
@@ -130,7 +130,7 @@ class Dlayer_Form_Site_ContentPage extends Dlayer_Form_Module_App
 			description meta tag.');
 		$description->setAttribs(array('cols'=>50, 'rows'=>4, 'placeholder'=>'e.g., Displays the top five news items',
 			'class'=>'form-control'));
-		$description->setValue($this->elementsData['description']);
+		$description->setValue($this->elements_data['description']);
 		$this->elements['description'] = $description;
 
 		$submit = new Zend_Form_Element_Submit('submit');
