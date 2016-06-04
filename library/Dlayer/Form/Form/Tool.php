@@ -10,6 +10,7 @@
 abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 {
 	protected $tool;
+	protected $sub_tool;
 	protected $field_type;
 	protected $post_uri;
 	protected $form_id;
@@ -22,6 +23,8 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 	protected $legend_add = 'Add';
 	protected $legend_edit = 'Save';
 
+	protected $disable = FALSE;
+
 	/**
 	 * Set the properties for the form
 	 *
@@ -32,12 +35,14 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 	 * @param array $field_data An array with a field for every element, the data will either be the current data if 	 * editing or FALSE if adding a new field
 	 * @param boolean $edit_mode Are we in edit mode? Lets us see context for labels etc
 	 * @param boolean $multi_use Is the tool or multi-use, if so tool stays selected after processing
+	 * @param string|NULL$sub_tool Sub tool name, will match the database
 	 * @param array|NULL $options Zend form options
 	 */
 	public function __construct($tool, $field_type, $post_uri, $form_id, array $field_data, $edit_mode=FALSE,
-		$multi_use=TRUE, $options=NULL)
+		$multi_use=TRUE, $sub_tool = NULL, $options=NULL)
 	{
 		$this->tool = $tool;
+		$this->sub_tool = $sub_tool;
 		$this->field_type = $field_type;
 		$this->post_uri = $post_uri;
 		$this->form_id = $form_id;
@@ -59,6 +64,8 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 
 		$this->setMethod('post');
 
+		$this->elementsData();
+
 		$this->setUpFormElements();
 
 		$this->validationRules();
@@ -77,6 +84,16 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 		$this->addDefaultElementDecorators();
 
 		$this->addCustomElementDecorators();
+	}
+
+	/**
+	 * Fetch any data required to create the form elements, for example the data for a select menu
+	 *
+	 * @return void
+	 */
+	protected function elementsData()
+	{
+		
 	}
 
 	/**
@@ -112,15 +129,34 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 
 		$this->elements['tool'] = $tool;
 
-		$field_type = new Zend_Form_Element_Hidden('field_type');
-		$field_type->setValue($this->field_type);
+		$sub_tool_model = new Zend_Form_Element_Hidden('sub_tool_model');
+		$sub_tool_model->setValue($this->sub_tool_model);
 
-		$this->elements['field_type'] = $field_type;
+		$this->elements['sub_tool_model'] = $sub_tool_model;
 
-		if(array_key_exists('id', $this->field_data) == TRUE
-			&& $this->field_data['id'] != FALSE) {
+		if($this->field_type !== '')
+		{
+			$field_type = new Zend_Form_Element_Hidden('field_type');
+			$field_type->setValue($this->field_type);
+
+			$this->elements['field_type'] = $field_type;
+		}
+
+		// Edit for base tools
+		if(array_key_exists('id', $this->field_data) === TRUE && $this->field_data['id'] != FALSE)
+		{
 			$field_id = new Zend_Form_Element_Hidden('field_id');
 			$field_id->setValue($this->field_data['id']);
+
+			$this->elements['field_id'] = $field_id;
+		}
+
+		// Sub tools
+		if(array_key_exists('field_id', $this->field_data) === TRUE && $this->field_data['field_id'] != FALSE)
+		{
+			$field_id = new Zend_Form_Element_Hidden('field_id');
+			$field_id->setValue($this->field_data['field_id']);
+
 			$this->elements['field_id'] = $field_id;
 		}
 
@@ -146,8 +182,12 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 	protected function addSubmitElement()
 	{
 		$submit = new Zend_Form_Element_Submit('submit');
-		$submit->setAttrib('class', 'submit');
-		$submit->setAttribs(array('class'=>'btn btn-primary'));
+		$attributes = array('class'=>'btn btn-primary');
+		if($this->disable === TRUE)
+		{
+			$attributes['disabled'] = 'disabled';
+		}
+		$submit->setAttribs($attributes);
 		if($this->edit_mode == FALSE) 
 		{
 			$submit->setLabel($this->label_add);
@@ -280,5 +320,15 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 	{
 		$this->label_add = $add;
 		$this->label_edit = $edit;
+	}
+
+	/**
+	 * Disable the tool, adds disabled class to the submit button
+	 *
+	 * @return void
+	 */
+	protected function disableTool()
+	{
+		$this->disable = TRUE;
 	}
 }

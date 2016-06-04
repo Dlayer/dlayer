@@ -18,16 +18,18 @@ class Dlayer_Form_Form_PresetEmail extends Dlayer_Form_Form_Tool
 	 * @param array $field_data An array with a field for every element, the data will either be the current data if 	 * editing or FALSE if adding a new field
 	 * @param boolean $edit_mode Are we in edit mode? Lets us see context for labels etc
 	 * @param boolean $multi_use Is the tool or multi-use, if so tool stays selected after processing
+	 * @param string|NULL $sub_tool Sub tool name, will match the database
 	 * @param array|NULL $options Zend form options
 	 */
 	public function __construct($tool, $field_type, $post_uri, $form_id, array $field_data, $edit_mode=FALSE,
-		$multi_use=TRUE, $options=NULL)
+		$multi_use=TRUE, $sub_tool = NULL, $options=NULL)
 	{
 		$this->setTitles('Add <small>Email field</small>');
 
 		$this->setLabels('Add email field', 'Save');
 
-		parent::__construct($tool, $field_type, $post_uri, $form_id, $field_data, $edit_mode, $multi_use, $options);
+		parent::__construct($tool, $field_type, $post_uri, $form_id, $field_data, $edit_mode, $multi_use, $sub_tool,
+			$options);
 	}
 
 	/**
