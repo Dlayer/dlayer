@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Name field ribbon data class.
+ * Comment field ribbon data class.
  *
  * Returns the data for the requested tool tab ready to be passed to the view script. The viewData method needs to
  * always return an array, other than that there are no specific requirements for tools

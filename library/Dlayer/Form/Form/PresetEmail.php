@@ -1,7 +1,6 @@
 <?php
 /**
- * Form class for the preset name tool, allows the user to add a name field which is simply a text field with a few
- * options preset, once added it behaves as a text field
+ * Form class for the preset email tool, allows the user to add a email field which is simply an enmail field with a few  options preset, once added it behaves as a standard email field
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited

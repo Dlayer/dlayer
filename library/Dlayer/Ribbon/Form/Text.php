@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Text field ribbon data class.
  *
