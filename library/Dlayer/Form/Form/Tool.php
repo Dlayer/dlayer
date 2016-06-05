@@ -129,10 +129,14 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 
 		$this->elements['tool'] = $tool;
 
-		$sub_tool_model = new Zend_Form_Element_Hidden('sub_tool_model');
-		$sub_tool_model->setValue($this->sub_tool_model);
+		// Set sub tool
+		if($this->sub_tool !== NULL)
+		{
+			$sub_tool_model = new Zend_Form_Element_Hidden('sub_tool_model');
+			$sub_tool_model->setValue($this->sub_tool);
 
-		$this->elements['sub_tool_model'] = $sub_tool_model;
+			$this->elements['sub_tool_model'] = $sub_tool_model;
+		}
 
 		if($this->field_type !== '')
 		{
