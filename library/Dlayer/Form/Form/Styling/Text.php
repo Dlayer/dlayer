@@ -16,7 +16,8 @@ class Dlayer_Form_Form_Styling_Text extends Dlayer_Form_Form_Tool
 	 * @param string $field_type Field type, will match database
 	 * @param string $post_uri Uri to post form to
 	 * @param integer $form_id Id of the form selected in Form builder
-	 * @param array $field_data An array with a field for every element, the data will either be the current data if editing or FALSE if adding a new field
+	 * @param array $field_data An array with a field for every element, the data will either be the current data if
+	 *     editing or FALSE if adding a new field
 	 * @param boolean $edit_mode Are we in edit mode? Lets us see context for labels etc
 	 * @param boolean $multi_use Is the tool or multi-use, if so tool stays selected after processing
 	 * @param string|NULL $sub_tool Sub tool name, will match the database
@@ -40,20 +41,17 @@ class Dlayer_Form_Form_Styling_Text extends Dlayer_Form_Form_Tool
 	 */
 	protected function addUserElements()
 	{
-		$background_color = new Dlayer_Form_Element_ColorPicker(
-			'background_color');
+		$background_color = new Dlayer_Form_Element_ColorPicker('background_color');
 		$background_color->setLabel('Row background colour');
-		$background_color->setDescription('Choose a background colour for 
-			the row, to clear the colour using the clear button.');
+		$background_color->setDescription('Choose a background colour for the row, to clear the colour using the clear button.');
 		$background_color->setBelongsTo('params');
 		$background_color->addClearLink();
 		$background_color->setRequired();
-		if (array_key_exists('background_color', $this->field_data) == TRUE
+		if(array_key_exists('background_color', $this->field_data) === TRUE
 			&& $this->field_data['background_color'] != FALSE
 		)
 		{
-			$background_color->setValue(
-				$this->field_data['background_color']);
+			$background_color->setValue($this->field_data['background_color']);
 		}
 
 		$this->elements['background_color'] = $background_color;
