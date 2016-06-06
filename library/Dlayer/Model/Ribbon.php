@@ -1,29 +1,25 @@
 <?php
+
 /**
-* Ribbon model
-*
-* The ribbon displays the controls for the selected tool, there will always
-* be one tab but a tool can have many ribbon tabs
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-* @category Model
-*/
+ * The ribbon displays the controls for the selected tool, there will always be one tab but a tool can have many ribbon tabs
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
 class Dlayer_Model_Ribbon extends Zend_Db_Table_Abstract
 {
 	/**
-	* Fetches all the tabs for the selected tool, if the tool is considered
-	* to be in edit mode additional tool tabs can be pulled from the system
-	*
-	* @param string $module
-	* @param string $tool
-	* @param boolean $edit_mode There are tabs that only show in edit mode
-	* @return array
-	*/
-	public function tabs($module, $tool, $edit_mode=FALSE)
+	 * Fetches all the tabs for the selected tool, if the tool is in edit mode additional tool tabs can be pulled from the system
+	 *
+	 * @param string $module
+	 * @param string $tool
+	 * @param boolean $edit_mode Are there any edit only tabs
+	 * @return array
+	 */
+	public function tabs($module, $tool, $edit_mode = FALSE)
 	{
-		$sql = "SELECT dmtt.`name` AS tab_name, dmtt.view_script AS tab 
+		$sql = "SELECT dmtt.`name` AS tab_name, dmtt.view_script AS tab, dmtt.glyph 
 				FROM dlayer_module_tool_tab dmtt
 				JOIN dlayer_module_tool dmt ON dmtt.tool_id = dmt.id 
 					AND dmt.enabled = 1
@@ -33,7 +29,8 @@ class Dlayer_Model_Ribbon extends Zend_Db_Table_Abstract
 				WHERE dm.`name` = :module
 				AND dm.enabled = 1
 				AND dmtt.enabled = 1 ";
-		if($edit_mode == FALSE) {
+		if($edit_mode == FALSE)
+		{
 			$sql .= "AND dmtt.edit_mode = 0 ";
 		}
 		$sql .= "ORDER BY dmtt.sort_order ASC";
