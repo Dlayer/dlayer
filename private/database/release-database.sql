@@ -342,7 +342,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-06-01 14:36:08','2016-06-01 15:32:35',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-06-06 16:01:55','2016-06-06 16:09:13',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-05-29 15:57:54','2015-05-29 15:58:47',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-05-29 15:59:10','2015-05-29 16:25:10',1);
 
@@ -365,7 +365,7 @@ CREATE TABLE `dlayer_module` (
 insert  into `dlayer_module`(`id`,`name`,`title`,`description`,`sort_order`,`enabled`) values (1,'template','Template designer','The Template designer lets you create page templates',7,0);
 insert  into `dlayer_module`(`id`,`name`,`title`,`description`,`sort_order`,`enabled`) values (2,'widget','Widget designer','The Widget designer lets you to develop reusable content items',4,0);
 insert  into `dlayer_module`(`id`,`name`,`title`,`description`,`sort_order`,`enabled`) values (3,'form','Form builder','The Form builder lets you build web forms',2,1);
-insert  into `dlayer_module`(`id`,`name`,`title`,`description`,`sort_order`,`enabled`) values (4,'content','Content manager','The Content manager lets you create and manage all your site content',1,1);
+insert  into `dlayer_module`(`id`,`name`,`title`,`description`,`sort_order`,`enabled`) values (4,'content','Content manager','The Content manager lets you create and manage all your site content',1,0);
 insert  into `dlayer_module`(`id`,`name`,`title`,`description`,`sort_order`,`enabled`) values (5,'website','Web site manager (Preview)','The Web site manager lets you manage the relationships between all your site pages and data',5,1);
 insert  into `dlayer_module`(`id`,`name`,`title`,`description`,`sort_order`,`enabled`) values (6,'question','Question manager','Create quizzes, tests and polls. <span class=\"label label-default\">Planning</span>',99,0);
 insert  into `dlayer_module`(`id`,`name`,`title`,`description`,`sort_order`,`enabled`) values (7,'dlayer','Dlayer','Home',0,1);
@@ -450,6 +450,7 @@ CREATE TABLE `dlayer_module_tool_tab` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `view_script` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `sub_tool_model` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `glyph` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `multi_use` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `edit_mode` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `default` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -467,110 +468,110 @@ CREATE TABLE `dlayer_module_tool_tab` (
 
 /*Data for the table `dlayer_module_tool_tab` */
 
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (1,1,2,'Quick','quick',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (2,1,2,'Custom','advanced',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (3,1,2,'?','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (4,1,3,'Quick','quick',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (5,1,3,'Mouse','advanced',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (6,1,3,'?','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (7,1,7,'#1','palette-1',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (8,1,7,'#2','palette-2',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (9,1,7,'#3','palette-3',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (10,1,7,'Custom','advanced',NULL,0,0,0,4,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (11,1,7,'?','help',NULL,0,0,0,5,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (12,1,6,'Custom','advanced',NULL,0,0,0,4,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (14,1,6,'?','help',NULL,0,0,0,5,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (15,1,6,'Push','expand',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (16,1,6,'Pull','contract',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (17,1,6,'Height','height',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (20,1,8,'Custom','advanced',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (21,1,8,'?','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (22,1,8,'Full border','full',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (23,4,10,'Text','text',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (24,4,11,'Heading','heading',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (25,4,10,'Help','help',NULL,0,0,0,4,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (26,4,11,'Help','help',NULL,0,0,0,4,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (27,3,12,'Field','text',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (28,3,12,'Help','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (29,3,13,'Field','textarea',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (30,3,13,'Help','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (31,3,15,'Field','password',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (32,3,15,'Help','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (33,4,16,'Form','import-form',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (34,4,16,'Help','help',NULL,0,0,0,5,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (35,5,18,'Page','new-page',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (36,5,18,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (37,5,19,'Page','move-page',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (38,5,19,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (39,4,10,'Styles','styling','Styling_Text',1,1,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (40,4,11,'Styles','styling','Styling_Heading',1,1,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (41,4,16,'Styles','styling','Styling_ImportForm',1,1,0,4,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (42,3,20,'Field','preset-email',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (43,3,20,'Help','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (44,3,21,'Field','preset-name',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (45,3,21,'Help','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (46,4,16,'Size & position','position','Position_ImportForm',1,1,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (47,4,10,'Size & position','position','Position_Text',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (48,4,11,'Size & position','position','Position_Heading',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (49,3,12,'Styling','styling','Styling_Text',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (50,3,13,'Styling','styling','Styling_Textarea',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (51,3,15,'Styling','styling','Styling_Password',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (54,4,16,'Edit in Form builder','edit',NULL,0,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (55,4,22,'Import','import-text',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (56,4,22,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (57,4,23,'Import','import-heading',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (58,4,23,'Help','help',NULL,0,0,2,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (61,8,25,'Image','add',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (62,8,25,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (63,8,27,'Category','category',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (64,8,27,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (65,8,28,'Sub Category','subcategory',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (66,8,28,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (67,8,29,'Clone image','copy',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (68,8,29,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (69,8,30,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (70,8,31,'Edit image','edit',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (71,8,31,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (72,8,30,'Crop image','crop',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (73,4,32,'Row','add-content-row',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (74,4,32,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (77,4,34,'Jumbotron','jumbotron',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (78,4,34,'Help','help',NULL,0,0,0,4,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (79,4,34,'Styles','styling','Styling_Jumbotron',1,1,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (80,4,34,'Size & position','position','Position_Jumbotron',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (81,4,35,'Import','import-jumbotron',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (82,4,35,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (83,4,36,'Move','move-row',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (84,4,36,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (85,4,37,'Move','move-item',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (86,4,37,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (87,4,38,'Row','content-row',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (88,4,38,'Styles','styling','Styling_ContentRow',0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (89,4,39,'Image','image',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (90,4,39,'Help','help',NULL,0,0,0,4,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (91,4,40,'Carousel','carousel',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (92,4,40,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (93,4,39,'Size & position','position','Position_Image',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (94,4,39,'Styles','styling','Styling_Image',1,1,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (95,4,41,'Select','select',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (96,4,41,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (97,3,42,'Layout','form-layout',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (98,3,42,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (99,3,45,'Field','email',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (100,3,45,'Help','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (101,3,45,'Styling','styling','Styling_Email',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (102,3,43,'Actions','form-actions',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (103,3,43,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (104,3,44,'Options','form-settings',NULL,1,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (105,3,44,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (106,4,38,'Help','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (107,4,46,'Area','content-area',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (108,4,46,'Styles','styling','Styling_ContentArea',0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (109,4,46,'Help','help',NULL,0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (110,3,47,'Field','preset-comment',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (111,3,47,'Help','help',NULL,0,0,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (112,3,48,'Field','preset-password',NULL,0,0,1,1,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (113,3,48,'Help','help',NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (1,1,2,'Quick','quick',NULL,NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (2,1,2,'Custom','advanced',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (3,1,2,'?','help',NULL,NULL,0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (4,1,3,'Quick','quick',NULL,NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (5,1,3,'Mouse','advanced',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (6,1,3,'?','help',NULL,NULL,0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (7,1,7,'#1','palette-1',NULL,NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (8,1,7,'#2','palette-2',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (9,1,7,'#3','palette-3',NULL,NULL,0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (10,1,7,'Custom','advanced',NULL,NULL,0,0,0,4,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (11,1,7,'?','help',NULL,NULL,0,0,0,5,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (12,1,6,'Custom','advanced',NULL,NULL,0,0,0,4,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (14,1,6,'?','help',NULL,NULL,0,0,0,5,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (15,1,6,'Push','expand',NULL,NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (16,1,6,'Pull','contract',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (17,1,6,'Height','height',NULL,NULL,0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (20,1,8,'Custom','advanced',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (21,1,8,'?','help',NULL,NULL,0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (22,1,8,'Full border','full',NULL,NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (23,4,10,'Text','text',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (24,4,11,'Heading','heading',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (25,4,10,'Help','help',NULL,NULL,0,0,0,4,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (26,4,11,'Help','help',NULL,NULL,0,0,0,4,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (27,3,12,'Field','text',NULL,'pencil',1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (28,3,12,'Help','help',NULL,'info-sign',0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (29,3,13,'Field','textarea',NULL,'pencil',1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (30,3,13,'Help','help',NULL,'info-sign',0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (31,3,15,'Field','password',NULL,'pencil',1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (32,3,15,'Help','help',NULL,'info-sign',0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (33,4,16,'Form','import-form',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (34,4,16,'Help','help',NULL,NULL,0,0,0,5,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (35,5,18,'Page','new-page',NULL,'pencil',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (36,5,18,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (37,5,19,'Page','move-page',NULL,'transfer',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (38,5,19,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (39,4,10,'Styles','styling','Styling_Text',NULL,1,1,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (40,4,11,'Styles','styling','Styling_Heading',NULL,1,1,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (41,4,16,'Styles','styling','Styling_ImportForm',NULL,1,1,0,4,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (42,3,20,'Field','preset-email',NULL,'pencil',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (43,3,20,'Help','help',NULL,'info-sign',0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (44,3,21,'Field','preset-name',NULL,'pencil',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (45,3,21,'Help','help',NULL,'info-sign',0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (46,4,16,'Size & position','position','Position_ImportForm',NULL,1,1,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (47,4,10,'Size & position','position','Position_Text',NULL,1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (48,4,11,'Size & position','position','Position_Heading',NULL,1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (49,3,12,'Styling','styling','Styling_Text','tint',1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (50,3,13,'Styling','styling','Styling_Textarea','tint',1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (51,3,15,'Styling','styling','Styling_Password','tint',1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (54,4,16,'Edit in Form builder','edit',NULL,NULL,0,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (55,4,22,'Import','import-text',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (56,4,22,'Help','help',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (57,4,23,'Import','import-heading',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (58,4,23,'Help','help',NULL,NULL,0,0,2,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (61,8,25,'Image','add',NULL,'upload',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (62,8,25,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (63,8,27,'Category','category',NULL,'pencil',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (64,8,27,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (65,8,28,'Sub Category','subcategory',NULL,'pencil',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (66,8,28,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (67,8,29,'Clone image','copy',NULL,'copy',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (68,8,29,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (69,8,30,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (70,8,31,'Edit image','edit',NULL,'pencil',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (71,8,31,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (72,8,30,'Crop image','crop',NULL,'resize-small',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (73,4,32,'Row','add-content-row',NULL,NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (74,4,32,'Help','help',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (77,4,34,'Jumbotron','jumbotron',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (78,4,34,'Help','help',NULL,NULL,0,0,0,4,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (79,4,34,'Styles','styling','Styling_Jumbotron',NULL,1,1,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (80,4,34,'Size & position','position','Position_Jumbotron',NULL,1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (81,4,35,'Import','import-jumbotron',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (82,4,35,'Help','help',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (83,4,36,'Move','move-row',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (84,4,36,'Help','help',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (85,4,37,'Move','move-item',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (86,4,37,'Help','help',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (87,4,38,'Row','content-row',NULL,NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (88,4,38,'Styles','styling','Styling_ContentRow',NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (89,4,39,'Image','image',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (90,4,39,'Help','help',NULL,NULL,0,0,0,4,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (91,4,40,'Carousel','carousel',NULL,NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (92,4,40,'Help','help',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (93,4,39,'Size & position','position','Position_Image',NULL,1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (94,4,39,'Styles','styling','Styling_Image',NULL,1,1,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (95,4,41,'Select','select',NULL,NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (96,4,41,'Help','help',NULL,NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (97,3,42,'Layout','form-layout',NULL,'wrench',1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (98,3,42,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (99,3,45,'Field','email',NULL,'pencil',1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (100,3,45,'Help','help',NULL,'info-sign',0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (101,3,45,'Styling','styling','Styling_Email','tint',1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (102,3,43,'Actions','form-actions',NULL,'wrench',1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (103,3,43,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (104,3,44,'Options','form-settings',NULL,'wrench',1,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (105,3,44,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (106,4,38,'Help','help',NULL,NULL,0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (107,4,46,'Area','content-area',NULL,NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (108,4,46,'Styles','styling','Styling_ContentArea',NULL,0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (109,4,46,'Help','help',NULL,NULL,0,0,0,3,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (110,3,47,'Field','preset-comment',NULL,'pencil',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (111,3,47,'Help','help',NULL,'info-sign',0,0,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (112,3,48,'Field','preset-password',NULL,'pencil',0,0,1,1,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`view_script`,`sub_tool_model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (113,3,48,'Help','help',NULL,'info-sign',0,0,0,2,1);
 
 /*Table structure for table `dlayer_session` */
 
@@ -591,6 +592,7 @@ insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifeti
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('30otermdbre3migtp5jml666g2','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1464077056,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1464080656;}}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('38tgd1v43mmnvs0qt0b80769c6','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1463923416,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1463927015;}}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('3u6ucr97de8vfeelpbu229dkd0','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1458768722,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1458772322;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1458772319;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1458772322;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1458772322;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_form|a:5:{s:7:\"form_id\";i:1;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;}dlayer_session_content|a:7:{s:7:\"page_id\";i:1;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";i:1;}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('43u3i2h735m548vl0tbr21r8s7','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1465225758,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1465229358;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1465229358;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1465229358;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1465229358;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1465229358;}}dlayer_session_image|a:8:{s:9:\"edit_mode\";i:1;s:9:\"image_ids\";a:0:{}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:10:\"tool_model\";s:8:\"Category\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";N;}dlayer_session_content|a:6:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;}dlayer_session_form|a:5:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('5bp20cckohk2hpjc78lpc50mn3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1461597646,3601,'__ZF|a:4:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1461601246;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1461601246;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1461600750;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1461601246;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:8:{s:7:\"page_id\";i:1;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";i:1;s:10:\"tool_model\";s:7:\"Heading\";}dlayer_session_form|a:6:{s:7:\"form_id\";i:1;s:8:\"field_id\";i:2;s:4:\"tool\";s:5:\"email\";s:3:\"tab\";s:5:\"email\";s:6:\"return\";N;s:10:\"tool_model\";s:5:\"Email\";}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('6dosotk67riqfc3qfmj25tpft6','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1464445965,3601,'__ZF|a:6:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1464449565;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1464449565;}s:22:\"dlayer_session_website\";a:1:{s:3:\"ENT\";i:1464449563;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1464449565;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1464449565;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1464449565;}}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:5:\"Email\";}dlayer_session_website|a:2:{s:7:\"page_id\";N;s:4:\"tool\";N;}dlayer_session_content|a:6:{s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_image|a:8:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}s:9:\"edit_mode\";i:1;s:4:\"sort\";N;s:10:\"sort_order\";N;s:10:\"tool_model\";s:8:\"Category\";s:16:\"tool_destructive\";s:1:\"0\";}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('74dkqhpuj9ckvrfc06fjsrlrm3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1463929207,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1463932807;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1463932807;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:7:{s:7:\"page_id\";i:4;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}');
@@ -598,10 +600,11 @@ insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifeti
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('96rigape9pmohag4tt750853b1','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1458840952,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1458844552;}}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('dj496elnn6ijmf88ea154r8fm4','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1458033763,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1458037363;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1458037363;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:4:\"form\";}dlayer_session_form|a:6:{s:7:\"form_id\";i:1;s:8:\"field_id\";N;s:4:\"tool\";s:11:\"form-layout\";s:3:\"tab\";s:4:\"help\";s:6:\"return\";N;s:10:\"tool_model\";s:10:\"FormLayout\";}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('h3otk1s2arvgh9u27hkbd7cu71','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1458490035,3601,'__ZF|a:7:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1458493635;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1458493442;}s:22:\"dlayer_session_website\";a:1:{s:3:\"ENT\";i:1458493408;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1458493442;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1458493442;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1458493442;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1458493442;}}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:5:\"Email\";}dlayer_session_website|a:2:{s:7:\"page_id\";N;s:4:\"tool\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_content|a:7:{s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;s:11:\"template_id\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('hqe8fbsvkc7cbb0o47p0ejv3d0','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1465225162,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1465228762;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1465228454;}s:22:\"dlayer_session_website\";a:1:{s:3:\"ENT\";i:1465228762;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"website\";}dlayer_session_form|a:6:{s:7:\"form_id\";i:1;s:8:\"field_id\";N;s:4:\"tool\";s:13:\"form-settings\";s:3:\"tab\";s:4:\"help\";s:6:\"return\";N;s:10:\"tool_model\";s:12:\"FormSettings\";}dlayer_session_website|a:5:{s:7:\"page_id\";N;s:4:\"tool\";s:8:\"new-page\";s:10:\"tool_model\";s:7:\"NewPage\";s:16:\"tool_destructive\";s:1:\"0\";s:3:\"tab\";s:8:\"new-page\";}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('ked7qa7jd05frq3jqcrlipl435','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1464302334,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1464305934;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1464305930;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1464305934;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:4:\"form\";}dlayer_session_content|a:6:{s:7:\"page_id\";i:3;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;}dlayer_session_form|a:1:{s:7:\"form_id\";N;}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('kic9g1f4a3fsf72n06jco9kkv2','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1459355643,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1459359242;}}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('kp0a7qf7rk30ump6a29a9mi1g4','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1463761833,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1463765432;}}');
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('l3tkb3e6ecor3l1anao60qt9c4','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1464791557,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1464795157;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1464795157;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1464795157;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1464795157;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1464795157;}}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:12:\"FormSettings\";}dlayer_session_content|a:6:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('l3tkb3e6ecor3l1anao60qt9c4','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1465038452,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1465042052;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1465042052;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:4:\"form\";}dlayer_session_form|a:6:{s:7:\"form_id\";i:1;s:8:\"field_id\";i:9;s:4:\"tool\";s:8:\"password\";s:3:\"tab\";s:8:\"password\";s:6:\"return\";N;s:10:\"tool_model\";s:8:\"Password\";}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('lqf2c01ipahljt5te3b7e3j8a3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1463842350,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1463845950;}}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('qils08vu6he9apqgd390bfs876','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1458760883,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1458764482;}}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('r85hra1csep8hk2819j9iqoh30','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1458603915,3601,'__ZF|a:6:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1458607515;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1458607515;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1458607515;}s:23:\"dlayer_session_template\";a:1:{s:3:\"ENT\";i:1458607515;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1458607515;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1458607515;}}dlayer_session_content|a:7:{s:7:\"page_id\";N;s:6:\"div_id\";N;s:14:\"content_row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_template|a:4:{s:6:\"div_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:11:\"template_id\";N;}dlayer_session_form|a:5:{s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:7:\"form_id\";N;s:6:\"return\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
@@ -698,7 +701,7 @@ CREATE TABLE `user_setting_color_history` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   CONSTRAINT `user_setting_color_history_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_setting_color_history` */
 
@@ -768,6 +771,17 @@ insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (72
 insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (73,1,'#5cb85c');
 insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (74,1,'#5bc0de');
 insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (75,1,'#337ab7');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (76,4,'#337ab7');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (77,4,'#5cb85c');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (78,4,'#555555');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (79,4,'#EEEEEE');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (80,4,'#f0ad4e');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (81,1,'#5cb85c');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (82,1,'#f0ad4e');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (83,1,'#5cb85c');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (84,1,'#5bc0de');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (85,1,'#f0ad4e');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (86,1,'#d9534f');
 
 /*Table structure for table `user_setting_color_palette` */
 
@@ -781,7 +795,7 @@ CREATE TABLE `user_setting_color_palette` (
   KEY `site_id` (`site_id`),
   KEY `view_script` (`view_script`),
   CONSTRAINT `user_setting_color_palette_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_setting_color_palette` */
 
@@ -791,6 +805,8 @@ insert  into `user_setting_color_palette`(`id`,`site_id`,`name`,`view_script`,`s
 insert  into `user_setting_color_palette`(`id`,`site_id`,`name`,`view_script`,`sort_order`) values (4,2,'Palette 2','palette-2',2);
 insert  into `user_setting_color_palette`(`id`,`site_id`,`name`,`view_script`,`sort_order`) values (5,3,'Palette 1','palette-1',1);
 insert  into `user_setting_color_palette`(`id`,`site_id`,`name`,`view_script`,`sort_order`) values (6,3,'Palette 2','palette-2',2);
+insert  into `user_setting_color_palette`(`id`,`site_id`,`name`,`view_script`,`sort_order`) values (7,4,'Palette 1','palette-1',1);
+insert  into `user_setting_color_palette`(`id`,`site_id`,`name`,`view_script`,`sort_order`) values (8,4,'Palette 2','palette-2',2);
 
 /*Table structure for table `user_setting_color_palette_color` */
 
@@ -808,7 +824,7 @@ CREATE TABLE `user_setting_color_palette_color` (
   CONSTRAINT `user_setting_color_palette_color_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_setting_color_palette_color_ibfk_2` FOREIGN KEY (`palette_id`) REFERENCES `user_setting_color_palette` (`id`),
   CONSTRAINT `user_setting_color_palette_color_ibfk_3` FOREIGN KEY (`color_type_id`) REFERENCES `designer_color_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_setting_color_palette_color` */
 
@@ -840,6 +856,16 @@ insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`col
 insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (34,3,6,3,'Light blue','#5bc0de');
 insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (35,3,6,4,'Amber','#f0ad4e');
 insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (36,3,6,5,'Red','#d9534f');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (37,4,7,1,'Black','#000000');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (38,4,7,3,'Dark grey','#333333');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (39,4,7,3,'Grey','#555555');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (40,4,7,4,'Light grey','#777777');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (41,4,7,5,'Off white','#EEEEEE');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (42,4,8,1,'Blue','#337ab7');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (43,4,8,3,'Green','#5cb85c');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (44,4,8,3,'Light blue','#5bc0de');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (45,4,8,4,'Amber','#f0ad4e');
+insert  into `user_setting_color_palette_color`(`id`,`site_id`,`palette_id`,`color_type_id`,`name`,`color_hex`) values (46,4,8,5,'Red','#d9534f');
 
 /*Table structure for table `user_setting_font_family` */
 
@@ -855,7 +881,7 @@ CREATE TABLE `user_setting_font_family` (
   CONSTRAINT `user_setting_font_family_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_setting_font_family_ibfk_2` FOREIGN KEY (`module_id`) REFERENCES `dlayer_module` (`id`),
   CONSTRAINT `user_setting_font_family_ibfk_3` FOREIGN KEY (`font_family_id`) REFERENCES `designer_css_font_family` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_setting_font_family` */
 
@@ -865,6 +891,8 @@ insert  into `user_setting_font_family`(`id`,`site_id`,`module_id`,`font_family_
 insert  into `user_setting_font_family`(`id`,`site_id`,`module_id`,`font_family_id`) values (4,2,4,1);
 insert  into `user_setting_font_family`(`id`,`site_id`,`module_id`,`font_family_id`) values (5,3,3,1);
 insert  into `user_setting_font_family`(`id`,`site_id`,`module_id`,`font_family_id`) values (6,3,4,1);
+insert  into `user_setting_font_family`(`id`,`site_id`,`module_id`,`font_family_id`) values (7,4,3,1);
+insert  into `user_setting_font_family`(`id`,`site_id`,`module_id`,`font_family_id`) values (8,4,4,1);
 
 /*Table structure for table `user_setting_heading` */
 
@@ -889,7 +917,7 @@ CREATE TABLE `user_setting_heading` (
   CONSTRAINT `user_setting_heading_ibfk_4` FOREIGN KEY (`weight_id`) REFERENCES `designer_css_text_weight` (`id`),
   CONSTRAINT `user_setting_heading_ibfk_5` FOREIGN KEY (`decoration_id`) REFERENCES `designer_css_text_decoration` (`id`),
   CONSTRAINT `user_setting_heading_ibfk_6` FOREIGN KEY (`heading_id`) REFERENCES `designer_content_heading` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_setting_heading` */
 
@@ -911,6 +939,12 @@ insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weig
 insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (16,3,4,1,4,1,18,'#000000',4);
 insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (17,3,5,1,4,1,14,'#000000',5);
 insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (18,3,6,1,4,1,12,'#000000',6);
+insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (19,4,1,1,2,1,22,'#000000',1);
+insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (20,4,2,1,2,1,18,'#000000',2);
+insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (21,4,3,1,2,1,16,'#000000',3);
+insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (22,4,4,1,2,2,14,'#000000',4);
+insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (23,4,5,2,2,1,14,'#000000',5);
+insert  into `user_setting_heading`(`id`,`site_id`,`heading_id`,`style_id`,`weight_id`,`decoration_id`,`size`,`color_hex`,`sort_order`) values (24,4,6,1,1,1,12,'#000000',6);
 
 /*Table structure for table `user_site` */
 
@@ -921,13 +955,14 @@ CREATE TABLE `user_site` (
   PRIMARY KEY (`id`),
   KEY `identity_id` (`identity_id`),
   CONSTRAINT `user_site_ibfk_1` FOREIGN KEY (`identity_id`) REFERENCES `dlayer_identity` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site` */
 
 insert  into `user_site`(`id`,`identity_id`,`name`) values (1,1,'Sample site 1');
 insert  into `user_site`(`id`,`identity_id`,`name`) values (2,2,'Sample site 1');
 insert  into `user_site`(`id`,`identity_id`,`name`) values (3,3,'Sample site 1');
+insert  into `user_site`(`id`,`identity_id`,`name`) values (4,1,'Test site');
 
 /*Table structure for table `user_site_content_heading` */
 

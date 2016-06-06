@@ -1,29 +1,45 @@
 <script>
-$(document).ready(function() 
-{
-    dlayer.ribbon.tabs.clicks('<?php echo $this->escape($this->module); ?>', 
-    '<?php echo $this->escape($this->tool); ?>');
-    dlayer.ribbon.tabs.content('<?php echo $this->escape($this->tab); ?>', 
-    '<?php echo $this->escape($this->tool); ?>', 
-    '<?php echo $this->escape($this->module); ?>');
+$(document).ready(function () {
+	dlayer.ribbon.tabs.clicks('<?php echo $this->escape($this->module); ?>',
+		'<?php echo $this->escape($this->tool); ?>');
+	dlayer.ribbon.tabs.content('<?php echo $this->escape($this->tab); ?>',
+		'<?php echo $this->escape($this->tool); ?>',
+		'<?php echo $this->escape($this->module); ?>');
 });
 </script>
 
 <div class="row">
 	<div class="col-xs-12">
 		<ul class="nav nav-tabs">
-			<?php foreach($this->tabs as $tab) { ?>
-			<?php if($tab['tab'] == $this->tab) { $class = 'active'; } else { $class = NULL; } ?>
-			<li id="tab_<?php echo $this->escape($tab['tab']); ?>" 
-				role="presentation" class="<?php echo $class; ?>">
-				<a href="#"><?php echo $this->escape($tab['tab_name']); ?></a>
-			</li>
+			<?php foreach($this->tabs as $tab)
+			{ ?>
+				<?php if($tab['tab'] == $this->tab)
+			{
+				$class = 'active';
+			}
+			else
+			{
+				$class = NULL;
+			} ?>
+				<li id="tab_<?php echo $this->escape($tab['tab']); ?>"role="presentation" class="<?php echo $class; ?>">
+					<a href="#" title="<?php echo $this->escape($tab['tab_name']); ?>">
+						<span class="glyphicon glyphicon-<?php echo $this->escape($tab['glyph']); ?>" aria-hidden="true"></span> <span class="hidden-xs"> <?php echo $this->escape($tab['tab_name']); ?></span>
+					</a>
+				</li>
 			<?php } ?>
 		</ul>
 	</div>
 </div>
 
-<?php foreach($this->tabs as $tab) { ?>
-    <?php if($tab['tab'] == $this->tab) { $class = ' open'; } else { $class = NULL; } ?>
-    <div id="tab_content_<?php echo $this->escape($tab['tab']); ?>" class="row content<?php echo $class; ?>"></div>
+<?php foreach($this->tabs as $tab)
+{ ?>
+	<?php if($tab['tab'] == $this->tab)
+{
+	$class = ' open';
+}
+else
+{
+	$class = NULL;
+} ?>
+	<div id="tab_content_<?php echo $this->escape($tab['tab']); ?>" class="row content<?php echo $class; ?>"></div>
 <?php } ?>
