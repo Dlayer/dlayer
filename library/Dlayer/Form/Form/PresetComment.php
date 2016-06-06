@@ -23,7 +23,7 @@ class Dlayer_Form_Form_PresetComment extends Dlayer_Form_Form_Tool
 	 * @param array|NULL $options Zend form options
 	 */
 	public function __construct($tool, $field_type, $post_uri, $form_id, array $field_data, $edit_mode = FALSE,
-		$multi_use = TRUE, $sub_tool, $options = NULL)
+		$multi_use = TRUE, $sub_tool = NULL, $options = NULL)
 	{
 		$this->setTitles('Add <small>Comment field</small>');
 
