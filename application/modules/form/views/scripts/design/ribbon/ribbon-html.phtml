@@ -23,7 +23,7 @@ $(document).ready(function () {
 			} ?>
 				<li id="tab_<?php echo $this->escape($tab['tab']); ?>" role="presentation" class="<?php echo $class; ?>">
 				<a href="#" title="<?php echo $this->escape($tab['tab_name']); ?>">
-				<span class="glyphicon glyphicon-<?php echo $this->escape($tab['glyph']); ?>" aria-hidden="true"></span> <span class="visible-md-inline visible-sm-inline"><?php echo $this->escape($tab['tab_name']); ?></span>
+				<span class="glyphicon glyphicon-<?php echo $this->escape($tab['glyph']); ?>" aria-hidden="true"></span> <span class="visible-md-inline visible-sm-inline"> <?php echo $this->escape($tab['tab_name']); ?></span>
 				</a>
 			</li>
 			<?php } ?>
