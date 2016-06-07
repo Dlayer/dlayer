@@ -1,11 +1,10 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <div class="col-md-12 col-sm-12">
-<?php if($this->edit_mode == TRUE) { ?>
+<?php if($this->edit_mode === TRUE) { ?>
 	<script type="text/javascript">
-		dlayer.preview.form.fn.rowBackgroundColor(<?php echo $this->escape(
-			$this->data['preview_data']['field_id']); ?>, '<?php echo $this->escape(
-			$this->data['preview_data']['background_color']); ?>');
+		/*Preview function for row background colour */
+		previewFormBuilder.rowBackgroundColor(<?php echo $this->escape($this->data['preview_data']['field_id']); ?>, '<?php echo $this->escape($this->data['preview_data']['background_color']); ?>');
 	</script>
 
 	<p class="dev-note bg-danger unsaved">Data has been modified!</p>
@@ -13,13 +12,12 @@
 </div>
 
 <div class="col-md-12 col-sm-12">
-<?php echo $this->colorPicker()->picker($this->color_picker_data['palettes'], 
-	$this->color_picker_data['history'], TRUE, TRUE); ?>
+<?php echo $this->colorPicker()->picker($this->color_picker_data['palettes'], $this->color_picker_data['history'], TRUE, TRUE); ?>
 </div>
 
 <div class="col-md-12 col-sm-12">
 <?php 
-if($this->data != FALSE) {
+if($this->data !== FALSE) {
 	echo $this->data['form'];
 }
 ?>
