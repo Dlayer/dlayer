@@ -108,8 +108,6 @@ class Form_ProcessController extends Zend_Controller_Action
 				
 			// Clear session vars
 			$this->session_form->clearAll();
-			
-			//var_dump($return_ids); die;
 
 			// Set new vars
 			if(is_array($return_ids) == TRUE) {
@@ -162,10 +160,10 @@ class Form_ProcessController extends Zend_Controller_Action
 		}
 
 		if($this->debug == 0) {
-			if($multi_use == FALSE) {
-				$this->_redirect('form/design/set-tool/tool/cancel');
+			if($multi_use === FALSE) {
+				$this->redirect('form/design/set-tool/tool/cancel');
 			} else {
-				$this->_redirect('form/design/');
+				$this->redirect('form/design/');
 			}
 		}
 	}

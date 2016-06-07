@@ -423,41 +423,6 @@ var dlayer = {
 					   'html');
 			}
 		}, 
-		
-		form: {			
-			fn: {
-                /** 
-                * Toggle for the additional fields on tool forms, these are 
-                * fields that the user can change but the vast majority of the 
-                * time the defaults will suffice
-				* 
-				* @returns {Void}
-				*/
-				toggleAdditionalFields: function() 
-				{
-					$('div.form-group-collapsed label').on('click', function() 
-                    {
-                        var toggle_element = $(this).find('span');
-                        var field_to_show = '#params-' + 
-                            toggle_element.attr('id').replace('fgc-', '');
-						
-						if(toggle_element.hasClass('glyphicon-plus')) 
-                        {
-                            toggle_element.removeClass('glyphicon-plus').addClass('glyphicon-minus');
-								
-							$(field_to_show).show();
-							$(field_to_show).next('p.help-block').show();
-						} else {
-							toggle_element.removeClass('glyphicon-minus').
-                                addClass('glyphicon-plus');
-								
-							$(field_to_show).hide();
-							$(field_to_show).next('p.help-block').hide();
-						}
-					});
-				}																
-			}
-		}
 	},
 	tools: {
 		
@@ -929,35 +894,6 @@ var dlayer = {
 				}
 			}
 		}, 
-		
-		form: {
-			
-			fn: {
-				
-				/**
-				* Toggle the width of the builder form designer
-				* 
-				* @returns {Void}
-				*/
-				toggleTestWidths: function() {
-					
-					$(".set-form-display-size a").on("click", function() {
-						
-						// Update button status
-						$('.set-form-display-size a').removeClass(
-							'btn-primary').addClass('btn-default');
-						$(this).addClass('btn-primary');
-						
-						// Fetch requested size
-						var size = this.id.replace('size-', '');
-						
-						$('.builder-form').removeClass(
-							'col-md-12 col-md-9 col-md-6 col-md-3').addClass(
-							'col-md-' + size);
-					});
-				}
-			}
-		}
 	},
 	
 	preview: {
@@ -2562,46 +2498,6 @@ var dlayer = {
 				}
 			);
 		},
-		
-		/**
-		* Select function for the forms module, allows a form input to be 
-		* selected so that it can be edited
-		*
-		* @returns {Void}
-		*/
-		form: function()
-		{
-			$('div.builder-form div.field_row').hover(
-                function() {
-                    console.log('here');
-					if($(this).hasClass('selected') == false) {
-						background_color = $(this).css('background-color');
-						$(this).css('background-color', '#e1dc50');
-						$(this).css('cursor', 'pointer');
-						$(this).find('.move').show();
-					}
-				},
-				function() {
-					if($(this).hasClass('selected') == false) {
-						$(this).css('background-color', background_color);
-						$(this).find('.move').hide();
-					}
-				}
-			);
-			$('div.builder-form div.field_row').click(
-				function() {
-					if($(this).hasClass('selected') == false) {
-						$(this).css('background-color','#c3be50');
-						
-						var params = this.id.split(':');
-
-						window.location.replace(
-						'/form/design/set-selected-field/selected/' + params[2] +
-						'/tool/' + params[1] + '/type/' + params[0]);
-					}
-				}
-			);
-		}
 	},
 	movers: {
 			
@@ -2642,46 +2538,7 @@ var dlayer = {
 				}
 			);
 		},
-		
-		/**
-		* Attach the movement controls and events, allows a form field to be 
-		* moved up and down on the form
-		*
-		* @return {Void}
-		*/
-		formFields: function()
-		{
-			var fields = $('#form .field_row').length - 1;
 
-			$('#design .field_row').each(function(index) {
-				var params = this.id.split(':');
-
-				if(index !== 0) {
-					$(this).prepend('<div class="btn btn-xs btn-primary btn-block move move-' + params[1] +
-					'" id="up:' + params[0] + ':' + params[2] + '">Display sooner</div>');
-				}
-				if(index !== fields) {
-					$(this).append('<div class="btn btn-xs btn-primary btn-block move move-' + params[1] +
-					'" id="down:' + params[0] + ':' + params[2] + '">Display later</div>');
-				}
-			});
-
-			$('#design .field_row > .move').click(
-				function() {
-					$(this).css('background-color','#505050');
-					$(this).css('color','#ebebeb');
-
-					var params = this.id.split(':');
-
-					window.location.replace(
-					'/form/design/move-field/direction/' + params[0] +
-					'/type/' + params[1] + '/field-id/' + params[2]);
-
-					return false;
-				}
-			);
-		},
-		
 		/**
 		* Generate the html for the movement buttons
 		* 

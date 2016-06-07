@@ -52,6 +52,7 @@ class Form_DesignController extends Zend_Controller_Action
 			array(
 				'scripts/dlayer.js',
 				'scripts/designer.js',
+				'scripts/form-builder.js',
 			)
 		);
 		$this->layout->assign('css_include',
@@ -316,9 +317,9 @@ class Form_DesignController extends Zend_Controller_Action
 
 		$tool = $this->getRequest()->getParam('tool');
 
-		if($tool != NULL && strlen($tool) > 0)
+		if($tool !== NULL && strlen($tool) > 0)
 		{
-			if($tool != 'cancel')
+			if($tool !== 'cancel')
 			{
 				if($this->session_form->setTool($tool) == TRUE)
 				{
@@ -327,7 +328,7 @@ class Form_DesignController extends Zend_Controller_Action
 					{
 						$this->session_form->clearFieldId();
 					}
-					$this->_redirect('/form/design');
+					$this->redirect('/form/design');
 				}
 				else
 				{
