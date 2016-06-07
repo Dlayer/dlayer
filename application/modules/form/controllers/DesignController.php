@@ -52,6 +52,7 @@ class Form_DesignController extends Zend_Controller_Action
 			array(
 				'scripts/dlayer.js',
 				'scripts/designer.js',
+				'scripts/form-builder.js',
 			)
 		);
 		$this->layout->assign('css_include',
