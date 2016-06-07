@@ -3,8 +3,8 @@ Dlayer
 
 Warning
 --------
-Until the official v1.00 beta release the master branch can't be trusted, I will be pushing updates from my personal fork which will both break section of the app and remove some of the current functionality. Up until this point (28nd May 2016) master has always been stable(ish), after the the v1.00 release it will be again, for now though it is just easier for me to commit a cardinal sin. 
-
+Until the official v1.00 beta release the master branch can't be trusted, I will be pushing updates from my personal fork which will both break sections of the app and remove some of the current functionality. Up until this point (28th May 2016) master has always been stable(ish), after the the v1.00 release it will be again, for now though it is just easier for me to commit a cardinal sin.
+  
 Overview
 --------
 
@@ -12,6 +12,8 @@ Dlayer is a responsive web development tool aimed primarily at users that don't 
 
 * Copyright: G3D Development Limited
 * Original author: Dean Blackborough <dean@g3d-development.com>
+* License https://github.com/Dlayer/dlayer/blob/master/LICENSE
+* Contributions (Coding standards) http://www.dlayer.com/coding-standards.html
 
 Requires
 ---------
@@ -23,8 +25,7 @@ Requires
 Documentation 
 ---------
 
-Check http://www.dlayer.com/docs/ for the latest docs and a link to the current 
-demo.
+Check http://www.dlayer.com/docs/ for the latest docs and a link to the current demo.
 
 Setup
 ---------
