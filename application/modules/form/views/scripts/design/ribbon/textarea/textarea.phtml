@@ -1,26 +1,19 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <script>
-<?php if($this->edit_mode == TRUE && $this->data['preview_data'] != FALSE) { ?>
-dlayer.preview.form.fn.row_attribute(<?php echo $this->escape(
-	$this->data['preview_data']['field']['id']); ?>, 'label', 'label', '<?php echo $this->escape(
-	$this->data['preview_data']['field']['label']); ?>');
-dlayer.preview.form.fn.row_attribute(<?php echo $this->escape(
-	$this->data['preview_data']['field']['id']); ?>, 'description', 'p.help-block', '<?php echo $this->escape(
-	$this->data['preview_data']['field']['description']); ?>', true);
+<?php if($this->edit_mode === TRUE && $this->data['preview_data'] !== FALSE) { ?>
+/*Preview functions for row attributes, label and description*/
+previewFormBuilder.rowAttribute(<?php echo $this->escape($this->data['preview_data']['field']['id']); ?>, 'label', 'label', '<?php echo $this->escape($this->data['preview_data']['field']['label']); ?>');
+dlayer.preview.form.fn.row_attribute(<?php echo $this->escape($this->data['preview_data']['field']['id']); ?>, 'description', 'p.help-block', '<?php echo $this->escape($this->data['preview_data']['field']['description']); ?>', true);
+/*Preview function for element attributes */
 <?php foreach($this->data['preview_data']['preview_js'] as $preview) { ?>
-	dlayer.preview.form.fn.<?php echo $this->escape(
-		$preview['method']); ?>(<?php echo $this->escape(
-		$preview['field_id']); ?>, '<?php echo $this->escape(
-			$preview['attribute']); ?>', '<?php echo $this->escape(
-			$preview['attribute']); ?>', '<?php echo $this->escape(
-			$preview['attribute_value']); ?>');
-		<?php } ?>
+previewFormBuilder.<?php echo $this->escape($preview['method']); ?>(<?php echo $this->escape($preview['field_id']); ?>, '<?php echo $this->escape($preview['attribute']); ?>', '<?php echo $this->escape($preview['attribute']); ?>', '<?php echo $this->escape($preview['attribute_value']); ?>');
+<?php } ?>
 <?php } ?>
 formBuilder.toggleAdditionalFields();
 </script>
 
-<?php if($this->edit_mode == TRUE && $this->data['preview_data'] != FALSE) { ?>
+<?php if($this->edit_mode === TRUE && $this->data['preview_data'] !== FALSE) { ?>
 <div class="col-md-12 col-sm-12">
 	<p class="dev-note bg-danger unsaved">Data has been modified!</p>
 </div>
@@ -28,7 +21,7 @@ formBuilder.toggleAdditionalFields();
 
 <div class="col-md-12 col-sm-12">
 <?php 
-if($this->data != FALSE) {
+if($this->data !== FALSE) {
 	echo $this->data['form'];
 }
 ?>
