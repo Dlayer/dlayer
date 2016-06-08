@@ -119,7 +119,6 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$model_module = new Dlayer_Model_Module();
 
-		$this->view->div_id = $this->session_content->divId();
 		$this->view->content_row_id = $this->session_content->contentRowId();
 		$this->view->content_id = $this->session_content->contentId();
 
@@ -362,8 +361,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->base_font_family_form = $designer_page_styles->baseFontFamilyFormBuilder();
 
 		// Fetch the data that defines the structure of the page
-		$this->view->template = $designer_page->template();
-		$this->view->content_rows = $designer_page->contentRows();
+		$this->view->rows = $designer_page->rows();
 		$this->view->content = $designer_page->content();
 
 		// Fetch the defined styles for this content page by item type
@@ -374,7 +372,6 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->form_styles = $designer_page_styles->formStyles();
 
 		// Set the vars which determine the selection state
-		$this->view->div_id = $this->session_content->divId();
 		$this->view->content_row_id = $this->session_content->contentRowId();
 		$this->view->content_id = $this->session_content->contentId();
 

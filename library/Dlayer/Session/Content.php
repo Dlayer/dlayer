@@ -73,26 +73,6 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 		return $this->content_row_id;
 	}
 
-	/**
-	* Set the id of the block that the user wants to add content to.
-	* 
-	* By default when a user sets a content block id the id of any content rows 
-	* and content items is cleared
-	* 
-	* @param integer $id
-	* @param boolean $clear_content_ids Clear the content row id and content id
-	* @return void
-	*/
-	public function setDivId($id, $clear_content_ids=TRUE) 
-	{
-		$this->div_id = intval($id);
-
-		if($clear_content_ids == TRUE) {
-			$this->content_id = NULL;
-			$this->content_row_id = NULL;
-		}
-	}
-
 	/** 
 	* Clear the currently set content id value, content_id is set to NULL
 	* 
@@ -128,16 +108,6 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 		} else {
 			return FALSE;
 		}
-	}
-
-	/**
-	* Get the id of the selected template div
-	*
-	* @return integer|NULL
-	*/
-	public function divId()
-	{
-		return $this->div_id;
 	}
 
 	/**
@@ -219,7 +189,6 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	*/
 	public function clearAll($reset=FALSE) 
 	{
-		$this->div_id = NULL;
 		$this->content_row_id = NULL;
 		$this->content_id = NULL;
 		$this->tool = NULL;
