@@ -365,8 +365,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content = $designer_page->content();
 
 		// Fetch the defined styles for this content page by item type
-		$this->view->content_area_styles = $designer_page_styles->contentAreaStyles();
-		$this->view->content_row_styles = $designer_page_styles->contentRowStyles();
+		$this->view->row_styles = $designer_page_styles->rowStyles();
 		$this->view->content_container_styles = $designer_page_styles->contentContainerStyles();
 		$this->view->content_styles = $designer_page_styles->contentItemStyles();
 		$this->view->form_styles = $designer_page_styles->formStyles();

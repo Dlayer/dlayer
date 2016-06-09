@@ -3,6 +3,7 @@
 /**
  * Responsible for fetching all the data that makes up the structure of a content page as well as the content itself
  *
+ * @category View Model: These modesl are used to generate the data in the designers, the user data and later the web site
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
@@ -47,11 +48,11 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		{
 			if($row['column_id'] !== 0)
 			{
-				$rows[$row['column_id']][] = array('id' => $row['id']);
+				$rows[$row['column_id']][] = array('id' => $row['row_id']);
 			}
 			else
 			{
-				$rows[0][] = array('id' => $row['id']);
+				$rows[0][] = array('id' => $row['row_id']);
 			}
 		}
 
@@ -70,17 +71,15 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		$this->site_id = $site_id;
 		$this->page_id = $page_id;
 
-		$sql = "SELECT uspcr.id AS content_row_id, uspci.id AS content_id, 
-				dct.`name` AS content_type 
-				FROM user_site_page_content_item uspci 
-				JOIN user_site_page_content_rows uspcr 
-					ON uspci.content_row_id = uspcr.id 
-					AND uspcr.site_id = :site_id 
-					AND uspcr.page_id = :page_id 
-				JOIN designer_content_type dct ON uspci.content_type = dct.id 
-				WHERE uspci.site_id = :site_id 
-				AND uspci.page_id = :page_id 
-				ORDER BY uspcr.sort_order ASC, uspci.sort_order ASC";
+		$sql = 'SELECT uspsc.id AS content_id, uspsc.row_id, dct.name AS content_type 
+                FROM user_site_page_structure_content uspsc
+                JOIN designer_content_type dct ON uspsc.content_type = dct.id
+                JOIN user_site_page_structure_row uspsr ON uspsc.row_id = uspsr.id 
+                    AND uspsr.site_id = :site_id 
+                    AND uspsr.page_id = :page_id 
+                WHERE uspsc.site_id = :site_id
+                AND uspsc.page_id = :page_id  
+                ORDER BY uspsr.sort_order, uspsc.sort_order';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
@@ -88,58 +87,48 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
 		$result = $stmt->fetchAll();
 
-		if(count($result) > 0)
+		$content = array();
+
+		foreach($result as $row)
 		{
-
-			$content = array();
-
-			foreach($result as $row)
+			switch($row['content_type'])
 			{
-				switch($row['content_type'])
-				{
-					case 'text':
-						$data = $this->text($row['content_id']);
-					break;
+				case 'text':
+					$content_item = $this->text($row['content_id']);
+				break;
 
-					case 'heading':
-						$data = $this->heading($row['content_id']);
-					break;
+				case 'heading':
+					$content_item = $this->heading($row['content_id']);
+				break;
 
-					case 'form':
-						$data = $this->form($row['content_id']);
-						if($data != FALSE)
-						{
-							$data['form'] = new Dlayer_Designer_Form(
-								$this->site_id, $data['form_id'], TRUE, NULL);
-						}
-					break;
+				case 'form':
+					$content_item = $this->form($row['content_id']);
+					if($content_item !== FALSE)
+					{
+						$content_item['form'] = new Dlayer_Designer_Form($this->site_id, $content_item['form_id'], TRUE, NULL);
+					}
+				break;
 
-					case 'jumbotron':
-						$data = $this->jumbotron($row['content_id']);
-					break;
+				case 'jumbotron':
+					$content_item = $this->jumbotron($row['content_id']);
+				break;
 
-					case 'image':
-						$data = $this->image($row['content_id']);
-					break;
+				case 'image':
+					$content_item = $this->image($row['content_id']);
+				break;
 
-					default:
-						$data = FALSE;
-					break;
-				}
-
-				if($data != FALSE)
-				{
-					$content[$row['content_row_id']][] =
-						array('type' => $row['content_type'], 'data' => $data);
-				}
+				default:
+					$content_item = FALSE;
+				break;
 			}
 
-			return $content;
+			if($content_item !== FALSE)
+			{
+				$content[$row['row_id']][] = array('type' => $row['content_type'], 'data' => $content_item);
+			}
 		}
-		else
-		{
-			return array();
-		}
+
+		return $content;
 	}
 
 	/**
