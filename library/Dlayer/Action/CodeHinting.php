@@ -92,8 +92,9 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 	 * @param array $css_includes
 	 * @param array $js_includes
 	 * @param string $title
-	 * @return void
+	 * @param string|null $preview_uri
+	 * @return Dlayer_Action_SetLayoutProperties
 	 */
 	public function setLayoutProperties(array $nav_bar_items, $active_nav_bar_uri, array $css_includes,
-		array $js_includes, $title) { }
+		array $js_includes, $title, $preview_uri=NULL) { }
 }
