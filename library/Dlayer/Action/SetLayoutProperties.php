@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Set the layout properties for the controller actions, css and js files to include, the title for the page and
  * also the data array for the nav bar
@@ -17,16 +18,24 @@ class Dlayer_Action_SetLayoutProperties extends Zend_Controller_Action_Helper_Ab
 	 * @param array $css_includes
 	 * @param array $js_includes
 	 * @param string $title
+	 * @param string|null $preview_uri
 	 */
-    public function direct(array $nav_bar_items, $active_nav_bar_uri, array $css_includes, array $js_includes, $title)
-    {
-	    $layout = Zend_Layout::getMvcInstance();
+	public function direct(array $nav_bar_items, $active_nav_bar_uri, array $css_includes, array $js_includes, $title,
+		$preview_uri=NULL)
+	{
+		$layout = Zend_Layout::getMvcInstance();
 
-	    $layout->assign('js_include', $js_includes);
-	    $layout->assign('css_include', $css_includes);
-	    $layout->assign('css_include', $css_includes);
-	    $layout->assign('title', $title);
+		$layout->assign('js_include', $js_includes);
+		$layout->assign('css_include', $css_includes);
+		$layout->assign('css_include', $css_includes);
+		$layout->assign('title', $title);
 
-	    $layout->assign('nav', array('class'=>'top_nav', 'items'=>$nav_bar_items, 'active_uri'=>$active_nav_bar_uri));
-    }
+		$layout->assign('nav',
+			array('class' => 'top_nav', 'items' => $nav_bar_items, 'active_uri' => $active_nav_bar_uri));
+
+		//if($preview_uri !== NULL)
+		//{
+			$layout->assign('preview_uri', $preview_uri);
+		//}
+	}
 }

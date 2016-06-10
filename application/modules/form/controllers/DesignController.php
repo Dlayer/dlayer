@@ -28,6 +28,16 @@ class Form_DesignController extends Zend_Controller_Action
 	private $layout;
 
 	/**
+	 * @var array Nav bar items
+	 */
+	private $nav_bar_items = array(
+		array('uri' => '/dlayer/index/home', 'name' => 'Dlayer Demo', 'title' => 'Dlayer.com: Web development simplified'),
+		array('uri' => '/form/index/index', 'name' => 'Form builder', 'title' => 'Form management'),
+		array('uri' => '/dlayer/settings/index', 'name' => 'Settings', 'title' => 'Settings'),
+		array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Dlayer Docs', 'title' => 'Read the Docs for Dlayer'),
+	);
+
+	/**
 	 * Initialise the controller, run any required set up code and set
 	 * properties required by controller actions
 	 *
@@ -75,7 +85,6 @@ class Form_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->setLayout('designer');
 
-		$this->navBar('/form/index/index');
 		$this->view->dlayer_toolbar = $this->dlayerToolbar();
 		$this->view->dlayer_form = $this->dlayerForm();
 		$this->view->dlayer_ribbon = $this->dlayerRibbon();
@@ -85,7 +94,10 @@ class Form_DesignController extends Zend_Controller_Action
 		$this->view->field_id = $this->session_form->fieldId();
 		$this->view->tool = $this->session_form->tool();
 
-		$this->layout->assign('title', 'Dlayer.com - Form builder');
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index',
+			array('css/dlayer.css','css/designer-shared.css', 'css/designer-1170.css'),
+			array('scripts/dlayer.js', 'scripts/designer.js', 'scripts/form-builder.js', 'scripts/preview-form-builder.js'),
+			'Dlayer.com - Form builder', '/form/design/preview');
 	}
 
 	/**
@@ -99,10 +111,8 @@ class Form_DesignController extends Zend_Controller_Action
 
 		$this->view->dlayer_form = $this->dlayerFormPreview();
 
-		$this->layout->assign('css_include',
-			array('css/dlayer.css', 'css/preview.css'));
-
-		$this->layout->assign('title', 'Dlayer.com - Form preview');
+		$this->_helper->setLayoutProperties(array(), '', array('css/dlayer.css', 'css/preview.css'), array(),
+			'Dlayer.com - Form preview');
 	}
 
 	/**
@@ -416,43 +426,6 @@ class Form_DesignController extends Zend_Controller_Action
 		}
 
 		$this->_redirect('/form/design/');
-	}
-
-	/**
-	 * Assign the content for the nav bar
-	 *
-	 * @param string $active_uri Uri
-	 * @return void Assigns values to the layout
-	 */
-	private function navBar($active_uri)
-	{
-		$items = array(
-			array(
-				'uri' => '/dlayer/index/home', 'name' => 'Dlayer Demo',
-				'title' => 'Dlayer.com: Web development simplified',
-			),
-			array(
-				'uri' => '/form/index/index',
-				'name' => 'Form builder', 'title' => 'Form management',
-			),
-			array(
-				'uri' => '/dlayer/settings/index',
-				'name' => 'Settings', 'title' => 'Settings',
-			),
-			array(
-				'uri' => 'http://www.dlayer.com/docs/',
-				'name' => 'Dlayer Docs', 'title' => 'Read the Docs for Dlayer',
-			),
-		);
-
-		$this->layout->assign('nav',
-			array(
-				'class' => 'top_nav',
-				'items' => $items,
-				'active_uri' => $active_uri,
-				'preview_uri' => '/form/design/preview',
-			)
-		);
 	}
 
 	/**
