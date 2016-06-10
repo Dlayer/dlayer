@@ -82,14 +82,14 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->dlayer_ribbon = $this->dlayerRibbon();
 
 		$this->view->module = $this->getRequest()->getModuleName();
-		$this->view->div_id = $this->session_content->divId();
-		$this->view->content_row_id = $this->session_content->contentRowId();
+		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 		$this->view->tool = $this->session_content->tool();
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/design/index',
 			array('css/dlayer.css', 'css/designer-shared.css', 'css/designer-1170.css',),
-			array('scripts/dlayer.js','scripts/designer.js',), 'Dlayer.com - Content manager');
+			array('scripts/dlayer.js','scripts/designer.js',), 'Dlayer.com - Content manager',
+			'/content/design/preview');
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$model_module = new Dlayer_Model_Module();
 
-		$this->view->content_row_id = $this->session_content->contentRowId();
+		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 
 		$this->view->tools = $model_module->tools($this->getRequest()->getModuleName());
@@ -362,16 +362,22 @@ class Content_DesignController extends Zend_Controller_Action
 
 		// Fetch the data that defines the structure of the page
 		$this->view->rows = $designer_page->rows();
+		$this->view->columns = $designer_page->columns();
 		$this->view->content = $designer_page->content();
 
 		// Fetch the defined styles for this content page by item type
-		$this->view->row_styles = $designer_page_styles->rowStyles();
+		/*$this->view->row_styles = $designer_page_styles->rowStyles();
 		$this->view->content_container_styles = $designer_page_styles->contentContainerStyles();
 		$this->view->content_styles = $designer_page_styles->contentItemStyles();
-		$this->view->form_styles = $designer_page_styles->formStyles();
+		$this->view->form_styles = $designer_page_styles->formStyles();*/
 
-		// Set the vars which determine the selection state
-		$this->view->content_row_id = $this->session_content->contentRowId();
+		$this->view->row_styles = array();
+		$this->view->content_container_styles = array();
+		$this->view->content_styles = array();
+		$this->view->form_styles = array();
+
+		// Set the vars to determine the state of the designer
+		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 
 		return $this->view->render("design/page.phtml");

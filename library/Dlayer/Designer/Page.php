@@ -45,19 +45,24 @@ class Dlayer_Designer_Page
 	}
 
 	/**
-	 * Fetch all the content rows that have been assigned to the divs that make
-	 * up this page, these are passed to the page view helper which then calls
-	 * the content view helper to generate the content items
-	 */
-
-	/**
-	 * Fetch all the content rows that have been added to the selected content page, these are passed to the page
-	 * view helper which then calls the content view helper to assign the content
+	 * Fetch all the content rows that have been added to the selected content page, these are passed to the content 
+	 * page view helper  
 	 *
 	 * @return array
 	 */
 	public function rows()
 	{
 		return $this->model_page->rows($this->site_id, $this->page_id);
+	}
+
+	/**
+	 * Fetch all the columns that have been added to the selected content page, these are passed to the content page 
+	 * view helper
+	 *
+	 * @return array  
+	 */
+	public function columns() 
+	{
+		return $this->model_page->columns($this->site_id, $this->page_id);
 	}
 }

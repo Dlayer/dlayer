@@ -17,7 +17,7 @@ class Dlayer_Model_View_Style_Row extends Zend_Db_Table_Abstract
 	 * @param integer $site_id
 	 * @param integer $page_id
 	 * @return array|FALSE Either an array indexed by row or FALSE if there are no defined style values
-	 * @todo Will need to modifiy this as additional attribute types are supported, a single method will work better
+	 * @todo Will need to modify this as additional attribute types are supported, a single method will work better
 	 */
 	public function backgroundColors($site_id, $page_id)
 	{

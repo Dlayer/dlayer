@@ -20,7 +20,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	private $page_id;
 
 	/**
-	 * Fetch all the content rows that have been assigned to the requested content page, the results will be grouped
+	 * Fetch all the rows that have been assigned to the requested content page, the results will be grouped
 	 * by column id with null (0 in code) being rows that are assigned to the body div, rows can only ever be
 	 * assigned to columns or the body div
 	 *
@@ -46,7 +46,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
 		foreach($result as $row)
 		{
-			if($row['column_id'] !== 0)
+			if($row['column_id'] !== NULL)
 			{
 				$rows[$row['column_id']][] = array('id' => $row['row_id']);
 			}
@@ -57,6 +57,46 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		}
 
 		return $rows;
+	}
+
+	/**
+	 * Fetch all the columns that have been assigned to the content oage, the results will be grouped by row id, columns
+	 * can only ever be assigned to columns
+	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @return array Always returns an array
+	 */
+	public function columns($site_id, $page_id)
+	{
+		$sql = 'SELECT uspsc.id, uspsc.row_id, uspsc.size, uspsc.column_type, uspsc.offset
+				FROM user_site_page_structure_column uspsc 
+				JOIN user_site_page_structure_row uspsr ON uspsc.row_id = uspsr.id 
+					AND uspsr.site_id = :site_id 
+					AND uspsr.page_id = :page_id 
+				WHERE uspsc.site_id = :site_id 
+				AND uspsc.page_id = :page_id 
+				ORDER BY uspsr.sort_order, uspsc.sort_order';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetchAll();
+
+		$columns = array();
+
+		foreach($result as $column)
+		{
+			$columns[$column['row_id']][] = array(
+				'id' => $column['id'],
+				'size' => $column['size'],
+				'class' => $column['column_type'],
+				'offset' => $column['offset']
+			);
+		}
+
+		return $columns;
 	}
 
 	/**
