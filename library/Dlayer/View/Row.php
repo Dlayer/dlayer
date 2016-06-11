@@ -125,6 +125,10 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 				{
 					$html .= '<div class="row">' . $columns . '</div>';
 				}
+				else
+				{
+					$html .= '<div class="row">Empty row</div>';
+				}
 			}
 		}
 

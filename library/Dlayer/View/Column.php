@@ -97,8 +97,20 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 		{
 			foreach($this->columns[$this->row_id] as $column)
 			{
+				$this->view->row()->setColumnId($column['id']);
+				$rows = $this->view->row()->render();
+
 				$html .= '<div class="col-' . $column['class'] . '-' . $column['size'] . '">';
-				$html .= '<p>This is a column</p>';
+
+				if(strlen($rows) > 0)
+				{
+					$html .= '<p>' . $rows . '</p>';
+				}
+				else
+				{
+					$html .= '<p>Empty column</p>';
+				}
+
 				$html .= '</div>';
 			}
 		}

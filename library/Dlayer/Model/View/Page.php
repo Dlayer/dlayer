@@ -3,7 +3,7 @@
 /**
  * Responsible for fetching all the data that makes up the structure of a content page as well as the content itself
  *
- * @category View Model: These modesl are used to generate the data in the designers, the user data and later the web site
+ * @category View model: These models are used to generate the data in the designers, the user data and later the web site
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
@@ -101,9 +101,11 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
 	/**
 	 * Fetch all the content items that have been attached to the requested content page, as we loop through the
-	 * results the details for each content item type are pulled, the results are group by row id and returned as a
-	 * single array
+	 * results the details for each content item type are pulled, the results are grouped by column id and returned
+	 * as a single array
 	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
 	 * @return array Content items indexed by row id
 	 */
 	public function content($site_id, $page_id)
@@ -111,15 +113,15 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		$this->site_id = $site_id;
 		$this->page_id = $page_id;
 
-		$sql = 'SELECT uspsc.id AS content_id, uspsc.row_id, dct.name AS content_type 
+		$sql = 'SELECT uspsc.id AS content_id, uspsc.column_id, dct.name AS content_type 
                 FROM user_site_page_structure_content uspsc
                 JOIN designer_content_type dct ON uspsc.content_type = dct.id
-                JOIN user_site_page_structure_row uspsr ON uspsc.row_id = uspsr.id 
-                    AND uspsr.site_id = :site_id 
-                    AND uspsr.page_id = :page_id 
+                JOIN user_site_page_structure_column uspscol ON uspsc.column_id = uspscol.id 
+                    AND uspscol.site_id = :site_id 
+                    AND uspscol.page_id = :page_id 
                 WHERE uspsc.site_id = :site_id
                 AND uspsc.page_id = :page_id  
-                ORDER BY uspsr.sort_order, uspsc.sort_order';
+                ORDER BY uspscol.sort_order, uspsc.sort_order';
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
@@ -164,7 +166,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
 			if($content_item !== FALSE)
 			{
-				$content[$row['row_id']][] = array('type' => $row['content_type'], 'data' => $content_item);
+				$content[$row['column_id']][] = array('type' => $row['content_type'], 'data' => $content_item);
 			}
 		}
 
@@ -172,17 +174,16 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	 * Fetch the data for the text content item
+	 * Fetch all the data for a 'text' based content item
 	 *
-	 * @param integer $content_id Content id
-	 * @return array|FALSE We either return the data array for the text
-	 *    content item or FALSE if the data can't be pulled from the database
+	 * @param integer $id Id of the content item
+	 * @return array|FALSE Either an array of the data for the content item or FALSE upon error
 	 */
-	private function text($content_id)
+	private function text($id)
 	{
 		$model_text = new Dlayer_Model_View_Content_Items_Text();
 
-		return $model_text->data($this->site_id, $this->page_id, $content_id);
+		return $model_text->data($this->site_id, $this->page_id, $id);
 	}
 
 	/**
