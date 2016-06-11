@@ -589,4 +589,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	public function image(array $data, $preview = FALSE)
 	{
 	}
+
+	/**
+	 * Jumbotron content item view helper, a jumbotron is used to highlight something on a page, it features a title,
+	 * sub title and optional button
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_Jumbotron
+	 */
+	public function jumbotron(array $data)
+	{
+	}
 }

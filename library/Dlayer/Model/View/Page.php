@@ -187,18 +187,16 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	 * Fetch the data for the jumbotron content item
+	 * Fetch all the data for a 'jumbotron' based content item
 	 *
-	 * @param integer $content_id Content id
-	 * @return array|FALSE We either return the data array for the jumbotron
-	 *    content item or FALSE if the data can't be pulled from the database
+	 * @param integer $id Id of the content item
+	 * @return array|FALSE Either an array of the data for the content item or FALSE upon error
 	 */
-	private function jumbotron($content_id)
+	private function jumbotron($id)
 	{
-		$model_jumbotron = new Dlayer_Model_View_Content_Items_Jumbotron();
+		$model_jumbotron = new Dlayer_Model_View_ContentItem_Jumbotron();
 
-		return $model_jumbotron->data($this->site_id, $this->page_id,
-			$content_id);
+		return $model_jumbotron->data($this->site_id, $this->page_id, $id);
 	}
 
 	/**
