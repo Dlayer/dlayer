@@ -52,6 +52,8 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 	public function setRowId($id)
 	{
 		$this->row_id = $id;
+
+		return $this;
 	}
 
 	/**
@@ -60,7 +62,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 	 * @param integer $id Id of the selected column
 	 * @return Dlayer_View_Column
 	 */
-	public function selectedColumnId($id)
+	public function setSelectedColumnId($id)
 	{
 		$this->selected_column_id = $id;
 

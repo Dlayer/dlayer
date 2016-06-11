@@ -1,14 +1,9 @@
 <?php
 
 /**
- * This is the base content view helper, it is called by the content row view
- * helper and generates all the html the content items that have been added to
- * the requested row, once all the html has been generated the string is passed
- * back to the content row view helper.
- *
- * The html for individual content items is handled by child view helpers, there
- * is one for each content type, this helper passes the requests on and then
- * concatenates the output
+ * Base content view helper, it gets called by the column view helper and generates the data for all the content items
+ * that sit in the container. The html for the individual content items is handled by a view helper for each content
+ * type
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
@@ -25,43 +20,22 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	public $view;
 
 	/**
-	 * Full content data array for the entire page, passed into the view
-	 * helper once and reused for all subsequent calls, more performant
-	 *
-	 * @var array
+	 * @var array Content data array for the entire page
 	 */
 	private $content = array();
 
 	/**
-	 * Id of the current content row
-	 *
-	 * @param integer
+	 * @param integer Id of the current column
 	 */
-	private $content_row_id;
+	private $column_id;
 
 	/**
-	 * If od the selected content row
-	 *
-	 * @param integer|NULL
-	 */
-	private $selected_content_row_id;
-
-	/**
-	 * Id of the selected content item
-	 *
-	 * @param integer|NULL
+	 * @param integer|NULL Id of the selected column, if any
 	 */
 	private $selected_content_id;
 
 	/**
-	 * This is the base content view helper, it is called by the content row
-	 * view helper and generates all the html the content items that have been
-	 * added to the requested row, once all the html has been generated the
-	 * string is passed back to the content row view helper.
-	 *
-	 * The html for individual content items is handled by child view
-	 * helpers, there is one for each content type, this helper passes the
-	 * requests on and then concatenates the output
+	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @return Dlayer_View_Content
 	 */
@@ -71,40 +45,26 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Set the id of the current content row, this is used to check if there
-	 * is any content to be generated
+	 * Set the column id for the column for which we need to generate data
 	 *
-	 * @param integer $id Id of the current content row
+	 * @param integer $id
 	 * @return Dlayer_View_Content
 	 */
-	public function contentRow($id)
+	public function setColumnId($id)
 	{
-		$this->content_row_id = $id;
-	}
-
-	/**
-	 * Set the id of the selected content row, this controls whether or not the
-	 * content items within the row should have the selectable class applied to
-	 * them
-	 *
-	 * @param integer $id Id of the selected content row
-	 * @return Dlayer_View_Content
-	 */
-	public function selectedContentRowId($id)
-	{
-		$this->selected_content_row_id = $id;
+		$this->column_id = $id;
 
 		return $this;
 	}
 
 	/**
-	 * Set the id of the selected content item, this controls whether or not the
-	 * selected class is applied to the content item
+	 * Set the id of the selected content item, this controls whether or not the selected class get applied to a
+	 * content item
 	 *
 	 * @param integer $id Id of the selected content item
-	 * @return Dlayer_View_Content
+	 * @return Dlayer_View_Column
 	 */
-	public function selectedContentId($id)
+	public function setSelectedContentId($id)
 	{
 		$this->selected_content_id = $id;
 
