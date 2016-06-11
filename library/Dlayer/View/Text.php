@@ -20,7 +20,7 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 	/**
 	 * @var array Data array for the content item
 	 */
-	private $data = array();
+	private $data;
 
 	/**
 	 * Constructor for view helper, data is set via the setter methods
@@ -44,11 +44,13 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 	 */
 	private function resetParams()
 	{
-		$this->data = NULL;
+		$this->data = array();
 	}
 
 	/**
 	 * Generate the html for the content item
+	 *
+	 * @return string
 	 */
 	private function render()
 	{

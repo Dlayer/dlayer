@@ -202,17 +202,16 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	 * Fetch the data for the image content item
+	 * Fetch all the data for a 'heading' based content item
 	 *
-	 * @param integer $content_id Content id
-	 * @return array|FALSE We either return the data array for the image content
-	 *    item or FALSE if the data can't be pulled from the database
+	 * @param integer $id Id of the content item
+	 * @return array|FALSE Either an array of the data for the content item or FALSE upon error
 	 */
-	private function image($content_id)
+	private function image($id)
 	{
-		$model_image = new Dlayer_Model_View_Content_Items_Image();
+		$model_image = new Dlayer_Model_View_ContentItem_Image();
 
-		return $model_image->data($this->site_id, $this->page_id, $content_id);
+		return $model_image->data($this->site_id, $this->page_id, $id);
 	}
 
 	/**

@@ -578,4 +578,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	public function heading(array $data)
 	{
 	}
+
+	/**
+	 * Image content item view helper, image may include a link to expand and a caption
+	 *
+	 * @param array $data Content item data array
+	 * @param boolean $preview In preview mode include expand link
+	 * @return Dlayer_View_Image
+	 */
+	public function image(array $data, $preview = FALSE)
+	{
+	}
 }

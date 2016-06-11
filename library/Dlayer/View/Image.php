@@ -1,14 +1,13 @@
 <?php
 
 /**
- * Heading content item view helper, a heading item is a string with an optional sub heading in a smaller, lighter 
- * font off to the right
+ * Image content item view helper, image may include a link to expand and a caption
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_View_Heading extends Zend_View_Helper_Abstract
+class Dlayer_View_Image extends Zend_View_Helper_Abstract
 {
 	/**
 	 * Override the hinting for the view property so that we can see the view
@@ -24,16 +23,23 @@ class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 	private $data;
 
 	/**
+	 * @var boolean Are we showing a live preview or the designer view
+	 */
+	private $preview;
+
+	/**
 	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @param array $data Content item data array
-	 * @return Dlayer_View_Heading
+	 * @param boolean $preview In preview mode include expand link
+	 * @return Dlayer_View_Image
 	 */
-	public function heading(array $data)
+	public function image(array $data, $preview = FALSE)
 	{
 		$this->resetParams();
 
 		$this->data = $data;
+		$this->preview = $preview;
 
 		return $this;
 	}
@@ -46,6 +52,7 @@ class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 	private function resetParams()
 	{
 		$this->data = array();
+		$this->preview = FALSE;
 	}
 
 	/**
@@ -55,18 +62,29 @@ class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		$tag = $this->view->escape($this->data['tag']);
-
 		// The id of a content item is defined as follows [tool]:[item_type]:[id]
-		$id = 'heading:heading:' . $this->view->escape($this->data['content_id']);
-		$html = "<{$tag}>" . $this->view->escape($this->data['heading']);
+		$id = 'image:image:' . $this->view->escape($this->data['content_id']);
 
-		if(strlen($this->data['sub_heading']) > 0)
+		$html = '';
+
+		if($this->preview === TRUE && $this->data['expand'] === 1)
 		{
-			$html .= ' <small>' . $this->view->escape($this->data['sub_heading']) . '</small>';
+			$html .= '<a href="#" class="image-modal-dialog">';
 		}
 
-		$html .= "</{$tag}>";
+		$html .= '<img src="/images/library/' . $this->view->escape($this->data['library_id']) . '/' .
+			$this->view->escape($this->data['version_id']) . $this->view->escape($this->data['extension']) .
+			'" class="img-responsive" title="' . $this->view->escape($this->data['name']) . '" />';
+
+		if(strlen($this->data['caption']) > 0)
+		{
+			$html .= '<p class="img-caption text-muted text-center small">' . $this->view->escape($this->data['caption']) . '</p>';
+		}
+
+		if($this->preview === TRUE && $this->data['expand'] == 1)
+		{
+			$html .= '</a>';
+		}
 
 		return $html;
 	}
