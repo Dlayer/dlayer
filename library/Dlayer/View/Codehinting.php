@@ -321,10 +321,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 *    children array
 	 * @param string $active_uri The Uri of the active item
 	 * @param string|NULL $preview_uri Include preview link
+	 * @param boolean $signed_in User is signed in show sign out link
 	 * @return Dlayer_View_Bootstrap3NavbarDlayer
 	 */
 	public function bootstrap3NavbarDlayer($brand, $brand_url, array $navbar_items,
-		$active_uri = '', $preview_uri = NULL)
+		$active_uri = '', $preview_uri = NULL, $signed_in = TRUE)
 	{
 	}
 
@@ -520,21 +521,19 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Content page view helper, generates all the html for a content page by first creating the structure of the
-	 * page by adding the rows and columns and then assigning the content items to the rows
+	 * Pass in anything required to set up the object
 	 *
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
 	 * @param array $row_styles Defined styles for the rows
-	 * @param array $content_container_styles Any styles defined for the content containers
 	 * @param array $content_styles Any styles defined for the content items
 	 * @param integer|NULL $row_id Id of the selected row if any
 	 * @param integer|NULL $content_id Id of the selected content item if any
 	 * @return Dlayer_View_ContentPage
 	 */
 	public function contentPage(array $rows, array $columns, array $content, array $row_styles,
-		array $content_container_styles, array $content_styles, $row_id = NULL, $content_id = NULL)
+		array $content_styles, $row_id = NULL, $content_id = NULL)
 	{
 	}
 
@@ -556,6 +555,49 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @return Dlayer_View_Column
 	 */
 	public function column()
+	{
+	}
+
+	/**
+	 * Text content item view helper, a text block is simple a string of text enclosed within p tags
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_Text
+	 */
+	public function text(array $data)
+	{
+	}
+
+	/**
+	 * Heading content item view helper, a heading item is a string with an optional sub heading in a smaller, lighter
+	 * font off to the right
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_Heading
+	 */
+	public function heading(array $data)
+	{
+	}
+
+	/**
+	 * Image content item view helper, image may include a link to expand and a caption
+	 *
+	 * @param array $data Content item data array
+	 * @param boolean $preview In preview mode include expand link
+	 * @return Dlayer_View_Image
+	 */
+	public function image(array $data, $preview = FALSE)
+	{
+	}
+
+	/**
+	 * Jumbotron content item view helper, a jumbotron is used to highlight something on a page, it features a title,
+	 * sub title and optional button
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_Jumbotron
+	 */
+	public function jumbotron(array $data)
 	{
 	}
 }

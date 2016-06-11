@@ -59,6 +59,8 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 	public function setColumnId($id)
 	{
 		$this->column_id = $id;
+
+		return $this;
 	}
 
 	/**
@@ -68,7 +70,7 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 	 * @param integer $id Id of the selected content item, if any
 	 * @return Dlayer_View_Row
 	 */
-	public function selectedContentId($id)
+	public function setSelectedContentId($id)
 	{
 		$this->selected_content_id = $id;
 
@@ -81,7 +83,7 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 	 * @param integer $id Id of the selected row
 	 * @return Dlayer_View_Row
 	 */
-	public function selectedRowId($id)
+	public function setSelectedRowId($id)
 	{
 		$this->selected_row_id = $id;
 
@@ -124,6 +126,10 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 				if(strlen($columns) > 0)
 				{
 					$html .= '<div class="row">' . $columns . '</div>';
+				}
+				else
+				{
+					$html .= '<div class="row">Empty row</div>';
 				}
 			}
 		}

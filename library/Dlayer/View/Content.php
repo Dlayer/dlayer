@@ -1,109 +1,70 @@
 <?php
+
 /**
-* This is the base content view helper, it is called by the content row view 
-* helper and generates all the html the content items that have been added to 
-* the requested row, once all the html has been generated the string is passed 
-* back to the content row view helper.
-* 
-* The html for individual content items is handled by child view helpers, there 
-* is one for each content type, this helper passes the requests on and then 
-* concatenates the output
-* 
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
-class Dlayer_View_Content extends Zend_View_Helper_Abstract 
+ * Base content view helper, it gets called by the column view helper and generates the data for all the content items
+ * that sit in the container. The html for the individual content items is handled by a view helper for each content
+ * type
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
+class Dlayer_View_Content extends Zend_View_Helper_Abstract
 {
 	/**
-	* Override the hinting for the view property so that we can see the view 
-	* helpers that have been defined
-	* 
-	* @var Dlayer_View_Codehinting
-	*/
+	 * Override the hinting for the view property so that we can see the view
+	 * helpers that have been defined
+	 *
+	 * @var Dlayer_View_Codehinting
+	 */
 	public $view;
 
 	/**
-	* Full content data array for the entire page, passed into the view 
-	* helper once and reused for all subsequent calls, more performant
-	* 
-	* @var array
-	*/
+	 * @var array Content data array for the entire page
+	 */
 	private $content = array();
 
 	/**
-	* Id of the current content row
-	* 
-	* @param integer
-	*/
-	private $content_row_id;
+	 * @param integer Id of the current column
+	 */
+	private $column_id;
 
 	/**
-	* If od the selected content row
-	* 
-	* @param integer|NULL
-	*/
-	private $selected_content_row_id;
-
-	/**
-	* Id of the selected content item
-	* 
-	* @param integer|NULL
-	*/
+	 * @param integer|NULL Id of the selected column, if any
+	 */
 	private $selected_content_id;
 
-	/** 
-	* This is the base content view helper, it is called by the content row 
-	* view helper and generates all the html the content items that have been 
-	* added to the requested row, once all the html has been generated the 
-	* string is passed back to the content row view helper.
-	* 
-	* The html for individual content items is handled by child view 
-	* helpers, there is one for each content type, this helper passes the 
-	* requests on and then concatenates the output
-	* 
-	* @return Dlayer_View_Content
-	*/
-	public function content() 
+	/**
+	 * Constructor for view helper, data is set via the setter methods
+	 *
+	 * @return Dlayer_View_Content
+	 */
+	public function content()
 	{
 		return $this;
 	}
-	
+
 	/**
-	* Set the id of the current content row, this is used to check if there 
-	* is any content to be generated
-	* 
-	* @param integer $id Id of the current content row
-	* @return Dlayer_View_Content
-	*/
-	public function contentRow($id) 
+	 * Set the column id for the column for which we need to generate data
+	 *
+	 * @param integer $id
+	 * @return Dlayer_View_Content
+	 */
+	public function setColumnId($id)
 	{
-		$this->content_row_id = $id;
-	}
-	
-	/**
-	* Set the id of the selected content row, this controls whether or not the 
-	* content items within the row should have the selectable class applied to 
-	* them
-	* 
-	* @param integer $id Id of the selected content row
-	* @return Dlayer_View_Content
-	*/
-	public function selectedContentRowId($id) 
-	{
-		$this->selected_content_row_id = $id;
+		$this->column_id = $id;
 
 		return $this;
 	}
-	
+
 	/**
-	* Set the id of the selected content item, this controls whether or not the 
-	* selected class is applied to the content item
-	* 
-	* @param integer $id Id of the selected content item
-	* @return Dlayer_View_Content
-	*/
-	public function selectedContentId($id) 
+	 * Set the id of the selected content item, this controls whether or not the selected class get applied to a
+	 * content item
+	 *
+	 * @param integer $id Id of the selected content item
+	 * @return Dlayer_View_Content
+	 */
+	public function setSelectedContentId($id)
 	{
 		$this->selected_content_id = $id;
 
@@ -111,17 +72,13 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	* Set the content data array for the entire page, this array contains all 
-	* the content items.
-	* 
-	* The content data array is passed in using this method for performance 
-	* reasons, this view helper will be called many times by the content row 
-	* view helper, once per content area row, they all need access to 
-	* the same data so it makes sense to set it once.
-	* 
-	* @param array $content
-	* @return Dlayer_View_Content
-	*/
+	 * Pass in the content data for the content page. The content data is passed in using this setter because the
+	 * view helper will be called many times to generate a content page and we only want to pass what could be a
+	 * very large data array once
+	 *
+	 * @param array $content
+	 * @return Dlayer_View_Content
+	 */
 	public function setContent(array $content)
 	{
 		$this->content = $content;
@@ -130,77 +87,108 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	* THis is the worker method for the view helper, it checks to see if there 
-	* is any defined content for the current content row and then passes the 
-	* request of to the relevant child view helper. 
-	* 
-	* The result html is stored until all the content items have been generated
-	* and then the concatenated string is passed back to the content row view 
-	* helper
-	* 
-	* Unlike the majority of view helpers this method is public because it 
-	* will called directly in other view helpers 
-	* 
-	* @param boolean $preview Is the view helper is preview mode
-	* @return string The generated html
-	*/
-	public function render($preview=FALSE) 
+	 * Generate the html for the content items, it checks to see if there is any content for the currently set
+	 * column and then generates the html
+	 *
+	 * Unlike the majority of the view helpers within Dlayer the render method is public, we will be calling it
+	 * directly from other view helpers
+	 */
+	public function render()
 	{
 		$html = '';
-		
-		if(array_key_exists($this->content_row_id, $this->content) == TRUE) {
-			
-			foreach($this->content[$this->content_row_id] as $content) {
-				
-				$selectable = FALSE;
-				$selected = FALSE;
-				$items = count($this->content[$this->content_row_id]);
-				
-				if($this->selected_content_row_id != NULL && 
-					$this->selected_content_row_id == $this->content_row_id) {
-						$selectable = TRUE;
-				}
-				
-				$selected = FALSE;
-				
-				if($this->selected_content_id != NULL && 
-					$this->selected_content_id == $content['data']['content_id']) {
-						$selected = TRUE;
-				}
-				
-				switch($content['type']) {
+
+		if(array_key_exists($this->column_id, $this->content) === TRUE)
+		{
+			foreach($this->content[$this->column_id] as $content)
+			{
+				switch($content['type'])
+				{
+					case 'heading':
+						$html .= $this->view->heading($content['data']);
+					break;
+
 					case 'text':
-						$html .= $this->view->contentText($content['data'], 
-							$selectable, $selected, $items);
-						break;
+						$html .= $this->view->text($content['data']);
+					break;
 
-					case 'heading': 
-						$html .= $this->view->contentHeading(
-							$content['data'], $selectable, $selected, $items);
-						break;
-						
-					case 'jumbotron': 
-						$html .= $this->view->contentJumbotron(
-							$content['data'], $selectable, $selected, $items);
-						break;
+					case 'jumbotron':
+						$html .= $this->view->jumbotron($content['data']);
+					break;
 
-					case 'form':
-						$html .= $this->view->contentForm($content['data'], 
-							$selectable, $selected, $items);
-						break;
-						
 					case 'image':
-						$html .= $this->view->contentImage($content['data'], 
-							$selectable, $selected, $items, $preview);
-						break;
+						$html .= $this->view->image($content['data']);
+					break;
 
 					default:
-						break;
+					break;
 				}
-				
 			}
 		}
 
 		return $html;
+
+		/*$html = '';
+
+		if(array_key_exists($this->content_row_id, $this->content) == TRUE)
+		{
+
+			foreach($this->content[$this->content_row_id] as $content)
+			{
+
+				$selectable = FALSE;
+				$selected = FALSE;
+				$items = count($this->content[$this->content_row_id]);
+
+				if($this->selected_content_row_id != NULL &&
+					$this->selected_content_row_id == $this->content_row_id
+				)
+				{
+					$selectable = TRUE;
+				}
+
+				$selected = FALSE;
+
+				if($this->selected_content_id != NULL &&
+					$this->selected_content_id == $content['data']['content_id']
+				)
+				{
+					$selected = TRUE;
+				}
+
+				switch($content['type'])
+				{
+					case 'text':
+						$html .= $this->view->contentText($content['data'],
+							$selectable, $selected, $items);
+					break;
+
+					case 'heading':
+						$html .= $this->view->contentHeading(
+							$content['data'], $selectable, $selected, $items);
+					break;
+
+					case 'jumbotron':
+						$html .= $this->view->contentJumbotron(
+							$content['data'], $selectable, $selected, $items);
+					break;
+
+					case 'form':
+						$html .= $this->view->contentForm($content['data'],
+							$selectable, $selected, $items);
+					break;
+
+					case 'image':
+						$html .= $this->view->contentImage($content['data'],
+							$selectable, $selected, $items, $preview);
+					break;
+
+					default:
+					break;
+				}
+
+			}
+		}
+
+		return $html;*/
 	}
 }

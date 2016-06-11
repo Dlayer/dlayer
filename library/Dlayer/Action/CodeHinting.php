@@ -92,9 +92,10 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 	 * @param array $css_includes
 	 * @param array $js_includes
 	 * @param string $title
-	 * @param string|null $preview_uri
+	 * @param string $preview_uri
+	 * @param boolean $signed_in Is the user signed in to app?
 	 * @return Dlayer_Action_SetLayoutProperties
 	 */
 	public function setLayoutProperties(array $nav_bar_items, $active_nav_bar_uri, array $css_includes,
-		array $js_includes, $title, $preview_uri=NULL) { }
+		array $js_includes, $title, $preview_uri = '', $signed_in = TRUE) { }
 }

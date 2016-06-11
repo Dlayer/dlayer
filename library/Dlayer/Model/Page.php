@@ -121,14 +121,6 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch the data array for the requested page, able to pull the data by
-	* page id because the site id will have already been validated.
-	*
-	* @param integer $page_id
-	* @return array|FALSE
-	*/
-
-	/**
 	 * Fetch the data for the selected content page, array contains the combined data for user_site_page table and
 	 * user_site_page_meta table
 	 *

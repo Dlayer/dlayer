@@ -52,6 +52,8 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 	public function setRowId($id)
 	{
 		$this->row_id = $id;
+
+		return $this;
 	}
 
 	/**
@@ -60,7 +62,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 	 * @param integer $id Id of the selected column
 	 * @return Dlayer_View_Column
 	 */
-	public function selectedColumnId($id)
+	public function setSelectedColumnId($id)
 	{
 		$this->selected_column_id = $id;
 
@@ -97,8 +99,30 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 		{
 			foreach($this->columns[$this->row_id] as $column)
 			{
+				$this->view->row()->setColumnId($column['id']);
+				$rows = $this->view->row()->render();
+
 				$html .= '<div class="col-' . $column['class'] . '-' . $column['size'] . '">';
-				$html .= '<p>This is a column</p>';
+
+				if(strlen($rows) > 0)
+				{
+					$html .= '<p>' . $rows . '</p>';
+				}
+				else
+				{
+					$this->view->content()->setColumnId($column['id']);
+					$content = $this->view->content()->render();
+
+					if(strlen($content) > 0)
+					{
+						$html .= $content;
+					}
+					else
+					{
+						$html .= '<p>Empty column</p>';
+					}
+				}
+
 				$html .= '</div>';
 			}
 		}
