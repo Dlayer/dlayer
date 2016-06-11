@@ -103,8 +103,15 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 			{
 				switch($content['type'])
 				{
+					case 'heading':
+						$html .= $this->view->heading($content['data']);
+					break;
+
 					case 'text':
 						$html .= $this->view->text($content['data']);
+					break;
+
+					default:
 					break;
 				}
 			}

@@ -19,9 +19,11 @@ class Dlayer_Action_SetLayoutProperties extends Zend_Controller_Action_Helper_Ab
 	 * @param array $js_includes
 	 * @param string $title
 	 * @param string|null $preview_uri
+	 * @param boolean $signed_in Is the user signed in to app?
+	 * @return void
 	 */
 	public function direct(array $nav_bar_items, $active_nav_bar_uri, array $css_includes, array $js_includes, $title,
-		$preview_uri=NULL)
+		$preview_uri = '', $signed_in = TRUE)
 	{
 		$layout = Zend_Layout::getMvcInstance();
 
@@ -30,12 +32,13 @@ class Dlayer_Action_SetLayoutProperties extends Zend_Controller_Action_Helper_Ab
 		$layout->assign('css_include', $css_includes);
 		$layout->assign('title', $title);
 
-		$layout->assign('nav',
-			array('class' => 'top_nav', 'items' => $nav_bar_items, 'active_uri' => $active_nav_bar_uri));
+		$layout->assign('nav', array('class' => 'top_nav', 'items' => $nav_bar_items, 'active_uri' => $active_nav_bar_uri));
 
-		//if($preview_uri !== NULL)
-		//{
+		if(strlen($preview_uri) > 0)
+		{
 			$layout->assign('preview_uri', $preview_uri);
-		//}
+		}
+
+		$layout->assign('signed_in', $signed_in);
 	}
 }

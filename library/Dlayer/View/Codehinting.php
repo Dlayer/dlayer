@@ -321,10 +321,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 *    children array
 	 * @param string $active_uri The Uri of the active item
 	 * @param string|NULL $preview_uri Include preview link
+	 * @param boolean $signed_in User is signed in show sign out link
 	 * @return Dlayer_View_Bootstrap3NavbarDlayer
 	 */
 	public function bootstrap3NavbarDlayer($brand, $brand_url, array $navbar_items,
-		$active_uri = '', $preview_uri = NULL)
+		$active_uri = '', $preview_uri = NULL, $signed_in = TRUE)
 	{
 	}
 
@@ -564,6 +565,17 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @return Dlayer_View_Text
 	 */
 	public function text(array $data)
+	{
+	}
+
+	/**
+	 * Heading content item view helper, a heading item is a string with an optional sub heading in a smaller, lighter
+	 * font off to the right
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_Heading
+	 */
+	public function heading(array $data)
 	{
 	}
 }

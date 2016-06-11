@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Text content item view helper, a text block is simple a string of text enclosed within p tags
+ * Heading content item view helper, a heading item is a string with an optional sub heading in a smaller, lighter 
+ * font off to the right
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_View_Text extends Zend_View_Helper_Abstract
+class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 {
 	/**
 	 * Override the hinting for the view property so that we can see the view
@@ -26,9 +27,9 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @param array $data Content item data array
-	 * @return Dlayer_View_Text
+	 * @return Dlayer_View_Heading
 	 */
-	public function text(array $data)
+	public function heading(array $data)
 	{
 		$this->resetParams();
 
@@ -52,10 +53,18 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		// The id of a content item is defined as follows [tool]:[item_type]:[id]
-		$id = 'text:text:' . $this->view->escape($this->data['content_id']);
+		$tag = $this->view->escape($this->data['tag']);
 
-		$html = '<p>' . nl2br($this->view->escape($this->data['content']), TRUE) . '</p>';
+		// The id of a content item is defined as follows [tool]:[item_type]:[id]
+		$id = 'heading:heading:' . $this->view->escape($this->data['content_id']);
+		$html = "<{$tag}>" . $this->view->escape($this->data['heading']);
+
+		if(strlen($this->data['sub_heading']) > 0)
+		{
+			$html .= ' <small>' . $this->view->escape($this->data['sub_heading']) . '</small>';
+		}
+
+		$html .= "</{$tag}>";
 
 		return $html;
 	}

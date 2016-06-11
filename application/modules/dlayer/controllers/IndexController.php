@@ -87,7 +87,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 		$this->view->form = $this->login_form;
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items_public, '/dlayer/index/home', array('css/dlayer.css'),
-			array(), 'Dlayer.com - Sign in');
+			array(), 'Dlayer.com - Sign in', '', FALSE);
 	}
 
 	/**

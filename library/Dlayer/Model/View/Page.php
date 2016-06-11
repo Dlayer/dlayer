@@ -48,11 +48,11 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		{
 			if($row['column_id'] !== NULL)
 			{
-				$rows[$row['column_id']][] = array('id' => $row['row_id']);
+				$rows[$row['column_id']][] = array('id' => intval($row['row_id']));
 			}
 			else
 			{
-				$rows[0][] = array('id' => $row['row_id']);
+				$rows[0][] = array('id' => intval($row['row_id']));
 			}
 		}
 
@@ -89,10 +89,10 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		foreach($result as $column)
 		{
 			$columns[$column['row_id']][] = array(
-				'id' => $column['id'],
-				'size' => $column['size'],
+				'id' => intval($column['id']),
+				'size' => intval($column['size']),
 				'class' => $column['column_type'],
-				'offset' => $column['offset']
+				'offset' => intval($column['offset']),
 			);
 		}
 
@@ -181,7 +181,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	 */
 	private function text($id)
 	{
-		$model_text = new Dlayer_Model_View_Content_Items_Text();
+		$model_text = new Dlayer_Model_View_ContentItem_Text();
 
 		return $model_text->data($this->site_id, $this->page_id, $id);
 	}
@@ -216,18 +216,16 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	 * Fetch the data for a heading content item
+	 * Fetch all the data for a 'heading' based content item
 	 *
-	 * @param integer $content_id
-	 * @return array|FALSE We either return the data array for the heading
-	 *    content item or FALSE if the data can't be pulled from the database
+	 * @param integer $id Id of the content item
+	 * @return array|FALSE Either an array of the data for the content item or FALSE upon error
 	 */
-	private function heading($content_id)
+	private function heading($id)
 	{
-		$model_heading = new Dlayer_Model_View_Content_Items_Heading();
+		$model_heading = new Dlayer_Model_View_ContentItem_Heading();
 
-		return $model_heading->data($this->site_id, $this->page_id,
-			$content_id);
+		return $model_heading->data($this->site_id, $this->page_id, $id);
 	}
 
 	/**
