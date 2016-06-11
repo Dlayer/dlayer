@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Data model for 'jumbotron' based content items
  *
  * @category View model: These models are used to generate the data in the designers, the user data and later the web site
  * @author Dean Blackborough <dean@g3d-development.com>
