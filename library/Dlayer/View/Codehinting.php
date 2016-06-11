@@ -520,21 +520,19 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Content page view helper, generates all the html for a content page by first creating the structure of the
-	 * page by adding the rows and columns and then assigning the content items to the rows
+	 * Pass in anything required to set up the object
 	 *
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
 	 * @param array $row_styles Defined styles for the rows
-	 * @param array $content_container_styles Any styles defined for the content containers
 	 * @param array $content_styles Any styles defined for the content items
 	 * @param integer|NULL $row_id Id of the selected row if any
 	 * @param integer|NULL $content_id Id of the selected content item if any
 	 * @return Dlayer_View_ContentPage
 	 */
 	public function contentPage(array $rows, array $columns, array $content, array $row_styles,
-		array $content_container_styles, array $content_styles, $row_id = NULL, $content_id = NULL)
+		array $content_styles, $row_id = NULL, $content_id = NULL)
 	{
 	}
 
@@ -556,6 +554,16 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @return Dlayer_View_Column
 	 */
 	public function column()
+	{
+	}
+
+	/**
+	 * Text content item view helper, a text block is simple a string of text enclosed within p tags
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_Text
+	 */
+	public function text(array $data)
 	{
 	}
 }

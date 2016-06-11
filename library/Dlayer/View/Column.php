@@ -110,7 +110,17 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 				}
 				else
 				{
-					$html .= '<p>Empty column</p>';
+					$this->view->content()->setColumnId($column['id']);
+					$content = $this->view->content()->render();
+
+					if(strlen($content) > 0)
+					{
+						$html .= $content;
+					}
+					else
+					{
+						$html .= '<p>Empty column</p>';
+					}
 				}
 
 				$html .= '</div>';

@@ -62,7 +62,7 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	 * content item
 	 *
 	 * @param integer $id Id of the selected content item
-	 * @return Dlayer_View_Column
+	 * @return Dlayer_View_Content
 	 */
 	public function setSelectedContentId($id)
 	{
@@ -72,13 +72,9 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Set the content data array for the entire page, this array contains all
-	 * the content items.
-	 *
-	 * The content data array is passed in using this method for performance
-	 * reasons, this view helper will be called many times by the content row
-	 * view helper, once per content area row, they all need access to
-	 * the same data so it makes sense to set it once.
+	 * Pass in the content data for the content page. The content data is passed in using this setter because the
+	 * view helper will be called many times to generate a content page and we only want to pass what could be a
+	 * very large data array once
 	 *
 	 * @param array $content
 	 * @return Dlayer_View_Content
@@ -91,23 +87,32 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * THis is the worker method for the view helper, it checks to see if there
-	 * is any defined content for the current content row and then passes the
-	 * request of to the relevant child view helper.
+	 * Generate the html for the content items, it checks to see if there is any content for the currently set
+	 * column and then generates the html
 	 *
-	 * The result html is stored until all the content items have been generated
-	 * and then the concatenated string is passed back to the content row view
-	 * helper
-	 *
-	 * Unlike the majority of view helpers this method is public because it
-	 * will called directly in other view helpers
-	 *
-	 * @param boolean $preview Is the view helper is preview mode
-	 * @return string The generated html
+	 * Unlike the majority of the view helpers within Dlayer the render method is public, we will be calling it
+	 * directly from other view helpers
 	 */
-	public function render($preview = FALSE)
+	public function render()
 	{
 		$html = '';
+
+		if(array_key_exists($this->column_id, $this->content) === TRUE)
+		{
+			foreach($this->content[$this->column_id] as $content)
+			{
+				switch($content['type'])
+				{
+					case 'text':
+						$html .= $this->view->text($content['data']);
+					break;
+				}
+			}
+		}
+
+		return $html;
+
+		/*$html = '';
 
 		if(array_key_exists($this->content_row_id, $this->content) == TRUE)
 		{
@@ -169,6 +174,6 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 			}
 		}
 
-		return $html;
+		return $html;*/
 	}
 }
