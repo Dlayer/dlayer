@@ -1,14 +1,13 @@
 <?php
 
 /**
- * Heading content item view helper, a heading item is a string with an optional sub heading in a smaller, lighter 
- * font off to the right
+ * Form content item view helper
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_View_Heading extends Zend_View_Helper_Abstract
+class Dlayer_View_ImportedForm extends Zend_View_Helper_Abstract
 {
 	/**
 	 * Override the hinting for the view property so that we can see the view
@@ -27,9 +26,9 @@ class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @param array $data Content item data array
-	 * @return Dlayer_View_Heading
+	 * @return Dlayer_View_ImportedForm
 	 */
-	public function heading(array $data)
+	public function importedForm(array $data)
 	{
 		$this->resetParams();
 
@@ -55,18 +54,11 @@ class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		$tag = $this->view->escape($this->data['tag']);
-
 		// The id of a content item is defined as follows [item_type]:[tool]:[id]
-		$id = 'heading:heading:' . $this->view->escape($this->data['content_id']);
-		$html = "<{$tag}>" . $this->view->escape($this->data['heading']);
+		$id = 'form:import-form:' . $this->view->escape($this->data['content_id']);
 
-		if(strlen($this->data['sub_heading']) > 0)
-		{
-			$html .= ' <small>' . $this->view->escape($this->data['sub_heading']) . '</small>';
-		}
-
-		$html .= "</{$tag}>";
+		$html = '';
+		$html .= $this->data['form']->form(array());
 
 		return $html;
 	}

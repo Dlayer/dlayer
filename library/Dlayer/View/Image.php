@@ -62,7 +62,7 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		// The id of a content item is defined as follows [tool]:[item_type]:[id]
+		// The id of a content item is defined as follows [item_type]:[tool]:[id]
 		$id = 'image:image:' . $this->view->escape($this->data['content_id']);
 
 		$html = '';

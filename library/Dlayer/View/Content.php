@@ -119,6 +119,10 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 						$html .= $this->view->image($content['data']);
 					break;
 
+					case 'form':
+						$html .= $this->view->importedForm($content['data']);
+					break;
+
 					default:
 					break;
 				}
