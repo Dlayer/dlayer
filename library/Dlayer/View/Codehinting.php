@@ -600,4 +600,14 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	public function jumbotron(array $data)
 	{
 	}
+
+	/**
+	 * Form content item view helper
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_ImportedForm
+	 */
+	public function importedForm(array $data)
+	{
+	}
 }
