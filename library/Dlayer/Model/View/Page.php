@@ -226,18 +226,15 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	 * Fetch the data for a form, forms simply sit in a container defined by
-	 * the user, the majority of the form layout options will have been defined
-	 * in the Form builder
+	 * Fetch all the data for a 'form' based content item
 	 *
-	 * @param integer $content_id
-	 * @return array|FALSE We either return the data array for the requested
-	 *    content item of FALSE if the data can't be pulled
+	 * @param integer $id Id of the content item
+	 * @return array|FALSE Either an array of the data for the content item or FALSE upon error
 	 */
-	private function form($content_id)
+	private function form($id)
 	{
-		$model_form = new Dlayer_Model_View_Content_Items_Form();
+		$model_form = new Dlayer_Model_View_ContentItem_Form();
 
-		return $model_form->data($this->site_id, $this->page_id, $content_id);
+		return $model_form->data($this->site_id, $this->page_id, $id);
 	}
 }
