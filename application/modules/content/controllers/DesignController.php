@@ -460,23 +460,19 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Set the id for the selected content row, set the content row tool and
-	 * return the user back tothe designer with the row selected, the content
-	 * row tool selected and the selectors set so that they can choose a content
-	 * item if they wish
+	 * Set the id for the selected row
 	 *
-	 * @todo Need to check that content row id is valid
-	 *
+	 * @todo Need to check to ensure that the row is valid, review whether the session class will be best place
 	 * @return void
 	 */
-	public function setSelectedContentRowAction()
+	public function setSelectedRowAction()
 	{
 		$this->_helper->disableLayout(FALSE);
 
 		$id = $this->getRequest()->getParam('selected');
-		$this->session_content->setContentRowId($id);
-		$this->session_content->setTool('content-row');
-		$this->_redirect('/content/design');
+		$this->session_content->setRowId($id);
+		$this->session_content->setTool('row');
+		$this->redirect('/content/design');
 	}
 
 	/**
