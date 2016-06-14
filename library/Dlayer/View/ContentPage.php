@@ -11,31 +11,29 @@
 class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
 {
 	/**
-	 * Override the hinting for the view property so that we can see the view
-	 * helpers that have been defined
+	 * Override the hinting for the view property so that we can see the view helpers that have been defined
 	 *
 	 * @var Dlayer_View_Codehinting
 	 */
 	public $view;
 
 	/**
-	 * Generated html
-	 *
 	 * @var string
 	 */
 	private $html;
 
 	/**
-	 * Id of the selected row
-	 *
-	 * @var integer|NULL
+	 * @var TRUE|NULL Is the content page selected in designer
+	 */
+	private $page_selected;
+
+	/**
+	 * @var integer|NULL Id of the selected row
 	 */
 	private $selected_row_id;
 
 	/**
-	 * Id of the selected content item
-	 *
-	 * @var integer|NULL
+	 * @var integer|NULL Id of the selected content item
 	 */
 	private $selected_content_id;
 
@@ -47,16 +45,19 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
 	 * @param array $row_styles Defined styles for the rows
 	 * @param array $content_styles Any styles defined for the content items
+	 * @param TRUE|NULL $page_selected Is the page selected in the designer?
 	 * @param integer|NULL $row_id Id of the selected row if any
 	 * @param integer|NULL $content_id Id of the selected content item if any
 	 * @return Dlayer_View_ContentPage
 	 */
 	public function contentPage(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles, $row_id = NULL, $content_id = NULL)
+		array $content_styles, $page_selected, $row_id = NULL, $content_id = NULL)
 	{
 		$this->view->row()->setRows($rows);
 		$this->view->column()->setColumns($columns);
 		$this->view->content()->setContent($content);
+
+		$this->page_selected = $page_selected;
 
 		return $this;
 	}
@@ -69,7 +70,13 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		$this->html = '<div class="container-fluid">';
+		$page_class = 'container-fluid';
+		if($this->page_selected === NULL)
+		{
+			$page_class .= ' selectable';
+		}
+
+		$this->html = '<div class="' . $page_class . '">';
 
 		$this->view->row()->setColumnId(0);
 

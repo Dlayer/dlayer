@@ -3,32 +3,31 @@
 <script type="text/javascript">
 	$(document).ready(function()
 	{
-		<?php if($this->div_id == NULL && $this->content_row == NULL 
-			&& $this->tool == NULL) { ?>
-			dlayer.selectors.contentArea();
+		<?php if($this->page_selected === NULL) { ?>
+		contentManager.pageSelector();
 		<?php } ?>
-		
-		<?php if($this->div_id != NULL && $this->content_row_id == NULL) { ?>
-			dlayer.selectors.contentRow();
-			dlayer.movers.contentRows();
-		<?php } ?>
-		
-		<?php if($this->div_id != NULL && $this->content_row_id != NULL && 
-			$this->content_id == NULL && 
-			$this->tool['tool'] == 'content-row') { ?>
-			dlayer.selectors.contentItem();			
-			dlayer.movers.contentItems();
-		<?php } ?>
-		
-		<?php if($this->div_id != NULL && $this->content_row_id != NULL && 
-			$this->content_id != NULL && $this->tool != NULL && 
-			$this->tool['tool'] != 'content-row') { ?>
-			dlayer.selectors.contentItem();
-			
-			$('.row.selected-row').removeClass('selected-row');
-	
-		<?php } ?>
-		
+
+		<?php /*if($this->div_id == NULL && $this->content_row == NULL
+			&& $this->tool == NULL) {*/ ?>
+			//dlayer.selectors.contentArea();
+
+		<?php /*if($this->div_id != NULL && $this->content_row_id == NULL) {*/ ?>
+			//dlayer.selectors.contentRow();
+			//dlayer.movers.contentRows();
+
+		<?php /*if($this->div_id != NULL && $this->content_row_id != NULL &&
+			$this->content_id == NULL &&
+			$this->tool['tool'] == 'content-row') {*/ ?>
+			//dlayer.selectors.contentItem();
+			//dlayer.movers.contentItems();
+
+		<?php /*if($this->div_id != NULL && $this->content_row_id != NULL &&
+			$this->content_id != NULL && $this->tool != NULL &&
+			$this->tool['tool'] != 'content-row') {*/ ?>
+			//dlayer.selectors.contentItem();
+
+			//$('.row.selected-row').removeClass('selected-row');
+
 		// Toggles for tools section
 		$('div#tools h4').click(
 			function() 

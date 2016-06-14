@@ -82,14 +82,15 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->dlayer_ribbon = $this->dlayerRibbon();
 
 		$this->view->module = $this->getRequest()->getModuleName();
+		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 		$this->view->tool = $this->session_content->tool();
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/design/index',
 			array('css/dlayer.css', 'css/designer-shared.css', 'css/designer-1170.css',),
-			array('scripts/dlayer.js','scripts/designer.js',), 'Dlayer.com - Content manager',
-			'/content/design/preview');
+			array('scripts/dlayer.js','scripts/designer.js', 'scripts/content-manager.js'),
+			'Dlayer.com - Content manager', '/content/design/preview');
 	}
 
 	/**
@@ -268,11 +269,9 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$model_palettes = new Dlayer_Model_Palette();
 
-		$site_id = $this->session_dlayer->siteId();
-
 		return array(
-			'palettes' => $model_palettes->palettes($site_id),
-			'history' => $model_palettes->lastNColors($site_id),
+			'palettes' => $model_palettes->palettes($this->site_id),
+			'history' => $model_palettes->lastNColors($this->site_id),
 		);
 	}
 
@@ -298,8 +297,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		if($tab != NULL && $tool != NULL)
 		{
-			$view_script = $ribbon_tab->viewScript(
-				$this->getRequest()->getModuleName(), $tool, $tab);
+			$view_script = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab);
 			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
 
 			if($view_script != FALSE)
@@ -314,14 +312,11 @@ class Content_DesignController extends Zend_Controller_Action
 				}
 
 				$this->view->color_picker_data = $this->colorPickerData();
-				$this->view->div_id = $this->session_content->divId();
 				$this->view->page_id = $this->session_content->pageId();
-				$this->view->data = $ribbon_tab->viewData($module, $tool,
-					$tab, $multi_use, $edit_mode);
+				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
 				$this->view->edit_mode = $edit_mode;
 
-				$html = $this->view->render(
-					$ribbon->viewScriptPath($view_script));
+				$html = $this->view->render($ribbon->viewScriptPath($view_script));
 			}
 			else
 			{
@@ -377,6 +372,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->form_styles = array();
 
 		// Set the vars to determine the state of the designer
+		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 
@@ -479,6 +475,20 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->session_content->setContentRowId($id);
 		$this->session_content->setTool('content-row');
 		$this->_redirect('/content/design');
+	}
+
+	/**
+	 * Set the current page as selected in the designer
+	 *
+	 * @return void
+	 */
+	public function setPageSelectedAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$this->session_content->setPageSelected();
+		$this->session_content->setTool('page');
+		$this->redirect('/content/design');
 	}
 
 	/**

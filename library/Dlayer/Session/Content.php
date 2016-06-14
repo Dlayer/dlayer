@@ -46,6 +46,27 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
+	 * Set a var to signify that the page is selected in the Content manager
+	 *
+	 * @return void
+	 */
+	public function setPageSelected()
+	{
+		$this->page_selected = true;
+	}
+
+	/**
+	 * Check to see if the page is selected
+	 *
+	 * @todo Not keen on this returned TRUE|NULL, should be TRUE|FALSE, update later
+	 * @return TRUE|NULL
+	 */
+	public function pageSelected()
+	{
+		return $this->page_selected;
+	}
+
+	/**
 	 * Set the id for the selected row
 	 *
 	 * By default the id of any previously selected content item will be cleared when a row is selected
@@ -205,6 +226,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	 */
 	public function clearAll($reset = FALSE)
 	{
+		$this->page_selected = NULL;
 		$this->row_id = NULL;
 		$this->content_id = NULL;
 		$this->tool = NULL;
