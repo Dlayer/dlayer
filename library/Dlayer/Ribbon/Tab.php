@@ -53,39 +53,29 @@ class Dlayer_Ribbon_Tab
 	}
 
 	/**
-	* Fetch the data that is required to generate the ribbon html for the
-	* requested tool and tab
-	*
-	* @param string $module
-	* @param string $tool
-	* @param string $tab
-	* @param integer $multi_use Multi use setting, either 1 or 0
-	* @param boolean $edit_mode If the current tool in edit mode
-	* @return array
-	*/
+	 * Fetch the view data for the ribbon, each tool and tab will need different data, the handler class will
+	 * invoke the relevant ribbon class
+	 *
+	 * @param string $module
+	 * @param string $tool
+	 * @param string $tab
+	 * @param integer $multi_use Multi use setting, either 1 or 0
+	 * @param boolean $edit_mode If the current tool in edit mode
+	 * @return array
+	 * @throws \Exception
+	 */
 	public function viewData($module, $tool, $tab, $multi_use, 
 		$edit_mode=FALSE)
 	{
 		$session_dlayer = new Dlayer_Session();
 
 		switch($module) {
-			case 'template':
-				$template_ribbon = new Dlayer_Ribbon_Data_Template();
-				$session_template  = new Dlayer_Session_Template();
-
-				$data = $template_ribbon->viewData($session_dlayer->siteId(),
-					$session_template->templateId(), $session_template->divId(),
-					$tool, $tab, $multi_use);
-				break;
-
 			case 'content':
-				$content_ribbon = new Dlayer_Ribbon_Data_Content();
+				$content_handler = new Dlayer_Ribbon_Handler_Content();
 				$session_content  = new Dlayer_Session_Content();
 
-				$data = $content_ribbon->viewData($session_dlayer->siteId(),
-					$session_content->pageId(), $session_content->divId(),
-					$tool, $tab, $multi_use, $edit_mode, 
-					$session_content->contentRowId(), 
+				$data = $content_handler->viewData($session_dlayer->siteId(), $session_content->pageId(),
+					$tool, $tab, $multi_use, $edit_mode, $session_content->pageSelected(), $session_content->rowId(),
 					$session_content->contentId());
 				break;
 
