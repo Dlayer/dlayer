@@ -528,12 +528,13 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
 	 * @param array $row_styles Defined styles for the rows
 	 * @param array $content_styles Any styles defined for the content items
+	 * @param TRUE|NULL $page_selected Is the content page selected in designer?
 	 * @param integer|NULL $row_id Id of the selected row if any
 	 * @param integer|NULL $content_id Id of the selected content item if any
 	 * @return Dlayer_View_ContentPage
 	 */
 	public function contentPage(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles, $row_id = NULL, $content_id = NULL)
+		array $content_styles, $page_selected = NULL, $row_id = NULL, $content_id = NULL)
 	{
 	}
 

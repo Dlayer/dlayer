@@ -82,14 +82,15 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->dlayer_ribbon = $this->dlayerRibbon();
 
 		$this->view->module = $this->getRequest()->getModuleName();
+		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 		$this->view->tool = $this->session_content->tool();
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/design/index',
 			array('css/dlayer.css', 'css/designer-shared.css', 'css/designer-1170.css',),
-			array('scripts/dlayer.js','scripts/designer.js',), 'Dlayer.com - Content manager',
-			'/content/design/preview');
+			array('scripts/dlayer.js','scripts/designer.js', 'scripts/content-manager.js'),
+			'Dlayer.com - Content manager', '/content/design/preview');
 	}
 
 	/**
@@ -377,6 +378,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->form_styles = array();
 
 		// Set the vars to determine the state of the designer
+		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 
