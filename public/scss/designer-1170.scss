@@ -25,7 +25,9 @@ div#designer {
 		}
 		
 		div.content-manager {
-
+			div.selected {
+				@include selected-state();
+			}
 		}
 	}
 	

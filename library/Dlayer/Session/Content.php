@@ -46,13 +46,17 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	 * Set a var to signify that the page is selected in the Content manager
+	 * Set a var to signify that the page is selected in the Content manager, when we set the page as selected we
+	 * also set the selected column to 0, rows can be added to columns and the base page container so we use 0 to
+	 * signify the page container
 	 *
 	 * @return void
 	 */
 	public function setPageSelected()
 	{
 		$this->page_selected = true;
+
+		$this->setColumnId(0);
 	}
 
 	/**
@@ -86,13 +90,34 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	 * Get the id of the selected content row
+	 * Get the id of the selected row
 	 *
 	 * @return integer|NULL
 	 */
 	public function rowId()
 	{
 		return $this->row_id;
+	}
+
+	/**
+	 * Set the id for the selected column
+	 *
+	 * @param integer $id
+	 * @return void
+	 */
+	public function setColumnId($id)
+	{
+		$this->column_id = intval($id);
+	}
+
+	/**
+	 * Get the id of the selected column
+	 *
+	 * @return integer|NULL
+	 */
+	public function columnId()
+	{
+		return $this->column_id;
 	}
 
 	/**
@@ -227,6 +252,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	public function clearAll($reset = FALSE)
 	{
 		$this->page_selected = NULL;
+		$this->column_id = NULL;
 		$this->row_id = NULL;
 		$this->content_id = NULL;
 		$this->tool = NULL;

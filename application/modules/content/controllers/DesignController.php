@@ -120,6 +120,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$model_module = new Dlayer_Model_Module();
 
+		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 
@@ -373,6 +374,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		// Set the vars to determine the state of the designer
 		$this->view->page_selected = $this->session_content->pageSelected();
+		$this->view->column_id = $this->session_content->columnId();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 

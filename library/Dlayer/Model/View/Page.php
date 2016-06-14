@@ -48,11 +48,14 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		{
 			if($row['column_id'] !== NULL)
 			{
-				$rows[$row['column_id']][] = array('id' => intval($row['row_id']));
+				$rows[$row['column_id']][] = array(
+					'id' => intval($row['row_id']),
+					'column_id' => intval($row['column_id']),
+				);
 			}
 			else
 			{
-				$rows[0][] = array('id' => intval($row['row_id']));
+				$rows[0][] = array('id' => intval($row['row_id']), 'column_id' => 0);
 			}
 		}
 

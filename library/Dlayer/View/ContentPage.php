@@ -28,6 +28,11 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
 	private $page_selected;
 
 	/**
+	 * @var integer|NULL Id of the selected column
+	 */
+	private $selected_column_id;
+
+	/**
 	 * @var integer|NULL Id of the selected row
 	 */
 	private $selected_row_id;
@@ -46,18 +51,20 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
 	 * @param array $row_styles Defined styles for the rows
 	 * @param array $content_styles Any styles defined for the content items
 	 * @param TRUE|NULL $page_selected Is the page selected in the designer?
-	 * @param integer|NULL $row_id Id of the selected row if any
+	 * @param integer|NULL $column_id Id of the selected column, if any
+	 * @param integer|NULL $row_id Id of the selected row, if any
 	 * @param integer|NULL $content_id Id of the selected content item if any
 	 * @return Dlayer_View_ContentPage
 	 */
 	public function contentPage(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles, $page_selected, $row_id = NULL, $content_id = NULL)
+		array $content_styles, $page_selected, $column_id = NULL, $row_id = NULL, $content_id = NULL)
 	{
 		$this->view->row()->setRows($rows);
 		$this->view->column()->setColumns($columns);
 		$this->view->content()->setContent($content);
 
 		$this->page_selected = $page_selected;
+		$this->selected_column_id = $column_id;
 
 		return $this;
 	}
@@ -75,10 +82,18 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
 		{
 			$page_class .= ' selectable';
 		}
+		else
+		{
+			if($this->selected_row_id == NULL)
+			{
+				$page_class .= ' selected';
+			}
+		}
 
 		$this->html = '<div class="' . $page_class . '">';
 
 		$this->view->row()->setColumnId(0);
+		$this->view->row()->setSelectedColumnId($this->selected_column_id);
 
 		$this->html .= $this->view->row()->render();
 

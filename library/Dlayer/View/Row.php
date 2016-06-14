@@ -35,6 +35,11 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 	private $selected_row_id;
 
 	/**
+	 * @param integer|NULL Id of the selected column, if any
+	 */
+	private $selected_column_id;
+
+	/**
 	 * @param integer|NULL Id of the selected content, if any
 	 */
 	private $selected_content_id;
@@ -91,6 +96,19 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 	}
 
 	/**
+	 * Set the id of the selected column, this controls whether or not the selectable class get applied to a row
+	 *
+	 * @param integer $id Id of the selected column
+	 * @return Dlayer_View_Row
+	 */
+	public function setSelectedColumnId($id)
+	{
+		$this->selected_column_id = $id;
+
+		return $this;
+	}
+
+	/**
 	 * Pass in the rows data for the content page. The rows data is passed in using this setter because the view helper
 	 * will be called many times to generate a content page and we only want to pass what could be a very large data
 	 * array once
@@ -120,16 +138,30 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 		{
 			foreach($this->rows[$this->column_id] as $row)
 			{
+				$class = "row";
+
+				if($this->selected_column_id === $row['column_id'])
+				{
+					if($this->selected_row_id === $row['id'])
+					{
+						$class .= ' selected';
+					}
+					else
+					{
+						$class .= ' selectable';
+					}
+				}
+
 				$this->view->column()->setRowId($row['id']);
 				$columns = $this->view->column()->render();
 
 				if(strlen($columns) > 0)
 				{
-					$html .= '<div class="row">' . $columns . '</div>';
+					$html .= '<div class="' . $class . '" id="row-' . $row['id'] . '">' . $columns . '</div>';
 				}
 				else
 				{
-					$html .= '<div class="row">Empty row</div>';
+					$html .= '<div class="' . $class . '" id="row-' . $row['id'] . '"><p>Empty row</p></div>';
 				}
 			}
 		}
