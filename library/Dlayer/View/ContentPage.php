@@ -65,6 +65,7 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
 
 		$this->page_selected = $page_selected;
 		$this->selected_column_id = $column_id;
+		$this->selected_row_id = $row_id;
 
 		return $this;
 	}
@@ -94,6 +95,7 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
 
 		$this->view->row()->setColumnId(0);
 		$this->view->row()->setSelectedColumnId($this->selected_column_id);
+		$this->view->row()->setSelectedRowId($this->selected_row_id);
 
 		$this->html .= $this->view->row()->render();
 
