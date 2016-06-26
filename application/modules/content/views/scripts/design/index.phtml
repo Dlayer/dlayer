@@ -7,6 +7,10 @@
 		contentManager.pageSelector();
 		<?php } ?>
 
+		<?php if($this->page_selected !== NULL) { ?>
+		contentManager.rowSelector();
+		<?php } ?>
+
 		<?php /*if($this->div_id == NULL && $this->content_row == NULL
 			&& $this->tool == NULL) {*/ ?>
 			//dlayer.selectors.contentArea();

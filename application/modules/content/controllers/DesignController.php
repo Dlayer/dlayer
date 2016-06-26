@@ -378,6 +378,12 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 
+
+		var_dump('Page: ' . $this->session_content->pageSelected());
+		var_dump('Column: ' . $this->session_content->columnId());
+		var_dump('Row: ' . $this->session_content->rowId());
+		var_dump('Content: ' . $this->session_content->contentId());
+
 		return $this->view->render("design/page.phtml");
 	}
 
@@ -462,14 +468,14 @@ class Content_DesignController extends Zend_Controller_Action
 	/**
 	 * Set the id for the selected row
 	 *
-	 * @todo Need to check to ensure that the row is valid, review whether the session class will be best place
+	 * @todo Add a check to ensure id is valid, check needs to look at set column (page). Not sure yet if check is best in this controller, an action helper ot in the session class, review
 	 * @return void
 	 */
 	public function setSelectedRowAction()
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$id = $this->getRequest()->getParam('selected');
+		$id = $this->getRequest()->getParam('id');
 		$this->session_content->setRowId($id);
 		$this->session_content->setTool('row');
 		$this->redirect('/content/design');
@@ -478,6 +484,7 @@ class Content_DesignController extends Zend_Controller_Action
 	/**
 	 * Set the current page as selected in the designer
 	 *
+	 * @todo Add a check to ensure id is valid, check needs to ensure page is valid for user. Not sure yet if check is best in this controller, an action helper ot in the session class, review
 	 * @return void
 	 */
 	public function setPageSelectedAction()

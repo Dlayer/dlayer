@@ -62,7 +62,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	/**
 	 * Check to see if the page is selected
 	 *
-	 * @todo Not keen on this returned TRUE|NULL, should be TRUE|FALSE, update later
+	 * @todo Not keen on this returning TRUE|NULL, should be TRUE|FALSE based on method name although other methods return INT|NULL, review later
 	 * @return TRUE|NULL
 	 */
 	public function pageSelected()
@@ -71,12 +71,10 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	 * Set the id for the selected row
-	 *
-	 * By default the id of any previously selected content item will be cleared when a row is selected
+	 * Set the id for the selected row. By default the id of any previously selected content will be cleared
 	 *
 	 * @param integer $id
-	 * @param boolean $clear_content_id Clear any previously set content ids
+	 * @param boolean $clear_content_id Clear the id of any previously selected content ids
 	 * @return void
 	 */
 	public function setRowId($id, $clear_content_id = TRUE)

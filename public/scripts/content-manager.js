@@ -64,7 +64,7 @@ var contentManager =
 
 				var id = this.id.replace('row-', '');
 
-				window.location.replace('/content/design/set-selected-row/selected/' + id);
+				window.location.replace('/content/design/set-selected-row/id/' + id);
 			}
 		);
 	},
