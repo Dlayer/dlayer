@@ -184,7 +184,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 
 		$tool_details = $model_tool->valid($session_dlayer->module(), $tool);
 
-		if($tool_details != FALSE)
+		if($tool_details !== FALSE)
 		{
 			$this->tool = $tool;
 			$this->tool_model = $tool_details['tool_model'];

@@ -476,8 +476,11 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->_helper->disableLayout(FALSE);
 
 		$id = $this->getRequest()->getParam('id');
-		$this->session_content->setRowId($id);
-		$this->session_content->setTool('row');
+
+		if($this->session_content->setTool('row') === TRUE) {
+			$this->session_content->setRowId($id);
+		}
+
 		$this->redirect('/content/design');
 	}
 
@@ -491,8 +494,10 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$this->session_content->setPageSelected();
-		$this->session_content->setTool('page');
+		if($this->session_content->setTool('page') === TRUE) {
+			$this->session_content->setPageSelected();
+		}
+
 		$this->redirect('/content/design');
 	}
 
