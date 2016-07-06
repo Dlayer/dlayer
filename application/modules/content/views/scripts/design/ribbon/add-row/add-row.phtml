@@ -1,15 +1,10 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <div class="col-md-12 col-sm-12">
-	<h3>Row <small>Add a new content row</small></h3>
-	
-	<p>Click <mark>add row</mark> below to add a new content row, it will be 
-		placed after any existing content rows and will automatically be 
-		selected so that you can immediately start adding content items to 
-		it.</p>
-</div>
+	<h3>Row <small>Add a new row</small></h3>
 
-<div class="col-md-12 col-sm-12">
+	<p>To add a new row, please click the 'add row' button</p>
+
 	<form action="/content/process/auto-tool" method="post" class="form">
 		<fieldset>
 			<div class="form-group">
@@ -21,7 +16,7 @@
 					value="<?php echo $this->escape($this->page_id); ?>" />
 			</div>			
 			<div class="form-group">
-				<input type="hidden" name="tool" value="add-content-row" />
+				<input type="hidden" name="tool" value="add-row" />
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="params[multi_use]" value="0" />
@@ -37,16 +32,11 @@
 </div>
 
 <div class="col-md-12 col-sm-12">
-	<h3>Rows <small>Add multiple content rows</small></h3>
-	
-	<p>Click <mark>add rows</mark> below to add multiple content rows, the new 
-		content rows will be added after any existing content rows. The first 
-		content row will be selected so that you can immediately start 
-		adding conteent items to it.</p>
-</div>
+	<h3>Rows <small>Add multiple rows</small></h3>
 
-<div class="col-md-12 col-sm-12">
-<form action="/content/process/auto-tool" method="post" class="form">
+	<p>To add more than one row enter the number below and click 'add rows'.</p>
+
+	<form action="/content/process/auto-tool" method="post" class="form">
 		<fieldset>
 			<div class="form-group">
 				<input type="hidden" name="div_id" value="<?php echo $this->escape($this->div_id); ?>" />
@@ -55,7 +45,7 @@
 				<input type="hidden" name="page_id" value="<?php echo $this->escape($this->page_id); ?>" />
 			</div>			
 			<div class="form-group">
-				<input type="hidden" name="tool" value="add-content-row" />
+				<input type="hidden" name="tool" value="add-row" />
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="params[multi_use]" value="0" />

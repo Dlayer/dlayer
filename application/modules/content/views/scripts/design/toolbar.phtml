@@ -6,12 +6,16 @@
 
 $groups = array(
 	1=>'', 
-	2=>'Structure <small>Change the page structure or select page 
-		elements</small>',
-	3=>'Create <small>Create a new content item</small>',
-	4=>'Import <small>Create a new content item using existing content 
+	2=>'Selectors <small>Select page elements</small>',
+	3=>'Structure <small>Manage the page structure</small>',
+	4=>'Create <small>Create a new content item</small>',
+	5=>'Import <small>Create a new content item using existing content 
 		data</small>'
 );
+
+/*var_dump($this->page_selected);
+var_dump($this->row_id);
+var_dump($this->column_id);*/
 
 foreach($this->tools as $group_id => $group) {
 
@@ -31,9 +35,25 @@ foreach($this->tools as $group_id => $group) {
 				}
 			break;
 
-			case 2: // Structure and selection
-				if($tool['tool'] == 'add-row' && $this->page_selected !== NULL && $this->row_id === NULL)
+			case 2: // Selection tools
+				/*if($tool['tool'] == 'add-row' && $this->page_selected !== NULL && $this->row_id === NULL)
 				{
+					$show = TRUE;
+				}*/
+			break;
+
+			case 3: // Structure tools
+
+				// Show the add row tool, either inside the selected page or when a column is selected
+				if($this->page_selected === TRUE && $this->row_id === NULL &&
+					($this->column_id !== NULL || $this->column_id === NULL) &&
+					$tool['tool'] === 'add-row')
+				{
+					$show = TRUE;
+				}
+
+				// Show the add column tool when a row is selected
+				if($this->page_selected !== NULL && $this->row_id !== NULL && $tool['tool'] === 'add-column') {
 					$show = TRUE;
 				}
 			break;
