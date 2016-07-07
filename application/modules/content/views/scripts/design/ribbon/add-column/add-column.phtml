@@ -1,9 +1,9 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <div class="col-md-12 col-sm-12">
-	<h3>Row <small>Add a new row</small></h3>
+	<h3>Column <small>Add a new column</small></h3>
 
-	<p>To add a new row, please click the 'add row' button</p>
+	<p>To add a new column, please click the 'add column' button</p>
 
 	<form action="/content/process/auto-tool" method="post" class="form">
 		<fieldset>
@@ -16,25 +16,25 @@
 					value="<?php echo $this->escape($this->page_id); ?>" />
 			</div>			
 			<div class="form-group">
-				<input type="hidden" name="tool" value="add-row" />
+				<input type="hidden" name="tool" value="add-column" />
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="params[multi_use]" value="0" />
 			</div>
 			<div class="form-group">
-				<input type="hidden" name="params[rows]" value="1" />
+				<input type="hidden" name="params[column]" value="1" />
 			</div>
 			<div class="form-group">
-				<input type="submit" class="btn btn-primary" name="submit" value="Add row" />
+				<input type="submit" class="btn btn-primary" name="submit" value="Add column" />
 			</div>
 		</fieldset>
 	</form>
 </div>
 
 <div class="col-md-12 col-sm-12">
-	<h3>Rows <small>Add multiple rows</small></h3>
+	<h3>Columns <small>Add multiple columns</small></h3>
 
-	<p>To add more than one row enter the number below and click 'add rows'.</p>
+	<p>To add more than one column enter the number below and click 'add column'.</p>
 
 	<form action="/content/process/auto-tool" method="post" class="form">
 		<fieldset>
@@ -45,19 +45,19 @@
 				<input type="hidden" name="page_id" value="<?php echo $this->escape($this->page_id); ?>" />
 			</div>			
 			<div class="form-group">
-				<input type="hidden" name="tool" value="add-row" />
+				<input type="hidden" name="tool" value="add-column" />
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="params[multi_use]" value="0" />
 			</div>
 			<div class="form-group">
 				<label for="params-rows" class="required">Number of content rows</label>
-				<input type="number" name="params[rows]" id="params-rows" 
+				<input type="number" name="params[column]" id="params-rows"
 					value="2" min="2" max="10" class="form-control input-sm" />
-				<p class="help-block">Please choose the number of rows you would like to create</p>
+				<p class="help-block">Please choose the number of columns you would like to create</p>
 			</div>
 			<div class="form-group">
-				<input type="submit" class="btn btn-primary" name="submit" value="Add rows" />
+				<input type="submit" class="btn btn-primary" name="submit" value="Add columns" />
 			</div>
 		</fieldset>
 	</form>
