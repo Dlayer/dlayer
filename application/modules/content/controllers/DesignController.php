@@ -379,10 +379,10 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_id = $this->session_content->contentId();
 
 
-		var_dump('Page: ' . $this->session_content->pageSelected());
-		var_dump('Column: ' . $this->session_content->columnId());
-		var_dump('Row: ' . $this->session_content->rowId());
-		var_dump('Content: ' . $this->session_content->contentId());
+		var_dump('DesignController::dlayerPage(): Page: ' . $this->session_content->pageSelected());
+		var_dump('DesignController::dlayerPage(): Column: ' . $this->session_content->columnId());
+		var_dump('DesignController::dlayerPage(): Row: ' . $this->session_content->rowId());
+		var_dump('DesignController::dlayerPage(): Content: ' . $this->session_content->contentId());
 
 		return $this->view->render("design/page.phtml");
 	}
@@ -476,13 +476,34 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->_helper->disableLayout(FALSE);
 
 		$id = $this->getRequest()->getParam('id');
-
-		if($this->session_content->setTool('row') === TRUE) {
+		if($this->session_content->setTool('row') === TRUE)
+		{
 			$this->session_content->setRowId($id);
 		}
 
 		$this->redirect('/content/design');
 	}
+
+	/**
+	 * Set the id for the selected column
+	 * 
+	 * @todo As above add a check for column validity
+	 * @return void
+	 */
+	public function setSelectedColumnAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$id = $this->getRequest()->getParam('id');
+
+		if($this->session_content->setTool('column') === TRUE) 
+		{
+			$this->session_content->setColumnId($id);
+		}
+
+		$this->redirect('/content/design/');
+	}
+	
 
 	/**
 	 * Set the current page as selected in the designer
@@ -548,14 +569,12 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$model_page_content = new Dlayer_Model_Page_Content();
 
-		if($model_page_content->valid($content_id,
-				$this->session_dlayer->siteId(), $page_id, $div_id, $content_type) &&
-			in_array($direction, array('up', 'down')) == TRUE
-		)
+		/*if(TRUE === in_array($direction, array('up', 'down')) && $model_page_content->valid($content_id,
+				$this->session_dlayer->siteId(), $page_id, $div_id, $content_type) === TRUE)
 		{
 			$model_page_content->moveContentItem($direction, $content_type,
 				$content_id, $div_id, $page_id, $this->session_dlayer->siteId());
-		}
+		}*/
 
 		$this->_redirect('/content/design/');
 	}

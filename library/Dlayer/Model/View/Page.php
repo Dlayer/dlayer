@@ -93,6 +93,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		{
 			$columns[$column['row_id']][] = array(
 				'id' => intval($column['id']),
+				'row_id' => intval($column['row_id']),
 				'size' => intval($column['size']),
 				'class' => $column['column_type'],
 				'offset' => intval($column['offset']),

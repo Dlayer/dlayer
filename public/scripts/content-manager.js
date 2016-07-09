@@ -68,4 +68,35 @@ var contentManager =
 			}
 		);
 	},
+
+	/**
+	 * Selector for columns, adds a hover event to change the background colour and then a click event to allow the
+	 * column to be selected
+	 *
+	 * @returns {Void}
+	 */
+	columnSelector: function()
+	{
+		var background_color = null;
+
+		$('.row.selected > .column.selectable').hover(
+			function() {
+				background_color = $(this).css('background-color');
+				$(this).css('background-color', '#e1dc50');
+				$(this).css('cursor', 'pointer');
+			},
+			function() {
+				$(this).css('background-color', background_color);
+			}
+		);
+		$('.row.selected > .column.selectable').click(
+			function() {
+				$(this).css('background-color', '#66a7ba');
+
+				var id = this.id.replace('column-', '');
+
+				window.location.replace('/content/design/set-selected-column/id/' + id);
+			}
+		);
+	},
 }
