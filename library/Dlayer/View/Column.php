@@ -34,6 +34,11 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 	private $selected_column_id;
 
 	/**
+	 * @param integer|NULL Id of the selected row, if any
+	 */
+	private $selected_row_id;
+
+	/**
 	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @return Dlayer_View_Column
@@ -65,6 +70,19 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 	public function setSelectedColumnId($id)
 	{
 		$this->selected_column_id = $id;
+
+		return $this;
+	}
+
+	/**
+	 * Set the id of the selected row, this controls whether or not the selectable class gets applied to the columns
+	 *
+	 * @param integer $id Id of the selected row
+	 * @return Dlayer_View_Column
+	 */
+	public function setSelectedRowId($id)
+	{
+		$this->selected_row_id = $id;
 
 		return $this;
 	}
@@ -102,7 +120,22 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 				$this->view->row()->setColumnId($column['id']);
 				$rows = $this->view->row()->render();
 
-				$html .= '<div class="col-' . $column['class'] . '-' . $column['size'] . '">';
+				$class = "column";
+
+				if($this->selected_row_id === $column['row_id'])
+				{
+					if($this->selected_column_id === $column['id'])
+					{
+						$class .= ' selected';
+					}
+					else
+					{
+						$class .= ' selectable';
+					}
+				}
+
+				$html .= '<div class="' . $class . ' col-' . $column['class'] . '-' . $column['size'] .
+					'" id="column-' . $column['id'] . '">';
 
 				if(strlen($rows) > 0)
 				{

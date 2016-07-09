@@ -7,6 +7,14 @@
 		contentManager.pageSelector();
 		<?php } ?>
 
+		<?php if($this->page_selected !== NULL) { ?>
+		contentManager.rowSelector();
+		<?php } ?>
+
+		<?php if($this->page_selected !== NULL && $this->row_id !== NULL) { ?>
+		contentManager.columnSelector();
+		<?php } ?>
+
 		<?php /*if($this->div_id == NULL && $this->content_row == NULL
 			&& $this->tool == NULL) {*/ ?>
 			//dlayer.selectors.contentArea();
@@ -43,7 +51,7 @@
 					$('h4.' + selector + ' > span').addClass('glyphicon-minus');
 				}
 			}
-		)
+		);
 		
 		<?php if($this->tool != NULL && in_array($this->tool['tool'], 
 			array('import-text', 'import-heading', 'import-jumbotron')) == FALSE) { ?>

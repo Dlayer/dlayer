@@ -120,6 +120,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$model_module = new Dlayer_Model_Module();
 
+		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 
@@ -373,8 +374,15 @@ class Content_DesignController extends Zend_Controller_Action
 
 		// Set the vars to determine the state of the designer
 		$this->view->page_selected = $this->session_content->pageSelected();
+		$this->view->column_id = $this->session_content->columnId();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
+
+
+		var_dump('DesignController::dlayerPage(): Page: ' . $this->session_content->pageSelected());
+		var_dump('DesignController::dlayerPage(): Column: ' . $this->session_content->columnId());
+		var_dump('DesignController::dlayerPage(): Row: ' . $this->session_content->rowId());
+		var_dump('DesignController::dlayerPage(): Content: ' . $this->session_content->contentId());
 
 		return $this->view->render("design/page.phtml");
 	}
@@ -458,36 +466,59 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Set the id for the selected content row, set the content row tool and
-	 * return the user back tothe designer with the row selected, the content
-	 * row tool selected and the selectors set so that they can choose a content
-	 * item if they wish
+	 * Set the id for the selected row
 	 *
-	 * @todo Need to check that content row id is valid
-	 *
+	 * @todo Add a check to ensure id is valid, check needs to look at set column (page). Not sure yet if check is best in this controller, an action helper ot in the session class, review
 	 * @return void
 	 */
-	public function setSelectedContentRowAction()
+	public function setSelectedRowAction()
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$id = $this->getRequest()->getParam('selected');
-		$this->session_content->setContentRowId($id);
-		$this->session_content->setTool('content-row');
-		$this->_redirect('/content/design');
+		$id = $this->getRequest()->getParam('id');
+		if($this->session_content->setTool('row') === TRUE)
+		{
+			$this->session_content->setRowId($id);
+		}
+
+		$this->redirect('/content/design');
 	}
+
+	/**
+	 * Set the id for the selected column
+	 * 
+	 * @todo As above add a check for column validity
+	 * @return void
+	 */
+	public function setSelectedColumnAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$id = $this->getRequest()->getParam('id');
+
+		if($this->session_content->setTool('column') === TRUE) 
+		{
+			$this->session_content->setColumnId($id);
+		}
+
+		$this->redirect('/content/design/');
+	}
+	
 
 	/**
 	 * Set the current page as selected in the designer
 	 *
+	 * @todo Add a check to ensure id is valid, check needs to ensure page is valid for user. Not sure yet if check is best in this controller, an action helper ot in the session class, review
 	 * @return void
 	 */
 	public function setPageSelectedAction()
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$this->session_content->setPageSelected();
-		$this->session_content->setTool('page');
+		if($this->session_content->setTool('page') === TRUE) {
+			$this->session_content->setPageSelected();
+		}
+
 		$this->redirect('/content/design');
 	}
 
@@ -538,14 +569,12 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$model_page_content = new Dlayer_Model_Page_Content();
 
-		if($model_page_content->valid($content_id,
-				$this->session_dlayer->siteId(), $page_id, $div_id, $content_type) &&
-			in_array($direction, array('up', 'down')) == TRUE
-		)
+		/*if(TRUE === in_array($direction, array('up', 'down')) && $model_page_content->valid($content_id,
+				$this->session_dlayer->siteId(), $page_id, $div_id, $content_type) === TRUE)
 		{
 			$model_page_content->moveContentItem($direction, $content_type,
 				$content_id, $div_id, $page_id, $this->session_dlayer->siteId());
-		}
+		}*/
 
 		$this->_redirect('/content/design/');
 	}

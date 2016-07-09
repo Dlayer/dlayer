@@ -46,19 +46,23 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	 * Set a var to signify that the page is selected in the Content manager
+	 * Set a var to signify that the page is selected in the Content manager, when we set the page as selected we
+	 * also set the selected column to 0, rows can be added to columns and the base page container so we use 0 to
+	 * signify the page container
 	 *
 	 * @return void
 	 */
 	public function setPageSelected()
 	{
 		$this->page_selected = true;
+
+		$this->setColumnId(0);
 	}
 
 	/**
 	 * Check to see if the page is selected
 	 *
-	 * @todo Not keen on this returned TRUE|NULL, should be TRUE|FALSE, update later
+	 * @todo Not keen on this returning TRUE|NULL, should be TRUE|FALSE based on method name although other methods return INT|NULL, review later
 	 * @return TRUE|NULL
 	 */
 	public function pageSelected()
@@ -67,12 +71,10 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	 * Set the id for the selected row
-	 *
-	 * By default the id of any previously selected content item will be cleared when a row is selected
+	 * Set the id for the selected row. By default the id of any previously selected content will be cleared
 	 *
 	 * @param integer $id
-	 * @param boolean $clear_content_id Clear any previously set content ids
+	 * @param boolean $clear_content_id Clear the id of any previously selected content ids
 	 * @return void
 	 */
 	public function setRowId($id, $clear_content_id = TRUE)
@@ -86,13 +88,34 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	 * Get the id of the selected content row
+	 * Get the id of the selected row
 	 *
 	 * @return integer|NULL
 	 */
 	public function rowId()
 	{
 		return $this->row_id;
+	}
+
+	/**
+	 * Set the id for the selected column
+	 *
+	 * @param integer $id
+	 * @return void
+	 */
+	public function setColumnId($id)
+	{
+		$this->column_id = intval($id);
+	}
+
+	/**
+	 * Get the id of the selected column
+	 *
+	 * @return integer|NULL
+	 */
+	public function columnId()
+	{
+		return $this->column_id;
 	}
 
 	/**
@@ -161,7 +184,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 
 		$tool_details = $model_tool->valid($session_dlayer->module(), $tool);
 
-		if($tool_details != FALSE)
+		if($tool_details !== FALSE)
 		{
 			$this->tool = $tool;
 			$this->tool_model = $tool_details['tool_model'];
@@ -227,6 +250,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	public function clearAll($reset = FALSE)
 	{
 		$this->page_selected = NULL;
+		$this->column_id = NULL;
 		$this->row_id = NULL;
 		$this->content_id = NULL;
 		$this->tool = NULL;

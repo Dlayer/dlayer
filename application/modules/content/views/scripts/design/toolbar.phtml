@@ -2,19 +2,20 @@
 
 <?php 
 
-/**
-* @todo Need to update this, use database come up with a cleaner, more 
-* re-usable solution
-*/
+// @todo Need to update this, use database come up with a cleaner, more
 
 $groups = array(
 	1=>'', 
-	2=>'Structure <small>Change the page structure or select page 
-		elements</small>',
-	3=>'Create <small>Create a new content item</small>',
-	4=>'Import <small>Create a new content item using existing content 
+	2=>'Selectors <small>Select page elements</small>',
+	3=>'Structure <small>Manage the page structure</small>',
+	4=>'Create <small>Create a new content item</small>',
+	5=>'Import <small>Create a new content item using existing content 
 		data</small>'
 );
+
+/*var_dump($this->page_selected);
+var_dump($this->row_id);
+var_dump($this->column_id);*/
 
 foreach($this->tools as $group_id => $group) {
 
@@ -25,37 +26,54 @@ foreach($this->tools as $group_id => $group) {
 		$show = FALSE;
 		$selected = FALSE;
 		
-		switch($tool['base']) {
-			case 2:
-				if($this->div_id != NULL) {
+		switch($tool['group_id'])
+		{
+			case 1: // Cancel tool
+				if($this->page_selected !== NULL)
+				{
 					$show = TRUE;
-				}			
-				break;
-			
-			case 1:
-				/**
-				* Show the add content row tool if content area selected and a 
-				* content row is not selected
-				*/
-				if($tool['tool'] == 'add-content-row' && $this->div_id != NULL &&
+				}
+			break;
+
+			case 2: // Selection tools
+				/*if($tool['tool'] == 'add-row' && $this->page_selected !== NULL && $this->row_id === NULL)
+				{
+					$show = TRUE;
+				}*/
+			break;
+
+			case 3: // Structure tools
+
+				// Show the add row tool, either inside the selected page or when a column is selected
+				if($this->page_selected === TRUE && $this->row_id === NULL &&
+					($this->column_id !== NULL || $this->column_id === NULL) &&
+					$tool['tool'] === 'add-row')
+				{
+					$show = TRUE;
+				}
+
+				// Show the add column tool when a row is selected
+				if($this->page_selected !== NULL && $this->row_id !== NULL && $tool['tool'] === 'add-column') {
+					$show = TRUE;
+				}
+			break;
+
+			/*case 1: // Structure
+				// Show the add content row tool if content area selected and a content row is not selected
+				if($tool['tool'] == 'add-row' && $this->div_id != NULL &&
 					$this->content_row_id == NULL) {
 						
 					$show = TRUE;
 				}
 				
-				/**
-				* Show the content area tool if a content area is selected
-				*/
-				if($tool['tool'] == 'content-area' && $this->div_id != NULL && 
+				// Show the content area tool if a content area is selected
+				if($tool['tool'] == 'content-area' && $this->div_id != NULL &&
 					$this->tool['tool'] == 'content-area') {
 						
 					$show = TRUE;
 				}
 				
-				/**
-				* Show the content row tool if a content area and content row 
-				* is selected
-				*/
+				// Show the content row tool if a content area and content row is selected
 				if($tool['tool'] == 'content-row' && $this->div_id != NULL &&
 					$this->content_row_id != NULL && 
 					$this->tool['tool'] == 'content-row') {
@@ -70,21 +88,15 @@ foreach($this->tools as $group_id => $group) {
 					$show = TRUE;
 				}
 				
-				/**
-				* Show move item tool if content area, content row and 
-				* content id selected
-				*/
-				if($tool['tool'] == 'move-item' && $this->div_id != NULL && 
+				// Show move item tool if content area, content row and content id selected
+				if($tool['tool'] == 'move-item' && $this->div_id != NULL &&
 					$this->content_row_id != NULL && 
 					$this->content_id != NULL) {
 						
 					$show = TRUE;
 				}
 				
-				/**
-				* Show move item tool if content area, content row and 
-				* content id selected
-				*/
+				// Show move item tool if content area, content row and content id selected
 				if($tool['tool'] == 'select' && $this->div_id != NULL && 
 					$this->content_row_id != NULL && 
 					$this->content_id != NULL) {
@@ -93,12 +105,14 @@ foreach($this->tools as $group_id => $group) {
 				}
 							
 				break;
+			*/
 			
-			case 0:
+			/*case 0:
 				if($this->div_id != NULL && $this->content_row_id != NULL) {
 					$show = TRUE;
 				}
 				break;
+				*/
 				
 			default:
 				break;
