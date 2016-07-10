@@ -77,7 +77,7 @@ class Dlayer_Ribbon_Handler_Content
 		switch($tool)
 		{
 			case 'add-row':
-				$data = $this->addRow($tab);
+				$data = $this->addRow($tool, $tab);
 			break;
 
 			
@@ -148,13 +148,33 @@ class Dlayer_Ribbon_Handler_Content
 	}
 
 	/**
+	 * Base tool params, uses by every tool, accessible via $data['tool'] in the view
+	 *
+	 * @todo Once all the tool have been updated move this method, could be in controller
+	 * @param string $tool
+	 * @return array
+	 */
+	private function toolParams($tool)
+	{
+		return array(
+			'name' => $tool,
+			'page_id' => $this->page_id,
+			'column_id' => $this->column_id,
+			'row_id' => $this->row_id,
+			'content_id' => $this->content_id,
+			'multi_use' => $this->multi_use,
+		);
+	}
+
+	/**
 	 * Fetch the view data for the add row tool, very simple tool, currently no ribbon class, just going to
 	 * return an array containing the data for the hidden fields
 	 *
-	 * @param string $tab The tool tab we are fetching the content for
+	 * @param string $tool The tool name
+	 * @param string $tab The tool tab name
 	 * @return array|FALSE
 	 */
-	private function addRow($tab)
+	private function addRow($tool, $tab)
 	{
 		$data = FALSE;
 
@@ -162,9 +182,7 @@ class Dlayer_Ribbon_Handler_Content
 		{
 			case 'add-row':
 				$data = array(
-					'page_id' => $this->page_id,
-					'column_id' => $this->column_id,
-					'multi_use' => $this->multi_use,
+					'tool' => $this->toolParams($tool),
 				);
 			break;
 

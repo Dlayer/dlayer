@@ -51,7 +51,7 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 	* Set the module in the dlayer session. 
 	* 
 	* When setting the module we check to see if it exists and is enabled. If 
-	* the module doesn't exist or isn't enabled the user is redirected to the 
+	* the module does not exist or isn't enabled the user is redirected to the
 	* base of the app
 	*
 	* @return Dlayer_Action_SetModule

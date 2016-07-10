@@ -23,15 +23,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	*/
 	protected $_helper;
 
-	private $session_dlayer;
-	private $session_content;
-
 	private $debug;
-
-	/**
-	* @var Dlayer_Tool_Module_Content
-	*/
-	private $tool_class;
 
 	/**
 	* Init the controller, run any set up code required by all the actions
@@ -43,47 +35,108 @@ class Content_ProcessController extends Zend_Controller_Action
 	{
 		$this->_helper->authenticate();
 
+		/**
+		 * @todo Not happy with this, needs a better name, not clear what it does
+		 */
 		$this->_helper->setModule();
-
-		$this->_helper->validateSiteId();
-
-		$this->_helper->validateTemplateId(TRUE);
 
 		$this->_helper->disableLayout(FALSE);
 
 		$this->debug = $this->getInvokeArg('bootstrap')->getOption('debug');
-
-		$this->session_dlayer = new Dlayer_Session();
-		$this->session_content = new Dlayer_Session_Content();
 	}
 
 	/**
-	* Process method for all the manual tools, tools where the user will be 
-	* supplying data.
-	* 
-	* We initially check to ensure that all the posted environment params 
-	* match what is in the session and also that all the posted values are 
-	* valid
-	* 
-	* Once the posted required has been confirmed as valid the submitted params 
-	* are validated by the tool class, initially to ensure the correct 
-	* fields have been posted and then to ensure that the posted values 
-	* are valid or within the expected range
-	* 
-	* Assuming all the posted data is valid the process method for the tool is 
-	* called, the process method handles all database changes
-	* 
-	* In all cases the user is returned back to the designer, the only 
-	* difference in whether state is maintained, that depends both on whether 
-	* the request was valid and the multi use param for the tool
-	*
-	* @return void Redirect the user back to the designer
-	*/
+	 * Validate the request, checks the tool is valid and the base environment params are correct. Values should be
+	 * validated before they get set in session so we can simply check they match here
+	 *
+	 * @param Dlayer_Session_Content $session_content
+	 * @todo Need to add logging so can easily see where errors occurred
+	 * @return void
+	 */
+	private function validateRequest($session_content)
+	{
+		if($session_content->pageId() !== $this->_getParam('page_id')) ;
+		{
+			$this->returnToDesigner(FALSE);
+		}
+
+		if($session_content->tool() === FALSE || $session_content->tool()['tool'] !== $this->_getParam('tool'))
+		{
+			$this->returnToDesigner(FALSE);
+		}
+
+		if($session_content->rowId() !== $this->_getParam('row_id'))
+		{
+			$this->returnToDesigner(FALSE);
+		}
+
+		if($session_content->columnId() !== $this->_getParam('column_id', 0))
+		{
+			$this->returnToDesigner(FALSE);
+		}
+
+		if($session_content->columnId() !== $this->_getParam('content_id'))
+		{
+			$this->returnToDesigner(FALSE);
+		}
+	}
+
+	/**
+	 * Process method for the manual tools, manual tools are any tools where the user provides input. Assuming the
+	 * environment params are correct and match the session values we simply pass the request of to the tool class.
+	 * In all cases, tool success/failure the user is always returned back to the designer, the only difference being
+	 * whether the state of the designer is maintained, depends on the success of the tool and validation and whether or 
+	 * not the tool is a multi-use tool
+	 *
+	 * @todo Method on flux whilst I rework the tools, also, some tools should be auto tools (add-row), they will
+	 * return to being auto tools when I confirm that everything is working correctly
+	 * @return void
+	 */
 	public function toolAction()
 	{
-		$site_id = $this->session_dlayer->siteId();
+		$session_content = new Dlayer_Session_Content();
+		$this->validateRequest($session_content);
 
-		$page_id = $this->validatePageId($_POST['page_id']);
+		$sub_tool_model = $this->_request->getParam('sub_tool_model');
+		if($sub_tool_model !== NULL)
+		{
+			$tool_class = 'Dlayer_Tool_Content_' . $_POST['sub_tool_model'];
+		}
+		else
+		{
+			$tool_class = 'Dlayer_Tool_Content_' . $session_content->tool()['model'];
+		}
+
+		/**
+		 * @var $tool Dlayer_Tool_Module_Content
+		 */
+		$tool = new $tool_class();
+
+		/**
+		 * Validate needs to store valid params[] but also the environment vars so we don'#t need to
+		 * pass them into process as well.
+		 *
+		 * Rework the base tool class
+		 */
+		if($tool->validate($this->_request->getParams()) === TRUE)
+		{
+			$result = $tool->process();
+
+			if($result === TRUE)
+			{
+				$this->returnToDesigner(TRUE);
+			}
+			else
+			{
+				$this->returnToDesigner(FALSE);
+			}
+		}
+
+
+
+
+
+		/*$page_id = $this->validatePageId($_POST['page_id']);
 		$div_id = $this->validateDivId($_POST['div_id'], $page_id);
 		$content_row_id = $this->validateContentRowId($page_id, $div_id, 
 			$_POST['content_row_id']);
@@ -91,8 +144,6 @@ class Content_ProcessController extends Zend_Controller_Action
 		$content_id = $this->contentId($site_id, $page_id, $div_id, 
 			$content_row_id, $_POST);
 			
-		// Instantiate the tool class, checks to see if we are instantiating 
-		// a base tool or sub tool
 		$model_tools = new Dlayer_Model_Tool();
 
 		if(array_key_exists('sub_tool_model', $_POST) == TRUE 
@@ -117,7 +168,7 @@ class Content_ProcessController extends Zend_Controller_Action
 			$this->returnToDesigner(TRUE);
 		} else {
 			$this->returnToDesigner(FALSE);
-		}
+		}*/
 	}
 	
 	/**
@@ -142,99 +193,6 @@ class Content_ProcessController extends Zend_Controller_Action
 		}
 		
 		return $content_id;
-	}
-
-	/**
-	* Process method for the auto tools.
-	* 
-	* Simpler than the standard tool action because the auto tool action tools 
-	* don't take into account any user input, the tools don't also manage 
-	* items so there is no concept of an edit mode.
-	* 
-	* Typical uses in the content manager are the structure tools.
-	*
-	* @return void
-	*/
-	public function autoToolAction()
-	{
-		$site_id = $this->session_dlayer->siteId();
-
-		$page_id = $this->validatePageId($_POST['page_id']);
-		$div_id = $this->validateDivId($_POST['div_id'], $page_id);		
-		$tool = $this->validateTool($_POST['tool']);
-		
-		$content_row_id = NULL;
-		
-		// Validate and set content row id if set
-		if(array_key_exists('content_row_id', $_POST) == TRUE) {
-			$content_row_id = intval($_POST['content_row_id']);
-		}
-
-		// Instantiate the tool class, checks to see if we are instantiating 
-		// a base tool or sub tool
-		$model_tools = new Dlayer_Model_Tool();
-
-		if(array_key_exists('sub_tool_model', $_POST) == TRUE 
-			&& $model_tools->subToolValid($this->getRequest()->getModuleName(),
-				$tool['tool'], $_POST['sub_tool_model']) == TRUE) {
-				$tool_class = 'Dlayer_Tool_Content_' . $_POST['sub_tool_model'];
-		} else {
-			$tool_class = 'Dlayer_Tool_Content_' . $tool['model'];
-		}
-
-		$this->tool_class = new $tool_class();
-		
-		/**
-		* Run the validation meton on the requested tool, if the result comes 
-		* back as TRUE process the request
-		*/
-		if($this->tool_class->autoValidate($_POST['params'], $site_id, 
-		$page_id, $div_id, $content_row_id) == TRUE) {
-
-			/**
-			* Auto tool can return multiple ids, session values are 
-			* cleared and then returned values are set
-			*/
-			$return_ids = $this->tool_class->autoProcess($site_id, 
-				$page_id, $div_id, $content_row_id);
-
-			// Clear session vars
-			$this->session_content->clearAll();
-
-			// Set new vars
-			foreach($return_ids as $id) {
-				
-				switch($id['type']) {
-					case 'div_id':
-						$this->session_content->setDivId($id['id']);
-						break;
-
-					case 'content_row_id':
-						$this->session_content->setContentRowId($id['id']);
-						break;
-						
-					case 'content_id':
-						$this->session_content->setContentId($id['id'], 
-							$id['content_type']);
-						break;
-						
-					case 'tool':
-						$this->session_content->setTool($id['id']);
-						break;
-						
-					case 'tab':
-						$this->session_content->setRibbonTab($id['id']);
-						break;
-						
-					default:
-						break;
-				}
-			}
-
-			$this->returnToDesigner(TRUE, FALSE);
-		} else {
-			$this->returnToDesigner(FALSE);
-		}
 	}
 
 	/**
@@ -313,29 +271,6 @@ class Content_ProcessController extends Zend_Controller_Action
 				$this->session_dlayer->siteId()) == TRUE) {
 
 				return intval($page_id);
-		} else {
-			$this->returnToDesigner(FALSE);
-		}
-	}
-
-	/**
-	* Check to make sure that the posted div id matches the value stored in 
-	* the session and also belongs to the requested page and site
-	* 
-	* @param integer $div_id
-	* @param integer $page_id
-	* @return integer|void Either returns the intval for the supplied div id 
-	* 	or redirects the user back to the designer after calling the cancel
-	* 	tool
-	*/
-	private function validateDivId($div_id, $page_id)
-	{
-		$model_page = new Dlayer_Model_Page();
-
-		if($this->session_content->divId() == $div_id && 
-		$model_page->divValid($div_id, $page_id) == TRUE) {
-
-			return intval($div_id);
 		} else {
 			$this->returnToDesigner(FALSE);
 		}
