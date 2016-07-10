@@ -1,12 +1,11 @@
 <?php
 
 /**
- * Handler class for the content manager ribbon, called by the controller and returns the relevant view data based
- * on the tool and tab selected, the data classes are similar for each designer, the differences being the
- * environment variables passed in
+ * Handler class for the content manager tools, called by the content manager Ajax method, simply passes the
+ * request off to the specific ribbon class for the tool
  *
- * This class simply hands of the request to a ribbon class for each tool which then returns the data array for the
- * view
+ * The handlers are similar for each of the designers, the difference being the designer environment variables that are
+ * passed in
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
@@ -25,16 +24,6 @@ class Dlayer_Ribbon_Handler_Content
 	private $page_id;
 
 	/**
-	 * @var string $tool Name of the selected tool, matches database
-	 */
-	private $tool;
-
-	/**
-	 * @var string $tab Tab for the selected tool, matches database
-	 */
-	private $tab;
-
-	/**
 	 * @var integer $multi_use Is the tool a multi use tool?
 	 */
 	private $multi_use;
@@ -45,14 +34,14 @@ class Dlayer_Ribbon_Handler_Content
 	private $edit_mode;
 
 	/**
-	 * @var TRUE|NULL $page_selected Is the page selected in the content manager
+	 * @var integer|NULL Id of the selected row, if any
 	 */
-	private $page_selected;
+	private $row_id;
 
 	/**
 	 * @var integer|NULL Id of the selected row, if any
 	 */
-	private $row_id;
+	private $column_id;
 
 	/**
 	 * @var integer|NULL Id of the selected content item, if any
@@ -68,26 +57,32 @@ class Dlayer_Ribbon_Handler_Content
 	 * @param string $tab
 	 * @param integer $multi_use
 	 * @param boolean $edit_mode
-	 * @param TRUE|NULL $page_selected
 	 * @param integer|NULL $row_id
+	 * @param integer|NULL $column_id
 	 * @param integer|NULL $content_id
-	 * @return array|FALSE Either returns the data array for the requested tool tab or FALSE if no data for tool
+	 * @return array|FALSE Returns an array of the data necessary to create the tool tab for the tool or FALSE if
+	 * there is no data or something went wrong
 	 */
-	public function viewData($site_id, $page_id, $tool, $tab, $multi_use, $edit_mode = FALSE,
-		$page_selected = NULL, $row_id = NULL, $content_id = NULL)
+	public function viewData($site_id, $page_id, $tool, $tab, $multi_use, $edit_mode=FALSE, $row_id=NULL,
+		$column_id=NULL, $content_id=NULL)
 	{
 		$this->site_id = $site_id;
 		$this->page_id = $page_id;
-		$this->tool = $tool;
-		$this->tab = $tab;
 		$this->multi_use = $multi_use;
 		$this->edit_mode = $edit_mode;
-		$this->page_selected = $page_selected;
 		$this->row_id = $row_id;
+		$this->column_id = $column_id;
 		$this->content_id = $content_id;
 
-		switch($this->tool)
+		switch($tool)
 		{
+			case 'add-row':
+				$data = $this->addRow($tab);
+			break;
+
+			
+			
+			
 			case 'page':
 				$data = $this->page();
 			break;
@@ -151,6 +146,36 @@ class Dlayer_Ribbon_Handler_Content
 
 		return $data;
 	}
+
+	/**
+	 * Fetch the view data for the add row tool, very simple tool, currently no ribbon class, just going to
+	 * return an array containing the data for the hidden fields
+	 *
+	 * @param string $tab The tool tab we are fetching the content for
+	 * @return array|FALSE
+	 */
+	private function addRow($tab)
+	{
+		$data = FALSE;
+
+		switch($tab)
+		{
+			case 'add-row':
+				$data = array(
+					'page_id' => $this->page_id,
+					'column_id' => $this->column_id,
+					'multi_use' => $this->multi_use,
+				);
+			break;
+
+			default:
+			break;
+		}
+
+		return $data;
+	}
+
+
 
 	/**
 	 * Fetch the view tab data for the heading tool, in this case the form for

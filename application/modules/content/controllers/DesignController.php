@@ -122,6 +122,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
+		$this->view->column_id = $this->session_content->columnId();
 		$this->view->content_id = $this->session_content->contentId();
 
 		$this->view->tools = $model_module->tools($this->getRequest()->getModuleName());
@@ -285,6 +286,15 @@ class Content_DesignController extends Zend_Controller_Action
 	 *
 	 * @return string
 	 */
+
+	/**
+	 * Generate the html for the requested tool tab, called via Ajax. The tool and tab are checked to ensure they are
+	 * valid and active and then the data required to generate the tool tab is fetched and passed too the view
+	 *
+	 * @todo Update code, needs to actually check validity of tool and current status
+	 * @throws \Exception
+	 * @return string
+	 */
 	public function ribbonTabHtmlAction()
 	{
 		$this->_helper->disableLayout();
@@ -296,33 +306,28 @@ class Content_DesignController extends Zend_Controller_Action
 		$ribbon = new Dlayer_Ribbon();
 		$ribbon_tab = new Dlayer_Ribbon_Tab();
 
-		if($tab != NULL && $tool != NULL)
+		if($tab !== NULL && $tool !== NULL)
 		{
 			$view_script = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab);
 			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
 
-			if($view_script != FALSE)
+			if($view_script !== FALSE)
 			{
-
 				$this->session_content->setRibbonTab($tab);
-
 				$edit_mode = FALSE;
-				if($this->session_content->contentId() != NULL)
+				if($this->session_content->contentId() !== NULL)
 				{
 					$edit_mode = TRUE;
 				}
 
 				$this->view->color_picker_data = $this->colorPickerData();
-				$this->view->page_id = $this->session_content->pageId();
 				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
-				$this->view->edit_mode = $edit_mode;
 
 				$html = $this->view->render($ribbon->viewScriptPath($view_script));
 			}
 			else
 			{
-				$html = $this->view->render(
-					$ribbon->defaultViewScriptPath());
+				$html = $this->view->render($ribbon->defaultViewScriptPath());
 			}
 		}
 		else
