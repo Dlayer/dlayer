@@ -113,14 +113,14 @@ class Content_ProcessController extends Zend_Controller_Action
 		$tool = new $tool_class();
 
 		/**
-		 * Validate needs to store valid params[] but also the environment vars so we don'#t need to
+		 * Validate needs to store valid params[] but also the environment vars so we don't need to
 		 * pass them into process as well.
 		 *
 		 * Rework the base tool class
 		 */
-		if($tool->validate($this->_request->getParams()) === TRUE)
+		if($tool->validateAuto($this->_request->getParams()) === TRUE)
 		{
-			$result = $tool->process();
+			$result = $tool->processAuto();
 
 			if($result === TRUE)
 			{
