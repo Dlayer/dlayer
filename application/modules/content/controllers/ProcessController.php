@@ -82,6 +82,65 @@ class Content_ProcessController extends Zend_Controller_Action
 	}
 
 	/**
+	 * Fetch the tool class, either returns the tool defined in the session of the tool for the posted sub tool
+	 *
+	 * @param string $sub_tool_model
+	 * @return Dlayer_Tool_Module_Content
+	 */
+	private function toolClass($sub_tool_model = NULL)
+	{
+		$session_content = new Dlayer_Session_Content();
+		if($sub_tool_model !== NULL)
+		{
+			$tool_class = 'Dlayer_Tool_Content_' . $sub_tool_model;
+		}
+		else
+		{
+			$tool_class = 'Dlayer_Tool_Content_' . $session_content->tool()['model'];
+		}
+
+		return new $tool_class();
+	}
+
+	/**
+	 * Set the environment id
+	 *
+	 * @param array $environment_ids
+	 * @return void
+	 */
+	private function setEnvironmentIds(array $environment_ids)
+	{
+		$session_content = new Dlayer_Session_Content();
+		$session_content->clearAll();
+
+		foreach($environment_ids as $id)
+		{
+			switch($id['type'])
+			{
+				case 'page_id':
+					$session_content->setPageId($id['id']);
+					$session_content->setPageSelected();
+				break;
+
+				case 'row_id':
+					$session_content->setRowId($id['id']);
+				break;
+
+				case 'column_id':
+					$session_content->setColumnId($id['id']);
+				break;
+
+				case 'tool':
+					$session_content->setTool($id['id']);
+				break;
+
+				default:
+				break;
+			}
+		}
+	}
+
+	/**
 	 * Process method for the manual tools, manual tools are any tools where the user provides input. Assuming the
 	 * environment params are correct and match the session values we simply pass the request of to the tool class.
 	 * In all cases, tool success/failure the user is always returned back to the designer, the only difference being
@@ -94,82 +153,69 @@ class Content_ProcessController extends Zend_Controller_Action
 	 */
 	public function toolAction()
 	{
+		$session_dlayer = new Dlayer_Session();
 		$session_content = new Dlayer_Session_Content();
 		$this->validateRequest($session_content);
 
-		$sub_tool_model = $this->_request->getParam('sub_tool_model');
-		if($sub_tool_model !== NULL)
-		{
-			$tool_class = 'Dlayer_Tool_Content_' . $_POST['sub_tool_model'];
-		}
-		else
-		{
-			$tool_class = 'Dlayer_Tool_Content_' . $session_content->tool()['model'];
-		}
+		$tool = $this->toolClass($this->_request->getParam('sub_tool_model'));
 
-		/**
-		 * @var $tool Dlayer_Tool_Module_Content
-		 */
-		$tool = new $tool_class();
-
-		/**
-		 * Validate needs to store valid params[] but also the environment vars so we don't need to
-		 * pass them into process as well.
-		 *
-		 * Rework the base tool class
-		 */
-		if($tool->validateAuto($this->_request->getParams()) === TRUE)
+		if($tool->validateAuto($this->_request->getParams(), $session_dlayer->siteId(), $session_content->pageId(),
+				$session_content->rowId(), $session_content->columnId(), $session_content->contentId()) === TRUE)
 		{
-			$result = $tool->processAuto();
-
-			if($result === TRUE)
+			$return_ids = $tool->processAuto();
+			
+			if($return_ids !== FALSE) 
 			{
+				$this->setEnvironmentIds($return_ids);
+
 				$this->returnToDesigner(TRUE);
-			}
-			else
+			} 
+			else 
 			{
 				$this->returnToDesigner(FALSE);
 			}
 		}
-
-
-
-
-
-		/*$page_id = $this->validatePageId($_POST['page_id']);
-		$div_id = $this->validateDivId($_POST['div_id'], $page_id);
-		$content_row_id = $this->validateContentRowId($page_id, $div_id, 
-			$_POST['content_row_id']);
-		$tool = $this->validateTool($_POST['tool']);
-		$content_id = $this->contentId($site_id, $page_id, $div_id, 
-			$content_row_id, $_POST);
-			
-		$model_tools = new Dlayer_Model_Tool();
-
-		if(array_key_exists('sub_tool_model', $_POST) == TRUE 
-			&& $model_tools->subToolValid($this->getRequest()->getModuleName(),
-				$tool['tool'], $_POST['sub_tool_model']) == TRUE) {
-				$tool_class = 'Dlayer_Tool_Content_' . $_POST['sub_tool_model'];
-		} else {
-			$tool_class = 'Dlayer_Tool_Content_' . $tool['model'];
-		}
-
-		$this->tool_class = new $tool_class();
-		
-		if($this->tool_class->validate($_POST['params'], $site_id, $page_id, 
-			$div_id, $content_row_id, $content_id) == TRUE) {
-				
-			$content_id = $this->tool_class->process($site_id, $page_id,
-				$div_id, $content_row_id, $content_id);
-				
-			$this->session_content->setContentId($content_id, 
-				$_POST['content_type']);
-
-			$this->returnToDesigner(TRUE);
-		} else {
-			$this->returnToDesigner(FALSE);
-		}*/
 	}
+
+	/**
+	 * Redirect the user back to the designer, will call the cancel tool to clear all environment variables unless the
+	 * tool is marked as multi use
+	 *
+	 * If the debug param is set the redirect will not occur, will remain on process action so errors can be shown
+	 *
+	 * @todo Need to add logging, success does nothing
+	 * @param boolean $success Whether or not the request should be considered successful
+	 * @return void
+	 */
+	public function returnToDesigner($success=TRUE)
+	{
+		$multi_use = $this->_request->getParam('multi_use');
+
+		if($this->debug === 1)
+		{
+			exit();
+		}
+		else if ($multi_use !== NULL && $multi_use === 1)
+		{
+			$this->redirect('content/design');
+		}
+		else
+		{
+			$this->redirect('content/design/set-tool/tool/cancel');
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	/**
 	* Check for a content id in the posted data array, if found check that it 
@@ -193,44 +239,6 @@ class Content_ProcessController extends Zend_Controller_Action
 		}
 		
 		return $content_id;
-	}
-
-	/**
-	* Redirect the user back to the designer
-	* 
-	* The redirect will call the cancel tool to clear session values for
-	* most redirects but this can be overridden by the clear paramn
-	* 
-	* If the debug param is set this method will not redirect the user leaving 
-	* it on the process page, useful for debugging
-	* 
-	* @param boolean $success Whether the request is considered successful
-	* @param boolean $clear Do we want to clear params, only called by certain 
-	* 	single use tools, example being content row, we want to clear all 
-	* 	params but we set a couple before returning the user to the designer
-	* @return void
-	*/
-	public function returnToDesigner($success=TRUE, $clear=TRUE)
-	{
-		$multi_use = FALSE;
-
-		if(array_key_exists('params', $_POST) == TRUE &&
-		array_key_exists('multi_use', $_POST['params']) == TRUE
-		&& $_POST['params']['multi_use'] == 1) {
-			$multi_use = TRUE;
-		}
-		
-		if($this->debug == 0) {
-			if($multi_use == FALSE) {
-				if($clear==TRUE) {
-					$this->_redirect('content/design/set-tool/tool/cancel');
-				} else {
-					$this->_redirect('content/design/');	
-				}
-			} else {
-				$this->_redirect('content/design/');			
-			}
-		}
 	}
 
 	/**

@@ -69,6 +69,27 @@ class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Module_Content
 	protected function structure()
 	{
 		$model_content = new Dlayer_Model_Page_Content();
+
+		$row_id = $model_content->addRows($this->params_auto['rows'], $this->site_id, $this->page_id, $this->column_id);
+
+		return array(
+			array(
+				'type' => 'page_id',
+				'id' => $this->page_id,
+			),
+			array(
+				'type' => 'row_id',
+				'id' => $row_id,
+			),
+			array(
+				'type' => 'column_id',
+				'id' => $this->column_id,
+			),
+			array(
+				'type' => 'tool',
+				'id' => 'row',
+			)
+		);
 	}
 
 	/**

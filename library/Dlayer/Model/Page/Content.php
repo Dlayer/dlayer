@@ -11,14 +11,42 @@
 class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 {
 	/**
-	 * Add a new row to the selected page or column
+	 * Add one or more rows to the selected page or column
+	 *
+	 * @param integer $number_of_rows The number of rows to add
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer|NULL $column_id
+	 * @return integer|FALSE Id of the newly created row
+	 */
+	public function addRows($number_of_rows, $site_id, $page_id, $column_id = NULL)
+	{
+		if($number_of_rows === 1)
+		{
+			$row_id = $this->addSingleRow($site_id, $page_id, $column_id);
+		}
+		else
+		{
+			$row_id = $this->addSingleRow($site_id, $page_id, $column_id);
+
+			for($i = 2; $i <= $number_of_rows; $i++)
+			{
+				$this->addSingleRow($site_id, $page_id, $column_id);
+			}
+		}
+
+		return $row_id;
+	}
+
+	/**
+	 * Add a single row to the selected page or column
 	 *
 	 * @param integer $site_id
 	 * @param integer $page_id
 	 * @param integer|NULL $column_id
 	 * @return integer|FALSE Id of the newly created row
 	 */
-	public function addRow($site_id, $page_id, $column_id = NULL)
+	private function addSingleRow($site_id, $page_id, $column_id = NULL)
 	{
 		$sort_order = $this->sortOrderForNewRow($site_id, $page_id, $column_id);
 		if($sort_order === FALSE)
@@ -52,19 +80,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		{
 			return FALSE;
 		}
-	}
-
-	/**
-	 * Add multiple rows
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer|NULL $column_id
-	 * @return integer|FALSE Id of the first row created
-	 */
-	public function addRows($site_id, $page_id, $column_id = NULL)
-	{
-
 	}
 
 	/**
@@ -115,31 +130,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 
 
 
-
-
-
-
-
-	/**
-	 * Add new content rows to the requested content area (div id)
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $div_id
-	 * @param integer $rows Number of rows to create
-	 * @return integer Id of the first row created
-	 */
-	public function addContentRows($site_id, $page_id, $div_id, $rows)
-	{
-		$content_row_id = $this->addContentRow($site_id, $page_id, $div_id);
-
-		for($i = 2; $i <= $rows; $i++)
-		{
-			$this->addContentRow($site_id, $page_id, $div_id);
-		}
-
-		return $content_row_id;
-	}
 
 	/**
 	 * Add a new content item into the content items table, this is not the
