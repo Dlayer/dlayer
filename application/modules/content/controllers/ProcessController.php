@@ -46,38 +46,54 @@ class Content_ProcessController extends Zend_Controller_Action
 	}
 
 	/**
+	 * Get a post param
+	 *
+	 * @todo Move this out of controller
+	 * @param string $param
+	 * @param integer|NULL $default
+	 * @return integer|NULL
+	 */
+	private function getPostAsInteger($param, $default = NULL)
+	{
+		return ($this->getRequest()->getPost($param) !== '' ? intval($this->getRequest()->getPost($param)) : $default);
+	}
+
+	/**
+	 * Get a post param
+	 *
+	 * @todo Move this out of controller
+	 * @param string $param
+	 * @param integer|NULL $default
+	 * @return string|NULL
+	 */
+	private function getPostAsString($param, $default = NULL)
+	{
+		return $this->getRequest()->getPost($param, $default);
+	}
+
+	/**
 	 * Validate the request, checks the tool is valid and the base environment params are correct. Values should be
 	 * validated before they get set in session so we can simply check they match here
 	 *
 	 * @param Dlayer_Session_Content $session_content
 	 * @todo Need to add logging so can easily see where errors occurred
-	 * @return void
+	 * @return boolean
 	 */
 	private function validateRequest($session_content)
 	{
-		if($session_content->pageId() !== $this->_getParam('page_id')) ;
+		if($session_content->pageId() === $this->getPostAsInteger('page_id') &&
+			$session_content->rowId() === $this->getPostAsInteger('row_id') &&
+			$session_content->columnId() === $this->getPostAsInteger('column_id') &&
+			$session_content->contentId() === $this->getPostAsInteger('content_id') &&
+			$session_content->tool() !== FALSE &&
+			$session_content->tool()['tool'] === $this->getPostAsString('tool'))
 		{
-			$this->returnToDesigner(FALSE);
+			return TRUE;
 		}
-
-		if($session_content->tool() === FALSE || $session_content->tool()['tool'] !== $this->_getParam('tool'))
+		else
 		{
-			$this->returnToDesigner(FALSE);
-		}
-
-		if($session_content->rowId() !== $this->_getParam('row_id'))
-		{
-			$this->returnToDesigner(FALSE);
-		}
-
-		if($session_content->columnId() !== $this->_getParam('column_id', 0))
-		{
-			$this->returnToDesigner(FALSE);
-		}
-
-		if($session_content->columnId() !== $this->_getParam('content_id'))
-		{
-			$this->returnToDesigner(FALSE);
+			// Add logging
+			return FALSE;
 		}
 	}
 
@@ -142,35 +158,75 @@ class Content_ProcessController extends Zend_Controller_Action
 
 	/**
 	 * Process method for the manual tools, manual tools are any tools where the user provides input. Assuming the
-	 * environment params are correct and match the session values we simply pass the request of to the tool class.
-	 * In all cases, tool success/failure the user is always returned back to the designer, the only difference being
-	 * whether the state of the designer is maintained, depends on the success of the tool and validation and whether or 
-	 * not the tool is a multi-use tool
+	 * environment params are correct and match the session values we simply pass the request off to the tool class.
+	 * In all cases, success and failure the user is returned back to the designer, the only difference being
+	 * whether the state of the designer is maintained, that depends on the success of the request and whether the
+	 * tool is multi-use
 	 *
-	 * @todo Method on flux whilst I rework the tools, also, some tools should be auto tools (add-row), they will
-	 * return to being auto tools when I confirm that everything is working correctly
 	 * @return void
 	 */
 	public function toolAction()
 	{
 		$session_dlayer = new Dlayer_Session();
 		$session_content = new Dlayer_Session_Content();
-		$this->validateRequest($session_content);
+
+		if($this->validateRequest($session_content) === FALSE)
+		{
+			$this->returnToDesigner(FALSE);
+		}
 
 		$tool = $this->toolClass($this->_request->getParam('sub_tool_model'));
 
-		if($tool->validateAuto($this->_request->getParams(), $session_dlayer->siteId(), $session_content->pageId(),
-				$session_content->rowId(), $session_content->columnId(), $session_content->contentId()) === TRUE)
+		if($tool->validate($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
+				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
+				$session_content->contentId()) === TRUE)
 		{
-			$return_ids = $tool->processAuto();
+			$content_id = $tool->process();
 			
-			if($return_ids !== FALSE) 
+			/*if($return_ids !== FALSE)
 			{
 				$this->setEnvironmentIds($return_ids);
 
 				$this->returnToDesigner(TRUE);
 			} 
 			else 
+			{
+				$this->returnToDesigner(FALSE);
+			}*/
+		}
+	}
+
+	/**
+	 * Process method for the auto tools, auto tools affect the structure of a page and can set multiple ids after
+	 * processing
+	 *
+	 * @return void
+	 */
+	public function toolAutoAction()
+	{
+		$session_dlayer = new Dlayer_Session();
+		$session_content = new Dlayer_Session_Content();
+
+		if($this->validateRequest($session_content) === FALSE)
+		{
+			$this->returnToDesigner(FALSE);
+		}
+
+		$tool = $this->toolClass($this->_request->getParam('sub_tool_model'));
+
+		if($tool->validateAuto($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
+				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
+				$session_content->contentId()) === TRUE)
+		{
+			$return_ids = $tool->processAuto();
+
+			if($return_ids !== FALSE)
+			{
+				$this->setEnvironmentIds($return_ids);
+
+				$this->returnToDesigner(TRUE);
+			}
+			else
 			{
 				$this->returnToDesigner(FALSE);
 			}

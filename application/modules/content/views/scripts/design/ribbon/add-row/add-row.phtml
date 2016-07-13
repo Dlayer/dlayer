@@ -5,7 +5,7 @@
 
 	<p>To add a new row, please click the 'add row' button</p>
 
-	<form action="/content/process/tool" method="post" class="form">
+	<form action="/content/process/tool-auto" method="post" class="form">
 		<fieldset>
 			<div class="form-group">
 				<input type="hidden" name="page_id" value="<?php echo $this->escape($this->data['tool']['page_id']); ?>" />
@@ -26,19 +26,15 @@
 
 	<p>To add more than one row enter the number below and click 'add rows'.</p>
 
-	<form action="/content/process/auto-tool" method="post" class="form">
+	<form action="/content/process/tool-auto" method="post" class="form">
 		<fieldset>
 			<div class="form-group">
-				<input type="hidden" name="column_id" value="<?php echo $this->escape($this->data['column_id']); ?>" />
-			</div>
-			<div class="form-group">
-				<input type="hidden" name="page_id" value="<?php echo $this->escape($this->data['page_id']); ?>" />
-			</div>			
-			<div class="form-group">
-				<input type="hidden" name="tool" value="add-row" />
-			</div>
-			<div class="form-group">
-				<input type="hidden" name="params[multi_use]" value="<?php echo $this->escape($this->data['multi_use']); ?>" />
+				<input type="hidden" name="page_id" value="<?php echo $this->escape($this->data['tool']['page_id']); ?>" />
+				<input type="hidden" name="tool" value="<?php echo $this->escape($this->data['tool']['name']); ?>" />
+				<input type="hidden" name="multi_use" value="<?php echo $this->escape($this->data['tool']['multi_use']); ?>" />
+				<input type="hidden" name="row_id" value="<?php echo $this->escape($this->data['tool']['row_id']); ?>" />
+				<input type="hidden" name="column_id" value="<?php echo $this->escape($this->data['tool']['column_id']); ?>" />
+				<input type="hidden" name="content_id" value="<?php echo $this->escape($this->data['tool']['content_id']); ?>" />
 			</div>
 			<div class="form-group">
 				<label for="params-rows" class="required">Number of content rows</label>

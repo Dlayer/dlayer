@@ -81,7 +81,7 @@ abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
 			$this->column_id = $column_id;
 			$this->content_id = $content_id;
 
-			$this->paramsAssign($params);
+			$this->paramsAssign($params, FALSE);
 
 			$this->validated_auto = TRUE;
 
