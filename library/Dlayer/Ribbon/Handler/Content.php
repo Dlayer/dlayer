@@ -76,6 +76,10 @@ class Dlayer_Ribbon_Handler_Content
 
 		switch($tool)
 		{
+			case 'add-column':
+				$data = $this->addColumn($tool, $tab);
+			break;
+
 			case 'add-row':
 				$data = $this->addRow($tool, $tab);
 			break;
@@ -167,6 +171,33 @@ class Dlayer_Ribbon_Handler_Content
 	}
 
 	/**
+	 * Fetch the view data for the add column tool, very simple tool, currently no ribbon class, just going to
+	 * return an array containing the data for the hidden fields
+	 *
+	 * @param string $tool The tool name
+	 * @param string $tab The tool tab name
+	 * @return array|FALSE
+	 */
+	private function addColumn($tool, $tab)
+	{
+		$data = FALSE;
+
+		switch($tab)
+		{
+			case 'add-column':
+				$data = array(
+					'tool' => $this->toolParams($tool),
+				);
+			break;
+
+			default:
+			break;
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Fetch the view data for the add row tool, very simple tool, currently no ribbon class, just going to
 	 * return an array containing the data for the hidden fields
 	 *
@@ -192,6 +223,9 @@ class Dlayer_Ribbon_Handler_Content
 
 		return $data;
 	}
+
+
+
 
 
 

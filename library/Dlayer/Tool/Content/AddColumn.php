@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Add a new row to the selected page or column, new row will be appended to the end of any existing rows
+ * Add a new column to the selected row, the size of the column depends on the number of columns being added and or the
+ * remaining space in the row
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Handler_Content
+class Dlayer_Tool_Content_AddColumn extends Dlayer_Tool_Handler_Content
 {
 	/**
 	 * Check that all the required keys exists in the params array
@@ -18,7 +19,7 @@ class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Handler_Content
 	protected function paramsExist(array $params)
 	{
 		$valid = FALSE;
-		if(array_key_exists('rows', $params) === TRUE)
+		if(array_key_exists('columns', $params) === TRUE)
 		{
 			$valid = TRUE;
 		}
@@ -35,7 +36,7 @@ class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Handler_Content
 	protected function paramsValid(array $params)
 	{
 		$valid = FALSE;
-		if(intval($params['rows']) >= 1 && intval($params['rows']) <= 10)
+		if(intval($params['columns']) >= 1 && intval($params['columns']) <= 10)
 		{
 			$valid = TRUE;
 		}
@@ -55,7 +56,7 @@ class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Handler_Content
 		if($manual_tool === FALSE)
 		{
 			$this->params_auto = array(
-				'rows' => intval($params['rows']),
+				'columns' => intval($params['columns']),
 			);
 		}
 	}
@@ -77,7 +78,8 @@ class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Handler_Content
 	{
 		$model_content = new Dlayer_Model_Page_Content();
 
-		$row_id = $model_content->addRows($this->params_auto['rows'], $this->site_id, $this->page_id, $this->column_id);
+		$column_id = $model_content->addColumns($this->params_auto['columns'], $this->site_id, $this->page_id,
+			$this->row_id);
 
 		return array(
 			array(
@@ -86,11 +88,11 @@ class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Handler_Content
 			),
 			array(
 				'type' => 'row_id',
-				'id' => $row_id,
+				'id' => $this->row_id,
 			),
 			array(
 				'type' => 'column_id',
-				'id' => $this->column_id,
+				'id' => $column_id,
 			),
 			array(
 				'type' => 'tool',

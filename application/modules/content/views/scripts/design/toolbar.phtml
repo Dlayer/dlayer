@@ -45,15 +45,16 @@ foreach($this->tools as $group_id => $group) {
 			case 3: // Structure tools
 
 				// Show the add row tool, either inside the selected page or when a column is selected
-				if($this->page_selected === TRUE && $this->row_id === NULL &&
-					($this->column_id !== NULL || $this->column_id === NULL) &&
-					$tool['tool'] === 'add-row')
+				// @todo Review this when we start adding nested rows
+				if($this->page_selected === TRUE && $this->row_id === NULL && $tool['tool'] === 'add-row')
 				{
 					$show = TRUE;
 				}
 
-				// Show the add column tool when a row is selected
-				if($this->page_selected !== NULL && $this->row_id !== NULL && $tool['tool'] === 'add-column') {
+				// Show the column tool, columns can only be added to rows, a content item can't be selected
+				if($this->page_selected === TRUE && $this->row_id !== NULL && $this->content_id === NULL &&
+					$tool['tool'] === 'add-column')
+				{
 					$show = TRUE;
 				}
 			break;
