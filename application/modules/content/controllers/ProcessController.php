@@ -224,7 +224,13 @@ class Content_ProcessController extends Zend_Controller_Action
 			{
 				$this->setEnvironmentIds($return_ids);
 
-				$this->returnToDesigner(TRUE);
+				/**
+				 * Multi use does not really apply to structure tools so not calling returnToDesigner, will review
+				 * that as we and more tools, may just need another param for the method
+				 *
+				 * @todo Review this
+				 */
+				$this->redirect('content/design');
 			}
 			else
 			{
@@ -258,137 +264,6 @@ class Content_ProcessController extends Zend_Controller_Action
 		else
 		{
 			$this->redirect('content/design/set-tool/tool/cancel');
-		}
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	/**
-	* Check for a content id in the posted data array, if found check that it 
-	* is valid.
-	* 
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id 
-	* @param integer $content_row_id
-	* @param array $post Posted data array
-	* @return integer|NULL The content id or NULL
-	*/
-	private function contentId($site_id, $page_id, $div_id, $content_row_id, 
-		$post) 
-	{
-		if(array_key_exists('content_id', $post) == FALSE) {
-			$content_id = NULL;
-		} else {
-			$content_id = $this->validateContentId($site_id, $page_id, $div_id,
-				$content_row_id, $post['content_id'], $post['content_type']);
-		}
-		
-		return $content_id;
-	}
-
-	/**
-	* Check to ensure that the posted tools matches the tool defined in the 
-	* session
-	* 
-	* @param string $tool_name Name of posted tool
-	* @return array|void Either returns the tool data array or redirtects the 
-	* 	user back to the designer after calling the cancel tool
-	*/
-	private function validateTool($name) 
-	{
-		$tool = $this->session_content->tool();
-
-		if($tool != FALSE && $tool['tool'] == $name) {
-			return $tool;
-		} else {
-			$this->returnToDesigner(FALSE);
-		}
-	}
-
-	/**
-	* Check to make sure the supplied page id is valid, session value needs 
-	* to match the posted value and the page id needs to belong to the site id 
-	* stored in the session
-	*
-	* @param integer $page_id
-	* @return integer|void Either returns the intval for the currently set 
-	* 	page id or redirects the user back to the designer after calling the 
-	* 	cancel tool
-	*/
-	private function validatePageId($page_id)
-	{
-		$model_page = new Dlayer_Model_Page();
-
-		if($this->session_content->pageId() == $page_id && 
-			$model_page->valid($page_id, 
-				$this->session_dlayer->siteId()) == TRUE) {
-
-				return intval($page_id);
-		} else {
-			$this->returnToDesigner(FALSE);
-		}
-	}
-
-	/**
-	* Validate the posted content row id, needs to match the value stored in 
-	* the session and also belong to the page, div_id and lastly site
-	* 
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param integer $content_row_id
-	* @return integer|void Either returns the intval for the content row id 
-	* 	or redirects the user back to the designer after calling the cancel 
-	* 	tool
-	*/
-	private function validateContentRowId($page_id, $div_id, $content_row_id) 
-	{
-		$model_content = new Dlayer_Model_Page_Content();
-		
-		if($this->session_content->contentRowId() == $content_row_id && 
-			$model_content->validContentRowId($this->session_dlayer->siteId(), 
-				$page_id, $div_id, $content_row_id) == TRUE) {
-			
-			return intval($content_row_id);
-		} else {
-			$this->returnToDesigner(FALSE);
-		}
-	}
-
-	/**
-	* Check to see if the content id valid, it needs to belong to the 
-	* content row id, div id, page and site
-	* 
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param integer $content_row_id
-	* @param integer $content_id
-	* @param string $content_type
-	* @return integer|void Either retruns the content id or redirects the 
-	* 	user back to the designer after calling the cancel tool
-	*/
-	private function validateContentId($site_id, $page_id, $div_id, 
-		$content_row_id, $content_id, $content_type)
-	{
-		$model_page = new Dlayer_Model_Page();
-		
-		if($model_page->contentIdValid($site_id, $page_id, $div_id, 
-			$content_row_id, $content_id, $content_type) == TRUE) {
-				
-			return intval($content_id);
-		} else {
-			$this->returnToDesigner(FALSE);
 		}
 	}
 }

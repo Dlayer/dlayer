@@ -66,6 +66,9 @@ class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Module_Content
 
 	}
 
+	/**
+	 * @return array
+	 */
 	protected function structure()
 	{
 		$model_content = new Dlayer_Model_Page_Content();
