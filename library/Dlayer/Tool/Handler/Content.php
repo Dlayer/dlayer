@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Base abstract class for the content module tools. All tool classes need
- * to define the abstract methods of this class and the Dlayer_Tool class
+ * Base class for the content module tools. All tool classes need to define the abstract methods of this class and
+ * the Dlayer_Tool class
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-abstract class Dlayer_Tool_Module_Content extends Dlayer_Tool
+abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 {
 	protected $site_id = NULL;
 	protected $page_id = NULL;

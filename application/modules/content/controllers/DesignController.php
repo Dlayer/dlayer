@@ -383,12 +383,6 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
 
-
-		var_dump('DesignController::dlayerPage(): Page: ' . $this->session_content->pageSelected());
-		var_dump('DesignController::dlayerPage(): Column: ' . $this->session_content->columnId());
-		var_dump('DesignController::dlayerPage(): Row: ' . $this->session_content->rowId());
-		var_dump('DesignController::dlayerPage(): Content: ' . $this->session_content->contentId());
-
 		return $this->view->render("design/page.phtml");
 	}
 
