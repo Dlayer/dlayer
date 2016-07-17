@@ -64,8 +64,7 @@ class Dlayer_Ribbon_Tab
 	 * @return array
 	 * @throws \Exception
 	 */
-	public function viewData($module, $tool, $tab, $multi_use, 
-		$edit_mode=FALSE)
+	public function viewData($module, $tool, $tab, $multi_use, $edit_mode=FALSE)
 	{
 		$session_dlayer = new Dlayer_Session();
 
@@ -75,7 +74,7 @@ class Dlayer_Ribbon_Tab
 				$session_content  = new Dlayer_Session_Content();
 
 				$data = $content_handler->viewData($session_dlayer->siteId(), $session_content->pageId(),
-					$tool, $tab, $multi_use, $edit_mode, $session_content->pageSelected(), $session_content->rowId(),
+					$tool, $tab, $multi_use, $edit_mode, $session_content->rowId(), $session_content->columnId(),
 					$session_content->contentId());
 				break;
 
