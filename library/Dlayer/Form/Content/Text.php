@@ -1,201 +1,77 @@
 <?php
+
 /**
-* Form for the text content item tool
-* 
-* The form is used by the Text content item to allow a user to define or edit 
-* a text content item, a text content item is essentially just a plain text 
-* block. This form is also used by the edit version of the tool.
-*
-* @author Dean Blackborough
-* @copyright G3D Development Limited
-*/
-class Dlayer_Form_Content_Text extends Dlayer_Form_Module_Content
+ * Form for the text content item tool
+ *
+ * The form is used by the Text content item to allow a user to define or edit
+ * a text content item, a text content item is essentially just a plain text
+ * block. This form is also used by the edit version of the tool.
+ *
+ * @todo Work on this form and then create the base form for the module
+ *
+ * @author Dean Blackborough
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
+class Dlayer_Form_Content_Text extends Dlayer_Form
 {
 	/**
-	* Set the initial properties for the form
-	* 
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param integer $content_row_id
-	* @param array $content_item The existing data for the content item, 
-	* 	array values will be FALSE in add mode, populated in edit mode
-	* @param boolean $edit_mode Is the tool in edit mode
-	* @param integer $multi_use The multi use value for the tool, either 1 or 0
-	* @param array|NULL $options Zend form options data array
-	* @return void
-	*/
-	public function __construct($page_id, $div_id, $content_row_id, 
-		array $content_item, $edit_mode=FALSE, $multi_use=0, $options=NULL)
+	 * Set up the tool elements, these are the elements that are part of every tool and set the environment
+	 * properties and tool options
+	 *
+	 * @return void The elements are written to the $this->elements private property
+	 */
+	protected function addToolElements()
 	{
-		$this->tool = 'text';
-		$this->content_type = 'text';
-		$this->sub_tool_model = NULL;
+		// Tool
+		// content type
+		// Multi-use
 
-		parent::__construct($page_id, $div_id, $content_row_id, 
-			$content_item, $edit_mode, $multi_use, $options);
+		// Page id
+		// row id
+		// column id
+		// content id
 	}
 
-	/**
-	* Initialise the form, sets the url, action method and calls the functions 
-	* to build the form
-	*
-	* @return void
-	*/
-	public function init()
+	protected function addUserElements()
 	{
-		$this->setAction('/content/process/tool');
-
-		$this->setMethod('post');
-
-		$this->setUpFormElements();
-
-		$this->validationRules();
-
-		if($this->edit_mode == FALSE) {
-			$legend = 'Add <small>Add a new text content item</small>'; 
-		} else {
-			$legend = 'Edit <small>Edit the text content item</small>';
-		}
-
-		$this->addElementsToForm('text_item', $legend, $this->elements);
-
-		$this->addDefaultElementDecorators();
-
-		$this->addCustomElementDecorators();
+		// Name
+		// Text
 	}
 
-	/**
-	* Set up all the form elements required by the tool, this is broekn down 
-	* into two sections, the hidden elements that manage the environment and 
-	* tool and the user visible elements for the user
-	* 
-	* @return void The form elements are written to the private 
-	* 	$this->elements array
-	*/
+	protected function addSubmitElement()
+	{
+		// Submit
+	}
+
+
 	protected function setUpFormElements()
 	{
-		$this->toolElements();
-
-		$this->userElements();
+		// TODO: Implement setUpFormElements() method.
 	}
 
-	/**
-	* Set up all the tool and environment elements, there are all the elements 
-	* that define the tool being used and the environment/session values 
-	* currently set in the designer
-	*
-	* @return void The form elements are written to the private 
-	* 	$this->elements array
-	*/
-	private function toolElements()
+	protected function addCustomElementDecorators()
 	{
-		$page_id = new Zend_Form_Element_Hidden('page_id');
-		$page_id->setValue($this->page_id);
-
-		$this->elements['page_id'] = $page_id;
-
-		$div_id = new Zend_Form_Element_Hidden('div_id');
-		$div_id->setValue($this->div_id);
-
-		$this->elements['div_id'] = $div_id;
-		
-		$content_row_id = new Zend_Form_Element_Hidden('content_row_id');
-		$content_row_id->setValue($this->content_row_id);
-
-		$this->elements['content_row_id'] = $content_row_id;
-
-		$tool = new Zend_Form_Element_Hidden('tool');
-		$tool->setValue($this->tool);
-
-		$this->elements['tool'] = $tool;
-
-		$content_type = new Zend_Form_Element_Hidden('content_type');
-		$content_type->setValue($this->content_type);
-
-		$this->elements['content_type'] = $content_type;
-
-		if(array_key_exists('id', $this->content_item) == TRUE 
-		&& $this->content_item['id'] != FALSE) {
-			$content_id = new Zend_Form_Element_Hidden('content_id');
-			$content_id->setValue($this->content_item['id']);
-
-			$this->elements['content_id'] = $content_id;
-		}
-
-		$multi_use = new Zend_Form_Element_Hidden('multi_use');
-		$multi_use->setValue($this->multi_use);
-		$multi_use->setBelongsTo('params');
-
-		$this->elements['multi_use'] = $multi_use;
+		// TODO: Implement addCustomElementDecorators() method.
 	}
 
 	/**
-	* Set up the user elements, these are the fields that the user interacts 
-	* with
-	* 
-	* @return void The form elements are written to the private 
-	* 	$this->elements array
-	*/
-	private function userElements()
-	{
-		$name = new Zend_Form_Element_Text('name');
-		$name->setLabel('Name');
-		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 
-			'placeholder'=>'e.g., Intro text for site', 
-			'class'=>'form-control input-sm'));
-		$name->setDescription('Set a name, it should describe the text that you 
-			define for this text item. Later, you can re-use the text to create 
-			another text content item on this content page or another.');
-		$name->setBelongsTo('params');
-		$name->setRequired();
-		
-		if(array_key_exists('name', $this->content_item) == TRUE 
-			&& $this->content_item['name'] != FALSE) {
-			
-			$name->setValue($this->content_item['name']);
-		}
-
-		$this->elements['name'] = $name;
-
-		$text = new Zend_Form_Element_Textarea('text');
-		$text->setLabel('Text');
-		$text->setAttribs(array('cols'=>50, 'rows'=>20, 
-			'placeholder'=>'e.g., The quick brown fox jumps over...', 
-			'class'=>'form-control input-sm'));
-		$text->setDescription('Enter your text.');
-		$text->setBelongsTo('params');
-		$text->setRequired();
-		
-		if(array_key_exists('text', $this->content_item) == TRUE 
-			&& $this->content_item['text'] != FALSE) {
-			
-			$text->setValue($this->content_item['text']);
-		}
-
-		$this->elements['text'] = $text;
-
-		$this->elements['instances'] = $this->instancesElement(
-			'text', 'text item');
-
-		$submit = new Zend_Form_Element_Submit('submit');
-		$submit->setAttribs(array('class'=>'btn btn-primary'));
-		if($this->edit_mode == FALSE) {
-			$submit->setLabel('Insert');
-		} else {
-			$submit->setLabel('Save');
-		}
-
-		$this->elements['submit'] = $submit;
-	}
-
-	/**
-	* Add the validation rules for the form elements and set the custom error
-	* messages
-	*
-	* @return void
-	*/
+	 * Add validation rules
+	 *
+	 * @return void
+	 */
 	protected function validationRules()
 	{
+		// TODO: Implement validationRules() method.
+	}
 
+	/**
+	 * Add the default element decorators
+	 *
+	 * @return void
+	 */
+	protected function addDefaultElementDecorators()
+	{
+		// TODO: Implement addDefaultElementDecorators() method.
 	}
 }

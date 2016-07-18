@@ -84,6 +84,11 @@ class Dlayer_Ribbon_Handler_Content
 				$data = $this->addRow($tool, $tab);
 			break;
 
+			case 'text':
+				$data = $this->text($tool, $tab);
+			break;
+
+
 			
 			
 			
@@ -105,10 +110,6 @@ class Dlayer_Ribbon_Handler_Content
 
 			case 'move-item':
 				$data = $this->moveItem();
-			break;
-
-			case 'text':
-				$data = $this->text();
 			break;
 
 			case 'heading':
@@ -224,6 +225,52 @@ class Dlayer_Ribbon_Handler_Content
 		return $data;
 	}
 
+	/**
+	 * Fetch the view tab data for the text tool, returns an array containing the form and the data for the tool
+	 *
+	 * @param string $tool The tool name
+	 * @param string $tab The tool tab name
+	 * @return array|FALSE
+	 */
+	private function text($tool, $tab)
+	{
+		$data = FALSE;
+
+		switch($tab)
+		{
+			case 'text':
+				$ribbon_text = new Dlayer_Ribbon_Content_Text();
+				$data = array(
+					'tool' => $this->toolParams($tool),
+					'ribbon' => $ribbon_text->viewData($this->site_id, $this->page_id, $this->div_id, $this->tool,
+						$this->tab, $this->multi_use, $this->edit_mode, $this->content_row_id, $this->content_id)
+				);
+			break;
+
+			case 'position':
+				$ribbon_position = new Dlayer_Ribbon_Content_Position_Text();
+				$data = $ribbon_position->viewData($this->site_id,
+					$this->page_id, $this->div_id, $this->tool, $this->tab,
+					$this->multi_use, $this->edit_mode, $this->content_row_id,
+					$this->content_id);
+			break;
+
+			case 'styling':
+				$ribbon_styling = new Dlayer_Ribbon_Content_Styling_Text();
+				$data = $ribbon_styling->viewData($this->site_id,
+					$this->page_id, $this->div_id, $this->tool, $this->tab,
+					$this->multi_use, $this->edit_mode, $this->content_row_id,
+					$this->content_id);
+			break;
+
+			default:
+				$data = FALSE;
+			break;
+		}
+
+		return $data;
+	}
+
 
 
 
@@ -260,49 +307,6 @@ class Dlayer_Ribbon_Handler_Content
 
 			case 'styling':
 				$ribbon_styling = new Dlayer_Ribbon_Content_Styling_Heading();
-				$data = $ribbon_styling->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			default:
-				$data = FALSE;
-			break;
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Fetch the view tab data for the text tool, in this case the form for
-	 * the ribbon. If there is any existing data the form will show the current
-	 * values
-	 *
-	 * @return array|FALSE
-	 */
-	private function text()
-	{
-		switch($this->tab)
-		{
-			case 'text':
-				$ribbon_text = new Dlayer_Ribbon_Content_Text();
-				$data = $ribbon_text->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			case 'position':
-				$ribbon_position = new Dlayer_Ribbon_Content_Position_Text();
-				$data = $ribbon_position->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			case 'styling':
-				$ribbon_styling = new Dlayer_Ribbon_Content_Styling_Text();
 				$data = $ribbon_styling->viewData($this->site_id,
 					$this->page_id, $this->div_id, $this->tool, $this->tab,
 					$this->multi_use, $this->edit_mode, $this->content_row_id,

@@ -1,21 +1,13 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <?php 
-
-// @todo Need to update this, use database come up with a cleaner, more
-
 $groups = array(
 	1=>'', 
-	2=>'Selectors <small>Select page elements</small>',
-	3=>'Structure <small>Manage the page structure</small>',
-	4=>'Create <small>Create a new content item</small>',
-	5=>'Import <small>Create a new content item using existing content 
-		data</small>'
+	2=>'Select <small>Select page elements</small>',
+	3=>'Layout <small>Layout tools for the page</small>',
+	4=>'Create <small>Manage content items</small>',
+	5=>'Import <small>Import content items</small>'
 );
-
-/*var_dump($this->page_selected);
-var_dump($this->row_id);
-var_dump($this->column_id);*/
 
 foreach($this->tools as $group_id => $group) {
 
@@ -35,17 +27,8 @@ foreach($this->tools as $group_id => $group) {
 				}
 			break;
 
-			case 2: // Selection tools
-				/*if($tool['tool'] == 'add-row' && $this->page_selected !== NULL && $this->row_id === NULL)
-				{
-					$show = TRUE;
-				}*/
-			break;
-
 			case 3: // Structure tools
-
 				// Show the add row tool, either inside the selected page or when a column is selected
-				// @todo Review this when we start adding nested rows
 				if($this->page_selected === TRUE && $this->row_id === NULL && $tool['tool'] === 'add-row')
 				{
 					$show = TRUE;
@@ -59,87 +42,38 @@ foreach($this->tools as $group_id => $group) {
 				}
 			break;
 
-			/*case 1: // Structure
-				// Show the add content row tool if content area selected and a content row is not selected
-				if($tool['tool'] == 'add-row' && $this->div_id != NULL &&
-					$this->content_row_id == NULL) {
-						
+			case 4: // Content tools
+				if($this->page_selected === TRUE && $this->row_id !== NULL && $this->column_id !== NULL)
+				{
 					$show = TRUE;
 				}
-				
-				// Show the content area tool if a content area is selected
-				if($tool['tool'] == 'content-area' && $this->div_id != NULL &&
-					$this->tool['tool'] == 'content-area') {
-						
-					$show = TRUE;
-				}
-				
-				// Show the content row tool if a content area and content row is selected
-				if($tool['tool'] == 'content-row' && $this->div_id != NULL &&
-					$this->content_row_id != NULL && 
-					$this->tool['tool'] == 'content-row') {
-						
-					$show = TRUE;
-				}
-				
-				// Show move row tool if content area and content row selected
-				if($tool['tool'] == 'move-row' && $this->div_id != NULL && 
-					$this->content_row_id != NULL) {
-						
-					$show = TRUE;
-				}
-				
-				// Show move item tool if content area, content row and content id selected
-				if($tool['tool'] == 'move-item' && $this->div_id != NULL &&
-					$this->content_row_id != NULL && 
-					$this->content_id != NULL) {
-						
-					$show = TRUE;
-				}
-				
-				// Show move item tool if content area, content row and content id selected
-				if($tool['tool'] == 'select' && $this->div_id != NULL && 
-					$this->content_row_id != NULL && 
-					$this->content_id != NULL) {
-						
-					$show = TRUE;
-				}
-							
-				break;
-			*/
-			
-			/*case 0:
-				if($this->div_id != NULL && $this->content_row_id != NULL) {
-					$show = TRUE;
-				}
-				break;
-				*/
-				
+			break;
+
 			default:
-				break;
+			break;
 		}
 				
 		// Set selected status for tool
-		if($this->tool != FALSE && $this->tool['tool'] == $tool['tool']) {
+		if($this->tool !== FALSE && $this->tool['tool'] === $tool['tool']) {
 			$selected = TRUE;
 		}
 		
 		$reset = NULL;
 
-		if($show == TRUE) {
-			if($this->content_id != NULL) {
-				if(in_array($tool['tool'], array('move-item', 'select')) == FALSE) {
+		if($show === TRUE) {
+			if($this->content_id !== NULL) {
+				if(in_array($tool['tool'], array('move-item', 'select')) === FALSE) {
 					$reset = '/reset/1';
 				}
 			}
 			
 			$class = "btn btn-default btn-sm";
 			
-			if($selected == TRUE) {
+			if($selected === TRUE) {
 				$class = "btn btn-primary btn-sm";
 			}
 			
-			if($tool['tool'] == 'cancel') {
+			if($tool['tool'] === 'cancel') {
 				$class = "btn btn-danger hidden-lg";
 			}
 			
