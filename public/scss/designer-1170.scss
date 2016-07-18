@@ -66,6 +66,18 @@ div#designer {
 					padding: 0.3em 0.5em;
 				}
 			}
+
+			& > li#tab_column {
+				& span.glyphicon {
+					transform: rotate(90deg);
+				}
+			}
+
+			& > li#tab_add-column {
+				& span.glyphicon {
+					transform: rotate(90deg);
+				}
+			}
 		}
 
 		div.content {
