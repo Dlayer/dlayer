@@ -61,45 +61,63 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 	protected function generateToolElements()
 	{
 		$tool = new Zend_Form_Element_Hidden('tool');
-		$tool->setValue('text');
+		$tool->setValue($this->tool['name']);
 
 		$this->elements['tool'] = $tool;
 
 		$content_type = new Zend_Form_Element_Hidden('content_type');
-		$content_type->setValue('text');
+		$content_type->setValue($this->content_type);
 
 		$this->elements['content_type'] = $content_type;
 
 		$multi_use = new Zend_Form_Element_Hidden('multi_use');
-		$multi_use->setValue(1);
+		$multi_use->setValue($this->tool['multi_use']);
 
 		$this->elements['multi_use'] = $multi_use;
 
 		$page_id = new Zend_Form_Element_Hidden('page_id');
-		$page_id->setValue(1);
+		$page_id->setValue($this->tool['page_id']);
 
 		$this->elements['page_id'] = $page_id;
 
 		$row_id = new Zend_Form_Element_Hidden('row_id');
-		$row_id->setValue(1);
+		$row_id->setValue($this->tool['row_id']);
 
 		$this->elements['row_id'] = $row_id;
 
 		$column_id = new Zend_Form_Element_Hidden('column_id');
-		$column_id->setValue(1);
+		$column_id->setValue($this->tool['column_id']);
 
 		$this->elements['column_id'] = $column_id;
 
 		$content_id = new Zend_Form_Element_Hidden('content_id');
-		$content_id->setValue(NULL);
+		$content_id->setValue($this->tool['content_id']);
 
 		$this->elements['content_id'] = $content_id;
 	}
 
 	protected function generateUserElements()
 	{
-		// Name
-		// Text
+		$name = new Zend_Form_Element_Text('name');
+		$name->setLabel('Name');
+		$name->setAttribs(array('cols'=>50, 'row'=>15, 'placeholder'=>'e.g., Contact page into',
+			'class'=>'form-control input-sm'));
+		$name->setDescription('Set a name, ideally describe the content, this will make it easier to reuse the 
+		    text later if you need to create a duplicate content item.');
+		$name->setBelongsTo('params');
+		$name->setRequired();
+
+		$this->elements['name'] = $name;
+
+		$text = new Zend_Form_Element_Textarea('text');
+		$text->setLabel('Content');
+		$text->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., The quick brown fox jumps...',
+			'class'=>'form-control input-sm'));
+		$text->setDescription('Enter your content.');
+		$text->setBelongsTo('params');
+		$text->setRequired();
+
+		$this->elements['text'] = $text;
 	}
 
 	protected function generateSubmitElement()
@@ -115,6 +133,8 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 	protected function generateFormElements()
 	{
 		$this->generateToolElements();
+
+		$this->generateUserElements();
 
 		$this->generateSubmitElement();
 	}
