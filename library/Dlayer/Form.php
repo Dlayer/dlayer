@@ -34,7 +34,7 @@ abstract class Dlayer_Form extends Zend_Form
 	 *
 	 * @return void
 	 */
-	abstract protected function setUpFormElements();
+	abstract protected function generateFormElements();
 
 	/**
 	 * Add validation rules

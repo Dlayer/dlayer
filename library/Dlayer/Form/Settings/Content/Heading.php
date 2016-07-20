@@ -40,7 +40,7 @@ class Dlayer_Form_Settings_Content_Heading extends Dlayer_Form_Module_App
 
 		$this->formElementsData();
 
-		$this->setUpFormElements();
+		$this->generateFormElements();
 
 		$this->validationRules();
 
@@ -88,7 +88,7 @@ class Dlayer_Form_Settings_Content_Heading extends Dlayer_Form_Module_App
 	* @return void Form elements are written to the private $this->elements 
 	*              property
 	*/
-	protected function setUpFormElements() 
+	protected function generateFormElements()
 	{
 		$heading_id = new Zend_Form_Element_Hidden('heading_id');
 		$heading_id->setValue($this->heading['id']);

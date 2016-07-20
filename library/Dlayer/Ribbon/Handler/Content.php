@@ -181,8 +181,6 @@ class Dlayer_Ribbon_Handler_Content
 	 */
 	private function addColumn($tool, $tab)
 	{
-		$data = FALSE;
-
 		switch($tab)
 		{
 			case 'add-column':
@@ -192,6 +190,7 @@ class Dlayer_Ribbon_Handler_Content
 			break;
 
 			default:
+				$data = FALSE;
 			break;
 		}
 
@@ -208,8 +207,6 @@ class Dlayer_Ribbon_Handler_Content
 	 */
 	private function addRow($tool, $tab)
 	{
-		$data = FALSE;
-
 		switch($tab)
 		{
 			case 'add-row':
@@ -219,6 +216,7 @@ class Dlayer_Ribbon_Handler_Content
 			break;
 
 			default:
+				$data = FALSE;
 			break;
 		}
 
@@ -234,17 +232,11 @@ class Dlayer_Ribbon_Handler_Content
 	 */
 	private function text($tool, $tab)
 	{
-		$data = FALSE;
-
 		switch($tab)
 		{
 			case 'text':
 				$ribbon_text = new Dlayer_Ribbon_Content_Text();
-				$data = array(
-					'tool' => $this->toolParams($tool),
-					'ribbon' => $ribbon_text->viewData($this->site_id, $this->page_id, $this->div_id, $this->tool,
-						$this->tab, $this->multi_use, $this->edit_mode, $this->content_row_id, $this->content_id)
-				);
+				$data = $ribbon_text->viewData($this->toolParams($tool));
 			break;
 
 			case 'position':

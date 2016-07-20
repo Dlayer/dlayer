@@ -47,7 +47,7 @@ class Dlayer_Form_Image_Filter extends Dlayer_Form
 
 		$this->setMethod('post');
 
-		$this->setUpFormElements();
+		$this->generateFormElements();
 
 		$this->addElements($this->elements);
 		$this->addElementsToForm('filter', 
@@ -69,7 +69,7 @@ class Dlayer_Form_Image_Filter extends Dlayer_Form
 	* @return void The form elements are written to the private $this->elemnets
 	* 			   array
 	*/
-	protected function setUpFormElements()
+	protected function generateFormElements()
 	{
 		$category = new Zend_Form_Element_Select('category_filter');
 		$category->setLabel('Category');

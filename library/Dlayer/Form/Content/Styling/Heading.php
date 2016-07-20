@@ -47,7 +47,7 @@ Dlayer_Form_Module_Content
 
 		$this->setMethod('post');
 
-		$this->setUpFormElements();
+		$this->generateFormElements();
 
 		$this->validationRules();
 
@@ -68,7 +68,7 @@ Dlayer_Form_Module_Content
 	* @return void The form elements are written to the private 
 	* 	$this->elements array
 	*/
-	protected function setUpFormElements()
+	protected function generateFormElements()
 	{
 		$this->toolElements();
 

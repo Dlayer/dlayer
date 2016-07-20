@@ -49,7 +49,7 @@ class Dlayer_Form_Content_MoveRow extends Dlayer_Form_Module_Content
 		
 		$this->formElementsData();
 
-		$this->setUpFormElements();
+		$this->generateFormElements();
 
 		$this->validationRules();
 
@@ -92,7 +92,7 @@ class Dlayer_Form_Content_MoveRow extends Dlayer_Form_Module_Content
 	* @return void The form elements are written to the private 
 	* 	$this->elements array
 	*/
-	protected function setUpFormElements()
+	protected function generateFormElements()
 	{
 		$this->toolElements();
 
