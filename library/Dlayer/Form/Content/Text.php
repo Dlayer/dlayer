@@ -107,15 +107,15 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 
 		$this->elements['name'] = $name;
 
-		$text = new Zend_Form_Element_Textarea('text');
-		$text->setLabel('Content');
-		$text->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
+		$content = new Zend_Form_Element_Textarea('content');
+		$content->setLabel('Content');
+		$content->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
 			'class'=>'form-control input-sm'));
-		$text->setDescription('Enter your content.');
-		$text->setBelongsTo('params');
-		$text->setRequired();
+		$content->setDescription('Enter your content.');
+		$content->setBelongsTo('params');
+		$content->setRequired();
 
-		$this->elements['text'] = $text;
+		$this->elements['content'] = $content;
 	}
 
 	protected function generateSubmitElement()
