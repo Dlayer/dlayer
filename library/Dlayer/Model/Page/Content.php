@@ -116,7 +116,8 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	/**
 	 * Add a single row to the selected page or column
 	 *
-	 * @todo Move sort call into add rows, will be called multiple times with the current setup when add rows is called for more than one row
+	 * @todo Move sort call into add rows, will be called multiple times with the current setup when add rows is
+	 * called for more than one row
 	 * @param integer $site_id
 	 * @param integer $page_id
 	 * @param integer|NULL $column_id
@@ -162,7 +163,8 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	 * Calculate the sort order for the row that is about to be created, fetches the current max for a column or page
 	 * and then adds one
 	 *
-	 * @todo Move sort call into add columns, will be called multiple times with the current setup when add columns is called for more than one column
+	 * @todo Move sort call into add columns, will be called multiple times with the current setup when add columns
+	 * is called for more than one column
 	 * @param integer $site_id
 	 * @param integer $page_id
 	 * @param integer|NULL $column_id
@@ -204,14 +206,14 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	 * Calculate the sort order for the new column that is about to be created, fetches the current max for a row and
-	 * then adds one
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $row_id
-	 * @return integer|FALSE The new sort order
-	 */
+ * Calculate the sort order for the new column that is about to be created, fetches the current max for a row and
+ * then adds one
+ *
+ * @param integer $site_id
+ * @param integer $page_id
+ * @param integer $row_id
+ * @return integer|FALSE The new sort order
+ */
 	private function sortOrderForNewColumn($site_id, $page_id, $row_id = NULL)
 	{
 		$sql = "SELECT IFNULL(MAX(sort_order), 0) + 1 AS sort_order
@@ -236,6 +238,94 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		}
 	}
 
+	/**
+	 * Calculate the sort order for the new content item that is about to be created in the specified row, fetch the
+	 * current MAX and then adds one
+	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $column_id
+	 * @return integer|FALSE The new sort order
+	 */
+	private function sortOrderForNewContentItem($site_id, $page_id, $column_id)
+	{
+		$sql = "SELECT IFNULL(MAX(sort_order), 0) + 1 AS sort_order
+				FROM user_site_page_structure_content 
+				WHERE site_id = :site_id
+				AND page_id = :page_id 
+				AND column_id = :column_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+		$stmt->execute();
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['sort_order']);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Add a new content items to the content structure table, also adds the entry to the table for the content item
+	 * type
+	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $column_id
+	 * @param string $content_type
+	 * @param array $params
+	 * @return integer|FALSE
+	 */
+	public function addContentItem($site_id, $page_id, $column_id, $content_type, array $params)
+	{
+		$content_id = FALSE;
+
+		$sort_order = $this->sortOrderForNewContentItem($site_id, $page_id, $column_id);
+		if($sort_order === FALSE)
+		{
+			$sort_order = 1;
+		}
+
+		$sql = "INSERT INTO user_site_page_structure_content 
+				(site_id, page_id, column_id, content_type, sort_order) 
+				VALUES 
+				(:site_id, :page_id, :column_id, 
+				(SELECT id FROM designer_content_type WHERE `name` = :content_type LIMIT 1), 
+				:sort_order)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_type', $content_type, PDO::PARAM_STR);
+		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+		$result = $stmt->execute();
+
+		if($result === TRUE)
+		{
+			$content_id = intval($this->_db->lastInsertId('user_site_page_structure_content'));
+
+			switch($content_type)
+			{
+				case 'text':
+					$model_text = new Dlayer_Model_Page_Content_Items_Text();
+					$result = $model_text->add($site_id, $page_id, $content_id, $params);
+				break;
+
+				default:
+					$content_id = FALSE;
+				break;
+			}
+		}
+
+		return $content_id;
+	}
+
 
 
 
@@ -253,7 +343,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	 * @param string $content_type
 	 * @return integer The Id of the newly created content item
 	 */
-	public function addContentItem($site_id, $page_id, $div_id,
+	public function addContentItemOld($site_id, $page_id, $div_id,
 		$content_row_id, $content_type)
 	{
 		$sort_order = $this->newItemSortOrderValue($site_id, $page_id,

@@ -167,15 +167,14 @@ abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 	/**
 	 * Add a new content item or setting
 	 *
-	 * @return integer|FALSE Id of the content item created or id of the content item setting belongs to
+	 * @return array|FALSE Id for new environment vars or FALSE if the request failed
 	 */
 	abstract protected function add();
 
 	/**
 	 * Edit a new content item or setting
 	 *
-	 * @return integer|FALSE Id of the content item being edited or id of the content item the changed setting
-	 * belongs to
+	 * @return array|FALSE Id for new environment vars or FALSE if the request failed
 	 */
 	abstract protected function edit();
 

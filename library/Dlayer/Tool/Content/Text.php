@@ -61,18 +61,51 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Handler_Content
 	/**
 	 * Add a new content item or setting
 	 *
-	 * @return integer|FALSE Id of the content item created or id of the content item setting belongs to
+	 * @return array|FALSE Id for new environment vars or FALSE if the request failed
 	 */
 	protected function add()
 	{
-		// TODO: Implement add() method.
+		$model_content = new Dlayer_Model_Page_Content();
+
+		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'text',
+			$this->params);
+
+		if($content_id !== FALSE)
+		{
+			return array(
+				array(
+					'type' => 'page_id',
+					'id' => $this->page_id,
+				),
+				array(
+					'type' => 'row_id',
+					'id' => $this->row_id,
+				),
+				array(
+					'type' => 'column_id',
+					'id' => $this->column_id,
+				),
+				array(
+					'type' => 'tool',
+					'id' => 'row',
+				),
+				array(
+					'type' => 'content_id',
+					'id' => $content_id=NULL,
+					'content_type' => 'text'
+				)
+			);
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
 	 * Edit a new content item or setting
 	 *
-	 * @return integer|FALSE Id of the content item being edited or id of the content item the changed setting
-	 * belongs to
+	 * @return array|FALSE Id for new environment vars or FALSE if the request failed
 	 */
 	protected function edit()
 	{

@@ -101,7 +101,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * Fetch the tool class, either returns the tool defined in the session of the tool for the posted sub tool
 	 *
 	 * @param string $sub_tool_model
-	 * @return Dlayer_Tool_Module_Content
+	 * @return Dlayer_Tool_Handler_Content
 	 */
 	private function toolClass($sub_tool_model = NULL)
 	{
@@ -146,6 +146,10 @@ class Content_ProcessController extends Zend_Controller_Action
 					$session_content->setColumnId($id['id']);
 				break;
 
+				case 'content_id':
+					$session_content->setContentId($id['id']);
+				break;
+
 				case 'tool':
 					$session_content->setTool($id['id']);
 				break;
@@ -182,18 +186,17 @@ class Content_ProcessController extends Zend_Controller_Action
 				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
 				$session_content->contentId()) === TRUE)
 		{
-			$content_id = $tool->process();
-			
-			/*if($return_ids !== FALSE)
+			$return_ids = $tool->process();
+
+			if($return_ids !== FALSE)
 			{
 				$this->setEnvironmentIds($return_ids);
-
 				$this->returnToDesigner(TRUE);
-			} 
-			else 
+			}
+			else
 			{
 				$this->returnToDesigner(FALSE);
-			}*/
+			}
 		}
 	}
 
@@ -252,13 +255,19 @@ class Content_ProcessController extends Zend_Controller_Action
 	 */
 	public function returnToDesigner($success=TRUE)
 	{
-		$multi_use = $this->_request->getParam('multi_use');
+		if($success === FALSE)
+		{
+			$this->redirect('content/design/set-tool/tool/cancel');
+		}
 
 		if($this->debug === 1)
 		{
 			exit();
 		}
-		else if ($multi_use !== NULL && $multi_use === 1)
+
+		$multi_use = $this->getPostAsInteger('multi_use');
+
+		if($multi_use !== NULL && $multi_use === 1)
 		{
 			$this->redirect('content/design');
 		}
