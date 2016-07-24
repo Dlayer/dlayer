@@ -8,7 +8,6 @@
  * block. This form is also used by the edit version of the tool.
  *
  * @todo Work on this form and then create the base form for the module
- *
  * @author Dean Blackborough
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
@@ -100,10 +99,9 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');
-		$name->setAttribs(array('cols'=>50, 'row'=>15, 'placeholder'=>'e.g., Contact page into',
+		$name->setAttribs(array('cols'=>50, 'row'=>15, 'placeholder'=>'e.g., Into for contact page',
 			'class'=>'form-control input-sm'));
-		$name->setDescription('Set a name, ideally describe the content, this will make it easier to reuse the 
-		    text later if you need to create a duplicate content item.');
+		$name->setDescription('Give the content item a name, this will allow you to recreate it again later.');
 		$name->setBelongsTo('params');
 		$name->setRequired();
 
@@ -111,7 +109,7 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 
 		$text = new Zend_Form_Element_Textarea('text');
 		$text->setLabel('Content');
-		$text->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., The quick brown fox jumps...',
+		$text->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
 			'class'=>'form-control input-sm'));
 		$text->setDescription('Enter your content.');
 		$text->setBelongsTo('params');
