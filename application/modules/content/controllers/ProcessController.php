@@ -157,11 +157,12 @@ class Content_ProcessController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Process method for the manual tools, manual tools are any tools where the user provides input. Assuming the
-	 * environment params are correct and match the session values we simply pass the request off to the tool class.
-	 * In all cases, success and failure the user is returned back to the designer, the only difference being
+	 * Process method for the manual tools, manual tools are any tools where the user has to provide input which needs
+	 * validating. Assuming the environment params are correct and they match the corresponding session values we
+	 * simply pass the request off to the tool class.
+	 * In all cases, success and failure, the user is returned back to the designer, the only difference being
 	 * whether the state of the designer is maintained, that depends on the success of the request and whether the
-	 * tool is multi-use
+	 * tool is multi-use or not
 	 *
 	 * @return void
 	 */
