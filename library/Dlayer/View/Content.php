@@ -32,6 +32,11 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	/**
 	 * @param integer|NULL Id of the selected column, if any
 	 */
+	private $selected_column_id;
+
+	/**
+	 * @param integer|NULL Id of the selected column, if any
+	 */
 	private $selected_content_id;
 
 	/**
@@ -72,6 +77,19 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	}
 
 	/**
+	 * Set the id of the selected column, this controls whether or not the selected class get applied to a column
+	 *
+	 * @param integer $id Id of the selected column
+	 * @return Dlayer_View_Content
+	 */
+	public function setSelectedColumnId($id)
+	{
+		$this->selected_column_id = $id;
+
+		return $this;
+	}
+
+	/**
 	 * Pass in the content data for the content page. The content data is passed in using this setter because the
 	 * view helper will be called many times to generate a content page and we only want to pass what could be a
 	 * very large data array once
@@ -101,26 +119,41 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 		{
 			foreach($this->content[$this->column_id] as $content)
 			{
+				$selectable = FALSE;
+				$selected = FALSE;
+
+				if($this->selected_column_id === $this->column_id)
+				{
+					if($this->selected_content_id === $content['content_id'])
+					{
+						$selected = TRUE;
+					}
+					else
+					{
+						$selectable = TRUE;
+					}
+				}
+
 				switch($content['type'])
 				{
 					case 'heading':
-						$html .= $this->view->heading($content['data']);
+						$html .= $this->view->heading($content['data'], $selectable, $selected);
 					break;
 
 					case 'text':
-						$html .= $this->view->text($content['data']);
+						$html .= $this->view->text($content['data'], $selectable, $selected);
 					break;
 
 					case 'jumbotron':
-						$html .= $this->view->jumbotron($content['data']);
+						$html .= $this->view->jumbotron($content['data'], $selectable, $selected);
 					break;
 
 					case 'image':
-						$html .= $this->view->image($content['data']);
+						$html .= $this->view->image($content['data'], $selectable, $selected);
 					break;
 
 					case 'form':
-						$html .= $this->view->importedForm($content['data']);
+						$html .= $this->view->importedForm($content['data'], $selectable, $selected);
 					break;
 
 					default:
@@ -130,69 +163,5 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 		}
 
 		return $html;
-
-		/*$html = '';
-
-		if(array_key_exists($this->content_row_id, $this->content) == TRUE)
-		{
-
-			foreach($this->content[$this->content_row_id] as $content)
-			{
-
-				$selectable = FALSE;
-				$selected = FALSE;
-				$items = count($this->content[$this->content_row_id]);
-
-				if($this->selected_content_row_id != NULL &&
-					$this->selected_content_row_id == $this->content_row_id
-				)
-				{
-					$selectable = TRUE;
-				}
-
-				$selected = FALSE;
-
-				if($this->selected_content_id != NULL &&
-					$this->selected_content_id == $content['data']['content_id']
-				)
-				{
-					$selected = TRUE;
-				}
-
-				switch($content['type'])
-				{
-					case 'text':
-						$html .= $this->view->contentText($content['data'],
-							$selectable, $selected, $items);
-					break;
-
-					case 'heading':
-						$html .= $this->view->contentHeading(
-							$content['data'], $selectable, $selected, $items);
-					break;
-
-					case 'jumbotron':
-						$html .= $this->view->contentJumbotron(
-							$content['data'], $selectable, $selected, $items);
-					break;
-
-					case 'form':
-						$html .= $this->view->contentForm($content['data'],
-							$selectable, $selected, $items);
-					break;
-
-					case 'image':
-						$html .= $this->view->contentImage($content['data'],
-							$selectable, $selected, $items, $preview);
-					break;
-
-					default:
-					break;
-				}
-
-			}
-		}
-
-		return $html;*/
 	}
 }

@@ -597,9 +597,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * sub title and optional button
 	 *
 	 * @param array $data Content item data array
+	 * @param boolean $selectable
+	 * @param boolean $selected
 	 * @return Dlayer_View_Jumbotron
 	 */
-	public function jumbotron(array $data)
+	public function jumbotron(array $data, $selectable = FALSE, $selected = FALSE)
 	{
 	}
 

@@ -24,16 +24,30 @@ class Dlayer_View_Jumbotron extends Zend_View_Helper_Abstract
 	private $data;
 
 	/**
+	 * @var boolean Is the content item selectable?
+	 */
+	private $selectable;
+
+	/**
+	 * @var boolean Is the content item selected?
+	 */
+	private $selected;
+
+	/**
 	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @param array $data Content item data array
+	 * @param boolean $selectable
+	 * @param boolean $selected
 	 * @return Dlayer_View_Jumbotron
 	 */
-	public function jumbotron(array $data)
+	public function jumbotron(array $data, $selectable = FALSE, $selected = FALSE)
 	{
 		$this->resetParams();
 
 		$this->data = $data;
+		$this->selectable = $selectable;
+		$this->selected = $selected;
 
 		return $this;
 	}
@@ -46,6 +60,8 @@ class Dlayer_View_Jumbotron extends Zend_View_Helper_Abstract
 	private function resetParams()
 	{
 		$this->data = array();
+		$this->selectable = FALSE;
+		$this->selected = FALSE;
 	}
 
 	/**
@@ -57,8 +73,18 @@ class Dlayer_View_Jumbotron extends Zend_View_Helper_Abstract
 	{
 		// The id of a content item is defined as follows [item_type]:[tool]:[id]
 		$id = 'jumbotron:jumbotron:' . $this->view->escape($this->data['content_id']);
+		$class = 'content jumbotron';
 
-		$html = '<div class="jumbotron">';
+		if($this->selectable === TRUE)
+		{
+			$class .= ' selectable';
+		}
+		if($this->selected === TRUE)
+		{
+			$class = ' selected';
+		}
+
+		$html = '<div id="' . $id . '" class="' . $class . '">';
 		$html .= '<h1>' . $this->view->escape($this->data['title']) . '</h1>';
 		$html .= '<p>' . $this->view->escape($this->data['sub_title']) . '</p>';
 
