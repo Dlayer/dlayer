@@ -42,7 +42,7 @@ class Content_ProcessController extends Zend_Controller_Action
 
 		$this->_helper->disableLayout(FALSE);
 
-		$this->debug = $this->getInvokeArg('bootstrap')->getOption('debug');
+		$this->debug = intval($this->getInvokeArg('bootstrap')->getOption('debug'));
 	}
 
 	/**
@@ -147,7 +147,7 @@ class Content_ProcessController extends Zend_Controller_Action
 				break;
 
 				case 'content_id':
-					$session_content->setContentId($id['id']);
+					$session_content->setContentId($id['id'], $id['content_type']);
 				break;
 
 				case 'tool':

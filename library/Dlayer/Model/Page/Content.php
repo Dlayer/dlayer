@@ -326,45 +326,56 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		return $content_id;
 	}
 
-
-
-
-
-
 	/**
-	 * Add a new content item into the content items table, this is not the
-	 * data for the item itself, just the base definition for an item, the
-	 * specific item data will be stored in a sub table
+	 * Check to see if the requested content item is valid, needs to exist in the given location and also be of the
+	 * correct type
 	 *
+	 * @param integer $content_id
 	 * @param integer $site_id
 	 * @param integer $page_id
-	 * @param integer $div_id
-	 * @param integer $content_row_id
+	 * @param integer $column_id
 	 * @param string $content_type
-	 * @return integer The Id of the newly created content item
+	 * @return boolean
 	 */
-	public function addContentItemOld($site_id, $page_id, $div_id,
-		$content_row_id, $content_type)
+	public function validItem($content_id, $site_id, $page_id, $column_id, $content_type)
 	{
-		$sort_order = $this->newItemSortOrderValue($site_id, $page_id,
-			$content_row_id);
-
-		$sql = "INSERT INTO user_site_page_content_item 
-				(site_id, page_id, content_row_id, content_type, sort_order)
-				VALUES
-				(:site_id, :page_id, :content_row_id,
-				(SELECT id FROM designer_content_type 
-				WHERE `name` = :content_type), :sort_order)";
+		$sql = "SELECT id 
+		        FROM user_site_page_structure_content
+		        WHERE id = :content_id 
+		        AND site_id = :site_id 
+		        AND page_id = :page_id 
+		        AND column_id = :column_id 
+		        AND content_type = (
+		            SELECT id 
+		            FROM designer_content_type 
+		            WHERE `name` = :content_type 
+		            LIMIT 1
+		        )";
 		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
+		$stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_type', $content_type, PDO::PARAM_STR);
-		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
 		$stmt->execute();
 
-		return intval($this->_db->lastInsertId('user_site_page_content_item'));
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
+
+
+
+
+
+
 
 	/**
 	 * Calculate the new sort order value for the new content item,
@@ -455,58 +466,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		$result = $stmt->fetch();
-
-		if($result != FALSE)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	/**
-	 * Check to see if the requested content item is valid, it has to belong
-	 * to the requested page, be for the requested div and also be of the
-	 * correct content type
-	 *
-	 * @param integer $content_id
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $div_id
-	 * @param integer $content_row_id
-	 * @param string $content_type
-	 * @return boolean
-	 */
-	public function valid($content_id, $site_id, $page_id, $div_id,
-		$content_row_id, $content_type)
-	{
-		$sql = "SELECT uspci.id 
-				FROM user_site_page_content_item uspci 
-				JOIN user_site_page_content_rows uspcr 
-					ON uspci.content_row_id = uspcr.id 
-					AND uspcr.div_id = :div_id 
-					AND uspcr.site_id = :site_id 
-					AND uspcr.page_id = :page_id 
-				JOIN designer_content_type dct 
-					ON uspci.content_type = dct.id 
-					AND dct.`name` = :content_type 
-				WHERE uspci.site_id = :site_id 
-				AND uspci.page_id = :page_id 
-				AND uspci.content_row_id  = :content_row_id
-				AND uspci.id = :content_id 
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_type', $content_type, PDO::PARAM_STR);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		$result = $stmt->fetch();
