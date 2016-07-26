@@ -15,6 +15,10 @@
 		contentManager.columnSelector();
 		<?php } ?>
 
+		<?php if($this->page_selected !== NULL && $this->row_id !== NULL && $this->column_id !== NULL) { ?>
+		contentManager.contentSelector();
+		<?php } ?>
+
 		<?php /*if($this->div_id == NULL && $this->content_row == NULL
 			&& $this->tool == NULL) {*/ ?>
 			//dlayer.selectors.contentArea();

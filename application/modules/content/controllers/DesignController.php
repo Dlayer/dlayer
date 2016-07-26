@@ -339,7 +339,8 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Generate the html for the content page, this will be as visually accurate to the live version of the page as possible
+	 * Generate the html for the content page, this will be as visually accurate to the live version of the
+	 * page as possible
 	 *
 	 * The structure of the data is fetched and passed to the view for the structure view helpers to consume, after
 	 * that all the defined styles for the page are fetched and passed to a base view helper which calls a child view
@@ -444,27 +445,6 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Sets the selected div and returns the user back to the designer so that
-	 * they can choose a content item to edit or select a content row to add
-	 * a new one
-	 *
-	 * @todo Need to check that div id is valid
-	 *
-	 * @return void
-	 */
-	public function setSelectedDivAction()
-	{
-		$this->_helper->disableLayout(FALSE);
-
-		$this->session_content->clearAll();
-
-		$id = $this->getRequest()->getParam('selected');
-		$this->session_content->setDivId($id);
-		$this->session_content->setTool('content-area');
-		$this->_redirect('/content/design');
-	}
-
-	/**
 	 * Set the id for the selected row
 	 *
 	 * @todo Add a check to ensure id is valid, check needs to look at set column (page). Not sure yet if check is best in this controller, an action helper ot in the session class, review
@@ -522,9 +502,7 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Set the selected content item and returns the user back to the designer
-	 * with the content item selected and the ribbon showing the options and
-	 * data for the corresponding tool
+	 * Set the id for the selected content item
 	 *
 	 * @return void
 	 */
@@ -532,15 +510,14 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$id = $this->getRequest()->getParam('selected');
-		$tool = $this->getRequest()->getParam('tool');
-		$content_type = $this->getRequest()->getParam('content-type');
+		$id = $this->getParamAsInteger('id');
+		$tool = $this->getParamAsString('tool');
+		$content_type = $this->getParamAsString('content-type');
 
-		if($this->session_content->setContentId($id, $content_type) == TRUE &&
-			$this->session_content->setTool($tool) == TRUE
-		)
+		if($this->session_content->setContentId($id, $content_type) === TRUE &&
+			$this->session_content->setTool($tool) === TRUE)
 		{
-			$this->_redirect('/content/design');
+			$this->redirect('/content/design');
 		}
 		else
 		{
@@ -705,5 +682,31 @@ class Content_DesignController extends Zend_Controller_Action
 		}
 
 		$this->redirect('/content/design');
+	}
+
+	/**
+	 * Get a post param
+	 *
+	 * @todo Move this out of controller
+	 * @param string $param
+	 * @param integer|NULL $default
+	 * @return integer|NULL
+	 */
+	private function getParamAsInteger($param, $default = NULL)
+	{
+		return ($this->getRequest()->getParam($param) !== '' ? intval($this->getRequest()->getParam($param)) : $default);
+	}
+
+	/**
+	 * Get a post param
+	 *
+	 * @todo Move this out of controller
+	 * @param string $param
+	 * @param integer|NULL $default
+	 * @return string|NULL
+	 */
+	private function getParamAsString($param, $default = NULL)
+	{
+		return $this->getRequest()->getParam($param, $default);
 	}
 }

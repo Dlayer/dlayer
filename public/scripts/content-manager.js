@@ -112,7 +112,30 @@ var contentManager =
 	 */
 	contentSelector: function()
 	{
-		var selector = '';
+		var selector = '.column.selected > .content.selectable';
 		var background_color = null;
+
+		$(selector).hover(
+			function() {
+				background_color = $(this).css('background-color');
+				$(this).css('background-color', '#e1dc50');
+				$(this).css('cursor', 'pointer');
+			},
+			function() {
+				$(this).css('background-color', background_color);
+			}
+		);
+		$(selector).click(
+			function() {
+				$(this).css('background-color', '#66a7ba');
+
+				var id = '';
+				var tool = '';
+				var content_type = '';
+
+				window.location.replace('/content/design/set-selected-content/id/' +
+					id + '/tool/' + tool + '/content-type/' + content_type);
+			}
+		);
 	}
 }
