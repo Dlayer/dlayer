@@ -23,16 +23,30 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 	private $data;
 
 	/**
+	 * @var boolean Is the content item selectable?
+	 */
+	private $selectable;
+
+	/**
+	 * @var boolean Is the content item selected?
+	 */
+	private $selected;
+
+	/**
 	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @param array $data Content item data array
+	 * @param boolean $selectable
+	 * @param boolean $selected
 	 * @return Dlayer_View_Text
 	 */
-	public function text(array $data)
+	public function text(array $data, $selectable = FALSE, $selected = FALSE)
 	{
 		$this->resetParams();
 
 		$this->data = $data;
+		$this->selectable = $selectable;
+		$this->selected = $selected;
 
 		return $this;
 	}
@@ -45,6 +59,8 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 	private function resetParams()
 	{
 		$this->data = array();
+		$this->selectable = FALSE;
+		$this->selected = FALSE;
 	}
 
 	/**
@@ -56,8 +72,19 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 	{
 		// The id of a content item is defined as follows [item_type]:[tool]:[id]
 		$id = 'text:text:' . $this->view->escape($this->data['content_id']);
+		$class = 'content';
 
-		$html = '<p>' . nl2br($this->view->escape($this->data['content']), TRUE) . '</p>';
+		if($this->selectable === TRUE)
+		{
+			$class .= ' selectable';
+		}
+		if($this->selected === TRUE)
+		{
+			$class = ' selected';
+		}
+
+		$html = '<p id="' . $id . '" class="' . $class . '">' .
+			nl2br($this->view->escape($this->data['content']), TRUE) . '</p>';
 
 		return $html;
 	}

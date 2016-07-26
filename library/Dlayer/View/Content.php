@@ -149,7 +149,7 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 					break;
 
 					case 'image':
-						$html .= $this->view->image($content['data'], $selectable, $selected);
+						$html .= $this->view->image($content['data'], FALSE, $selectable, $selected);
 					break;
 
 					case 'form':

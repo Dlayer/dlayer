@@ -28,18 +28,32 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 	private $preview;
 
 	/**
+	 * @var boolean Is the content item selectable?
+	 */
+	private $selectable;
+
+	/**
+	 * @var boolean Is the content item selected?
+	 */
+	private $selected;
+
+	/**
 	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @param array $data Content item data array
 	 * @param boolean $preview In preview mode include expand link
+	 * @param boolean $selectable
+	 * @param boolean $selected
 	 * @return Dlayer_View_Image
 	 */
-	public function image(array $data, $preview = FALSE)
+	public function image(array $data, $preview = FALSE, $selectable = FALSE, $selected = FALSE)
 	{
 		$this->resetParams();
 
 		$this->data = $data;
 		$this->preview = $preview;
+		$this->selectable = $selectable;
+		$this->selected = $selected;
 
 		return $this;
 	}
@@ -53,6 +67,8 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 	{
 		$this->data = array();
 		$this->preview = FALSE;
+		$this->selectable = FALSE;
+		$this->selected = FALSE;
 	}
 
 	/**
@@ -64,8 +80,18 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 	{
 		// The id of a content item is defined as follows [item_type]:[tool]:[id]
 		$id = 'image:image:' . $this->view->escape($this->data['content_id']);
+		$class = 'content';
 
-		$html = '';
+		if($this->selectable === TRUE)
+		{
+			$class .= ' selectable';
+		}
+		if($this->selected === TRUE)
+		{
+			$class = ' selected';
+		}
+
+		$html = '<div id="' . $id . '" class="' . $class . '"/>';
 
 		if($this->preview === TRUE && $this->data['expand'] === 1)
 		{
@@ -85,6 +111,8 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 		{
 			$html .= '</a>';
 		}
+
+		$html .= '</div>';
 
 		return $html;
 	}
