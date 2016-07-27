@@ -129,9 +129,10 @@ var contentManager =
 			function() {
 				$(this).css('background-color', '#66a7ba');
 
-				var id = '';
-				var tool = '';
-				var content_type = '';
+				var bits = this.id.split(':');
+				var id = bits[2];
+				var tool = bits[1];
+				var content_type = bits[0];
 
 				window.location.replace('/content/design/set-selected-content/id/' +
 					id + '/tool/' + tool + '/content-type/' + content_type);

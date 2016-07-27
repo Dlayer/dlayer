@@ -28,6 +28,14 @@ div#designer {
 			div.selected {
 				@include selected-state();
 			}
+
+			div.column > p.selected {
+				@include selected-state();
+			}
+
+			div.column > h1.selected, h2.selected, h3.selected, h4.selected, h5.selected, h6.selected {
+				@include selected-state();
+			}
 		}
 	}
 	

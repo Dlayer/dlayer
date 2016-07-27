@@ -141,7 +141,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 
 				$class = "column";
 
-				if($this->selected_row_id === $column['row_id'])
+				if($this->selected_content_id === NULL && $this->selected_row_id === $column['row_id'])
 				{
 					if($this->selected_column_id === $column['id'])
 					{
