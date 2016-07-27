@@ -134,6 +134,7 @@ abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 			}
 			else
 			{
+				die('edit');
 				$this->edit();
 			}
 

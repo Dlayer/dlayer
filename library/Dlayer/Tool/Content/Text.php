@@ -9,7 +9,6 @@
  */
 class Dlayer_Tool_Content_Text extends Dlayer_Tool_Handler_Content
 {
-
 	/**
 	 * Check that the required params have been submitted, check the keys in the params array
 	 *
@@ -72,29 +71,7 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Handler_Content
 
 		if($content_id !== FALSE)
 		{
-			return array(
-				array(
-					'type' => 'page_id',
-					'id' => $this->page_id,
-				),
-				array(
-					'type' => 'row_id',
-					'id' => $this->row_id,
-				),
-				array(
-					'type' => 'column_id',
-					'id' => $this->column_id,
-				),
-				array(
-					'type' => 'tool',
-					'id' => 'row',
-				),
-				array(
-					'type' => 'content_id',
-					'id' => $content_id=NULL,
-					'content_type' => 'text'
-				)
-			);
+			return $this->returnIds($content_id);
 		}
 		else
 		{
@@ -120,5 +97,43 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Handler_Content
 	protected function structure()
 	{
 		// Not required by manual tool
+	}
+
+	/**
+	 * Generate the return ids array
+	 *
+	 * @param integer|NULL Set content id or use the class property
+	 * @return array
+	 */
+	protected function returnIds($content_id = NULL)
+	{
+		if($content_id !== NULL)
+		{
+			$this->content_id = $content_id;
+		}
+
+		return array(
+			array(
+				'type' => 'page_id',
+				'id' => $this->page_id,
+			),
+			array(
+				'type' => 'row_id',
+				'id' => $this->row_id,
+			),
+			array(
+				'type' => 'column_id',
+				'id' => $this->column_id,
+			),
+			array(
+				'type' => 'tool',
+				'id' => 'text',
+			),
+			array(
+				'type' => 'content_id',
+				'id' => $this->content_id,
+				'content_type' => 'text'
+			)
+		);
 	}
 }

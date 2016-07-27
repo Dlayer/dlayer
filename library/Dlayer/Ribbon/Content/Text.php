@@ -52,33 +52,4 @@ class Dlayer_Ribbon_Content_Text
 
 		return $data;
 	}
-
-	/**
-	 * Fetch the data for the selected content block
-	 *
-	 * If a content id exists return a data array for the heading otherwise
-	 * return an array with FALSE for each of the values, we do this so we
-	 * can easily default the values at a later point
-	 *
-	 * @return array
-	 */
-	protected function contentItem()
-	{
-		$data = array('id'=>FALSE, 'name'=>FALSE, 'heading'=>FALSE,
-			'heading_id'=>FALSE);
-
-		if($this->content_id != NULL) {
-			$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
-
-			$set_data = $model_heading->formData($this->site_id,
-				$this->page_id, $this->div_id, $this->content_row_id,
-				$this->content_id);
-
-			if($set_data != FALSE) {
-				$data = $set_data;
-			}
-		}
-
-		return $data;
-	}
 }
