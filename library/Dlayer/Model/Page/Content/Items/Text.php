@@ -107,6 +107,30 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 		}
 	}
 
+	/**
+	 * Fetch the existing data for the content item
+	 *
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @return array|FALSE The data array for the content item or FALSE upon failure
+	 */
+	public function existingData($site_id, $id)
+	{
+		$sql = "SELECT usct.`name`, usct.content
+				FROM user_site_page_content_item_text uspcit 
+				JOIN user_site_content_text usct 
+					ON uspcit.data_id = usct.id
+					AND usct.site_id = :site_id 
+				WHERE uspcit.site_id = :site_id
+				AND uspcit.content_id = :content_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetch();
+	}
+
 
 
 

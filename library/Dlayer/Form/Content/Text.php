@@ -16,16 +16,19 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 {
 	protected $tool = array();
 	protected $content_type = 'text';
+	protected $data = array();
 
 	/**
 	 * Set the properties for the form
 	 *
 	 * @param array $tool Tool and environment data array
+	 * @param array $data Current data for content item
 	 * @param array|NULL $options Zend form options
 	 */
-	public function __construct(array $tool, $options=NULL)
+	public function __construct(array $tool, array $data, $options=NULL)
 	{
 		$this->tool = $tool;
+		$this->data = $data;
 
 		parent::__construct($options);
 	}
@@ -105,6 +108,11 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 		$name->setBelongsTo('params');
 		$name->setRequired();
 
+		if(array_key_exists('name', $this->data) === TRUE && $this->data['name'] !== FALSE)
+		{
+			$name->setValue($this->data['name']);
+		}
+
 		$this->elements['name'] = $name;
 
 		$content = new Zend_Form_Element_Textarea('content');
@@ -114,6 +122,11 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 		$content->setDescription('Enter your content.');
 		$content->setBelongsTo('params');
 		$content->setRequired();
+
+		if(array_key_exists('content', $this->data) === TRUE && $this->data['content'] !== FALSE)
+		{
+			$content->setValue($this->data['content']);
+		}
 
 		$this->elements['content'] = $content;
 	}

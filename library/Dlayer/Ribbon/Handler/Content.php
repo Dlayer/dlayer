@@ -162,6 +162,7 @@ class Dlayer_Ribbon_Handler_Content
 	private function toolParams($tool)
 	{
 		return array(
+			'site_id' => $this->site_id,
 			'name' => $tool,
 			'page_id' => $this->page_id,
 			'column_id' => $this->column_id,

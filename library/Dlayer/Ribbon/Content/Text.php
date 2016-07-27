@@ -10,6 +10,8 @@
  */
 class Dlayer_Ribbon_Content_Text
 {
+	protected $tool;
+
 	/**
 	 * Fetch the view data for the tool tab, contains an index with the form (pre filled if necessary) and another
 	 * with the data required by the live preview functions
@@ -19,6 +21,64 @@ class Dlayer_Ribbon_Content_Text
 	 */
 	public function viewData(array $tool)
 	{
-		return array('form' => new Dlayer_Form_Content_Text($tool));
+		$this->tool = $tool;
+
+		return array('form' => new Dlayer_Form_Content_Text($tool, $this->contentData()));
+	}
+
+	/**
+	 * Fetch the existing data for the content item, always returns  a data array, if not in edit mode the values will
+	 * all be FALSE
+	 *
+	 * @return array
+	 */
+	protected function contentData()
+	{
+		$data = array(
+			'name' => FALSE,
+			'content' => FALSE
+		);
+
+		if($this->tool['content_id'] !== NULL)
+		{
+			$model_text = new Dlayer_Model_Page_Content_Items_Text();
+			$existing_data = $model_text->existingData($this->tool['site_id'], $this->tool['content_id']);
+			if($existing_data !== FALSE)
+			{
+				$data['name'] = $existing_data['name'];
+				$data['content'] = $existing_data['content'];
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Fetch the data for the selected content block
+	 *
+	 * If a content id exists return a data array for the heading otherwise
+	 * return an array with FALSE for each of the values, we do this so we
+	 * can easily default the values at a later point
+	 *
+	 * @return array
+	 */
+	protected function contentItem()
+	{
+		$data = array('id'=>FALSE, 'name'=>FALSE, 'heading'=>FALSE,
+			'heading_id'=>FALSE);
+
+		if($this->content_id != NULL) {
+			$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
+
+			$set_data = $model_heading->formData($this->site_id,
+				$this->page_id, $this->div_id, $this->content_row_id,
+				$this->content_id);
+
+			if($set_data != FALSE) {
+				$data = $set_data;
+			}
+		}
+
+		return $data;
 	}
 }
