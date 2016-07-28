@@ -39,7 +39,7 @@ class Dlayer_Form_Settings_Form_BaseFont extends Dlayer_Form_Module_App
         
         $this->formElementsData();
         
-        $this->setUpFormElements();
+        $this->generateFormElements();
         
         $this->validationRules();
         
@@ -74,7 +74,7 @@ class Dlayer_Form_Settings_Form_BaseFont extends Dlayer_Form_Module_App
     * @return void Form elements are written to the private $this->elements 
     *              property
     */
-    protected function setUpFormElements() 
+    protected function generateFormElements()
     {
         $font_family = new Zend_Form_Element_Select('font_family');
         $font_family->setLabel('Font family:');

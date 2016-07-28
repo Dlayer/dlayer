@@ -73,10 +73,11 @@ fieldset {
 	div.form-group {
 
 		label.required:after {
-			content: ' *';
+			content: ' (required)';
 			display:inline;
 			color: #d9534f;
-			font-weight: bold;
+			font-weight: normal;
+			font-size: 12px;
 		}
 	}
 }

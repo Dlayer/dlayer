@@ -155,6 +155,7 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 				$this->view->column()->setRowId($row['id']);
 				$this->view->column()->setSelectedRowId($this->selected_row_id);
 				$this->view->column()->setSelectedColumnId($this->selected_column_id);
+				$this->view->column()->setSelectedContentId($this->selected_content_id);
 				$columns = $this->view->column()->render();
 
 				if(strlen($columns) > 0)

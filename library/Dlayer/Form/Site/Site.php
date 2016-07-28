@@ -50,7 +50,7 @@ class Dlayer_Form_Site_Site extends Dlayer_Form_Module_App
 
 		$this->elementsData();
 
-		$this->setUpFormElements();
+		$this->generateFormElements();
 
 		$this->validationRules();
 
@@ -95,7 +95,7 @@ class Dlayer_Form_Site_Site extends Dlayer_Form_Module_App
 	 *
 	 * @return void
 	 */
-	protected function setUpFormElements() 
+	protected function generateFormElements()
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');

@@ -564,9 +564,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * Text content item view helper, a text block is simple a string of text enclosed within p tags
 	 *
 	 * @param array $data Content item data array
+	 * @param boolean $selectable
+	 * @param boolean $selected
 	 * @return Dlayer_View_Text
 	 */
-	public function text(array $data)
+	public function text(array $data, $selectable = FALSE, $selected = FALSE)
 	{
 	}
 
@@ -575,9 +577,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * font off to the right
 	 *
 	 * @param array $data Content item data array
+	 * @param boolean $selectable
+	 * @param boolean $selected
 	 * @return Dlayer_View_Heading
 	 */
-	public function heading(array $data)
+	public function heading(array $data, $selectable = FALSE, $selected = FALSE)
 	{
 	}
 
@@ -586,9 +590,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 *
 	 * @param array $data Content item data array
 	 * @param boolean $preview In preview mode include expand link
+	 * @param boolean $selectable
+	 * @param boolean $selected
 	 * @return Dlayer_View_Image
 	 */
-	public function image(array $data, $preview = FALSE)
+	public function image(array $data, $preview = FALSE, $selectable = FALSE, $selected = FALSE)
 	{
 	}
 
@@ -597,9 +603,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * sub title and optional button
 	 *
 	 * @param array $data Content item data array
+	 * @param boolean $selectable
+	 * @param boolean $selected
 	 * @return Dlayer_View_Jumbotron
 	 */
-	public function jumbotron(array $data)
+	public function jumbotron(array $data, $selectable = FALSE, $selected = FALSE)
 	{
 	}
 
@@ -607,9 +615,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * Form content item view helper
 	 *
 	 * @param array $data Content item data array
+	 * @param boolean $selectable
+	 * @param boolean $selected
 	 * @return Dlayer_View_ImportedForm
 	 */
-	public function importedForm(array $data)
+	public function importedForm(array $data, $selectable = FALSE, $selected = FALSE)
 	{
 	}
 }

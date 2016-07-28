@@ -66,7 +66,7 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 
 		$this->elementsData();
 
-		$this->setUpFormElements();
+		$this->generateFormElements();
 
 		$this->validationRules();
 		
@@ -102,7 +102,7 @@ abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
 	 *
 	 * @return void
 	 */
-	protected function setUpFormElements()
+	protected function generateFormElements()
 	{
 		$this->addToolElements();
 

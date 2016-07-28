@@ -32,7 +32,7 @@ class Dlayer_Form_Login extends Dlayer_Form
 		
 		$this->setMethod('post');
 		
-		$this->setUpFormElements();
+		$this->generateFormElements();
 		
 		$this->validationRules();
 		
@@ -53,7 +53,7 @@ class Dlayer_Form_Login extends Dlayer_Form
 	* @return void Form elements are written to the private $this->elements 
 	*              property
 	*/
-	protected function setUpFormElements() 
+	protected function generateFormElements()
 	{
 		$identity = new Zend_Form_Element_Text('identity');
 		$identity->setLabel('Username');

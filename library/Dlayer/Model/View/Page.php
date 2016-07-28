@@ -48,7 +48,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 		{
 			if($row['column_id'] !== NULL)
 			{
-				$rows[$row['column_id']][] = array(
+				$rows[intval($row['column_id'])][] = array(
 					'id' => intval($row['row_id']),
 					'column_id' => intval($row['column_id']),
 				);
@@ -91,7 +91,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
 		foreach($result as $column)
 		{
-			$columns[$column['row_id']][] = array(
+			$columns[intval($column['row_id'])][] = array(
 				'id' => intval($column['id']),
 				'row_id' => intval($column['row_id']),
 				'size' => intval($column['size']),
@@ -170,7 +170,12 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
 			if($content_item !== FALSE)
 			{
-				$content[$row['column_id']][] = array('type' => $row['content_type'], 'data' => $content_item);
+				$content[intval($row['column_id'])][] = array(
+					'column_id' => intval($row['column_id']),
+					'content_id' => intval($row['content_id']),
+					'type' => $row['content_type'],
+					'data' => $content_item
+				);
 			}
 		}
 

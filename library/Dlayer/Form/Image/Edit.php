@@ -45,7 +45,7 @@ class Dlayer_Form_Image_Edit extends Dlayer_Form_Module_Image
 
 		$this->formElementsData();
 
-		$this->setUpFormElements();
+		$this->generateFormElements();
 
 		$this->validationRules();
 
@@ -86,7 +86,7 @@ class Dlayer_Form_Image_Edit extends Dlayer_Form_Module_Image
 	* @return void The form elements are written to the private $this->elemnets
 	* 			   array
 	*/
-	protected function setUpFormElements()
+	protected function generateFormElements()
 	{
 		$this->toolElements();
 

@@ -42,7 +42,8 @@ class Content_ProcessController extends Zend_Controller_Action
 
 		$this->_helper->disableLayout(FALSE);
 
-		$this->debug = $this->getInvokeArg('bootstrap')->getOption('debug');
+		$this->debug = intval($this->getInvokeArg('bootstrap')->getOption('debug'));
+		//$this->debug = 0;
 	}
 
 	/**
@@ -101,7 +102,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * Fetch the tool class, either returns the tool defined in the session of the tool for the posted sub tool
 	 *
 	 * @param string $sub_tool_model
-	 * @return Dlayer_Tool_Module_Content
+	 * @return Dlayer_Tool_Handler_Content
 	 */
 	private function toolClass($sub_tool_model = NULL)
 	{
@@ -146,6 +147,10 @@ class Content_ProcessController extends Zend_Controller_Action
 					$session_content->setColumnId($id['id']);
 				break;
 
+				case 'content_id':
+					$session_content->setContentId($id['id'], $id['content_type']);
+				break;
+
 				case 'tool':
 					$session_content->setTool($id['id']);
 				break;
@@ -157,11 +162,12 @@ class Content_ProcessController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Process method for the manual tools, manual tools are any tools where the user provides input. Assuming the
-	 * environment params are correct and match the session values we simply pass the request off to the tool class.
-	 * In all cases, success and failure the user is returned back to the designer, the only difference being
+	 * Process method for the manual tools, manual tools are any tools where the user has to provide input which needs
+	 * validating. Assuming the environment params are correct and they match the corresponding session values we
+	 * simply pass the request off to the tool class.
+	 * In all cases, success and failure, the user is returned back to the designer, the only difference being
 	 * whether the state of the designer is maintained, that depends on the success of the request and whether the
-	 * tool is multi-use
+	 * tool is multi-use or not
 	 *
 	 * @return void
 	 */
@@ -181,18 +187,17 @@ class Content_ProcessController extends Zend_Controller_Action
 				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
 				$session_content->contentId()) === TRUE)
 		{
-			$content_id = $tool->process();
-			
-			/*if($return_ids !== FALSE)
+			$return_ids = $tool->process();
+
+			if($return_ids !== FALSE)
 			{
 				$this->setEnvironmentIds($return_ids);
-
 				$this->returnToDesigner(TRUE);
-			} 
-			else 
+			}
+			else
 			{
 				$this->returnToDesigner(FALSE);
-			}*/
+			}
 		}
 	}
 
@@ -251,13 +256,19 @@ class Content_ProcessController extends Zend_Controller_Action
 	 */
 	public function returnToDesigner($success=TRUE)
 	{
-		$multi_use = $this->_request->getParam('multi_use');
+		if($success === FALSE)
+		{
+			$this->redirect('content/design/set-tool/tool/cancel');
+		}
 
 		if($this->debug === 1)
 		{
 			exit();
 		}
-		else if ($multi_use !== NULL && $multi_use === 1)
+
+		$multi_use = $this->getPostAsInteger('multi_use');
+
+		if($multi_use !== NULL && $multi_use === 1)
 		{
 			$this->redirect('content/design');
 		}

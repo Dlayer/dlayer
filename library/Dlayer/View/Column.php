@@ -39,6 +39,11 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 	private $selected_row_id;
 
 	/**
+	 * @param integer|NULL Id of the selected content, if any
+	 */
+	private $selected_content_id;
+
+	/**
 	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @return Dlayer_View_Column
@@ -57,6 +62,20 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 	public function setRowId($id)
 	{
 		$this->row_id = $id;
+
+		return $this;
+	}
+
+	/**
+	 * Set the id of the selected content item, this controls whether the selectable css class gets applied to the
+	 * content items/columns that have been assigned to the row
+	 *
+	 * @param integer $id Id of the selected content item, if any
+	 * @return Dlayer_View_Column
+	 */
+	public function setSelectedContentId($id)
+	{
+		$this->selected_content_id = $id;
 
 		return $this;
 	}
@@ -122,7 +141,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 
 				$class = "column";
 
-				if($this->selected_row_id === $column['row_id'])
+				if($this->selected_content_id === NULL && $this->selected_row_id === $column['row_id'])
 				{
 					if($this->selected_column_id === $column['id'])
 					{
@@ -144,6 +163,8 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 				else
 				{
 					$this->view->content()->setColumnId($column['id']);
+					$this->view->content()->setSelectedColumnId($this->selected_column_id);
+					$this->view->content()->setSelectedContentId($this->selected_content_id);
 					$content = $this->view->content()->render();
 
 					if(strlen($content) > 0)

@@ -27,6 +27,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	/**
 	 * Set the id for the selected page
 	 *
+	 * @todo This should check validity
 	 * @param integer $id
 	 * @return void
 	 */
@@ -73,6 +74,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	/**
 	 * Set the id for the selected row. By default the id of any previously selected content will be cleared
 	 *
+	 * @todo This should check validity
 	 * @param integer $id
 	 * @param boolean $clear_content_id Clear the id of any previously selected content ids
 	 * @return void
@@ -100,6 +102,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	/**
 	 * Set the id for the selected column
 	 *
+	 * @todo This should check validity
 	 * @param integer $id
 	 * @return void
 	 */
@@ -129,29 +132,21 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	 * Set the content item that the user wants to edit, before setting the
-	 * id a full check is done against all environment vars to ensure that the
-	 * selected content item belongs to the site, page, template div, content
-	 * row and then finally that it is of the correct type
+	 * Set the id of the content item being selected aftre checking to ensure it the supplied params are valid
 	 *
 	 * @param integer $content_id
-	 * @param string $content_type Type of content item, heading, text, html
+	 * @param string $content_type
 	 * @return boolean
 	 */
 	public function setContentId($content_id, $content_type)
 	{
-		$session_content = new Dlayer_Session_Content();
 		$session_dlayer = new Dlayer_Session();
-
 		$model_content = new Dlayer_Model_Page_Content();
 
-		if($model_content->valid($content_id, $session_dlayer->siteId(),
-				$session_content->pageId(), $session_content->divId(),
-				$session_content->rowId(), $content_type) == TRUE
-		)
+		if($model_content->validItem($content_id, $session_dlayer->siteId(), $this->pageId(), $this->columnId(),
+			$content_type) === TRUE)
 		{
 			$this->content_id = intval($content_id);
-
 			return TRUE;
 		}
 		else

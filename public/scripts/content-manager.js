@@ -16,7 +16,9 @@ var contentManager =
 	 */
 	pageSelector: function()
 	{
-		$('div.container-fluid.selectable').hover(
+		var selector = 'div.container-fluid.selectable';
+
+		$(selector).hover(
 			function()
 			{
 				contentManager.pageBackgroundColor = $(this).css('background-color');
@@ -28,7 +30,7 @@ var contentManager =
 				$(this).css('background-color', contentManager.pageBackgroundColor);
 			}
 		);
-		$('div.container-fluid.selectable').click(
+		$(selector).click(
 			function()
 			{
 				$(this).css('background-color','#c3be50');
@@ -46,9 +48,10 @@ var contentManager =
 	 */
 	rowSelector: function()
 	{
+		var selector = 'div.selected > div.row.selectable';
 		var background_color = null;
 
-		$('div.selected > div.row.selectable').hover(
+		$(selector).hover(
 			function() {
 				background_color = $(this).css('background-color');
 				$(this).css('background-color', '#e1dc50');
@@ -58,7 +61,7 @@ var contentManager =
 				$(this).css('background-color', background_color);
 			}
 		);
-		$('div.selected > div.row.selectable').click(
+		$(selector).click(
 			function() {
 				$(this).css('background-color', '#66a7ba');
 
@@ -77,9 +80,10 @@ var contentManager =
 	 */
 	columnSelector: function()
 	{
+		var selector = '.row.selected > .column.selectable';
 		var background_color = null;
 
-		$('.row.selected > .column.selectable').hover(
+		$(selector).hover(
 			function() {
 				background_color = $(this).css('background-color');
 				$(this).css('background-color', '#e1dc50');
@@ -89,7 +93,7 @@ var contentManager =
 				$(this).css('background-color', background_color);
 			}
 		);
-		$('.row.selected > .column.selectable').click(
+		$(selector).click(
 			function() {
 				$(this).css('background-color', '#66a7ba');
 
@@ -99,4 +103,40 @@ var contentManager =
 			}
 		);
 	},
+
+	/**
+	 * Selector for content items, adds a hover event to change the background colour and then a click even to allow the
+	 * content item to be selected for editing
+	 *
+	 * @returns {Void}
+	 */
+	contentSelector: function()
+	{
+		var selector = '.column.selected > .content.selectable';
+		var background_color = null;
+
+		$(selector).hover(
+			function() {
+				background_color = $(this).css('background-color');
+				$(this).css('background-color', '#e1dc50');
+				$(this).css('cursor', 'pointer');
+			},
+			function() {
+				$(this).css('background-color', background_color);
+			}
+		);
+		$(selector).click(
+			function() {
+				$(this).css('background-color', '#66a7ba');
+
+				var bits = this.id.split(':');
+				var id = bits[2];
+				var tool = bits[1];
+				var content_type = bits[0];
+
+				window.location.replace('/content/design/set-selected-content/id/' +
+					id + '/tool/' + tool + '/content-type/' + content_type);
+			}
+		);
+	}
 }
