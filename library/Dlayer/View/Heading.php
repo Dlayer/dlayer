@@ -79,7 +79,7 @@ class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 
 		if($this->selectable === TRUE)
 		{
-			$class .= ' selectable';
+			//$class .= ' selectable';
 		}
 		if($this->selected === TRUE)
 		{
