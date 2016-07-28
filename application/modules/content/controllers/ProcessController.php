@@ -43,6 +43,7 @@ class Content_ProcessController extends Zend_Controller_Action
 		$this->_helper->disableLayout(FALSE);
 
 		$this->debug = intval($this->getInvokeArg('bootstrap')->getOption('debug'));
+		//$this->debug = 0;
 	}
 
 	/**

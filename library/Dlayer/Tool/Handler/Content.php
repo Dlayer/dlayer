@@ -122,7 +122,7 @@ abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 	 * Process the request for a manual tool, this will either add a new item/setting or edit the details for an
 	 * existing item/setting, the method will check the value of $this->validated before processing the request
 	 *
-	 * @return integer|FALSE Id of the content id or FALSE upon failure
+	 * @return array|FALSE New environment ids or FALSE upon failure
 	 */
 	public function process()
 	{
@@ -130,15 +130,14 @@ abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 		{
 			if($this->content_id === NULL)
 			{
-				$this->content_id = $this->add();
+				$ids = $this->add();
 			}
 			else
 			{
-				die('edit');
-				$this->edit();
+				$ids = $this->edit();
 			}
 
-			return $this->content_id;
+			return $ids;
 		}
 		else
 		{
@@ -168,14 +167,14 @@ abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 	/**
 	 * Add a new content item or setting
 	 *
-	 * @return array|FALSE Id for new environment vars or FALSE if the request failed
+	 * @return array|FALSE Ids for new environment vars or FALSE if the request failed
 	 */
 	abstract protected function add();
 
 	/**
 	 * Edit a new content item or setting
 	 *
-	 * @return array|FALSE Id for new environment vars or FALSE if the request failed
+	 * @return array|FALSE Ids for new environment vars or FALSE if the request failed
 	 */
 	abstract protected function edit();
 

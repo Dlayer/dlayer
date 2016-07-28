@@ -131,6 +131,41 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 		return $stmt->fetch();
 	}
 
+	/**
+	 * Edit the existing data
+	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return boolean
+	 */
+	public function edit($site_id, $page_id, $content_id, array $params)
+	{
+		$data_id = $this->existingDataId($site_id, $params['content']);
+
+		// Add new data if id can't be using posted data, when instances are added, convert this to a check to see if the data has changed and then an instances check (see if new data equals old data)s
+		if($data_id === FALSE)
+		{
+			$data_id = $this->addData($site_id, $params['name'], $params['content']);
+		}
+
+		$sql = "UPDATE user_site_page_content_item_text 
+				SET data_id = :data_id 
+				WHERE site_id = :site_id
+				AND page_id = :page_id
+				AND content_id = :content_id
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
 
 
 
@@ -178,54 +213,6 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 		return $this->contentDataExists($site_id, $content);
 	}
 
-	/**
-	 * Edit the data for the selected text content item
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $div_id
-	 * @param integer $content_row_id
-	 * @param integer $content_id
-	 * @param array $params The data for the new content item
-	 * @return void
-	 */
-	public function editContentItemData($site_id, $page_id, $div_id,
-		$content_row_id, $content_id, array $params)
-	{
-		if($params['instances'] == FALSE)
-		{
-			$data_id = $this->contentDataExists($site_id, $params['text']);
-
-			if($data_id == FALSE)
-			{
-				$data_id = $this->addToDataTable($site_id, $params['name'],
-					$params['text']);
-			}
-			else
-			{
-				$data_id = $this->updateContentData($site_id, $page_id,
-					$content_id, $params['name'], $params['text']);
-			}
-		}
-		else
-		{
-			$data_id = $this->updateContentData($site_id, $page_id,
-				$content_id, $params['name'], $params['text']);
-		}
-
-		$sql = "UPDATE user_site_page_content_item_text 
-				SET data_id = :data_id 
-				WHERE site_id = :site_id
-				AND page_id = :page_id
-				AND content_id = :content_id
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->execute();
-	}
 
 	/**
 	 * Fetch the data for the content item being edited
