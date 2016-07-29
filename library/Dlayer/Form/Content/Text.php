@@ -115,9 +115,27 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 
 		$this->elements['name'] = $name;
 
+		if($this->tool['content_id'] !== NULL)
+		{
+			$instances = new Zend_Form_Element_Select('instances');
+			$instances->setLabel('Update shared content?');
+			$instances->setDescription('The content below is used [n] times on your web site, do you want to update 
+			    the text for this content item only or all content items?');
+			$instances->setMultiOptions(
+				array(
+					1 => 'Yes - update all content items',
+					0 => 'No - Please only update this item'
+				)
+			);
+			$instances->setAttribs(array('class' => 'form-control input-sm'));
+			$instances->setBelongsTo('params');
+
+			$this->elements['instances'] = $instances;
+		}
+
 		$content = new Zend_Form_Element_Textarea('content');
 		$content->setLabel('Content');
-		$content->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
+		$content->setAttribs(array('cols'=>80, 'rows'=>15, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
 			'class'=>'form-control input-sm'));
 		$content->setDescription('Enter your content.');
 		$content->setBelongsTo('params');
