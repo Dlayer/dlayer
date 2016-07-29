@@ -8,7 +8,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
+abstract class Dlayer_Tool_Content extends Dlayer_Tool
 {
 	protected $site_id = NULL;
 	protected $page_id = NULL;

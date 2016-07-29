@@ -8,7 +8,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Tool_Content_AddColumn extends Dlayer_Tool_Handler_Content
+class Dlayer_Tool_Content_AddColumn extends Dlayer_Tool_Content
 {
 	/**
 	 * Check that all the required keys exists in the params array

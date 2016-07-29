@@ -102,7 +102,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * Fetch the tool class, either returns the tool defined in the session of the tool for the posted sub tool
 	 *
 	 * @param string $sub_tool_model
-	 * @return Dlayer_Tool_Handler_Content
+	 * @return Dlayer_Tool_Content
 	 */
 	private function toolClass($sub_tool_model = NULL)
 	{

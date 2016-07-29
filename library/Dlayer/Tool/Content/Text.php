@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Tool_Content_Text extends Dlayer_Tool_Handler_Content
+class Dlayer_Tool_Content_Text extends Dlayer_Tool_Content
 {
 	/**
 	 * Check that the required params have been submitted, check the keys in the params array
