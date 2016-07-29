@@ -142,6 +142,9 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 	 */
 	public function edit($site_id, $page_id, $content_id, array $params)
 	{
+		var_dump($params); // loop for instances value
+
+
 		$data_id = $this->existingDataId($site_id, $params['content']);
 
 		// Add new data if id can't be using posted data, when instances are added, convert this to a check to see if the data has changed and then an instances check (see if new data equals old data)s

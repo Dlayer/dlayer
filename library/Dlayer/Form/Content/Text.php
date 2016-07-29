@@ -118,7 +118,7 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 
 		$this->elements['name'] = $name;
 
-		if($this->tool['content_id'] !== NULL && $this->instances > 0)
+		if($this->tool['content_id'] !== NULL && $this->instances > 1)
 		{
 			$instances = new Zend_Form_Element_Select('instances');
 			$instances->setLabel('Update shared content?');
