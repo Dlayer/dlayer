@@ -148,6 +148,7 @@ abstract class Dlayer_Tool_Content extends Dlayer_Tool
 	 * existing item/setting, the method will check the value of $this->validated before processing the request
 	 *
 	 * @return array|FALSE New environment ids or FALSE upon failure
+	 * @throws Exception
 	 */
 	public function process()
 	{
@@ -200,6 +201,7 @@ abstract class Dlayer_Tool_Content extends Dlayer_Tool
 	 * Edit a new content item or setting
 	 *
 	 * @return array|FALSE Ids for new environment vars or FALSE if the request failed
+	 * @throws Exception
 	 */
 	abstract protected function edit();
 

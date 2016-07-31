@@ -83,12 +83,22 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Content
 	 * Edit a new content item or setting
 	 *
 	 * @return array|FALSE Ids for new environment vars or FALSE if the request failed
+	 * @throws Exception
 	 */
 	protected function edit()
 	{
 		$model_content_text = new Dlayer_Model_Page_Content_Items_Text();
 
-		if($model_content_text->edit($this->site_id, $this->page_id, $this->content_id, $this->params) === TRUE)
+		try
+		{
+			$edit = $model_content_text->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e->getMessage(), $e->getCode(), $e);
+		}
+
+		if($edit === TRUE)
 		{
 			return $this->returnIds();
 		}

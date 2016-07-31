@@ -47,22 +47,68 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 	}
 
 	/**
+	 * Fetch the current data id for a content item
+	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @return integer|FALSE Should only return FALSE if the query failed for some reason
+	 */
+	private function currentDataId($site_id, $page_id, $content_id)
+	{
+		$sql = "SELECT data_id
+				FROM user_site_page_content_item_text 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['data_id']);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
 	 * Check to see if the content exists in the data tables, if so we re-=use the data from a previous content item
 	 *
 	 * @param integer $site_id
 	 * @param string $content
+	 * @param integer|NULL $ignore_id
 	 * @return integer|FALSE Id of the existing data array or FALSE if a new content item
 	 */
-	private function existingDataId($site_id, $content)
+	private function existingDataId($site_id, $content, $ignore_id = NULL)
 	{
 		$sql = "SELECT id 
                 FROM user_site_content_text  
                 WHERE site_id = :site_id  
-				AND UPPER(content) = :content 
-				LIMIT 1";
+				AND UPPER(content) = :content";
+		if($ignore_id !== NULL)
+		{
+			$sql .= " AND id != :ignore_id LIMIT 1";
+		}
+		else
+		{
+			$sql .= " LIMIT 1";
+		}
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content', strtoupper($content), PDO::PARAM_STMT);
+		if($ignore_id !== NULL)
+		{
+			$stmt->bindValue(':ignore_id', $ignore_id, PDO::PARAM_INT);
+		}
 		$stmt->execute();
 
 		$result = $stmt->fetch();
@@ -108,6 +154,32 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 	}
 
 	/**
+	 * Update the data for the existing data id
+	 *
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @param string $name
+	 * @param string $content
+	 * @return boolean
+	 */
+	private function updateData($site_id, $id, $name, $content)
+	{
+		$sql = "UPDATE user_site_content_text 
+				SET `name` = :name, content = :content 
+				WHERE site_id = :site_id 
+				AND id = :data_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':data_id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':content', $content, PDO::PARAM_STR);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+	/**
 	 * Fetch the existing data for the content item
 	 *
 	 * @param integer $site_id
@@ -138,58 +210,83 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 	 * @param integer $page_id
 	 * @param integer $content_id
 	 * @param array $params The params data array from the tool
-	 * @return boolean
+	 * @return void
+	 * @throws Exception
 	 */
 	public function edit($site_id, $page_id, $content_id, array $params)
 	{
+		/**
+		 * @var FALSE|integer If not false delete the data for this data id
+		 */
+		$delete = FALSE;
+
+		$current_data_id = $this->currentDataId($site_id, $page_id, $content_id);
+		if($current_data_id === FALSE)
+		{
+			throw new Exception('Error fetching the existing data id for content id: ' . $current_data_id);
+		}
+
+		$new_data_id = $this->existingDataId($site_id, $params['content'], $current_data_id);
+
 		if(array_key_exists('instances', $params) === TRUE)
 		{
 			if($params['instances'] === 1)
 			{
-				// Update all items
+				if($new_data_id === FALSE)
+				{
+					if($this->updateData($site_id, $current_data_id, $params['name'], $params['content']) === FALSE)
+					{
+						throw new Exception('Error updating the data for content id: ' . $current_data_id);
+					}
+				}
+				else
+				{
+					if($this->assignNewDataId($site_id, $new_data_id, $current_data_id) === FALSE)
+					{
+						throw new Exception('Error updating data id for text content items using data id: ' .
+							$current_data_id);
+					}
 
-				// Check to see if there is a data id for the new content, excluding current
-					// Yes - Use that id and delete the old id after updating all content items
-					// No - update the content for the selected data id
-
-						// Will delete old
+					$delete = $current_data_id;
+				}
 			}
 			else
 			{
-				// Update just this item
-
-				// Check to see if there is a data id for the new content, excluding current
-					// Yes - Use that id - existing id
-					// No - Add new data - new data id
-
-						// Cant delete old, used
+				if($new_data_id === FALSE)
+				{
+					$new_data_id = $this->addData($site_id, $params['name'], $params['content']);
+					$this->assignNewDataIdToContentItem($site_id, $new_data_id, $content_id);
+				}
+				else
+				{
+					$this->assignNewDataIdToContentItem($site_id, $new_data_id, $content_id);
+				}
 			}
 		}
 		else
 		{
-			// Existing data id has only one value in text table by virtue of no instances index.
+			if($new_data_id === FALSE)
+			{
+				if($this->updateData($site_id, $current_data_id, $params['name'], $params['content']) === FALSE)
+				{
+					throw new Exception('Error updating the data for content id: ' . $current_data_id);
+				}
+			}
+			else
+			{
+				if($this->assignNewDataIdToContentItem($site_id, $new_data_id, $content_id) === FALSE)
+				{
+					throw new Exception('Error updating data id for content id: ' . $content_id);
+				}
 
-			// Check to see if there is a data id for new content data, excluding current
-				// Yes - Use new data id, delete old data
-				// No - update the text for old data id
-
-						// Will delete old
+				$delete = $current_data_id;
+			}
 		}
 
-		$sql = "UPDATE user_site_page_content_item_text 
-				SET data_id = :data_id 
-				WHERE site_id = :site_id
-				AND page_id = :page_id
-				AND content_id = :content_id
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$result = $stmt->execute();
-
-		return $result;
+		if($delete !== FALSE)
+		{
+			$this->deleteDataId($site_id, $delete);
+		}
 	}
 
 	/**
@@ -227,207 +324,65 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
-	 * Update the content data text for the given data id
+	 * Assign a new data id to the content items that use the supplied data id
 	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $content_id
-	 * @param string $name
-	 * @param string $content
-	 * @return integer Id for the updated content
+	 * @param integer new_data_id
+	 * @param integer $current_data_id
+	 * @return boolean
 	 */
-	private function updateContentData($site_id, $page_id, $content_id,
-		$name, $content)
+	private function assignNewDataId($site_id, $new_data_id, $current_data_id)
 	{
-		$sql = "UPDATE user_site_content_text 
-				SET `name` = :name, content = :content 
+		$sql = "UPDATE user_site_page_content_text 
+				SET data_id = :new_data_id 
 				WHERE site_id = :site_id 
-				AND id = (SELECT uspcit.data_id 
-				FROM user_site_page_content_item_text uspcit 
-				WHERE uspcit.content_id = :content_id 
-				AND uspcit.site_id = :site_id 
-				AND uspcit.page_id = :page_id 
-				LIMIT 1)";
+				AND data_id = :current_data_id";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-		$stmt->bindValue(':content', $content, PDO::PARAM_LOB);
-		$stmt->execute();
+		$stmt->bindValue(':new_data_id', $new_data_id, PDO::PARAM_INT);
+		$stmt->bindValue(':current_data_id', $current_data_id, PDO::PARAM_INT);
+		$result = $stmt->execute();
 
-		return $this->contentDataExists($site_id, $content);
+		return $result;
 	}
 
-
 	/**
-	 * Fetch the data for the content item being edited
+	 * Assign a new data id to a content item
 	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $div_id
-	 * @param integer $content_row_id
+	 * @param integer new_data_id
 	 * @param integer $content_id
-	 * @return array|FALSE Returns either the data array or FALSE if no data
-	 *    can be found
+	 * @return boolean
 	 */
-	public function formData($site_id, $page_id, $div_id, $content_row_id,
-		$content_id)
+	private function assignNewDataIdToContentItem($site_id, $new_data_id, $content_id)
 	{
-		$sql = "SELECT uspci.id, usct.`name`, usct.content AS `text`
-				FROM user_site_page_content_item_text uspcit 
-				JOIN user_site_page_content_item uspci 
-					ON uspcit.content_id = uspci.id 
-					AND uspci.site_id = :site_id 
-					AND uspci.page_id = :page_id 
-					AND uspci.content_row_id = :content_row_id 
-					AND uspci.id = :content_id 
-				JOIN user_site_content_text usct 
-					ON uspcit.data_id = usct.id 
-					AND usct.site_id = :site_id 
-				WHERE uspcit.site_id = :site_id 
-				AND uspcit.page_id = :page_id
-				AND uspcit.content_id = :content_id";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		$result = $stmt->fetch();
-
-		if($result != FALSE)
-		{
-			$result['instances'] = $this->contentDataInstances(
-				$site_id, $content_id);
-
-			return $result;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	/**
-	 * Calculate the number of instances of the text content item text within
-	 * the entire site
-	 *
-	 * @param integer $site_id
-	 * @param integer $content_id
-	 * @return integer Returns the count of the number of times the text has
-	 *    been used within the site
-	 */
-	private function contentDataInstances($site_id, $content_id)
-	{
-		$sql = "SELECT COUNT(uspcth.id) AS instances 
-				FROM user_site_page_content_item_text uspcth 
-				WHERE uspcth.site_id = :site_id 
-				AND uspcth.data_id = (SELECT ref_data.data_id 
-				FROM user_site_page_content_item_text ref_data 
-				WHERE ref_data.content_id = :content_id 
-				AND ref_data.site_id = :site_id)";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		$result = $stmt->fetch();
-
-		if($result != FALSE)
-		{
-			return intval($result['instances']);
-		}
-		else
-		{
-			return 0;
-		}
-	}
-
-	/**
-	 * Fetch the existsing text content that matches the supplied id
-	 *
-	 * @param integer $site_id
-	 * @param integer $id
-	 * @return array|FALSE Either returns the data array for the text content
-	 *    or FALSE if an invalid id was supplied
-	 */
-	public function existingTextContent($site_id, $id)
-	{
-		$sql = "SELECT `name`, content 
-				FROM user_site_content_text 
+		$sql = "UPDATE user_site_page_content_text 
+				SET data_id = :new_data_id 
 				WHERE site_id = :site_id 
-				AND id = :id";
+				AND content_id = :content_id";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetch();
-	}
-
-
-	/**
-	 * Fetch all the defined names and ids for the text data stored in the
-	 * database, used by the import text tool
-	 *
-	 * @param integer $site_id
-	 * @return array
-	 */
-	public function existingTextContentNames($site_id)
-	{
-		$sql = "SELECT id, `name` 
-				FROM user_site_content_text 
-				WHERE site_id = :site_id
-				ORDER BY `name` ASC";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return $stmt->fetchAll();
-	}
-
-	/**
-	 * Fetch the data required by the preview functions
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $content_id
-	 * @return array|FALSE Contains all the data required to generate the
-	 *    preview functions, if nothing cvan be found we return FALSE
-	 */
-	public function previewData($site_id, $page_id, $content_id)
-	{
-		$sql = 'SELECT uspcit.content_id, usct.content AS `text`
-				FROM user_site_page_content_item_text uspcit 
-				JOIN user_site_content_text usct 
-					ON uspcit.data_id = usct.id 
-					AND usct.site_id = :site_id 
-				WHERE uspcit.site_id = :site_id 
-				AND uspcit.page_id = :page_id 
-				AND uspcit.content_id = :content_id';
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':new_data_id', $new_data_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->execute();
+		$result = $stmt->execute();
 
-		return $stmt->fetch();
+		return $result;
+	}
+
+	/**
+	 * Delete data id
+	 *
+	 * @param integer $site_id
+	 * @param integer $delete_id
+	 * @return void
+	 */
+	private function deleteDataId($site_id, $delete_id)
+	{
+		$sql = "DELETE FROM user_site_content_text 
+					WHERE site_id = :site_id 
+					AND id = :delete_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':delete_id', $delete_id, PDO::PARAM_INT);
+		$stmt->execute();
 	}
 }
