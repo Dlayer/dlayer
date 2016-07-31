@@ -142,15 +142,38 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 	 */
 	public function edit($site_id, $page_id, $content_id, array $params)
 	{
-		var_dump($params); // loop for instances value
-
-
-		$data_id = $this->existingDataId($site_id, $params['content']);
-
-		// Add new data if id can't be using posted data, when instances are added, convert this to a check to see if the data has changed and then an instances check (see if new data equals old data)s
-		if($data_id === FALSE)
+		if(array_key_exists('instances', $params) === TRUE)
 		{
-			$data_id = $this->addData($site_id, $params['name'], $params['content']);
+			if($params['instances'] === 1)
+			{
+				// Update all items
+
+				// Check to see if there is a data id for the new content, excluding current
+					// Yes - Use that id and delete the old id after updating all content items
+					// No - update the content for the selected data id
+
+						// Will delete old
+			}
+			else
+			{
+				// Update just this item
+
+				// Check to see if there is a data id for the new content, excluding current
+					// Yes - Use that id - existing id
+					// No - Add new data - new data id
+
+						// Cant delete old, used
+			}
+		}
+		else
+		{
+			// Existing data id has only one value in text table by virtue of no instances index.
+
+			// Check to see if there is a data id for new content data, excluding current
+				// Yes - Use new data id, delete old data
+				// No - update the text for old data id
+
+						// Will delete old
 		}
 
 		$sql = "UPDATE user_site_page_content_item_text 
