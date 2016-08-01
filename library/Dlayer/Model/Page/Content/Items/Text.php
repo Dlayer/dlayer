@@ -210,7 +210,7 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 	 * @param integer $page_id
 	 * @param integer $content_id
 	 * @param array $params The params data array from the tool
-	 * @return void
+	 * @return TRUE
 	 * @throws Exception
 	 */
 	public function edit($site_id, $page_id, $content_id, array $params)
@@ -287,6 +287,8 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 		{
 			$this->deleteDataId($site_id, $delete);
 		}
+
+		return TRUE;
 	}
 
 	/**
@@ -333,7 +335,7 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 	 */
 	private function assignNewDataId($site_id, $new_data_id, $current_data_id)
 	{
-		$sql = "UPDATE user_site_page_content_text 
+		$sql = "UPDATE user_site_page_content_item_text 
 				SET data_id = :new_data_id 
 				WHERE site_id = :site_id 
 				AND data_id = :current_data_id";
@@ -355,7 +357,7 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 	 */
 	private function assignNewDataIdToContentItem($site_id, $new_data_id, $content_id)
 	{
-		$sql = "UPDATE user_site_page_content_text 
+		$sql = "UPDATE user_site_page_content_item_text 
 				SET data_id = :new_data_id 
 				WHERE site_id = :site_id 
 				AND content_id = :content_id";

@@ -166,7 +166,7 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Content
 	protected function validateInstances($site_id, $content_id)
 	{
 		$model_text = new Dlayer_Model_Page_Content_Items_Text();
-		$instances = $model_text->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
+		$instances = $model_text->instancesOfData($site_id, $content_id);
 
 		if($instances > 1)
 		{

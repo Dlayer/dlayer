@@ -41,27 +41,16 @@ abstract class Dlayer_Tool_Content extends Dlayer_Tool
 			$this->column_id = $column_id;
 			$this->content_id = $content_id;
 
-			if($this->content_id === NULL)
-			{
-				$this->validated = TRUE;
-				$this->paramsAssign($params);
-			}
+			$this->validated = TRUE;
+			$this->paramsAssign($params);
 
-			// Assign the instances value to the params array if necessary
+			// Assign instances param if necessary
 			if($this->content_id !== NULL && $this->validateInstances($this->site_id, $this->content_id) === TRUE)
 			{
-				$this->validated = TRUE;
 				$this->params['instances'] = intval($params['instances']);
 			}
 
-			if($this->validated === TRUE)
-			{
-				return TRUE;
-			}
-			else
-			{
-				return FALSE;
-			}
+			return TRUE;
 		}
 		else
 		{
