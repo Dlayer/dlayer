@@ -17,18 +17,21 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 	protected $tool = array();
 	protected $content_type = 'text';
 	protected $data = array();
+	protected $instances = 0;
 
 	/**
 	 * Set the properties for the form
 	 *
 	 * @param array $tool Tool and environment data array
 	 * @param array $data Current data for content item
+	 * @param integer $instances Instances of content data on web site
 	 * @param array|NULL $options Zend form options
 	 */
-	public function __construct(array $tool, array $data, $options=NULL)
+	public function __construct(array $tool, array $data, $instances, $options=NULL)
 	{
 		$this->tool = $tool;
 		$this->data = $data;
+		$this->instances = $instances;
 
 		parent::__construct($options);
 	}
@@ -115,9 +118,27 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 
 		$this->elements['name'] = $name;
 
+		if($this->tool['content_id'] !== NULL && $this->instances > 1)
+		{
+			$instances = new Zend_Form_Element_Select('instances');
+			$instances->setLabel('Update shared content?');
+			$instances->setDescription("The content below is used {$this->instances} times on your web site, do you 
+				want to update the text for this content item only or all content items?");
+			$instances->setMultiOptions(
+				array(
+					1 => 'Yes - update all content items',
+					0 => 'No - Please only update this item'
+				)
+			);
+			$instances->setAttribs(array('class' => 'form-control input-sm'));
+			$instances->setBelongsTo('params');
+
+			$this->elements['instances'] = $instances;
+		}
+
 		$content = new Zend_Form_Element_Textarea('content');
 		$content->setLabel('Content');
-		$content->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
+		$content->setAttribs(array('cols'=>80, 'rows'=>15, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
 			'class'=>'form-control input-sm'));
 		$content->setDescription('Enter your content.');
 		$content->setBelongsTo('params');

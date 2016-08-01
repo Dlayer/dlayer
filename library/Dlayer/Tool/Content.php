@@ -8,7 +8,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
+abstract class Dlayer_Tool_Content extends Dlayer_Tool
 {
 	protected $site_id = NULL;
 	protected $page_id = NULL;
@@ -33,7 +33,7 @@ abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 	public function validate(array $params, $site_id, $page_id, $row_id = NULL, $column_id = NULL,
 		$content_id = NULL)
 	{
-		if($this->paramsExist($params) === TRUE && $this->paramsValid($params))
+		if($this->paramsExist($params) === TRUE && $this->paramsValid($params) === TRUE)
 		{
 			$this->site_id = $site_id;
 			$this->page_id = $page_id;
@@ -41,9 +41,14 @@ abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 			$this->column_id = $column_id;
 			$this->content_id = $content_id;
 
+			$this->validated = TRUE;
 			$this->paramsAssign($params);
 
-			$this->validated = TRUE;
+			// Assign instances param if necessary
+			if($this->content_id !== NULL && $this->validateInstances($this->site_id, $this->content_id) === TRUE)
+			{
+				$this->params['instances'] = intval($params['instances']);
+			}
 
 			return TRUE;
 		}
@@ -119,10 +124,20 @@ abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 	abstract protected function paramsAssign(array $params, $manual_tool = TRUE);
 
 	/**
+	 * Validate the instances param, need to see if it should exist first
+	 *
+	 * @param integer site_id
+	 * @param integer $content_id
+	 * @return boolean
+	 */
+	abstract protected function validateInstances($site_id, $content_id);
+
+	/**
 	 * Process the request for a manual tool, this will either add a new item/setting or edit the details for an
 	 * existing item/setting, the method will check the value of $this->validated before processing the request
 	 *
 	 * @return array|FALSE New environment ids or FALSE upon failure
+	 * @throws Exception
 	 */
 	public function process()
 	{
@@ -175,6 +190,7 @@ abstract class Dlayer_Tool_Handler_Content extends Dlayer_Tool
 	 * Edit a new content item or setting
 	 *
 	 * @return array|FALSE Ids for new environment vars or FALSE if the request failed
+	 * @throws Exception
 	 */
 	abstract protected function edit();
 

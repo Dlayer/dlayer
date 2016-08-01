@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Tool_Content_Text extends Dlayer_Tool_Handler_Content
+class Dlayer_Tool_Content_Text extends Dlayer_Tool_Content
 {
 	/**
 	 * Check that the required params have been submitted, check the keys in the params array
@@ -83,12 +83,22 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Handler_Content
 	 * Edit a new content item or setting
 	 *
 	 * @return array|FALSE Ids for new environment vars or FALSE if the request failed
+	 * @throws Exception
 	 */
 	protected function edit()
 	{
 		$model_content_text = new Dlayer_Model_Page_Content_Items_Text();
 
-		if($model_content_text->edit($this->site_id, $this->page_id, $this->content_id, $this->params) === TRUE)
+		try
+		{
+			$edit = $model_content_text->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e->getMessage(), $e->getCode(), $e);
+		}
+
+		if($edit === TRUE)
 		{
 			return $this->returnIds();
 		}
@@ -144,5 +154,27 @@ class Dlayer_Tool_Content_Text extends Dlayer_Tool_Handler_Content
 				'content_type' => 'text'
 			)
 		);
+	}
+
+	/**
+	 * Validate the instances param, need to see if it should exist first
+	 *
+	 * @param integer site_id
+	 * @param integer $content_id
+	 * @return boolean
+	 */
+	protected function validateInstances($site_id, $content_id)
+	{
+		$model_text = new Dlayer_Model_Page_Content_Items_Text();
+		$instances = $model_text->instancesOfData($site_id, $content_id);
+
+		if($instances > 1)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 }
