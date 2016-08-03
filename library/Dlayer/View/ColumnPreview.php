@@ -80,8 +80,8 @@ class Dlayer_View_ColumnPreview extends Zend_View_Helper_Abstract
 		{
 			foreach($this->columns[$this->row_id] as $column)
 			{
-				$this->view->row()->setColumnId($column['id']);
-				$rows = $this->view->row()->render();
+				$this->view->rowPreview()->setColumnId($column['id']);
+				$rows = $this->view->rowPreview()->render();
 
 				$html .= '<div class="column col-' . $column['class'] . '-' . $column['size'] .
 					'" id="column-' . $column['id'] . '">';
@@ -92,8 +92,8 @@ class Dlayer_View_ColumnPreview extends Zend_View_Helper_Abstract
 				}
 				else
 				{
-					$this->view->content()->setColumnId($column['id']);
-					$content = $this->view->content()->render();
+					$this->view->contentPreview()->setColumnId($column['id']);
+					$content = $this->view->contentPreview()->render();
 
 					if(strlen($content) > 0)
 					{

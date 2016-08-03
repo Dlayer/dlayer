@@ -81,8 +81,8 @@ class Dlayer_View_RowPreview extends Zend_View_Helper_Abstract
 		{
 			foreach($this->rows[$this->column_id] as $row)
 			{
-				$this->view->column()->setRowId($row['id']);
-				$columns = $this->view->column()->render();
+				$this->view->columnPreview()->setRowId($row['id']);
+				$columns = $this->view->columnPreview()->render();
 
 				if(strlen($columns) > 0)
 				{

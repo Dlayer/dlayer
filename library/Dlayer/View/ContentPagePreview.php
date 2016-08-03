@@ -39,9 +39,9 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
 	public function contentPagePreview(array $rows, array $columns, array $content, array $row_styles,
 		array $content_styles)
 	{
-		$this->view->row()->setRows($rows);
-		$this->view->column()->setColumns($columns);
-		$this->view->content()->setContent($content);
+		$this->view->rowPreview()->setRows($rows);
+		$this->view->columnPreview()->setColumns($columns);
+		$this->view->contentPreview()->setContent($content);
 
 		return $this;
 	}
@@ -54,10 +54,10 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		$this->view->row()->setColumnId(0);
+		$this->view->rowPreview()->setColumnId(0);
 
 		$this->html = '<div class="container-fluid">';
-		$this->html .= $this->view->row()->render();
+		$this->html .= $this->view->rowPreview()->render();
 		$this->html .= '</div>';
 
 		return $this->html;

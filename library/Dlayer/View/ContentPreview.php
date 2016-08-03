@@ -83,23 +83,23 @@ class Dlayer_View_ContentPreview extends Zend_View_Helper_Abstract
 				switch($content['type'])
 				{
 					case 'heading':
-						$html .= $this->view->heading($content['data']);
+						$html .= $this->view->headingPreview($content['data']);
 					break;
 
 					case 'text':
-						$html .= $this->view->text($content['data']);
+						$html .= $this->view->textPreview($content['data']);
 					break;
 
 					case 'jumbotron':
-						$html .= $this->view->jumbotron($content['data']);
+						$html .= $this->view->jumbotronPreview($content['data']);
 					break;
 
 					case 'image':
-						$html .= $this->view->image($content['data']);
+						$html .= $this->view->imagePreview($content['data']);
 					break;
 
 					case 'form':
-						$html .= $this->view->importedForm($content['data']);
+						$html .= $this->view->importedFormPreview($content['data']);
 					break;
 
 					default:
