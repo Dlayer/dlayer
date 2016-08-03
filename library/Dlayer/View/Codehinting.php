@@ -435,12 +435,11 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * Image content item view helper, image may include a link to expand and a caption
 	 *
 	 * @param array $data Content item data array
-	 * @param boolean $preview In preview mode include expand link
 	 * @param boolean $selectable
 	 * @param boolean $selected
 	 * @return Dlayer_View_Image
 	 */
-	public function image(array $data, $preview = FALSE, $selectable = FALSE, $selected = FALSE)
+	public function image(array $data, $selectable = FALSE, $selected = FALSE)
 	{
 	}
 
@@ -481,6 +480,84 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 */
 	public function contentPagePreview(array $rows, array $columns, array $content, array $row_styles,
 		array $content_styles)
+	{
+	}
+
+	/**
+	 * Preview version of the row view helper
+	 *
+	 * @return Dlayer_View_RowPreview
+	 */
+	public function rowPreview()
+	{
+	}
+
+	/**
+	 * Preview version of the column view helper
+	 *
+	 * @return Dlayer_View_ColumnPreview
+	 */
+	public function columnPreview()
+	{
+		return $this;
+	}
+
+	/**
+	 * Preview version of the content view helper
+	 *
+	 * @return Dlayer_View_ContentPreview
+	 */
+	public function contentPreview()
+	{
+	}
+
+	/**
+	 * Preview version of the heading content item view helper
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_HeadingPreview
+	 */
+	public function headingPreview(array $data)
+	{
+	}
+
+	/**
+	 * Preview version of the text content item view helper
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_TextPreview
+	 */
+	public function textPreview(array $data)
+	{
+	}
+
+	/**
+	 * Preview version of the jumbotron content item view helper
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_JumbotronPreview
+	 */
+	public function jumbotronPreview(array $data)
+	{
+	}
+
+	/**
+	 * Preview version of the image content item view helper
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_ImagePreview
+	 */
+	public function imagePreview(array $data)
+	{
+	}
+
+	/**
+	 * Preview version of the import form content item view helper
+	 *
+	 * @param array $data Content item data array
+	 * @return Dlayer_View_ImportedFormPreview
+	 */
+	public function importedFormPreview(array $data)
 	{
 	}
 }

@@ -1,15 +1,13 @@
 <?php
 
 /**
- * Base content view helper, it gets called by the column view helper and generates the data for all the content items
- * that sit in the container. The html for the individual content items is handled by a view helper for each content
- * type
+ * Preview version of the content view helper
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_View_Content extends Zend_View_Helper_Abstract
+class Dlayer_View_ContentPreview extends Zend_View_Helper_Abstract
 {
 	/**
 	 * Override the hinting for the view property so that we can see the view
@@ -30,21 +28,11 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	private $column_id;
 
 	/**
-	 * @param integer|NULL Id of the selected column, if any
-	 */
-	private $selected_column_id;
-
-	/**
-	 * @param integer|NULL Id of the selected column, if any
-	 */
-	private $selected_content_id;
-
-	/**
 	 * Constructor for view helper, data is set via the setter methods
 	 *
-	 * @return Dlayer_View_Content
+	 * @return Dlayer_View_ContentPreview
 	 */
-	public function content()
+	public function contentPreview()
 	{
 		return $this;
 	}
@@ -53,38 +41,11 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	 * Set the column id for the column for which we need to generate data
 	 *
 	 * @param integer $id
-	 * @return Dlayer_View_Content
+	 * @return Dlayer_View_ContentPreview
 	 */
 	public function setColumnId($id)
 	{
 		$this->column_id = $id;
-
-		return $this;
-	}
-
-	/**
-	 * Set the id of the selected content item, this controls whether or not the selected class get applied to a
-	 * content item
-	 *
-	 * @param integer $id Id of the selected content item
-	 * @return Dlayer_View_Content
-	 */
-	public function setSelectedContentId($id)
-	{
-		$this->selected_content_id = $id;
-
-		return $this;
-	}
-
-	/**
-	 * Set the id of the selected column, this controls whether or not the selected class get applied to a column
-	 *
-	 * @param integer $id Id of the selected column
-	 * @return Dlayer_View_Content
-	 */
-	public function setSelectedColumnId($id)
-	{
-		$this->selected_column_id = $id;
 
 		return $this;
 	}
@@ -95,7 +56,7 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 	 * very large data array once
 	 *
 	 * @param array $content
-	 * @return Dlayer_View_Content
+	 * @return Dlayer_View_ContentPreview
 	 */
 	public function setContent(array $content)
 	{
@@ -119,41 +80,26 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
 		{
 			foreach($this->content[$this->column_id] as $content)
 			{
-				$selectable = FALSE;
-				$selected = FALSE;
-
-				if($this->selected_column_id === $this->column_id)
-				{
-					if($this->selected_content_id === $content['content_id'])
-					{
-						$selected = TRUE;
-					}
-					else
-					{
-						$selectable = TRUE;
-					}
-				}
-
 				switch($content['type'])
 				{
 					case 'heading':
-						$html .= $this->view->heading($content['data'], $selectable, $selected);
+						$html .= $this->view->heading($content['data']);
 					break;
 
 					case 'text':
-						$html .= $this->view->text($content['data'], $selectable, $selected);
+						$html .= $this->view->text($content['data']);
 					break;
 
 					case 'jumbotron':
-						$html .= $this->view->jumbotron($content['data'], $selectable, $selected);
+						$html .= $this->view->jumbotron($content['data']);
 					break;
 
 					case 'image':
-						$html .= $this->view->image($content['data'], $selectable, $selected);
+						$html .= $this->view->image($content['data']);
 					break;
 
 					case 'form':
-						$html .= $this->view->importedForm($content['data'], $selectable, $selected);
+						$html .= $this->view->importedForm($content['data']);
 					break;
 
 					default:
