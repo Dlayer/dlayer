@@ -101,73 +101,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * A text block is simple a string of text enclosed with p tags
-	 *
-	 * @param array $data Content data array. containns all the data required
-	 *    to generate the html for the text content item
-	 * @param boolean $selectable Should the selectable class be applied to the
-	 *    content item, a content item is selectable when its content row has
-	 *    been selected
-	 * @param boolean $selected Should the selected class be applied to the
-	 *    content item, an item is selected when in edit mode, either by being
-	 *    selectable directly or after addition
-	 * @param integer $items The total number of content items within the
-	 *    content row, this is to help with the addition of the visual movment
-	 *    controls
-	 * @return Dlayer_View_ContentText
-	 */
-	public function contentText(array $data, $selectable = FALSE,
-		$selected = FALSE, $items = 1)
-	{
-	}
-
-	/**
-	 * A jumbotron content item is a title, sub title and option content in a
-	 * large content with a background colour, it is a masthead
-	 *
-	 * @param array $data Content data array. containns all the data required
-	 *    to generate the html for the heading content item
-	 * @param boolean $selectable Should the selectable class be applied to the
-	 *    content item, a content item is selectable when its content row has
-	 *    been selected
-	 * @param boolean $selected Should the selected class be applied to the
-	 *    content item, an item is selected when in edit mode, either by being
-	 *    selectable directly or after addition
-	 * @param integer $items The total number of content items within the
-	 *    content row, this is to help with the addition of the visual movment
-	 *    controls
-	 * @return Dlayer_View_ContentJumbotron
-	 */
-	public function contentJumbotron(array $data, $selectable = FALSE,
-		$selected = FALSE, $items = 1)
-	{
-	}
-
-	/**
-	 * A heading content item is simply a heading string enclosed within one
-	 * of the six standard heading types, H1 through H6. The styles for the
-	 * headings will have already been output in the top of the view script,
-	 * only custom style options will be added here
-	 *
-	 * @param array $data Content data array. containns all the data required
-	 *    to generate the html for the heading content item
-	 * @param boolean $selectable Should the selectable class be applied to the
-	 *    content item, a content item is selectable when its content row has
-	 *    been selected
-	 * @param boolean $selected Should the selected class be applied to the
-	 *    content item, an item is selected when in edit mode, either by being
-	 *    selectable directly or after addition
-	 * @param integer $items The total number of content items within the
-	 *    content row, this is to help with the addition of the visual movment
-	 *    controls
-	 * @return Dlayer_View_ContentHeading
-	 */
-	public function contentHeading(array $data, $selectable = FALSE,
-		$selected = FALSE, $items = 1)
-	{
-	}
-
-	/**
 	 * Simple pagination view helper, generates next and previous links as well
 	 * as the text between the links. The text between the links can be either
 	 * of the following formats, 'item n-m of o' or 'page n of m'. All the text
@@ -220,30 +153,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @return Dlayer_View_Navigation
 	 */
 	public function ulNavigation($class, array $items, $active_url = '')
-	{
-	}
-
-	/**
-	 * A form content item is simply a form from the Content manager in a
-	 * container, the majority of the form display options will be defined as
-	 * part of the form, this view helper will only add custom options
-	 * defined by sub tools
-	 *
-	 * @param array $data Content data array. containns all the data required
-	 *    to generate the html for the requested Form builder form
-	 * @param boolean $selectable Should the selectable class be applied to the
-	 *    content item, a content item is selectable when its content row has
-	 *    been selected
-	 * @param boolean $selected Should the selected class be applied to the
-	 *    content item, an item is selected when in edit mode, either by being
-	 *    selectable directly or after addition
-	 * @param integer $items The total number of content items within the
-	 *    content row, this is to help with the addition of the visual movment
-	 *    controls
-	 * @return Dlayer_View_ContentHeading
-	 */
-	public function contentForm(array $data, $selectable = FALSE,
-		$selected = FALSE, $items = 1)
 	{
 	}
 
@@ -372,17 +281,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * The content row view helpers generated the invisible content rows
-	 * divs, these hoold content items, for each content row the content view
-	 * helper is called which in turns generates the page comtent
-	 *
-	 * @return Dlayer_View_ContentRow
-	 */
-	public function contentRow()
-	{
-	}
-
-	/**
 	 * Content container styles view helper, generates the style string
 	 * for a content item container using the data defind on the styling tabs
 	 *
@@ -425,29 +323,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * The basic image content item is simply an image sitting inside a
-	 * bootstrap column definition
-	 *
-	 * @param array $data Content data array. containns all the data required
-	 *    to generate the html for the text content item
-	 * @param boolean $selectable Should the selectable class be applied to the
-	 *    content item, a content item is selectable when its content row has
-	 *    been selected
-	 * @param boolean $selected Should the selected class be applied to the
-	 *    content item, an item is selected when in edit mode, either by being
-	 *    selectable directly or after addition
-	 * @param integer $items The total number of content items within the
-	 *    content row, this is to help with the addition of the visual movment
-	 *    controls
-	 * @param boolean $preview Is the view helper in preview mode?
-	 * @return Dlayer_View_ContentImage
-	 */
-	public function contentImage(array $data, $selectable = FALSE,
-		$selected = FALSE, $items = 1)
-	{
-	}
-
-	/**
 	 * Generates a simple bootstrap navbar with a preview link to the right
 	 * of the menu
 	 *
@@ -463,35 +338,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 */
 	public function bootstrapNavbarPreview($brand, array $navbar_items,
 		$active_url = '', $preview_url = '')
-	{
-	}
-
-	/**
-	 * Preview version of the content page view helper, generates all the html
-	 * as per the page view helper but doesn't include any of the helper content
-	 * areas or content rows, result is close to the users final design
-	 *
-	 * @param array $template Template div data array
-	 * @param array $content_rows Content row data array for the page
-	 * @param array $content Content data array for page, contains the
-	 *    raw data for all the content items that have been assigned to the
-	 *    current page
-	 * @param array $content_area_styles Content area styles data array,
-	 *    contains all the styles data for the content areas / template divs
-	 * @param array $content_row_styles Content row styles data array, contains
-	 *    all the styles that have been assigned to the content rows for the
-	 *    current page
-	 * @param array $content_container_styles Content container styles data
-	 *    array, contains all the styles that have been assigned to the content
-	 *    item containers for the current page
-	 * @param array $content_styles Content styles data array, contains all
-	 *    the styles that have been assigned to content items for the current
-	 *    page
-	 * @return Dlayer_View_PagePreview
-	 */
-	public function pagePreview(array $template, array $content_rows,
-		array $content, array $content_area_styles, array $content_row_styles,
-		array $content_container_styles, array $content_styles)
 	{
 	}
 
@@ -620,6 +466,21 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @return Dlayer_View_ImportedForm
 	 */
 	public function importedForm(array $data, $selectable = FALSE, $selected = FALSE)
+	{
+	}
+
+	/**
+	 * Preview version of the content page view helper
+	 *
+	 * @param array $rows The rows that make up the content page
+	 * @param array $columns The columns that make up the content page
+	 * @param array $content Contains the raw data to generate the content items and assign them to their row
+	 * @param array $row_styles Defined styles for the rows
+	 * @param array $content_styles Any styles defined for the content items
+	 * @return Dlayer_View_ContentPagePreview
+	 */
+	public function contentPagePreview(array $rows, array $columns, array $content, array $row_styles,
+		array $content_styles)
 	{
 	}
 }
