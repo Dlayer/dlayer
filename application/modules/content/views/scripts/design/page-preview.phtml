@@ -23,25 +23,25 @@ $(document).ready(function() {
 
 <style>
 /*Content font family setting, defined in settings*/
-div.container-fixed * {
+#design > div.content-manager * {
 	font-family: <?php echo $this->base_font_family_content; ?>;
 }
 
 /*Form font family setting, defined in settings*/
-div.container-fixed div.imported-form * {
+#design > div.content-manager div.imported-form * {
 	font-family: <?php echo $this->base_font_family_form; ?>;
 }
 
 /*Heading styles define in settings*/
 <?php foreach($this->heading_styles as $heading) { ?>
-div.container-fixed <?php echo $this->escape($heading['tag']); ?> {
-	<?php if($heading['style'] != 'normal') { ?>
+#design > div.content-manager <?php echo $this->escape($heading['tag']); ?> {
+<?php if($heading['style'] != 'normal') { ?>
 	font-style: <?php echo $this->escape($heading['style']); ?>;
-	<?php } ?>
+<?php } ?>
 	font-weight: <?php echo $this->escape($heading['weight']); ?>;
-	<?php if($heading['decoration'] != 'none') { ?>
+<?php if($heading['decoration'] != 'none') { ?>
 	text-decoration: <?php echo $this->escape($heading['decoration']); ?>;
-	<?php } ?>
+<?php } ?>
 	color: <?php echo $this->escape($heading['color']); ?>;
 	font-size: <?php echo $this->escape($heading['size']); ?>px;
 }
@@ -52,7 +52,7 @@ div.container-fixed <?php echo $this->escape($heading['tag']); ?> {
 foreach ($this->form_styles as $form_id => $form_styles) {
 	foreach($form_styles as $field_id => $field_styles) {
 		if(count($field_styles) > 0) {
-			echo 'div.container-fixed .content-' . $form_id . 
+			echo 'div.content-manager .content-' . $form_id .
 				' .field_row.row_' . $field_id . " {\r\n";
 			foreach($field_styles as $style) {
 				echo $style . ";\r\n";
@@ -65,9 +65,8 @@ foreach ($this->form_styles as $form_id => $form_styles) {
 
 </style>
 
-<?php echo $this->pagePreview($this->template, $this->content_rows, 
-	$this->content, $this->content_area_styles, $this->content_row_styles, 
-	$this->content_container_styles, $this->content_styles); ?>
+<?php echo $this->contentPagePreview($this->rows, $this->columns, $this->content, $this->row_styles,
+	$this->content_styles, $this->page_selected, $this->column_id, $this->row_id, $this->content_id); ?>
 
 <div class="modal fade" id="imageModalDialog" tabindex="-1" role="dialog" 
 	aria-labelledby="imageModalDialogLabel" aria-hidden="true">	

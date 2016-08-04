@@ -99,10 +99,6 @@ class Dlayer_View_ColumnPreview extends Zend_View_Helper_Abstract
 					{
 						$html .= $content;
 					}
-					else
-					{
-						$html .= '<p>Empty column</p>';
-					}
 				}
 
 				$html .= '</div>';

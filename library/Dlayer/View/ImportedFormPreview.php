@@ -55,7 +55,8 @@ class Dlayer_View_ImportedFormPreview extends Zend_View_Helper_Abstract
 	private function render()
 	{
 		/* Need to assign to var before returning else object returned */
-		$html = $this->data['form']->form();
+		$html = '';
+		$html .= $this->data['form']->form();
 
 		return $html;
 	}

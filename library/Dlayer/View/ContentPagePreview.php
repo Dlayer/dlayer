@@ -22,11 +22,6 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
 	private $html;
 
 	/**
-	 * @var TRUE|NULL Is the content page selected in designer
-	 */
-	private $page_selected;
-
-	/**
 	 * Pass in anything required to set up the object
 	 *
 	 * @param array $rows The rows that make up the content page
@@ -56,7 +51,7 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
 	{
 		$this->view->rowPreview()->setColumnId(0);
 
-		$this->html = '<div class="container-fluid">';
+		$this->html = '<div class="container">';
 		$this->html .= $this->view->rowPreview()->render();
 		$this->html .= '</div>';
 

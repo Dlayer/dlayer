@@ -162,10 +162,6 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 				{
 					$html .= '<div class="' . $class . '" id="row-' . $row['id'] . '">' . $columns . '</div>';
 				}
-				else
-				{
-					$html .= '<div class="' . $class . '" id="row-' . $row['id'] . '"><p>Empty row</p></div>';
-				}
 			}
 		}
 
