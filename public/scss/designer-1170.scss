@@ -2,6 +2,21 @@
 	border: 1px solid #93d0e1;
 }
 
+@mixin mover() {
+	text-align: center;
+	font-size: 12px;
+	border: 1px solid #cccccc;
+	color: #333333;
+	padding: 2px 0;
+	border-radius: 4px;
+	cursor: pointer;
+	background-color: #FFFFFF;
+	clear: left;
+	height: 24px;
+	font-weight: 400;
+	display: none;
+}
+
 div#designer {
 	max-width: 1170px;
 	
@@ -35,6 +50,14 @@ div#designer {
 
 			div.column > h1.selected, h2.selected, h3.selected, h4.selected, h5.selected, h6.selected {
 				@include selected-state();
+			}
+
+			div.row-mover {
+				@include mover();
+
+				&:hover {
+					background-color: #e6e6e6;
+				}
 			}
 		}
 	}

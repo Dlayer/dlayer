@@ -88,10 +88,6 @@ class Dlayer_View_RowPreview extends Zend_View_Helper_Abstract
 				{
 					$html .= '<div class="row" id="row-' . $row['id'] . '">' . $columns . '</div>';
 				}
-				else
-				{
-					$html .= '<div class="row" id="row-' . $row['id'] . '"><p>Empty row</p></div>';
-				}
 			}
 		}
 

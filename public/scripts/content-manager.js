@@ -56,9 +56,11 @@ var contentManager =
 				background_color = $(this).css('background-color');
 				$(this).css('background-color', '#e1dc50');
 				$(this).css('cursor', 'pointer');
+				$(this).find('div.row-mover').show();
 			},
 			function() {
 				$(this).css('background-color', background_color);
+				$(this).find('div.row-mover').hide();
 			}
 		);
 		$(selector).click(
@@ -138,5 +140,25 @@ var contentManager =
 					id + '/tool/' + tool + '/content-type/' + content_type);
 			}
 		);
+	},
+
+	/**
+	 * Row movement controls, show when a row has the selectable class applied
+	 *
+	 * @return {Void}
+	 */
+	rowMover: function ()
+	{
+		var selector = '.selected div.row.selectable';
+
+		$(selector).each(function(index)
+		{
+			if(index !== 0) {
+				$(this).prepend('<div class="row-mover">Display row sooner</div>');
+			}
+			if(index !== ($(selector).length -1)) {
+				$(this).append('<div class="row-mover">Display row later</div>');
+			}
+		});
 	}
 }
