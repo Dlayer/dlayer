@@ -622,37 +622,25 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->session_content->clearAll();
 		$this->session_designer->clearAllImagePicker();
 
-		$this->_redirect('/content/design');
+		$this->redirect('/content/design');
 	}
 
 	/**
-	 * Move the content row, before passing the request to the model we check
-	 * to ensure that the params are correct and belong to the site id stored in
-	 * the session
+	 * Move the row in the desired direction
 	 *
-	 * @return div
+	 * @return void User redirected back to designer regardless of outcome
 	 */
-	public function moveContentRowAction()
+	public function moveRowAction()
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$direction = $this->getRequest()->getParam('direction');
-		$content_row_id = intval($this->getRequest()->getParam('id'));
-		$site_id = $this->session_dlayer->siteId();
+		$direction = $this->getParamAsString('direction');
+		$row_id = $this->getParamAsInteger('id');
 		$page_id = $this->session_content->pageId();
-		$div_id = $this->session_content->divId();
+		$column_id = $this->session_content->columnId();
 
 		$model_page_content = new Dlayer_Model_Page_Content();
-
-		if($model_page_content->validContentRowId($site_id, $page_id,
-				$div_id, $content_row_id) == TRUE &&
-			in_array($direction, array('up', 'down')) == TRUE
-		)
-		{
-
-			$model_page_content->moveContentRow($site_id, $page_id, $div_id,
-				$content_row_id, $direction);
-		}
+		$model_page_content->moveRow($this->site_id, $page_id, $column_id, $row_id, $direction);
 
 		$this->redirect('/content/design');
 	}

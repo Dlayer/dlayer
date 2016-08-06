@@ -2118,43 +2118,6 @@ var dlayer = {
 			button += '</div>';
 			
 			return button;
-		},
-		
-		/**
-		* Attach the movement controls and events to allow content rows to be 
-		* moved within a content area
-		*
-		* @return {Void}
-		*/
-		contentRows: function()
-		{
-			var rows = $('.selected-area .row.selectable').length;
-			
-			$('.selected-area .row.selectable').each(function(index)
-			{
-				id = this.id.replace('content_row_', '');
-				
-				if(index !== 0) {
-					$(this).prepend(dlayer.movers.button('move', 
-						'move-up', 'up', 'Display sooner', id));
-				}
-				if(index !== (rows-1)) {
-					$(this).append(dlayer.movers.button('move', 
-						'move-down', 'down', 'Display later', id));
-				}
-			});
-			
-			$('.selected-area .row.selectable > .move > .btn').click(
-				function() {
-					var params = this.id.split(':');
-					
-					window.location.replace(
-					'/content/design/move-content-row/direction/' + 
-						params[0] + '/id/' + params[1]);
-
-					return false;
-				}
-			);
 		}
 	},
 	
