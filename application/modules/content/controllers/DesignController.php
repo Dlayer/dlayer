@@ -104,9 +104,10 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$this->view->dlayer_page = $this->dlayerPagePreview();
 
-		$this->layout->assign('css_include',
-			array('css/dlayer.css', 'css/preview.css'));
-		$this->layout->assign('title', 'Dlayer.com - Design preview');
+		$layout = Zend_Layout::getMvcInstance();
+		$layout->assign('css_include', array('css/dlayer.css'));
+		$layout->assign('js_include', array());
+		$layout->assign('title', 'Dlayer.com - Design preview');
 	}
 
 	/**
@@ -388,58 +389,30 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Generate the preview for the current content page, doesn't any
-	 * helper content areas, content rows or un-necessary code
+	 * Generate the preview for the page being created/edited
 	 *
 	 * @return string
 	 */
 	private function dlayerPagePreview()
 	{
-		// Vars defining the page being edited
-		$site_id = $this->session_dlayer->siteId();
-		$template_id = $this->session_content->templateId();
-		$page_id = $this->session_content->pageId();
+		// Instantiate the page object and styles object
+		$designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
+		$designer_page_styles = new Dlayer_Designer_Styles_Page($this->site_id, $this->page_id);
 
-		// Environment vars for the designer
-		$div_id = $this->session_content->divId();
-		$content_row_id = $this->session_content->contentRowId();
-		$content_id = $this->session_content->contentId();
-
-		// Instantiate the page object
-		$designer_page = new Dlayer_Designer_Page($site_id, $template_id,
-			$page_id);
-		// Instantiate page styles object
-		$designer_page_styles = new Dlayer_Designer_Styles_Page($site_id,
-			$page_id);
-
-		// Fetch and set all the user defind style settings 
+		// fetch the styles defined in the settings, heading styles and base font families
 		$this->view->heading_styles = $designer_page_styles->headingStyles();
-		$this->view->base_font_family_content =
-			$designer_page_styles->baseFontFamilyContentManager();
-		$this->view->base_font_family_form =
-			$designer_page_styles->baseFontFamilyFormBuilder();
+		$this->view->base_font_family_content = $designer_page_styles->baseFontFamilyContentManager();
+		$this->view->base_font_family_form = $designer_page_styles->baseFontFamilyFormBuilder();
 
-		/**
-		 * Fetch and set the data to generate the structure of the page and
-		 * build up the content
-		 */
-		$this->view->template = $designer_page->template();
-		$this->view->content_rows = $designer_page->contentRows();
+		// Fetch the data that defines the structure of the page
+		$this->view->rows = $designer_page->rows();
+		$this->view->columns = $designer_page->columns();
 		$this->view->content = $designer_page->content();
 
-		/**
-		 * Fetch and set all the defined styles for the template, content rows,
-		 * content item containers, content items, assigned forms
-		 */
-		$this->view->content_area_styles =
-			$designer_page_styles->contentAreaStyles();
-		$this->view->content_row_styles =
-			$designer_page_styles->contentRowStyles();
-		$this->view->content_container_styles =
-			$designer_page_styles->contentContainerStyles();
-		$this->view->content_styles =
-			$designer_page_styles->contentItemStyles();
-		$this->view->form_styles = $designer_page_styles->formStyles();
+		$this->view->row_styles = array();
+		$this->view->content_container_styles = array();
+		$this->view->content_styles = array();
+		$this->view->form_styles = array();
 
 		return $this->view->render("design/page-preview.phtml");
 	}
@@ -649,37 +622,45 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->session_content->clearAll();
 		$this->session_designer->clearAllImagePicker();
 
-		$this->_redirect('/content/design');
+		$this->redirect('/content/design');
 	}
 
 	/**
-	 * Move the content row, before passing the request to the model we check
-	 * to ensure that the params are correct and belong to the site id stored in
-	 * the session
+	 * Move the row in the desired direction
 	 *
-	 * @return div
+	 * @return void User redirected back to designer regardless of outcome
 	 */
-	public function moveContentRowAction()
+	public function moveRowAction()
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$direction = $this->getRequest()->getParam('direction');
-		$content_row_id = intval($this->getRequest()->getParam('id'));
-		$site_id = $this->session_dlayer->siteId();
+		$direction = $this->getParamAsString('direction');
+		$row_id = $this->getParamAsInteger('id');
 		$page_id = $this->session_content->pageId();
-		$div_id = $this->session_content->divId();
+		$column_id = $this->session_content->columnId();
 
 		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content->moveRow($this->site_id, $page_id, $column_id, $row_id, $direction);
 
-		if($model_page_content->validContentRowId($site_id, $page_id,
-				$div_id, $content_row_id) == TRUE &&
-			in_array($direction, array('up', 'down')) == TRUE
-		)
-		{
+		$this->redirect('/content/design');
+	}
 
-			$model_page_content->moveContentRow($site_id, $page_id, $div_id,
-				$content_row_id, $direction);
-		}
+	/**
+	 * Move the column in the desired direction
+	 *
+	 * @return void User is redirected back to designer regardless of outcome
+	 */
+	public function moveColumnAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$direction = $this->getParamAsString('direction');
+		$column_id = $this->getParamAsInteger('id');
+		$page_id = $this->session_content->pageId();
+		$row_id = $this->session_content->rowId();
+
+		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content->moveColumn($this->site_id, $page_id, $row_id, $column_id, $direction);
 
 		$this->redirect('/content/design');
 	}

@@ -8,6 +8,8 @@
 var contentManager =
 {
 	pageBackgroundColor: null,
+	highlightColor: '#e1dc50',
+	clickColor: '#c3be50',
 
 	/**
 	 * Add the hover event for the content page and the click event to store session value
@@ -22,7 +24,7 @@ var contentManager =
 			function()
 			{
 				contentManager.pageBackgroundColor = $(this).css('background-color');
-				$(this).css('background-color', '#e1dc50');
+				$(this).css('background-color', contentManager.highlightColor);
 				$(this).css('cursor', 'pointer');
 			},
 			function ()
@@ -31,9 +33,11 @@ var contentManager =
 			}
 		);
 		$(selector).click(
-			function()
+			function(e)
 			{
-				$(this).css('background-color','#c3be50');
+				e.preventDefault();
+
+				$(this).css('background-color', contentManager.clickColor);
 
 				window.location.replace('/content/design/set-page-selected');
 			}
@@ -54,16 +58,18 @@ var contentManager =
 		$(selector).hover(
 			function() {
 				background_color = $(this).css('background-color');
-				$(this).css('background-color', '#e1dc50');
+				$(this).css('background-color', contentManager.highlightColor);
 				$(this).css('cursor', 'pointer');
+				$(this).find('div.row-mover').show();
 			},
 			function() {
 				$(this).css('background-color', background_color);
+				$(this).find('div.row-mover').hide();
 			}
 		);
 		$(selector).click(
-			function() {
-				$(this).css('background-color', '#66a7ba');
+			function(e) {
+				$(this).css('background-color', contentManager.clickColor);
 
 				var id = this.id.replace('row-', '');
 
@@ -86,16 +92,18 @@ var contentManager =
 		$(selector).hover(
 			function() {
 				background_color = $(this).css('background-color');
-				$(this).css('background-color', '#e1dc50');
+				$(this).css('background-color', contentManager.highlightColor);
 				$(this).css('cursor', 'pointer');
+				$(this).find('div.column-mover').show();
 			},
 			function() {
 				$(this).css('background-color', background_color);
+				$(this).find('div.column-mover').hide();
 			}
 		);
 		$(selector).click(
-			function() {
-				$(this).css('background-color', '#66a7ba');
+			function(e) {
+				$(this).css('background-color', contentManager.clickColor);
 
 				var id = this.id.replace('column-', '');
 
@@ -118,7 +126,7 @@ var contentManager =
 		$(selector).hover(
 			function() {
 				background_color = $(this).css('background-color');
-				$(this).css('background-color', '#e1dc50');
+				$(this).css('background-color', contentManager.highlightColor);
 				$(this).css('cursor', 'pointer');
 			},
 			function() {
@@ -126,8 +134,8 @@ var contentManager =
 			}
 		);
 		$(selector).click(
-			function() {
-				$(this).css('background-color', '#66a7ba');
+			function(e) {
+				$(this).css('background-color', contentManager.clickColor);
 
 				var bits = this.id.split(':');
 				var id = bits[2];
@@ -136,6 +144,71 @@ var contentManager =
 
 				window.location.replace('/content/design/set-selected-content/id/' +
 					id + '/tool/' + tool + '/content-type/' + content_type);
+			}
+		);
+	},
+
+	/**
+	 * Row movement controls, show when a row has the selectable class applied
+	 *
+	 * @return {Void}
+	 */
+	rowMover: function()
+	{
+		var selector = '.selected div.row.selectable';
+
+		$(selector).each(
+			function(index)
+			{
+				var id = this.id.replace('row-', '');
+
+				if(index !== 0) {
+					$(this).prepend('<div class="row-mover" id="up:' + id + '">Display sooner</div>');
+				}
+				if(index !== ($(selector).length - 1)) {
+					$(this).append('<div class="row-mover" id="down:' + id + '">Display later</div>');
+				}
+			}
+		);
+
+		$(".row-mover").click(
+			function(e) {
+				e.stopPropagation();
+				var params = this.id.split(':');
+				window.location.replace('/content/design/move-row/direction/' + params[0] + '/id/' + params[1]);
+			}
+		);
+	},
+
+	/**
+	 * Column movement controls, show when a column has the selectable class applied
+	 *
+	 * @todo UX is currently incorrect for controls, check #127871441 in Pivotal
+	 * @return {Void}
+	 */
+	columnMover: function()
+	{
+		var selector = '.selected div.column.selectable';
+
+		$(selector).each(
+			function(index)
+			{
+				var id = this.id.replace('column-', '');
+
+				if(index !== 0) {
+					$(this).prepend('<div class="column-mover" id="up:' + id + '">Display sooner</div>');
+				}
+				if(index !== ($(selector).length - 1)) {
+					$(this).append('<div class="column-mover" id="down:' + id + '">Display later</div>');
+				}
+			}
+		);
+
+		$(".column-mover").click(
+			function(e) {
+				e.stopPropagation();
+				var params = this.id.split(':');
+				window.location.replace('/content/design/move-column/direction/' + params[0] + '/id/' + params[1]);
 			}
 		);
 	}

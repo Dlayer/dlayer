@@ -100,4 +100,16 @@ class Dlayer_Tool_Content_AddColumn extends Dlayer_Tool_Content
 			)
 		);
 	}
+
+	/**
+	 * Validate the instances param, need to see if it should exist first
+	 *
+	 * @param integer site_id
+	 * @param integer $content_id
+	 * @return boolean
+	 */
+	protected function validateInstances($site_id, $content_id)
+	{
+		// TODO: Implement validateInstances() method.
+	}
 }

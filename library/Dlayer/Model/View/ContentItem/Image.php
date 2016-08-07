@@ -57,6 +57,7 @@ class Dlayer_Model_View_ContentItem_Image extends Zend_Db_Table_Abstract
 	public function data($site_id, $page_id, $id)
 	{
 		$content_item = $this->baseItemData($site_id, $page_id, $id);
+		$content_item['expand'] = intval($content_item['expand']);
 
 		return $content_item;
 	}

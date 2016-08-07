@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Image content item view helper, image may include a link to expand and a caption
+ * Preview version of the image content item view helper
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_View_Image extends Zend_View_Helper_Abstract
+class Dlayer_View_ImagePreview extends Zend_View_Helper_Abstract
 {
 	/**
 	 * Override the hinting for the view property so that we can see the view
@@ -23,30 +23,16 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 	private $data;
 
 	/**
-	 * @var boolean Is the content item selectable?
-	 */
-	private $selectable;
-
-	/**
-	 * @var boolean Is the content item selected?
-	 */
-	private $selected;
-
-	/**
 	 * Constructor for view helper, data is set via the setter methods
 	 *
 	 * @param array $data Content item data array
-	 * @param boolean $selectable
-	 * @param boolean $selected
-	 * @return Dlayer_View_Image
+	 * @return Dlayer_View_ImagePreview
 	 */
-	public function image(array $data, $selectable = FALSE, $selected = FALSE)
+	public function imagePreview(array $data)
 	{
 		$this->resetParams();
 
 		$this->data = $data;
-		$this->selectable = $selectable;
-		$this->selected = $selected;
 
 		return $this;
 	}
@@ -59,8 +45,6 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 	private function resetParams()
 	{
 		$this->data = array();
-		$this->selectable = FALSE;
-		$this->selected = FALSE;
 	}
 
 	/**
@@ -70,20 +54,12 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		// The id of a content item is defined as follows [item_type]:[tool]:[id]
-		$id = 'image:image:' . $this->view->escape($this->data['content_id']);
-		$class = 'content';
+		$html = '';
 
-		if($this->selectable === TRUE)
+		if($this->data['expand'] === 1)
 		{
-			//$class .= ' selectable';
+			$html = '<a href="#" class="image-modal-dialog">';
 		}
-		if($this->selected === TRUE)
-		{
-			$class = ' selected';
-		}
-
-		$html = '<div id="' . $id . '" class="' . $class . '"/>';
 
 		$html .= '<img src="/images/library/' . $this->view->escape($this->data['library_id']) . '/' .
 			$this->view->escape($this->data['version_id']) . $this->view->escape($this->data['extension']) .
@@ -94,7 +70,10 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 			$html .= '<p class="img-caption text-muted text-center small">' . $this->view->escape($this->data['caption']) . '</p>';
 		}
 
-		$html .= '</div>';
+		if($this->data['expand'] === 1)
+		{
+			$html .= '</a>';
+		}
 
 		return $html;
 	}
