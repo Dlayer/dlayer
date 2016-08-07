@@ -59,6 +59,14 @@ div#designer {
 					background-color: #e6e6e6;
 				}
 			}
+
+			div.column-mover {
+				@include mover();
+
+				&:hover {
+					background-color: #e6e6e6;
+				}
+			}
 		}
 	}
 	

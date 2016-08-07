@@ -94,9 +94,11 @@ var contentManager =
 				background_color = $(this).css('background-color');
 				$(this).css('background-color', contentManager.highlightColor);
 				$(this).css('cursor', 'pointer');
+				$(this).find('div.column-mover').show();
 			},
 			function() {
 				$(this).css('background-color', background_color);
+				$(this).find('div.column-mover').hide();
 			}
 		);
 		$(selector).click(
@@ -151,7 +153,7 @@ var contentManager =
 	 *
 	 * @return {Void}
 	 */
-	rowMover: function ()
+	rowMover: function()
 	{
 		var selector = '.selected div.row.selectable';
 
@@ -161,10 +163,10 @@ var contentManager =
 				var id = this.id.replace('row-', '');
 
 				if(index !== 0) {
-					$(this).prepend('<div class="row-mover" id="up:' + id + '">Display row sooner</div>');
+					$(this).prepend('<div class="row-mover" id="up:' + id + '">Display sooner</div>');
 				}
 				if(index !== ($(selector).length - 1)) {
-					$(this).append('<div class="row-mover" id="down:' + id + '">Display row later</div>');
+					$(this).append('<div class="row-mover" id="down:' + id + '">Display later</div>');
 				}
 			}
 		);
@@ -174,6 +176,31 @@ var contentManager =
 				e.stopPropagation();
 				var params = this.id.split(':');
 				window.location.replace('/content/design/move-row/direction/' + params[0] + '/id/' + params[1]);
+			}
+		);
+	},
+
+	/**
+	 * Column movement controls, show when a column has the selectable class applied
+	 *
+	 * @todo UX is currently incorrect for controls, check #127871441 in Pivotal
+	 * @return {Void}
+	 */
+	columnMover: function()
+	{
+		var selector = '.selected div.column.selectable';
+
+		$(selector).each(
+			function(index)
+			{
+				var id = this.id.replace('column-', '');
+
+				if(index !== 0) {
+					$(this).prepend('<div class="column-mover" id="up:' + id + '">Display sooner</div>');
+				}
+				if(index !== ($(selector).length - 1)) {
+					$(this).append('<div class="column-mover" id="down:' + id + '">Display later</div>');
+				}
 			}
 		);
 	}
