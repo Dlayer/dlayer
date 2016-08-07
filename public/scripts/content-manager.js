@@ -203,5 +203,13 @@ var contentManager =
 				}
 			}
 		);
+
+		$(".column-mover").click(
+			function(e) {
+				e.stopPropagation();
+				var params = this.id.split(':');
+				window.location.replace('/content/design/move-column/direction/' + params[0] + '/id/' + params[1]);
+			}
+		);
 	}
 }

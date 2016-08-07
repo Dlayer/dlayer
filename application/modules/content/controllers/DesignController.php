@@ -646,6 +646,26 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
+	 * Move the column in the desired direction
+	 *
+	 * @return void User is redirected back to designer regardless of outcome
+	 */
+	public function moveColumnAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$direction = $this->getParamAsString('direction');
+		$column_id = $this->getParamAsInteger('id');
+		$page_id = $this->session_content->pageId();
+		$row_id = $this->session_content->rowId();
+
+		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content->moveColumn($this->site_id, $page_id, $row_id, $column_id, $direction);
+
+		$this->redirect('/content/design');
+	}
+
+	/**
 	 * Get a post param
 	 *
 	 * @todo Move this out of controller
