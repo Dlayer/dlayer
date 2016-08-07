@@ -21,10 +21,11 @@
 		contentManager.contentSelector();
 		<?php } ?>
 
-		$('div#tools h4').click(
+		$('div.tools h4').click(
 			function() 
 			{
 				var selector = this.className;
+
 				$('div.' + selector).toggle();
 				
 				if($('h4.' + selector + ' > span').hasClass('glyphicon-minus')) {
