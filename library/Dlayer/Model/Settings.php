@@ -1,19 +1,20 @@
 <?php
+
 /**
-* Base settings module, conatins all the methods for settings data that is
-* not module specific
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
+ * Base settings module, conatins all the methods for settings data that is
+ * not module specific
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
 class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 {
 	/**
-	* Fetch all font families
-	*
-	* @return array
-	*/
+	 * Fetch all font families
+	 *
+	 * @return array
+	 */
 	public function fontFamilies()
 	{
 		$sql = "SELECT dcff.id, dcff.css, dcff.description
@@ -26,19 +27,22 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 
 		$rows = array();
 
-		foreach($result as $row) {
-			$rows[$row['id']] = array('name'=>$row['description'],
-				'css'=>$row['css']);
+		foreach($result as $row)
+		{
+			$rows[$row['id']] = array(
+				'name' => $row['description'],
+				'css' => $row['css'],
+			);
 		}
 
 		return $rows;
 	}
 
 	/**
-	* Fetch all font styles
-	*
-	* @return array
-	*/
+	 * Fetch all font styles
+	 *
+	 * @return array
+	 */
 	public function fontStyles()
 	{
 		$sql = "SELECT dcts.id, dcts.css, dcts.`name`
@@ -51,19 +55,22 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 
 		$rows = array();
 
-		foreach($result as $row) {
-			$rows[$row['id']] = array('name'=>$row['name'],
-				'css'=>$row['css']);
+		foreach($result as $row)
+		{
+			$rows[$row['id']] = array(
+				'name' => $row['name'],
+				'css' => $row['css'],
+			);
 		}
 
 		return $rows;
 	}
 
 	/**
-	* Fetch all the font weights
-	*
-	* @return array
-	*/
+	 * Fetch all the font weights
+	 *
+	 * @return array
+	 */
 	public function fontWeights()
 	{
 		$sql = "SELECT dctw.id, dctw.css, dctw.`name`
@@ -76,19 +83,22 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 
 		$rows = array();
 
-		foreach($result as $row) {
-			$rows[$row['id']] = array('name'=>$row['name'],
-				'css'=>$row['css']);
+		foreach($result as $row)
+		{
+			$rows[$row['id']] = array(
+				'name' => $row['name'],
+				'css' => $row['css'],
+			);
 		}
 
 		return $rows;
 	}
 
 	/**
-	* Fetch all the font decorations
-	*
-	* @return array
-	*/
+	 * Fetch all the font decorations
+	 *
+	 * @return array
+	 */
 	public function fontDecorations()
 	{
 		$sql = "SELECT dctd.id, dctd.css, dctd.`name`
@@ -101,20 +111,24 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 
 		$rows = array();
 
-		foreach($result as $row) {
-			$rows[$row['id']] = array('name'=>$row['name'],
-				'css'=>$row['css']);
+		foreach($result as $row)
+		{
+			$rows[$row['id']] = array(
+				'name' => $row['name'],
+				'css' => $row['css'],
+			);
 		}
 
 		return $rows;
 	}
 
 	/**
-	* Fetch all the heading styles
-	*
-	* @return array
-	*/
-	public function headingStyles()
+	 * Fetch all the heading types supported by Dlayer (and HTML)
+	 *
+	 * @since 0.99
+	 * @return array
+	 */
+	public function headingTypes()
 	{
 		$sql = "SELECT dch.id, dch.`name`
 				FROM designer_content_heading dch
@@ -126,19 +140,20 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 
 		$rows = array();
 
-		foreach($result as $row) {
-			$rows[$row['id']] = array('name'=>$row['name']);
+		foreach($result as $row)
+		{
+			$rows[intval($row['id'])] = $row['name'];
 		}
 
 		return $rows;
 	}
 
 	/**
-	* Create the initial color palettes, called when a new site is created
-	*
-	* @param integer $site_id
-	* @return void
-	*/
+	 * Create the initial color palettes, called when a new site is created
+	 *
+	 * @param integer $site_id
+	 * @return void
+	 */
 	public function setDefaultColorPalettes($site_id)
 	{
 		$sql = "INSERT INTO user_setting_color_palette
@@ -148,7 +163,8 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 
-		for($i=1;$i<3;$i++) {
+		for($i = 1; $i < 3; $i++)
+		{
 			$stmt->bindValue(':name', 'Palette ' . $i, PDO::PARAM_STR);
 			$stmt->bindValue(':view_script', 'palette-' . $i, PDO::PARAM_STR);
 			$stmt->bindValue(':sort_order', $i, PDO::PARAM_INT);
@@ -157,29 +173,31 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Set the initial colors for the initial palettes, called when a new
-	* site is created
-	*
-	* @param integer $site_id
-	* @return void
-	*/
+	 * Set the initial colors for the initial palettes, called when a new
+	 * site is created
+	 *
+	 * @param integer $site_id
+	 * @return void
+	 */
 	public function setDefaultColourPaletteColors($site_id)
 	{
 		$palettes = array();
 
 		$palettes[1] = array(
-			array('type'=>1, 'name'=>'Black', 'hex'=>'#000000'),
-			array('type'=>3, 'name'=>'Dark grey', 'hex'=>'#333333'), 
-			array('type'=>3, 'name'=>'Grey', 'hex'=>'#555555'), 
-			array('type'=>4, 'name'=>'Light grey', 'hex'=>'#777777'), 
-			array('type'=>5, 'name'=>'Off white', 'hex'=>'#EEEEEE'));
-			
+			array('type' => 1, 'name' => 'Black', 'hex' => '#000000'),
+			array('type' => 3, 'name' => 'Dark grey', 'hex' => '#333333'),
+			array('type' => 3, 'name' => 'Grey', 'hex' => '#555555'),
+			array('type' => 4, 'name' => 'Light grey', 'hex' => '#777777'),
+			array('type' => 5, 'name' => 'Off white', 'hex' => '#EEEEEE'),
+		);
+
 		$palettes[2] = array(
-			array('type'=>1, 'name'=>'Blue', 'hex'=>'#337ab7'),
-			array('type'=>3, 'name'=>'Green', 'hex'=>'#5cb85c'), 
-			array('type'=>3, 'name'=>'Light blue', 'hex'=>'#5bc0de'), 
-			array('type'=>4, 'name'=>'Amber', 'hex'=>'#f0ad4e'), 
-			array('type'=>5, 'name'=>'Red', 'hex'=>'#d9534f'));
+			array('type' => 1, 'name' => 'Blue', 'hex' => '#337ab7'),
+			array('type' => 3, 'name' => 'Green', 'hex' => '#5cb85c'),
+			array('type' => 3, 'name' => 'Light blue', 'hex' => '#5bc0de'),
+			array('type' => 4, 'name' => 'Amber', 'hex' => '#f0ad4e'),
+			array('type' => 5, 'name' => 'Red', 'hex' => '#d9534f'),
+		);
 
 		$sql = "INSERT INTO user_setting_color_palette_color
 				(site_id, palette_id, color_type_id, `name`, color_hex)
@@ -188,7 +206,8 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 
-		foreach($palettes as $i=>$palette) {
+		foreach($palettes as $i => $palette)
+		{
 
 			$sql_palette = "SELECT id FROM user_setting_color_palette
 							WHERE site_id = :site_id
@@ -204,7 +223,8 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 
 			$palette_id = $result['id'];
 
-			foreach($palette as $color) {
+			foreach($palette as $color)
+			{
 				$stmt->bindValue(':palette_id', $palette_id, PDO::PARAM_INT);
 				$stmt->bindValue(':color_type_id', $color['type'],
 					PDO::PARAM_INT);
@@ -216,12 +236,12 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Set the initial base font families, called when a new site is created,
-	* set the content and form builder to Helvetica, Arial, Nimbus Sans L
-	*
-	* @param integer $site_id
-	* @return void
-	*/
+	 * Set the initial base font families, called when a new site is created,
+	 * set the content and form builder to Helvetica, Arial, Nimbus Sans L
+	 *
+	 * @param integer $site_id
+	 * @return void
+	 */
 	public function setDefaultBaseFontFamilies($site_id)
 	{
 		$sql = "INSERT INTO user_setting_font_family
@@ -240,38 +260,50 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Set the initial heading styles, called when a new site is created
-	*
-	* @param integer $site_id
-	* @return void
-	*/
+	 * Set the initial heading styles, called when a new site is created
+	 *
+	 * @param integer $site_id
+	 * @return void
+	 */
 	public function setDefaultHeadingStyles($site_id)
 	{
 		$headings = array();
 
-		$headings[] = array('heading_id'=>1, 'style_id'=>1, 'weight_id'=>2,
-			'decoration_id'=>1, 'size'=>22, 'color_hex'=>'#000000',
-			'sort_order'=>1);
+		$headings[] = array(
+			'heading_id' => 1, 'style_id' => 1, 'weight_id' => 2,
+			'decoration_id' => 1, 'size' => 22, 'color_hex' => '#000000',
+			'sort_order' => 1,
+		);
 
-		$headings[] = array('heading_id'=>2, 'style_id'=>1, 'weight_id'=>2,
-			'decoration_id'=>1, 'size'=>18, 'color_hex'=>'#000000',
-			'sort_order'=>2);
+		$headings[] = array(
+			'heading_id' => 2, 'style_id' => 1, 'weight_id' => 2,
+			'decoration_id' => 1, 'size' => 18, 'color_hex' => '#000000',
+			'sort_order' => 2,
+		);
 
-		$headings[] = array('heading_id'=>3, 'style_id'=>1, 'weight_id'=>2,
-			'decoration_id'=>1, 'size'=>16, 'color_hex'=>'#000000',
-			'sort_order'=>3);
+		$headings[] = array(
+			'heading_id' => 3, 'style_id' => 1, 'weight_id' => 2,
+			'decoration_id' => 1, 'size' => 16, 'color_hex' => '#000000',
+			'sort_order' => 3,
+		);
 
-		$headings[] = array('heading_id'=>4, 'style_id'=>1, 'weight_id'=>2,
-			'decoration_id'=>2, 'size'=>14, 'color_hex'=>'#000000',
-			'sort_order'=>4);
+		$headings[] = array(
+			'heading_id' => 4, 'style_id' => 1, 'weight_id' => 2,
+			'decoration_id' => 2, 'size' => 14, 'color_hex' => '#000000',
+			'sort_order' => 4,
+		);
 
-		$headings[] = array('heading_id'=>5, 'style_id'=>2, 'weight_id'=>2,
-			'decoration_id'=>1, 'size'=>14, 'color_hex'=>'#000000',
-			'sort_order'=>5);
+		$headings[] = array(
+			'heading_id' => 5, 'style_id' => 2, 'weight_id' => 2,
+			'decoration_id' => 1, 'size' => 14, 'color_hex' => '#000000',
+			'sort_order' => 5,
+		);
 
-		$headings[] = array('heading_id'=>6, 'style_id'=>1, 'weight_id'=>1,
-			'decoration_id'=>1, 'size'=>12, 'color_hex'=>'#000000',
-			'sort_order'=>6);
+		$headings[] = array(
+			'heading_id' => 6, 'style_id' => 1, 'weight_id' => 1,
+			'decoration_id' => 1, 'size' => 12, 'color_hex' => '#000000',
+			'sort_order' => 6,
+		);
 
 		$sql = "INSERT user_setting_heading
 				(site_id, heading_id, style_id, weight_id, decoration_id,
@@ -282,7 +314,8 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 
-		foreach($headings as $heading) {
+		foreach($headings as $heading)
+		{
 			$stmt->bindValue(':heading_id', $heading['heading_id'],
 				PDO::PARAM_INT);
 			$stmt->bindValue(':style_id', $heading['style_id'],
@@ -301,12 +334,12 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Set the initial values for the color history table, just use three
-	* colors from one tablet and two from another
-	*
-	* @param integer $site_id
-	* @return void
-	*/
+	 * Set the initial values for the color history table, just use three
+	 * colors from one tablet and two from another
+	 *
+	 * @param integer $site_id
+	 * @return void
+	 */
 	public function setDefaultHistoryColors($site_id)
 	{
 		// Need to add five initial history colors for the newly  created site
@@ -319,19 +352,20 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 
-		foreach($colors as $color) {
+		foreach($colors as $color)
+		{
 			$stmt->bindValue(':color_hex', $color, PDO::PARAM_STR);
 			$stmt->execute();
 		}
 	}
-	
+
 	/**
-	* Check to make sure that the heading type id is valid
-	* 
-	* @param integer $id
-	* @return boolean
-	*/
-	public function headingTypeIdValid($id) 
+	 * Check to make sure that the heading type id is valid
+	 *
+	 * @param integer $id
+	 * @return boolean
+	 */
+	public function headingTypeIdValid($id)
 	{
 		$sql = 'SELECT id 
 				FROM designer_content_heading 
@@ -340,12 +374,15 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 		$stmt->execute();
-		
+
 		$result = $stmt->fetch();
-		
-		if($result != FALSE) {
+
+		if($result != FALSE)
+		{
 			return TRUE;
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}

@@ -17,11 +17,34 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Content
 	 * @param array $tool Tool and environment data
 	 * @return array
 	 */
-	protected function viewData(array $tool)
+	public function viewData(array $tool)
 	{
 		$this->tool = $tool;
 
-		return array('form' => new Dlayer_Form_Content_Text($tool, $this->contentData(), $this->instancesOfData()));
+		return array(
+			'form' => new Dlayer_Form_Content_Heading($tool, $this->contentData(), $this->instancesOfData(),
+				$this->elementData())
+		);
+	}
+
+	/**
+	 * fetch the data required to build the elements
+	 *
+	 * @return array
+	 */
+	protected function elementData()
+	{
+		$data = array();
+
+		$model_settings = new Dlayer_Model_Settings();
+		$heading_types = $model_settings->headingTypes();
+
+		if(count($heading_types) > 0)
+		{
+			$data['heading_type'] = $heading_types;
+		}
+
+		return $data;
 	}
 
 	/**
@@ -32,7 +55,12 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Content
 	 */
 	protected function contentData()
 	{
-		// TODO: Implement contentData() method.
+		return array(
+			'name' => FALSE,
+			'heading' => FALSE,
+			'sub_heading' => FALSE,
+			'heading_type' => FALSE
+		);
 	}
 
 	/**
@@ -42,6 +70,6 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Content
 	 */
 	protected function instancesOfData()
 	{
-		// TODO: Implement instancesOfData() method.
+		return 0;
 	}
 }

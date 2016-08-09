@@ -16,6 +16,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form
 	protected $content_type = 'text';
 	protected $data = array();
 	protected $instances = 0;
+	protected $element_data = array();
 
 	/**
 	 * Set the properties for the form
@@ -31,6 +32,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form
 		$this->tool = $tool;
 		$this->data = $data;
 		$this->instances = $instances;
+		$this->element_data = $element_data;
 
 		parent::__construct($options);
 	}
@@ -137,7 +139,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form
 
 		$heading = new Zend_Form_Element_Textarea('heading');
 		$heading->setLabel('Heading');
-		$heading->setAttribs(array('cols'=>80, 'rows'=>15, 'placeholder'=>'e.g., Our projects',
+		$heading->setAttribs(array('cols'=>80, 'rows'=>2, 'placeholder'=>'e.g., Our projects',
 			'class'=>'form-control input-sm'));
 		$heading->setDescription('Enter your heading.');
 		$heading->setBelongsTo('params');
@@ -152,7 +154,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form
 
 		$sub_heading = new Zend_Form_Element_Textarea('sub_heading');
 		$sub_heading->setLabel('Sub heading');
-		$sub_heading->setAttribs(array('cols'=>80, 'rows'=>15, 'placeholder'=>'e.g., What are we working on?',
+		$sub_heading->setAttribs(array('cols'=>80, 'rows'=>2, 'placeholder'=>'e.g., What are we working on?',
 			'class'=>'form-control input-sm'));
 		$sub_heading->setDescription('Enter an optional sub heading.');
 		$sub_heading->setBelongsTo('params');
@@ -166,7 +168,15 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form
 
 		$heading_type = new Zend_Form_Element_Select('heading_type');
 		$heading_type->setLabel('Heading type');
-		$heading_type->setMultiOptions(array());
+		if(array_key_exists('heading_type', $this->element_data) &&
+			is_array($this->element_data['heading_type']) === TRUE)
+		{
+			$heading_type->setMultiOptions($this->element_data['heading_type']);
+		}
+		else
+		{
+			$heading_type->setMultiOptions(array());
+		}
 		$heading_type->setDescription('Choose a heading type.');
 		$heading_type->setAttribs(array('class'=>'form-control input-sm'));
 		$heading_type->setBelongsTo('params');
@@ -176,6 +186,8 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form
 		{
 			$heading_type->setValue($this->data['heading_type']);
 		}
+
+		$this->elements['heading_type'] = $heading_type;
 	}
 
 	protected function generateSubmitElement()
