@@ -49,7 +49,7 @@ class Dlayer_Form_Content_Text extends Dlayer_Form
 
 		$this->generateFormElements();
 
-		$this->addElementsToForm('heading_item', 'Form here', $this->elements);
+		$this->addElementsToForm('text_content_item', 'Text', $this->elements);
 
 		$this->addDefaultElementDecorators();
 
