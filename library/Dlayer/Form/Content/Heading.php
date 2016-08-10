@@ -124,11 +124,11 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form
 			$instances = new Zend_Form_Element_Select('instances');
 			$instances->setLabel('Update shared content?');
 			$instances->setDescription("The content below is used {$this->instances} times on your web site, do you 
-				want to update the text for this content item only or all content items?");
+				want to update the text for this heading only or all headings?");
 			$instances->setMultiOptions(
 				array(
-					1 => 'Yes - update all content items',
-					0 => 'No - Please only update this item'
+					1 => 'Yes - update all headings',
+					0 => 'No - Please only update this heading'
 				)
 			);
 			$instances->setAttribs(array('class' => 'form-control input-sm'));

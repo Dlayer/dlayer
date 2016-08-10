@@ -95,12 +95,20 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Content
 	}
 
 	/**
-	 * Fetch the number of instances for the content items data
+	 * Fetch the number of instances for the content item data
 	 *
 	 * @return integer
 	 */
 	protected function instancesOfData()
 	{
-		return 0;
+		$instances = 0;
+
+		if($this->tool['content_id'] !== NULL)
+		{
+			$model_text = new Dlayer_Model_Page_Content_Items_Heading();
+			$instances = $model_text->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
+		}
+
+		return $instances;
 	}
 }

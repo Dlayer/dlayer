@@ -159,6 +159,42 @@ class Dlayer_Model_Page_Content_Items_Heading extends Dlayer_Model_Page_Content_
 	}
 
 	/**
+	 * Check to see how many instances there are of the content item data within the site
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $content_id
+	 * @return integer Number of instances
+	 */
+	public function instancesOfData($site_id, $content_id)
+	{
+		$sql = "SELECT COUNT(content.id) AS instances
+				FROM user_site_page_content_item_heading content
+				WHERE content.data_id = (
+					SELECT uspcit.data_id 
+					FROM user_site_page_content_item_heading uspcit 
+					WHERE uspcit.site_id = :site_id  
+					AND uspcit.content_id = :content_id 
+					LIMIT 1
+				)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['instances']);
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	/**
 	 * Add a heading content item
 	 *
 	 * @param integer $site_id
