@@ -82,7 +82,19 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Content
 	 */
 	protected function add()
 	{
-		// TODO: Implement add() method.
+		$model_content = new Dlayer_Model_Page_Content();
+
+		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'heading',
+			$this->params);
+
+		if($content_id !== FALSE)
+		{
+			return $this->returnIds($content_id);
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
