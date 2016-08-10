@@ -115,7 +115,7 @@ class Dlayer_Model_Page_Content_Items_Heading extends Dlayer_Model_Page_Content_
 	 */
 	private function addData($site_id, $name, $content)
 	{
-		$sql = "INSERT INTO user_site_content_headiing 
+		$sql = "INSERT INTO user_site_content_heading 
 				(site_id, `name`, content) 
 				VALUES 
 				(:site_id, :name, :content)";

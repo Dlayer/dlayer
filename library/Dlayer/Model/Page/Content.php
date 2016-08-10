@@ -329,7 +329,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 					}
 				break;
 
-				case 'text':
+				case 'heading':
 					$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
 					$result = $model_heading->add($site_id, $page_id, $content_id, $params);
 					if($result === FALSE)

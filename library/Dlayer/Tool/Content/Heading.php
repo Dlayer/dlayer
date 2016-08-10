@@ -151,7 +151,7 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Content
 			array(
 				'type' => 'content_id',
 				'id' => $this->content_id,
-				'content_type' => 'text'
+				'content_type' => 'heading'
 			)
 		);
 	}
