@@ -55,12 +55,43 @@ class Dlayer_Ribbon_Content_Heading extends Dlayer_Ribbon_Content
 	 */
 	protected function contentData()
 	{
-		return array(
+		$data = array(
 			'name' => FALSE,
 			'heading' => FALSE,
 			'sub_heading' => FALSE,
 			'heading_type' => FALSE
 		);
+
+		if($this->tool['content_id'] !== NULL)
+		{
+			$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
+			$existing_data = $model_heading->existingData($this->tool['site_id'], $this->tool['content_id']);
+
+			if($existing_data !== FALSE)
+			{
+				$heading = FALSE;
+				$sub_heading = FALSE;
+				$content_bits = explode(Dlayer_Config::CONTENT_DELIMITER, $existing_data['content']);
+				switch(count($content_bits))
+				{
+					case 2:
+						$heading = $content_bits[0];
+						$sub_heading = $content_bits[1];
+					break;
+
+					case 1:
+						$heading = $content_bits[0];
+					break;
+				}
+
+				$data['name'] = $existing_data['name'];
+				$data['heading'] = $heading;
+				$data['sub_heading'] = $sub_heading;
+				$data['heading_type'] = intval($existing_data['heading_id']);
+			}
+		}
+
+		return $data;
 	}
 
 	/**

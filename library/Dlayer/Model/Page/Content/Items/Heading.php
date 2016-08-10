@@ -10,8 +10,6 @@
  */
 class Dlayer_Model_Page_Content_Items_Heading extends Dlayer_Model_Page_Content_Item
 {
-	private $deliminator = '-:-';
-
 	/**
 	 * Add a new heading content item
 	 *
@@ -28,7 +26,7 @@ class Dlayer_Model_Page_Content_Items_Heading extends Dlayer_Model_Page_Content_
 
 		if(strlen($params['sub_heading']) > 0)
 		{
-			$content = $params['heading'] . $this->deliminator . $params['sub_heading'];
+			$content = $params['heading'] . Dlayer_Config::CONTENT_DELIMITER . $params['sub_heading'];
 		}
 		else
 		{
@@ -133,6 +131,31 @@ class Dlayer_Model_Page_Content_Items_Heading extends Dlayer_Model_Page_Content_
 		{
 			return FALSE;
 		}
+	}
+
+	/**
+	 * fetch the existing data for the content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @return array|FALSE The data array for the content or FALSE upon failure
+	 */
+	public function existingData($site_id, $id)
+	{
+		$sql = "SELECT uspcih.heading_id, usch.`name`, usch.content
+				FROM user_site_page_content_item_heading uspcih 
+				JOIN user_site_content_heading usch 
+					ON uspcih.data_id = usch.id
+					AND usch.site_id = :site_id 
+				WHERE uspcih.site_id = :site_id
+				AND uspcih.content_id = :content_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetch();
 	}
 
 	/**
