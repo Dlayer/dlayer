@@ -195,6 +195,236 @@ class Dlayer_Model_Page_Content_Items_Heading extends Dlayer_Model_Page_Content_
 	}
 
 	/**
+	 * Fetch the current data id for a content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @return integer|FALSE Should only return FALSE if the query failed for some reason
+	 */
+	private function currentDataId($site_id, $page_id, $content_id)
+	{
+		$sql = "SELECT data_id
+				FROM user_site_page_content_item_heading 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['data_id']);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Update the data for the existing data id
+	 *
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @param string $name
+	 * @param string $content
+	 * @return boolean
+	 */
+	private function updateData($site_id, $id, $name, $content)
+	{
+		$sql = "UPDATE user_site_content_heading 
+				SET `name` = :name, content = :content 
+				WHERE site_id = :site_id 
+				AND id = :data_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':data_id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':content', $content, PDO::PARAM_STR);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+	/**
+	 * Assign a new data id to the content items that use the supplied data id
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $new_data_id
+	 * @param integer $current_data_id
+	 * @return boolean
+	 */
+	private function assignNewDataId($site_id, $new_data_id, $current_data_id)
+	{
+		$sql = "UPDATE user_site_page_content_item_heading 
+				SET data_id = :new_data_id 
+				WHERE site_id = :site_id 
+				AND data_id = :current_data_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':new_data_id', $new_data_id, PDO::PARAM_INT);
+		$stmt->bindValue(':current_data_id', $current_data_id, PDO::PARAM_INT);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+	/**
+	 * Assign a new data id to a content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $new_data_id
+	 * @param integer $content_id
+	 * @return boolean
+	 */
+	private function assignNewDataIdToContentItem($site_id, $new_data_id, $content_id)
+	{
+		$sql = "UPDATE user_site_page_content_item_heading 
+				SET data_id = :new_data_id 
+				WHERE site_id = :site_id 
+				AND content_id = :content_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':new_data_id', $new_data_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+	/**
+	 * Delete data id
+	 *
+	 * @param integer $site_id
+	 * @param integer $delete_id
+	 * @return void
+	 */
+	private function deleteDataId($site_id, $delete_id)
+	{
+		$sql = "DELETE FROM user_site_content_heading  
+					WHERE site_id = :site_id 
+					AND id = :delete_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':delete_id', $delete_id, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+
+	/**
+	 * Edit the existing data
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return TRUE
+	 * @throws Exception
+	 */
+	public function edit($site_id, $page_id, $content_id, array $params)
+	{
+		/**
+		 * @var FALSE|integer If not false delete the data for this data id
+		 */
+		$delete = FALSE;
+
+		$current_data_id = $this->currentDataId($site_id, $page_id, $content_id);
+		if($current_data_id === FALSE)
+		{
+			throw new Exception('Error fetching the existing data id for content id: ' . $current_data_id);
+		}
+
+		if(strlen($params['sub_heading']) > 0)
+		{
+			$content = $params['heading'] . Dlayer_Config::CONTENT_DELIMITER . $params['sub_heading'];
+		}
+		else
+		{
+			$content = $params['heading'];
+		}
+
+		$new_data_id = $this->existingDataId($site_id, $content, $current_data_id);
+
+		if(array_key_exists('instances', $params) === TRUE)
+		{
+			if($params['instances'] === 1)
+			{
+				if($new_data_id === FALSE)
+				{
+					if($this->updateData($site_id, $current_data_id, $params['name'], $content) === FALSE)
+					{
+						throw new Exception('Error updating the data for content id: ' . $current_data_id);
+					}
+				}
+				else
+				{
+					if($this->assignNewDataId($site_id, $new_data_id, $current_data_id) === FALSE)
+					{
+						throw new Exception('Error updating data id for text content items using data id: ' .
+							$current_data_id);
+					}
+
+					$delete = $current_data_id;
+				}
+			}
+			else
+			{
+				if($new_data_id === FALSE)
+				{
+					$new_data_id = $this->addData($site_id, $params['name'], $content);
+					$this->assignNewDataIdToContentItem($site_id, $new_data_id, $content_id);
+				}
+				else
+				{
+					$this->assignNewDataIdToContentItem($site_id, $new_data_id, $content_id);
+				}
+			}
+		}
+		else
+		{
+			if($new_data_id === FALSE)
+			{
+				if($this->updateData($site_id, $current_data_id, $params['name'], $content) === FALSE)
+				{
+					throw new Exception('Error updating the data for content id: ' . $current_data_id);
+				}
+			}
+			else
+			{
+				if($this->assignNewDataIdToContentItem($site_id, $new_data_id, $content_id) === FALSE)
+				{
+					throw new Exception('Error updating data id for content id: ' . $content_id);
+				}
+
+				$delete = $current_data_id;
+			}
+		}
+
+		if($delete !== FALSE)
+		{
+			$this->deleteDataId($site_id, $delete);
+		}
+
+		return TRUE;
+	}
+
+
+
+
+
+
+	/**
 	 * Add a heading content item
 	 *
 	 * @param integer $site_id

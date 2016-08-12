@@ -72,7 +72,17 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Content
 	 */
 	protected function validateInstances($site_id, $content_id)
 	{
-		// TODO: Implement validateInstances() method.
+		$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
+		$instances = $model_heading->instancesOfData($site_id, $content_id);
+
+		if($instances > 1)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
@@ -105,7 +115,25 @@ class Dlayer_Tool_Content_Heading extends Dlayer_Tool_Content
 	 */
 	protected function edit()
 	{
-		// TODO: Implement edit() method.
+		$model_content_heading = new Dlayer_Model_Page_Content_Items_Heading();
+
+		try
+		{
+			$edit = $model_content_heading->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e->getMessage(), $e->getCode(), $e);
+		}
+
+		if($edit === TRUE)
+		{
+			return $this->returnIds();
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**

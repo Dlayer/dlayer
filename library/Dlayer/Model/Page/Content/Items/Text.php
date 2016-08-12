@@ -329,7 +329,8 @@ class Dlayer_Model_Page_Content_Items_Text extends Zend_Db_Table_Abstract
 	/**
 	 * Assign a new data id to the content items that use the supplied data id
 	 *
-	 * @param integer new_data_id
+	 * @param integer $site_id
+	 * @param integer $new_data_id
 	 * @param integer $current_data_id
 	 * @return boolean
 	 */
