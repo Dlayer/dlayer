@@ -20,7 +20,10 @@ class Dlayer_Ribbon_Content_Text extends Dlayer_Ribbon_Content
 	{
 		$this->tool = $tool;
 
-		return array('form' => new Dlayer_Form_Content_Text($tool, $this->contentData(), $this->instancesOfData()));
+		return array(
+			'form' => new Dlayer_Form_Content_Text($tool, $this->contentData(), $this->instancesOfData(),
+			array())
+		);
 	}
 
 	/**
