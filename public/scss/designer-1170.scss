@@ -67,6 +67,14 @@ div#designer {
 					background-color: #e6e6e6;
 				}
 			}
+
+			div.content-mover {
+				@include mover();
+
+				&:hover {
+					background-color: #e6e6e6;
+				}
+			}
 		}
 	}
 	

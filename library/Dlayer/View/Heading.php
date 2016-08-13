@@ -86,7 +86,8 @@ class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 			$class = ' selected';
 		}
 
-		$html = '<' . $tag . ' id="' . $id . '" class="' . $class . '">' . $this->view->escape($this->data['heading']);
+		$html = '<' . $tag . ' id="' . $id . '" class="' . $class . '" data-content-id="' .
+			$this->view->escape($this->data['content_id']) . '">' . $this->view->escape($this->data['heading']);
 
 		if(strlen($this->data['sub_heading']) > 0)
 		{

@@ -83,7 +83,8 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 			$class = ' selected';
 		}
 
-		$html = '<p id="' . $id . '" class="' . $class . '">' .
+		$html = '<p id="' . $id . '" class="' . $class . '" data-content-id="' .
+			$this->view->escape($this->data['content_id']) . '">' .
 			nl2br($this->view->escape($this->data['content']), TRUE) . '</p>';
 
 		return $html;

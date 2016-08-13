@@ -128,9 +128,13 @@ var contentManager =
 				background_color = $(this).css('background-color');
 				$(this).css('background-color', contentManager.highlightColor);
 				$(this).css('cursor', 'pointer');
+				var id = $(this).data('content-id');
+				$('.content-mover-' + id).show();
 			},
 			function() {
 				$(this).css('background-color', background_color);
+				var id = $(this).data('content-id');
+				$('.content-mover-' + id).hide();
 			}
 		);
 		$(selector).click(
@@ -151,6 +155,7 @@ var contentManager =
 	/**
 	 * Row movement controls, show when a row has the selectable class applied
 	 *
+	 * @todo UX is currently incorrect for controls, check #127871441 in Pivotal
 	 * @return {Void}
 	 */
 	rowMover: function()
@@ -209,6 +214,39 @@ var contentManager =
 				e.stopPropagation();
 				var params = this.id.split(':');
 				window.location.replace('/content/design/move-column/direction/' + params[0] + '/id/' + params[1]);
+			}
+		);
+	},
+
+	/**
+	 * Content item movement controls, shows when a content items has the selectable class applied to it
+	 *
+	 * @todo UX is currently incorrect for controls, check #127871441 in Pivotal
+	 * @return {Void}
+	 */
+	contentMover: function()
+	{
+		var selector = 'div.column.selected .content.selectable';
+
+		$(selector).each(
+			function(index)
+			{
+				var id = this.id.split(':');
+				id = id[2];
+
+				if(index !== 0) {
+					$(this).prepend('<div class="content-mover content-mover-' + id + '" data-move="up" data-content-id="' + id + '">Display sooner</div>');
+				}
+				if(index !== ($(selector).length - 1)) {
+					$(this).append('<div class="content-mover content-mover-' + id + '" data-move="down" data-content-id="' + id + '">Display later</div>');
+				}
+			}
+		);
+
+		$(".content-mover").click(
+			function(e) {
+				e.stopPropagation();
+				window.location.replace('/content/design/move-content/direction/' + $(this).data('move') + '/id/' + $(this).data('content-id'));
 			}
 		);
 	}
