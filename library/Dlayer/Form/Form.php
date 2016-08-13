@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-abstract class Dlayer_Form_Form_Tool extends Dlayer_Form
+abstract class Dlayer_Form_Form extends Dlayer_Form
 {
 	protected $tool;
 	protected $sub_tool;
