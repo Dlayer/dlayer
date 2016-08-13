@@ -18,7 +18,7 @@ abstract class Dlayer_Ribbon_Content
 	 * @param array $tool Tool and environment data
 	 * @return array
 	 */
-	abstract protected function viewData(array $tool);
+	abstract public function viewData(array $tool);
 
 	/**
 	 * Fetch the data array for the content item, if in edit mode mode populate the values otherwise every value is
