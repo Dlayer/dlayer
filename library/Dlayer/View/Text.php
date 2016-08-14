@@ -70,8 +70,6 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		// The id of a content item is defined as follows [item_type]:[tool]:[id]
-		$id = 'text:text:' . $this->view->escape($this->data['content_id']);
 		$class = 'content';
 
 		if($this->selectable === TRUE)
@@ -83,8 +81,8 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 			$class = ' selected';
 		}
 
-		$html = '<p id="' . $id . '" class="' . $class . '" data-content-id="' .
-			$this->view->escape($this->data['content_id']) . '">' .
+		$html = '<p class="' . $class . '" data-content-id="' . $this->view->escape($this->data['content_id']) .
+			'" data-content-type="text" data-tool="text">' .
 			nl2br($this->view->escape($this->data['content']), TRUE) . '</p>';
 
 		return $html;

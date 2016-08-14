@@ -70,8 +70,6 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		// The id of a content item is defined as follows [item_type]:[tool]:[id]
-		$id = 'image:image:' . $this->view->escape($this->data['content_id']);
 		$class = 'content';
 
 		if($this->selectable === TRUE)
@@ -83,15 +81,16 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 			$class = ' selected';
 		}
 
-		$html = '<div id="' . $id . '" class="' . $class . '"/>';
-
+		$html = '<div class="' . $class . '" data-content-id="' . $this->view->escape($this->data['content_id'])  .
+			'" data-content-type="image" data-tool="image">';
 		$html .= '<img src="/images/library/' . $this->view->escape($this->data['library_id']) . '/' .
 			$this->view->escape($this->data['version_id']) . $this->view->escape($this->data['extension']) .
 			'" class="img-responsive" title="' . $this->view->escape($this->data['name']) . '" />';
 
 		if(strlen($this->data['caption']) > 0)
 		{
-			$html .= '<p class="img-caption text-muted text-center small">' . $this->view->escape($this->data['caption']) . '</p>';
+			$html .= '<p class="img-caption text-muted text-center small">' .
+				$this->view->escape($this->data['caption']) . '</p>';
 		}
 
 		$html .= '</div>';
