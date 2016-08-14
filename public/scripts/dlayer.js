@@ -2056,71 +2056,7 @@ var dlayer = {
 			}
 		}
 	},
-	
-	movers: {
-			
-		/**
-		* Attach the movement controls and events to allow content items to be 
-		* moved within a content row
-		*
-		* @return {Void}
-		*/
-		contentItems: function()
-		{
-			var rows = $('.selected-row .item.selectable').length;
-			
-			$('.selected-row .item.selectable').each(function(index)
-			{
-				var id = this.id.split(':');
-				id = id[0] + ':' + id[2];
-				
-				if(index !== 0) {
-					$(this).prepend(dlayer.movers.button('move', 
-						'move-up', 'up', 'Display sooner', id));
-				}
-				if(index !== (rows-1)) {
-					$(this).append(dlayer.movers.button('move', 
-						'move-down', 'down', 'Display later', id));
-				}
-			});
-			
-			$('.selected-row .item.selectable > .move > .btn').click(
-				function() {
-					var params = this.id.split(':');
-					
-					window.location.replace(
-					'/content/design/move-content-item/direction/' + 
-						params[0] + '/id/' + params[2] + '/type/' + params[1]);
 
-					return false;
-				}
-			);
-		},
-
-		/**
-		* Generate the html for the movement buttons
-		* 
-		* @param base_class Base css class
-		* @param move_class Specific movement class
-		* @param direction Direction of intended movement
-		* @param label Label for button
-		* @param id Id for button
-		* 
-		* @returns {String}
-		*/
-		button: function(base_class, move_class, direction, label, id) 
-		{
-			var button = '<div class="move">';
-			button += '<div class="btn btn-xs btn-primary btn-block ';
-			button += move_class + '" id="' + direction + ':' + id + '">';
-			button += label;
-			button += '</div>';
-			button += '</div>';
-			
-			return button;
-		}
-	},
-	
 	settings: {
 		
 		content: {
