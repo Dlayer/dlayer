@@ -66,10 +66,7 @@ var contentManager =
 		$(selector).click(
 			function() {
 				$(this).css('background-color', contentManager.clickColor);
-
-				var id = this.id.replace('row-', '');
-
-				window.location.replace('/content/design/set-selected-row/id/' + id);
+				window.location.replace('/content/design/set-selected-row/id/' + $(this).data('row-id'));
 			}
 		);
 	},
@@ -98,10 +95,7 @@ var contentManager =
 		$(selector).click(
 			function() {
 				$(this).css('background-color', contentManager.clickColor);
-
-				var id = this.id.replace('column-', '');
-
-				window.location.replace('/content/design/set-selected-column/id/' + id);
+				window.location.replace('/content/design/set-selected-column/id/' + $(this).data('column-id'));
 			}
 		);
 	},
