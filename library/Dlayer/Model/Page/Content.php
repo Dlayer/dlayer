@@ -472,6 +472,44 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	}
 
 	/**
+	 * Fetch the sort order for the requested content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $column_id
+	 * @param integer $id
+	 * @return integer|FALSE The sort order for the requested content item or FALSE upon failure
+	 */
+	private function contentSortOrder($site_id, $page_id, $column_id, $id)
+	{
+		$sql = 'SELECT sort_order 
+				FROM user_site_page_structure_content 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id
+				AND column_id = :column_id 
+				AND id = :content_id 
+				LIMIT 1';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['sort_order']);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
 	 * Fetch a row by its position on the page and current sort order
 	 *
 	 * @since 0.99
@@ -548,6 +586,44 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	}
 
 	/**
+	 * Fetch a content item by its position in a column
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $column_id
+	 * @param integer $sort_order
+	 * @return integer The sort order of the requested content item ot FALSE if the content item doesn't exist
+	 */
+	private function getContentIdBySortOrder($site_id, $page_id, $column_id, $sort_order)
+	{
+		$sql = "SELECT id 
+				FROM user_site_page_structure_content 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND column_id = :column_id 
+				AND sort_order = :sort_order 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['id']);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
 	 * Set the sort order for the selected row
 	 *
 	 * @since 0.99
@@ -601,6 +677,35 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
 		$stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+
+	/**
+	 * Set the sort order for the selected content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $column_id
+	 * @param integer $id
+	 * @param integer $sort_order
+	 * @return void
+	 */
+	private function setContentSortOrder($site_id, $page_id, $column_id, $id, $sort_order)
+	{
+		$sql = "UPDATE user_site_page_structure_content  
+				SET sort_order = :sort_order 
+				WHERE id = :content_id  
+				AND site_id = :site_id 
+				AND page_id = :page_id 
+				AND column_id = :column_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
 		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
 		$stmt->execute();
 	}
@@ -685,8 +790,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$sibling_column_id = FALSE;
 		$sibling_sort_order = FALSE;
 
-		var_dump($current_sort_order);
-
 		if($current_sort_order !== FALSE)
 		{
 			switch($direction)
@@ -724,8 +827,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 			}
 		}
 
-
-
 		if($new_sort_order !== FALSE && $sibling_column_id !== FALSE && $sibling_sort_order !== FALSE)
 		{
 			$this->setColumnSortOrder($site_id, $page_id, $row_id, $column_id, $new_sort_order);
@@ -733,9 +834,67 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		}
 	}
 
+	/**
+	 * Move the content in the requested direction
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $column_id
+	 * @param integer $id
+	 * @param string $direction
+	 * @return void
+	 */
+	public function moveContent($site_id, $page_id, $column_id, $id, $direction)
+	{
+		$current_sort_order = $this->contentSortOrder($site_id, $page_id, $column_id, $id);
+		$new_sort_order = FALSE;
+		$sibling_content_id = FALSE;
+		$sibling_sort_order = FALSE;
 
+		if($current_sort_order !== FALSE)
+		{
+			switch($direction)
+			{
+				case 'up':
+					if($current_sort_order > 0)
+					{
+						$sibling_content_id = $this->getContentIdBySortOrder($site_id, $page_id, $column_id,
+							($current_sort_order - 1));
 
+						if($sibling_content_id !== FALSE)
+						{
+							$new_sort_order = $current_sort_order - 1;
+							$sibling_sort_order = $current_sort_order;
+						}
+					}
+				break;
 
+				case 'down':
+					if($current_sort_order > 0)
+					{
+						$sibling_content_id = $this->getContentIdBySortOrder($site_id, $page_id, $column_id,
+							($current_sort_order + 1));
+
+						if($sibling_content_id !== FALSE)
+						{
+							$new_sort_order = $current_sort_order + 1;
+							$sibling_sort_order = $current_sort_order;
+						}
+					}
+				break;
+
+				default:
+				break;
+			}
+		}
+
+		if($new_sort_order !== FALSE && $sibling_content_id !== FALSE && $sibling_sort_order !== FALSE)
+		{
+			$this->setContentSortOrder($site_id, $page_id, $column_id, $id, $new_sort_order);
+			$this->setContentSortOrder($site_id, $page_id, $column_id, $sibling_content_id, $sibling_sort_order);
+		}
+	}
 
 
 
@@ -850,123 +1009,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	 * Move the requested content item, either moves up or down increasing or
-	 * descreasing the display sort order
-	 *
-	 * Once the sort order of the current item has been calculated and the
-	 * id of the sibling item that needs to be altered has been calcualted two
-	 * requests are sent to update the sort orders
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $div_id
-	 * @param integer $content_row_id
-	 * @param integer $content_id
-	 * @param string $content_type
-	 * @param string $direction
-	 * @return void
-	 */
-	public function moveContentItem($site_id, $page_id, $div_id,
-		$content_row_id, $content_id, $content_type, $direction)
-	{
-		$sort_order = $this->itemSortOrder($site_id, $page_id, $div_id,
-			$content_row_id, $content_id);
-
-		$process = FALSE;
-
-		if($sort_order != FALSE)
-		{
-			switch($direction)
-			{
-				case 'up':
-					if($sort_order > 1)
-					{
-						$sibling_content_id =
-							$this->contentItemBySortOrder($site_id, $page_id,
-								$content_row_id, $sort_order - 1);
-
-						if($sibling_content_id != FALSE)
-						{
-							$process = TRUE;
-							$new_sort_order = $sort_order - 1;
-							$sibling_sort_order = $sort_order;
-						}
-					}
-				break;
-
-				case 'down':
-					if($sort_order < $this->numberOfContentItems($site_id,
-							$page_id, $content_row_id)
-					)
-					{
-						$sibling_content_id =
-							$this->contentItemBySortOrder($site_id, $page_id,
-								$content_row_id, $sort_order + 1);
-
-						if($sibling_content_id != FALSE)
-						{
-							$process = TRUE;
-							$new_sort_order = $sort_order + 1;
-							$sibling_sort_order = $sort_order;
-						}
-					}
-				break;
-
-				default:
-					throw new Exception('Direction \'' . $direction . '\' not
-					found in Dlayer_Model_Page_Content::moveContentItem()');
-				break;
-			}
-
-			// Update the sort orders for the selected content item and the 
-			// affected content item
-			if($process == TRUE)
-			{
-				$this->setContentItemSortOrder($site_id, $page_id,
-					$content_row_id, $content_id, $new_sort_order);
-
-				$this->setContentItemSortOrder($site_id, $page_id,
-					$content_row_id, $sibling_content_id, $sibling_sort_order);
-			}
-		}
-		else
-		{
-			throw new Exception('Error returned when trying to fetch the 
-				sort order of the content item in 
-				Dlayer_Model_Page_Content::moveContentItem();');
-		}
-	}
-
-	/**
-	 * Update the sort order for a content item
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $content_row_id
-	 * @param integer $content_id
-	 * @param integer $sort_order
-	 * @return void
-	 */
-	private function setContentItemSortOrder($site_id, $page_id,
-		$content_row_id, $content_id, $sort_order)
-	{
-		$sql = "UPDATE user_site_page_content_item 
-				SET sort_order = :sort_order
-				WHERE id = :content_id 
-				AND site_id = :site_id 
-				AND page_id = :page_id 
-				AND content_row_id = :content_row_id 
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->execute();
-	}
-
-	/**
 	 * Fetch the current sort order for the requested content item
 	 *
 	 * @param integer $site_id
@@ -1008,94 +1050,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		{
 			return FALSE;
 		}
-	}
-
-	/**
-	 * Fetch the content item which has the requested sort order
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $content_row_id
-	 * @param integer $sort_order
-	 * @return integer|FALSE $content_id
-	 */
-	private function contentItemBySortOrder($site_id, $page_id,
-		$content_row_id, $sort_order)
-	{
-		$sql = "SELECT id
-				FROM user_site_page_content_item 
-				WHERE site_id = :site_id
-				AND page_id = :page_id
-				AND content_row_id = :content_row_id 
-				AND sort_order = :sort_order
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
-		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
-		$stmt->execute();
-
-		$result = $stmt->fetch();
-
-		if($result != FALSE)
-		{
-			return intval($result['id']);
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	/**
-	 * Fetch the total number of content rows that have been defined for the
-	 * template div id
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $div_id
-	 * @return integer Number of content rows in the template div id
-	 */
-	private function numberOfContentRows($site_id, $page_id, $div_id)
-	{
-		$sql = 'SELECT id 
-				FROM user_site_page_content_rows 
-				WHERE site_id = :site_id 
-				AND page_id = :page_id 
-				AND div_id = :div_id';
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':div_id', $div_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return count($stmt->fetchAll());
-	}
-
-	/**
-	 * Fetch the total number of content items that have been defined for the
-	 * selected content row id
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $content_row_id
-	 * @return integer Number of content items in the content row
-	 */
-	private function numberOfContentItems($site_id, $page_id, $content_row_id)
-	{
-		$sql = "SELECT id
-				FROM user_site_page_content_item 
-				WHERE site_id = :site_id
-				AND page_id = :page_id
-				AND content_row_id = :content_row_id";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
-		$stmt->execute();
-
-		return count($stmt->fetchAll());
 	}
 
 	/**
@@ -1189,91 +1143,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
 		$stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
 		$stmt->execute();
-	}
-
-	/**
-	 * Move the requested content row, either moves up or down.
-	 *
-	 * Once the sort order of the current item has been calculated and the
-	 * id of the sibling item that needs to be altered two requests are sent
-	 * to update the sort orders
-	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
-	 * @param integer $div_id
-	 * @param integer $content_row_id
-	 * @param string $direction
-	 * @return void
-	 */
-	public function moveContentRow($site_id, $page_id, $div_id,
-		$content_row_id, $direction)
-	{
-		$sort_order = $this->rowSortOrder($site_id, $page_id, $div_id,
-			$content_row_id);
-
-		$process = FALSE;
-
-		if($sort_order != FALSE)
-		{
-			switch($direction)
-			{
-				case 'up':
-					if($sort_order > 1)
-					{
-						$sibling_content_row_id =
-							$this->contentRowBySortOrder($site_id, $page_id,
-								$div_id, $sort_order - 1);
-
-						if($sibling_content_row_id != FALSE)
-						{
-							$process = TRUE;
-							$new_sort_order = $sort_order - 1;
-							$sibling_sort_order = $sort_order;
-						}
-					}
-				break;
-
-				case 'down':
-					if($sort_order < $this->numberOfContentRows($site_id,
-							$page_id, $div_id)
-					)
-					{
-						$sibling_content_row_id =
-							$this->contentRowBySortOrder($site_id, $page_id,
-								$div_id, $sort_order + 1);
-
-						if($sibling_content_row_id != FALSE)
-						{
-							$process = TRUE;
-							$new_sort_order = $sort_order + 1;
-							$sibling_sort_order = $sort_order;
-						}
-					}
-				break;
-
-				default:
-					throw new Exception('Direction \'' . $direction . '\' not
-					found in Dlayer_Model_Page_Content::moveContentRow()');
-				break;
-			}
-
-			// Update the sort orders for the selected content row and the 
-			// affected content row
-			if($process == TRUE)
-			{
-				$this->setContentRowSortOrder($site_id, $page_id, $div_id,
-					$content_row_id, $new_sort_order);
-
-				$this->setContentRowSortOrder($site_id, $page_id, $div_id,
-					$sibling_content_row_id, $sibling_sort_order);
-			}
-		}
-		else
-		{
-			throw new Exception('Error returned when trying to fetch the 
-				sort order of the content row in 
-				Dlayer_Model_Page_Content::moveContentRow();');
-		}
 	}
 
 	/**

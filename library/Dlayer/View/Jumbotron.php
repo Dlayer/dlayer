@@ -71,20 +71,19 @@ class Dlayer_View_Jumbotron extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		// The id of a content item is defined as follows [item_type]:[tool]:[id]
-		$id = 'jumbotron:jumbotron:' . $this->view->escape($this->data['content_id']);
 		$class = 'content jumbotron';
 
 		if($this->selectable === TRUE)
 		{
-			//$class .= ' selectable';
+			$class .= ' selectable';
 		}
 		if($this->selected === TRUE)
 		{
 			$class = ' selected';
 		}
 
-		$html = '<div id="' . $id . '" class="' . $class . '">';
+		$html = '<div class="' . $class . '" data-content-id="' . $this->view->escape($this->data['content_id']) .
+			'" data-content-type="jumbotron" data-tool="jumbotron">';
 		$html .= '<h1>' . $this->view->escape($this->data['title']) . '</h1>';
 		$html .= '<p>' . $this->view->escape($this->data['sub_title']) . '</p>';
 

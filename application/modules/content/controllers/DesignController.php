@@ -499,71 +499,6 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Move the selected content item, before passing the request to the model
-	 * we check to ensure that the item can be moved in the requested direction
-	 * and also that the content item is valid for the requested content type and
-	 * page div
-	 *
-	 * @return div
-	 */
-	public function moveContentAction()
-	{
-		$this->_helper->disableLayout(FALSE);
-
-		$direction = $this->getRequest()->getParam('direction');
-		$content_type = $this->getRequest()->getParam('type');
-		$content_id = $this->getRequest()->getParam('content-id');
-		$div_id = $this->getRequest()->getParam('div-id');
-		$page_id = $this->getRequest()->getParam('page-id');
-
-		$model_page_content = new Dlayer_Model_Page_Content();
-
-		/*if(TRUE === in_array($direction, array('up', 'down')) && $model_page_content->valid($content_id,
-				$this->session_dlayer->siteId(), $page_id, $div_id, $content_type) === TRUE)
-		{
-			$model_page_content->moveContentItem($direction, $content_type,
-				$content_id, $div_id, $page_id, $this->session_dlayer->siteId());
-		}*/
-
-		$this->_redirect('/content/design/');
-	}
-
-	/**
-	 * Move the content item, before passing the request to the model we check
-	 * to ensure that the params are correct and belong to the site id stored in
-	 * the session
-	 *
-	 * @return div
-	 */
-	public function moveContentItemAction()
-	{
-		$this->_helper->disableLayout(FALSE);
-
-		$direction = $this->getRequest()->getParam('direction');
-		$content_id = intval($this->getRequest()->getParam('id'));
-		$content_type = trim($this->getRequest()->getParam('type'));
-
-		$site_id = $this->session_dlayer->siteId();
-		$page_id = $this->session_content->pageId();
-		$div_id = $this->session_content->divId();
-		$content_row_id = $this->session_content->contentRowId();
-
-		$model_page_content = new Dlayer_Model_Page_Content();
-
-		if($model_page_content->valid($content_id, $site_id, $page_id,
-				$div_id, $content_row_id, $content_type) == TRUE &&
-			in_array($direction, array('up', 'down')) == TRUE
-		)
-		{
-
-			$model_page_content->moveContentItem($site_id, $page_id, $div_id,
-				$content_row_id, $content_id, $content_type, $direction);
-		}
-
-		$this->redirect('/content/design');
-	}
-
-	/**
 	 * Set the tool, validates that the requested tool is valid and then sets
 	 * the params in the content session.
 	 *
@@ -663,6 +598,29 @@ class Content_DesignController extends Zend_Controller_Action
 		$model_page_content->moveColumn($this->site_id, $page_id, $row_id, $column_id, $direction);
 
 		$this->redirect('/content/design');
+	}
+
+	/**
+	 * Move the selected content item, before passing the request to the model
+	 * we check to ensure that the item can be moved in the requested direction
+	 * and also that the content item is valid for the requested content type and
+	 * page div
+	 *
+	 * @return div
+	 */
+	public function moveContentAction()
+	{
+		$this->_helper->disableLayout(FALSE);
+
+		$direction = $this->getRequest()->getParam('direction');
+		$content_id = $this->getRequest()->getParam('id');
+		$page_id = $this->session_content->pageId();
+		$column_id = $this->session_content->columnId();
+
+		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content->moveContent($this->site_id, $page_id, $column_id, $content_id, $direction);
+
+		$this->redirect('/content/design/');
 	}
 
 	/**

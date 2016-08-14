@@ -13,8 +13,6 @@ var contentManager =
 
 	/**
 	 * Add the hover event for the content page and the click event to store session value
-	 *
-	 * @returns {Void}
 	 */
 	pageSelector: function()
 	{
@@ -47,8 +45,6 @@ var contentManager =
 	/**
 	 * Selector for rows, adds a hover event to change the background colour and then a click event to allow the
 	 * row to be selected
-	 *
-	 * @returns {Void}
 	 */
 	rowSelector: function()
 	{
@@ -68,12 +64,9 @@ var contentManager =
 			}
 		);
 		$(selector).click(
-			function(e) {
+			function() {
 				$(this).css('background-color', contentManager.clickColor);
-
-				var id = this.id.replace('row-', '');
-
-				window.location.replace('/content/design/set-selected-row/id/' + id);
+				window.location.replace('/content/design/set-selected-row/id/' + $(this).data('row-id'));
 			}
 		);
 	},
@@ -81,8 +74,6 @@ var contentManager =
 	/**
 	 * Selector for columns, adds a hover event to change the background colour and then a click event to allow the
 	 * column to be selected
-	 *
-	 * @returns {Void}
 	 */
 	columnSelector: function()
 	{
@@ -102,12 +93,9 @@ var contentManager =
 			}
 		);
 		$(selector).click(
-			function(e) {
+			function() {
 				$(this).css('background-color', contentManager.clickColor);
-
-				var id = this.id.replace('column-', '');
-
-				window.location.replace('/content/design/set-selected-column/id/' + id);
+				window.location.replace('/content/design/set-selected-column/id/' + $(this).data('column-id'));
 			}
 		);
 	},
@@ -115,8 +103,6 @@ var contentManager =
 	/**
 	 * Selector for content items, adds a hover event to change the background colour and then a click even to allow the
 	 * content item to be selected for editing
-	 *
-	 * @returns {Void}
 	 */
 	contentSelector: function()
 	{
@@ -128,22 +114,20 @@ var contentManager =
 				background_color = $(this).css('background-color');
 				$(this).css('background-color', contentManager.highlightColor);
 				$(this).css('cursor', 'pointer');
+				$('.content-mover-' + $(this).data('content-id')).show();
 			},
 			function() {
 				$(this).css('background-color', background_color);
+				$('.content-mover-' + $(this).data('content-id')).hide();
 			}
 		);
 		$(selector).click(
-			function(e) {
+			function() {
 				$(this).css('background-color', contentManager.clickColor);
 
-				var bits = this.id.split(':');
-				var id = bits[2];
-				var tool = bits[1];
-				var content_type = bits[0];
-
 				window.location.replace('/content/design/set-selected-content/id/' +
-					id + '/tool/' + tool + '/content-type/' + content_type);
+					$(this).data('content-id') + '/tool/' + $(this).data('tool') + '/content-type/' +
+					$(this).data('content-type'));
 			}
 		);
 	},
@@ -151,7 +135,7 @@ var contentManager =
 	/**
 	 * Row movement controls, show when a row has the selectable class applied
 	 *
-	 * @return {Void}
+	 * @todo UX is currently incorrect for controls, check #127871441 in Pivotal
 	 */
 	rowMover: function()
 	{
@@ -163,10 +147,10 @@ var contentManager =
 				var id = this.id.replace('row-', '');
 
 				if(index !== 0) {
-					$(this).prepend('<div class="row-mover" id="up:' + id + '">Display sooner</div>');
+					$(this).prepend(contentManager.moverButton('row-mover', 'up', 'Display sooner', id));
 				}
 				if(index !== ($(selector).length - 1)) {
-					$(this).append('<div class="row-mover" id="down:' + id + '">Display later</div>');
+					$(this).append(contentManager.moverButton('row-mover', 'down', 'Display later', id));
 				}
 			}
 		);
@@ -174,8 +158,8 @@ var contentManager =
 		$(".row-mover").click(
 			function(e) {
 				e.stopPropagation();
-				var params = this.id.split(':');
-				window.location.replace('/content/design/move-row/direction/' + params[0] + '/id/' + params[1]);
+				window.location.replace('/content/design/move-row/direction/' + $(this).data('move') +
+					'/id/' + $(this).data('id'));
 			}
 		);
 	},
@@ -184,7 +168,6 @@ var contentManager =
 	 * Column movement controls, show when a column has the selectable class applied
 	 *
 	 * @todo UX is currently incorrect for controls, check #127871441 in Pivotal
-	 * @return {Void}
 	 */
 	columnMover: function()
 	{
@@ -196,10 +179,10 @@ var contentManager =
 				var id = this.id.replace('column-', '');
 
 				if(index !== 0) {
-					$(this).prepend('<div class="column-mover" id="up:' + id + '">Display sooner</div>');
+					$(this).prepend(contentManager.moverButton('column-mover', 'up', 'Display sooner', id));
 				}
 				if(index !== ($(selector).length - 1)) {
-					$(this).append('<div class="column-mover" id="down:' + id + '">Display later</div>');
+					$(this).append(contentManager.moverButton('column-mover', 'down', 'Display later', id));
 				}
 			}
 		);
@@ -207,9 +190,58 @@ var contentManager =
 		$(".column-mover").click(
 			function(e) {
 				e.stopPropagation();
-				var params = this.id.split(':');
-				window.location.replace('/content/design/move-column/direction/' + params[0] + '/id/' + params[1]);
+				window.location.replace('/content/design/move-column/direction/' + $(this).data('move') +
+					'/id/' + $(this).data('id'));
 			}
 		);
+	},
+
+	/**
+	 * Content item movement controls, shows when a content items has the selectable class applied to it
+	 *
+	 * @todo UX is currently incorrect for controls, check #127871441 in Pivotal
+	 */
+	contentMover: function()
+	{
+		var selector = 'div.column.selected .content.selectable';
+
+		$(selector).each(
+			function(index)
+			{
+				var id = this.id.split(':');
+				id = id[2];
+
+				if(index !== 0) {
+					$(this).prepend(contentManager.moverButton('content-mover', 'up', 'Display sooner', id));
+
+				}
+				if(index !== ($(selector).length - 1)) {
+					$(this).append(contentManager.moverButton('content-mover', 'down', 'Display later', id));
+				}
+			}
+		);
+
+		$(".content-mover").click(
+			function(e) {
+				e.stopPropagation();
+				window.location.replace('/content/design/move-content/direction/' + $(this).data('move') +
+					'/id/' + $(this).data('id'));
+			}
+		);
+	},
+
+	/**
+	 * Generate the html for the movement controls
+	 *
+	 * @param moverClass Class for div
+	 * @param direction Direction of movement
+	 * @param text Text for button
+	 * @param id Id of the item being moved
+	 * @return {string}
+	 */
+	moverButton: function(moverClass, direction, text, id)
+	{
+		return '<div class="' + moverClass + ' ' + moverClass + '-' + id + '" data-move="' + direction +
+			'" data-id="' + id + '">' + text + '</div>';
 	}
-}
+};

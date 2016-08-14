@@ -70,21 +70,20 @@ class Dlayer_View_ImportedForm extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		// The id of a content item is defined as follows [item_type]:[tool]:[id]
-		$id = 'form:import-form:' . $this->view->escape($this->data['content_id']);
 		$class = 'content';
 
 		if($this->selectable === TRUE)
 		{
-			//$class .= ' selectable';
+			$class .= ' selectable';
 		}
 		if($this->selected === TRUE)
 		{
 			$class = ' selected';
 		}
 
-		$html = '<div id="' . $id . '" class="' .$class . '"/>';
-		$html .= $this->data['form']->form(array('id'=>$id));
+		$html = '<div class="' .$class . '" data-content-id="' . $this->view->escape($this->data['content_id']) .
+			'" data-content-type="form" data-tool="import-form">';
+		$html .= $this->data['form']->form();
 		$html .= '</div>';
 
 		return $html;

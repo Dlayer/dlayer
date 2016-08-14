@@ -154,7 +154,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 				}
 
 				$html .= '<div class="' . $class . ' col-' . $column['class'] . '-' . $column['size'] .
-					'" id="column-' . $column['id'] . '">';
+					'" data-column-id="' . $column['id'] . '">';
 
 				if(strlen($rows) > 0)
 				{
