@@ -120,26 +120,20 @@ var contentManager =
 				background_color = $(this).css('background-color');
 				$(this).css('background-color', contentManager.highlightColor);
 				$(this).css('cursor', 'pointer');
-				var id = $(this).data('content-id');
-				$('.content-mover-' + id).show();
+				$('.content-mover-' + $(this).data('content-id')).show();
 			},
 			function() {
 				$(this).css('background-color', background_color);
-				var id = $(this).data('content-id');
-				$('.content-mover-' + id).hide();
+				$('.content-mover-' + $(this).data('content-id')).hide();
 			}
 		);
 		$(selector).click(
 			function() {
 				$(this).css('background-color', contentManager.clickColor);
 
-				var bits = this.id.split(':');
-				var id = bits[2];
-				var tool = bits[1];
-				var content_type = bits[0];
-
 				window.location.replace('/content/design/set-selected-content/id/' +
-					id + '/tool/' + tool + '/content-type/' + content_type);
+					$(this).data('content-id') + '/tool/' + $(this).data('tool') + '/content-type/' +
+					$(this).data('content-type'));
 			}
 		);
 	},
