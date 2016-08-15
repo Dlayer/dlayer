@@ -7,7 +7,6 @@
  * a text content item, a text content item is essentially just a plain text
  * block. This form is also used by the edit version of the tool.
  *
- * @todo Work on this form and then create the base form for the module
  * @author Dean Blackborough
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
