@@ -70,7 +70,130 @@ class Dlayer_Model_Page_Content_Items_Jumbotron extends Zend_Db_Table_Abstract
 		}
 	}
 
-	
+	/**
+	 * Add a new jumbotron content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return boolean
+	 */
+	public function add($site_id, $page_id, $content_id, array $params)
+	{
+		$result = false;
+
+		if(strlen($params['intro']) > 0)
+		{
+			$content = $params['title'] . Dlayer_Config::CONTENT_DELIMITER . $params['intro'];
+		}
+		else
+		{
+			$content = $params['title'];
+		}
+
+		$data_id = $this->existingDataId($site_id, $content);
+
+		if($data_id === FALSE)
+		{
+			$data_id = $this->addData($site_id, $params['name'], $content);
+		}
+
+		if($data_id !== FALSE)
+		{
+			$sql = "INSERT INTO user_site_page_content_item_jumbotron 
+                    (site_id, page_id, content_id, data_id, button_label) 
+                    VALUES 
+                    (:site_id, :page_id, :content_id, :data_id, :button_label)";
+			$stmt = $this->_db->prepare($sql);
+			$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+			$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+			$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+			$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
+			$stmt->bindValue(':button_label', $params['button_label'], PDO::PARAM_STR);
+			$result = $stmt->execute();
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Check to see if the content exists in the data tables, if so we re-use the data from a previous content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param string $content
+	 * @param integer|NULL $ignore_id
+	 * @return integer|FALSE Id of the existing data array or FALSE if a new content item
+	 */
+	private function existingDataId($site_id, $content, $ignore_id = NULL)
+	{
+		$sql = "SELECT id 
+                FROM user_site_content_jumbotron 
+                WHERE site_id = :site_id  
+				AND UPPER(content) = :content";
+		if($ignore_id !== NULL)
+		{
+			$sql .= " AND id != :ignore_id LIMIT 1";
+		}
+		else
+		{
+			$sql .= " LIMIT 1";
+		}
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content', strtoupper($content), PDO::PARAM_STMT);
+		if($ignore_id !== NULL)
+		{
+			$stmt->bindValue(':ignore_id', $ignore_id, PDO::PARAM_INT);
+		}
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['id']);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Add the new content item data into the content table for text items
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param string $name
+	 * @param string $content
+	 * @return integer|FALSE The id for the new data or FALSE upon failure
+	 */
+	private function addData($site_id, $name, $content)
+	{
+		$sql = "INSERT INTO user_site_content_jumbotron 
+				(site_id, `name`, content) 
+				VALUES 
+				(:site_id, :name, :content)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':content', $content, PDO::PARAM_STR);
+		$result = $stmt->execute();
+
+		if($result === TRUE)
+		{
+			return intval($this->_db->lastInsertId('user_site_content_jumbotron'));
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+
 
 
 

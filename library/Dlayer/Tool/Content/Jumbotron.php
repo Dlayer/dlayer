@@ -60,7 +60,7 @@ class Dlayer_Tool_Content_Jumbotron extends Dlayer_Tool_Content
 			'name' => trim($params['name']),
 			'title' => trim($params['title']),
 			'intro' => trim($params['intro']),
-			'button_label' => intval($params['button_label'])
+			'button_label' => $params['button_label']
 		);
 	}
 
@@ -127,5 +127,43 @@ class Dlayer_Tool_Content_Jumbotron extends Dlayer_Tool_Content
 	protected function structure()
 	{
 		// TODO: Implement structure() method.
+	}
+
+	/**
+	 * Generate the return ids array
+	 *
+	 * @param integer|NULL Set content id or use the class property
+	 * @return array
+	 */
+	protected function returnIds($content_id = NULL)
+	{
+		if($content_id !== NULL)
+		{
+			$this->content_id = $content_id;
+		}
+
+		return array(
+			array(
+				'type' => 'page_id',
+				'id' => $this->page_id,
+			),
+			array(
+				'type' => 'row_id',
+				'id' => $this->row_id,
+			),
+			array(
+				'type' => 'column_id',
+				'id' => $this->column_id,
+			),
+			array(
+				'type' => 'tool',
+				'id' => 'jumbotron',
+			),
+			array(
+				'type' => 'content_id',
+				'id' => $this->content_id,
+				'content_type' => 'heading'
+			)
+		);
 	}
 }
