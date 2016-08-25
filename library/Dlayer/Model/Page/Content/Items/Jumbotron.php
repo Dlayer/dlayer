@@ -70,6 +70,13 @@ class Dlayer_Model_Page_Content_Items_Jumbotron extends Zend_Db_Table_Abstract
 		}
 	}
 
+	
+
+
+
+
+
+
 
 
 
