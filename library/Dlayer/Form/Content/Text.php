@@ -53,7 +53,7 @@ class Dlayer_Form_Content_Text extends Dlayer_Form_Content
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');
-		$name->setAttribs(array('cols'=>50, 'row'=>15, 'placeholder'=>'e.g., Into for contact page',
+		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Into for contact page',
 			'class'=>'form-control input-sm'));
 		$name->setDescription('Give the content item a name, this will allow you to recreate it again later.');
 		$name->setBelongsTo('params');
@@ -86,7 +86,7 @@ class Dlayer_Form_Content_Text extends Dlayer_Form_Content
 
 		$content = new Zend_Form_Element_Textarea('content');
 		$content->setLabel('Content');
-		$content->setAttribs(array('cols'=>80, 'rows'=>15, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
+		$content->setAttribs(array('cols'=>50, 'rows'=>15, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
 			'class'=>'form-control input-sm'));
 		$content->setDescription('Enter your content.');
 		$content->setBelongsTo('params');

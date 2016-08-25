@@ -69,6 +69,8 @@ class Dlayer_Ribbon_Content_Jumbotron extends Dlayer_Ribbon_Content
 				$data['button_label'] = $existing_data['button_label'];
 			}
 		}
+
+		return $data;
 	}
 
 	/**

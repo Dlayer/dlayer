@@ -52,7 +52,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Content
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');
-		$name->setAttribs(array('cols'=>50, 'row'=>15, 'placeholder'=>'e.g., Page title',
+		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Page title',
 			'class'=>'form-control input-sm'));
 		$name->setDescription('Give the content item a name, this will allow you to recreate it again later.');
 		$name->setBelongsTo('params');
@@ -85,7 +85,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Content
 
 		$heading = new Zend_Form_Element_Textarea('heading');
 		$heading->setLabel('Heading');
-		$heading->setAttribs(array('cols'=>80, 'rows'=>2, 'placeholder'=>'e.g., Our projects',
+		$heading->setAttribs(array('cols'=>50, 'rows'=>2, 'placeholder'=>'e.g., Our projects',
 			'class'=>'form-control input-sm'));
 		$heading->setDescription('Enter your heading.');
 		$heading->setBelongsTo('params');
@@ -100,7 +100,7 @@ class Dlayer_Form_Content_Heading extends Dlayer_Form_Content
 
 		$sub_heading = new Zend_Form_Element_Textarea('sub_heading');
 		$sub_heading->setLabel('Sub heading');
-		$sub_heading->setAttribs(array('cols'=>80, 'rows'=>2, 'placeholder'=>'e.g., What are we working on?',
+		$sub_heading->setAttribs(array('cols'=>50, 'rows'=>2, 'placeholder'=>'e.g., What are we working on?',
 			'class'=>'form-control input-sm'));
 		$sub_heading->setDescription('Enter an optional sub heading.');
 		$sub_heading->setBelongsTo('params');

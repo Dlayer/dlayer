@@ -49,7 +49,7 @@ class Dlayer_Form_Content_Jumbotron extends Dlayer_Form_Content
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');
-		$name->setAttribs(array('cols'=>50, 'row'=>15, 'placeholder'=>'e.g., Site masthead',
+		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Site masthead',
 			'class'=>'form-control input-sm'));
 		$name->setDescription('Give the content item a name, this will allow you to recreate it again later.');
 		$name->setBelongsTo('params');
@@ -82,7 +82,7 @@ class Dlayer_Form_Content_Jumbotron extends Dlayer_Form_Content
 
 		$title = new Zend_Form_Element_Text('title');
 		$title->setLabel('Title');
-		$title->setAttribs(array('cols'=>50, 'row'=>15, 'placeholder'=>'e.g., Welcome to my site',
+		$title->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Welcome to my site',
 			'class'=>'form-control input-sm'));
 		$title->setDescription('Enter the title for the Jumbotron.');
 		$title->setBelongsTo('params');
@@ -95,10 +95,9 @@ class Dlayer_Form_Content_Jumbotron extends Dlayer_Form_Content
 
 		$this->elements['title'] = $title;
 
-		$intro = new Zend_Form_Element_Text('intro');
+		$intro = new Zend_Form_Element_Textarea('intro');
 		$intro->setLabel('Introduction');
-		$intro->setAttribs(array('cols'=>50, 'row'=>15, 'placeholder'=>'e.g., Below you will find an overview of all 
-			the services...', 'class'=>'form-control input-sm'));
+		$intro->setAttribs(array('cols'=>50, 'rows'=>3, 'placeholder'=>'e.g., Below you will find an overview of all the services...', 'class'=>'form-control input-sm'));
 		$intro->setDescription('Enter the introduction.');
 		$intro->setBelongsTo('params');
 

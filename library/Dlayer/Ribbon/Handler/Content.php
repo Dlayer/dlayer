@@ -92,6 +92,10 @@ class Dlayer_Ribbon_Handler_Content
 				$data = $this->heading($tool, $tab);
 			break;
 
+			case 'jumbotron':
+				$data = $this->jumbotron($tool, $tab);
+			break;
+
 
 			
 			
@@ -114,10 +118,6 @@ class Dlayer_Ribbon_Handler_Content
 
 			case 'move-item':
 				$data = $this->moveItem();
-			break;
-
-			case 'jumbotron':
-				$data = $this->jumbotron();
 			break;
 
 			case 'import-form':
@@ -272,48 +272,20 @@ class Dlayer_Ribbon_Handler_Content
 		return $data;
 	}
 
-
-
-
-
-
-
-
 	/**
-	 * Fetch the view tab data for the jumbotron tool, in this case the form for
-	 * the ribbon. If there is any existing data the form will show the current
-	 * values
+	 * Fetch the view tab data for the jumbotron tool, returns an array containing the form and the data for the tool
 	 *
+	 * @param string $tool The tool name
+	 * @param string $tab The tool tab name
 	 * @return array|FALSE
 	 */
-	private function jumbotron()
+	private function jumbotron($tool, $tab)
 	{
-		switch($this->tab)
+		switch($tab)
 		{
 			case 'jumbotron':
 				$ribbon_jumbotron = new Dlayer_Ribbon_Content_Jumbotron();
-				$data = $ribbon_jumbotron->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			case 'position':
-				$ribbon_position =
-					new Dlayer_Ribbon_Content_Position_Jumbotron();
-				$data = $ribbon_position->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			case 'styling':
-				$ribbon_styling =
-					new Dlayer_Ribbon_Content_Styling_Jumbotron();
-				$data = $ribbon_styling->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
+				$data = $ribbon_jumbotron->viewData($this->toolParams($tool));
 			break;
 
 			default:
@@ -323,6 +295,13 @@ class Dlayer_Ribbon_Handler_Content
 
 		return $data;
 	}
+
+
+
+
+
+
+
 
 	/**
 	 * Fetch the view tab data for the import text tool, in this case the

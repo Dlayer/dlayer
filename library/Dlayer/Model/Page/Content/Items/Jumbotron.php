@@ -7,8 +7,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Model_Page_Content_Items_Jumbotron 
-extends Dlayer_Model_Page_Content_Item
+class Dlayer_Model_Page_Content_Items_Jumbotron extends Zend_Db_Table_Abstract
 {
 	/**
 	 * Fetch the existing data for the content item
