@@ -11,6 +11,71 @@ class Dlayer_Model_Page_Content_Items_Jumbotron
 extends Dlayer_Model_Page_Content_Item
 {
 	/**
+	 * Fetch the existing data for the content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @return array|FALSE The data array for the content item or FALSE upon failure
+	 */
+	public function existingData($site_id, $id)
+	{
+		$sql = "SELECT uscj.`name`, uscj.`content`, uspcij.button_label
+				FROM user_site_page_content_item_jumbotron uspcij 
+				JOIN user_site_content_jumbotron uscj 
+					ON uspcij.data_id = uscj.id 
+					AND uscj.site_id = :site_id 
+				WHERE uspcij.site_id = :site_id  
+				AND uspcij.content_id = :content_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetch();
+	}
+
+	/**
+	 * Check to see how many instances there are of the content item data within the site
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $content_id
+	 * @return integer Number of instances
+	 */
+	public function instancesOfData($site_id, $content_id)
+	{
+		$sql = "SELECT COUNT(content.id) AS instances
+				FROM user_site_page_content_item_jumbotron content
+				WHERE content.data_id = (
+					SELECT uspcij.data_id 
+					FROM user_site_page_content_item_jumbotron uspcij 
+					WHERE uspcij.site_id = :site_id  
+					AND uspcij.content_id = :content_id 
+					LIMIT 1
+				)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['instances']);
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+
+
+
+
+	/**
 	* Fetch the data for the content item being edited
 	*
 	* @param integer $site_id

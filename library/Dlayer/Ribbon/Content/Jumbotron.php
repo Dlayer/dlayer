@@ -1,112 +1,91 @@
 <?php
+
 /**
-* Jumbotron content item data class, returns the form for the tool tab view 
-* script populated with the existing content item details if the tool is in 
-* edit mode
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
-class Dlayer_Ribbon_Content_Jumbotron extends Dlayer_Ribbon_Module_Content
+ * Jumbotron content item ribbon data class
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
+class Dlayer_Ribbon_Content_Jumbotron extends Dlayer_Ribbon_Content
 {
-	/**
-	* Data method for the tool tab, returns the form and any data required 
-	* to generate the preview functions
-	*
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param string $tool 
-	* @param string $tab 
-	* @param integer $multi_use 
-	* @param boolean $edit_mode
-	* @param integer|NULL $content_row_id
-	* @param integer|NULL $content_id 
-	* @return array|FALSE Either a data array for the tool tab view script or 
-	* 	FALSE if no data is required
-	*/
-	public function viewData($site_id, $page_id, $div_id, $tool, $tab, 
-		$multi_use, $edit_mode=FALSE, $content_row_id=NULL, $content_id=NULL)
-	{
-		$this->writeParams($site_id, $page_id, $div_id, $tool, $tab,
-			$multi_use, $edit_mode, $content_row_id, $content_id);
 
-		return array('form'=>new Dlayer_Form_Content_Jumbotron(
-			$this->page_id, $this->div_id, $this->content_row_id, 
-			$this->contentItem(), $this->edit_mode, $this->multi_use), 
-			'preview'=>$this->previewData());
+	/**
+	 * Fetch the view data for the current tool tab, typically the returned array will have at least two indexes,
+	 * one for the form and another with the data required by the preview functions
+	 *
+	 * @param array $tool Tool and environment data
+	 * @return array
+	 */
+	public function viewData(array $tool)
+	{
+		$this->tool = $tool;
+
+		return array(
+			'form' => new Dlayer_Form_Content_Jumbotron($tool, $this->contentData(), $this->instancesOfData(), array())
+		);
 	}
 
 	/**
-	* Fetch the data for the selected content block
-	*
-	* If a content id exists return a data array for the text item otherwise
-	* return an array with FALSE for each of the values, we do this so we 
-	* can easily default the values at a later point
-	*
-	* @return array
-	*/
-	protected function contentItem()
-	{	
-		$data = array('id'=>FALSE, 'name'=>FALSE, 'title'=>FALSE, 
-			'sub_title'=>FALSE, 'button_label'=>FALSE);
-
-		if($this->content_id != NULL) {
-			$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
-			
-			$set_data = $model_jumbotron->formData($this->site_id, 
-				$this->page_id, $this->div_id, $this->content_row_id, 
-				$this->content_id);
-
-			if($set_data != FALSE) {
-				$data = $set_data;
-			}
-		}
-
-		return $data;
-	}
-	
-	/**
-	* Fetch the data required by the live preview functions when the tool is 
-	* in edit mode
-	* 
-	* @return array|FALSE
-	*/
-	protected function previewData() 
+	 * Fetch the existing data for the content item, if in edit mode mode populate the values otherwise every value is
+	 * set to FALSE, the tool form can simply check to see if the value is FALSE or not and then set the existing value
+	 *
+	 * @return array
+	 */
+	protected function contentData()
 	{
-		$preview_data = FALSE;
-		
-		if($this->edit_mode == TRUE) {
-			
+		$data = array(
+			'name' => FALSE,
+			'title' => FALSE,
+			'intro' => FALSE,
+			'button_label' => FALSE
+		);
+
+		if($this->tool['content_id'] !== FALSE)
+		{
 			$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
-			$data = $model_jumbotron->previewData($this->site_id, 
-				$this->page_id, $this->content_id);
-				
-			if($data != FALSE) {
-				$title = array(
-					'container_selector'=>'div.content-container-' . 
-						$this->content_id, 
-					'content_selector'=>'div.content-' . $this->content_id . 
-						' > h1', 
-					'initial_value'=>$data['title']
-				);
-				
-				$sub_title = array(
-					'container_selector'=>'div.content-container-' . 
-						$this->content_id, 
-					'content_selector'=>'div.content-' . $this->content_id . 
-						' > p', 
-					'initial_value'=>$data['sub_title']
-				);
-				
-				$preview_data = array(
-					'title'=>json_encode($title), 
-					'sub_title'=>json_encode($sub_title)
-				);
+			$existing_data = $model_jumbotron->existingData($this->tool['site_id'], $this->tool['content_id']);
+
+			if($existing_data !== FALSE)
+			{
+				$title = FALSE;
+				$intro = FALSE;
+				$content_bits = explode(Dlayer_Config::CONTENT_DELIMITER, $existing_data['content']);
+				switch(count($content_bits))
+				{
+					case 2:
+						$title = $content_bits[0];
+						$intro = $content_bits[1];
+					break;
+
+					case 1:
+						$title = $content_bits[0];
+					break;
+				}
+
+				$data['name'] = $existing_data['name'];
+				$data['title'] = $title;
+				$data['intro'] = $intro;
+				$data['button_label'] = $existing_data['button_label'];
 			}
 		}
-		
-		return $preview_data;
+	}
+
+	/**
+	 * Fetch the number of instances for the content items data
+	 *
+	 * @return integer
+	 */
+	protected function instancesOfData()
+	{
+		$instances = 0;
+
+		if($this->tool['content_id'] !== NULL)
+		{
+			$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+			$instances = $model_jumbotron->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
+		}
+
+		return $instances;
 	}
 }
