@@ -6,7 +6,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Tool_Content_ImportForm extends Dlayer_Tool_Module_Content
+class Dlayer_Tool_Content_ImportFormOld extends Dlayer_Tool_Module_Content
 {
 	protected $content_type = 'form';
 	protected $minimum_size = 3;
