@@ -116,7 +116,25 @@ class Dlayer_Tool_Content_Jumbotron extends Dlayer_Tool_Content
 	 */
 	protected function edit()
 	{
-		// TODO: Implement edit() method.
+		$model_content_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+
+		try
+		{
+			$edit = $model_content_jumbotron->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e->getMessage(), $e->getCode(), $e);
+		}
+
+		if($edit === TRUE)
+		{
+			return $this->returnIds();
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
@@ -162,7 +180,7 @@ class Dlayer_Tool_Content_Jumbotron extends Dlayer_Tool_Content
 			array(
 				'type' => 'content_id',
 				'id' => $this->content_id,
-				'content_type' => 'heading'
+				'content_type' => 'jumbotron'
 			)
 		);
 	}

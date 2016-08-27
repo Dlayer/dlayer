@@ -117,7 +117,7 @@ class Dlayer_Form_Content_Jumbotron extends Dlayer_Form_Content
 
 		if(array_key_exists('button_label', $this->data) === TRUE && $this->data['button_label'] !== FALSE)
 		{
-			$button_label->setValue($this->data['name']);
+			$button_label->setValue($this->data['button_label']);
 		}
 
 		$this->elements['button_label'] = $button_label;
