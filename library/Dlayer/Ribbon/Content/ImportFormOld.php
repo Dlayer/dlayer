@@ -8,7 +8,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Ribbon_Content_ImportForm extends Dlayer_Ribbon_Module_Content
+class Dlayer_Ribbon_Content_ImportFormOld extends Dlayer_Ribbon_Module_Content
 {
 	/**
 	* Data method for the import form tab, returns the form for the view

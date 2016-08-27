@@ -9,7 +9,7 @@
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Form_Content_ImportForm extends Dlayer_Form_Module_Content
+class Dlayer_Form_Content_ImportFormOld extends Dlayer_Form_Module_Content
 {
 	/**
 	* Set the initial properties for the form

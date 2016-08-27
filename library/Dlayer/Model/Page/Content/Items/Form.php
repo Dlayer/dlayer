@@ -1,15 +1,47 @@
 <?php
 /**
-* Content form model, all the database changes for adding or editing a form
-* content item
+* Import form tool
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Model_Page_Content_Items_Form 
-extends Dlayer_Model_Page_Content_Item
-{   
+class Dlayer_Model_Page_Content_Items_Form extends Zend_Db_Table_Abstract
+{
+	/**
+	 * Fetch a list of forms to be imported
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @return array Simple array, indexed by id
+	 */
+	public function forms($site_id)
+	{
+		$sql = "SELECT id, `name` 
+				FROM user_site_form 
+				WHERE site_id = :site_id 
+				ORDER BY `name` ASC";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$forms = array();
+
+		foreach($stmt->fetchAll() as $form)
+		{
+			$forms[$form['id']] = $form['name'];
+		}
+
+		return $forms;
+	}
+
+
+
+
+
+
+
+
 	/**
 	* Import a new form as a content item
 	*
