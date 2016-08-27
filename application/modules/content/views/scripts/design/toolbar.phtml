@@ -50,6 +50,14 @@ foreach($this->tools as $group_id => $group) {
 				}
 			break;
 
+			case 5: // Import tools
+				if($this->page_selected === TRUE && $this->row_id !== NULL &&
+					($this->column_id !== NULL && $this->column_id !== 0))
+				{
+					$show = TRUE;
+				}
+			break;
+
 			default:
 			break;
 		}
