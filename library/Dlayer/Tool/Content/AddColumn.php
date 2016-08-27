@@ -96,7 +96,7 @@ class Dlayer_Tool_Content_AddColumn extends Dlayer_Tool_Content
 			),
 			array(
 				'type' => 'tool',
-				'id' => 'row',
+				'id' => 'column',
 			)
 		);
 	}
