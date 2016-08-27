@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Text content item ribbon data class, fetches all the data required by the base tool tab
+ * Text content item ribbon data class
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited

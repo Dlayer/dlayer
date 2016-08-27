@@ -134,7 +134,7 @@ class Dlayer_Model_Page_Content_Items_Heading extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	 * fetch the existing data for the content item
+	 * Fetch the existing data for the content item
 	 *
 	 * @since 0.99
 	 * @param integer $site_id

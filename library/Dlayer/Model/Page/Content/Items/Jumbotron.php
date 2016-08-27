@@ -7,9 +7,465 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Model_Page_Content_Items_Jumbotron 
-extends Dlayer_Model_Page_Content_Item
+class Dlayer_Model_Page_Content_Items_Jumbotron extends Zend_Db_Table_Abstract
 {
+	/**
+	 * Fetch the existing data for the content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @return array|FALSE The data array for the content item or FALSE upon failure
+	 */
+	public function existingData($site_id, $id)
+	{
+		$sql = "SELECT uscj.`name`, uscj.`content`, uspcij.button_label
+				FROM user_site_page_content_item_jumbotron uspcij 
+				JOIN user_site_content_jumbotron uscj 
+					ON uspcij.data_id = uscj.id 
+					AND uscj.site_id = :site_id 
+				WHERE uspcij.site_id = :site_id  
+				AND uspcij.content_id = :content_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		return $stmt->fetch();
+	}
+
+	/**
+	 * Check to see how many instances there are of the content item data within the site
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $content_id
+	 * @return integer Number of instances
+	 */
+	public function instancesOfData($site_id, $content_id)
+	{
+		$sql = "SELECT COUNT(content.id) AS instances
+				FROM user_site_page_content_item_jumbotron content
+				WHERE content.data_id = (
+					SELECT uspcij.data_id 
+					FROM user_site_page_content_item_jumbotron uspcij 
+					WHERE uspcij.site_id = :site_id  
+					AND uspcij.content_id = :content_id 
+					LIMIT 1
+				)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['instances']);
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	/**
+	 * Add a new jumbotron content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return boolean
+	 */
+	public function add($site_id, $page_id, $content_id, array $params)
+	{
+		$result = false;
+
+		if(strlen($params['intro']) > 0)
+		{
+			$content = $params['title'] . Dlayer_Config::CONTENT_DELIMITER . $params['intro'];
+		}
+		else
+		{
+			$content = $params['title'];
+		}
+
+		$data_id = $this->existingDataId($site_id, $content);
+
+		if($data_id === FALSE)
+		{
+			$data_id = $this->addData($site_id, $params['name'], $content);
+		}
+
+		if($data_id !== FALSE)
+		{
+			$sql = "INSERT INTO user_site_page_content_item_jumbotron 
+                    (site_id, page_id, content_id, data_id, button_label) 
+                    VALUES 
+                    (:site_id, :page_id, :content_id, :data_id, :button_label)";
+			$stmt = $this->_db->prepare($sql);
+			$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+			$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+			$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+			$stmt->bindValue(':data_id', $data_id, PDO::PARAM_INT);
+			$stmt->bindValue(':button_label', $params['button_label'], PDO::PARAM_STR);
+			$result = $stmt->execute();
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Check to see if the content exists in the data tables, if so we re-use the data from a previous content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param string $content
+	 * @param integer|NULL $ignore_id
+	 * @return integer|FALSE Id of the existing data array or FALSE if a new content item
+	 */
+	private function existingDataId($site_id, $content, $ignore_id = NULL)
+	{
+		$sql = "SELECT id 
+                FROM user_site_content_jumbotron 
+                WHERE site_id = :site_id  
+				AND UPPER(content) = :content";
+		if($ignore_id !== NULL)
+		{
+			$sql .= " AND id != :ignore_id LIMIT 1";
+		}
+		else
+		{
+			$sql .= " LIMIT 1";
+		}
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content', strtoupper($content), PDO::PARAM_STMT);
+		if($ignore_id !== NULL)
+		{
+			$stmt->bindValue(':ignore_id', $ignore_id, PDO::PARAM_INT);
+		}
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['id']);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Add the new content item data into the content table for text items
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param string $name
+	 * @param string $content
+	 * @return integer|FALSE The id for the new data or FALSE upon failure
+	 */
+	private function addData($site_id, $name, $content)
+	{
+		$sql = "INSERT INTO user_site_content_jumbotron 
+				(site_id, `name`, content) 
+				VALUES 
+				(:site_id, :name, :content)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':content', $content, PDO::PARAM_STR);
+		$result = $stmt->execute();
+
+		if($result === TRUE)
+		{
+			return intval($this->_db->lastInsertId('user_site_content_jumbotron'));
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Edit the existing data
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return TRUE
+	 * @throws Exception
+	 */
+	public function edit($site_id, $page_id, $content_id, array $params)
+	{
+		/**
+		 * @var FALSE|integer If not false delete the data for this data id
+		 */
+		$delete = FALSE;
+
+		$current_data_id = $this->currentDataId($site_id, $page_id, $content_id);
+		if($current_data_id === FALSE)
+		{
+			throw new Exception('Error fetching the existing data id for content id: ' . $current_data_id);
+		}
+
+		if(strlen($params['intro']) > 0)
+		{
+			$content = $params['title'] . Dlayer_Config::CONTENT_DELIMITER . $params['intro'];
+		}
+		else
+		{
+			$content = $params['title'];
+		}
+
+		$new_data_id = $this->existingDataId($site_id, $content, $current_data_id);
+
+		if(array_key_exists('instances', $params) === TRUE)
+		{
+			if($params['instances'] === 1)
+			{
+				if($new_data_id === FALSE)
+				{
+					if($this->updateData($site_id, $current_data_id, $params['name'], $content) === FALSE)
+					{
+						throw new Exception('Error updating the data for content id: ' . $current_data_id);
+					}
+				}
+				else
+				{
+					if($this->assignNewDataId($site_id, $new_data_id, $current_data_id) === FALSE)
+					{
+						throw new Exception('Error updating data id for text content items using data id: ' .
+							$current_data_id);
+					}
+
+					$delete = $current_data_id;
+				}
+			}
+			else
+			{
+				if($new_data_id === FALSE)
+				{
+					$new_data_id = $this->addData($site_id, $params['name'], $content);
+					$this->assignNewDataIdToContentItem($site_id, $new_data_id, $content_id);
+				}
+				else
+				{
+					$this->assignNewDataIdToContentItem($site_id, $new_data_id, $content_id);
+				}
+			}
+		}
+		else
+		{
+			if($new_data_id === FALSE)
+			{
+				if($this->updateData($site_id, $current_data_id, $params['name'], $content) === FALSE)
+				{
+					throw new Exception('Error updating the data for content id: ' . $current_data_id);
+				}
+			}
+			else
+			{
+				if($this->assignNewDataIdToContentItem($site_id, $new_data_id, $content_id) === FALSE)
+				{
+					throw new Exception('Error updating data id for content id: ' . $content_id);
+				}
+
+				$delete = $current_data_id;
+			}
+		}
+
+		if($delete !== FALSE)
+		{
+			$this->deleteDataId($site_id, $delete);
+		}
+
+		if($this->updateContentItem($site_id, $page_id, $content_id, $params) === TRUE)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Fetch the current data id for a content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @return integer|FALSE Should only return FALSE if the query failed for some reason
+	 */
+	private function currentDataId($site_id, $page_id, $content_id)
+	{
+		$sql = "SELECT data_id
+				FROM user_site_page_content_item_jumbotron 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['data_id']);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Update the data for the existing data id
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @param string $name
+	 * @param string $content
+	 * @return boolean
+	 */
+	private function updateData($site_id, $id, $name, $content)
+	{
+		$sql = "UPDATE user_site_content_jumbotron 
+				SET `name` = :name, content = :content 
+				WHERE site_id = :site_id 
+				AND id = :data_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':data_id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':content', $content, PDO::PARAM_STR);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+	/**
+	 * Assign a new data id to the content items that use the supplied data id
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $new_data_id
+	 * @param integer $current_data_id
+	 * @return boolean
+	 */
+	private function assignNewDataId($site_id, $new_data_id, $current_data_id)
+	{
+		$sql = "UPDATE user_site_page_content_item_jumbotron  
+				SET data_id = :new_data_id 
+				WHERE site_id = :site_id 
+				AND data_id = :current_data_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':new_data_id', $new_data_id, PDO::PARAM_INT);
+		$stmt->bindValue(':current_data_id', $current_data_id, PDO::PARAM_INT);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+	/**
+	 * Assign a new data id to a content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $new_data_id
+	 * @param integer $content_id
+	 * @return boolean
+	 */
+	private function assignNewDataIdToContentItem($site_id, $new_data_id, $content_id)
+	{
+		$sql = "UPDATE user_site_page_content_item_jumbotron  
+				SET data_id = :new_data_id 
+				WHERE site_id = :site_id 
+				AND content_id = :content_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':new_data_id', $new_data_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+	/**
+	 * Delete data id
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $delete_id
+	 * @return void
+	 */
+	private function deleteDataId($site_id, $delete_id)
+	{
+		$sql = "DELETE FROM user_site_content_jumbotron   
+					WHERE site_id = :site_id 
+					AND id = :delete_id";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':delete_id', $delete_id, PDO::PARAM_INT);
+		$stmt->execute();
+	}
+
+	/**
+	 * Update the custom data for a content item, stored in the content item structure table
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $id
+	 * @param array $params
+	 * @return boolean
+	 */
+	private function updateContentItem($site_id, $page_id, $id, array $params)
+	{
+		$sql = "UPDATE user_site_page_content_item_jumbotron  
+				SET button_label = :button_label  
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':button_label', $params['button_label'], PDO::PARAM_STR);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 	/**
 	* Fetch the data for the content item being edited
 	*

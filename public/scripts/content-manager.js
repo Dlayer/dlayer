@@ -144,7 +144,7 @@ var contentManager =
 		$(selector).each(
 			function(index)
 			{
-				var id = this.id.replace('row-', '');
+				var id = $(this).data('row-id');
 
 				if(index !== 0) {
 					$(this).prepend(contentManager.moverButton('row-mover', 'up', 'Display sooner', id));
@@ -176,7 +176,7 @@ var contentManager =
 		$(selector).each(
 			function(index)
 			{
-				var id = this.id.replace('column-', '');
+				var id = $(this).data('column-id');
 
 				if(index !== 0) {
 					$(this).prepend(contentManager.moverButton('column-mover', 'up', 'Display sooner', id));
@@ -208,8 +208,7 @@ var contentManager =
 		$(selector).each(
 			function(index)
 			{
-				var id = this.id.split(':');
-				id = id[2];
+				var id = $(this).data('content-id');
 
 				if(index !== 0) {
 					$(this).prepend(contentManager.moverButton('content-mover', 'up', 'Display sooner', id));

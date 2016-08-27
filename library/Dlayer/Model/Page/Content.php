@@ -338,6 +338,15 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 					}
 				break;
 
+				case 'jumbotron':
+					$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+					$result = $model_jumbotron->add($site_id, $page_id, $content_id, $params);
+					if($result === FALSE)
+					{
+						$content_id = FALSE;
+					}
+				break;
+
 				default:
 					$content_id = FALSE;
 				break;
