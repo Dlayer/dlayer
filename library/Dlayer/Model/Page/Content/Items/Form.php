@@ -35,6 +35,64 @@ class Dlayer_Model_Page_Content_Items_Form extends Zend_Db_Table_Abstract
 		return $forms;
 	}
 
+	/**
+	 * Check to see if the given form id is valid for the site
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @return boolean
+	 */
+	public function valid($site_id, $id)
+	{
+		$sql = "SELECT id 
+				FROM user_site_form
+				WHERE site_id = :site_id 
+				AND id = :form_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Add a new form item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return boolean
+	 */
+	public function add($site_id, $page_id, $content_id, array $params)
+	{
+		$sql = "INSERT INTO user_site_page_content_item_form 
+				(site_id, page_id, content_id, form_id) 
+				VALUES 
+				(:site_id, :page_id, :content_id, :form_id)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->bindValue(':form_id', $params['form_id'], PDO::PARAM_INT);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
 
 
 
