@@ -33,14 +33,14 @@ abstract class Dlayer_Tool_Content extends Dlayer_Tool
 	public function validate(array $params, $site_id, $page_id, $row_id = NULL, $column_id = NULL,
 		$content_id = NULL)
 	{
+		$this->site_id = $site_id;
+		$this->page_id = $page_id;
+		$this->row_id = $row_id;
+		$this->column_id = $column_id;
+		$this->content_id = $content_id;
+
 		if($this->paramsExist($params) === TRUE && $this->paramsValid($params) === TRUE)
 		{
-			$this->site_id = $site_id;
-			$this->page_id = $page_id;
-			$this->row_id = $row_id;
-			$this->column_id = $column_id;
-			$this->content_id = $content_id;
-
 			$this->validated = TRUE;
 			$this->paramsAssign($params);
 

@@ -40,7 +40,7 @@ class Dlayer_Tool_Content_Form extends Dlayer_Tool_Content
 
 		$model_forms = new Dlayer_Model_Page_Content_Items_Form();
 
-		if(intval($params['form_id']) > 0 && $model_forms->valid($this->tool['site_id'], $params['form_id']) === TRUE)
+		if(intval($params['form_id']) > 0 && $model_forms->valid($this->site_id, $params['form_id']) === TRUE)
 		{
 			$valid = TRUE;
 		}
