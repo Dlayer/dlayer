@@ -36,8 +36,8 @@ class Dlayer_Ribbon_Content_Form extends Dlayer_Ribbon_Content
 	{
 		$data = array();
 
-		$model_forms = new Dlayer_Model_Page_Content_Items_Form();
-		$forms = $model_forms->forms($this->tool['site_id']);
+		$model_form = new Dlayer_Model_Page_Content_Items_Form();
+		$forms = $model_form->forms($this->tool['site_id']);
 
 		if(count($forms) > 0)
 		{
@@ -58,6 +58,17 @@ class Dlayer_Ribbon_Content_Form extends Dlayer_Ribbon_Content
 		$data = array(
 			'form_id' => FALSE
 		);
+
+		if($this->tool['content_id'] !== FALSE)
+		{
+			$model_form = new Dlayer_Model_Page_Content_Items_Form();
+			$form_id = $model_form->existingData($this->tool['site_id'], $this->tool['content_id']);
+
+			if($form_id !== FALSE)
+			{
+				$data['form_id'] = $form_id;
+			}
+		}
 
 		return $data;
 	}

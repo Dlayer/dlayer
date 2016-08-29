@@ -93,6 +93,89 @@ class Dlayer_Model_Page_Content_Items_Form extends Zend_Db_Table_Abstract
 		return $result;
 	}
 
+	/**
+	 * Edit the existing data
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return TRUE
+	 * @throws Exception
+	 */
+	public function edit($site_id, $page_id, $content_id, array $params)
+	{
+		if($this->updateContentItem($site_id, $page_id, $content_id, $params) === TRUE)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Update the custom data for a content item, stored in the content item structure table
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $id
+	 * @param array $params
+	 * @return boolean
+	 */
+	private function updateContentItem($site_id, $page_id, $id, array $params)
+	{
+		$sql = "UPDATE user_site_page_content_item_form  
+				SET form_id = :form_id  
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':form_id', $params['form_id'], PDO::PARAM_STR);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+	/**
+	 * Existing data, fetch the form id for the given site id and content id
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @return integer|FALSE
+	 */
+	public function existingData($site_id, $id)
+	{
+		$sql = "SELECT form_id 
+				FROM user_site_page_content_item_form 
+				WHERE site_id = :site_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return intval($result['form_id']);
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 
 
 
