@@ -429,7 +429,7 @@ insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`f
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (36,4,'Move row','move-row','MoveRow','move-row',1,0,99,99,0);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (37,4,'Move item','move-item','MoveItem','move-item',1,0,99,99,0);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (38,4,'Row','row','Row','row',1,0,3,1,1);
-insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (39,4,'Image','image','Image','image',0,0,5,3,0);
+insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (39,4,'Image','image','Image','image',0,0,5,3,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (40,4,'Carousel','carousel','ImageCarousel','carousel',0,0,99,6,0);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (41,4,'Select parent','select','Select','select',1,0,99,99,0);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`tool`,`tool_model`,`folder`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (42,3,'Layout','form-layout','FormLayout','form-layout',1,0,2,1,1);
