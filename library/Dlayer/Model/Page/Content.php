@@ -347,6 +347,15 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 					}
 				break;
 
+				case 'form':
+					$model_form = new Dlayer_Model_Page_Content_Items_Form();
+					$result = $model_form->add($site_id, $page_id, $content_id, $params);
+					if($result === FALSE)
+					{
+						$content_id = FALSE;
+					}
+				break;
+
 				default:
 					$content_id = FALSE;
 				break;

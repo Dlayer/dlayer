@@ -40,6 +40,10 @@ div#designer {
 		}
 		
 		div.content-manager {
+			& > div.container-fluid {
+				min-height: 600px;;
+			}
+
 			div.selected {
 				@include selected-state();
 			}
@@ -73,6 +77,18 @@ div#designer {
 
 				&:hover {
 					background-color: #e6e6e6;
+				}
+			}
+
+			div.row {
+				& > p.empty {
+					padding: 1em;
+				}
+			}
+
+			div.column {
+				& > p.empty {
+					padding: 1em;
 				}
 			}
 		}

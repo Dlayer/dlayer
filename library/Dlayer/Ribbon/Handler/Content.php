@@ -96,6 +96,10 @@ class Dlayer_Ribbon_Handler_Content
 				$data = $this->jumbotron($tool, $tab);
 			break;
 
+			case 'form':
+				$data = $this->form($tool, $tab);
+			break;
+
 
 			
 			
@@ -118,10 +122,6 @@ class Dlayer_Ribbon_Handler_Content
 
 			case 'move-item':
 				$data = $this->moveItem();
-			break;
-
-			case 'import-form':
-				$data = $this->importForm();
 			break;
 
 			case 'image':
@@ -296,6 +296,32 @@ class Dlayer_Ribbon_Handler_Content
 		return $data;
 	}
 
+	/**
+	 * Fetch the view tab data for the import form tools, returns an array containing the form and the data for the tool
+	 *
+	 * @param string $tool The tool name
+	 * @param string $tab The tool tab name
+	 * @return array|FALSE
+	 */
+	private function form($tool, $tab)
+	{
+		switch($tab)
+		{
+			case 'form':
+				$ribbon_form = new Dlayer_Ribbon_Content_Form();
+				$data = $ribbon_form->viewData($this->toolParams($tool));
+			break;
+
+			default:
+				$data = FALSE;
+			break;
+		}
+
+		return $data;
+	}
+
+
+
 
 
 
@@ -370,60 +396,6 @@ class Dlayer_Ribbon_Handler_Content
 				$ribbon_import_jumbotron =
 					new Dlayer_Ribbon_Content_ImportJumbotron();
 				$data = $ribbon_import_jumbotron->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			default:
-				$data = FALSE;
-			break;
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Fetch the view tab data for the import form tool, in this case a form
-	 * with the list of forms for the site, a width for the form container
-	 * and also a padding value
-	 *
-	 * @return array|FALSE
-	 */
-	private function importForm()
-	{
-		switch($this->tab)
-		{
-			case 'import-form':
-				$ribbon_form = new Dlayer_Ribbon_Content_ImportForm();
-				$data = $ribbon_form->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			case 'edit':
-				$ribbon_reference =
-					new Dlayer_Ribbon_Content_Reference_ImportForm();
-				$data = $ribbon_reference->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			case 'position':
-				$ribbon_position = new
-				Dlayer_Ribbon_Content_Position_ImportForm();
-				$data = $ribbon_position->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			case 'styling':
-				$ribbon_styling =
-					new Dlayer_Ribbon_Content_Styling_ImportForm();
-				$data = $ribbon_styling->viewData($this->site_id,
 					$this->page_id, $this->div_id, $this->tool, $this->tab,
 					$this->multi_use, $this->edit_mode, $this->content_row_id,
 					$this->content_id);

@@ -173,7 +173,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 					}
 					else
 					{
-						$html .= '<p>Empty column</p>';
+						$html .= '<p class="empty">Empty column</p>';
 					}
 				}
 
