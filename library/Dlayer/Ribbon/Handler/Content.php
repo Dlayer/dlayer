@@ -100,6 +100,12 @@ class Dlayer_Ribbon_Handler_Content
 				$data = $this->form($tool, $tab);
 			break;
 
+			case 'image':
+				$data = $this->image($tool, $tab);
+			break;
+
+
+
 
 			
 			
@@ -122,10 +128,6 @@ class Dlayer_Ribbon_Handler_Content
 
 			case 'move-item':
 				$data = $this->moveItem();
-			break;
-
-			case 'image':
-				$data = $this->image();
 			break;
 
 			case 'import-text':
@@ -320,6 +322,30 @@ class Dlayer_Ribbon_Handler_Content
 		return $data;
 	}
 
+	/**
+	 * Fetch the view tab data for the image tools, returns an array containing the form and the data for the tool
+	 *
+	 * @param string $tool The tool name
+	 * @param string $tab The tool tab name
+	 * @return array|FALSE
+	 */
+	private function image($tool, $tab)
+	{
+		switch($tab)
+		{
+			case 'image':
+				$ribbon_image = new Dlayer_Ribbon_Content_Image();
+				$data = $ribbon_image->viewData($this->toolParams($tool));
+			break;
+
+			default:
+				$data = FALSE;
+			break;
+		}
+
+		return $data;
+	}
+
 
 
 
@@ -401,67 +427,6 @@ class Dlayer_Ribbon_Handler_Content
 					$this->content_id);
 			break;
 
-			default:
-				$data = FALSE;
-			break;
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Fetch the view tab data for the selected image tool tab (sub tool)
-	 *
-	 * @return array|FALSE
-	 */
-	private function image()
-	{
-		switch($this->tab)
-		{
-			/**
-			 * Fetch the data for the image tab, the returned array will include
-			 * the html for the insert image form
-			 */
-			case 'image':
-				$ribbon_form = new Dlayer_Ribbon_Content_Image();
-				$data = $ribbon_form->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			/**
-			 * Fetch the data for the size and position tab, the returned aray
-			 * will include the html for the form along with the data required
-			 * for the preview functions
-			 */
-			case 'position':
-				$ribbon_position = new
-				Dlayer_Ribbon_Content_Position_Image();
-				$data = $ribbon_position->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			/**
-			 * Fetch the data for the styling tab, the returns array will
-			 * include the form foe the styling options along with the data
-			 * required for the preview functions
-			 */
-			case 'styling':
-				$ribbon_styling =
-					new Dlayer_Ribbon_Content_Styling_Image();
-				$data = $ribbon_styling->viewData($this->site_id,
-					$this->page_id, $this->div_id, $this->tool, $this->tab,
-					$this->multi_use, $this->edit_mode, $this->content_row_id,
-					$this->content_id);
-			break;
-
-			/**
-			 * No need to return any data to generate the view script, typically
-			 * this will be for help tabs
-			 */
 			default:
 				$data = FALSE;
 			break;
