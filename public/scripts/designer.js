@@ -160,6 +160,12 @@ var dlayerDesigner =
 		}
 	},
 
+	/**
+	 * If a user want to select or modify the selected image the image picker needs to open and query the users
+	 * Image library
+	 *
+	 * @returns {Void}
+	 */
 	imagePicker: {
 
 		url: '/content/ajax/image-picker',
