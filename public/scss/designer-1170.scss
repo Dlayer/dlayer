@@ -41,7 +41,7 @@ div#designer {
 		
 		div.content-manager {
 			& > div.container-fluid {
-				min-height: 600px;;
+				min-height: 400px;;
 			}
 
 			div.selected {
@@ -80,15 +80,16 @@ div#designer {
 				}
 			}
 
-			div.row {
-				& > p.empty {
-					padding: 1em;
+			div.row.empty {
+				& > p {
+					padding: 3em 2em;
 				}
 			}
 
-			div.column {
-				& > p.empty {
-					padding: 1em;
+			div.column.empty {
+				& > p {
+					padding-top: 3em;
+					padding-bottom: 3em;
 				}
 			}
 		}
