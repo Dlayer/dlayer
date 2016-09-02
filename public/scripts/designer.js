@@ -171,6 +171,7 @@ var dlayerDesigner =
 		url: '/content/ajax/image-picker',
 		method: 'GET',
 		dataType: 'html',
+		selector: '.image-picker',
 
 		/**
 		 * Start the image picker, adds the on click event to the image picker button
@@ -181,18 +182,16 @@ var dlayerDesigner =
 		{
 			$(".open-image-picker").on("click", function()
 			{
-				var selector = '.image-picker';
-
-				$(selector).slideDown();
+				$(dlayerDesigner.imagePicker.selector).slideDown();
 
 				$.ajax({
 					url: dlayerDesigner.imagePicker.url,
 					method: dlayerDesigner.imagePicker.method,
 					dataType: dlayerDesigner.imagePicker.dataType
 				}).done(function(html) {
-					$(selector + ' .loading').hide();
-					$(selector + ' .form').show();
-					$(selector + ' .form').html(html);
+					$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
+					$(dlayerDesigner.imagePicker.selector + ' .form').show();
+					$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
 				});
 			});
 		},

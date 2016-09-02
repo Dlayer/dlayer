@@ -16,15 +16,21 @@ class Content_AjaxController extends Zend_Controller_Action
 	*/
 	protected $_helper;
 
-	private $session_dlayer;
-	private $session_content;
+	private $site_id;
+	private $page_id;
+
+	/**
+	 * @var Dlayer_Session_Designer
+	 */
 	private $session_designer;
-	
+
+	/**
+	 * @var Dlayer_Model_ImagePicker
+	 */
 	private $model_image_picker;
 
 	/**
-	* Initialise the controller, run any required set up code and set
-	* properties required by controller actions
+	* Initialise the controller, run any required set up code and set properties required by controller actions
 	*
 	* @return void
 	*/
@@ -32,18 +38,19 @@ class Content_AjaxController extends Zend_Controller_Action
 	{
 		$this->_helper->authenticate();
 
+		$this->_helper->disableLayout(FALSE);
+
 		$this->_helper->setModule();
 
 		$this->_helper->validateSiteId();
 
-		$this->_helper->validateTemplateId(TRUE);
-		
-		$this->_helper->disableLayout(FALSE);
+		$session_dlayer = new Dlayer_Session();
+		$this->site_id = $session_dlayer->siteId();
 
-		$this->session_dlayer = new Dlayer_Session();
 		$this->session_content = new Dlayer_Session_Content();
+		$this->page_id = $this->session_content->pageId();
+
 		$this->session_designer = new Dlayer_Session_Designer();
-		
 	}
 	
 	/**
@@ -199,9 +206,17 @@ class Content_AjaxController extends Zend_Controller_Action
 		$category_id = $this->getRequest()->getParam('category_id');
 		$sub_category_id = $this->getRequest()->getParam('sub_category_id');
 		$image_id = $this->getRequest()->getParam('image_id');
-		
-		if($category_id != NULL) {
-			if($category_id != 'clear') {
+
+		/**
+		 *
+		 *
+		 * Move these, session class can do the checks
+		 *
+		 *
+		 *
+		 */
+		if($category_id !== NULL) {
+			if($category_id !== 'clear') {
 				$this->session_designer->setImagePickerCategoryId(
 					intval($category_id));
 			} else {
@@ -209,8 +224,8 @@ class Content_AjaxController extends Zend_Controller_Action
 			}
 		}
 		
-		if($sub_category_id != NULL) {
-			if($sub_category_id != 'clear') {
+		if($sub_category_id !== NULL) {
+			if($sub_category_id !== 'clear') {
 				$this->session_designer->setImagePickerSubCategoryId(
 					intval($sub_category_id));
 			} else {
@@ -218,16 +233,14 @@ class Content_AjaxController extends Zend_Controller_Action
 			}
 		}
 		
-		if($image_id != NULL) {
-			if($image_id != 'clear') {
+		if($image_id !== NULL) {
+			if($image_id !== 'clear') {
 				$this->session_designer->setImagePickerImageId(
 					intval($image_id));
 			} else {
 				$this->session_designer->clearImagePickerImageId();
 			}
 		}
-		
-		$site_id = $this->session_dlayer->siteId();
 		
 		$this->model_image_picker = new Dlayer_Model_ImagePicker();
 		
@@ -244,12 +257,9 @@ class Content_AjaxController extends Zend_Controller_Action
 			$this->view->visible = TRUE;
 		}
 		
-		$this->view->category = $this->imagePickerCategory($site_id, 
-			$category_id);
-		$this->view->sub_category = $this->imagePickerSubCategory($site_id, 
-			$category_id, $sub_category_id);
-		$this->view->images = $this->imagePickerImages($site_id, $category_id, 
-			$sub_category_id, $image_id);
+		$this->view->category = $this->imagePickerCategory($this->site_id, $category_id);
+		$this->view->sub_category = $this->imagePickerSubCategory($this->site_id, $category_id, $sub_category_id);
+		$this->view->images = $this->imagePickerImages($this->site_id, $category_id, $sub_category_id, $image_id);
 		
 		echo $this->view->render('ajax/image-picker.phtml');
 	}
