@@ -13,14 +13,8 @@ class Dlayer_View_FormElementImagePicker extends Zend_View_Helper_FormElement
 		extract($info); // name, value, attribs, options, listsep, disable
 
 		// build the element
-		$disabled = '';
-		if ($disable) {
-			// disabled
-			$disabled = ' disabled="disabled"';
-		}
-		
 		$xhtml = '<div class="clearfix"></div>'
-				. '<a class="btn btn-danger open-image-picker-tool" ' 
+				. '<a class="btn btn-danger open-image-picker" '
 				. 'href="#" role="button">Select image</a>'  
 				. '<input type="hidden"'
 				. ' name="' . $this->view->escape($name) . '"'

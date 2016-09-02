@@ -161,12 +161,51 @@ var dlayerDesigner =
 	},
 
 	/**
+	 * If a user wants to include an image we use the image picker, image picker will check environment to preset its
+	 * state
+	 *
+	 * @returns {Void}
+	 */
+	imagePicker: {
+
+		url: '/content/ajax/image-picker',
+		method: 'GET',
+		dataType: 'html',
+
+		/**
+		 * Start the image picker, adds the on click event to the image picker button
+		 *
+		 * @returns {Void}
+		 */
+		start: function()
+		{
+			$(".open-image-picker").on("click", function()
+			{
+				var selector = '.image-picker';
+
+				$(selector).slideDown();
+
+				$.ajax({
+					url: dlayerDesigner.imagePicker.url,
+					method: dlayerDesigner.imagePicker.method,
+					dataType: dlayerDesigner.imagePicker.dataType
+				}).done(function(html) {
+					$(selector + ' .loading').hide();
+					$(selector + ' .form').show();
+					$(selector + ' .form').html(html);
+				});
+			});
+		},
+
+	},
+
+	/**
 	 * If a user want to select or modify the selected image the image picker needs to open and query the users
 	 * Image library
 	 *
 	 * @returns {Void}
 	 */
-	imagePicker: {
+	imagePickerOld: {
 
 		url: '/content/ajax/image-picker',
 		method: 'GET',
@@ -194,9 +233,9 @@ var dlayerDesigner =
 		 */
 		cancel: function()
 		{
-			$(".open-image-picker-tool").text('Select image');
+			$(".open-image-picker").text('Select image');
 
-			$(".open-image-picker-tool").
+			$(".open-image-picker").
 			removeClass('btn-success').
 			addClass('btn-danger');
 
@@ -306,9 +345,9 @@ var dlayerDesigner =
 		{
 			$('.image-picker-tool .close-image-picker').trigger('click');
 
-			$(".open-image-picker-tool").text('Image selected');
+			$(".open-image-picker").text('Image selected');
 
-			$(".open-image-picker-tool").
+			$(".open-image-picker").
 			removeClass('btn-danger').
 			addClass('btn-success');
 
@@ -324,19 +363,18 @@ var dlayerDesigner =
 		},
 
 		/**
-		 * Open the image picker, the AJAX request checks the session to
-		 * see if any session values are set and then displays the picker in
-		 * the correct context
+		 * Start the image picker, adds the on click event to the image picker button and on click sends the Ajax
+		 * request
 		 *
 		 * @returns {Void}
 		 */
-		open: function()
+		start: function()
 		{
-			$(".open-image-picker-tool").on("click", function() {
+			$(".open-image-picker").on("click", function()
+			{
+				$('.image-picker-tool').slideDown();
 
-				$('.image-picker-tool').show();
-
-				$.ajax({
+				/*$.ajax({
 					url: dlayer.fn.imagePicker.url,
 					method: dlayer.fn.imagePicker.method,
 					dataType: dlayer.fn.imagePicker.dataType
@@ -344,7 +382,7 @@ var dlayerDesigner =
 					$('.image-picker-tool .loading').hide();
 					$('.image-picker-tool .form').show();
 					$('.image-picker-tool .form').html(html);
-				});
+				});*/
 			});
 		},
 
@@ -469,6 +507,6 @@ var dlayerDesigner =
 					$('.image-picker-tool .form').html(html);
 				});
 			});
-		},
+		}
 	}
 }

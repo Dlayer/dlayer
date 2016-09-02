@@ -1,24 +1,11 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <script>
-dlayerDesigner.imagePicker.open();
-
-<?php 
-if($this->data['selected_image'] != FALSE) { 
-$image = $this->data['selected_image'];	
-?>
-dlayerDesigner.imagePicker.complete(
-	<?php echo $image['image_id']; ?>, 
-	<?php echo $image['version_id']; ?>, 
-	"<?php echo $image['name']; ?>", 
-	"<?php echo $image['dimensions']; ?>", 
-	"<?php echo $image['size']; ?>", 
-	"<?php echo $image['extension']; ?>");
-<?php } ?>
+dlayerDesigner.imagePicker.start();
 </script>
 
 <div class="col-md-12 col-sm-12">
-	<div class="image-picker-tool panel panel-default">
+	<div class="image-picker panel panel-default">
 		<div class="panel-heading">
 			<h4>Image picker <small>Select library image</small>
 			<span class="glyphicon glyphicon-remove close-image-picker pull-right" 
