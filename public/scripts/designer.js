@@ -180,8 +180,7 @@ var dlayerDesigner =
 		 */
 		start: function()
 		{
-			$(".open-image-picker").on("click", function()
-			{
+			$(".open-image-picker").on("click", function() {
 				$(dlayerDesigner.imagePicker.selector).slideDown();
 
 				$.ajax({
@@ -196,6 +195,17 @@ var dlayerDesigner =
 			});
 		},
 
+		/**
+		 * Close the image picker
+		 *
+		 * @returns {Void}
+		 */
+		close: function()
+		{
+			$(".image-picker .close").on("click", function() {
+				$('.image-picker').slideUp();
+			});
+		}
 	},
 
 	/**
