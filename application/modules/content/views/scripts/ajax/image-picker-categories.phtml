@@ -1,14 +1,13 @@
 <script>
-dlayer.fn.imagePicker.setCategory();
+dlayerDesigner.imagePicker.setSelectedCategory();
 </script>
 
-<div class="form-group ip-category">
-	<label for="ip-category" class="required">Category</label>
-	<select name="ip-category" id="ip-category" class="form-control input-sm">
+<div class="form-group">
+	<label for="category-selector" class="required">Category</label>
+	<select name="category-selector" class="form-control input-sm category-selector">
 		<?php foreach($this->categories as $id=>$label) { ?>
 		<option value="<?php echo $this->escape($id); ?>"><?php echo $this->escape($label); ?></option>
 		<?php } ?>
 	</select>
-	<p class="help-block">Select a category from your Image 
-		library to show sub categories.</p>
+	<p class="help-block">Select a category from your Image library to show sub categories.</p>
 </div>

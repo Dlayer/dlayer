@@ -202,8 +202,60 @@ var dlayerDesigner =
 		 */
 		close: function()
 		{
-			$(".image-picker .close").on("click", function() {
-				$('.image-picker').slideUp();
+			$(dlayerDesigner.imagePicker.selector + " .close").on("click", function() {
+				$(dlayerDesigner.imagePicker.selector).slideUp();
+			});
+		},
+
+		/**
+		 * On change fire an Ajax request with the chosen category, posted to the image picker which then sets the
+		 * category, if valid, and returns the new state
+		 *
+		 * @returns {Void}
+		 */
+		setSelectedCategory: function()
+		{
+			$(dlayerDesigner.imagePicker.selector + " .category-selector").on("change", function() {
+
+				var category_id = $(this).val();
+
+				if(category_id !== 'null')
+				{
+					$.ajax({
+						url: dlayerDesigner.imagePicker.url,
+						method: dlayerDesigner.imagePicker.method,
+						dataType: dlayerDesigner.imagePicker.dataType,
+						data: {
+							category_id: category_id
+						}
+					}).done(function(html) {
+						$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
+						$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+					});
+				}
+			});
+		},
+
+		/**
+		 * Clear the selector category, fires an Ajax request asking for category to be clear and then returns the
+		 * new state
+		 *
+		 * @returns {Void}
+		 */
+		clearSelectedCategory: function()
+		{
+			$(dlayerDesigner.imagePicker.selector + " span.clear-selected-category").on("click", function() {
+				$.ajax({
+					url: dlayerDesigner.imagePicker.url,
+					method: dlayerDesigner.imagePicker.method,
+					dataType: dlayerDesigner.imagePicker.dataType,
+					data: {
+						category_id: 'clear'
+					}
+				}).done(function(html) {
+					$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
+					$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+				});
 			});
 		}
 	},
