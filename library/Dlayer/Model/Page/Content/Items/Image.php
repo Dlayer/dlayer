@@ -104,6 +104,7 @@ class Dlayer_Model_Page_Content_Items_Image extends Zend_Db_Table_Abstract
 	/**
 	 * Fetch the preview data for the selected image
 	 *
+	 * @since 0.99
 	 * @param integer $site_id
 	 * @param integer $image_id
 	 * @param integer $version_id
@@ -140,6 +141,59 @@ class Dlayer_Model_Page_Content_Items_Image extends Zend_Db_Table_Abstract
 		} else {
 			return FALSE;
 		}
+	}
+
+	/**
+	 * Edit the existing data
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return TRUE
+	 * @throws Exception
+	 */
+	public function edit($site_id, $page_id, $content_id, array $params)
+	{
+		if($this->updateContentItem($site_id, $page_id, $content_id, $params) === TRUE)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Update the custom data for a content item, stored in the content item structure table
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $id
+	 * @param array $params
+	 * @return boolean
+	 */
+	private function updateContentItem($site_id, $page_id, $id, array $params)
+	{
+		$sql = "UPDATE user_site_page_content_item_image 
+				SET version_id = :version_id, expand = :expand, caption = :caption 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $params['version_id'], PDO::PARAM_INT);
+		$stmt->bindValue(':expand', $params['expand'], PDO::PARAM_INT);
+		$stmt->bindValue(':caption', $params['caption'], PDO::PARAM_STR);
+		$result = $stmt->execute();
+
+		return $result;
 	}
 
 

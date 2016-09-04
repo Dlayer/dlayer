@@ -9,11 +9,11 @@
 * Environment setting for application.ini, valid options are 
 * production, development, testing or staging
 */
-//$environment = 'production';
-$environment = 'development';
+$environment = 'production';
+//$environment = 'development';
 
 /**
 * Version number and version release date
 */
-$version_no = 'v0.99-alpha-2';
-$version_release_date = '17th July 2016';
+$version_no = 'v0.99-alpha-3';
+$version_release_date = '5th September 2016';

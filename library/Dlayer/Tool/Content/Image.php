@@ -109,7 +109,25 @@ class Dlayer_Tool_Content_Image extends Dlayer_Tool_Content
 	 */
 	protected function edit()
 	{
-		// TODO: Implement edit() method.
+		$model_content_image = new Dlayer_Model_Page_Content_Items_Image();
+
+		try
+		{
+			$result = $model_content_image->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+		}
+		catch(Exception $e)
+		{
+			throw new Exception($e->getMessage(), $e->getCode(), $e);
+		}
+
+		if($result === TRUE)
+		{
+			return $this->returnIds();
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
