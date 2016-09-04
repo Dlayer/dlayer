@@ -26,16 +26,16 @@ class Dlayer_View_FormElementImagePicker extends Zend_View_Helper_FormElement
 		$xhtml .= '
 		<div class="row image-picker-preview" style="display: none; padding-top:5px;">
 			<div class="col-xs-12">
-				<h4>Selected <small>Preview of selection</small></h4>
+				<h5>Selected <small>Preview of selection</small></h5>
 			</div>
-			<div class="col-xs-4">
-				<img src="/images/dlayer/image-picker-preview.jpg" class="image img-thumbnail" title="Image picker preview" alt="Selected image place holder" width="90" height="70">
+			<div class="col-xs-6">
+				<img src="/images/dlayer/image-picker-preview.jpg" class="image img-thumbnail" title="Image picker preview" alt="Selected image place holder" width="160" height="120">
 			</div>
-			<div class="col-xs-8">
+			<div class="col-xs-6">
 				<p>
-					<strong>Name:</strong> <span class="name">[Name]</span><br>
-					<strong>Dimenisons:</strong> <span class="dimensions">[Dimensions]</span><br>
-					<strong>Size:</strong> <span class="size">[Size]</span>
+					<strong><span class="name">[Name]</span></strong><br>
+					- <span class="dimensions">[Dimensions]</span><br>
+					- <span class="size">[Size]</span>
 				</p>
 			</div>
 		</div>';
