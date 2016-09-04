@@ -22,7 +22,8 @@ class Dlayer_Ribbon_Content_Image extends Dlayer_Ribbon_Content
 		$this->tool = $tool;
 
 		return array(
-			'form' => new Dlayer_Form_Content_Image($tool, $this->contentData(), $this->instancesOfData(), array())
+			'form' => new Dlayer_Form_Content_Image($tool, $this->contentData(), $this->instancesOfData(), array()),
+			'image' => $this->selectedImage()
 		);
 	}
 
@@ -36,11 +37,59 @@ class Dlayer_Ribbon_Content_Image extends Dlayer_Ribbon_Content
 	{
 		$data = array(
 			'version_id' => FALSE,
-			'exapnd' => FALSE,
+			'expand' => FALSE,
 			'caption' => FALSE
 		);
 
+		if($this->tool['content_id'] !== FALSE)
+		{
+			$model_image = new Dlayer_Model_Page_Content_Items_Image();
+			$existing_data = $model_image->existingData($this->tool['site_id'], $this->tool['content_id']);
+
+			if($existing_data !== FALSE)
+			{
+				$data['version_id'] = intval($existing_data['version_id']);
+				$data['expand'] = intval($existing_data['expand']);
+				$data['caption'] = $existing_data['caption'];
+			}
+		}
+
 		return $data;
+	}
+
+	/**
+	 * Fetch the data for the selected image if the user is in edit mode
+	 *
+	 * @return array|FALSE
+	 */
+	private function selectedImage()
+	{
+		$image = FALSE;
+
+		$session_designer = new Dlayer_Session_Designer();
+
+		if($this->tool['content_id'] !== FALSE && $session_designer->imagePickerCategoryId() !== NULL &&
+			$session_designer->imagePickerSubCategoryId() !== NULL &&
+			$session_designer->imagePickerImageId() !== NULL &&
+			$session_designer->imagePickerCategoryId() !== NULL)
+		{
+			$model_image = new Dlayer_Model_Page_Content_Items_Image();
+			$preview = $model_image->previewImage($this->tool['site_id'], $session_designer->imagePickerImageId(),
+				$session_designer->imagePickerVersionId());
+
+			if($preview != FALSE) {
+				$image = array(
+					'image_id' => $session_designer->imagePickerImageId(),
+					'version_id' => $session_designer->imagePickerVersionId(),
+					'name' => $preview['name'],
+					'dimensions' => $preview['dimensions'],
+					'size' => $preview['size'],
+					'extension' => $preview['extension']
+				);
+			}
+		}
+
+		return $image;
 	}
 
 	/**

@@ -69,6 +69,82 @@ class Dlayer_Model_Page_Content_Items_Image extends Zend_Db_Table_Abstract
 		return $result;
 	}
 
+	/**
+	 * Existing data, fetch the existing data for the content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @return array|FALSE
+	 */
+	public function existingData($site_id, $id)
+	{
+		$sql = "SELECT version_id, expand, caption  
+				FROM user_site_page_content_item_image 
+				WHERE site_id = :site_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return $result;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Fetch the preview data for the selected image
+	 *
+	 * @param integer $site_id
+	 * @param integer $image_id
+	 * @param integer $version_id
+	 * @return array|FALSE Returns an array containing the preview data or FALSE if image can't be selected
+	 */
+	public function previewImage($site_id, $image_id, $version_id)
+	{
+		$sql = 'SELECT usil.`name`, usilvm.width, usilvm.height, usilvm.size, usilvm.extension 
+				FROM user_site_image_library_version usilv 
+				JOIN user_site_image_library usil 
+					ON usilv.library_id = usil.id 
+					AND usil.id = :image_id 
+					AND usil.site_id = :site_id 
+				JOIN user_site_image_library_version_meta usilvm 
+					ON usilv.id = usilvm.version_id 
+					AND usilvm.library_id = :image_id 
+					AND usilvm.site_id = :site_id 
+				WHERE usilv.id = :version_id 
+				AND usilv.library_id = :image_id 
+				AND usilv.site_id = :site_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			$result['size'] = Dlayer_Helper::readableFilesize($result['size']);
+			$result['dimensions'] = $result['width'] . ' x ' . $result['height'] . ' pixels';
+			return $result;
+		} else {
+			return FALSE;
+		}
+	}
+
+
+
+
 
 	/**
 	* Insert an image as a content item
@@ -205,50 +281,6 @@ class Dlayer_Model_Page_Content_Items_Image extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->execute();
-		
-		$result = $stmt->fetch();
-		
-		if($result != FALSE) {
-			
-			$result['size'] = Dlayer_Helper::readableFilesize($result['size']);
-			$result['dimensions'] = $result['width'] . ' x ' . 
-				$result['height'] . ' pixels';
-			return $result;
-		} else {
-			return FALSE;
-		}
-	}
-	
-	/**
-	* Fetch the data for the image defined in the designer session
-	* 
-	* @param integer $site_id 
-	* @param integer $image_id 
-	* @param integer $version_id 
-	* @return array|FALSE Either returns an array containing the image name 
-	* 	name of FALSE if the image cannot be selected
-	*/
-	public function sessionImage($site_id, $image_id, $version_id) 
-	{
-		$sql = 'SELECT usil.`name`, usilvm.width, usilvm.height, usilvm.size, 
-				usilvm.extension 
-				FROM user_site_image_library_version usilv 
-				JOIN user_site_image_library usil 
-					ON usilv.library_id = usil.id 
-					AND usil.id = :image_id 
-					AND usil.site_id = :site_id 
-				JOIN user_site_image_library_version_meta usilvm 
-					ON usilv.id = usilvm.version_id 
-					AND usilvm.library_id = :image_id 
-					AND usilvm.site_id = :site_id 
-				WHERE usilv.id = :version_id 
-				AND usilv.library_id = :image_id 
-				AND usilv.site_id = :site_id';
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
-		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
 		$stmt->execute();
 		
 		$result = $stmt->fetch();

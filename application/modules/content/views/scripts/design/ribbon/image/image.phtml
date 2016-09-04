@@ -2,6 +2,10 @@
 
 <script>
 dlayerDesigner.imagePicker.start();
+
+<?php if($this->data['image'] !== FALSE) { ?>
+dlayerDesigner.imagePicker.finalise(<?php echo $this->data['image']['image_id']; ?>, <?php echo $this->data['image']['version_id']; ?>, '<?php echo $this->data['image']['name']; ?>', '<?php echo $this->data['image']['dimensions']; ?>', '<?php echo $this->data['image']['size']; ?>', '<?php echo $this->data['image']['extension']; ?>')
+<?php } ?>
 </script>
 
 <div class="col-md-12 col-sm-12">
