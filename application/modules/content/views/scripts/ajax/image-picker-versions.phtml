@@ -1,63 +1,57 @@
 <script>
-dlayer.fn.imagePicker.clearImage();
-dlayer.fn.imagePicker.selectImage();
+dlayerDesigner.imagePicker.clearSelectedImage();
+dlayerDesigner.imagePicker.selectImage();
 </script>
 
 <h4>Image: <small title="<?php echo $this->escape($this->image['number_of_versions']); ?> image versions">
 	<?php echo $this->escape($this->image['name']); ?> 
 	<span class="badge"><?php echo $this->escape($this->image['number_of_versions']); ?></span></small> 
-	<span class="glyphicon glyphicon-remove pull-right clear-image-picker-value clear-image-picker-image" 
+	<span class="glyphicon glyphicon-remove pull-right close-icon clear-selected-image"
 	title="Clear image" aria-hidden="true"></span></h4>
 	
 <hr />
 
-<div class="version-list">
-	<h4>Versions <small>Select a version of this image from the list 
-		below, the selected version will be highlighted if your are 
-		editing.</small></h4>
+<h4>Versions <small>Select a version of this image from the list
+	below, the selected version will be highlighted if your are
+	editing.</small></h4>
 
-	<?php foreach($this->versions as $image) { ?>
-	
-	<?php 
-		$selected = FALSE;
-		
-		if($this->version_id != NULL && 
-		$this->version_id == $image['version_id']) {
-			$selected = TRUE;
-			
-		}
-	?>
-	
-	<?php $src = $this->escape($image['image_id'] . 
-		'/' . $image['version_id'] . $image['extension']); ?>
-	<?php $dimensions = $this->escape($image['width'] . ' x ' . 
-		$image['height'] . ' pixels'); ?>
-	<?php $select_id = $this->escape('ip-image-' . $image['image_id'] . ':' . 
-		$image['version_id']); ?>
-	<?php $set_id = $this->escape('ip-set-image-' . $image['image_id']); ?>	
+<?php foreach($this->versions as $image) { ?>
 
-	<div class="row<?php if($selected == TRUE) { echo ' bg-success'; } ?>" style="padding: 5px 0px;">
-		<div class="col-xs-4">
-		<img src="/images/library/<?php echo $src; ?>" 
-			title="<?php echo $this->escape($image['name']); ?>" 
-			alt="Image library image" width="160" height="120" 
-			class="img-thumbnail">
-		</div>
-		<div class="col-xs-8">
-			<p>
-				<strong>Name:</strong> <?php echo $this->escape($image['name']); ?><br />
-				<strong>Dimenisons:</strong> <?php echo $dimensions; ?><br />
-				<strong>Size:</strong> <?php echo $this->escape($image['size']); ?>
-			</p>
-		</div>
-		<div class="col-xs-12 text-right">
-			<div class="btn-group btn-group-xs" role="group" aria-label="...">
-				<button type="button" 
-					class="btn btn-primary ip-select-image" 
-					id="<?php echo $select_id; ?>"><?php if($selected == FALSE) { echo 'Select'; } else { echo 'Selected'; } ?></button>
-			</div>
+<?php
+	$selected = FALSE;
+
+	if($this->version_id != NULL &&
+	$this->version_id == $image['version_id']) {
+		$selected = TRUE;
+
+	}
+?>
+
+<?php $src = $this->escape($image['image_id'] .
+	'/' . $image['version_id'] . $image['extension']); ?>
+<?php $dimensions = $this->escape($image['width'] . ' x ' .
+	$image['height'] . ' pixels'); ?>
+<?php $select_id = $this->escape('ip-image-' . $image['image_id'] . ':' .
+	$image['version_id']); ?>
+<?php $set_id = $this->escape('ip-set-image-' . $image['image_id']); ?>
+
+<div class="row" style="margin-bottom: 10px;">
+	<div class="col-xs-6">
+	<img src="/images/library/<?php echo $src; ?>" title="<?php echo $this->escape($image['name']); ?>"
+	     alt="Image library image" width="160" height="120" class="img-thumbnail" />
+	</div>
+	<div class="col-xs-6 small">
+		<p>
+			<strong><?php echo $this->escape($image['name']); ?></strong><br />
+			- <?php echo $dimensions; ?><br />
+			- <?php echo $this->escape($image['size']); ?>
+		</p>
+	</div>
+	<div class="col-xs-12 text-right">
+		<div class="btn-group btn-group-xs" role="group" aria-label="...">
+			<button type="button" class="btn btn-primary version-selector" data-version-id="<?php echo $this->escape($image['version_id']); ?>" data-image-id="<?php echo $this->escape($image['image_id']); ?>"><?php if($selected == FALSE) { echo 'Select'; } else { echo 'Selected'; } ?></button>
 		</div>
 	</div>
-	
-	<?php } ?>
 </div>
+
+<?php } ?>

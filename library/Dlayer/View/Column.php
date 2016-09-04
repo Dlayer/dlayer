@@ -153,30 +153,31 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 					}
 				}
 
-				$html .= '<div class="' . $class . ' col-' . $column['class'] . '-' . $column['size'] .
-					'" data-column-id="' . $column['id'] . '">';
-
 				if(strlen($rows) > 0)
 				{
-					$html .= '<p>' . $rows . '</p>';
+					$content = '<p>' . $rows . '</p>';
 				}
 				else
 				{
 					$this->view->content()->setColumnId($column['id']);
 					$this->view->content()->setSelectedColumnId($this->selected_column_id);
 					$this->view->content()->setSelectedContentId($this->selected_content_id);
-					$content = $this->view->content()->render();
+					$column_content = $this->view->content()->render();
 
-					if(strlen($content) > 0)
+					if(strlen($column_content) > 0)
 					{
-						$html .= $content;
+						$content = $column_content;
 					}
 					else
 					{
-						$html .= '<p class="empty">Empty column</p>';
+						$content = '<p class="text-muted"><em>Empty column</em></p>';
+						$class .= ' empty';
 					}
 				}
 
+				$html .= '<div class="' . $class . ' col-' . $column['class'] . '-' . $column['size'] .
+					'" data-column-id="' . $column['id'] . '">';
+				$html .= $content;
 				$html .= '</div>';
 			}
 		}

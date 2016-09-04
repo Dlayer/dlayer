@@ -1,6 +1,7 @@
 <?php
+
 /**
-* Import form tool
+* Import form tool model
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited

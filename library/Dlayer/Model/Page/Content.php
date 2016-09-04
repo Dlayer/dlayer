@@ -356,6 +356,15 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 					}
 				break;
 
+				case 'image':
+					$model_image = new Dlayer_Model_Page_Content_Items_Image();
+					$result = $model_image->add($site_id, $page_id, $content_id, $params);
+					if($result === FALSE)
+					{
+						$content_id = FALSE;
+					}
+				break;
+
 				default:
 					$content_id = FALSE;
 				break;

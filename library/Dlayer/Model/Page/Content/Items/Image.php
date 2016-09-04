@@ -1,15 +1,205 @@
 <?php
+
 /**
-* Image content item model, all the model methods for adding and editing 
-* an image content item
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
-class Dlayer_Model_Page_Content_Items_Image 
-extends Dlayer_Model_Page_Content_Item
-{   
+ * Import image tool model
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
+class Dlayer_Model_Page_Content_Items_Image extends Zend_Db_Table_Abstract
+{
+	/**
+	 * Check to see if the given version id is valid for the requested site
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $version_id
+	 * @return boolean
+	 */
+	public function valid($site_id, $version_id)
+	{
+		$sql = "SELECT id 
+				FROM user_site_image_library_version 
+				WHERE site_id = :site_id  
+				AND id = :version_id  
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Add a new image item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return boolean
+	 */
+	public function add($site_id, $page_id, $content_id, array $params)
+	{
+		$sql = "INSERT INTO user_site_page_content_item_image 
+				(site_id, page_id, content_id, version_id, expand, caption) 
+				VALUES 
+				(:site_id, :page_id, :content_id, :version_id, :expand, :caption)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $params['version_id'], PDO::PARAM_INT);
+		$stmt->bindValue(':expand', $params['expand'], PDO::PARAM_INT);
+		$stmt->bindValue(':caption', $params['caption'], PDO::PARAM_STMT);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+	/**
+	 * Existing data, fetch the existing data for the content item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $id
+	 * @return array|FALSE
+	 */
+	public function existingData($site_id, $id)
+	{
+		$sql = "SELECT version_id, expand, caption  
+				FROM user_site_page_content_item_image 
+				WHERE site_id = :site_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return $result;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Fetch the preview data for the selected image
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $image_id
+	 * @param integer $version_id
+	 * @return array|FALSE Returns an array containing the preview data or FALSE if image can't be selected
+	 */
+	public function previewImage($site_id, $image_id, $version_id)
+	{
+		$sql = 'SELECT usil.`name`, usilvm.width, usilvm.height, usilvm.size, usilvm.extension 
+				FROM user_site_image_library_version usilv 
+				JOIN user_site_image_library usil 
+					ON usilv.library_id = usil.id 
+					AND usil.id = :image_id 
+					AND usil.site_id = :site_id 
+				JOIN user_site_image_library_version_meta usilvm 
+					ON usilv.id = usilvm.version_id 
+					AND usilvm.library_id = :image_id 
+					AND usilvm.site_id = :site_id 
+				WHERE usilv.id = :version_id 
+				AND usilv.library_id = :image_id 
+				AND usilv.site_id = :site_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			$result['size'] = Dlayer_Helper::readableFilesize($result['size']);
+			$result['dimensions'] = $result['width'] . ' x ' . $result['height'] . ' pixels';
+			return $result;
+		} else {
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Edit the existing data
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return TRUE
+	 * @throws Exception
+	 */
+	public function edit($site_id, $page_id, $content_id, array $params)
+	{
+		if($this->updateContentItem($site_id, $page_id, $content_id, $params) === TRUE)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Update the custom data for a content item, stored in the content item structure table
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $id
+	 * @param array $params
+	 * @return boolean
+	 */
+	private function updateContentItem($site_id, $page_id, $id, array $params)
+	{
+		$sql = "UPDATE user_site_page_content_item_image 
+				SET version_id = :version_id, expand = :expand, caption = :caption 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND content_id = :content_id 
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $params['version_id'], PDO::PARAM_INT);
+		$stmt->bindValue(':expand', $params['expand'], PDO::PARAM_INT);
+		$stmt->bindValue(':caption', $params['caption'], PDO::PARAM_STR);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+
+
+
+
 	/**
 	* Insert an image as a content item
 	*
@@ -145,50 +335,6 @@ extends Dlayer_Model_Page_Content_Item
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->execute();
-		
-		$result = $stmt->fetch();
-		
-		if($result != FALSE) {
-			
-			$result['size'] = Dlayer_Helper::readableFilesize($result['size']);
-			$result['dimensions'] = $result['width'] . ' x ' . 
-				$result['height'] . ' pixels';
-			return $result;
-		} else {
-			return FALSE;
-		}
-	}
-	
-	/**
-	* Fetch the data for the image defined in the designer session
-	* 
-	* @param integer $site_id 
-	* @param integer $image_id 
-	* @param integer $version_id 
-	* @return array|FALSE Either returns an array containing the image name 
-	* 	name of FALSE if the image cannot be selected
-	*/
-	public function sessionImage($site_id, $image_id, $version_id) 
-	{
-		$sql = 'SELECT usil.`name`, usilvm.width, usilvm.height, usilvm.size, 
-				usilvm.extension 
-				FROM user_site_image_library_version usilv 
-				JOIN user_site_image_library usil 
-					ON usilv.library_id = usil.id 
-					AND usil.id = :image_id 
-					AND usil.site_id = :site_id 
-				JOIN user_site_image_library_version_meta usilvm 
-					ON usilv.id = usilvm.version_id 
-					AND usilvm.library_id = :image_id 
-					AND usilvm.site_id = :site_id 
-				WHERE usilv.id = :version_id 
-				AND usilv.library_id = :image_id 
-				AND usilv.site_id = :site_id';
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
-		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
 		$stmt->execute();
 		
 		$result = $stmt->fetch();

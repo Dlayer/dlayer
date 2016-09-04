@@ -1,36 +1,30 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <script>
-dlayer.fn.imagePicker.open();
+dlayerDesigner.imagePicker.start();
 
-<?php 
-if($this->data['selected_image'] != FALSE) { 
-$image = $this->data['selected_image'];	
-?>
-dlayer.fn.imagePicker.complete(
-	<?php echo $image['image_id']; ?>, 
-	<?php echo $image['version_id']; ?>, 
-	"<?php echo $image['name']; ?>", 
-	"<?php echo $image['dimensions']; ?>", 
-	"<?php echo $image['size']; ?>", 
-	"<?php echo $image['extension']; ?>");
+<?php if($this->data['image'] !== FALSE) { ?>
+dlayerDesigner.imagePicker.finalise(<?php echo $this->data['image']['image_id']; ?>, <?php echo $this->data['image']['version_id']; ?>, '<?php echo $this->data['image']['name']; ?>', '<?php echo $this->data['image']['dimensions']; ?>', '<?php echo $this->data['image']['size']; ?>', '<?php echo $this->data['image']['extension']; ?>')
 <?php } ?>
 </script>
 
 <div class="col-md-12 col-sm-12">
-	<div class="image-picker-tool panel panel-default">
+	<div class="image-picker panel panel-default">
 		<div class="panel-heading">
-			<h4>Image picker <small>Select library image</small>
-			<span class="glyphicon glyphicon-remove close-image-picker pull-right" 
+			<h4>Image picker <small>Select an image</small>
+			<span class="glyphicon glyphicon-remove close pull-right"
 				title="Close image picker" aria-hidden="true"></span></h4>
 		</div>
 		<div class="panel-body">
-			<div class="row">
-				<div class="loading col-xs-4 col-xs-offset-4 text-center">
+			<div class="row loading">
+				<div class="col-xs-4 col-xs-offset-4 text-center">
 					<img src="/images/dlayer/ajax-loader.gif" title="Loading..." />
 				</div>
 			</div>
-			<div class="form">
+			<div class="row">
+				<div class="form col-sm-12">
+
+				</div>
 			</div>
 		</div>	
 	</div>	

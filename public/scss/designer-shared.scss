@@ -53,3 +53,19 @@
 		cursor: pointer;
 	}
 }
+
+.image-picker {
+	display: none;
+	margin-top: 1em;
+
+	.panel-heading {
+		padding: 5px 10px;
+	}
+	.panel-body {
+		padding: 5px 10px;
+	}
+
+	.close-icon {
+		cursor: pointer;
+	}
+}
