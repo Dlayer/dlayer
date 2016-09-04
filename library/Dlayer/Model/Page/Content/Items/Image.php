@@ -1,15 +1,75 @@
 <?php
+
 /**
-* Image content item model, all the model methods for adding and editing 
-* an image content item
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
-class Dlayer_Model_Page_Content_Items_Image 
-extends Dlayer_Model_Page_Content_Item
-{   
+ * Import image tool model
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
+class Dlayer_Model_Page_Content_Items_Image extends Zend_Db_Table_Abstract
+{
+	/**
+	 * Check to see if the given version id is valid for the requested site
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $version_id
+	 * @return boolean
+	 */
+	public function valid($site_id, $version_id)
+	{
+		$sql = "SELECT id 
+				FROM user_site_image_library_version 
+				WHERE site_id = :site_id  
+				AND id = :version_id  
+				LIMIT 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $version_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Add a new image item
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 * @param array $params The params data array from the tool
+	 * @return boolean
+	 */
+	public function add($site_id, $page_id, $content_id, array $params)
+	{
+		$sql = "INSERT INTO user_site_page_content_item_image 
+				(site_id, page_id, content_id, version_id, expand, caption) 
+				VALUES 
+				(:site_id, :page_id, :content_id, :version_id, :expand, :caption)";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->bindValue(':version_id', $params['version_id'], PDO::PARAM_INT);
+		$stmt->bindValue(':expand', $params['expand'], PDO::PARAM_INT);
+		$stmt->bindValue(':caption', $params['caption'], PDO::PARAM_STMT);
+		$result = $stmt->execute();
+
+		return $result;
+	}
+
+
 	/**
 	* Insert an image as a content item
 	*
