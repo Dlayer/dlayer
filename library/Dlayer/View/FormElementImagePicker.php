@@ -24,7 +24,7 @@ class Dlayer_View_FormElementImagePicker extends Zend_View_Helper_FormElement
 				. $this->getClosingBracket();
 				
 		$xhtml .= '
-		<div class="row image-picker-preview" style="padding-top:5px;">
+		<div class="row image-picker-preview" style="display: none; padding-top:5px;">
 			<div class="col-xs-12">
 				<h4>Selected <small>Preview of selection</small></h4>
 			</div>

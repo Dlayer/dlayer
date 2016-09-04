@@ -185,9 +185,7 @@ dlayerDesigner = {
 					dataType: dlayerDesigner.imagePicker.dataType
 				}).done(function(html)
 				{
-					$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
-					$(dlayerDesigner.imagePicker.selector + ' .form').show();
-					$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+					dlayerDesigner.imagePicker.populate(html);
 				});
 			});
 		},
@@ -199,6 +197,7 @@ dlayerDesigner = {
 		{
 			$(dlayerDesigner.imagePicker.selector + " .close").on("click", function()
 			{
+				$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
 				$(dlayerDesigner.imagePicker.selector).slideUp();
 			});
 		},
@@ -215,6 +214,7 @@ dlayerDesigner = {
 
 				if(category_id !== 'null')
 				{
+					$(dlayerDesigner.imagePicker.selector + ' .form').hide();
 					$(dlayerDesigner.imagePicker.selector + ' .loading').show();
 
 					$.ajax({
@@ -226,8 +226,7 @@ dlayerDesigner = {
 						}
 					}).done(function(html)
 					{
-						$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
-						$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+						dlayerDesigner.imagePicker.populate(html);
 					});
 				}
 			});
@@ -245,6 +244,7 @@ dlayerDesigner = {
 
 				if(sub_category_id !== 'null')
 				{
+					$(dlayerDesigner.imagePicker.selector + ' .form').hide();
 					$(dlayerDesigner.imagePicker.selector + ' .loading').show();
 
 					$.ajax({
@@ -256,10 +256,36 @@ dlayerDesigner = {
 						}
 					}).done(function(html)
 					{
-						$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
-						$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+						dlayerDesigner.imagePicker.populate(html);
 					});
 				}
+			});
+		},
+
+		/**
+		 * Set the selected image, fires an Ajax request asking for the image id to be set and then returns the
+		 * new state with versions being displayed
+		 */
+		setSelectedImage: function()
+		{
+			$(dlayerDesigner.imagePicker.selector + " .image-selector").on("click", function()
+			{
+				var image_id = $(this).data('image-id');
+
+				$(dlayerDesigner.imagePicker.selector + ' .form').hide();
+				$(dlayerDesigner.imagePicker.selector + ' .loading').show();
+
+				$.ajax({
+					url: dlayerDesigner.imagePicker.url,
+					method: dlayerDesigner.imagePicker.method,
+					dataType: dlayerDesigner.imagePicker.dataType,
+					data: {
+						image_id: image_id
+					}
+				}).done(function(html)
+				{
+					dlayerDesigner.imagePicker.populate(html);
+				});
 			});
 		},
 
@@ -271,6 +297,7 @@ dlayerDesigner = {
 		{
 			$(dlayerDesigner.imagePicker.selector + " span.clear-selected-category").on("click", function()
 			{
+				$(dlayerDesigner.imagePicker.selector + ' .form').hide();
 				$(dlayerDesigner.imagePicker.selector + ' .loading').show();
 
 				$.ajax({
@@ -282,8 +309,7 @@ dlayerDesigner = {
 					}
 				}).done(function(html)
 				{
-					$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
-					$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+					dlayerDesigner.imagePicker.populate(html);
 				});
 			});
 		},
@@ -296,6 +322,7 @@ dlayerDesigner = {
 		{
 			$(dlayerDesigner.imagePicker.selector + " span.clear-selected-sub-category").on("click", function()
 			{
+				$(dlayerDesigner.imagePicker.selector + ' .form').hide();
 				$(dlayerDesigner.imagePicker.selector + ' .loading').show();
 
 				$.ajax({
@@ -307,8 +334,32 @@ dlayerDesigner = {
 					}
 				}).done(function(html)
 				{
-					$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
-					$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+					dlayerDesigner.imagePicker.populate(html);
+				});
+			});
+		},
+
+		/**
+		 * Clear the selected image, fires an Ajax request asking for the image to be cleared and then returns the
+		 * new state of the image picker
+		 */
+		clearSelectedImage: function()
+		{
+			$(dlayerDesigner.imagePicker.selector + " span.clear-selected-image").on("click", function()
+			{
+				$(dlayerDesigner.imagePicker.selector + ' .form').hide();
+				$(dlayerDesigner.imagePicker.selector + ' .loading').show();
+
+				$.ajax({
+					url: dlayerDesigner.imagePicker.url,
+					method: dlayerDesigner.imagePicker.method,
+					dataType: dlayerDesigner.imagePicker.dataType,
+					data: {
+						image_id: 'clear'
+					}
+				}).done(function(html)
+				{
+					dlayerDesigner.imagePicker.populate(html);
 				});
 			});
 		},
@@ -321,6 +372,7 @@ dlayerDesigner = {
 		{
 			$(dlayerDesigner.imagePicker.selector + " .version-selector").on("click", function()
 			{
+				$(dlayerDesigner.imagePicker.selector + ' .form').hide();
 				$(dlayerDesigner.imagePicker.selector + ' .loading').show();
 
 				var image_id = $(this).data('image-id');
@@ -348,7 +400,7 @@ dlayerDesigner = {
 		 */
 		finalise: function(image_id, version_id, name, dimensions, size, extension)
 		{
-			//$('.image-picker-tool .close-image-picker').trigger('click');
+			$(dlayerDesigner.imagePicker.selector + " .close").trigger('click');
 
 			$(dlayerDesigner.imagePicker.openSelector).text('Image selected');
 
@@ -364,99 +416,17 @@ dlayerDesigner = {
 
 			$('.image-picker-preview').show();
 		},
-	},
-
-	/**
-	 * If a user want to select or modify the selected image the image picker needs to open and query the users
-	 * Image library
-	 *
-	 * @returns {Void}
-	 */
-	imagePickerOld: {
-
-		url: '/content/ajax/image-picker',
-		method: 'GET',
-		dataType: 'html',
 
 		/**
-		 * Cancel the request, clears the hidden field and resets the
-		 * select image button and clears any preview
+		 * Populate the form, hide the loading indicator and show the form
 		 *
-		 * @returns {Void}
+		 * @param {String} html
 		 */
-		cancel: function()
+		populate: function(html)
 		{
-			$(".open-image-picker").text('Select image');
-
-			$(".open-image-picker").removeClass('btn-success').addClass('btn-danger');
-
-			$('#params-version_id').val('');
-
-			$('.ipp-name').text('[Name]');
-			$('.ipp-dimensions').text('[Dimensions]');
-			$('.ipp-size').text('[Size]');
-			$('.ipp-image').attr('src',
-				'/images/dlayer/image-picker-preview.jpg');
-
-			$('.image-picker-preview').hide();
-		},
-
-		/**
-		 * When a user selects the clear image link the base AJAX request is
-		 * made with the image id set to 'clear', the request will clear
-		 * the image and image version ids
-		 *
-		 * @returns {Void}
-		 */
-		clearImage: function()
-		{
-			$("span.clear-image-picker-image").on("click", function()
-			{
-				$('.image-picker-tool').show();
-
-				$.ajax({
-					url: dlayer.fn.imagePicker.url,
-					method: dlayer.fn.imagePicker.method,
-					data: {image_id: 'clear'},
-					dataType: dlayer.fn.imagePicker.dataType
-				}).done(function(html)
-				{
-					$('.image-picker-tool .loading').hide();
-					dlayer.fn.imagePicker.cancel();
-					$('.image-picker-tool .form').html(html);
-				});
-			});
-		},
-
-		/**
-		 * When the user selects an image the base AJAX is called with the
-		 * image id set, the AJAX returns with all the versions of the
-		 * selected image.
-		 *
-		 * This method is only called when the image has versions
-		 *
-		 * @returns {Void}
-		 */
-		setImage: function()
-		{
-			$(".ip-image").on("click", function()
-			{
-
-				var image_id = this.id.replace('ip-set-image-', '');
-
-				$('.image-picker-tool').show();
-
-				$.ajax({
-					url: dlayer.fn.imagePicker.url,
-					method: dlayer.fn.imagePicker.method,
-					data: {image_id: image_id},
-					dataType: dlayer.fn.imagePicker.dataType
-				}).done(function(html)
-				{
-					$('.image-picker-tool .loading').hide();
-					$('.image-picker-tool .form').html(html);
-				});
-			});
+			$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
+			$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+			$(dlayerDesigner.imagePicker.selector + ' .form').show();
 		}
 	}
 };
