@@ -146,8 +146,7 @@ class Content_AjaxController extends Zend_Controller_Action
 		
 		$this->model_image_picker = new Dlayer_Model_ImagePicker();
 		
-		$image = $this->model_image_picker->validateImage(
-			$this->session_dlayer->siteId(), $image_id, $version_id);
+		$image = $this->model_image_picker->validateImage($this->site_id, $image_id, $version_id);
 			
 		$json = array('data'=>FALSE);
 			
@@ -294,12 +293,15 @@ class Content_AjaxController extends Zend_Controller_Action
 	*/
 	function imagePickerSubCategory($site_id, $category_id, $sub_category_id) 
 	{
-		if($category_id === NULL) {
+		if($category_id === NULL)
+		{
 			return NULL;
-		} else {
-			if($sub_category_id === NULL) {
-				$this->view->sub_categories = 
-					$this->model_image_picker->subCategories($site_id, 
+		}
+		else
+		{
+			if($sub_category_id === NULL)
+			{
+				$this->view->sub_categories = $this->model_image_picker->subCategories($site_id,
 					$category_id);
 					
 				return $this->view->render(

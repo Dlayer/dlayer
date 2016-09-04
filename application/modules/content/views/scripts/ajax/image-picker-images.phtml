@@ -1,15 +1,12 @@
 <script>
-dlayer.fn.imagePicker.setImage();
-dlayer.fn.imagePicker.selectImage();
+//dlayer.fn.imagePicker.setImage();
+dlayerDesigner.imagePicker.selectImage();
 </script>
 
 <div class="image-list">
 	<h4>Images <small>Images for the selected category and 
 		sub category</small></h4>
-		
-	<p>You can either select the latest version of an imaage or click the 
-		'view versions' button to choose a specific version.</p>
-	
+
 	<!--<div class="row" style="padding-bottom: 10px;">
 		<div class="col-xs-12">
 			<div class="btn-toolbar">
@@ -34,7 +31,7 @@ dlayer.fn.imagePicker.selectImage();
 		$image['height'] . ' pixels'); ?>
 	<?php $select_id = $this->escape('ip-image-' . $image['image_id'] . ':' . 
 		$image['version_id']); ?>
-	<?php $set_id = $this->escape('ip-set-image-' . $image['image_id']); ?>	
+	<?php $set_id = $this->escape('ip-set-image-' . $image['image_id']); ?>
 
 	<div class="row" style="padding-bottom: 10px;">
 		<div class="col-xs-4">
@@ -53,14 +50,14 @@ dlayer.fn.imagePicker.selectImage();
 		<div class="col-xs-12 text-right">
 			<div class="btn-group btn-group-xs" role="group" aria-label="...">
 				<button type="button" 
-					class="btn btn-primary ip-select-image" 
-					id="<?php echo $select_id; ?>">Select</button>
+					class="btn btn-primary version-selector"
+					data-version-id="<?php echo $this->escape($image['version_id']); ?>" data-image-id="<?php echo $this->escape($image['image_id']); ?>">Select</button>
 				<?php if($image['versions'] == 1) { ?>
 				<button type="button" id="<?php echo $id; ?>" 
 					class="btn btn-default" 
 					disabled="disabled">View versions</button>
 				<?php } else { ?>
-				<button type="button" class="btn btn-default ip-image" 
+				<button type="button" class="btn btn-default ip-image"
 					id="<?php echo $set_id; ?>">View versions</button>
 				<?php } ?>
 			</div>

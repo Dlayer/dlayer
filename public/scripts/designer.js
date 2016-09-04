@@ -1,25 +1,26 @@
 /**
-* Dlayer functions usable through out the designers
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
-var dlayerDesigner =
-{
+ * Dlayer functions usable through out the designers
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
+var dlayerDesigner;
+dlayerDesigner = {
 	/**
-	* Convert a RGB value to a hex value, returns either a valid hex value
-	* or false
-	*
-	* @returns {String|false}
-	*/
+	 * Convert a RGB value to a hex value, returns either a valid hex value
+	 * or false
+	 *
+	 * @returns {String|Boolean}
+	 */
 	rgbToHex: function(colorStr)
 	{
 		if(colorStr != 'rgba(0, 0, 0, 0)')
 		{
 			var hex = '#';
-			$.each(colorStr.substring(4).split(','), function(i, str){
-				var h = ($.trim(str.replace(')',''))*1).toString(16);
+			$.each(colorStr.substring(4).split(','), function(i, str)
+			{
+				var h = ($.trim(str.replace(')', '')) * 1).toString(16);
 				hex += (h.length == 1) ? "0" + h : h;
 			});
 		}
@@ -32,16 +33,14 @@ var dlayerDesigner =
 	},
 
 	/**
-	* If a user selects a colour input the colour picker opens allowing
-	* the m to pick a couolor either from their palettes, there history or
-	* by choosing a manual colour
-	*
-	* The colour picker may need to be called multiple times within a view,
-	* the picker itself is universal, when opened it stores the id of the
-	* element that invoked it and sets the value to a hidden field
-	*
-	* @returns {Void}
-	*/
+	 * If a user selects a colour input the colour picker opens allowing
+	 * the m to pick a couolor either from their palettes, there history or
+	 * by choosing a manual colour
+	 *
+	 * The colour picker may need to be called multiple times within a view,
+	 * the picker itself is universal, when opened it stores the id of the
+	 * element that invoked it and sets the value to a hidden field
+	 */
 	colorPicker: {
 
 		element: null,
@@ -49,20 +48,18 @@ var dlayerDesigner =
 		value: null,
 
 		/**
-		* Start the colour pickers
-		*
-		* @returns {Void}
-		*/
+		 * Start the colour pickers
+		 */
 		start: function()
 		{
 			/**
-			* Add a click event to any relevant input so open the picker,
-			* displays the picker, sets the element var to the id of the element
-			* that opened it and the clears any existing set values from other
-			* instances of the picker
-			*
-			* The picker can only be active for one element at a time
-			*/
+			 * Add a click event to any relevant input so open the picker,
+			 * displays the picker, sets the element var to the id of the element
+			 * that opened it and the clears any existing set values from other
+			 * instances of the picker
+			 *
+			 * The picker can only be active for one element at a time
+			 */
 			$('.ribbon .color-picker').click(
 				function()
 				{
@@ -74,17 +71,17 @@ var dlayerDesigner =
 			);
 
 			/**
-			* Attach a click even for the clear links. Each colour input will
-			* have a clear link that closes the picker, resets any vars and then
-			* resets the picker field
-			*
-			* @returns {false}
-			*/
+			 * Attach a click even for the clear links. Each colour input will
+			 * have a clear link that closes the picker, resets any vars and then
+			 * resets the picker field
+			 *
+			 * @returns {Boolean}
+			 */
 			$('.ribbon a.color-picker-clear').click(
-				function() {
+				function()
+				{
 					var element =
-					$(this).siblings('.color-picker').attr('id').
-						replace('picker-', '');
+						$(this).siblings('.color-picker').attr('id').replace('picker-', '');
 
 					$('.ribbon #picker-' + element).css(
 						'background-color', 'inherit');
@@ -96,16 +93,15 @@ var dlayerDesigner =
 		},
 
 		/**
-		* Close the colour picker and set the value of the picker element
-		* and hidden element to the value selected
-		*
-		* @returns {Void}
-		*/
+		 * Close the colour picker and set the value of the picker element
+		 * and hidden element to the value selected
+		 */
 		close: function()
 		{
 			$('.color-picker-tool').slideUp();
 
-			if(dlayerDesigner.colorPicker.value != null) {
+			if(dlayerDesigner.colorPicker.value != null)
+			{
 				$('.ribbon #picker-' + dlayerDesigner.colorPicker.element).css(
 					'background-color', dlayerDesigner.colorPicker.rgb);
 
@@ -115,20 +111,20 @@ var dlayerDesigner =
 		},
 
 		/**
-		* Attach the events to the colour picker
-		*
-		* @returns {Void}
-		*/
+		 * Attach the events to the colour picker
+		 */
 		events: function()
 		{
 			$('.ribbon .color-picker-tool .close-color-picker').click(
-				function() {
+				function()
+				{
 					dlayerDesigner.colorPicker.close();
 				}
 			);
 
 			$('.ribbon .color-picker-tool .palette .color').click(
-				function() {
+				function()
+				{
 					dlayerDesigner.colorPicker.rgb =
 						$(this).css('background-color');
 					dlayerDesigner.colorPicker.value =
@@ -139,7 +135,8 @@ var dlayerDesigner =
 			);
 
 			$('.ribbon .color-picker-tool .history .color').click(
-				function() {
+				function()
+				{
 					dlayerDesigner.colorPicker.rgb =
 						$(this).css('background-color');
 					dlayerDesigner.colorPicker.value =
@@ -150,7 +147,8 @@ var dlayerDesigner =
 			);
 
 			$('.ribbon .color-picker-tool .custom .color').change(
-				function() {
+				function()
+				{
 					dlayerDesigner.colorPicker.rgb = $(this).val();
 					dlayerDesigner.colorPicker.value = $(this).val();
 
@@ -163,31 +161,30 @@ var dlayerDesigner =
 	/**
 	 * If a user wants to include an image we use the image picker, image picker will check environment to preset its
 	 * state
-	 *
-	 * @returns {Void}
 	 */
 	imagePicker: {
 
 		url: '/content/ajax/image-picker',
 		method: 'GET',
 		dataType: 'html',
+		openSelector: ".open-image-picker",
 		selector: '.image-picker',
 
 		/**
 		 * Start the image picker, adds the on click event to the image picker button
-		 *
-		 * @returns {Void}
 		 */
 		start: function()
 		{
-			$(".open-image-picker").on("click", function() {
+			$(dlayerDesigner.imagePicker.openSelector).on("click", function()
+			{
 				$(dlayerDesigner.imagePicker.selector).slideDown();
 
 				$.ajax({
 					url: dlayerDesigner.imagePicker.url,
 					method: dlayerDesigner.imagePicker.method,
 					dataType: dlayerDesigner.imagePicker.dataType
-				}).done(function(html) {
+				}).done(function(html)
+				{
 					$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
 					$(dlayerDesigner.imagePicker.selector + ' .form').show();
 					$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
@@ -197,12 +194,11 @@ var dlayerDesigner =
 
 		/**
 		 * Close the image picker
-		 *
-		 * @returns {Void}
 		 */
 		close: function()
 		{
-			$(dlayerDesigner.imagePicker.selector + " .close").on("click", function() {
+			$(dlayerDesigner.imagePicker.selector + " .close").on("click", function()
+			{
 				$(dlayerDesigner.imagePicker.selector).slideUp();
 			});
 		},
@@ -210,17 +206,17 @@ var dlayerDesigner =
 		/**
 		 * On change fire an Ajax request with the chosen category, posted to the image picker which then sets the
 		 * category, if valid, and returns the new state
-		 *
-		 * @returns {Void}
 		 */
 		setSelectedCategory: function()
 		{
-			$(dlayerDesigner.imagePicker.selector + " .category-selector").on("change", function() {
-
+			$(dlayerDesigner.imagePicker.selector + " .category-selector").on("change", function()
+			{
 				var category_id = $(this).val();
 
 				if(category_id !== 'null')
 				{
+					$(dlayerDesigner.imagePicker.selector + ' .loading').show();
+
 					$.ajax({
 						url: dlayerDesigner.imagePicker.url,
 						method: dlayerDesigner.imagePicker.method,
@@ -228,7 +224,8 @@ var dlayerDesigner =
 						data: {
 							category_id: category_id
 						}
-					}).done(function(html) {
+					}).done(function(html)
+					{
 						$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
 						$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
 					});
@@ -237,14 +234,45 @@ var dlayerDesigner =
 		},
 
 		/**
-		 * Clear the selector category, fires an Ajax request asking for category to be clear and then returns the
-		 * new state
-		 *
-		 * @returns {Void}
+		 * On change fire an Ajax request with the chosen sub category, posted to the image picker which then sets
+		 * the sub category, if valid, and returns the new state
+		 */
+		setSelectedSubCategory: function()
+		{
+			$(dlayerDesigner.imagePicker.selector + " .sub-category-selector").on("change", function()
+			{
+				var sub_category_id = $(this).val();
+
+				if(sub_category_id !== 'null')
+				{
+					$(dlayerDesigner.imagePicker.selector + ' .loading').show();
+
+					$.ajax({
+						url: dlayerDesigner.imagePicker.url,
+						method: dlayerDesigner.imagePicker.method,
+						dataType: dlayerDesigner.imagePicker.dataType,
+						data: {
+							sub_category_id: sub_category_id
+						}
+					}).done(function(html)
+					{
+						$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
+						$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+					});
+				}
+			});
+		},
+
+		/**
+		 * Clear the selected category, fires an Ajax request asking for category to be cleared and then returns the
+		 * new state of the image picker
 		 */
 		clearSelectedCategory: function()
 		{
-			$(dlayerDesigner.imagePicker.selector + " span.clear-selected-category").on("click", function() {
+			$(dlayerDesigner.imagePicker.selector + " span.clear-selected-category").on("click", function()
+			{
+				$(dlayerDesigner.imagePicker.selector + ' .loading').show();
+
 				$.ajax({
 					url: dlayerDesigner.imagePicker.url,
 					method: dlayerDesigner.imagePicker.method,
@@ -252,12 +280,90 @@ var dlayerDesigner =
 					data: {
 						category_id: 'clear'
 					}
-				}).done(function(html) {
+				}).done(function(html)
+				{
 					$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
 					$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
 				});
 			});
-		}
+		},
+
+		/**
+		 * Clear the selected sub category, fires an Ajax request asking for the sub category to be cleared and
+		 * then returns the new state of the image picker
+		 */
+		clearSelectedSubCategory: function()
+		{
+			$(dlayerDesigner.imagePicker.selector + " span.clear-selected-sub-category").on("click", function()
+			{
+				$(dlayerDesigner.imagePicker.selector + ' .loading').show();
+
+				$.ajax({
+					url: dlayerDesigner.imagePicker.url,
+					method: dlayerDesigner.imagePicker.method,
+					dataType: dlayerDesigner.imagePicker.dataType,
+					data: {
+						sub_category_id: 'clear'
+					}
+				}).done(function(html)
+				{
+					$(dlayerDesigner.imagePicker.selector + ' .loading').hide();
+					$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
+				});
+			});
+		},
+
+		/**
+		 * Select the image, sets the image id and version id in the session and updates the related hidden input
+		 * and selection preview
+		 */
+		selectImage: function()
+		{
+			$(dlayerDesigner.imagePicker.selector + " .version-selector").on("click", function()
+			{
+				$(dlayerDesigner.imagePicker.selector + ' .loading').show();
+
+				var image_id = $(this).data('image-id');
+				var version_id = $(this).data('version-id');
+
+				$.ajax({
+					url: '/content/ajax/image-picker-select-image',
+					method: dlayerDesigner.imagePicker.method,
+					dataType: 'json',
+					data: {
+						image_id: image_id,
+						version_id: version_id
+					}
+				}).done(function(data)
+				{
+					dlayerDesigner.imagePicker.finalise(image_id, version_id, data.name, data.dimensions,
+						data.size, data.extension);
+				});
+			});
+		},
+
+		/**
+		 * Complete the image picker request, passes the set version if to the image pickers corresponding hidden
+		 * field updates, updates the class for the select button and populates the preview
+		 */
+		finalise: function(image_id, version_id, name, dimensions, size, extension)
+		{
+			//$('.image-picker-tool .close-image-picker').trigger('click');
+
+			$(dlayerDesigner.imagePicker.openSelector).text('Image selected');
+
+			$(dlayerDesigner.imagePicker.openSelector).removeClass('btn-danger').addClass('btn-success');
+
+			$('#params-version_id').val(version_id);
+
+			$(".image-picker-preview .name").text(name);
+			$(".image-picker-preview .dimensions").text(dimensions);
+			$(".image-picker-preview .size").text(size);
+			$(".image-picker-preview .image").attr('src', '/images/library/' + image_id + '/' +
+				version_id + extension);
+
+			$('.image-picker-preview').show();
+		},
 	},
 
 	/**
@@ -273,20 +379,6 @@ var dlayerDesigner =
 		dataType: 'html',
 
 		/**
-		 * Close the image picker
-		 *
-		 * @returns {Void}
-		 */
-		close: function()
-		{
-			$(".image-picker-tool .close-image-picker").on("click",
-				function() {
-					$('.image-picker-tool').hide();
-				}
-			);
-		},
-
-		/**
 		 * Cancel the request, clears the hidden field and resets the
 		 * select image button and clears any preview
 		 *
@@ -296,9 +388,7 @@ var dlayerDesigner =
 		{
 			$(".open-image-picker").text('Select image');
 
-			$(".open-image-picker").
-			removeClass('btn-success').
-			addClass('btn-danger');
+			$(".open-image-picker").removeClass('btn-success').addClass('btn-danger');
 
 			$('#params-version_id').val('');
 
@@ -312,57 +402,6 @@ var dlayerDesigner =
 		},
 
 		/**
-		 * When a user selects the clear category link the base AJAX
-		 * request is made with the category id set to 'clear', the request
-		 * will clear the category, sub category, image and image
-		 * version ids
-		 *
-		 * @returns {Void}
-		 */
-		clearCategory: function()
-		{
-			$("span.clear-image-picker-category").on("click", function() {
-				$('.image-picker-tool').show();
-
-				$.ajax({
-					url: dlayer.fn.imagePicker.url,
-					method: dlayer.fn.imagePicker.method,
-					data: { category_id: 'clear' },
-					dataType: dlayer.fn.imagePicker.dataType
-				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();
-					dlayer.fn.imagePicker.cancel();
-					$('.image-picker-tool .form').html(html);
-				});
-			});
-		},
-
-		/**
-		 * When a user selects the clear sub category link the base AJAX
-		 * request is made with the sub category id set to 'clear', the
-		 * request will clear the sub category, image and image version ids
-		 *
-		 * @returns {Void}
-		 */
-		clearSubCategory: function()
-		{
-			$("span.clear-image-picker-sub-category").on("click", function() {
-				$('.image-picker-tool').show();
-
-				$.ajax({
-					url: dlayer.fn.imagePicker.url,
-					method: dlayer.fn.imagePicker.method,
-					data: { sub_category_id: 'clear' },
-					dataType: dlayer.fn.imagePicker.dataType
-				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();
-					dlayer.fn.imagePicker.cancel();
-					$('.image-picker-tool .form').html(html);
-				});
-			});
-		},
-
-		/**
 		 * When a user selects the clear image link the base AJAX request is
 		 * made with the image id set to 'clear', the request will clear
 		 * the image and image version ids
@@ -371,173 +410,21 @@ var dlayerDesigner =
 		 */
 		clearImage: function()
 		{
-			$("span.clear-image-picker-image").on("click", function() {
+			$("span.clear-image-picker-image").on("click", function()
+			{
 				$('.image-picker-tool').show();
 
 				$.ajax({
 					url: dlayer.fn.imagePicker.url,
 					method: dlayer.fn.imagePicker.method,
-					data: { image_id: 'clear' },
+					data: {image_id: 'clear'},
 					dataType: dlayer.fn.imagePicker.dataType
-				}).done(function(html) {
+				}).done(function(html)
+				{
 					$('.image-picker-tool .loading').hide();
 					dlayer.fn.imagePicker.cancel();
 					$('.image-picker-tool .form').html(html);
 				});
-			});
-		},
-
-		/**
-		 * Complete the image picker request, passes the selected version
-		 * id to the image pickers hidden field updates the select image
-		 * button and populates the preview section with the selected image
-		 * and version
-		 *
-		 * @param {Integer} Image id
-		 * @param {Integer} Version id
-		 * @param {String} Name of the selected image
-		 * @param {String} Dimesions of the selected image
-		 * @param {String} Size of the selected image
-		 * @param {String} Extension for the selected image
-		 * @returns {Void}
-		 */
-		complete: function(image_id, version_id, name, dimensions, size,
-		                   extension)
-		{
-			$('.image-picker-tool .close-image-picker').trigger('click');
-
-			$(".open-image-picker").text('Image selected');
-
-			$(".open-image-picker").
-			removeClass('btn-danger').
-			addClass('btn-success');
-
-			$('#params-version_id').val(version_id);
-
-			$('.ipp-name').text(name);
-			$('.ipp-dimensions').text(dimensions);
-			$('.ipp-size').text(size);
-			$('.ipp-image').attr('src', '/images/library/' + image_id + '/' +
-				version_id + extension);
-
-			$('.image-picker-preview').show();
-		},
-
-		/**
-		 * Start the image picker, adds the on click event to the image picker button and on click sends the Ajax
-		 * request
-		 *
-		 * @returns {Void}
-		 */
-		start: function()
-		{
-			$(".open-image-picker").on("click", function()
-			{
-				$('.image-picker-tool').slideDown();
-
-				/*$.ajax({
-					url: dlayer.fn.imagePicker.url,
-					method: dlayer.fn.imagePicker.method,
-					dataType: dlayer.fn.imagePicker.dataType
-				}).done(function(html) {
-					$('.image-picker-tool .loading').hide();
-					$('.image-picker-tool .form').show();
-					$('.image-picker-tool .form').html(html);
-				});*/
-			});
-		},
-
-		/**
-		 * When a user selects an image the image and image version id are
-		 * set in the session and then the image picker is closed
-		 *
-		 * @returns {Void}
-		 */
-		selectImage: function()
-		{
-			$(".ip-select-image").on("click", function() {
-
-				var ids = this.id.replace('ip-image-', '');
-				ids = ids.split(':');
-
-				var image_id = ids[0];
-				var version_id = ids[1];
-
-				$('.image-picker-tool .loading').show();
-				$('.image-picker-tool .form').hide();
-
-				$.ajax({
-					url: '/content/ajax/image-picker-select-image',
-					method: dlayer.fn.imagePicker.method,
-					data: {
-						image_id: image_id,
-						version_id: version_id
-					},
-					dataType: 'json'
-				}).done(function(data) {
-					dlayer.fn.imagePicker.complete(image_id, version_id,
-						data.name, data.dimensions, data.size,
-						data.extension);
-				});
-			});
-		},
-
-		/**
-		 * When a user selects a category the base AJAX request is made with
-		 * the category set to the chosen value, the AJAX will then return
-		 * showing the sub categories
-		 *
-		 * @returns {Void}
-		 */
-		setCategory: function()
-		{
-			$("#ip-category").on("change", function() {
-
-				var category_id = $('#ip-category').val();
-
-				if(category_id != 'null') {
-					$('.image-picker-tool').show();
-
-					$.ajax({
-						url: dlayer.fn.imagePicker.url,
-						method: dlayer.fn.imagePicker.method,
-						data: { category_id: category_id },
-						dataType: dlayer.fn.imagePicker.dataType
-					}).done(function(html) {
-						$('.image-picker-tool .loading').hide();
-						$('.image-picker-tool .form').html(html);
-					});
-				}
-			});
-		},
-
-		/**
-		 * When the user selects a sub category the base AJAX is called with
-		 * the selected sub category id, the AJAX will return either the
-		 * images for that category or all the images if the 'all' sub
-		 * category was selected
-		 *
-		 * @returns {Void}
-		 */
-		setSubCategory: function()
-		{
-			$("#ip-sub-category").on("change", function() {
-
-				var sub_category_id = $('#ip-sub-category').val();
-
-				if(sub_category_id != 'null') {
-					$('.image-picker-tool').show();
-
-					$.ajax({
-						url: dlayer.fn.imagePicker.url,
-						method: dlayer.fn.imagePicker.method,
-						data: { sub_category_id: sub_category_id },
-						dataType: dlayer.fn.imagePicker.dataType
-					}).done(function(html) {
-						$('.image-picker-tool .loading').hide();
-						$('.image-picker-tool .form').html(html);
-					});
-				}
 			});
 		},
 
@@ -552,7 +439,8 @@ var dlayerDesigner =
 		 */
 		setImage: function()
 		{
-			$(".ip-image").on("click", function() {
+			$(".ip-image").on("click", function()
+			{
 
 				var image_id = this.id.replace('ip-set-image-', '');
 
@@ -561,13 +449,14 @@ var dlayerDesigner =
 				$.ajax({
 					url: dlayer.fn.imagePicker.url,
 					method: dlayer.fn.imagePicker.method,
-					data: { image_id: image_id },
+					data: {image_id: image_id},
 					dataType: dlayer.fn.imagePicker.dataType
-				}).done(function(html) {
+				}).done(function(html)
+				{
 					$('.image-picker-tool .loading').hide();
 					$('.image-picker-tool .form').html(html);
 				});
 			});
 		}
 	}
-}
+};
