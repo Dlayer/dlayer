@@ -1,5 +1,5 @@
 <script>
-//dlayer.fn.imagePicker.setImage();
+dlayerDesigner.imagePicker.setSelectedImage();
 dlayerDesigner.imagePicker.selectImage();
 </script>
 
@@ -57,8 +57,7 @@ dlayerDesigner.imagePicker.selectImage();
 					class="btn btn-default" 
 					disabled="disabled">View versions</button>
 				<?php } else { ?>
-				<button type="button" class="btn btn-default ip-image"
-					id="<?php echo $set_id; ?>">View versions</button>
+				<button type="button" class="btn btn-default image-selector" data-image-id="<?php echo $this->escape($image['image_id']); ?>">View versions</button>
 				<?php } ?>
 			</div>
 		</div>
