@@ -242,6 +242,11 @@ class Dlayer_Ribbon_Handler_Content
 				$data = $ribbon_text->viewData($this->toolParams($tool));
 			break;
 
+			case 'styling':
+				$ribbon_text_styling = new Dlayer_Ribbon_Content_Styling_Text();
+				$data = $ribbon_text_styling->viewData($this->toolParams($tool));
+			break;
+
 			default:
 				$data = FALSE;
 			break;

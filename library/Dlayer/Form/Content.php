@@ -10,6 +10,7 @@
 abstract class Dlayer_Form_Content extends Dlayer_Form
 {
 	protected $tool = array();
+	protected $sub_tool_model = NULL;
 	protected $content_type;
 	protected $data = array();
 	protected $instances = 0;
@@ -47,6 +48,14 @@ abstract class Dlayer_Form_Content extends Dlayer_Form
 		$tool->setValue($this->tool['name']);
 
 		$this->elements['tool'] = $tool;
+
+		if($this->sub_tool_model !== NULL)
+		{
+			$sub_tool_model = new Zend_Form_Element_Hidden('sub_tool_model');
+			$sub_tool_model->setValue($this->sub_tool_model);
+
+			$this->elements['sub_tool_model'] = $sub_tool_model;
+		}
 
 		$content_type = new Zend_Form_Element_Hidden('content_type');
 		$content_type->setValue($this->content_type);
