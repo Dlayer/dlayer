@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Text content item tool
+ * Import form tool
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Image_Tool extends Dlayer_Tool_Content
 {
+
 	/**
 	 * Check that the required params have been submitted, check the keys in the params array
 	 *
@@ -18,7 +19,9 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	protected function paramsExist(array $params)
 	{
 		$valid = FALSE;
-		if(array_key_exists('name', $params) === TRUE && array_key_exists('content', $params) === TRUE)
+
+		if(array_key_exists('version_id', $params) === TRUE && array_key_exists('expand', $params) === TRUE &&
+			array_key_exists('caption', $params) === TRUE)
 		{
 			$valid = TRUE;
 		}
@@ -35,10 +38,16 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	protected function paramsValid(array $params)
 	{
 		$valid = FALSE;
-		if(strlen(trim($params['name'])) > 0 && strlen(trim($params['content'])) > 0)
+
+		$model_image = new Dlayer_Model_Page_Content_Items_Image();
+
+		if(intval($params['version_id']) > 0 &&
+			$model_image->valid($this->site_id, $params['version_id']) === TRUE &&
+			in_array($params['expand'], array(1, 0)) === TRUE && strlen(trim($params['caption'])) >= 0)
 		{
 			$valid = TRUE;
 		}
+
 		return $valid;
 	}
 
@@ -52,9 +61,22 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	protected function paramsAssign(array $params, $manual_tool = TRUE)
 	{
 		$this->params = array(
-			'name' => trim($params['name']),
-			'content' => trim($params['content'])
+			'version_id' => intval($params['version_id']),
+			'expand' => intval($params['expand']),
+			'caption' => trim($params['caption'])
 		);
+	}
+
+	/**
+	 * Validate the instances param, need to see if it should exist first
+	 *
+	 * @param integer $site_id
+	 * @param integer $content_id
+	 * @return boolean
+	 */
+	protected function validateInstances($site_id, $content_id)
+	{
+		return FALSE;
 	}
 
 	/**
@@ -66,7 +88,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	{
 		$model_content = new Dlayer_Model_Page_Content();
 
-		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'text',
+		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'image',
 			$this->params);
 
 		if($content_id !== FALSE)
@@ -87,18 +109,18 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	 */
 	protected function edit()
 	{
-		$model_content_text = new Dlayer_Model_Page_Content_Items_Text();
+		$model_content_image = new Dlayer_Model_Page_Content_Items_Image();
 
 		try
 		{
-			$edit = $model_content_text->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+			$result = $model_content_image->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
 		}
 		catch(Exception $e)
 		{
 			throw new Exception($e->getMessage(), $e->getCode(), $e);
 		}
 
-		if($edit === TRUE)
+		if($result === TRUE)
 		{
 			return $this->returnIds();
 		}
@@ -115,7 +137,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	 */
 	protected function structure()
 	{
-		// Not required by manual tool
+		// TODO: Implement structure() method.
 	}
 
 	/**
@@ -146,35 +168,13 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 			),
 			array(
 				'type' => 'tool',
-				'id' => 'text',
+				'id' => 'image',
 			),
 			array(
 				'type' => 'content_id',
 				'id' => $this->content_id,
-				'content_type' => 'text'
+				'content_type' => 'image'
 			)
 		);
-	}
-
-	/**
-	 * Validate the instances param, need to see if it should exist first
-	 *
-	 * @param integer site_id
-	 * @param integer $content_id
-	 * @return boolean
-	 */
-	protected function validateInstances($site_id, $content_id)
-	{
-		$model_text = new Dlayer_Model_Page_Content_Items_Text();
-		$instances = $model_text->instancesOfData($site_id, $content_id);
-
-		if($instances > 1)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
 	}
 }

@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Model extends Zend_Db_Table_Abstract
+class Dlayer_DesignerTool_ContentManager_Text_Model extends Zend_Db_Table_Abstract
 {
 	/**
 	 * Add a new text content item

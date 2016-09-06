@@ -1,17 +1,13 @@
 <?php
 
 /**
- * Form for the text content item tool
- *
- * The form is used by the Text content item to allow a user to define or edit
- * a text content item, a text content item is essentially just a plain text
- * block. This form is also used by the edit version of the tool.
+ * Form for the jumbotron content item tool
  *
  * @author Dean Blackborough
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Text_Form extends Dlayer_Form_Content
+class Dlayer_DesignerTool_ContentManager_Jumbotron_Form extends Dlayer_Form_Content
 {
 	/**
 	 * Set the properties for the form
@@ -24,7 +20,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Form extends Dlayer_Form_Content
 	 */
 	public function __construct(array $tool, array $data, $instances, array $element_data, $options=NULL)
 	{
-		$this->content_type = 'heading';
+		$this->content_type = 'jumbotron';
 
 		parent::__construct($tool, $data, $instances, $element_data, $options);
 	}
@@ -42,7 +38,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Form extends Dlayer_Form_Content
 
 		$this->generateFormElements();
 
-		$this->addElementsToForm('text_content_item', 'Text', $this->elements);
+		$this->addElementsToForm('jumbotron_content_item', 'Jumbotron', $this->elements);
 
 		$this->addDefaultElementDecorators();
 
@@ -53,7 +49,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Form extends Dlayer_Form_Content
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');
-		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Into for contact page',
+		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Site masthead',
 			'class'=>'form-control input-sm'));
 		$name->setDescription('Give the content item a name, this will allow you to recreate it again later.');
 		$name->setBelongsTo('params');
@@ -84,19 +80,46 @@ class Dlayer_DesignerTool_ContentManager_Text_Form extends Dlayer_Form_Content
 			$this->elements['instances'] = $instances;
 		}
 
-		$content = new Zend_Form_Element_Textarea('content');
-		$content->setLabel('Content');
-		$content->setAttribs(array('cols'=>50, 'rows'=>15, 'placeholder'=>'e.g., The quick brown fox jumps jumps...',
+		$title = new Zend_Form_Element_Text('title');
+		$title->setLabel('Title');
+		$title->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Welcome to my site',
 			'class'=>'form-control input-sm'));
-		$content->setDescription('Enter your content.');
-		$content->setBelongsTo('params');
-		$content->setRequired();
+		$title->setDescription('Enter the title for the Jumbotron.');
+		$title->setBelongsTo('params');
+		$title->setRequired();
 
-		if(array_key_exists('content', $this->data) === TRUE && $this->data['content'] !== FALSE)
+		if(array_key_exists('title', $this->data) === TRUE && $this->data['title'] !== FALSE)
 		{
-			$content->setValue($this->data['content']);
+			$title->setValue($this->data['title']);
 		}
 
-		$this->elements['content'] = $content;
+		$this->elements['title'] = $title;
+
+		$intro = new Zend_Form_Element_Textarea('intro');
+		$intro->setLabel('Introduction');
+		$intro->setAttribs(array('cols'=>50, 'rows'=>3, 'placeholder'=>'e.g., Below you will find an overview of all the services...', 'class'=>'form-control input-sm'));
+		$intro->setDescription('Enter the introduction.');
+		$intro->setBelongsTo('params');
+
+		if(array_key_exists('intro', $this->data) === TRUE && $this->data['intro'] !== FALSE)
+		{
+			$intro->setValue($this->data['intro']);
+		}
+
+		$this->elements['intro'] = $intro;
+
+		$button_label = new Zend_Form_Element_Text('button_label');
+		$button_label->setLabel('Button label');
+		$button_label->setAttribs(array('cols'=>50, 'row'=>15, 'placeholder'=>'e.g., Learn more',
+			'class'=>'form-control input-sm'));
+		$button_label->setDescription('Set the label for the optional button.');
+		$button_label->setBelongsTo('params');
+
+		if(array_key_exists('button_label', $this->data) === TRUE && $this->data['button_label'] !== FALSE)
+		{
+			$button_label->setValue($this->data['button_label']);
+		}
+
+		$this->elements['button_label'] = $button_label;
 	}
 }

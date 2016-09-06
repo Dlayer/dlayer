@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Text content item tool
+ * Jumbotron content item tool
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Content
 {
+
 	/**
 	 * Check that the required params have been submitted, check the keys in the params array
 	 *
@@ -18,7 +19,9 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	protected function paramsExist(array $params)
 	{
 		$valid = FALSE;
-		if(array_key_exists('name', $params) === TRUE && array_key_exists('content', $params) === TRUE)
+
+		if(array_key_exists('name', $params) === TRUE && array_key_exists('title', $params) === TRUE &&
+			array_key_exists('intro', $params) === TRUE && array_key_exists('button_label', $params) === TRUE)
 		{
 			$valid = TRUE;
 		}
@@ -35,10 +38,12 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	protected function paramsValid(array $params)
 	{
 		$valid = FALSE;
-		if(strlen(trim($params['name'])) > 0 && strlen(trim($params['content'])) > 0)
+		if(strlen(trim($params['name'])) > 0 && strlen(trim($params['title'])) > 0 &&
+			strlen(trim($params['intro'])) >= 0 && strlen(trim($params['button_label'])) >= 0)
 		{
 			$valid = TRUE;
 		}
+
 		return $valid;
 	}
 
@@ -53,8 +58,32 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	{
 		$this->params = array(
 			'name' => trim($params['name']),
-			'content' => trim($params['content'])
+			'title' => trim($params['title']),
+			'intro' => trim($params['intro']),
+			'button_label' => $params['button_label']
 		);
+	}
+
+	/**
+	 * Validate the instances param, need to see if it should exist first
+	 *
+	 * @param integer site_id
+	 * @param integer $content_id
+	 * @return boolean
+	 */
+	protected function validateInstances($site_id, $content_id)
+	{
+		$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+		$instances = $model_jumbotron->instancesOfData($site_id, $content_id);
+
+		if($instances > 1)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
@@ -66,7 +95,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	{
 		$model_content = new Dlayer_Model_Page_Content();
 
-		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'text',
+		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'jumbotron',
 			$this->params);
 
 		if($content_id !== FALSE)
@@ -87,11 +116,11 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	 */
 	protected function edit()
 	{
-		$model_content_text = new Dlayer_Model_Page_Content_Items_Text();
+		$model_content_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
 
 		try
 		{
-			$edit = $model_content_text->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+			$edit = $model_content_jumbotron->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
 		}
 		catch(Exception $e)
 		{
@@ -115,7 +144,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	 */
 	protected function structure()
 	{
-		// Not required by manual tool
+		// TODO: Implement structure() method.
 	}
 
 	/**
@@ -146,35 +175,13 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 			),
 			array(
 				'type' => 'tool',
-				'id' => 'text',
+				'id' => 'jumbotron',
 			),
 			array(
 				'type' => 'content_id',
 				'id' => $this->content_id,
-				'content_type' => 'text'
+				'content_type' => 'jumbotron'
 			)
 		);
-	}
-
-	/**
-	 * Validate the instances param, need to see if it should exist first
-	 *
-	 * @param integer site_id
-	 * @param integer $content_id
-	 * @return boolean
-	 */
-	protected function validateInstances($site_id, $content_id)
-	{
-		$model_text = new Dlayer_Model_Page_Content_Items_Text();
-		$instances = $model_text->instancesOfData($site_id, $content_id);
-
-		if($instances > 1)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
 	}
 }

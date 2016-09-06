@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Ribbon extends Dlayer_Ribbon_Content
+class Dlayer_DesignerTool_ContentManager_Text_Ribbon extends Dlayer_Ribbon_Content
 {
 	/**
 	 * Fetch the view data for the tool tab, contains an index with the form (pre filled if necessary) and another
