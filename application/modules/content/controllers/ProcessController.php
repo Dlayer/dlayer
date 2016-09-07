@@ -182,7 +182,7 @@ class Content_ProcessController extends Zend_Controller_Action
 			$this->returnToDesigner(FALSE);
 		}
 
-		$tool = $this->toolClass($this->getRequest->getPost('sub_tool_model'));
+		$tool = $this->toolClass($this->getPostAsString('sub_tool_model', NULL));
 
 		if($tool->validate($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
 				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
