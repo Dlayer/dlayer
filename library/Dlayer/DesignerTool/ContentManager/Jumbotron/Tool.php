@@ -73,7 +73,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 	 */
 	protected function validateInstances($site_id, $content_id)
 	{
-		$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+		$model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
 		$instances = $model_jumbotron->instancesOfData($site_id, $content_id);
 
 		if($instances > 1)
@@ -93,10 +93,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 	 */
 	protected function add()
 	{
-		$model_content = new Dlayer_Model_Page_Content();
-
-		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'jumbotron',
-			$this->params);
+		$content_id = $this->addContentItem('jumbotron');
 
 		if($content_id !== FALSE)
 		{
@@ -116,7 +113,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 	 */
 	protected function edit()
 	{
-		$model_content_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+		$model_content_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
 
 		try
 		{

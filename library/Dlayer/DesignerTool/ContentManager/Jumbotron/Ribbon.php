@@ -22,7 +22,8 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
 		$this->tool = $tool;
 
 		return array(
-			'form' => new Dlayer_Form_Content_Jumbotron($tool, $this->contentData(), $this->instancesOfData(), array())
+			'form' => new Dlayer_DesignerTool_ContentManager_Jumbotron_Form($tool, $this->contentData(),
+				$this->instancesOfData(), array())
 		);
 	}
 
@@ -43,7 +44,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
 
 		if($this->tool['content_id'] !== FALSE)
 		{
-			$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+			$model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
 			$existing_data = $model_jumbotron->existingData($this->tool['site_id'], $this->tool['content_id']);
 
 			if($existing_data !== FALSE)
@@ -84,7 +85,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
 
 		if($this->tool['content_id'] !== NULL)
 		{
-			$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+			$model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
 			$instances = $model_jumbotron->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
 		}
 

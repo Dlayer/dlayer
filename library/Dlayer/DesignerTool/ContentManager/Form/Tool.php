@@ -38,7 +38,7 @@ class Dlayer_DesignerTool_ContentManager_Form_Tool extends Dlayer_Tool_Content
 	{
 		$valid = FALSE;
 
-		$model_forms = new Dlayer_Model_Page_Content_Items_Form();
+		$model_forms = new Dlayer_DesignerTool_ContentManager_Form_Model();
 
 		if(intval($params['form_id']) > 0 && $model_forms->valid($this->site_id, $params['form_id']) === TRUE)
 		{
@@ -81,10 +81,7 @@ class Dlayer_DesignerTool_ContentManager_Form_Tool extends Dlayer_Tool_Content
 	 */
 	protected function add()
 	{
-		$model_content = new Dlayer_Model_Page_Content();
-
-		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'form',
-			$this->params);
+		$content_id = $this->addContentItem('form');
 
 		if($content_id !== FALSE)
 		{
@@ -104,7 +101,7 @@ class Dlayer_DesignerTool_ContentManager_Form_Tool extends Dlayer_Tool_Content
 	 */
 	protected function edit()
 	{
-		$model_content_form = new Dlayer_Model_Page_Content_Items_Form();
+		$model_content_form = new Dlayer_DesignerTool_ContentManager_Form_Model();
 
 		try
 		{

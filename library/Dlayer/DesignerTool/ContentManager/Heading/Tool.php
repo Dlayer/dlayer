@@ -72,7 +72,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 	 */
 	protected function validateInstances($site_id, $content_id)
 	{
-		$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
+		$model_heading = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
 		$instances = $model_heading->instancesOfData($site_id, $content_id);
 
 		if($instances > 1)
@@ -92,10 +92,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 	 */
 	protected function add()
 	{
-		$model_content = new Dlayer_Model_Page_Content();
-
-		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'heading',
-			$this->params);
+		$content_id = $this->addContentItem('heading');
 
 		if($content_id !== FALSE)
 		{
@@ -115,7 +112,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 	 */
 	protected function edit()
 	{
-		$model_content_heading = new Dlayer_Model_Page_Content_Items_Heading();
+		$model_content_heading = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
 
 		try
 		{

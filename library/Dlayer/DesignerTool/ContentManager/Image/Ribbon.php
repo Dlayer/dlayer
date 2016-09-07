@@ -22,8 +22,8 @@ class Dlayer_DesignerTool_ContentManager_Image_Ribbon extends Dlayer_Ribbon_Cont
 		$this->tool = $tool;
 
 		return array(
-			'form' => new Dlayer_Form_Content_Image($tool, $this->contentData(), $this->instancesOfData(), array()),
-			'image' => $this->selectedImage()
+			'form' => new Dlayer_DesignerTool_ContentManager_Image_Form($tool, $this->contentData(),
+				$this->instancesOfData(), array()), 'image' => $this->selectedImage()
 		);
 	}
 
@@ -43,7 +43,7 @@ class Dlayer_DesignerTool_ContentManager_Image_Ribbon extends Dlayer_Ribbon_Cont
 
 		if($this->tool['content_id'] !== FALSE)
 		{
-			$model_image = new Dlayer_Model_Page_Content_Items_Image();
+			$model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
 			$existing_data = $model_image->existingData($this->tool['site_id'], $this->tool['content_id']);
 
 			if($existing_data !== FALSE)
@@ -73,7 +73,7 @@ class Dlayer_DesignerTool_ContentManager_Image_Ribbon extends Dlayer_Ribbon_Cont
 			$session_designer->imagePickerImageId() !== NULL &&
 			$session_designer->imagePickerCategoryId() !== NULL)
 		{
-			$model_image = new Dlayer_Model_Page_Content_Items_Image();
+			$model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
 			$preview = $model_image->previewImage($this->tool['site_id'], $session_designer->imagePickerImageId(),
 				$session_designer->imagePickerVersionId());
 

@@ -523,12 +523,14 @@ class Content_DesignController extends Zend_Controller_Action
 				if($this->session_content->setTool($tool) == TRUE)
 				{
 					$reset = $this->getRequest()->getParam('reset');
+
 					if($reset != NULL && $reset == 1)
 					{
 						$this->session_content->clearContentId();
 						$this->session_designer->clearAllImagePicker();
 					}
-					$this->_redirect('/content/design');
+
+					$this->redirect('/content/design');
 				}
 				else
 				{

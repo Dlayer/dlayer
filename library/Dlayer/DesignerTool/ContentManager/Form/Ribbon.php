@@ -22,8 +22,8 @@ class Dlayer_DesignerTool_ContentManager_Form_Ribbon extends Dlayer_Ribbon_Conte
 		$this->tool = $tool;
 
 		return array(
-			'form' => new Dlayer_Form_Content_Form($tool, $this->contentData(), $this->instancesOfData(),
-				$this->elementData())
+			'form' => new Dlayer_DesignerTool_ContentManager_Form_Form($tool, $this->contentData(),
+				$this->instancesOfData(), $this->elementData())
 		);
 	}
 
@@ -36,7 +36,7 @@ class Dlayer_DesignerTool_ContentManager_Form_Ribbon extends Dlayer_Ribbon_Conte
 	{
 		$data = array();
 
-		$model_form = new Dlayer_Model_Page_Content_Items_Form();
+		$model_form = new Dlayer_DesignerTool_ContentManager_Form_Model();
 		$forms = $model_form->forms($this->tool['site_id']);
 
 		if(count($forms) > 0)
@@ -61,7 +61,7 @@ class Dlayer_DesignerTool_ContentManager_Form_Ribbon extends Dlayer_Ribbon_Conte
 
 		if($this->tool['content_id'] !== FALSE)
 		{
-			$model_form = new Dlayer_Model_Page_Content_Items_Form();
+			$model_form = new Dlayer_DesignerTool_ContentManager_Form_Model();
 			$form_id = $model_form->existingData($this->tool['site_id'], $this->tool['content_id']);
 
 			if($form_id !== FALSE)

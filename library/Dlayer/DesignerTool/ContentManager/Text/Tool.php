@@ -64,10 +64,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	 */
 	protected function add()
 	{
-		$model_content = new Dlayer_Model_Page_Content();
-
-		$content_id = $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, 'text',
-			$this->params);
+		$content_id = $this->addContentItem('text');
 
 		if($content_id !== FALSE)
 		{
@@ -87,7 +84,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	 */
 	protected function edit()
 	{
-		$model_content_text = new Dlayer_Model_Page_Content_Items_Text();
+		$model_content_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
 
 		try
 		{
@@ -165,7 +162,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	 */
 	protected function validateInstances($site_id, $content_id)
 	{
-		$model_text = new Dlayer_Model_Page_Content_Items_Text();
+		$model_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
 		$instances = $model_text->instancesOfData($site_id, $content_id);
 
 		if($instances > 1)

@@ -187,6 +187,20 @@ abstract class Dlayer_Tool_Content extends Dlayer_Tool
 	abstract protected function add();
 
 	/**
+	 * Add a new content item or setting
+	 *
+	 * @param string $content_type
+	 * @return integer|FALSE Either the id or false
+	 */
+	protected function addContentItem($content_type)
+	{
+		$model_content = new Dlayer_Model_Page_Content();
+
+		return $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, $content_type,
+			$this->params);
+	}
+
+	/**
 	 * Edit a new content item or setting
 	 *
 	 * @return array|FALSE Ids for new environment vars or FALSE if the request failed

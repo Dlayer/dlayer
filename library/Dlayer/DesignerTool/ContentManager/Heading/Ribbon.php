@@ -22,7 +22,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Ribbon extends Dlayer_Ribbon_Co
 		$this->tool = $tool;
 
 		return array(
-			'form' => new Dlayer_Form_Content_Heading($tool, $this->contentData(), $this->instancesOfData(),
+			'form' => new Dlayer_DesignerTool_ContentManager_Heading_Form($tool, $this->contentData(), $this->instancesOfData(),
 				$this->elementData())
 		);
 	}
@@ -64,7 +64,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Ribbon extends Dlayer_Ribbon_Co
 
 		if($this->tool['content_id'] !== NULL)
 		{
-			$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
+			$model_heading = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
 			$existing_data = $model_heading->existingData($this->tool['site_id'], $this->tool['content_id']);
 
 			if($existing_data !== FALSE)
@@ -105,7 +105,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Ribbon extends Dlayer_Ribbon_Co
 
 		if($this->tool['content_id'] !== NULL)
 		{
-			$model_text = new Dlayer_Model_Page_Content_Items_Heading();
+			$model_text = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
 			$instances = $model_text->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
 		}
 
