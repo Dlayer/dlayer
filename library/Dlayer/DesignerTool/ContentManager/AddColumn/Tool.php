@@ -8,7 +8,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Tool_Content_AddColumn extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_AddColumn_Tool extends Dlayer_Tool_Content
 {
 	/**
 	 * Check that all the required keys exists in the params array
@@ -76,7 +76,7 @@ class Dlayer_Tool_Content_AddColumn extends Dlayer_Tool_Content
 	 */
 	protected function structure()
 	{
-		$model_content = new Dlayer_Model_Page_Content();
+		$model_content = new Dlayer_DesignerTool_ContentManager_AddColumn_Model();
 
 		$column_id = $model_content->addColumns($this->params_auto['columns'], $this->site_id, $this->page_id,
 			$this->row_id);

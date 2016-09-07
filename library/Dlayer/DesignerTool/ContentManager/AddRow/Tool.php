@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_AddRow_Tool extends Dlayer_Tool_Content
 {
 	/**
 	 * Check that all the required keys exists in the params array
@@ -75,7 +75,7 @@ class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Content
 	 */
 	protected function structure()
 	{
-		$model_content = new Dlayer_Model_Page_Content();
+		$model_content = new Dlayer_DesignerTool_ContentManager_AddRow_Model();
 
 		$row_id = $model_content->addRows($this->params_auto['rows'], $this->site_id, $this->page_id, $this->column_id);
 
@@ -102,7 +102,7 @@ class Dlayer_Tool_Content_AddRow extends Dlayer_Tool_Content
 	/**
 	 * Validate the instances param, need to see if it should exist first
 	 *
-	 * @param integer site_id
+	 * @param integer $site_id
 	 * @param integer $content_id
 	 * @return boolean
 	 */
