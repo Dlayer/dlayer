@@ -321,7 +321,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 			switch($content_type)
 			{
 				case 'text':
-					$model_text = new Dlayer_Model_Page_Content_Items_Text();
+					$model_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
 					$result = $model_text->add($site_id, $page_id, $content_id, $params);
 					if($result === FALSE)
 					{
@@ -330,7 +330,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				break;
 
 				case 'heading':
-					$model_heading = new Dlayer_Model_Page_Content_Items_Heading();
+					$model_heading = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
 					$result = $model_heading->add($site_id, $page_id, $content_id, $params);
 					if($result === FALSE)
 					{
@@ -339,7 +339,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				break;
 
 				case 'jumbotron':
-					$model_jumbotron = new Dlayer_Model_Page_Content_Items_Jumbotron();
+					$model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
 					$result = $model_jumbotron->add($site_id, $page_id, $content_id, $params);
 					if($result === FALSE)
 					{
@@ -348,7 +348,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				break;
 
 				case 'form':
-					$model_form = new Dlayer_Model_Page_Content_Items_Form();
+					$model_form = new Dlayer_DesignerTool_ContentManager_Form_Model();
 					$result = $model_form->add($site_id, $page_id, $content_id, $params);
 					if($result === FALSE)
 					{
@@ -357,7 +357,7 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 				break;
 
 				case 'image':
-					$model_image = new Dlayer_Model_Page_Content_Items_Image();
+					$model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
 					$result = $model_image->add($site_id, $page_id, $content_id, $params);
 					if($result === FALSE)
 					{
