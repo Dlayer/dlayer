@@ -36,11 +36,25 @@ class Dlayer_Ribbon
 	/**
 	 * Get the ribbon tab view script when a tool isn't selected
 	 *
+	 * @param string $script Script to include
+	 * @param boolean $modular
+	 * @param string|NULL $module
+	 * @param string|NULL $tool
 	 * @return string
 	 */
-	public function viewScriptPath($script)
+	public function viewScriptPath($script, $modular = FALSE, $module = NULL, $tool = NULL)
 	{
-		return 'design/ribbon/' . $script . '.phtml';
+		if($modular === FALSE)
+		{
+			return 'design\\ribbon\\' . $script . '.phtml';
+		}
+		else
+		{
+			/**
+			 * @todo This is a terrible hack at the moment
+			 */
+			return $module . "\\" . $tool . "\\scripts\\" . $script . '.phtml';
+		}
 	}
 
 	/**

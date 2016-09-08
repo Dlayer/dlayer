@@ -13,6 +13,10 @@ if(file_exists('dlayer.lck') === true)
 // Define path to application directory
 defined('APPLICATION_PATH')
 	|| define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
+
+// Define path to library
+defined('DLAYER_LIBRARY_PATH')
+|| define('DLAYER_LIBRARY_PATH', realpath(dirname(__FILE__) . '/../library'));
 	
 include(APPLICATION_PATH . '/configs/environment.php');
 
