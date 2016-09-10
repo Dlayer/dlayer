@@ -207,25 +207,24 @@ class Form_DesignController extends Zend_Controller_Action
 	 */
 	public function ribbonTabHtmlAction()
 	{
+		$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\");
+
 		$this->_helper->disableLayout();
 
 		$tool = $this->getRequest()->getParam('tool');
 		$tab = $this->getRequest()->getParam('tab');
 		$module = $this->getRequest()->getModuleName();
 
+		$ribbon = new Dlayer_Ribbon();
+		$ribbon_tab = new Dlayer_Ribbon_Tab();
+
 		if($tab != NULL && $tool != NULL)
 		{
-
-			$ribbon = new Dlayer_Ribbon();
-			$ribbon_tab = new Dlayer_Ribbon_Tab();
-
-			$view_script = $ribbon_tab->viewScript(
-				$this->getRequest()->getModuleName(), $tool, $tab);
+			$view_script = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab, TRUE);
 			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
 
 			if($view_script != FALSE)
 			{
-
 				$this->session_form->setRibbonTab($tab);
 
 				$edit_mode = FALSE;
@@ -235,17 +234,15 @@ class Form_DesignController extends Zend_Controller_Action
 				}
 
 				$this->view->color_picker_data = $this->colorPickerData();
-				$this->view->data = $ribbon_tab->viewData($module, $tool,
-					$tab, $multi_use, $edit_mode);
+				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
 				$this->view->edit_mode = $edit_mode;
 
-				$html = $this->view->render(
-					$ribbon->viewScriptPath($view_script));
+				$html = $this->view->render($ribbon->viewScriptPath($view_script, TRUE, 'FormBuilder',
+					$this->session_form->tool()['model']));
 			}
 			else
 			{
-				$html = $this->view->render(
-					$ribbon->defaultViewScriptPath());
+				$html = $this->view->render($ribbon->defaultViewScriptPath());
 			}
 		}
 		else

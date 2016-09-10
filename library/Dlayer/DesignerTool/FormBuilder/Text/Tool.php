@@ -6,7 +6,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Tool_Form_Text extends Dlayer_Tool_Module_Form
+class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Module_Form
 {
 	protected $field_type = 'text';
 	protected $tool = 'text';
@@ -22,7 +22,7 @@ class Dlayer_Tool_Form_Text extends Dlayer_Tool_Module_Form
 	* @param integer $form_id Form id
 	* @param integer|NULL $field_id If in edit mode the id of the field being
 	*                               edited
-	* @return integer Field id
+	* @return array Field id
 	*/
 	public function process($site_id, $form_id, $field_id=NULL)
 	{
@@ -60,8 +60,6 @@ class Dlayer_Tool_Form_Text extends Dlayer_Tool_Module_Form
 		} else {
 			return FALSE;
 		}
-
-		return FALSE;
 	}
 
 	public function autoValidate(array $params = array())

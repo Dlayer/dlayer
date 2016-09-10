@@ -90,7 +90,7 @@ class Dlayer_Ribbon_Tab
 			break;
 
 			case 'form':
-				$form_ribbon = new Dlayer_Ribbon_Data_Form();
+				$form_ribbon = new Dlayer_Ribbon_Handler_Form();
 				$session_form = new Dlayer_Session_Form();
 
 				$data = $form_ribbon->viewData($session_dlayer->siteId(),

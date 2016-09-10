@@ -62,18 +62,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Template styles view helper, generates the initial style attribute for
-	 * each template div, width and height and then calls all the additional
-	 * template style view helpers to generate the attributes for the rest of
-	 * the styles that have been defined for each template div
-	 *
-	 * @return Dlayer_View_TemplateStyles
-	 */
-	public function templateStyles()
-	{
-	}
-
-	/**
 	 * Content area styles view helper, generates the style string for each of
 	 * the content areas on the page, it will call a child view helper for each
 	 * of the styling groups that can be assigned to content areas
@@ -386,9 +374,9 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Row view helper, this is called by the content page view helper, called to generated any rows attached to the base
-	 * container div and then called by each column, rows can only be added to columns and the base container div. It is
-	 * also responsible for calling the content view helper as content con only sit in rows
+	 * Row view helper, this is called by the content page view helper, called to generated any rows attached to the
+	 * base container div and then called by each column, rows can only be added to columns and the base container div.
+	 * It is also responsible for calling the content view helper as content con only sit in rows
 	 *
 	 * @return Dlayer_View_Row
 	 */
@@ -397,8 +385,8 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Column view helper, this is called by the row view helper, it generates the html for all the columns, it will call
-	 * the row view helper for each column as columns can only be applied to rows
+	 * Column view helper, this is called by the row view helper, it generates the html for all the columns, it will
+	 * call the row view helper for each column as columns can only be applied to rows
 	 *
 	 * @return Dlayer_View_Column
 	 */
