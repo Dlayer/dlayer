@@ -1,28 +1,28 @@
 <?php
 /**
-* Add a new text area field to a form or edit an existing one
+* Add or edit an email field, manages both the field and attribute data
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Tool_Form_Textarea extends Dlayer_Tool_Module_Form
+class Dlayer_DesignerTool_FormBuilder_Email_Tool extends Dlayer_Tool_Module_Form
 {
-	protected $field_type = 'textarea';
-	protected $tool = 'textarea';
+	protected $field_type = 'email';
+	protected $tool = 'email';
 
 	private $model_field;
 
 	/**
-	* Add a new textarea field or edit the selected text field. Uses the data
-	* in the params array for the request, this data will have already been
-	* both prepared and validated by the tool class
+	* Add a new email field or edit the selected email field. Uses the data in
+	* the params array for the request, this data will have already been both
+	* prepared and validated by the tool class
 	*
 	* @param integer $site_id Site id
 	* @param integer $form_id Form id
 	* @param integer|NULL $field_id If in edit mode the id of the field being
 	*                               edited
-	* @return integer Field id
+	* @return array Field id
 	*/
 	public function process($site_id, $form_id, $field_id=NULL)
 	{
@@ -69,7 +69,7 @@ class Dlayer_Tool_Form_Textarea extends Dlayer_Tool_Module_Form
 		// Not currently used by tool, may be used by the presets later
 		return FALSE;
 	}
-	
+
 	public function autoProcess($site_id, $form_id, $field_id=NULL)
 	{
 		// Not currently used by tool, may be used by the presets later
@@ -86,8 +86,8 @@ class Dlayer_Tool_Form_Textarea extends Dlayer_Tool_Module_Form
 	{
 		if(array_key_exists('label', $params) == TRUE &&
 		array_key_exists('description', $params) == TRUE &&
-		array_key_exists('cols', $params) == TRUE &&
-		array_key_exists('rows', $params) == TRUE) {
+		array_key_exists('size', $params) == TRUE &&
+		array_key_exists('maxlength', $params) == TRUE) {
 			return TRUE;
 		} else {
 			return FALSE;
@@ -104,7 +104,7 @@ class Dlayer_Tool_Form_Textarea extends Dlayer_Tool_Module_Form
 	{
 		if(strlen(trim($params['label'])) > 0 &&
 		strlen(trim($params['description'])) >= 0 &&
-		intval($params['cols']) > 0 && intval($params['rows']) > 0) {
+		intval($params['size']) > 0 && intval($params['maxlength']) > 0) {
 			return TRUE;
 		} else {
 			return FALSE;
@@ -122,18 +122,18 @@ class Dlayer_Tool_Form_Textarea extends Dlayer_Tool_Module_Form
 	protected function prepare(array $params)
 	{
 		return array('label'=>trim($params['label']),
-					 'description'=>trim($params['description']),
+					 'description'=>trim($params['description']), 
 					 'placeholder'=>trim($params['placeholder']),
-					 'cols'=>intval($params['cols']),
-					 'rows'=>intval($params['rows']));
+					 'size'=>intval($params['size']),
+					 'maxlength'=>intval($params['maxlength']));
 	}
 
 	/**
-	* Add the text field and all the field attributes
+	* Add the email field and all the field attributes
 	*
 	* @param integer $site_id
 	* @param integer $form_id
-	* @return void
+	* @return integer Id of the newly created field
 	*/
 	private function addFormField($site_id, $form_id)
 	{
@@ -141,14 +141,14 @@ class Dlayer_Tool_Form_Textarea extends Dlayer_Tool_Module_Form
 		$this->field_type, $this->tool, $this->params);
 
 		$this->model_field->addFieldAttributes($site_id, $form_id, $insert_id,
-		array('cols', 'rows', 'placeholder'), $this->params, 
+		array('size', 'maxlength', 'placeholder'), $this->params, 
 		$this->field_type);
 
 		return $insert_id;
 	}
 
 	/**
-	* Edit the text field and all the field attributes
+	* Edit the email field and all the field attributes
 	*
 	* @param integer $site_id
 	* @param integer $form_id
@@ -160,8 +160,8 @@ class Dlayer_Tool_Form_Textarea extends Dlayer_Tool_Module_Form
 		$this->model_field->editFormField($site_id, $form_id, $field_id,
 		$this->params);
 
-		$this->model_field->editFieldAttributes($site_id, $form_id,
-		$field_id, array('cols', 'rows', 'placeholder'), $this->params,
+		$this->model_field->editFieldAttributes($site_id, $form_id, $field_id,
+		array('size', 'maxlength', 'placeholder'), $this->params, 
 		$this->field_type);
 	}
 }

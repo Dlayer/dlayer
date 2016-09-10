@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Form class for the password tool, allows the user to add a password field
+ * Form class for the textarea tool, allows the user to add a textarea
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Form_Form_Password extends Dlayer_Form_Form
+class Dlayer_DesignerTool_FormBuilder_Textarea_Form extends Dlayer_Form_Form
 {
 	/**
 	 * Set the properties for the form
@@ -25,9 +25,9 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Form
 	public function __construct($tool, $field_type, $post_uri, $form_id, array $field_data, $edit_mode = FALSE,
 		$multi_use = TRUE, $sub_tool = NULL, $options = NULL)
 	{
-		$this->setTitles('Add <small>Password field</small>', 'Edit <small>Password field</small>');
+		$this->setTitles('Add <small>Textarea</small>', 'Edit <small>Textarea</small>');
 
-		$this->setLabels('Add password field', 'Save');
+		$this->setLabels('Add textarea', 'Save');
 
 		parent::__construct($tool, $field_type, $post_uri, $form_id, $field_data, $edit_mode, $multi_use, $sub_tool,
 			$options);
@@ -44,7 +44,8 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Form
 		$label->setLabel('Label');
 		$label->setAttribs(array(
 			'maxlength' => 255,
-			'placeholder' => 'e.g., Password', 'class' => 'form-control input-sm',
+			'placeholder' => 'e.g., Comment',
+			'class' => 'form-control input-sm',
 		));
 		$label->setDescription('Enter a label.');
 		$label->setBelongsTo('params');
@@ -62,7 +63,7 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Form
 		$description->setLabel('Description');
 		$description->setAttribs(array(
 			'rows' => 2, 'cols' => 30,
-			'placeholder' => 'e.g., Enter your password',
+			'placeholder' => 'e.g., Please enter your comment',
 			'class' => 'form-control input-sm',
 		));
 		$description->setDescription('Enter a description, if necessary give the user instructions.');
@@ -80,7 +81,7 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Form
 		$placeholder->setLabel('Placeholder text');
 		$placeholder->setAttribs(array(
 			'maxlength' => 255,
-			'placeholder' => 'e.g., ********',
+			'placeholder' => 'e.g., I love your app, thank you :)',
 			'class' => 'form-control input-sm',
 		));
 		$placeholder->setDescription('Enter the help text, displays when the field is empty.');
@@ -94,43 +95,43 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Form
 
 		$this->elements['placeholder'] = $placeholder;
 
-		$size = new Dlayer_Form_Element_Number('size');
-		$size->setLabel('<span class="glyphicon glyphicon-plus toggle" id="fgc-size" title="Expand for more" aria-hidden="true"></span> Display size');
-		$size->setValue(20);
-		$size->setAttribs(array(
+		$cols = new Dlayer_Form_Element_Number('cols');
+		$cols->setLabel('<span class="glyphicon glyphicon-plus toggle" id="fgc-cols" title="Expand for more" aria-hidden="true"></span> Display width');
+		$cols->setValue(40);
+		$cols->setAttribs(array(
 			'maxlength' => 3, 'min' => 0,
 			'class' => 'form-control input-sm',
 		));
-		$size->setDescription('Visual size of the field, overridden by styling, legacy setting.');
-		$size->setBelongsTo('params');
-		$size->setRequired();
+		$cols->setDescription('Visual size of the field, overridden by styling, legacy setting.');
+		$cols->setBelongsTo('params');
+		$cols->setRequired();
 
-		$value = $this->fieldAttributeValue('size');
+		$value = $this->fieldAttributeValue('cols');
 		if ($value != FALSE)
 		{
-			$size->setValue($value);
+			$cols->setValue($value);
 		}
 
-		$this->elements['size'] = $size;
+		$this->elements['cols'] = $cols;
 
-		$max_length = new Dlayer_Form_Element_Number('maxlength');
-		$max_length->setLabel('<span class="glyphicon glyphicon-plus toggle" id="fgc-maxlength" title="Expand for more" aria-hidden="true"></span> Character limit');
-		$max_length->setValue(255);
-		$max_length->setAttribs(array(
+		$rows = new Dlayer_Form_Element_Number('rows');
+		$rows->setLabel('<span class="glyphicon glyphicon-plus toggle" id="fgc-rows" title="Expand for more" aria-hidden="true"></span> Display rows');
+		$rows->setValue(4);
+		$rows->setAttribs(array(
 			'maxlength' => 3, 'min' => 0,
 			'class' => 'form-control input-sm',
 		));
-		$max_length->setDescription('Maximum number of characters, defaults to 255 characters.');
-		$max_length->setBelongsTo('params');
-		$max_length->setRequired();
+		$rows->setDescription('Number of lines of text before scroll bars appear, defaults to four.');
+		$rows->setBelongsTo('params');
+		$rows->setRequired();
 
-		$value = $this->fieldAttributeValue('maxlength');
+		$value = $this->fieldAttributeValue('rows');
 		if ($value != FALSE)
 		{
-			$max_length->setValue($value);
+			$rows->setValue($value);
 		}
 
-		$this->elements['maxlength'] = $max_length;
+		$this->elements['rows'] = $rows;
 	}
 
 	/**
@@ -142,7 +143,7 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Form
 	{
 		parent::addCustomElementDecorators();
 
-		$this->elements['size']->setDecorators(
+		$this->elements['cols']->setDecorators(
 			array(
 				array('ViewHelper'),
 				array('Description', array('tag' => 'p', 'class' => 'help-block')),
@@ -169,7 +170,7 @@ class Dlayer_Form_Form_Password extends Dlayer_Form_Form
 			)
 		);
 
-		$this->elements['maxlength']->setDecorators(
+		$this->elements['rows']->setDecorators(
 			array(
 				array('ViewHelper'),
 				array('Description', array('tag' => 'p', 'class' => 'help-block')),

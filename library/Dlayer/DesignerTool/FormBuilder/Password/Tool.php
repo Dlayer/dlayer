@@ -1,22 +1,22 @@
 <?php
 /**
-* Add or edit an email field, manages both the field and attribute data
+* Add or edit a apassword field, manages both the field and attribute data
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Tool_Form_Email extends Dlayer_Tool_Module_Form
+class Dlayer_DesignerTool_FormBuilder_Password_Tool extends Dlayer_Tool_Module_Form
 {
-	protected $field_type = 'email';
-	protected $tool = 'email';
+	protected $field_type = 'password';
+	protected $tool = 'password';
 
 	private $model_field;
 
 	/**
-	* Add a new email field or edit the selected email field. Uses the data in
-	* the params array for the request, this data will have already been both
-	* prepared and validated by the tool class
+	* Add a new password field or edit the selected password field. Uses the
+	* data inthe params array for the request, this data will have already
+	* been both prepared and validated by the tool class
 	*
 	* @param integer $site_id Site id
 	* @param integer $form_id Form id
@@ -122,14 +122,14 @@ class Dlayer_Tool_Form_Email extends Dlayer_Tool_Module_Form
 	protected function prepare(array $params)
 	{
 		return array('label'=>trim($params['label']),
-					 'description'=>trim($params['description']), 
+					 'description'=>trim($params['description']),
 					 'placeholder'=>trim($params['placeholder']),
 					 'size'=>intval($params['size']),
 					 'maxlength'=>intval($params['maxlength']));
 	}
 
 	/**
-	* Add the email field and all the field attributes
+	* Add the password field and all the field attributes
 	*
 	* @param integer $site_id
 	* @param integer $form_id
@@ -148,7 +148,7 @@ class Dlayer_Tool_Form_Email extends Dlayer_Tool_Module_Form
 	}
 
 	/**
-	* Edit the email field and all the field attributes
+	* Edit the password field and all the field attributes
 	*
 	* @param integer $site_id
 	* @param integer $form_id

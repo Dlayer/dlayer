@@ -12,7 +12,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Ribbon_Form_Email extends Dlayer_Ribbon_Module_Form
+class Dlayer_DesignerTool_FormBuilder_Email_Ribbon extends Dlayer_Ribbon_Module_Form
 {
 	/**
 	 * Instantiate and return the form to add or edit a text field
@@ -38,8 +38,8 @@ class Dlayer_Ribbon_Form_Email extends Dlayer_Ribbon_Module_Form
 		}
 
 		return array(
-			'form' => new Dlayer_Form_Form_Email('email', 'email', '/form/process/tool/', $this->form_id,
-				$this->fieldData(), $this->edit_mode, $this->multi_use),
+			'form' => new Dlayer_DesignerTool_FormBuilder_Email_Form('email', 'email', '/form/process/tool/',
+				$this->form_id, $this->fieldData(), $this->edit_mode, $this->multi_use),
 			'field_id' => $field_id,
 			'preview_data' => $preview_data,
 		);

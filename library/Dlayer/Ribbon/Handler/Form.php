@@ -240,7 +240,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'email':
-				$ribbon_email = new Dlayer_Ribbon_Form_Email();
+				$ribbon_email = new Dlayer_DesignerTool_FormBuilder_Email_Ribbon();
 				$data = $ribbon_email->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -295,7 +295,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'password':
-				$ribbon_password = new Dlayer_Ribbon_Form_Password();
+				$ribbon_password = new Dlayer_DesignerTool_FormBuilder_Password_Ribbon();
 				$data = $ribbon_password->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -326,7 +326,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'textarea':
-				$ribbon_textarea = new Dlayer_Ribbon_Form_Textarea();
+				$ribbon_textarea = new Dlayer_DesignerTool_FormBuilder_Textarea_Ribbon();
 				$data = $ribbon_textarea->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
