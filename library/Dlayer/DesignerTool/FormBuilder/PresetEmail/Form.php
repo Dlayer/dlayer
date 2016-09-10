@@ -6,7 +6,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Form_Form_PresetEmail extends Dlayer_Form_Form
+class Dlayer_DesignerTool_FormBuilder_PresetEmail_Form extends Dlayer_Form_Form
 {
 	/**
 	 * Set the properties for the form

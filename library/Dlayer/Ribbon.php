@@ -38,11 +38,9 @@ class Dlayer_Ribbon
 	 *
 	 * @param string $script Script to include
 	 * @param boolean $modular
-	 * @param string|NULL $module
-	 * @param string|NULL $tool
 	 * @return string
 	 */
-	public function viewScriptPath($script, $modular = FALSE, $module = NULL, $tool = NULL)
+	public function viewScriptPath($script, $modular = FALSE)
 	{
 		if($modular === FALSE)
 		{
@@ -53,7 +51,7 @@ class Dlayer_Ribbon
 			/**
 			 * @todo This is a terrible hack at the moment
 			 */
-			return $module . "\\" . $tool . "\\scripts\\" . $script . '.phtml';
+			return $script . '.phtml';
 		}
 	}
 

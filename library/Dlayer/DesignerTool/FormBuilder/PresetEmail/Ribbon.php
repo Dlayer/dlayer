@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Password field ribbon data class.
+ * Email field ribbon data class.
  *
  * Returns the data for the requested tool tab ready to be passed to the view script. The viewData method needs to
  * always return an array, other than that there are no specific requirements for tools
@@ -12,7 +11,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Ribbon_Form_PresetPassword extends Dlayer_Ribbon_Module_Form
+class Dlayer_DesignerTool_FormBuilder_PresetEmail_Ribbon extends Dlayer_Ribbon_Module_Form
 {
 	/**
 	 * Instantiate and return the form for the tool
@@ -31,8 +30,8 @@ class Dlayer_Ribbon_Form_PresetPassword extends Dlayer_Ribbon_Module_Form
 		$this->writeParams($site_id, $form_id, $tool, $tab, $multi_use, $field_id, $edit_mode);
 
 		return array(
-			'form' => new Dlayer_Form_Form_PresetPassword('preset-password', 'password', '/form/process/tool/',
-				$this->form_id, $this->fieldData(), $this->edit_mode, $this->multi_use),
+			'form' => new Dlayer_DesignerTool_FormBuilder_PresetEmail_Form('preset-email', 'text',
+				'/form/process/tool/', $this->form_id, $this->fieldData(), $this->edit_mode, $this->multi_use),
 			'field_id' => $field_id,
 			'preview_data' => FALSE,
 		);

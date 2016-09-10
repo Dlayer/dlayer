@@ -239,8 +239,6 @@ class Content_DesignController extends Zend_Controller_Action
 	 */
 	public function ribbonTabHtmlAction()
 	{
-		$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\");
-
 		$this->_helper->disableLayout();
 
 		$tool = $this->getRequest()->getParam('tool');
@@ -266,6 +264,9 @@ class Content_DesignController extends Zend_Controller_Action
 
 				$this->view->color_picker_data = $this->colorPickerData();
 				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
+
+				$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
+					$this->session_content->tool()['model'] . "\\scripts\\");
 
 				$html = $this->view->render($ribbon->viewScriptPath($view_script, TRUE, 'ContentManager',
 					$this->session_content->tool()['model']));

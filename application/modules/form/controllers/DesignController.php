@@ -207,8 +207,6 @@ class Form_DesignController extends Zend_Controller_Action
 	 */
 	public function ribbonTabHtmlAction()
 	{
-		$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\");
-
 		$this->_helper->disableLayout();
 
 		$tool = $this->getRequest()->getParam('tool');
@@ -237,8 +235,10 @@ class Form_DesignController extends Zend_Controller_Action
 				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
 				$this->view->edit_mode = $edit_mode;
 
-				$html = $this->view->render($ribbon->viewScriptPath($view_script, TRUE, 'FormBuilder',
-					$this->session_form->tool()['model']));
+				$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\FormBuilder\\" .
+					$this->session_form->tool()['model'] . "\\scripts\\");
+
+				$html = $this->view->render($ribbon->viewScriptPath($view_script, TRUE));
 			}
 			else
 			{

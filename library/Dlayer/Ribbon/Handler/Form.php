@@ -216,7 +216,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'preset-name':
-				$ribbon_name = new Dlayer_Ribbon_Form_PresetName();
+				$ribbon_name = new Dlayer_DesignerTool_FormBuilder_PresetName_Ribbon();
 				$data = $ribbon_name->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -271,7 +271,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'preset-email':
-				$ribbon_email = new Dlayer_Ribbon_Form_PresetEmail();
+				$ribbon_email = new Dlayer_DesignerTool_FormBuilder_PresetEmail_Ribbon();
 				$data = $ribbon_email->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -359,7 +359,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'preset-comment':
-				$ribbon_comment = new Dlayer_Ribbon_Form_PresetComment();
+				$ribbon_comment = new Dlayer_DesignerTool_FormBuilder_PresetComment_Ribbon();
 				$data = $ribbon_comment->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -385,7 +385,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'preset-password':
-				$ribbon_password = new Dlayer_Ribbon_Form_PresetPassword();
+				$ribbon_password = new Dlayer_DesignerTool_FormBuilder_PresetPassword_Ribbon();
 				$data = $ribbon_password->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
