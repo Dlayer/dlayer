@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Form class for the setting tool
+ * Form class for the actions tool
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Form
+class Dlayer_DesignerTool_FormBuilder_FormActions_Form extends Dlayer_Form_Form
 {
 	/**
 	 * Set the properties for the form
@@ -25,7 +25,7 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Form
 	public function __construct($tool, $field_type, $post_uri, $form_id, array $field_data, $edit_mode = FALSE,
 		$multi_use = TRUE, $sub_tool = NULL, $options = NULL)
 	{
-		$this->setTitles('Options', 'Options');
+		$this->setTitles('Actions <small>Submission actions</small>', 'Actions <small>Submission actions</small>');
 
 		$this->setLabels('Save', 'Save');
 
@@ -42,39 +42,27 @@ class Dlayer_Form_Form_FormSettings extends Dlayer_Form_Form
 	 */
 	protected function addUserElements()
 	{
-		$http = new Zend_Form_Element_Select('http');
-		$http->setLabel('Method');
-		$http->setDescription('Set the HTTP method to use for form submission, unless building a widget leave at POST.');
-		$http->addMultiOptions(
-			array(1 => 'POST', 2 => 'GET'));
-		$http->setRequired();
-		$http->setAttrib('class', 'form-control input-sm');
-		$http->setBelongsTo('params');
+		$email = new Zend_Form_Element_Select('email');
+		$email->setLabel('Email copy of submission');
+		$email->setDescription('Would you like Dlayer to send you an email after each submission?');
+		$email->addMultiOptions(
+			array(1 => 'No thank you', 2 => 'Yes please'));
+		$email->setRequired();
+		$email->setAttrib('class', 'form-control input-sm');
+		$email->setBelongsTo('params');
 
-		$this->elements['http'] = $http;
+		$this->elements['email'] = $email;
 
-		$url = new Zend_Form_Element_Text('url');
-		$url->setLabel('Custom URL');
-		$url->setAttribs(array(
-			'maxlength' => 255,
-			'placeholder' => 'e.g., https://your-url/handler',
-			'class' => 'form-control input-sm',
-		));
-		$url->setDescription('Set a custom URL to submit the form to, leave blank to let Dlayer handle the submissions.');
-		$url->setBelongsTo('params');
-		$url->setRequired();
+		$save = new Zend_Form_Element_Select('save');
+		$save->setLabel('Save submissions');
+		$save->setDescription('Would you like Dlayer to save a copy of each submission in the database?');
+		$save->addMultiOptions(
+			array(1 => 'No thank you', 2 => 'Yes please'));
+		$save->setRequired();
+		$save->setAttrib('class', 'form-control input-sm');
+		$save->setBelongsTo('params');
 
-		$this->elements['url'] = $url;
-
-		$lock = new Zend_Form_Element_Select('lock');
-		$lock->setLabel('Lock form?');
-		$lock->setDescription('If the form is locked it cannot be changed in anyway.');
-		$lock->addMultiOptions(
-			array(1 => 'Unlock', 2 => 'Lock'));
-		$lock->setRequired();
-		$lock->setAttrib('class', 'form-control input-sm');
-		$lock->setBelongsTo('params');
-
-		$this->elements['lock'] = $lock;
+		$this->elements['save'] = $save;
 	}
+
 }
