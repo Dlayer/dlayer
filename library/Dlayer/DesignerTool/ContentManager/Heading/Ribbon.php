@@ -36,8 +36,8 @@ class Dlayer_DesignerTool_ContentManager_Heading_Ribbon extends Dlayer_Ribbon_Co
 	{
 		$data = array();
 
-		$model_settings = new Dlayer_Model_Settings();
-		$heading_types = $model_settings->headingTypes();
+		$model_heading = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
+		$heading_types = $model_heading->headingTypesForSelect();
 
 		if(count($heading_types) > 0)
 		{

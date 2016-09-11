@@ -123,32 +123,6 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	 * Fetch all the heading types supported by Dlayer (and HTML)
-	 *
-	 * @since 0.99
-	 * @return array
-	 */
-	public function headingTypes()
-	{
-		$sql = "SELECT dch.id, dch.`name`
-				FROM designer_content_heading dch
-				ORDER BY dch.sort_order ASC";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->execute();
-
-		$result = $stmt->fetchAll();
-
-		$rows = array();
-
-		foreach($result as $row)
-		{
-			$rows[intval($row['id'])] = $row['name'];
-		}
-
-		return $rows;
-	}
-
-	/**
 	 * Create the initial color palettes, called when a new site is created
 	 *
 	 * @param integer $site_id

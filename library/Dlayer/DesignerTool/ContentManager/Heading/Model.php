@@ -418,4 +418,29 @@ class Dlayer_DesignerTool_Contentmanager_Heading_Model extends Zend_Db_Table_Abs
 
 		return TRUE;
 	}
+
+	/**
+	 * Fetch all the heading types supported by Dlayer (and HTML)
+	 *
+	 * @return array
+	 */
+	public function headingTypesForSelect()
+	{
+		$sql = "SELECT dch.id, dch.`name`
+				FROM designer_content_heading dch
+				ORDER BY dch.sort_order ASC";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->execute();
+
+		$result = $stmt->fetchAll();
+
+		$rows = array();
+
+		foreach($result as $row)
+		{
+			$rows[intval($row['id'])] = $row['name'];
+		}
+
+		return $rows;
+	}
 }
