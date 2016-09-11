@@ -7,7 +7,7 @@
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 * @category Model
 */
-class Dlayer_Model_Form_Layout extends Zend_Db_Table_Abstract
+class Dlayer_DesignerTool_FormBuilder_FormLayout_Model extends Zend_Db_Table_Abstract
 {
 	/**
 	* Save the titles for the form

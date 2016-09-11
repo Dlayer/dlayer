@@ -144,7 +144,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'form-layout':
-				$ribbon_layout = new Dlayer_Ribbon_Form_FormLayout();
+				$ribbon_layout = new Dlayer_DesignerTool_FormBuilder_FormLayout_Ribbon();
 				$data = $ribbon_layout->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -168,7 +168,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'form-actions':
-				$ribbon_actions = new Dlayer_Ribbon_Form_FormActions();
+				$ribbon_actions = new Dlayer_DesignerTool_FormBuilder_FormActions_Ribbon();
 				$data = $ribbon_actions->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -192,7 +192,7 @@ class Dlayer_Ribbon_Handler_Form
 		switch($this->tab)
 		{
 			case 'form-settings':
-				$ribbon_settings = new Dlayer_Ribbon_Form_FormSettings();
+				$ribbon_settings = new Dlayer_DesignerTool_FormBuilder_FormSettings_Ribbon();
 				$data = $ribbon_settings->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);

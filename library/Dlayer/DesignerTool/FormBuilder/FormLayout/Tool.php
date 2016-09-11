@@ -6,7 +6,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Tool_Form_FormLayout extends Dlayer_Tool_Module_Form
+class Dlayer_DesignerTool_FormBuilder_FormLayout_Tool extends Dlayer_Tool_Module_Form
 {
 	protected $tool = 'form-layout';
 
@@ -17,7 +17,7 @@ class Dlayer_Tool_Form_FormLayout extends Dlayer_Tool_Module_Form
 	* @param integer $site_id Site id
 	* @param integer $form_id Form id
 	* @param integer|NULL $field_id Not used by this tool
-	* @return integer|NULL Field id
+	* @return array
 	*/
 	public function process($site_id, $form_id, $field_id=NULL)
 	{
@@ -47,8 +47,6 @@ class Dlayer_Tool_Form_FormLayout extends Dlayer_Tool_Module_Form
 		} else {
 			return FALSE;
 		}
-
-		return FALSE;
 	}
 
 	public function autoValidate(array $params = array())
@@ -146,7 +144,7 @@ class Dlayer_Tool_Form_FormLayout extends Dlayer_Tool_Module_Form
 	*/
 	private function saveSettings($site_id, $form_id) 
 	{
-		$model_layout = new Dlayer_Model_Form_Layout();
+		$model_layout = new Dlayer_DesignerTool_FormBuilder_FormLayout_Model();
 		
 		$model_layout->saveTitles($site_id, $form_id, $this->params['title'], 
 			$this->params['sub_title']);

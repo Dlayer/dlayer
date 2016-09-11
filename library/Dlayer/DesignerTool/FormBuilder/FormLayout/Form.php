@@ -40,7 +40,7 @@ class Dlayer_DesignerTool_FormBuilder_FormLayout_Form extends Dlayer_Form_Form
 	 */
 	protected function elementsData()
 	{
-		$model_layout = new Dlayer_Model_Form_Layout();
+		$model_layout = new Dlayer_DesignerTool_FormBuilder_FormLayout_Model();
 		$this->elements_data['layout_options'] = $model_layout->layoutOptions();
 	}
 

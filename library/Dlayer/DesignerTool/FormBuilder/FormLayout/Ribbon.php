@@ -12,7 +12,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesginerTool_FormBuilder_FormLayout_Ribbon extends Dlayer_Ribbon_Module_Form
+class Dlayer_DesignerTool_FormBuilder_FormLayout_Ribbon extends Dlayer_Ribbon_Module_Form
 {
 	/**
 	 * Instantiate and return the form to add or edit a text field
@@ -45,7 +45,7 @@ class Dlayer_DesginerTool_FormBuilder_FormLayout_Ribbon extends Dlayer_Ribbon_Mo
 	 */
 	private function existingData()
 	{
-		$model_layout = new Dlayer_Model_Form_Layout();
+		$model_layout = new Dlayer_DesignerTool_FormBuilder_FormLayout_Model();
 
 		$layout = $model_layout->currentValues($this->site_id, $this->form_id);
 
