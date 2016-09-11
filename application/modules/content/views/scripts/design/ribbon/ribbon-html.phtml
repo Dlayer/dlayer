@@ -1,11 +1,8 @@
 <script type="text/javascript">
 $(document).ready(function() 
 {
-	dlayer.ribbon.tabs.clicks('<?php echo $this->escape($this->module); ?>', 
-	'<?php echo $this->escape($this->tool); ?>');
-	dlayer.ribbon.tabs.content('<?php echo $this->escape($this->tab); ?>', 
-	'<?php echo $this->escape($this->tool); ?>', 
-	'<?php echo $this->escape($this->module); ?>');
+	dlayer.ribbon.tabs.clicks('<?php echo $this->escape($this->module); ?>', '<?php echo $this->escape($this->tool); ?>');
+	dlayer.ribbon.tabs.content('<?php echo $this->escape($this->module); ?>', '<?php echo $this->escape($this->tool); ?>', '<?php echo $this->escape($this->tab); ?>');
 });
 </script>
 
@@ -14,7 +11,7 @@ $(document).ready(function()
 		<ul class="nav nav-tabs">
 			<?php foreach($this->tabs as $tab)
 			{ ?>
-				<?php if($tab['tab'] == $this->tab)
+				<?php if($tab['tab'] === $this->tab)
 			{
 				$class = 'active';
 			}
@@ -22,7 +19,7 @@ $(document).ready(function()
 			{
 				$class = NULL;
 			} ?>
-			<li id="tab_<?php echo $this->escape($tab['tab']); ?>" role="presentation" class="<?php echo $class; ?>">
+			<li data-tool="<?php echo $this->escape($tab['tool']); ?>" data-tab="<?php echo $this->escape($tab['tab']); ?>" role="presentation" class="<?php echo $class; ?>">
 				<a href="#" title="<?php echo $this->escape($tab['tab_name']); ?>">
 				<span class="glyphicon glyphicon-<?php echo $this->escape($tab['glyph']); ?>" aria-hidden="true"></span> <span class="visible-md-inline visible-sm-inline"> <?php echo $this->escape($tab['tab_name']); ?></span>
 				</a>
@@ -33,7 +30,7 @@ $(document).ready(function()
 </div>
 
 <?php foreach($this->tabs as $tab) { ?>
-	<?php if($tab['tab'] == $this->tab) { $class = ' open'; } else { $class = NULL; } ?>
+	<?php if($tab['tab'] === $this->tab) { $class = ' open'; } else { $class = NULL; } ?>
 	<div id="tab_content_<?php echo $this->escape($tab['tab']); ?>" class="row content<?php echo $class; ?>"></div>
 <?php } ?>
 

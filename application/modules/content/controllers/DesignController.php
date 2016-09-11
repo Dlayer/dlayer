@@ -161,9 +161,7 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Generate the container html for a tool ribbon tab, view pulls the
-	 * tabs for the tool and then generates the tab bar and container. The
-	 * contents of the ribbon are loaded via AJAX
+	 * Generate the tabs for the selected tool, empty content container for each tool tab which is populated by ajax
 	 *
 	 * @param string $tool
 	 * @param string $tab
@@ -180,8 +178,7 @@ class Content_DesignController extends Zend_Controller_Action
 			$edit_mode = TRUE;
 		}
 
-		$tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool,
-			$edit_mode);
+		$tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool, $edit_mode);
 
 		if($tabs != FALSE)
 		{
@@ -250,6 +247,10 @@ class Content_DesignController extends Zend_Controller_Action
 
 		if($tab !== NULL && $tool !== NULL)
 		{
+			var_dump($module);
+			var_dump($tool);
+			var_dump($tab);
+
 			$view_script = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab, TRUE);
 			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
 
@@ -264,6 +265,8 @@ class Content_DesignController extends Zend_Controller_Action
 
 				$this->view->color_picker_data = $this->colorPickerData();
 				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
+
+				var_dump($this->session_content->tool()); die;
 
 				$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
 					$this->session_content->tool()['model'] . "\\scripts\\");

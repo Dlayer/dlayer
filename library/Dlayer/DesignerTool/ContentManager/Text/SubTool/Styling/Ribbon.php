@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Ribbon_Content_Styling_Text extends Dlayer_Ribbon_Content
+class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Ribbon extends Dlayer_Ribbon_Content
 {
 
 	/**
@@ -22,7 +22,7 @@ class Dlayer_Ribbon_Content_Styling_Text extends Dlayer_Ribbon_Content
 		$this->tool = $tool;
 
 		return array(
-			'form' => new Dlayer_Form_Content_Styling_Text($tool, $this->contentData(),
+			'form' => new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Form($tool, $this->contentData(),
 				$this->instancesOfData(), array())
 		);
 	}

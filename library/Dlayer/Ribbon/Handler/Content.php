@@ -243,7 +243,7 @@ class Dlayer_Ribbon_Handler_Content
 			break;
 
 			case 'styling':
-				$ribbon_text_styling = new Dlayer_Ribbon_Content_Styling_Text();
+				$ribbon_text_styling = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Ribbon();
 				$data = $ribbon_text_styling->viewData($this->toolParams($tool));
 			break;
 

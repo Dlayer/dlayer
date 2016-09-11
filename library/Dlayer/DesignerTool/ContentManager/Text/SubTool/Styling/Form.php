@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Form_Content_Styling_Text extends Dlayer_Form_Content
+class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Form extends Dlayer_Form_Content
 {
 	/**
 	 * Set the properties for the form
@@ -21,7 +21,7 @@ class Dlayer_Form_Content_Styling_Text extends Dlayer_Form_Content
 	public function __construct(array $tool, array $data, $instances, array $element_data, $options=NULL)
 	{
 		$this->content_type = 'text';
-		$this->sub_tool_model = 'Styling_Text';
+		$this->sub_tool_model = 'Styling';
 
 		parent::__construct($tool, $data, $instances, $element_data, $options);
 	}

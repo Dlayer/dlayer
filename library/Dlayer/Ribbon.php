@@ -13,6 +13,7 @@ class Dlayer_Ribbon
 	 * Fetch all the tabs for the requested tool, if the tool is in edit mode
 	 * additonal tabs can be pulled from the database.
 	 *
+	 * @todo Needs to be replaced by modularToolTabs()
 	 * @param string $module
 	 * @param string $tool
 	 * @param boolean $edit_mode Is the tool in edit mode, if so additional tabs may be pulled from the database
@@ -31,6 +32,20 @@ class Dlayer_Ribbon
 		{
 			return FALSE;
 		}
+	}
+
+	/**
+	 * Fetch the tabs for the module tools
+	 * @todo Rename once tabs() refactored away
+	 *
+	 * @param string $module
+	 * @param string $tool
+	 * @param boolean $edit_mode Is the tool in edit mode, if so additional tabs may be pulled from the database
+	 * @return array|FALSE FALSE is there are no active tabs for the tool
+	 */
+	public function modularToolTabs($module, $tool, $edit_mode = FALSE)
+	{
+
 	}
 
 	/**
