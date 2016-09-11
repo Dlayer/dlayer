@@ -39,7 +39,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 	{
 		$valid = FALSE;
 		if(strlen(trim($params['name'])) > 0 && strlen(trim($params['title'])) > 0 &&
-			strlen(trim($params['intro'])) >= 0 && strlen(trim($params['button_label'])) >= 0)
+			strlen(trim($params['intro'])) > 0 && strlen(trim($params['button_label'])) >= 0)
 		{
 			$valid = TRUE;
 		}
@@ -93,9 +93,16 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 	 */
 	protected function add()
 	{
+		$data_added = FALSE;
 		$content_id = $this->addContentItem('jumbotron');
 
 		if($content_id !== FALSE)
+		{
+			$model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
+			$data_added = $model_jumbotron->add($this->site_id, $this->page_id, $content_id, $this->params);
+		}
+
+		if($content_id !== FALSE && $data_added === TRUE)
 		{
 			return $this->returnIds($content_id);
 		}
@@ -113,11 +120,11 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 	 */
 	protected function edit()
 	{
-		$model_content_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
+		$model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
 
 		try
 		{
-			$edit = $model_content_jumbotron->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+			$edit = $model_jumbotron->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
 		}
 		catch(Exception $e)
 		{

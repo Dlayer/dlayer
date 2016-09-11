@@ -66,7 +66,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 	/**
 	 * Validate the instances param, need to see if it should exist first
 	 *
-	 * @param integer site_id
+	 * @param integer $site_id
 	 * @param integer $content_id
 	 * @return boolean
 	 */
@@ -92,9 +92,16 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 	 */
 	protected function add()
 	{
+		$data_added = FALSE;
 		$content_id = $this->addContentItem('heading');
 
 		if($content_id !== FALSE)
+		{
+			$model_heading = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
+			$data_added = $model_heading->add($this->site_id, $this->page_id, $content_id, $this->params);
+		}
+
+		if($content_id !== FALSE && $data_added === TRUE)
 		{
 			return $this->returnIds($content_id);
 		}
@@ -112,11 +119,11 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 	 */
 	protected function edit()
 	{
-		$model_content_heading = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
+		$model_heading = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
 
 		try
 		{
-			$edit = $model_content_heading->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+			$edit = $model_heading->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
 		}
 		catch(Exception $e)
 		{

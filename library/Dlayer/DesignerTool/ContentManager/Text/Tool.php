@@ -64,9 +64,16 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	 */
 	protected function add()
 	{
+		$data_added = FALSE;
 		$content_id = $this->addContentItem('text');
 
 		if($content_id !== FALSE)
+		{
+			$model_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
+			$data_added = $model_text->add($this->site_id, $this->page_id, $content_id, $this->params);
+		}
+
+		if($content_id !== FALSE && $data_added === TRUE)
 		{
 			return $this->returnIds($content_id);
 		}
@@ -84,11 +91,11 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 	 */
 	protected function edit()
 	{
-		$model_content_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
+		$model_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
 
 		try
 		{
-			$edit = $model_content_text->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+			$edit = $model_text->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
 		}
 		catch(Exception $e)
 		{

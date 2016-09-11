@@ -86,9 +86,16 @@ class Dlayer_DesignerTool_ContentManager_Image_Tool extends Dlayer_Tool_Content
 	 */
 	protected function add()
 	{
+		$data_added = FALSE;
 		$content_id = $this->addContentItem('image');
 
 		if($content_id !== FALSE)
+		{
+			$model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
+			$data_added = $model_image->add($this->site_id, $this->page_id, $content_id, $this->params);
+		}
+
+		if($content_id !== FALSE && $data_added === TRUE)
 		{
 			return $this->returnIds($content_id);
 		}
@@ -106,11 +113,11 @@ class Dlayer_DesignerTool_ContentManager_Image_Tool extends Dlayer_Tool_Content
 	 */
 	protected function edit()
 	{
-		$model_content_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
+		$model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
 
 		try
 		{
-			$result = $model_content_image->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+			$result = $model_image->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
 		}
 		catch(Exception $e)
 		{

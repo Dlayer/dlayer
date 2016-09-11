@@ -100,6 +100,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Form extends Dlayer_Form_Cont
 		$intro->setAttribs(array('cols'=>50, 'rows'=>3, 'placeholder'=>'e.g., Below you will find an overview of all the services...', 'class'=>'form-control input-sm'));
 		$intro->setDescription('Enter the introduction.');
 		$intro->setBelongsTo('params');
+		$intro->setRequired();
 
 		if(array_key_exists('intro', $this->data) === TRUE && $this->data['intro'] !== FALSE)
 		{

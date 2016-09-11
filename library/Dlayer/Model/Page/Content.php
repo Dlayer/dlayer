@@ -83,58 +83,6 @@ class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
 		if($result === TRUE)
 		{
 			$content_id = intval($this->_db->lastInsertId('user_site_page_structure_content'));
-
-			switch($content_type)
-			{
-				case 'text':
-					$model_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
-					$result = $model_text->add($site_id, $page_id, $content_id, $params);
-					if($result === FALSE)
-					{
-						$content_id = FALSE;
-					}
-				break;
-
-				case 'heading':
-					$model_heading = new Dlayer_DesignerTool_Contentmanager_Heading_Model();
-					$result = $model_heading->add($site_id, $page_id, $content_id, $params);
-					if($result === FALSE)
-					{
-						$content_id = FALSE;
-					}
-				break;
-
-				case 'jumbotron':
-					$model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
-					$result = $model_jumbotron->add($site_id, $page_id, $content_id, $params);
-					if($result === FALSE)
-					{
-						$content_id = FALSE;
-					}
-				break;
-
-				case 'form':
-					$model_form = new Dlayer_DesignerTool_ContentManager_Form_Model();
-					$result = $model_form->add($site_id, $page_id, $content_id, $params);
-					if($result === FALSE)
-					{
-						$content_id = FALSE;
-					}
-				break;
-
-				case 'image':
-					$model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
-					$result = $model_image->add($site_id, $page_id, $content_id, $params);
-					if($result === FALSE)
-					{
-						$content_id = FALSE;
-					}
-				break;
-
-				default:
-					$content_id = FALSE;
-				break;
-			}
 		}
 
 		return $content_id;
