@@ -91,12 +91,14 @@ class Form_ProcessController extends Zend_Controller_Action
 		// Instantiate base tool or sub tool
 		$model_tools = new Dlayer_Model_Tool();
 		
-		if(array_key_exists('sub_tool_model', $_POST) == TRUE 
-		&& $model_tools->subToolValid($this->getRequest()->getModuleName(),
-		$tool['tool'], $_POST['sub_tool_model']) == TRUE) {
+		if(array_key_exists('sub_tool_model', $_POST) === TRUE && $model_tools->subToolValid(
+			$this->getRequest()->getModuleName(), $tool['tool'], $_POST['sub_tool_model']) === TRUE)
+		{
 			$tool_class = 'Dlayer_Tool_Form_' . $_POST['sub_tool_model'];
-		} else {
-			$tool_class = 'Dlayer_Tool_Form_' . $tool['model'];
+		}
+		else
+		{
+			$tool_class = 'Dlayer_DesignerTool_FormBuilder_' . $tool['model'] . '_Tool';
 		}
 						
 		$this->tool_class = new $tool_class();

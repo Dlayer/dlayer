@@ -238,8 +238,13 @@ class Dlayer_Ribbon_Handler_Content
 		switch($tab)
 		{
 			case 'text':
-				$ribbon_text = new Dlayer_Ribbon_Content_Text();
+				$ribbon_text = new Dlayer_DesignerTool_ContentManager_Text_Ribbon();
 				$data = $ribbon_text->viewData($this->toolParams($tool));
+			break;
+
+			case 'styling':
+				$ribbon_text_styling = new Dlayer_Ribbon_Content_Styling_Text();
+				$data = $ribbon_text_styling->viewData($this->toolParams($tool));
 			break;
 
 			default:
@@ -262,7 +267,7 @@ class Dlayer_Ribbon_Handler_Content
 		switch($tab)
 		{
 			case 'heading':
-				$ribbon_heading = new Dlayer_Ribbon_Content_Heading();
+				$ribbon_heading = new Dlayer_DesignerTool_ContentManager_Heading_Ribbon();
 				$data = $ribbon_heading->viewData($this->toolParams($tool));
 			break;
 
@@ -286,7 +291,7 @@ class Dlayer_Ribbon_Handler_Content
 		switch($tab)
 		{
 			case 'jumbotron':
-				$ribbon_jumbotron = new Dlayer_Ribbon_Content_Jumbotron();
+				$ribbon_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon();
 				$data = $ribbon_jumbotron->viewData($this->toolParams($tool));
 			break;
 
@@ -310,7 +315,7 @@ class Dlayer_Ribbon_Handler_Content
 		switch($tab)
 		{
 			case 'form':
-				$ribbon_form = new Dlayer_Ribbon_Content_Form();
+				$ribbon_form = new Dlayer_DesignerTool_ContentManager_Form_Ribbon();
 				$data = $ribbon_form->viewData($this->toolParams($tool));
 			break;
 
@@ -334,7 +339,7 @@ class Dlayer_Ribbon_Handler_Content
 		switch($tab)
 		{
 			case 'image':
-				$ribbon_image = new Dlayer_Ribbon_Content_Image();
+				$ribbon_image = new Dlayer_DesignerTool_ContentManager_Image_Ribbon();
 				$data = $ribbon_image->viewData($this->toolParams($tool));
 			break;
 

@@ -41,7 +41,7 @@ class Dlayer_View_BootstrapNavbarPreview extends Zend_View_Helper_Abstract
 	* @param string $active_url The URL of the active item, not always the
 	* 							current URL
 	* @param string $preview_url
-	* @return Dlayer_View_BootstrapNavbar
+	* @return Dlayer_View_BootstrapNavbarPreview
 	*/
 	public function bootstrapNavbarPreview($brand, array $navbar_items,
 		$active_url='', $preview_url='')

@@ -200,65 +200,6 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Fetch the page container metrics
-	 *
-	 * @return array Contains the usable height and width for the page container
-	 */
-	private function pageContainerMetrics()
-	{
-		$metrics = array('width' => 0, 'height' => 'Dynamic');
-
-		if($this->session_content->divId() != NULL &&
-			$this->session_content->tool() != FALSE
-		)
-		{
-			$model_template_div = new Dlayer_Model_Template_Div();
-			$site_id = $this->session_dlayer->siteId();
-			$div_id = $this->session_content->divId();
-
-			$metrics['width'] = $model_template_div->width($site_id,
-				$div_id);
-
-			$height = $model_template_div->height($site_id, $div_id);
-			if($height['fixed'] == TRUE)
-			{
-				$metrics['height'] = $height['height'] . ' pixels';
-			}
-		}
-
-		return $metrics;
-	}
-
-	/**
-	 * Fetch the content item metrics for the selected content item
-	 *
-	 * @return array An array containing the metrics for the selected
-	 *                 content item
-	 */
-	private function contentItemMetrics()
-	{
-		$metrics = array(
-			'width' => 0, 'height' => 'Dynamic',
-			'border' => array('top' => 0, 'right' => 0, 'bottom' => 0, 'left' => 0),
-			'margin' => array('top' => 0, 'right' => 0, 'bottom' => 0, 'left' => 0),
-			'padding' => array('top' => 0, 'right' => 0, 'bottom' => 0, 'left' => 0),
-		);
-
-		$model_metrics = new Dlayer_Model_Page_Content_Metrics();
-
-		$item_metrics = $model_metrics->data(
-			$this->session_dlayer->siteId(), $this->session_content->pageId(),
-			$this->session_content->divId(), $this->session_content->contentId());
-
-		if($item_metrics != FALSE)
-		{
-			$metrics = $item_metrics;
-		}
-
-		return $metrics;
-	}
-
-	/**
 	 * Fetch the data for the color picker, passed to the ribbon tab view
 	 * so color picker can be pre populated for all tabs.
 	 *
@@ -309,7 +250,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		if($tab !== NULL && $tool !== NULL)
 		{
-			$view_script = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab);
+			$view_script = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab, TRUE);
 			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
 
 			if($view_script !== FALSE)
@@ -324,7 +265,11 @@ class Content_DesignController extends Zend_Controller_Action
 				$this->view->color_picker_data = $this->colorPickerData();
 				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
 
-				$html = $this->view->render($ribbon->viewScriptPath($view_script));
+				$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
+					$this->session_content->tool()['model'] . "\\scripts\\");
+
+				$html = $this->view->render($ribbon->viewScriptPath($view_script, TRUE, 'ContentManager',
+					$this->session_content->tool()['model']));
 			}
 			else
 			{
@@ -523,12 +468,14 @@ class Content_DesignController extends Zend_Controller_Action
 				if($this->session_content->setTool($tool) == TRUE)
 				{
 					$reset = $this->getRequest()->getParam('reset');
+
 					if($reset != NULL && $reset == 1)
 					{
 						$this->session_content->clearContentId();
 						$this->session_designer->clearAllImagePicker();
 					}
-					$this->_redirect('/content/design');
+
+					$this->redirect('/content/design');
 				}
 				else
 				{

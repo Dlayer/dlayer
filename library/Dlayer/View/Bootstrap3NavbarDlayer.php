@@ -235,7 +235,7 @@ class Dlayer_View_Bootstrap3NavbarDlayer extends Zend_View_Helper_Abstract
 	{
 		$html = '<p class="navbar-text navbar-inverse navbar-right">';
 		$html .= '<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> <a href="' .
-			$this->preview_uri . '" class="navbar-link" title="Preview">Live preview</a>';
+			$this->preview_uri . '" class="navbar-link" target="_blank" title="Preview">Live preview</a>';
 		$html .= '</p>';
 
 		return $html;

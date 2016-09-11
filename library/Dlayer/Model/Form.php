@@ -132,8 +132,12 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 		{
 			$form_id = intval($this->_db->lastInsertId('user_site_form'));
 
+			/**
+			 * @todo This is referencing the tool mode, not ideal
+			 */
+
 			// Insert the default layout settings for the form
-			$model_layout = new Dlayer_Model_Form_Layout();
+			$model_layout = new Dlayer_DesignerTool_FormBuilder_FormLayout_Model();
 			$model_layout->setDefaults($site_id, $form_id, $title, $sub_title,
 				Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL, Dlayer_Config::FORM_DEFAULT_RESET_LABEL,
 				Dlayer_Config::FORM_DEFAULT_LAYOUT_ID, Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_LABEL,

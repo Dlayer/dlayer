@@ -64,7 +64,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	 *
 	 * @todo Move this out of controller
 	 * @param string $param
-	 * @param integer|NULL $default
+	 * @param string|NULL $default
 	 * @return string|NULL
 	 */
 	private function getPostAsString($param, $default = NULL)
@@ -99,7 +99,8 @@ class Content_ProcessController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Fetch the tool class, either returns the tool defined in the session of the tool for the posted sub tool
+	 * Fetch the tool class, either returns the tool defined in the session or the tool that matches the
+	 * POSTed sub tool
 	 *
 	 * @param string $sub_tool_model
 	 * @return Dlayer_Tool_Content
@@ -113,7 +114,7 @@ class Content_ProcessController extends Zend_Controller_Action
 		}
 		else
 		{
-			$tool_class = 'Dlayer_Tool_Content_' . $session_content->tool()['model'];
+			$tool_class = 'Dlayer_DesignerTool_ContentManager_' . $session_content->tool()['model'] . '_Tool';
 		}
 
 		return new $tool_class();
@@ -181,7 +182,7 @@ class Content_ProcessController extends Zend_Controller_Action
 			$this->returnToDesigner(FALSE);
 		}
 
-		$tool = $this->toolClass($this->_request->getParam('sub_tool_model'));
+		$tool = $this->toolClass($this->getPostAsString('sub_tool_model', NULL));
 
 		if($tool->validate($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
 				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
@@ -217,7 +218,7 @@ class Content_ProcessController extends Zend_Controller_Action
 			$this->returnToDesigner(FALSE);
 		}
 
-		$tool = $this->toolClass($this->_request->getParam('sub_tool_model'));
+		$tool = $this->toolClass($this->getPostAsString('sub_tool_model', NULL));
 
 		if($tool->validateAuto($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
 				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),

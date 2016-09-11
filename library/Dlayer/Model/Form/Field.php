@@ -17,7 +17,7 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	* form field tools
 	*
 	* @param integer $site_id
-	* @param inteer $form_id
+	* @param integer $form_id
 	* @param integer $field_id Id of the new form field
 	* @param array $attributes Attributes to insert for the form field
 	* @param array $params Post params from form
@@ -57,7 +57,7 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	* form field tools
 	*
 	* @param integer $site_id
-	* @param inteer $form_id
+	* @param integer $form_id
 	* @param integer $field_id Id of the new form field
 	* @param array $attributes Attributes to insert for the form field
 	* @param array $params Post params from form
