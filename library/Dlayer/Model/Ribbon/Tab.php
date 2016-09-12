@@ -51,15 +51,16 @@ class Dlayer_Model_Ribbon_Tab extends Zend_Db_Table_Abstract
 	 * the ribbon tab view script under /module/views/scripts/design/ribbon
 	 *
 	 * @todo Another hack, should only need this method
-	 * @todo Clean up database now code simpler with regards tool location
+	 * @todo Clean up database new code simpler with regards tool location
 	 * @param integer $module
-	 * @param string $tool Name of the requeted tool
-	 * @param string $tab Name of the tool tab
+	 * @param string $tool Name of the requested tool
+	 * @param string $tab_script Name of the tool tab view script
+	 * @param string|NULL $sub_tool Name of the sub tool
 	 * @return string|FALSE Path for view script, folder and file name
 	 */
-	public function tabViewScript($module, $tool, $tab)
+	public function tabViewScriptExists($module, $tool, $tab_script, $sub_tool=NULL)
 	{
-		$sql = "SELECT dmtt.view_script
+		$sql = "SELECT dmtt.id
 				FROM dlayer_module_tool_tab dmtt
 				JOIN dlayer_module_tool dmt ON dmtt.tool_id = dmt.id
 				AND dmt.enabled = 1
@@ -72,14 +73,17 @@ class Dlayer_Model_Ribbon_Tab extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':module', $module, PDO::PARAM_STR);
 		$stmt->bindValue(':tool', $tool, PDO::PARAM_STR);
-		$stmt->bindValue(':tab', $tab, PDO::PARAM_STR);
+		$stmt->bindValue(':tab', $tab_script, PDO::PARAM_STR);
 		$stmt->execute();
 
 		$result = $stmt->fetch();
 
-		if($result != FALSE) {
-			return $result['view_script'];
-		} else {
+		if($result !== FALSE)
+		{
+			return TRUE;
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
@@ -91,10 +95,10 @@ class Dlayer_Model_Ribbon_Tab extends Zend_Db_Table_Abstract
 	*
 	* @param string $module Module name
 	* @param string $tool Tool name
-	* @param string $tab Tab name
+	* @param string $tab_script Tab name
 	* @return integer
 	*/
-	public function multiUseToolTab($module, $tool, $tab)
+	public function multiUseToolTab($module, $tool, $tab_script)
 	{
 		$sql = "SELECT dmtt.multi_use
 				FROM dlayer_module_tool_tab dmtt
@@ -109,7 +113,7 @@ class Dlayer_Model_Ribbon_Tab extends Zend_Db_Table_Abstract
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':module', $module, PDO::PARAM_STR);
 		$stmt->bindValue(':tool', $tool, PDO::PARAM_STR);
-		$stmt->bindValue(':tab', $tab, PDO::PARAM_STR);
+		$stmt->bindValue(':tab', $tab_script, PDO::PARAM_STR);
 		$stmt->execute();
 
 		$result = $stmt->fetch();

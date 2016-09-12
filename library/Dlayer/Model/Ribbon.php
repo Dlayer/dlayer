@@ -46,13 +46,11 @@ class Dlayer_Model_Ribbon extends Zend_Db_Table_Abstract
 	/**
 	 * Fetch the modular tool tabs for the selected tool
 	 * @todo Rename once tabs() refactored away
-	 *
-	 *
 	 */
 	public function modularToolTabs($module, $tool_model, $edit_mode = FALSE)
 	{
-		$sql = "SELECT dmt.name AS tool_name, dmtt.name AS sub_tool_name, dmtt.view_script, 
-				dmtt.sub_tool_model  
+		$sql = "SELECT dmt.`name` AS tool, dmtt.`name` AS tab_name, dmtt.view_script, 
+				dmtt.sub_tool_model AS sub_tool, dmtt.glyph
 				FROM dlayer_module_tool_tab dmtt 
 				JOIN dlayer_module dm 
 					ON dmtt.module_id = dm.id

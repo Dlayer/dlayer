@@ -428,5 +428,54 @@ dlayerDesigner = {
 			$(dlayerDesigner.imagePicker.selector + ' .form').html(html);
 			$(dlayerDesigner.imagePicker.selector + ' .form').show();
 		}
+	},
+
+	/**
+	 * Add the AJAX for the tabs
+	 */
+	tabs: {
+
+		/**
+		 * Add the click events
+		 */
+		start: function(module, tool)
+		{
+			$('.ribbon ul.nav-tabs > li').click(function() {
+
+				if($(this).hasClass('active') === false)
+				{
+					var tab_script = $(this).data('tab-script');
+					$('.ribbon ul.nav-tabs > li').removeClass('active');
+					$(this).addClass('active');
+					$('.ribbon > div.content').removeClass('open');
+					$('.ribbon > div.content[data-tab-content="' + tab_script + '"]').addClass('open');
+
+					dlayerDesigner.tabs.load(module, $(this).data('tool'), $(this).data('sub-tool'), tab_script);
+				}
+			})
+		},
+
+		load: function(module, tool, sub_tool, tab_script, reload)
+		{
+			//if(typeof reload == 'undefined') { reload = false; }
+
+			var data = {
+				tool: tool,
+				tab_script: tab_script
+			};
+			(sub_tool.length > 0) ? data.sub_tool = sub_tool: null;
+
+			var uri = '/' + module + '/design/ribbon-tab-html';
+			$.post(
+				uri,
+				data,
+				function(data) {
+					$('.ribbon > div.content[data-tab-content="' + tab_script + '"]').html(data).addClass('open');
+					//$('#color_picker').hide();
+					if(reload == true) { window.location.replace('/' + module + '/design/'); }
+				},
+				'html'
+			)
+		}
 	}
 };

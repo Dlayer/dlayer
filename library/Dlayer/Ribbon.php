@@ -45,7 +45,17 @@ class Dlayer_Ribbon
 	 */
 	public function modularToolTabs($module, $tool, $edit_mode = FALSE)
 	{
+		$model_ribbon = new Dlayer_Model_Ribbon();
+		$tabs = $model_ribbon->modularToolTabs($module, $tool, $edit_mode);
 
+		if(count($tabs) > 0)
+		{
+			return $tabs;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**

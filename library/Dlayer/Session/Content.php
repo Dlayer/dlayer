@@ -197,11 +197,13 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	 * Set the tool tab
 	 *
 	 * @param string $tab
+	 * @param string|NULL $sub_tool_model
 	 * @return void
 	 */
-	public function setRibbonTab($tab)
+	public function setRibbonTab($tab, $sub_tool_model=NULL)
 	{
 		$this->tab = $tab;
+		$this->sub_tool_model = $sub_tool_model;
 	}
 
 	/**
@@ -222,6 +224,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 				'tool' => $this->tool,
 				'tab' => $this->tab,
 				'model' => $this->tool_model,
+				'sub_model' => $this->sub_tool_model,
 			);
 		}
 		else

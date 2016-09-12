@@ -147,7 +147,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		if($tool != FALSE)
 		{
-			$html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab']);
+			$html = $this->dlayerRibbonHtml($tool['model'], $tool['tab']);
 		}
 		else
 		{
@@ -178,12 +178,14 @@ class Content_DesignController extends Zend_Controller_Action
 			$edit_mode = TRUE;
 		}
 
-		$tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool, $edit_mode);
+		$tabs = $ribbon->modularToolTabs($this->getRequest()->getModuleName(), $this->session_content->tool()['model'],
+			$edit_mode);
 
-		if($tabs != FALSE)
+		if($tabs !== FALSE)
 		{
-			$this->view->tab = $tab;
+			$this->view->tab_script = $tab;
 			$this->view->tool = $tool;
+			$this->view->sub_tool = $this->session_content->tool()['sub_model'];
 			$this->view->tabs = $tabs;
 			$this->view->module = $this->getRequest()->getModuleName();
 			$html = $this->view->render($ribbon->dynamicViewScriptPath());
@@ -238,41 +240,46 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout();
 
-		$tool = $this->getRequest()->getParam('tool');
-		$tab = $this->getRequest()->getParam('tab');
 		$module = $this->getRequest()->getModuleName();
+		$tool = $this->getParamAsString('tool');
+		$sub_tool = $this->getParamAsString('sub_tool');
+		$tab_script = $this->getParamAsString('tab_script');
 
 		$ribbon = new Dlayer_Ribbon();
 		$ribbon_tab = new Dlayer_Ribbon_Tab();
 
-		if($tab !== NULL && $tool !== NULL)
+		if($tool !== NULL && $tab_script !== NULL)
 		{
-			var_dump($module);
-			var_dump($tool);
-			var_dump($tab);
+			$exists = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab_script, TRUE);
+			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab_script);
 
-			$view_script = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab, TRUE);
-			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
-
-			if($view_script !== FALSE)
+			if($exists === TRUE)
 			{
-				$this->session_content->setRibbonTab($tab);
-				$edit_mode = FALSE;
 				if($this->session_content->contentId() !== NULL)
 				{
 					$edit_mode = TRUE;
 				}
+				else
+				{
+					$edit_mode = FALSE;
+				}
+				$this->session_content->setRibbonTab($tab_script, $sub_tool);
 
 				$this->view->color_picker_data = $this->colorPickerData();
-				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
+				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab_script, $multi_use, $edit_mode);
 
-				var_dump($this->session_content->tool()); die;
+				if($sub_tool === NULL)
+				{
+					$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
+						$tool . "\\scripts\\");
+				}
+				else
+				{
+					$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
+						$tool . "\\SubTool\\" . $sub_tool ."\\scripts\\");
+				}
 
-				$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
-					$this->session_content->tool()['model'] . "\\scripts\\");
-
-				$html = $this->view->render($ribbon->viewScriptPath($view_script, TRUE, 'ContentManager',
-					$this->session_content->tool()['model']));
+				$html = $this->view->render($tab_script . '.phtml');
 			}
 			else
 			{

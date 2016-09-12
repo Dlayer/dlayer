@@ -27,13 +27,12 @@ class Dlayer_Ribbon_Tab
 	 * requested tab. If the tool isn't valid or currently enabled FALSE will be
 	 * returned.
 	 *
-	 * @todo Fix this once all tools updated to being modular
+	 * @todo Fix this once all tools updated to being modular, check @return
 	 * @param string $module
 	 * @param string $tool Requested tool name
 	 * @param string $tab Requested tool tab name
 	 * @param boolean $modular Use new modular tools
-	 * @return string|FALSE Either the view script or FALSE if tool not valid
-	 *                      for some reason
+	 * @return string|boolean Either the view script or boolean in modular mode
 	 */
 	public function viewScript($module, $tool, $tab, $modular=FALSE)
 	{
@@ -43,7 +42,7 @@ class Dlayer_Ribbon_Tab
 		}
 		else
 		{
-			return $this->model_ribbon_tab->tabViewScript($module, $tool, $tab);
+			return $this->model_ribbon_tab->tabViewScriptExists($module, $tool, $tab);
 		}
 	}
 
