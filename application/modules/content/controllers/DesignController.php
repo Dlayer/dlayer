@@ -119,25 +119,22 @@ class Content_DesignController extends Zend_Controller_Action
 	 */
 	private function dlayerToolbar()
 	{
-		$model_module = new Dlayer_Model_Module();
+		$model_tool = new Dlayer_Model_Tool();
 
 		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->column_id = $this->session_content->columnId();
 		$this->view->content_id = $this->session_content->contentId();
 
-		$this->view->tools = $model_module->tools($this->getRequest()->getModuleName());
+		$this->view->tools = $model_tool->tools($this->getRequest()->getModuleName());
 		$this->view->tool = $this->session_content->tool();
 
 		return $this->view->render("design/toolbar.phtml");
 	}
 
 	/**
-	 * Generate the html for the ribbon, there are three ribbon states,
-	 * the initial state, div selected and then tool selected. The contents
-	 * of the ribbon are loaded via AJAX, this method just generates the
-	 * container html for when a tool is selected and then the html for the
-	 * two base states
+	 * Generate the HTML for the ribbon, there are two states, tool selected and then the default view, if a tool is
+	 * selected we let the ribbon load the relevant HTML
 	 *
 	 * @return string
 	 */
@@ -145,9 +142,9 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$tool = $this->session_content->tool();
 
-		if($tool != FALSE)
+		if($tool !== FALSE)
 		{
-			$html = $this->dlayerRibbonHtml($tool['model'], $tool['tab']);
+			$html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab'], $tool['sub_tool']);
 		}
 		else
 		{
@@ -161,38 +158,40 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Generate the tabs for the selected tool, empty content container for each tool tab which is populated by ajax
+	 * Generate the tabs for the selected tool, an empty container is generated for each tab which will be populated
+	 * via an AJAX request
 	 *
 	 * @param string $tool
 	 * @param string $tab
+	 * @param string|NULL $sub_tool
 	 * @return string
 	 */
-	private function dlayerRibbonHtml($tool, $tab)
+	private function dlayerRibbonHtml($tool, $tab, $sub_tool = NULL)
 	{
-		$ribbon = new Dlayer_Ribbon();
-
-		$edit_mode = FALSE;
-
 		if($this->session_content->contentId() != NULL)
 		{
 			$edit_mode = TRUE;
 		}
+		else
+		{
+			$edit_mode = FALSE;
+		}
 
-		$tabs = $ribbon->modularToolTabs($this->getRequest()->getModuleName(), $this->session_content->tool()['model'],
-			$edit_mode);
+		$model_tool = new Dlayer_Model_Tool();
+		$tabs = $model_tool->toolTabs('content', $tool, $edit_mode);
 
 		if($tabs !== FALSE)
 		{
-			$this->view->tab_script = $tab;
-			$this->view->tool = $tool;
-			$this->view->sub_tool = $this->session_content->tool()['sub_model'];
+			$this->view->selected_tool = $tool;
+			$this->view->selected_tab = $tab;
+			$this->view->selected_sub_tool = $sub_tool;
 			$this->view->tabs = $tabs;
-			$this->view->module = $this->getRequest()->getModuleName();
-			$html = $this->view->render($ribbon->dynamicViewScriptPath());
+			$this->view->module = 'content';
+			$html = $this->view->render('design/ribbon/ribbon-html.phtml');
 		}
 		else
 		{
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render('design/ribbon/default.phtml');
 		}
 
 		return $html;
@@ -217,16 +216,6 @@ class Content_DesignController extends Zend_Controller_Action
 			'history' => $model_palettes->lastNColors($this->site_id),
 		);
 	}
-
-	/**
-	 * Generate the html for the requested tool tab, called via AJAX by the
-	 * base view.
-	 *
-	 * The tool and tab are checked to see if they are valid and then the
-	 * daata required to generate the tab is pulled and passed to the view.
-	 *
-	 * @return string
-	 */
 
 	/**
 	 * Generate the html for the requested tool tab, called via Ajax. The tool and tab are checked to ensure they are
@@ -422,7 +411,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		if($this->session_content->setTool('page') === TRUE) {
+		if($this->session_content->setTool('Page') === TRUE) {
 			$this->session_content->setPageSelected();
 		}
 

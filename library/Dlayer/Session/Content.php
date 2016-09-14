@@ -166,10 +166,10 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	 * Set the selected tool, before setting we check to see if the requested
-	 * tool is valid, if valid we set the default tab for the tool
+	 * Set the selected tool, before setting we check to see if the requested tool is valid, a tool is a
+	 * combination of a tool model, an option sub tool model and the tab itself
 	 *
-	 * @param string $tool Name of the tool to set
+	 * @param string $tool Tool model name
 	 * @return boolean
 	 */
 	public function setTool($tool)
@@ -177,13 +177,12 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 		$session_dlayer = new Dlayer_Session();
 		$model_tool = new Dlayer_Model_Tool();
 
-		$tool_details = $model_tool->valid($session_dlayer->module(), $tool);
+		$tool = $model_tool->toolAndDefaultTab($session_dlayer->module(), $tool);
 
-		if($tool_details !== FALSE)
+		if($tool !== FALSE)
 		{
-			$this->tool = $tool;
-			$this->tool_model = $tool_details['tool_model'];
-			$this->setRibbonTab($tool_details['tab']);
+			$this->tool = $tool['tool'];
+			$this->setRibbonTab($tool['tab'], $tool['sub_tool']);
 
 			return TRUE;
 		}
@@ -197,34 +196,29 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	 * Set the tool tab
 	 *
 	 * @param string $tab
-	 * @param string|NULL $sub_tool_model
+	 * @param string|NULL $sub_tool
 	 * @return void
 	 */
-	public function setRibbonTab($tab, $sub_tool_model=NULL)
+	public function setRibbonTab($tab, $sub_tool=NULL)
 	{
 		$this->tab = $tab;
-		$this->sub_tool_model = $sub_tool_model;
+		$this->sub_tool = $sub_tool;
 	}
 
 	/**
-	 * Returns the data array for the currently selected tool, if no tool is
-	 * set the method returns FALSE
+	 * Returns the data array for the currently selected tool, if no tool is set the method returns FALSE, a tool is
+	 * the combination of the tool itself and the selected tab
 	 *
-	 * @return array|FALSE Array contains two indexes, tool and tab, name is
-	 *                     the name of the tool, tab is the name of the
-	 *                     selected tab
+	 * @return array|FALSE
 	 */
 	public function tool()
 	{
-		if($this->tool != NULL && $this->tab != NULL &&
-			$this->tool_model != NULL
-		)
+		if($this->tool !== NULL && $this->tab !== NULL)
 		{
 			return array(
 				'tool' => $this->tool,
-				'tab' => $this->tab,
-				'model' => $this->tool_model,
-				'sub_model' => $this->sub_tool_model,
+				'sub_tool' => $this->sub_tool, // Sub tool model can be NULL
+				'tab' => $this->tab
 			);
 		}
 		else
@@ -251,8 +245,11 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 		$this->column_id = NULL;
 		$this->row_id = NULL;
 		$this->content_id = NULL;
+
 		$this->tool = NULL;
+		$this->sub_tool = NULL;
 		$this->tab = NULL;
+
 		if($reset == TRUE)
 		{
 			$this->page_id = NULL;

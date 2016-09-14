@@ -96,6 +96,7 @@ class Dlayer_View_ImportedForm extends Zend_View_Helper_Abstract
 	 */
 	public function __toString()
 	{
-		return $this->render();
+		//return $this->render();
+		return '';
 	}
 }

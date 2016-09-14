@@ -438,30 +438,33 @@ dlayerDesigner = {
 		/**
 		 * Add the click events
 		 */
-		start: function(module, tool)
+		start: function(module)
 		{
 			$('.ribbon ul.nav-tabs > li').click(function() {
 
 				if($(this).hasClass('active') === false)
 				{
-					var tab_script = $(this).data('tab-script');
+					var tool = $(this).data('tool');
+					var sub_tool = $(this).data('sub-tool');
+					var tab = $(this).data('tab');
+
 					$('.ribbon ul.nav-tabs > li').removeClass('active');
 					$(this).addClass('active');
 					$('.ribbon > div.content').removeClass('open');
-					$('.ribbon > div.content[data-tab-content="' + tab_script + '"]').addClass('open');
+					$('.ribbon > div.content[data-tab-content="' + tab + '"]').addClass('open');
 
-					dlayerDesigner.tabs.load(module, $(this).data('tool'), $(this).data('sub-tool'), tab_script);
+					dlayerDesigner.tabs.load(module, tool, sub_tool, tab);
 				}
 			})
 		},
 
-		load: function(module, tool, sub_tool, tab_script, reload)
+		load: function(module, tool, sub_tool, tab, reload)
 		{
 			//if(typeof reload == 'undefined') { reload = false; }
 
 			var data = {
 				tool: tool,
-				tab_script: tab_script
+				tab: tab
 			};
 			(sub_tool.length > 0) ? data.sub_tool = sub_tool: null;
 
@@ -470,7 +473,7 @@ dlayerDesigner = {
 				uri,
 				data,
 				function(data) {
-					$('.ribbon > div.content[data-tab-content="' + tab_script + '"]').html(data).addClass('open');
+					$('.ribbon > div.content[data-tab-content="' + tab + '"]').html(data).addClass('open');
 					//$('#color_picker').hide();
 					if(reload == true) { window.location.replace('/' + module + '/design/'); }
 				},

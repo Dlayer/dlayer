@@ -29,14 +29,14 @@ foreach($this->tools as $group_id => $group) {
 
 			case 3: // Structure tools
 				// Show the add row tool, either inside the selected page or when a column is selected
-				if($this->page_selected === TRUE && $this->row_id === NULL && $tool['tool'] === 'add-row')
+				if($this->page_selected === TRUE && $this->row_id === NULL && $tool['model'] === 'AddRow')
 				{
 					$show = TRUE;
 				}
 
 				// Show the column tool, columns can only be added to rows, a content item can't be selected
 				if($this->page_selected === TRUE && $this->row_id !== NULL && $this->content_id === NULL &&
-					$tool['tool'] === 'add-column')
+					$tool['model'] === 'AddColumn')
 				{
 					$show = TRUE;
 				}
@@ -63,31 +63,25 @@ foreach($this->tools as $group_id => $group) {
 		}
 				
 		// Set selected status for tool
-		if($this->tool !== FALSE && $this->tool['tool'] === $tool['tool']) {
+		if($this->tool !== FALSE && $this->tool['tool'] === $tool['model']) {
 			$selected = TRUE;
 		}
 		
 		$reset = NULL;
 
 		if($show === TRUE) {
-			if($this->content_id !== NULL) {
-				if(in_array($tool['tool'], array('move-item', 'select')) === FALSE) {
-					$reset = '/reset/1';
-				}
-			}
-			
 			$class = "btn btn-default btn-sm";
 			
 			if($selected === TRUE) {
 				$class = "btn btn-primary btn-sm";
 			}
 			
-			if($tool['tool'] === 'cancel') {
+			if($tool['model'] === 'Cancel') {
 				$class = "btn btn-danger hidden-lg";
 			}
 			
 			$html .= '<a href="/content/design/set-tool/tool/' . 
-			$tool['tool'] . $reset . '"class="' . $class . '">' . 
+			$tool['model'] . $reset . '"class="' . $class . '">' .
 			$tool['name'] . '</a> ';
 		}
 	}
