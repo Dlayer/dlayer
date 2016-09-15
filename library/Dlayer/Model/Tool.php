@@ -170,4 +170,84 @@ class Dlayer_Model_Tool extends Zend_Db_Table_Abstract
 			return FALSE;
 		}
 	}
+
+	/**
+	 * Check to see if the tab exists for the requested tool
+	 *
+	 * @param integer $module
+	 * @param string $tool Name of the requested tool
+	 * @param string $tab Name of the tool tab view script
+	 * @return boolean
+	 */
+	public function tabExists($module, $tool, $tab)
+	{
+		$sql = "SELECT dmtt.id
+				FROM dlayer_module_tool_tab dmtt
+				JOIN dlayer_module_tool dmt 
+					ON dmtt.tool_id = dmt.id
+					AND dmt.enabled = 1
+					AND dmt.model = :tool
+				JOIN dlayer_module dm 
+					ON dmtt.module_id = dmt.module_id
+					AND dm.enabled = 1
+					AND dm.`name` = :module
+				WHERE dmtt.script = :tab
+				AND dmtt.enabled = 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':module', $module, PDO::PARAM_STR);
+		$stmt->bindValue(':tool', $tool, PDO::PARAM_STR);
+		$stmt->bindValue(':tab', $tab, PDO::PARAM_STR);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Check to see if the tab exists for the requested tool
+	 *
+	 * @param integer $module
+	 * @param string $tool Name of the requested tool
+	 * @param string $tab Name of the tool tab view script
+	 * @return boolean
+	 */
+	public function multiUse($module, $tool, $tab)
+	{
+		$sql = "SELECT dmtt.multi_use
+				FROM dlayer_module_tool_tab dmtt
+				JOIN dlayer_module_tool dmt 
+					ON dmtt.tool_id = dmt.id
+					AND dmt.enabled = 1
+					AND dmt.model = :tool
+				JOIN dlayer_module dm 
+					ON dmtt.module_id = dmt.module_id
+					AND dm.enabled = 1
+					AND dm.`name` = :module
+				WHERE dmtt.script = :tab
+				AND dmtt.enabled = 1";
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':module', $module, PDO::PARAM_STR);
+		$stmt->bindValue(':tool', $tool, PDO::PARAM_STR);
+		$stmt->bindValue(':tab', $tab, PDO::PARAM_STR);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE && intval($result['multi_use']) === 1)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 }

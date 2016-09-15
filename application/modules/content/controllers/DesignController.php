@@ -232,15 +232,16 @@ class Content_DesignController extends Zend_Controller_Action
 		$module = $this->getRequest()->getModuleName();
 		$tool = $this->getParamAsString('tool');
 		$sub_tool = $this->getParamAsString('sub_tool');
-		$tab_script = $this->getParamAsString('tab_script');
+		$tab = $this->getParamAsString('tab');
 
 		$ribbon = new Dlayer_Ribbon();
 		$ribbon_tab = new Dlayer_Ribbon_Tab();
 
-		if($tool !== NULL && $tab_script !== NULL)
+		if($tool !== NULL && $tab !== NULL)
 		{
-			$exists = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab_script, TRUE);
-			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab_script);
+			$model_tool = new Dlayer_Model_Tool();
+
+			$exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
 
 			if($exists === TRUE)
 			{
@@ -252,10 +253,12 @@ class Content_DesignController extends Zend_Controller_Action
 				{
 					$edit_mode = FALSE;
 				}
-				$this->session_content->setRibbonTab($tab_script, $sub_tool);
+
+				$this->session_content->setRibbonTab($tab, $sub_tool);
 
 				$this->view->color_picker_data = $this->colorPickerData();
-				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab_script, $multi_use, $edit_mode);
+				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab,
+					$model_tool->multiUse($module, $tool, $tab), $edit_mode);
 
 				if($sub_tool === NULL)
 				{
@@ -268,16 +271,16 @@ class Content_DesignController extends Zend_Controller_Action
 						$tool . "\\SubTool\\" . $sub_tool ."\\scripts\\");
 				}
 
-				$html = $this->view->render($tab_script . '.phtml');
+				$html = $this->view->render($tab . '.phtml');
 			}
 			else
 			{
-				$html = $this->view->render($ribbon->defaultViewScriptPath());
+				$html = $this->view->render("design\\ribbon\\default.phtml");
 			}
 		}
 		else
 		{
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render("design\\ribbon\\default.phtml");
 		}
 
 		$this->view->html = $html;
