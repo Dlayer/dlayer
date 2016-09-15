@@ -341,7 +341,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-09-13 23:42:14','2016-09-14 00:00:15',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-09-15 23:00:38','2016-09-15 23:46:12',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-05-29 15:57:54','2015-05-29 15:58:47',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-05-29 15:59:10','2015-05-29 16:25:10',1);
 
@@ -391,13 +391,13 @@ CREATE TABLE `dlayer_module_tool` (
 
 /*Data for the table `dlayer_module_tool` */
 
-insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (1,1,'Cancel',NULL,1,0,1,1,1);
+insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (1,1,'Cancel','Cancel',1,0,1,1,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (2,1,'Create rows','SplitHorizontal',1,1,2,1,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (3,1,'Split vertical','SplitVertical',1,1,2,2,0);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (6,1,'Resize','Resize',0,1,2,3,0);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (7,1,'Background colour','BackgroundColor',1,0,3,1,0);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (8,1,'Border','Border',1,0,3,2,0);
-insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (9,4,'Cancel',NULL,2,0,1,1,1);
+insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (9,4,'Cancel','Cancel',2,0,1,1,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (10,4,'Text','Text',0,0,4,2,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (11,4,'Heading','Heading',0,0,4,1,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (12,3,'Text','Text',0,0,4,1,1);
@@ -590,8 +590,7 @@ CREATE TABLE `dlayer_session` (
 
 /*Data for the table `dlayer_session` */
 
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('8id4bn4inbqdh8fn88rk9hs8l4','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1473808208,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1473811808;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1473811808;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1473811808;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1473811808;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1473811808;}}dlayer_session_content|a:9:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:10:\"tool_model\";s:4:\"Text\";s:14:\"sub_tool_model\";N;}dlayer_session_form|a:6:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;s:10:\"tool_model\";s:4:\"Text\";}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('un7n1u8gh3ciuivtks7vbhl4j5','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1473639897,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1473643497;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1473643497;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1473643497;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:9:{s:7:\"page_id\";i:2;s:13:\"page_selected\";b:1;s:9:\"column_id\";i:16;s:6:\"row_id\";i:8;s:10:\"content_id\";i:21;s:4:\"tool\";s:4:\"text\";s:3:\"tab\";s:7:\"styling\";s:10:\"tool_model\";s:4:\"Text\";s:14:\"sub_tool_model\";s:7:\"Styling\";}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('8id4bn4inbqdh8fn88rk9hs8l4','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1473979575,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1473983175;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1473983175;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1473983175;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1473983175;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1473983175;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_form|a:5:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
 
 /*Table structure for table `dlayer_setting` */
 

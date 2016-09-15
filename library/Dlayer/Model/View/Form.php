@@ -28,7 +28,7 @@ class Dlayer_Model_View_Form extends Zend_Db_Table_Abstract
 		$attributes = $this->fieldsAttributes($id, $site_id);
 
 		$sql = "SELECT uff.id, uff.label, uff.description, fft.type,
-				dmt.tool
+				dmt.model 
 				FROM user_site_form_field uff
 				JOIN designer_form_field_type fft
 				ON uff.field_type_id = fft.id

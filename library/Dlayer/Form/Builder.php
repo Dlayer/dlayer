@@ -110,25 +110,25 @@ class Dlayer_Form_Builder extends Zend_Form
 				unset($form_field['attributes']['size']);
 			}
 
-			switch($form_field['tool']) {
-				case 'text':
+			switch($form_field['model']) {
+				case 'Text':
 					$this->textInput($form_field);
 					break;
 					
-				case 'email':
+				case 'Email':
 					$this->emailInput($form_field);
 					break;
 
-				case 'textarea':
+				case 'Textarea':
 					$this->textareaInput($form_field);
 					break;
 
-				case 'password':
+				case 'Password':
 					$this->passwordInput($form_field);
 					break;
 
 				default:
-					throw new Exception('Field type: ' . $form_field['tool'] .
+					throw new Exception('Field type: ' . $form_field['model'] .
 						' does not exist in form builder switch statement');
 					break;
 			}
@@ -310,7 +310,7 @@ class Dlayer_Form_Builder extends Zend_Form
 			
 			$field_decorators = $decorators->field($form_field['id'], 
 				array(
-					'tool'=>$form_field['tool'], 
+					'tool'=>$form_field['model'],
 					'type'=>$form_field['type'], 
 					'description'=>$form_field['description']));
 

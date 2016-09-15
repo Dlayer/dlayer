@@ -149,9 +149,11 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
 				case 'form':
 					$content_item = $this->form($row['content_id']);
+
 					if($content_item !== FALSE)
 					{
-						$content_item['form'] = new Dlayer_Designer_Form($this->site_id, $content_item['form_id'], TRUE, NULL);
+						$content_item['form'] = new Dlayer_Designer_Form($this->site_id,
+							$content_item['form_id'], TRUE, NULL);
 					}
 				break;
 
