@@ -463,15 +463,15 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$tool = $this->getRequest()->getParam('tool');
 
-		if($tool != NULL && strlen($tool) > 0)
+		if($tool !== NULL && strlen($tool) > 0)
 		{
-			if($tool != 'cancel')
+			if($tool !== 'Cancel')
 			{
-				if($this->session_content->setTool($tool) == TRUE)
+				if($this->session_content->setTool($tool) === TRUE)
 				{
 					$reset = $this->getRequest()->getParam('reset');
 
-					if($reset != NULL && $reset == 1)
+					if($reset !== NULL && $reset === 1)
 					{
 						$this->session_content->clearContentId();
 						$this->session_designer->clearAllImagePicker();

@@ -23,6 +23,10 @@ class Form_DesignController extends Zend_Controller_Action
 	protected $_helper;
 
 	private $session_dlayer;
+
+	/**
+	 * @var Dlayer_Session_Form
+	 */
 	private $session_form;
 
 	private $layout;
@@ -326,12 +330,12 @@ class Form_DesignController extends Zend_Controller_Action
 
 		if($tool !== NULL && strlen($tool) > 0)
 		{
-			if($tool !== 'cancel')
+			if($tool !== 'Cancel')
 			{
-				if($this->session_form->setTool($tool) == TRUE)
+				if($this->session_form->setTool($tool) === TRUE)
 				{
 					$reset = $this->getRequest()->getParam('reset');
-					if($reset != NULL && $reset == 1)
+					if($reset !== NULL && $reset === 1)
 					{
 						$this->session_form->clearFieldId();
 					}
@@ -363,7 +367,7 @@ class Form_DesignController extends Zend_Controller_Action
 	private function cancelTool()
 	{
 		$this->session_form->clearAll();
-		$this->_redirect('/form/design');
+		$this->redirect('/form/design');
 	}
 
 	/**
