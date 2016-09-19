@@ -124,10 +124,9 @@ class Form_DesignController extends Zend_Controller_Action
 	 */
 	private function dlayerToolbar()
 	{
-		$model_module = new Dlayer_Model_Module();
+		$model_tool = new Dlayer_Model_Tool();
 
-		$this->view->tools = $model_module->tools(
-			$this->getRequest()->getModuleName());
+		$this->view->tools = $model_tool->tools($this->getRequest()->getModuleName());
 		$this->view->tool = $this->session_form->tool();
 		$this->view->field_id = $this->session_form->fieldId();
 
