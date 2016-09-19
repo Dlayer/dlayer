@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Form class for the email/styling sub tool, allows the user to control the styling for the field and row
+ * Form class for the text/styling sub tool, allows the user to control the styling for the field and row
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Form_Form_Styling_Email extends Dlayer_Form_Form
+class Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Form extends Dlayer_Form_Form
 {
 	/**
 	 * Set the properties for the form
@@ -48,7 +48,8 @@ class Dlayer_Form_Form_Styling_Email extends Dlayer_Form_Form
 		$background_color->addClearLink();
 		$background_color->setRequired();
 		if(array_key_exists('background_color', $this->field_data) === TRUE
-			&& $this->field_data['background_color'] !== FALSE)
+			&& $this->field_data['background_color'] != FALSE
+		)
 		{
 			$background_color->setValue($this->field_data['background_color']);
 		}

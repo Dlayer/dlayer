@@ -19,17 +19,12 @@ foreach($this->tools as $group_id => $group) {
 		
 		switch($tool['group_id']) {
 			case 1:
-			case 0:
-				$show = TRUE;				
+			case 2:
+			case 3:
+			case 4:
+				$show = TRUE;
 			break;
 
-			case 2:
-				if($this->tool !== NULL)
-				{
-					$show = TRUE;
-				}
-			break;
-				
 			default:
 			break;
 		}

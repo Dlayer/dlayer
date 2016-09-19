@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Form class for the password/styling sub tool, allows the user to control the styling for the field and row
+ * Form class for the email/styling sub tool, allows the user to control the styling for the field and row
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Form_Form_Styling_Password extends Dlayer_Form_Form
+class Dlayer_DesignerTool_FormBuilder_Email_SubTool_Styling_Form extends Dlayer_Form_Form
 {
 	/**
 	 * Set the properties for the form

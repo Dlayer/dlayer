@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Password field styling sub tool ribbon data class.
+ * Text field styling sub tool ribbon data class.
  *
  * Returns the data for the requested tool tab ready to be passed to the view script. The viewData method needs to
  * always return an array, other than that there are no specific requirements for tools
@@ -12,7 +12,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Ribbon_Form_Styling_Password extends Dlayer_Ribbon_Module_Form
+class Dlayer_DesignerTool_FormBuilder_Email_SubTool_Styling_Ribbon extends Dlayer_Ribbon_Module_Form
 {
 	/**
 	 * Instantiate and return the form to add or edit a text field
@@ -47,8 +47,9 @@ class Dlayer_Ribbon_Form_Styling_Password extends Dlayer_Ribbon_Module_Form
 		}
 
 		return array(
-			'form' => new Dlayer_Form_Form_Styling_Password('password', 'password', '/form/process/tool/',
-				$this->form_id, $this->existingData(), $this->edit_mode, $this->multi_use, 'Styling_Password'),
+			'form' => new Dlayer_DesignerTool_FormBuilder_Email_SubTool_Styling_Form('email', 'email',
+				'/form/process/tool/', $this->form_id, $this->existingData(), $this->edit_mode, $this->multi_use,
+				'Styling_Email'),
 			'preview_data' => $preview_data,
 		);
 	}

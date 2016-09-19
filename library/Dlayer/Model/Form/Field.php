@@ -144,7 +144,7 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 		$sql = "SELECT uff.id, uff.label, uff.description
 				FROM user_site_form_field uff
 				JOIN dlayer_module_tool dmt ON uff.tool_id = dmt.id
-				AND dmt.tool = :tool
+				AND dmt.model = :tool
 				AND dmt.module_id = 3
 				AND dmt.enabled = 1
 				WHERE uff.site_id = :site_id

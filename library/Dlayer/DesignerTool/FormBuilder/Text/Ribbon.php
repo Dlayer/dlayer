@@ -38,8 +38,8 @@ class Dlayer_DesignerTool_FormBuilder_Text_Ribbon extends Dlayer_Ribbon_Module_F
 		}
 
 		return array(
-			'form' => new Dlayer_DesignerTool_FormBuilder_Text_Form('text', 'text',
-				'/form/process/tool/', $this->form_id, $this->fieldData(), $this->edit_mode, $this->multi_use),
+			'form' => new Dlayer_DesignerTool_FormBuilder_Text_Form('text', 'text', '/form/process/tool/',
+				$this->form_id, $this->fieldData(), $this->edit_mode, $this->multi_use),
 			'field_id' => $field_id,
 			'preview_data' => $preview_data,
 		);

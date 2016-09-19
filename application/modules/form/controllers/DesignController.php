@@ -147,53 +147,56 @@ class Form_DesignController extends Zend_Controller_Action
 	{
 		$tool = $this->session_form->tool();
 
-		if($tool != FALSE)
+		if($tool !== FALSE)
 		{
 			$html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab']);
 		}
 		else
 		{
-			$ribbon = new Dlayer_Ribbon();
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render("design\\ribbon\\default.phtml");
 		}
 
 		$this->view->html = $html;
 
-		return $this->view->render('design/ribbon.phtml');
+		return $this->view->render("design\\ribbon.phtml");
 	}
 
 	/**
-	 * Generate the container html for a ribbon tool tab, the pulls fetches all the tabs for the current tool and
-	 * then generates the html for the tabs, the contents are loaded via Ajax
+	 * Generate the tabs for the selected tool, an empty container is generated for each tab which will be populated
+	 * via an AJAX request
 	 *
 	 * @param string $tool
 	 * @param string $tab
+	 * @param string|NULL $sub_tool
 	 * @return string
 	 */
-	private function dlayerRibbonHtml($tool, $tab)
+	private function dlayerRibbonHtml($tool, $tab, $sub_tool = NULL)
 	{
-		$ribbon = new Dlayer_Ribbon();
-
-		$edit_mode = FALSE;
-
-		if($this->session_form->fieldId() != NULL)
+		if($this->session_form->fieldId() !== NULL)
 		{
 			$edit_mode = TRUE;
 		}
+		else
+		{
+			$edit_mode = FALSE;
+		}
 
-		$tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool, $edit_mode);
+		$model_tool = new Dlayer_Model_Tool();
+		$tabs = $model_tool->toolTabs('form', $tool, $edit_mode);
+
 
 		if($tabs != FALSE)
 		{
-			$this->view->tab = $tab;
-			$this->view->tool = $tool;
+			$this->view->selected_tool = $tool;
+			$this->view->selected_tab = $tab;
+			$this->view->selected_sub_tool = $sub_tool;
 			$this->view->tabs = $tabs;
-			$this->view->module = $this->getRequest()->getModuleName();
-			$html = $this->view->render($ribbon->dynamicViewScriptPath());
+			$this->view->module = 'form';
+			$html = $this->view->render('design/ribbon/ribbon-html.phtml');
 		}
 		else
 		{
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render('design/ribbon/default.phtml');
 		}
 
 		return $html;
@@ -212,45 +215,59 @@ class Form_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout();
 
-		$tool = $this->getRequest()->getParam('tool');
-		$tab = $this->getRequest()->getParam('tab');
 		$module = $this->getRequest()->getModuleName();
+		$tool = $this->getParamAsString('tool');
+		$sub_tool = $this->getParamAsString('sub_tool');
+		$tab = $this->getParamAsString('tab');
 
 		$ribbon = new Dlayer_Ribbon();
 		$ribbon_tab = new Dlayer_Ribbon_Tab();
 
-		if($tab != NULL && $tool != NULL)
+		if($tab !== NULL && $tool !== NULL)
 		{
-			$view_script = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab, TRUE);
-			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
+			$model_tool = new Dlayer_Model_Tool();
 
-			if($view_script != FALSE)
+			$exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
+
+			if($exists != FALSE)
 			{
-				$this->session_form->setRibbonTab($tab);
-
-				$edit_mode = FALSE;
-				if($this->session_form->fieldId() != NULL)
+				if($this->session_form->fieldId() !== NULL)
 				{
 					$edit_mode = TRUE;
 				}
+				else
+				{
+					$edit_mode = FALSE;
+				}
+
+				$this->session_form->setRibbonTab($tab, $sub_tool);
 
 				$this->view->color_picker_data = $this->colorPickerData();
-				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
+				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab,
+					$model_tool->multiUse($module, $tool, $tab), $edit_mode);
 				$this->view->edit_mode = $edit_mode;
 
-				$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\FormBuilder\\" .
-					$this->session_form->tool()['model'] . "\\scripts\\");
+				if($sub_tool === NULL)
+				{
+					$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\FormBuilder\\" .
+						$tool . "\\scripts\\");
+				}
+				else
+				{
+					$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\FormBuilder\\" .
+						$tool . "\\SubTool\\" . $sub_tool ."\\scripts\\");
+				}
 
-				$html = $this->view->render($ribbon->viewScriptPath($view_script, TRUE));
+				$html = $this->view->render($tab . '.phtml');
 			}
 			else
 			{
-				$html = $this->view->render($ribbon->defaultViewScriptPath());
+				$html = $this->view->render("design\\ribbon\\default.phtml");
 			}
 		}
 		else
 		{
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render("design\\ribbon\\default.phtml");
 		}
 
 		$this->view->html = $html;
@@ -448,5 +465,31 @@ class Form_DesignController extends Zend_Controller_Action
 			'palettes' => $model_palettes->palettes($site_id),
 			'history' => $model_palettes->lastNColors($site_id),
 		);
+	}
+
+	/**
+	 * Get a post param
+	 *
+	 * @todo Move this out of controller
+	 * @param string $param
+	 * @param integer|NULL $default
+	 * @return integer|NULL
+	 */
+	private function getParamAsInteger($param, $default = NULL)
+	{
+		return ($this->getRequest()->getParam($param) !== '' ? intval($this->getRequest()->getParam($param)) : $default);
+	}
+
+	/**
+	 * Get a post param
+	 *
+	 * @todo Move this out of controller
+	 * @param string $param
+	 * @param integer|NULL $default
+	 * @return string|NULL
+	 */
+	private function getParamAsString($param, $default = NULL)
+	{
+		return $this->getRequest()->getParam($param, $default);
 	}
 }

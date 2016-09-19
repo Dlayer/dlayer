@@ -98,7 +98,7 @@ class Dlayer_Session_Form extends Zend_Session_Namespace
 
 		if($tool !== FALSE)
 		{
-			$this->tool = $tool;
+			$this->tool = $tool['tool'];
 			$this->setRibbonTab($tool['tab'], $tool['sub_tool']);
 
 			return TRUE;

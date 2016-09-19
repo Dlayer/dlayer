@@ -148,13 +148,12 @@ class Content_DesignController extends Zend_Controller_Action
 		}
 		else
 		{
-			$ribbon = new Dlayer_Ribbon();
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render("design\\ribbon\\default.phtml");
 		}
 
 		$this->view->html = $html;
 
-		return $this->view->render('design/ribbon.phtml');
+		return $this->view->render("design\\ribbon.phtml");
 	}
 
 	/**
