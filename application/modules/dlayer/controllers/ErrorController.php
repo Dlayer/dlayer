@@ -114,7 +114,7 @@ class Dlayer_ErrorController extends Zend_Controller_Action
         $items = array(
             array('uri'=>'/dlayer/index/index', 'name'=>'Dlayer Demo', 
                 'title'=>'Dlayer.com: Web development simplified'),
-            array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 
+            array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Docs',
                 'title'=>'Read the Docs for Dlayer')
         );
         

@@ -16,4 +16,4 @@ $environment = 'development';
 * Version number and version release date
 */
 $version_no = 'v0.99-alpha-3';
-$version_release_date = '5th September 2016';
+$version_release_date = '5th Sep 2016';

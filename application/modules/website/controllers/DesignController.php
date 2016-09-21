@@ -86,7 +86,7 @@ class Website_DesignController extends Zend_Controller_Action
 			array('uri'=>'/dlayer/settings/index', 
 				'name'=>'Settings', 'title'=>'Settings'), 
 			array('uri'=>'http://www.dlayer.com/docs/', 
-				'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer')
+				'name'=>'Docs', 'title'=>'Read the Docs for Dlayer')
 		);
 		
 		$this->layout->assign('nav', array(
