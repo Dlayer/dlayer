@@ -49,7 +49,7 @@ class Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Ribbon extends Dlayer
 		return array(
 			'form' => new Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Form('text', 'text',
 				'/form/process/tool/', $this->form_id, $this->existingData(), $this->edit_mode, $this->multi_use,
-				'Styling_Text'),
+				'Styling'),
 			'preview_data' => $preview_data,
 		);
 	}

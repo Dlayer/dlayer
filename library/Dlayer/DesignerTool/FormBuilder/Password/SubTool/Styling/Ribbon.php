@@ -49,7 +49,7 @@ class Dlayer_DesignerTool_FormBuilder_Password_SubTool_Styling_Ribbon extends Dl
 		return array(
 			'form' => new Dlayer_DesignerTool_FormBuilder_Password_SubTool_Styling_Form('password', 'password',
 				'/form/process/tool/', $this->form_id, $this->existingData(), $this->edit_mode, $this->multi_use,
-				'Styling_Password'),
+				'Styling'),
 			'preview_data' => $preview_data,
 		);
 	}

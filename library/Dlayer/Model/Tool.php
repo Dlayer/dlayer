@@ -146,12 +146,12 @@ class Dlayer_Model_Tool extends Zend_Db_Table_Abstract
 		$sql = "SELECT dmtt.id
 				FROM dlayer_module_tool_tab dmtt
 				JOIN dlayer_module_tool dmt ON dmtt.tool_id = dmt.id
-				AND dmt.tool = :tool
+				AND dmt.model = :tool
 				AND dmt.enabled = 1
 				JOIN dlayer_module dm ON dmt.module_id = dm.id
 				AND dm.`name` = :module
 				AND dm.enabled = 1
-				WHERE dmtt.sub_tool_model = :sub_tool_model
+				WHERE dmtt.model = :sub_tool_model
 		AND dmtt.enabled = 1";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':tool', $tool, PDO::PARAM_STR);

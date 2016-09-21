@@ -97,12 +97,12 @@ class Form_ProcessController extends Zend_Controller_Action
 		}
 		else
 		{
-			$field_id = $this->checkFormFieldIdValid($_POST['field_id'],
-				$_POST['form_id'], $_POST['field_type']);
+			$field_id = $this->checkFormFieldIdValid($_POST['field_id'], $_POST['form_id'], $_POST['field_type']);
 		}
 
 		// Instantiate base tool or sub tool
 		$model_tools = new Dlayer_Model_Tool();
+		$sub_tool = NULL;
 
 		if(array_key_exists('sub_tool_model', $_POST) === TRUE &&
 			$model_tools->subToolValid($this->getRequest()->getModuleName(), $tool['tool'],
@@ -110,6 +110,8 @@ class Form_ProcessController extends Zend_Controller_Action
 		{
 			$tool_class = 'Dlayer_DesignerTool_FormBuilder_' . $tool['tool'] . '_SubTool_' .
 				$_POST['sub_tool_model'] . '_Tool';
+
+			$sub_tool = $_POST['sub_tool_model'];
 		}
 		else
 		{
@@ -120,8 +122,7 @@ class Form_ProcessController extends Zend_Controller_Action
 
 		if($this->tool_class->validate($_POST['params']) == TRUE)
 		{
-			$return_ids = $this->tool_class->process(
-				$this->session_dlayer->siteId(), $this->session_form->formId(),
+			$return_ids = $this->tool_class->process($this->session_dlayer->siteId(), $this->session_form->formId(),
 				$field_id);
 
 			// Clear session vars
@@ -145,7 +146,7 @@ class Form_ProcessController extends Zend_Controller_Action
 							break;
 
 						case 'tab':
-							$this->session_form->setRibbonTab($id['id']);
+							$this->session_form->setRibbonTab($id['id'], $sub_tool);
 							break;
 
 						default:

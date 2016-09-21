@@ -49,7 +49,7 @@ class Dlayer_DesignerTool_FormBuilder_Email_SubTool_Styling_Ribbon extends Dlaye
 		return array(
 			'form' => new Dlayer_DesignerTool_FormBuilder_Email_SubTool_Styling_Form('email', 'email',
 				'/form/process/tool/', $this->form_id, $this->existingData(), $this->edit_mode, $this->multi_use,
-				'Styling_Email'),
+				'Styling'),
 			'preview_data' => $preview_data,
 		);
 	}

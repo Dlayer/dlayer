@@ -1,15 +1,15 @@
 <?php
 /**
-* Styling sub tool for the textarea field input, allows the user to style the 
+* Styling sub tool for the email field input, allows the user to style the 
 * row and field
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Tool_Form_Styling_Textarea extends Dlayer_Tool_Module_Form
+class Dlayer_DesignerTool_FormBuilder_Email_SubTool_Styling_Tool extends Dlayer_Tool_Module_Form
 {
-	protected $tool = 'textarea';
+	protected $tool = 'email';
 	protected $tab = 'styling';
 	
 	/**
@@ -22,7 +22,7 @@ class Dlayer_Tool_Form_Styling_Textarea extends Dlayer_Tool_Module_Form
 	* @param integer $form_id Form id
 	* @param integer|NULL $field_id If in edit mode the id of the field being
 	*                               edited
-	* @return integer Field id
+	* @return array Field id
 	*/
 	public function process($site_id, $form_id, $field_id=NULL)
 	{

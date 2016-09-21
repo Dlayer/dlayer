@@ -233,9 +233,6 @@ class Content_DesignController extends Zend_Controller_Action
 		$sub_tool = $this->getParamAsString('sub_tool');
 		$tab = $this->getParamAsString('tab');
 
-		$ribbon = new Dlayer_Ribbon();
-		$ribbon_tab = new Dlayer_Ribbon_Tab();
-
 		if($tool !== NULL && $tab !== NULL)
 		{
 			$model_tool = new Dlayer_Model_Tool();
@@ -252,6 +249,11 @@ class Content_DesignController extends Zend_Controller_Action
 				{
 					$edit_mode = FALSE;
 				}
+
+				/**
+				 * @todo Need to remove this class eventually
+				 */
+				$ribbon_tab = new Dlayer_Ribbon_Tab();
 
 				$this->session_content->setRibbonTab($tab, $sub_tool);
 

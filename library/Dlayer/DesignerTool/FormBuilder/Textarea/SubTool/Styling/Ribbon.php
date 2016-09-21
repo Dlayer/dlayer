@@ -49,7 +49,7 @@ class Dlayer_DesignerTool_FormBuilder_Textarea_SubTool_Styling_Ribbon extends Dl
 		return array(
 			'form' => new Dlayer_DesignerTool_FormBuilder_Textarea_SubTool_Styling_Form('textarea',
 				'textarea', '/form/process/tool/', $this->form_id, $this->existingData(), $this->edit_mode,
-				$this->multi_use, 'Styling_Textarea'),
+				$this->multi_use, 'Styling'),
 			'preview_data' => $preview_data,
 		);
 	}

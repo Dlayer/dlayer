@@ -149,7 +149,7 @@ class Form_DesignController extends Zend_Controller_Action
 
 		if($tool !== FALSE)
 		{
-			$html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab']);
+			$html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab'], $tool['sub_tool']);
 		}
 		else
 		{
@@ -220,7 +220,6 @@ class Form_DesignController extends Zend_Controller_Action
 		$sub_tool = $this->getParamAsString('sub_tool');
 		$tab = $this->getParamAsString('tab');
 
-		$ribbon = new Dlayer_Ribbon();
 		$ribbon_tab = new Dlayer_Ribbon_Tab();
 
 		if($tab !== NULL && $tool !== NULL)
