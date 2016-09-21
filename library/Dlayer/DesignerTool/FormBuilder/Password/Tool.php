@@ -9,7 +9,7 @@
 class Dlayer_DesignerTool_FormBuilder_Password_Tool extends Dlayer_Tool_Module_Form
 {
 	protected $field_type = 'password';
-	protected $tool = 'password';
+	protected $tool = 'Password';
 
 	private $model_field;
 
