@@ -1,36 +1,37 @@
 <?php
+
 /**
-* The process controller is where all the tools $_POST their data.
-*
-* The controller checks to see that the submitted tool is valid and then calls
-* the tool class. The validate method is called on the tool class to check
-* the submitted data.
-*
-* If the submitted data is valid the $_POST array is passed to the individial
-* tool class which does all the heaving lifting.
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
+ * The process controller is where all the tools $_POST their data.
+ *
+ * The controller checks to see that the submitted tool is valid and then calls
+ * the tool class. The validate method is called on the tool class to check
+ * the submitted data.
+ *
+ * If the submitted data is valid the $_POST array is passed to the individial
+ * tool class which does all the heaving lifting.
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
 class Content_ProcessController extends Zend_Controller_Action
 {
 	/**
-	* Type hinting for action helpers, hints the property to the code
-	* hinting class which exists in the library
-	*
-	* @var Dlayer_Action_CodeHinting
-	*/
+	 * Type hinting for action helpers, hints the property to the code
+	 * hinting class which exists in the library
+	 *
+	 * @var Dlayer_Action_CodeHinting
+	 */
 	protected $_helper;
 
 	private $debug;
 
 	/**
-	* Init the controller, run any set up code required by all the actions
-	* in the controller
-	*
-	* @return void
-	*/
+	 * Init the controller, run any set up code required by all the actions
+	 * in the controller
+	 *
+	 * @return void
+	 */
 	public function init()
 	{
 		$this->_helper->authenticate();
@@ -42,7 +43,8 @@ class Content_ProcessController extends Zend_Controller_Action
 
 		$this->_helper->disableLayout(FALSE);
 
-		$this->debug = intval($this->getInvokeArg('bootstrap')->getOption('debug'));
+		$this->debug = intval($this->getInvokeArg('bootstrap')
+			->getOption('debug'));
 		//$this->debug = 0;
 	}
 
@@ -50,26 +52,33 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * Get a post param
 	 *
 	 * @todo Move this out of controller
+	 *
 	 * @param string $param
 	 * @param integer|NULL $default
+	 *
 	 * @return integer|NULL
 	 */
 	private function getPostAsInteger($param, $default = NULL)
 	{
-		return ($this->getRequest()->getPost($param) !== '' ? intval($this->getRequest()->getPost($param)) : $default);
+		return ($this->getRequest()
+			->getPost($param) !== '' ? intval($this->getRequest()
+			->getPost($param)) : $default);
 	}
 
 	/**
 	 * Get a post param
 	 *
 	 * @todo Move this out of controller
+	 *
 	 * @param string $param
 	 * @param string|NULL $default
+	 *
 	 * @return string|NULL
 	 */
 	private function getPostAsString($param, $default = NULL)
 	{
-		return $this->getRequest()->getPost($param, $default);
+		return $this->getRequest()
+			->getPost($param, $default);
 	}
 
 	/**
@@ -77,6 +86,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * validated before they get set in session so we can simply check they match here
 	 *
 	 * @param Dlayer_Session_Content $session_content
+	 *
 	 * @todo Need to add logging so can easily see where errors occurred
 	 * @return boolean
 	 */
@@ -87,7 +97,8 @@ class Content_ProcessController extends Zend_Controller_Action
 			$session_content->columnId() === $this->getPostAsInteger('column_id') &&
 			$session_content->contentId() === $this->getPostAsInteger('content_id') &&
 			$session_content->tool() !== FALSE &&
-			$session_content->tool()['tool'] === $this->getPostAsString('tool'))
+			$session_content->tool()['tool'] === $this->getPostAsString('tool')
+		)
 		{
 			return TRUE;
 		}
@@ -103,6 +114,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * POSTed sub tool
 	 *
 	 * @param string $sub_tool_model
+	 *
 	 * @return Dlayer_Tool_Content
 	 */
 	private function toolClass($sub_tool_model = NULL)
@@ -114,7 +126,7 @@ class Content_ProcessController extends Zend_Controller_Action
 		}
 		else
 		{
-			$tool_class = 'Dlayer_DesignerTool_ContentManager_' . $session_content->tool()['model'] . '_Tool';
+			$tool_class = 'Dlayer_DesignerTool_ContentManager_' . $session_content->tool()['tool'] . '_Tool';
 		}
 
 		return new $tool_class();
@@ -124,6 +136,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * Set the environment id
 	 *
 	 * @param array $environment_ids
+	 *
 	 * @return void
 	 */
 	private function setEnvironmentIds(array $environment_ids)
@@ -138,26 +151,26 @@ class Content_ProcessController extends Zend_Controller_Action
 				case 'page_id':
 					$session_content->setPageId($id['id']);
 					$session_content->setPageSelected();
-				break;
+					break;
 
 				case 'row_id':
 					$session_content->setRowId($id['id']);
-				break;
+					break;
 
 				case 'column_id':
 					$session_content->setColumnId($id['id']);
-				break;
+					break;
 
 				case 'content_id':
 					$session_content->setContentId($id['id'], $id['content_type']);
-				break;
+					break;
 
 				case 'tool':
 					$session_content->setTool($id['id']);
-				break;
+					break;
 
 				default:
-				break;
+					break;
 			}
 		}
 	}
@@ -184,9 +197,11 @@ class Content_ProcessController extends Zend_Controller_Action
 
 		$tool = $this->toolClass($this->getPostAsString('sub_tool_model', NULL));
 
-		if($tool->validate($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
+		if($tool->validate($this->getRequest()
+				->getPost('params'), $session_dlayer->siteId(),
 				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
-				$session_content->contentId()) === TRUE)
+				$session_content->contentId()) === TRUE
+		)
 		{
 			$return_ids = $tool->process();
 
@@ -220,9 +235,11 @@ class Content_ProcessController extends Zend_Controller_Action
 
 		$tool = $this->toolClass($this->getPostAsString('sub_tool_model', NULL));
 
-		if($tool->validateAuto($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
+		if($tool->validateAuto($this->getRequest()
+				->getPost('params'), $session_dlayer->siteId(),
 				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
-				$session_content->contentId()) === TRUE)
+				$session_content->contentId()) === TRUE
+		)
 		{
 			$return_ids = $tool->processAuto();
 
@@ -252,10 +269,12 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * If the debug param is set the redirect will not occur, will remain on process action so errors can be shown
 	 *
 	 * @todo Need to add logging, success does nothing
+	 *
 	 * @param boolean $success Whether or not the request should be considered successful
+	 *
 	 * @return void
 	 */
-	public function returnToDesigner($success=TRUE)
+	public function returnToDesigner($success = TRUE)
 	{
 		if($success === FALSE)
 		{
