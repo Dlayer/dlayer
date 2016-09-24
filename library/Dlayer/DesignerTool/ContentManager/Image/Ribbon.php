@@ -64,20 +64,46 @@ class Dlayer_DesignerTool_ContentManager_Image_Ribbon extends Dlayer_Ribbon_Cont
 	 */
 	private function selectedImage()
 	{
-		$image = FALSE;
-
 		$session_designer = new Dlayer_Session_Designer();
 
-		if($this->tool['content_id'] !== FALSE && $session_designer->imagePickerCategoryId() !== NULL &&
-			$session_designer->imagePickerSubCategoryId() !== NULL &&
-			$session_designer->imagePickerImageId() !== NULL &&
-			$session_designer->imagePickerCategoryId() !== NULL)
+		$image = FALSE;
+		$from_session = FALSE;
+
+		if($this->tool['content_id'] !== FALSE)
+		{
+			if($session_designer->imagePickerCategoryId() !== NULL &&
+				$session_designer->imagePickerSubCategoryId() !== NULL &&
+				$session_designer->imagePickerImageId() !== NULL &&
+				$session_designer->imagePickerCategoryId() !== NULL)
+			{
+				$from_session = TRUE;
+			}
+			else
+			{
+				// Set in session
+				$model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
+				$libraryProperties = $model_image->imageLibraryParams($this->tool['site_id'], $this->tool['page_id'],
+					$this->tool['content_id']);
+
+				if($libraryProperties !== FALSE)
+				{
+					$session_designer->setImagePickerCategoryId($libraryProperties['category_id']);
+					$session_designer->setImagePickerSubCategoryId($libraryProperties['sub_category_id']);
+					$session_designer->setImagePickerImageId($libraryProperties['image_id']);
+					$session_designer->setImagePickerVersionId($libraryProperties['version_id']);
+
+					$from_session = TRUE;
+				}
+			}
+		}
+
+		if($from_session === TRUE)
 		{
 			$model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
 			$preview = $model_image->previewImage($this->tool['site_id'], $session_designer->imagePickerImageId(),
 				$session_designer->imagePickerVersionId());
 
-			if($preview != FALSE) {
+			if($preview !== FALSE) {
 				$image = array(
 					'image_id' => $session_designer->imagePickerImageId(),
 					'version_id' => $session_designer->imagePickerVersionId(),

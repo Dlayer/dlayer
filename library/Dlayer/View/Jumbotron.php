@@ -83,7 +83,7 @@ class Dlayer_View_Jumbotron extends Zend_View_Helper_Abstract
 		}
 
 		$html = '<div class="' . $class . '" data-content-id="' . $this->view->escape($this->data['content_id']) .
-			'" data-content-type="jumbotron" data-tool="jumbotron">';
+			'" data-content-type="jumbotron" data-tool="Jumbotron">';
 		$html .= '<h1>' . $this->view->escape($this->data['title']) . '</h1>';
 		$html .= '<p>' . $this->view->escape($this->data['sub_title']) . '</p>';
 

@@ -82,7 +82,7 @@ class Dlayer_View_ImportedForm extends Zend_View_Helper_Abstract
 		}
 
 		$html = '<div class="' .$class . '" data-content-id="' . $this->view->escape($this->data['content_id']) .
-			'" data-content-type="form" data-tool="form">';
+			'" data-content-type="form" data-tool="Form">';
 		$html .= $this->data['form']->form();
 		$html .= '</div>';
 

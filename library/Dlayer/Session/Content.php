@@ -147,6 +147,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 			$content_type) === TRUE)
 		{
 			$this->content_id = intval($content_id);
+
 			return TRUE;
 		}
 		else

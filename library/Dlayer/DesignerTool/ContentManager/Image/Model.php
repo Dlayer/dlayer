@@ -12,9 +12,11 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 	/**
 	 * Check to see if the given version id is valid for the requested site
 	 *
-	 * @since 0.99
+	 *
 	 * @param integer $site_id
 	 * @param integer $version_id
+	 *
+	 * @since 0.99
 	 * @return boolean
 	 */
 	public function valid($site_id, $version_id)
@@ -45,10 +47,12 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 	 * Add a new image item
 	 *
 	 * @since 0.99
+	 *
 	 * @param integer $site_id
 	 * @param integer $page_id
 	 * @param integer $content_id
 	 * @param array $params The params data array from the tool
+	 *
 	 * @return boolean
 	 */
 	public function add($site_id, $page_id, $content_id, array $params)
@@ -73,8 +77,10 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 	 * Existing data, fetch the existing data for the content item
 	 *
 	 * @since 0.99
+	 *
 	 * @param integer $site_id
 	 * @param integer $id
+	 *
 	 * @return array|FALSE
 	 */
 	public function existingData($site_id, $id)
@@ -105,9 +111,11 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 	 * Fetch the preview data for the selected image
 	 *
 	 * @since 0.99
+	 *
 	 * @param integer $site_id
 	 * @param integer $image_id
 	 * @param integer $version_id
+	 *
 	 * @return array|FALSE Returns an array containing the preview data or FALSE if image can't be selected
 	 */
 	public function previewImage($site_id, $image_id, $version_id)
@@ -137,8 +145,11 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 		{
 			$result['size'] = Dlayer_Helper::readableFilesize($result['size']);
 			$result['dimensions'] = $result['width'] . ' x ' . $result['height'] . ' pixels';
+
 			return $result;
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
@@ -147,10 +158,12 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 	 * Edit the existing data
 	 *
 	 * @since 0.99
+	 *
 	 * @param integer $site_id
 	 * @param integer $page_id
 	 * @param integer $content_id
 	 * @param array $params The params data array from the tool
+	 *
 	 * @return TRUE
 	 * @throws Exception
 	 */
@@ -170,10 +183,12 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 	 * Update the custom data for a content item, stored in the content item structure table
 	 *
 	 * @since 0.99
+	 *
 	 * @param integer $site_id
 	 * @param integer $page_id
 	 * @param integer $id
 	 * @param array $params
+	 *
 	 * @return boolean
 	 */
 	private function updateContentItem($site_id, $page_id, $id, array $params)
@@ -196,22 +211,64 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 		return $result;
 	}
 
+	/**
+	 * Fetch the image library params for the requested image
+	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $content_id
+	 *
+	 * @since 0.99
+	 * @return array|FALSE
+	 */
+	public function imageLibraryParams($site_id, $page_id, $content_id)
+	{
+		$sql = 'SELECT usilv.library_id AS image_id, usilv.id AS version_id, usil.category_id, usil.sub_category_id  
+				FROM user_site_page_content_item_image uspcii 
+				JOIN user_site_image_library_version usilv
+					ON uspcii.version_id = usilv.id  
+					AND usilv.site_id = :site_id 
+				JOIN user_site_image_library usil 
+					ON usilv.library_id = usil.id 
+					AND usil.site_id = :site_id 
+				WHERE uspcii.site_id = :site_id 
+				AND uspcii.page_id = :page_id  
+				AND uspcii.content_id = :content_id';
+		$stmt = $this->_db->prepare($sql);
+		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+
+		if($result !== FALSE)
+		{
+			return $result;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 
 
 
 
 	/**
-	* Insert an image as a content item
-	*
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param integer $content_row_id
-	* @param integer $content_id
-	* @param array $params The data for the heading content item
-	* @return void
-	*/
-	public function addContentItemData($site_id, $page_id, $div_id, 
+	 * Insert an image as a content item
+	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $div_id
+	 * @param integer $content_row_id
+	 * @param integer $content_id
+	 * @param array $params The data for the heading content item
+	 *
+	 * @return void
+	 */
+	public function addContentItemData($site_id, $page_id, $div_id,
 		$content_row_id, $content_id, array $params)
 	{
 		$sql = 'INSERT INTO user_site_page_content_item_image 
@@ -228,20 +285,21 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 		$stmt->bindValue(':caption', $params['caption'], PDO::PARAM_STR);
 		$stmt->execute();
 	}
-	
+
 	/**
-	* Edit the data for a content item
-	*
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param integer $content_row_id
-	* @param integer $content_id
-	* @param array $params The data for the new content item
-	* @return void
-	*/
-	public function editContentItemData($site_id, $page_id, $div_id, 
-		$content_row_id, $content_id, array $params) 
+	 * Edit the data for a content item
+	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $div_id
+	 * @param integer $content_row_id
+	 * @param integer $content_id
+	 * @param array $params The data for the new content item
+	 *
+	 * @return void
+	 */
+	public function editContentItemData($site_id, $page_id, $div_id,
+		$content_row_id, $content_id, array $params)
 	{
 		$sql = 'UPDATE user_site_page_content_item_image 
 				SET version_id = :version_id, 
@@ -260,21 +318,22 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 		$stmt->bindValue(':caption', $params['caption'], PDO::PARAM_STR);
 		$stmt->execute();
 	}
-	
+
 	/**
-	* Fetch the existing data for the content item being edited, in this 
-	* case the version id, expand setting and the caption for the image
-	*
-	* @param integer $site_id
-	* @param integer $page_id
-	* @param integer $div_id
-	* @param integer $content_row_id
-	* @param integer $content_id
-	* @return array|FALSE Returns either the data array or FALSE if no data 
-	*     can be found
-	*/
-	public function formData($site_id, $page_id, $div_id, $content_row_id, 
-		$content_id) 
+	 * Fetch the existing data for the content item being edited, in this
+	 * case the version id, expand setting and the caption for the image
+	 *
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $div_id
+	 * @param integer $content_row_id
+	 * @param integer $content_id
+	 *
+	 * @return array|FALSE Returns either the data array or FALSE if no data
+	 *     can be found
+	 */
+	public function formData($site_id, $page_id, $div_id, $content_row_id,
+		$content_id)
 	{
 		$sql = 'SELECT uspci.id, uspcii.version_id, uspcii.expand, 
 					uspcii.caption 
@@ -300,53 +359,7 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 		$stmt->bindValue(':content_row_id', $content_row_id, PDO::PARAM_INT);
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->execute();
-		
+
 		return $stmt->fetch();
-	}
-	
-	/**
-	* Fetch the data for the currently selcted image
-	* 
-	* @param integer $site_id 
-	* @param integer $page_id 
-	* @param integer $content_id 
-	* @return array|FALSE
-	*/
-	public function selectedImage($site_id, $page_id, $content_id) 
-	{
-		$sql = 'SELECT usilv.library_id AS image_id, usilvm.version_id, 
-				usil.`name`, usilvm.width, usilvm.height, usilvm.size, 
-				usilvm.extension, usil.category_id, usil.sub_category_id 
-				FROM user_site_page_content_item_image uspcii 
-				JOIN user_site_image_library_version usilv
-					ON uspcii.version_id = usilv.id  
-					AND usilv.site_id = :site_id 
-				JOIN user_site_image_library usil 
-					ON usilv.library_id = usil.id 
-					AND usil.site_id = :site_id 
-				JOIN user_site_image_library_version_meta usilvm 
-					ON usilv.id = usilvm.version_id 
-					AND usilv.library_id = usilvm.library_id 
-					AND usilvm.site_id = :site_id 
-				WHERE uspcii.site_id = :site_id 
-				AND uspcii.page_id = :page_id  
-				AND uspcii.content_id = :content_id';
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-		$stmt->execute();
-		
-		$result = $stmt->fetch();
-		
-		if($result != FALSE) {
-			
-			$result['size'] = Dlayer_Helper::readableFilesize($result['size']);
-			$result['dimensions'] = $result['width'] . ' x ' . 
-				$result['height'] . ' pixels';
-			return $result;
-		} else {
-			return FALSE;
-		}
 	}
 }
