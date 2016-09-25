@@ -24,7 +24,7 @@ class Dlayer_Model_Tool extends Zend_Db_Table_Abstract
 	 */
 	public function tools($module)
 	{
-		$sql = "SELECT dmt.`name`, dmt.`model`, dmt.group_id 
+		$sql = "SELECT dmt.`name`, dmt.`model`, dmt.group_id, dmt.base  
 				FROM dlayer_module_tool dmt 
 				JOIN dlayer_module dm 
 					ON dmt.module_id = dm.id 

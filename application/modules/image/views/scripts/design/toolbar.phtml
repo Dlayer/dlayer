@@ -22,17 +22,17 @@ foreach($this->tools as $group) {
 			}
         } else {
         	if($this->image_id == NULL) {
-				if($tool['base'] == 1 || $tool['tool'] == 'cancel') {
+				if($tool['base'] == 1 || $tool['model'] == 'Cancel') {
 					$show = TRUE;
 				}
 			} else {
-				if($tool['base'] == 0 || $tool['tool'] == 'cancel') {
+				if($tool['base'] == 0 || $tool['model'] == 'Cancel') {
 					$show = TRUE;
 				}
 			}
         }
         
-        if($this->tool['tool'] == $tool['tool']) {
+        if($this->tool['tool'] == $tool['model']) {
             $selected = TRUE;
         }
         
@@ -43,12 +43,12 @@ foreach($this->tools as $group) {
                 $class = "btn btn-primary";
             }
             
-            if($tool['tool'] == 'cancel') {
+            if($tool['model'] == 'Cancel') {
                 $class = "btn btn-danger";
             }
             
             $html .= '<a href="/image/design/set-tool/tool/' . 
-            $tool['tool'] . '"class="' . $class . '">' . 
+            $tool['model'] . '"class="' . $class . '">' .
             $tool['name'] . '</a> ';
         }
     }

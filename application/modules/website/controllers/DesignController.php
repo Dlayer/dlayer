@@ -71,8 +71,8 @@ class Website_DesignController extends Zend_Controller_Action
 		$this->view->dlayer_website = $this->dlayerWebsite();
 		$this->view->dlayer_ribbon = $this->dlayerRibbon();
 
-		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index',
-			array('css/dlayer.css','css/designer-shared.css', 'css/designer-1170.css'),
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/image/index/index',
+			array('css/dlayer.css','css/designer-shared.css', 'css/designer-970.css'),
 			array('scripts/dlayer.js', 'scripts/designer.js'),
 			'Dlayer.com - Web site manager');
 	}
