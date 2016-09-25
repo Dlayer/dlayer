@@ -440,7 +440,9 @@ dlayerDesigner = {
 		 */
 		start: function(module)
 		{
-			$('.ribbon ul.nav-tabs > li').click(function() {
+			$('.ribbon ul.nav-tabs > li').click(function(e) {
+
+				e.preventDefault();
 
 				if($(this).hasClass('active') === false)
 				{

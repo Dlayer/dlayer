@@ -32,6 +32,16 @@ class Website_DesignController extends Zend_Controller_Action
 	private $layout;
 
 	/**
+	 * @var array Nav bar items
+	 */
+	private $nav_bar_items = array(
+		array('uri' => '/dlayer/index/home', 'name' => 'Dlayer Demo', 'title' => 'Dlayer.com: Web development simplified'),
+		array('uri' => '/website/index/index', 'name' => 'Web site manager', 'title' => 'Web site management'),
+		array('uri' => '/dlayer/settings/index', 'name' => 'Settings', 'title' => 'Settings'),
+		array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
+	);
+
+	/**
 	 * Initialise the controller, run any required set up code and set
 	 * properties required by controller actions
 	 *
@@ -47,16 +57,6 @@ class Website_DesignController extends Zend_Controller_Action
 
 		$this->session_dlayer = new Dlayer_Session();
 		$this->session_website = new Dlayer_Session_Website();
-
-		// Include js and css files in layout
-		$this->layout = Zend_Layout::getMvcInstance();
-		$this->layout->assign('js_include', array('scripts/dlayer.js'));
-		$this->layout->assign('css_include',
-			array(
-				'css/dlayer.css',
-				'css/designer-970.css',
-			)
-		);
 	}
 
 	/**
@@ -67,45 +67,14 @@ class Website_DesignController extends Zend_Controller_Action
 	 */
 	public function indexAction()
 	{
-		$this->navBar('/website/index/index');
 		$this->view->dlayer_toolbar = $this->dlayerToolbar();
 		$this->view->dlayer_website = $this->dlayerWebsite();
 		$this->view->dlayer_ribbon = $this->dlayerRibbon();
 
-		$this->layout->assign('title', 'Dlayer.com - Web site manager');
-	}
-
-	/**
-	 * Assign the content for the nav bar
-	 *
-	 * @param string $active_uri Uri
-	 *
-	 * @return void Assigns values to the layout
-	 */
-	private function navBar($active_uri)
-	{
-		$items = array(
-			array(
-				'uri' => '/dlayer/index/home', 'name' => 'Dlayer Demo',
-				'title' => 'Dlayer.com: Web development simplified',
-			),
-			array(
-				'uri' => '/website/index/index',
-				'name' => 'Web site manager', 'title' => 'Web site management',
-			),
-			array(
-				'uri' => '/dlayer/settings/index',
-				'name' => 'Settings', 'title' => 'Settings',
-			),
-			array(
-				'uri' => 'http://www.dlayer.com/docs/',
-				'name' => 'Docs', 'title' => 'Read the Docs for Dlayer',
-			),
-		);
-
-		$this->layout->assign('nav', array(
-			'class' => 'top_nav', 'items' => $items, 'active_uri' => $active_uri,
-		));
+		$this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index',
+			array('css/dlayer.css','css/designer-shared.css', 'css/designer-1170.css'),
+			array('scripts/dlayer.js', 'scripts/designer.js'),
+			'Dlayer.com - Web site manager');
 	}
 
 	/**
@@ -157,32 +126,31 @@ class Website_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Generate the container html for a tool ribbon tab, view pulls the
-	 * tabs for the tool and then generates the tab bar and container. The
-	 * contents of the ribbon are loaded via AJAX
+	 * Generate the tabs for the selected tool, an empty container is generated for each tab which will be populated
+	 * via an AJAX request
 	 *
 	 * @param string $tool
 	 * @param string $tab
-	 *
+	 * @param string|NULL $sub_tool
 	 * @return string
 	 */
-	private function dlayerRibbonHtml($tool, $tab)
+	private function dlayerRibbonHtml($tool, $tab, $sub_tool = NULL)
 	{
-		$ribbon = new Dlayer_Ribbon();
-
-		$tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool);
+		$model_tool = new Dlayer_Model_Tool();
+		$tabs = $model_tool->toolTabs('website', $tool, FALSE);
 
 		if($tabs != FALSE)
 		{
-			$this->view->tab = $tab;
-			$this->view->tool = $tool;
+			$this->view->selected_tool = $tool;
+			$this->view->selected_tab = $tab;
+			$this->view->selected_sub_tool = $sub_tool;
 			$this->view->tabs = $tabs;
-			$this->view->module = $this->getRequest()->getModuleName();
-			$html = $this->view->render($ribbon->dynamicViewScriptPath());
+			$this->view->module = 'website';
+			$html = $this->view->render('design/ribbon/ribbon-html.phtml');
 		}
 		else
 		{
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render('design/ribbon/default.phtml');
 		}
 
 		return $html;
@@ -221,8 +189,7 @@ class Website_DesignController extends Zend_Controller_Action
 
 				$this->session_website->setRibbonTab($tab, $sub_tool);
 
-				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab,
-					$model_tool->multiUse($module, $tool, $tab), FALSE);
+				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $model_tool->multiUse($module, $tool, $tab), FALSE);
 
 				if($sub_tool === NULL)
 				{

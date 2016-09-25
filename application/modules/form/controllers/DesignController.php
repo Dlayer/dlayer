@@ -59,24 +59,6 @@ class Form_DesignController extends Zend_Controller_Action
 
 		$this->session_dlayer = new Dlayer_Session();
 		$this->session_form = new Dlayer_Session_Form();
-
-		// Include js and css files in layout
-		$this->layout = Zend_Layout::getMvcInstance();
-		$this->layout->assign('js_include',
-			array(
-				'scripts/dlayer.js',
-				'scripts/designer.js',
-				'scripts/form-builder.js',
-				'scripts/preview-form-builder.js',
-			)
-		);
-		$this->layout->assign('css_include',
-			array(
-				'css/dlayer.css',
-				'css/designer-shared.css',
-				'css/designer-1170.css',
-			)
-		);
 	}
 
 	/**
