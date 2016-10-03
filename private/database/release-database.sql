@@ -1,5 +1,5 @@
 /*
-SQLyog Enterprise v12.2.4 (64 bit)
+SQLyog Ultimate v12.2.6 (64 bit)
 MySQL - 10.1.13-MariaDB : Database - dlayer
 *********************************************************************
 */
@@ -341,7 +341,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-09-21 23:12:50','2016-09-21 23:15:36',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-10-03 22:56:46','2016-10-03 23:54:22',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-05-29 15:57:54','2015-05-29 15:58:47',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-05-29 15:59:10','2015-05-29 16:25:10',1);
 
@@ -405,7 +405,7 @@ insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destru
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (14,3,'Cancel','Cancel',2,0,1,1,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (15,3,'Password','Password',0,0,4,4,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (16,4,'Form','Form',0,0,5,1,1);
-insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (17,5,'Cancel',NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (17,5,'Cancel','Cancel',0,0,1,1,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (18,5,'New page','NewPage',0,0,2,2,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (19,5,'Move page','MovePage',0,0,2,1,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (20,3,'Email','PresetEmail',0,0,3,2,1);
@@ -413,9 +413,9 @@ insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destru
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (22,4,'Text','ImportText',0,0,99,2,0);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (23,4,'Heading','ImportHeading',0,0,99,3,0);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (25,8,'Add image to library','Add',1,0,2,1,1);
-insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (26,8,'Cancel / Back to library',NULL,0,0,1,1,1);
+insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (26,8,'Cancel / Back to library','Cancel',0,0,1,1,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (27,8,'Categories','Category',1,0,3,1,1);
-insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (28,8,'Sub categories','Subcategory',1,0,3,2,1);
+insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (28,8,'Sub categories','SubCategory',1,0,3,2,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (29,8,'Clone image','Copy',0,0,4,3,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (30,8,'Crop image','Crop',0,0,4,2,1);
 insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destructive`,`group_id`,`sort_order`,`enabled`) values (31,8,'Edit image','Edit',0,0,4,1,1);
@@ -510,9 +510,9 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (46,4,16,'Size & position','position','Position_ImportForm',NULL,1,1,0,3,0);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (47,4,10,'Size & position','position','Position_Text',NULL,1,1,0,2,0);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (48,4,11,'Size & position','position','Position_Heading',NULL,1,1,0,2,0);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (49,3,12,'Styling','styling','Styling_Text','tint',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (50,3,13,'Styling','styling','Styling_Textarea','tint',1,1,0,2,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (51,3,15,'Styling','styling','Styling_Password','tint',1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (49,3,12,'Styling','styling','Styling','tint',1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (50,3,13,'Styling','styling','Styling','tint',1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (51,3,15,'Styling','styling','Styling','tint',1,1,0,2,1);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (54,4,16,'Edit in Form builder','edit',NULL,NULL,0,1,0,2,0);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (55,4,22,'Import','import-text',NULL,NULL,1,0,1,1,0);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (56,4,22,'Help','help',NULL,NULL,0,0,0,2,0);
@@ -556,7 +556,7 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (98,3,42,'Help','help',NULL,'info-sign',0,0,0,2,1);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (99,3,45,'Field','email',NULL,'pencil',1,0,1,1,1);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (100,3,45,'Help','help',NULL,'info-sign',0,0,0,3,1);
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (101,3,45,'Styling','styling','Styling_Email','tint',1,1,0,2,1);
+insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (101,3,45,'Styling','styling','Styling','tint',1,1,0,2,1);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (102,3,43,'Actions','form-actions',NULL,'wrench',1,0,1,1,1);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (103,3,43,'Help','help',NULL,'info-sign',0,0,0,2,1);
 insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values (104,3,44,'Options','form-settings',NULL,'wrench',1,0,1,1,1);
@@ -590,8 +590,9 @@ CREATE TABLE `dlayer_session` (
 
 /*Data for the table `dlayer_session` */
 
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('8id4bn4inbqdh8fn88rk9hs8l4','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1473979575,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1473983175;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1473983175;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1473983175;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1473983175;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1473983175;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_form|a:5:{s:7:\"form_id\";N;s:8:\"field_id\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:6:\"return\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('qvf8r51n873f5h33l33jgiruo7','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1474496223,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1474499822;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1474499822;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1474499822;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1474499822;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1474499822;}}dlayer_session_form|a:6:{s:8:\"field_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;s:7:\"form_id\";N;s:6:\"return\";N;}dlayer_session_content|a:8:{s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session_image|a:3:{s:4:\"tool\";N;s:3:\"tab\";N;s:9:\"image_ids\";a:0:{}}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('o05o81kmojv79ofohv8s9af6p0','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1474847807,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1474851407;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1474851407;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}dlayer_session_image|a:5:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:2:{s:8:\"category\";i:1;s:12:\"sub_category\";i:1;}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('sqvkhdalvgsiort4pepdvffjf0','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475535306,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475538905;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1475538904;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1475538904;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1475538904;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1475538904;}}dlayer_session_image|a:7:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";N;s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:8:\"sub_tool\";N;}dlayer_session_form|a:6:{s:8:\"field_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;s:7:\"form_id\";N;s:6:\"return\";N;}dlayer_session_content|a:8:{s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('vo7pr6t7i89obdmjgep7t61b36','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475531639,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475535238;}}');
 
 /*Table structure for table `dlayer_setting` */
 
@@ -684,7 +685,7 @@ CREATE TABLE `user_setting_color_history` (
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   CONSTRAINT `user_setting_color_history_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_setting_color_history` */
 
@@ -766,6 +767,9 @@ insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (84
 insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (85,1,'#f0ad4e');
 insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (86,1,'#d9534f');
 insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (87,1,'#eeeeee');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (88,1,'#eeeeee');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (89,1,'#eeeeee');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (90,1,'#eeeeee');
 
 /*Table structure for table `user_setting_color_palette` */
 
@@ -1014,12 +1018,13 @@ CREATE TABLE `user_site_form` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form` */
 
 insert  into `user_site_form`(`id`,`site_id`,`name`,`email`) values (1,1,'Contact form','email@email.com');
 insert  into `user_site_form`(`id`,`site_id`,`name`,`email`) values (2,1,'Test form','email@email.com');
+insert  into `user_site_form`(`id`,`site_id`,`name`,`email`) values (3,1,'Testing tools','spam@spam.com');
 
 /*Table structure for table `user_site_form_field` */
 
@@ -1041,7 +1046,7 @@ CREATE TABLE `user_site_form_field` (
   CONSTRAINT `user_site_form_field_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`),
   CONSTRAINT `user_site_form_field_ibfk_3` FOREIGN KEY (`field_type_id`) REFERENCES `designer_form_field_type` (`id`),
   CONSTRAINT `user_site_form_field_ibfk_4` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tool` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form_field` */
 
@@ -1053,6 +1058,14 @@ insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`to
 insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (6,1,1,3,15,'Your password','Please enter your password',6);
 insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (7,1,2,1,12,'Your name','Please enter your name',1);
 insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (8,1,2,4,45,'Your email','Please enter your email address',2);
+insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (9,1,3,1,12,'Your name','Please enter your name',1);
+insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (10,1,3,4,45,'Your email','Please enter your email address',2);
+insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (11,1,3,2,13,'Your comment','Please enter your comment',3);
+insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (12,1,3,3,15,'Your password','Please enter your password',4);
+insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (13,1,3,1,12,'Text field','Testing',5);
+insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (14,1,3,2,13,'Text area','Testing',6);
+insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (15,1,3,4,45,'Email field','Testing',7);
+insert  into `user_site_form_field`(`id`,`site_id`,`form_id`,`field_type_id`,`tool_id`,`label`,`description`,`sort_order`) values (16,1,3,3,15,'Password field','Testing',8);
 
 /*Table structure for table `user_site_form_field_attribute` */
 
@@ -1072,7 +1085,7 @@ CREATE TABLE `user_site_form_field_attribute` (
   CONSTRAINT `user_site_form_field_attribute_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`),
   CONSTRAINT `user_site_form_field_attribute_ibfk_3` FOREIGN KEY (`field_id`) REFERENCES `user_site_form_field` (`id`),
   CONSTRAINT `user_site_form_field_attribute_ibfk_4` FOREIGN KEY (`attribute_id`) REFERENCES `designer_form_field_attribute` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form_field_attribute` */
 
@@ -1100,6 +1113,30 @@ insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id
 insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (22,1,2,8,10,'40');
 insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (23,1,2,8,11,'255');
 insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (24,1,2,8,12,'Enter your email');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (25,1,3,9,1,'40');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (26,1,3,9,2,'255');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (27,1,3,9,7,'Enter your name');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (28,1,3,10,10,'40');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (29,1,3,10,11,'255');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (30,1,3,10,12,'Enter your email');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (31,1,3,11,3,'40');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (32,1,3,11,4,'3');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (33,1,3,11,8,'I think that it would.....');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (34,1,3,12,5,'20');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (35,1,3,12,6,'255');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (36,1,3,12,9,'******');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (37,1,3,13,1,'40');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (38,1,3,13,2,'255');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (39,1,3,13,7,'Testing');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (40,1,3,14,3,'40');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (41,1,3,14,4,'4');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (42,1,3,14,8,'Testing');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (43,1,3,15,10,'40');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (44,1,3,15,11,'255');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (45,1,3,15,12,'Testing');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (46,1,3,16,5,'20');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (47,1,3,16,6,'255');
+insert  into `user_site_form_field_attribute`(`id`,`site_id`,`form_id`,`field_id`,`attribute_id`,`attribute`) values (48,1,3,16,9,'Testing');
 
 /*Table structure for table `user_site_form_field_row_background_color` */
 
@@ -1116,11 +1153,12 @@ CREATE TABLE `user_site_form_field_row_background_color` (
   CONSTRAINT `user_site_form_field_row_background_color_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_site_form_field_row_background_color_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`),
   CONSTRAINT `user_site_form_field_row_background_color_ibfk_3` FOREIGN KEY (`field_id`) REFERENCES `user_site_form_field` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form_field_row_background_color` */
 
 insert  into `user_site_form_field_row_background_color`(`id`,`site_id`,`form_id`,`field_id`,`color_hex`) values (1,1,1,1,'#eeeeee');
+insert  into `user_site_form_field_row_background_color`(`id`,`site_id`,`form_id`,`field_id`,`color_hex`) values (2,1,3,9,'#eeeeee');
 
 /*Table structure for table `user_site_form_layout` */
 
@@ -1142,12 +1180,13 @@ CREATE TABLE `user_site_form_layout` (
   CONSTRAINT `user_site_form_layout_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_site_form_layout_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`),
   CONSTRAINT `user_site_form_layout_ibfk_3` FOREIGN KEY (`layout_id`) REFERENCES `designer_form_layout` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form_layout` */
 
 insert  into `user_site_form_layout`(`id`,`site_id`,`form_id`,`title`,`sub_title`,`submit_label`,`reset_label`,`layout_id`,`horizontal_width_label`,`horizontal_width_field`) values (1,1,1,'Contact us','Got a question?','Save','',1,3,9);
 insert  into `user_site_form_layout`(`id`,`site_id`,`form_id`,`title`,`sub_title`,`submit_label`,`reset_label`,`layout_id`,`horizontal_width_label`,`horizontal_width_field`) values (2,1,2,'Testing form','So I can edit in the content manager','Save','',1,3,9);
+insert  into `user_site_form_layout`(`id`,`site_id`,`form_id`,`title`,`sub_title`,`submit_label`,`reset_label`,`layout_id`,`horizontal_width_label`,`horizontal_width_field`) values (3,1,3,'Testing to see if tools work','Hopefully not too broken','Save','Reset me',1,3,9);
 
 /*Table structure for table `user_site_form_setting` */
 
