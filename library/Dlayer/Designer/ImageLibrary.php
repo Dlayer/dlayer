@@ -47,7 +47,7 @@ class Dlayer_Designer_ImageLibrary
         $this->version_id = $version_id;
         
         $this->model_library = new Dlayer_Model_Image_Library();
-        $this->model_categories = new Dlayer_Model_Image_Categories();
+        $this->model_categories = new Dlayer_DesignerTool_ImageLibrary_Category_Model();
         $this->model_image = new Dlayer_Model_Image_Image();
     }
     

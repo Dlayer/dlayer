@@ -1,13 +1,16 @@
 <?php
 /**
-* Add or edit an image cotegory
+* Add or edit an image sub cotegory
 *
 * @author Dean Blackborough <dean@g3d-development.com>
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
+class Dlayer_DesignerTool_ImageLibrary_SubCategory_Tool extends Dlayer_Tool_Module_Image
 {
+	/**
+	 * @var Dlayer_DesignerTool_ImageLibrary_SubCategory_Model
+	 */
     private $model_categories;
     
     /**
@@ -20,19 +23,15 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     public function process()
     {
         if($this->validated == TRUE) {
-            if($this->category_id == NULL) {
-                $ids = $this->addCategory();
-                $this->category_id = $ids['category_id'];
-                $this->sub_category_id = $ids['sub_category_id'];
+            if($this->sub_category_id == NULL) {
+                $this->sub_category_id = $this->addSubCategory();
             } else {
-                $this->editCategory();
+                $this->editSubCategory();
             }
         }
         
-        return array('multiple'=>'', 'ids'=>array(array('id'=>$this->category_id, 
-        'type'=>Dlayer_Session_Image::CATEGORY), array(
-        'id'=>$this->sub_category_id, 
-        'type'=>Dlayer_Session_Image::SUB_CATEGORY)));
+        return array('id'=>$this->sub_category_id, 
+        'type'=>Dlayer_Session_Image::SUB_CATEGORY);
     }
 
     /**
@@ -64,8 +63,6 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
         } else {
             return FALSE;
         }
-
-        return FALSE;
     }
 
     public function autoValidate(array $params = array(), $site_id, 
@@ -89,7 +86,8 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     */
     private function validateValues(array $params = array())
     {
-        if(array_key_exists('name', $params) == TRUE) {
+        if(array_key_exists('category', $params) == TRUE && 
+        array_key_exists('name', $params) == TRUE) {
             return TRUE;
         } else {
             return FALSE;
@@ -105,11 +103,14 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     */
     private function validateData(array $params = array())
     {
-        $this->model_categories = new Dlayer_Model_Image_Categories();
+        $this->model_categories = new Dlayer_DesignerTool_ImageLibrary_SubCategory_Model();
         
         if(strlen(trim($params['name'])) > 0 && 
-        $this->model_categories->categoryExists($this->site_id, 
-        trim($params['name']), $this->category_id) == FALSE) {
+        $this->model_categories->subCategoryExists($this->site_id, 
+        intval($params['category']), trim($params['name']), 
+        $this->sub_category_id) == FALSE && 
+        trim(strtoupper($params['name'])) != strtoupper(
+        Dlayer_Config::IMAGE_LIBRARY_ALL_SUB_CATEGORY)) {
             return TRUE;
         } else {
             return FALSE;
@@ -126,35 +127,31 @@ class Dlayer_Tool_Image_Category extends Dlayer_Tool_Module_Image
     */
     protected function prepare(array $params)
     {
-        return array('name'=>trim($params['name']));
+        return array('category_id'=>intval($params['category']), 
+        'name'=>trim($params['name']));
     }
     
     /**
-    * Add the new category
+    * Add the new sub category
     * 
-    * @return array Ids for the newly created category and sub category
+    * @return integer Id of the newly created sub category
     */
-    public function addCategory() 
+    public function addSubCategory() 
     {
-        $category_id =  $this->model_categories->addCategory($this->site_id, 
-        $this->params['name']);
+        $sub_category_id =  $this->model_categories->addSubCategory(
+        $this->site_id, $this->params['category_id'], $this->params['name']);
         
-        $sub_category_id = $this->model_categories->addSubCategory(
-        $this->site_id, $category_id, 
-        Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY);
-        
-        return array('category_id'=>$category_id, 
-        'sub_category_id'=>$sub_category_id);
+        return $sub_category_id;
     }
     
     /**
-    * Edit the selected category
+    * Edit the selected sub category
     * 
     * @return void
     */
-    public function editCategory() 
+    public function editSubCategory() 
     {
-        $this->model_categories->editCategory($this->site_id, 
-        $this->category_id, $this->params['name']);
+        $this->model_categories->editSubCategory($this->site_id, 
+        $this->sub_category_id, $this->params['name']);
     }
 }

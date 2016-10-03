@@ -102,7 +102,7 @@ class Dlayer_Ribbon_Tab
 			break;
 
 			case 'image':
-				$image_ribbon = new Dlayer_Ribbon_Data_Image();
+				$image_ribbon = new Dlayer_Ribbon_Handler_Image();
 				$session_image = new Dlayer_Session_Image();
 
 				$data = $image_ribbon->viewData($session_dlayer->siteId(),

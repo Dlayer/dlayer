@@ -7,7 +7,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Model_Image_Categories extends Zend_Db_Table_Abstract
+class Dlayer_DesignerTool_ImageLibrary_SubCategory_Model extends Zend_Db_Table_Abstract
 {
 	/**
 	* Fetch the name and id for the selected category, if for some reason

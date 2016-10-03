@@ -1,8 +1,8 @@
 <?php
 /**
-* Form for the category tool
+* Form for the sub category tool
 * 
-* Allows the user to add a new category to the image library
+* Allows the user to add a new sub category to the image library
 * 
 * This form is used for both the add and edit category forms
 *
@@ -10,7 +10,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
+class Dlayer_DesignerTool_ImageLibrary_SubCategory_Form extends Dlayer_Form_Module_Image
 {
 	/**
 	* Set the initial properties for the form
@@ -26,7 +26,7 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
 	public function __construct(array $existing_data, $edit_mode, 
 		$multi_use, $options=NULL)
 	{
-		$this->tool = 'category';
+		$this->tool = 'subcategory';
 
 		parent::__construct($existing_data, $edit_mode, $multi_use, $options);
 	}
@@ -43,17 +43,33 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
 
 		$this->setMethod('post');
 
+		$this->formElementsData();
+
 		$this->generateFormElements();
 
 		$this->validationRules();
-
-		$this->addElementsToForm('category', 
-			'Category <small>Manage Image library category</small>', 
+		
+		$this->addElementsToForm('sub_category', 
+			'Sub Category <small>Manage Image library sub category</small>', 
 			$this->elements);
 
 		$this->addDefaultElementDecorators();
 
 		$this->addCustomElementDecorators();
+	}
+
+	/**
+	* Fetch any data required to generate the form fields
+	*
+	* @return void Writes the data to the $this->element_data property ready 
+	*              to be used by the form field objects
+	*/
+	private function formElementsData()
+	{
+		$model_categories = new Dlayer_DesignerTool_ImageLibrary_Category_Model();
+
+		$this->elements_data['categories'] = $model_categories->categories(
+			$this->existing_data['site_id']);
 	}
 
 	/**
@@ -87,8 +103,16 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
 		if($this->edit_mode == TRUE && 
 		array_key_exists('id', $this->existing_data) == TRUE && 
 		$this->existing_data['id'] != FALSE) {
+			$sub_category_id = new Zend_Form_Element_Hidden('sub_category_id');
+			$sub_category_id->setValue($this->existing_data['id']);
+			$this->elements['sub_category_id'] = $sub_category_id;
+		}
+
+		if($this->edit_mode == TRUE && 
+		array_key_exists('category_id', $this->existing_data) == TRUE && 
+		$this->existing_data['category_id'] != FALSE) {
 			$category_id = new Zend_Form_Element_Hidden('category_id');
-			$category_id->setValue($this->existing_data['id']);
+			$category_id->setValue($this->existing_data['category_id']);
 			$this->elements['category_id'] = $category_id;
 		}
 
@@ -107,18 +131,30 @@ class Dlayer_Form_Image_Category extends Dlayer_Form_Module_Image
 	*/
 	private function userElements()
 	{
+		$category = new Zend_Form_Element_Select('category');
+		$category->setLabel('Category');
+		$category->setDescription('Select the category that the new sub 
+		category should be created in.');
+		$category->setBelongsTo('params');
+		$category->setAttribs(array('class'=>'form-control input-sm'));
+		$category->setMultiOptions($this->elements_data['categories']);
+
+		if($this->edit_mode == TRUE && 
+		array_key_exists('category', $this->existing_data) == TRUE && 
+		$this->existing_data['category'] != FALSE) {
+			$category->setValue($this->existing_data['category']);
+		}
+
+		$this->elements['category'] = $category;
+
 		$name = new Zend_Form_Element_Text('name');
-		$name->setLabel('Category name');
+		$name->setLabel('Sub category name');
 		$name->setAttribs(array('maxlength'=>255, 
-			'placeholder'=>'e.g., Backgrounds', 
+			'placeholder'=>'e.g., Gradients', 
 			'class'=>'form-control input-sm'));
-		$name->setDescription('Enter a name for the image category.');
+		$name->setDescription('Enter a name for the image sub category.');
 		$name->setBelongsTo('params');
 
-		/**
-		* @todo Need to move these simple checks into a method in the base 
-		* class, stop the duplication
-		*/
 		if($this->edit_mode == TRUE && 
 		array_key_exists('name', $this->existing_data) == TRUE && 
 		$this->existing_data['name'] != FALSE) {

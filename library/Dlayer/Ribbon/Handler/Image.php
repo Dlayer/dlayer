@@ -11,7 +11,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Ribbon_Data_Image 
+class Dlayer_Ribbon_Handler_Image
 {
     private $site_id;
     private $tool;
@@ -93,7 +93,7 @@ class Dlayer_Ribbon_Data_Image
     {
         switch($this->tab) {
             case 'category':
-                $ribbon_category = new Dlayer_Ribbon_Image_Category();
+                $ribbon_category = new Dlayer_DesignTool_ImageLibrary_Category_Ribbon();
                 $data = $ribbon_category->viewData($this->site_id, $this->tool, 
                 $this->tab, $this->multi_use, $this->image_id, 
                 $this->version_id, $this->category_id, $this->subcategory_id, 
@@ -119,7 +119,7 @@ class Dlayer_Ribbon_Data_Image
     {
         switch($this->tab) {
             case 'subcategory':
-                $ribbon_subcategory = new Dlayer_Ribbon_Image_Subcategory();
+                $ribbon_subcategory = new Dlayer_DesignTool_ImageLibrary_SubCategory_Ribbon();
                 $data = $ribbon_subcategory->viewData($this->site_id, 
                 $this->tool, $this->tab, $this->multi_use, $this->image_id, 
                 $this->version_id, $this->category_id, $this->subcategory_id, 

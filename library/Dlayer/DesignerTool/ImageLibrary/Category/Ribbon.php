@@ -1,6 +1,6 @@
 <?php
 /**
-* Sub category tool ribbon data class
+* Category tool ribbon data class
 * 
 * Returns the data for the requested tool tab ready to be passed to the view
 * script. The methods needs to return an array, other than that there are no
@@ -13,7 +13,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Ribbon_Image_Subcategory extends Dlayer_Ribbon_Module_Image
+class Dlayer_DesignTool_ImageLibrary_Category_Ribbon extends Dlayer_Ribbon_Module_Image
 {
     /**
     * Instantiate and return the form to add or edit a text field
@@ -38,7 +38,7 @@ class Dlayer_Ribbon_Image_Subcategory extends Dlayer_Ribbon_Module_Image
         $this->writeParams($site_id, $tool, $tab, $multi_use, $image_id, 
         $version_id, $category_id, $subcategory_id, $edit_mode);
 
-        return array('form'=>new Dlayer_Form_Image_Subcategory(
+        return array('form'=>new Dlayer_DesignerTool_ImageLibrary_Category_Form(
         $this->existingData(), $this->edit_mode, $this->multi_use));
     }
     
@@ -50,17 +50,14 @@ class Dlayer_Ribbon_Image_Subcategory extends Dlayer_Ribbon_Module_Image
     protected function existingData() 
     {
         if($this->edit_mode == FALSE) {
-            return array('id'=>FALSE, 'category'=>FALSE, 'name'=>FALSE, 
-            'site_id'=>$this->site_id);
+            return array('id'=>FALSE, 'name'=>FALSE);
         } else {
-            $model_categories = new Dlayer_Model_Image_Categories();
-            $sub_category = $model_categories->subCategory($this->site_id, 
-            $this->category_id, $this->subcategory_id);
+            $model_categories = new Dlayer_DesignerTool_ImageLibrary_Category_Model();
+            $category = $model_categories->category($this->site_id, 
+            $this->category_id);
             
-            return array('id'=>intval($this->subcategory_id), 
-            'category'=>intval($sub_category['category_id']), 
-            'category_id'=>intval($sub_category['category_id']), 
-            'name'=>$sub_category['name'], 'site_id'=>$this->site_id);
+            return array('id'=>intval($category['id']), 
+            'name'=>$category['name']);
         }
     }
 }

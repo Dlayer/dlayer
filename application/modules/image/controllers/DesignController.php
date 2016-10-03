@@ -62,7 +62,7 @@ class Image_DesignController extends Zend_Controller_Action
 
 		if($category_id == NULL || $sub_category_id == NULL)
 		{
-			$model_image_categories = new Dlayer_Model_Image_Categories();
+			$model_image_categories = new Dlayer_DesignerTool_ImageLibrary_Category_Model();
 
 			$default_category = $model_image_categories->category(
 				$this->session_dlayer->site_id, 0);
@@ -179,106 +179,109 @@ class Image_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Generate the container html for a tool ribbon tab, view pulls the
-	 * tabs for the tool and then generates the tab bar and container. The
-	 * contents of the ribbon are loaded via AJAX
+	 * Generate the tabs for the selected tool, an empty container is generated for each tab which will be populated
+	 * via an AJAX request
 	 *
 	 * @param string $tool
 	 * @param string $tab
-	 *
+	 * @param string|NULL $sub_tool
 	 * @return string
 	 */
-	private function dlayerRibbonHtml($tool, $tab)
+	private function dlayerRibbonHtml($tool, $tab, $sub_tool = NULL)
 	{
-		$ribbon = new Dlayer_Ribbon();
-
-		$edit_mode = FALSE;
-
-		if($this->session_image->editMode() == 1)
+		if($this->session_image->editMode() === TRUE)
 		{
 			$edit_mode = TRUE;
 		}
-
-		$tabs = $ribbon->tabs($this->getRequest()
-			->getModuleName(), $tool,
-			$edit_mode);
-
-		if($tabs != FALSE)
+		else
 		{
-			$this->view->tab = $tab;
-			$this->view->tool = $tool;
+			$edit_mode = FALSE;
+		}
+
+		$model_tool = new Dlayer_Model_Tool();
+		$tabs = $model_tool->toolTabs('image', $tool, $edit_mode);
+
+		if($tabs !== FALSE)
+		{
+			$this->view->selected_tool = $tool;
+			$this->view->selected_tab = $tab;
+			$this->view->selected_sub_tool = $sub_tool;
 			$this->view->tabs = $tabs;
-			$this->view->module = $this->getRequest()
-				->getModuleName();
-			$html = $this->view->render($ribbon->dynamicViewScriptPath());
+			$this->view->module = 'image';
+			$html = $this->view->render('design/ribbon/ribbon-html.phtml');
 		}
 		else
 		{
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render('design/ribbon/default.phtml');
 		}
 
 		return $html;
 	}
 
 	/**
-	 * Generate the html for the requested tool tab, called via AJAX by the
-	 * base view.
+	 * Generate the html for the requested tool tab, called via Ajax. The tool and tab are checked to ensure they are
+	 * valid and active and then the data required to generate the tool tab is fetched and passed too the view
 	 *
-	 * The tool and tab are checked to see if they are valid and then the
-	 * daata required to generate the tab is pulled and passed to the view.
-	 *
+	 * @todo Update code, needs to actually check validity of tool and current status
+	 * @throws \Exception
 	 * @return string
 	 */
 	public function ribbonTabHtmlAction()
 	{
 		$this->_helper->disableLayout();
 
-		$tool = $this->getRequest()
-			->getParam('tool');
-		$tab = $this->getRequest()
-			->getParam('tab');
-		$module = $this->getRequest()
-			->getModuleName();
+		$module = $this->getRequest()->getModuleName();
+		$tool = $this->getParamAsString('tool');
+		$sub_tool = $this->getParamAsString('sub_tool');
+		$tab = $this->getParamAsString('tab');
 
-		if($tab != NULL && $tool != NULL)
+		if($tool !== NULL && $tab !== NULL)
 		{
+			$model_tool = new Dlayer_Model_Tool();
 
-			$ribbon = new Dlayer_Ribbon();
-			$ribbon_tab = new Dlayer_Ribbon_Tab();
+			$exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
 
-			$view_script = $ribbon_tab->viewScript(
-				$this->getRequest()
-					->getModuleName(), $tool, $tab);
-			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
-
-			if($view_script != FALSE)
+			if($exists === TRUE)
 			{
-
-				$this->session_image->setRibbonTab($tab);
-
-				$edit_mode = FALSE;
-
-				if($this->session_image->editMode() == 1)
+				if($this->session_image->editMode() === TRUE)
 				{
 					$edit_mode = TRUE;
 				}
+				else
+				{
+					$edit_mode = FALSE;
+				}
 
-				$this->view->data = $ribbon_tab->viewData($module, $tool,
-					$tab, $multi_use, $edit_mode);
-				$this->view->edit_mode = $edit_mode;
+				/**
+				 * @todo Need to remove this class eventually
+				 */
+				$ribbon_tab = new Dlayer_Ribbon_Tab();
 
-				$html = $this->view->render(
-					$ribbon->viewScriptPath($view_script));
+				$this->session_image->setRibbonTab($tab, $sub_tool);
+				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab,
+					$model_tool->multiUse($module, $tool, $tab), $edit_mode);
+
+				if($sub_tool === NULL)
+				{
+					$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ImageLibrary\\" .
+						$tool . "\\scripts\\");
+				}
+				else
+				{
+					$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ImageLibrary\\" .
+						$tool . "\\SubTool\\" . $sub_tool ."\\scripts\\");
+				}
+
+				$html = $this->view->render($tab . '.phtml');
 			}
 			else
 			{
-				$html = $this->view->render(
-					$ribbon->defaultViewScriptPath());
+				$html = $this->view->render("design\\ribbon\\default.phtml");
 			}
 		}
 		else
 		{
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render("design\\ribbon\\default.phtml");
 		}
 
 		$this->view->html = $html;
@@ -500,5 +503,31 @@ class Image_DesignController extends Zend_Controller_Action
 		$this->session_image->setSort($sort, $order);
 
 		$this->_redirect('/image/design/index');
+	}
+
+	/**
+	 * Get a post param
+	 *
+	 * @todo Move this out of controller
+	 * @param string $param
+	 * @param integer|NULL $default
+	 * @return integer|NULL
+	 */
+	private function getParamAsInteger($param, $default = NULL)
+	{
+		return ($this->getRequest()->getParam($param) !== '' ? intval($this->getRequest()->getParam($param)) : $default);
+	}
+
+	/**
+	 * Get a post param
+	 *
+	 * @todo Move this out of controller
+	 * @param string $param
+	 * @param integer|NULL $default
+	 * @return string|NULL
+	 */
+	private function getParamAsString($param, $default = NULL)
+	{
+		return $this->getRequest()->getParam($param, $default);
 	}
 }
