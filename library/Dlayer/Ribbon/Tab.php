@@ -80,21 +80,20 @@ class Dlayer_Ribbon_Tab
 		switch($module)
 		{
 			case 'content':
-				$content_handler = new Dlayer_Ribbon_Handler_Content();
+				$handler = new Dlayer_Ribbon_Handler_Content();
 				$session_content = new Dlayer_Session_Content();
 
-				$data = $content_handler->viewData($session_dlayer->siteId(), $session_content->pageId(),
+				$data = $handler->viewData($session_dlayer->siteId(), $session_content->pageId(),
 					$tool, $tab, $multi_use, $edit_mode, $session_content->rowId(), $session_content->columnId(),
 					$session_content->contentId());
 			break;
 
 			case 'form':
-				$form_ribbon = new Dlayer_Ribbon_Handler_Form();
+				$handler = new Dlayer_Ribbon_Handler_Form();
 				$session_form = new Dlayer_Session_Form();
 
-				$data = $form_ribbon->viewData($session_dlayer->siteId(),
-					$session_form->formId(), $tool, $tab, $multi_use,
-					$session_form->fieldId(), $edit_mode);
+				$data = $handler->viewData($session_dlayer->siteId(), $session_form->formId(), $tool, $tab,
+					$multi_use, $session_form->fieldId(), $edit_mode);
 			break;
 
 			case 'website':
@@ -102,15 +101,13 @@ class Dlayer_Ribbon_Tab
 			break;
 
 			case 'image':
-				$image_ribbon = new Dlayer_Ribbon_Handler_Image();
+				$handler = new Dlayer_Ribbon_Handler_Image();
 				$session_image = new Dlayer_Session_Image();
 
-				$data = $image_ribbon->viewData($session_dlayer->siteId(),
-					$tool, $tab, $multi_use, $session_image->imageId(),
-					$session_image->imageId(Dlayer_Session_Image::VERSION),
+				$data = $handler->viewData($session_dlayer->siteId(), $tool, $tab, $multi_use,
+					$session_image->imageId(), $session_image->imageId(Dlayer_Session_Image::VERSION),
 					$session_image->imageId(Dlayer_Session_Image::CATEGORY),
-					$session_image->imageId(Dlayer_Session_Image::SUB_CATEGORY),
-					$edit_mode);
+					$session_image->imageId(Dlayer_Session_Image::SUB_CATEGORY), $edit_mode);
 			break;
 
 			default:

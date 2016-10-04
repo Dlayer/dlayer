@@ -13,7 +13,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_DesignTool_ImageLibrary_SubCategory_Ribbon extends Dlayer_Ribbon_Module_Image
+class Dlayer_DesignerTool_ImageLibrary_SubCategory_Ribbon extends Dlayer_Ribbon_Module_Image
 {
     /**
     * Instantiate and return the form to add or edit a text field

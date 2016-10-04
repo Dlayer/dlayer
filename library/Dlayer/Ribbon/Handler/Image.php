@@ -52,25 +52,25 @@ class Dlayer_Ribbon_Handler_Image
         $this->category_id = $category_id;
         $this->subcategory_id = $subcategory_id;
         $this->edit_mode = $edit_mode;
-        
+
         switch($this->tool) {
-            case 'add':
+            case 'Add':
                 $data = $this->add();
             break;
             
-            case 'category':
+            case 'Category':
                 $data = $this->category();
             break;
             
-            case 'subcategory':
+            case 'SubCategory':
                 $data = $this->subcategory();
             break;
             
-            case 'copy':
+            case 'Copy':
                 $data = $this->copy();
             break;
             
-            case 'edit':
+            case 'Edit':
                 $data = $this->edit();
             break;
             
@@ -93,7 +93,7 @@ class Dlayer_Ribbon_Handler_Image
     {
         switch($this->tab) {
             case 'category':
-                $ribbon_category = new Dlayer_DesignTool_ImageLibrary_Category_Ribbon();
+                $ribbon_category = new Dlayer_DesignerTool_ImageLibrary_Category_Ribbon();
                 $data = $ribbon_category->viewData($this->site_id, $this->tool, 
                 $this->tab, $this->multi_use, $this->image_id, 
                 $this->version_id, $this->category_id, $this->subcategory_id, 
@@ -118,8 +118,8 @@ class Dlayer_Ribbon_Handler_Image
     private function subcategory() 
     {
         switch($this->tab) {
-            case 'subcategory':
-                $ribbon_subcategory = new Dlayer_DesignTool_ImageLibrary_SubCategory_Ribbon();
+            case 'sub-category':
+                $ribbon_subcategory = new Dlayer_DesignerTool_ImageLibrary_SubCategory_Ribbon();
                 $data = $ribbon_subcategory->viewData($this->site_id, 
                 $this->tool, $this->tab, $this->multi_use, $this->image_id, 
                 $this->version_id, $this->category_id, $this->subcategory_id, 
