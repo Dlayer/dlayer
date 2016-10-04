@@ -194,7 +194,7 @@ class Dlayer_Ribbon_Handler_Image
     {
         switch($this->tab) {
             case 'edit':
-                $ribbon_edit = new Dlayer_Ribbon_Image_Edit();
+                $ribbon_edit = new Dlayer_DesignerTool_ImageLibrary_Edit_Ribbon();
                 $data = $ribbon_edit->viewData($this->site_id, $this->tool, 
                 $this->tab, $this->multi_use, $this->image_id, 
                 $this->version_id, $this->category_id, $this->subcategory_id, 
