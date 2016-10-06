@@ -1,24 +1,26 @@
 <?php
+
 /**
-* Image library categories model, handles everything relating to the categories
-* and sub categories
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
+ * Image library categories model, handles everything relating to the categories
+ * and sub categories
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
 class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abstract
 {
 	/**
-	* Fetch the name and id for the selected category, if for some reason
-	* the supplied params don't match a real category the default category is
-	* returned and/or created
-	*
-	* @param integer $site_id
-	* @param integer $category_id
-	* @return array Always returns an array, if the supplied params are
-	*               invalid the default is return and/or created
-	*/
+	 * Fetch the name and id for the selected category, if for some reason
+	 * the supplied params don't match a real category the default category is
+	 * returned and/or created
+	 *
+	 * @param integer $site_id
+	 * @param integer $category_id
+	 *
+	 * @return array Always returns an array, if the supplied params are
+	 *               invalid the default is return and/or created
+	 */
 	public function category($site_id, $category_id)
 	{
 		$sql = "SELECT id, `name`
@@ -32,32 +34,39 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 
 		$result = $stmt->fetch();
 
-		if($result != FALSE) {
+		if($result != FALSE)
+		{
 			return $result;
-		} else {
+		}
+		else
+		{
 			$default_category_id = $this->defaultCategoryId($site_id);
 
-			if($default_category_id == FALSE) {
+			if($default_category_id == FALSE)
+			{
 				$default_category_id = $this->addCategory($site_id,
 					Dlayer_Config::IMAGE_LIBRARY_DEFAULT_CATEGORY);
 			}
 
-			return array('id'=>$default_category_id,
-				'name'=>Dlayer_Config::IMAGE_LIBRARY_DEFAULT_CATEGORY);
+			return array(
+				'id' => $default_category_id,
+				'name' => Dlayer_Config::IMAGE_LIBRARY_DEFAULT_CATEGORY,
+			);
 		}
 	}
 
 	/**
-	* Fetch the name and id for the selected sub category, if for some reason
-	* the supplied params don't match a real sub category the default sub
-	* category is returned and/or created
-	*
-	* @param integer $site_id
-	* @param integer $category_id
-	* @param integer $sub_category_id
-	* @return array Always returns an array, if the supplied params are
-	*               invalid the default is return and/or created
-	*/
+	 * Fetch the name and id for the selected sub category, if for some reason
+	 * the supplied params don't match a real sub category the default sub
+	 * category is returned and/or created
+	 *
+	 * @param integer $site_id
+	 * @param integer $category_id
+	 * @param integer $sub_category_id
+	 *
+	 * @return array Always returns an array, if the supplied params are
+	 *               invalid the default is return and/or created
+	 */
 	public function subCategory($site_id, $category_id, $sub_category_id)
 	{
 		$sql = "SELECT id, category_id, `name`
@@ -73,15 +82,20 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 
 		$result = $stmt->fetch();
 
-		if($result != FALSE) {
+		if($result != FALSE)
+		{
 			return $result;
-		} else {
+		}
+		else
+		{
 			$default_sub_category_id = $this->defaultSubCategoryId($site_id);
 
-			if($default_sub_category_id == FALSE) {
+			if($default_sub_category_id == FALSE)
+			{
 				$default_category_id = $this->defaultCategoryId($site_id);
 
-				if($default_category_id == FALSE) {
+				if($default_category_id == FALSE)
+				{
 					$default_category_id = $this->addCategory($site_id,
 						Dlayer_Config::IMAGE_LIBRARY_DEFAULT_CATEGORY);
 				}
@@ -89,25 +103,29 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 				$default_sub_category_id = $this->defaultSubCategoryId(
 					$site_id);
 
-				if($default_sub_category_id == FALSE) {
+				if($default_sub_category_id == FALSE)
+				{
 					$default_sub_category_id = $this->addSubCategory($site_id,
 						$default_category_id,
 						Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY);
 				}
 			}
 
-			return array('id'=>$default_sub_category_id,
-				'category_id'=>$category_id,
-				'name'=>Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY);
+			return array(
+				'id' => $default_sub_category_id,
+				'category_id' => $category_id,
+				'name' => Dlayer_Config::IMAGE_LIBRARY_DEFAULT_SUB_CATEGORY,
+			);
 		}
 	}
 
 	/**
-	* Fetch the id for the default category
-	*
-	* @param integer $site_id
-	* @return integer|FALSE Id of the default category
-	*/
+	 * Fetch the id for the default category
+	 *
+	 * @param integer $site_id
+	 *
+	 * @return integer|FALSE Id of the default category
+	 */
 	private function defaultCategoryId($site_id)
 	{
 		$sql = "SELECT id
@@ -122,20 +140,24 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 
 		$result = $stmt->fetch();
 
-		if($result != FALSE) {
+		if($result != FALSE)
+		{
 			return intval($result['id']);
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 
 	/**
-	* Fetch the id for the default sub category, uses the default catergory
-	* in query
-	*
-	* @param integer $site_id
-	* @return integer|FALSE Id of the default category
-	*/
+	 * Fetch the id for the default sub category, uses the default catergory
+	 * in query
+	 *
+	 * @param integer $site_id
+	 *
+	 * @return integer|FALSE Id of the default category
+	 */
 	private function defaultSubCategoryId($site_id)
 	{
 		$sql = "SELECT id
@@ -156,20 +178,25 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 
 		$result = $stmt->fetch();
 
-		if($result != FALSE) {
+		if($result != FALSE)
+		{
 			return intval($result['id']);
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 
 	/**
-	* Create the requested image library category
-	*
-	* @param integer $site_id
-	* @param string $category Name of category
-	* @return integer Id of the newly created category
-	*/
+	 * Create the requested category
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param string $category
+	 *
+	 * @return integer|FALSE Id of the newly created category
+	 */
 	public function addCategory($site_id, $category)
 	{
 		$sql = "INSERT INTO user_site_image_library_category
@@ -179,19 +206,26 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':category', $category, PDO::PARAM_STR);
-		$stmt->execute();
 
-		return $this->_db->lastInsertId('user_site_image_library_category');
+		if($stmt->execute() === TRUE)
+		{
+			return intval($this->_db->lastInsertId('user_site_image_library_category'));
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
-	* Edit the details for the selected image library category
-	*
-	* @param integer $site_id
-	* @param integer $category_id
-	* @param integer $category New category name
-	* @return void
-	*/
+	 * Edit the details for the selected image library category
+	 *
+	 * @param integer $site_id
+	 * @param integer $category_id
+	 * @param integer $category New category name
+	 *
+	 * @return void
+	 */
 	public function editCategory($site_id, $category_id, $category)
 	{
 		$sql = "UPDATE user_site_image_library_category
@@ -207,13 +241,14 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 	}
 
 	/**
-	* Edit the details for the selected image library sub category
-	*
-	* @param integer $site_id
-	* @param integer $sub_category_id
-	* @param integer $sub_category New sub category name
-	* @return void
-	*/
+	 * Edit the details for the selected image library sub category
+	 *
+	 * @param integer $site_id
+	 * @param integer $sub_category_id
+	 * @param integer $sub_category New sub category name
+	 *
+	 * @return void
+	 */
 	public function editSubCategory($site_id, $sub_category_id, $sub_category)
 	{
 		$sql = "UPDATE user_site_image_library_sub_category
@@ -229,13 +264,14 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 	}
 
 	/**
-	* Create the requested image library sub category
-	*
-	* @param integer $site_id
-	* @param integer $category_id
-	* @param string $sub_category Name of sub category
-	* @return integer Id of the newly created sub category
-	*/
+	 * Create the requested image library sub category
+	 *
+	 * @param integer $site_id
+	 * @param integer $category_id
+	 * @param string $sub_category
+	 *
+	 * @return integer|FALSE Id of the newly created sub category
+	 */
 	public function addSubCategory($site_id, $category_id, $sub_category)
 	{
 		$sql = "INSERT INTO user_site_image_library_sub_category
@@ -246,20 +282,27 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
 		$stmt->bindValue(':sub_category', $sub_category, PDO::PARAM_STR);
-		$stmt->execute();
 
-		return $this->_db->lastInsertId('user_site_image_library_sub_category');
+		if($stmt->execute() === TRUE)
+		{
+			return $this->_db->lastInsertId('user_site_image_library_sub_category');
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 	/**
-	* Fetch the image library categories for the selected site
-	*
-	* @param integer $site_id
-	* @param boolean $select Add Select as initial option
-	* @return array Array containing all the image library categories for the
-	*               selected site
-	*/
-	public function categories($site_id, $select=FALSE)
+	 * Fetch the image library categories for the selected site
+	 *
+	 * @param integer $site_id
+	 * @param boolean $select Add Select as initial option
+	 *
+	 * @return array Array containing all the image library categories for the
+	 *               selected site
+	 */
+	public function categories($site_id, $select = FALSE)
 	{
 		$sql = "SELECT id, `name`
 				FROM user_site_image_library_category
@@ -273,11 +316,13 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 
 		$categories = array();
 
-		if($select == TRUE) {
+		if($select == TRUE)
+		{
 			$categories[0] = 'Please select';
 		}
 
-		foreach($result as $row) {
+		foreach($result as $row)
+		{
 			$categories[$row['id']] = $row['name'];
 		}
 
@@ -285,16 +330,17 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 	}
 
 	/**
-	* Fetch the image library sub categories for the selected site and
-	* category, used by the ajax calls
-	*
-	* @param integer $site_id
-	* @param integer $category_id
-	* @param boolean $all Add an all option
-	* @return array Array containing all the image library sub categories for
-	*               the selected category and site
-	*/
-	public function subCategoriesAjaxCalls($site_id, $category_id, $all=TRUE)
+	 * Fetch the image library sub categories for the selected site and
+	 * category, used by the ajax calls
+	 *
+	 * @param integer $site_id
+	 * @param integer $category_id
+	 * @param boolean $all Add an all option
+	 *
+	 * @return array Array containing all the image library sub categories for
+	 *               the selected category and site
+	 */
+	public function subCategoriesAjaxCalls($site_id, $category_id, $all = TRUE)
 	{
 		$sql = "SELECT id, `name` AS value
 				FROM user_site_image_library_sub_category
@@ -310,12 +356,16 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 
 		$sub_categories = array();
 
-		if($all == TRUE) {
-			$sub_categories[] = array('id'=>0,
-				'value'=>Dlayer_Config::IMAGE_LIBRARY_ALL_SUB_CATEGORY);
+		if($all == TRUE)
+		{
+			$sub_categories[] = array(
+				'id' => 0,
+				'value' => Dlayer_Config::IMAGE_LIBRARY_ALL_SUB_CATEGORY,
+			);
 		}
 
-		foreach($result as $row) {
+		foreach($result as $row)
+		{
 			$sub_categories[] = $row;
 		}
 
@@ -323,16 +373,17 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 	}
 
 	/**
-	* Fetch the image library sub categories for the selected site and
-	* category, an all option can be added to the end of the array if required
-	*
-	* @param integer $site_id
-	* @param integer $category_id
-	* @param boolean $all Add an all option
-	* @return array Array containing all the image library sub categories for
-	*               the selected category and site
-	*/
-	public function subCategories($site_id, $category_id, $all=TRUE)
+	 * Fetch the image library sub categories for the selected site and
+	 * category, an all option can be added to the end of the array if required
+	 *
+	 * @param integer $site_id
+	 * @param integer $category_id
+	 * @param boolean $all Add an all option
+	 *
+	 * @return array Array containing all the image library sub categories for
+	 *               the selected category and site
+	 */
+	public function subCategories($site_id, $category_id, $all = TRUE)
 	{
 		$sql = "SELECT id, `name`
 				FROM user_site_image_library_sub_category
@@ -348,11 +399,13 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 
 		$sub_categories = array();
 
-		foreach($result as $row) {
+		foreach($result as $row)
+		{
 			$sub_categories[$row['id']] = $row['name'];
 		}
 
-		if($all == TRUE) {
+		if($all == TRUE)
+		{
 			$sub_categories[0] = Dlayer_Config::IMAGE_LIBRARY_ALL_SUB_CATEGORY;
 		}
 
@@ -360,48 +413,55 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 	}
 
 	/**
-	* Check to see if the category exists
-	*
-	* @param integer $site_id
-	* @param string $category Name of category to check
-	* @param integer|NULL $ignore_id Category to exclude from query if
-	*                                doing a check on an edit form
-	* @return boolean
-	*/
-	public function categoryExists($site_id, $category, $ignore_id=NULL)
+	 * Check to see if the category exists for the site, optionally ignore the provided id
+	 *
+	 * @since 0.99
+	 * @param integer $site_id
+	 * @param string $category Category to check
+	 * @param integer|NULL $ignore_id Id to ignore if set
+	 *
+	 * @return boolean
+	 */
+	public function categoryExists($site_id, $category, $ignore_id = NULL)
 	{
-		$sql = "SELECT id
-				FROM user_site_image_library_category
-				WHERE site_id = :site_id
-				AND UPPER(`name`) = :category ";
-		if($ignore_id != NULL) {
-			$sql .= "AND id <> :ignore_id ";
+		$sql = "SELECT usilc.id
+				FROM user_site_image_library_category usilc
+				WHERE usilc.site_id = :site_id
+				AND UPPER(usilc.`name`) = :category ";
+		if($ignore_id != NULL)
+		{
+			$sql .= "AND usilc.id <> :ignore_id ";
 		}
 		$sql .= "LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':category', strtoupper($category), PDO::PARAM_STR);
-		if($ignore_id != NULL) {
+		if($ignore_id != NULL)
+		{
 			$stmt->bindValue(':ignore_id', $ignore_id, PDO::PARAM_INT);
 		}
 		$stmt->execute();
 
 		$result = $stmt->fetch();
 
-		if($result == FALSE) {
+		if($result === FALSE)
+		{
 			return FALSE;
-		} else {
+		}
+		else
+		{
 			return TRUE;
 		}
 	}
 
 	/**
-	* Check to see if the requested category id exists for the selected site
-	*
-	* @param integer $site_id
-	* @param integer $category_id
-	* @return boolean TRUE if the category id exists
-	*/
+	 * Check to see if the requested category id exists for the selected site
+	 *
+	 * @param integer $site_id
+	 * @param integer $category_id
+	 *
+	 * @return boolean TRUE if the category id exists
+	 */
 	public function categoryIdExists($site_id, $category_id)
 	{
 		$sql = "SELECT id
@@ -416,22 +476,26 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 
 		$result = $stmt->fetch();
 
-		if($result == FALSE) {
+		if($result == FALSE)
+		{
 			return FALSE;
-		} else {
+		}
+		else
+		{
 			return TRUE;
 		}
 	}
 
 	/**
-	* Check to see if the requested sub category exists for the selected site
-	* and category
-	*
-	* @param integer $site_id
-	* @param integer $category_id
-	* @param integer $sub_category_id
-	* @return boolean TRUE if the sub category id exists
-	*/
+	 * Check to see if the requested sub category exists for the selected site
+	 * and category
+	 *
+	 * @param integer $site_id
+	 * @param integer $category_id
+	 * @param integer $sub_category_id
+	 *
+	 * @return boolean TRUE if the sub category id exists
+	 */
 	public function subCategoryIdExists($site_id, $category_id,
 		$sub_category_id)
 	{
@@ -449,32 +513,37 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 
 		$result = $stmt->fetch();
 
-		if($result == FALSE) {
+		if($result == FALSE)
+		{
 			return FALSE;
-		} else {
+		}
+		else
+		{
 			return TRUE;
 		}
 	}
 
 	/**
-	* Check to see if the sub category exists
-	*
-	* @param integer $site_id
-	* @param integer $category_id
-	* @param string $sub_category Name of sub category to check
-	* @param integer|NULL $ignore_id Sub cdategory to exclude from query if
-	*                                doing a check on an edit form
-	* @return boolean
-	*/
+	 * Check to see if the sub category exists
+	 *
+	 * @param integer $site_id
+	 * @param integer $category_id
+	 * @param string $sub_category Name of sub category to check
+	 * @param integer|NULL $ignore_id Sub cdategory to exclude from query if
+	 *                                doing a check on an edit form
+	 *
+	 * @return boolean
+	 */
 	public function subCategoryExists($site_id, $category_id, $sub_category,
-		$ignore_id=NULL)
+		$ignore_id = NULL)
 	{
 		$sql = "SELECT id
 				FROM user_site_image_library_sub_category
 				WHERE site_id = :site_id
 				AND category_id = :category_id
 				AND UPPER(`name`) = :sub_category ";
-		if($ignore_id != NULL) {
+		if($ignore_id != NULL)
+		{
 			$sql .= "AND id <> :ignore_id ";
 		}
 		$sql .= "LIMIT 1";
@@ -483,16 +552,20 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Model extends Zend_Db_Table_Abst
 		$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
 		$stmt->bindValue(':sub_category', strtoupper($sub_category),
 			PDO::PARAM_STR);
-		if($ignore_id != NULL) {
+		if($ignore_id != NULL)
+		{
 			$stmt->bindValue(':ignore_id', $ignore_id, PDO::PARAM_INT);
 		}
 		$stmt->execute();
 
 		$result = $stmt->fetch();
 
-		if($result == FALSE) {
+		if($result == FALSE)
+		{
 			return FALSE;
-		} else {
+		}
+		else
+		{
 			return TRUE;
 		}
 	}

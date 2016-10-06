@@ -59,9 +59,8 @@ class Dlayer_DesignerTool_ImageLibrary_Category_Ribbon extends Dlayer_Ribbon_Mod
 		}
 		else
 		{
-			$model_categories = new Dlayer_DesignerTool_ImageLibrary_Category_Model();
-			$category = $model_categories->category($this->site_id,
-				$this->category_id);
+			$model_tool = new Dlayer_DesignerTool_ImageLibrary_Category_Model();
+			$category = $model_tool->category($this->site_id, $this->category_id);
 
 			return array(
 				'id' => intval($category['id']),
