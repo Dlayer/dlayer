@@ -6,7 +6,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
+class Dlayer_DesignerTool_ImageLibrary_Add_Tool extends Dlayer_Tool_Module_Image
 {
     /**
     * Add a new image to the library, validates data and image and then 
@@ -56,8 +56,6 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
         } else {
             return FALSE;
         }
-
-        return FALSE;
     }
 
     public function autoValidate(array $params = array(), $site_id, 
@@ -100,7 +98,7 @@ class Dlayer_Tool_Image_Add extends Dlayer_Tool_Module_Image
     */
     private function validateData(array $params = array())
     {
-        $model_categories = new Dlayer_Model_Image_Categories();
+        $model_categories = new Dlayer_DesignerTool_ImageLibrary_Add_Model();
         
         $upload = new Zend_File_Transfer_Adapter_Http();
         

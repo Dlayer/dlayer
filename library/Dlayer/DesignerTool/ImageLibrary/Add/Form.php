@@ -9,7 +9,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
+class Dlayer_DesignerTool_ImageLibrary_Add_Form extends Dlayer_Form_Module_Image
 {
 	/**
 	* Set the initial properties for the form
@@ -67,7 +67,7 @@ class Dlayer_Form_Image_Add extends Dlayer_Form_Module_Image
 	private function formElementsData()
 	{
 		$session_dlayer = new Dlayer_Session();
-		$model_categories = new Dlayer_Model_Image_Categories();
+		$model_categories = new Dlayer_DesignerTool_ImageLibrary_Add_Model();
 
 		$this->elements_data['categories'] = $model_categories->categories(
 			$session_dlayer->siteId(), TRUE);

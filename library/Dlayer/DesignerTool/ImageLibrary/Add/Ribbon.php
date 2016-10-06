@@ -13,7 +13,7 @@
 * @copyright G3D Development Limited
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 */
-class Dlayer_Ribbon_Image_Add extends Dlayer_Ribbon_Module_Image
+class Dlayer_DesignerTool_ImageLibrary_Add_Ribbon extends Dlayer_Ribbon_Module_Image
 {
     /**
     * Instantiate and return the form to add or edit a text field
@@ -38,7 +38,7 @@ class Dlayer_Ribbon_Image_Add extends Dlayer_Ribbon_Module_Image
         $this->writeParams($site_id, $tool, $tab, $multi_use, $image_id, 
         $version_id, $category_id, $subcategory_id, $edit_mode);
 
-        return array('form'=>new Dlayer_Form_Image_Add(
+        return array('form'=>new Dlayer_DesignerTool_ImageLibrary_Add_Form(
         $this->existingData(), $this->edit_mode, $this->multi_use));
     }
     

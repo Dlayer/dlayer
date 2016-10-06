@@ -144,7 +144,7 @@ class Dlayer_Ribbon_Handler_Image
     {
         switch($this->tab) {
             case 'add':
-                $ribbon_add = new Dlayer_Ribbon_Image_Add();
+                $ribbon_add = new Dlayer_DesignerTool_ImageLibrary_Add_Ribbon();
                 $data = $ribbon_add->viewData($this->site_id, $this->tool, 
                 $this->tab, $this->multi_use, $this->image_id, 
                 $this->version_id, $this->category_id, $this->subcategory_id, 

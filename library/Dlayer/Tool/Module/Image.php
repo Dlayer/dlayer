@@ -14,7 +14,10 @@ abstract class Dlayer_Tool_Module_Image extends Dlayer_Tool
     protected $sub_category_id;
     protected $image_id;
     protected $version_id;
-    
+
+	/**
+	 * @var Dlayer_Session_Image
+	 */
     protected $session_dlayer;
     
     /**
