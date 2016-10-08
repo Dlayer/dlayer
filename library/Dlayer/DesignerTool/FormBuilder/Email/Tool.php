@@ -9,7 +9,7 @@
 class Dlayer_DesignerTool_FormBuilder_Email_Tool extends Dlayer_Tool_Module_Form
 {
 	protected $field_type = 'email';
-	protected $tool = 'email';
+	protected $tool = 'Email';
 
 	private $model_field;
 

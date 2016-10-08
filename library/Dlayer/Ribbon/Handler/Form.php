@@ -51,47 +51,47 @@ class Dlayer_Ribbon_Handler_Form
 
 		switch($this->tool)
 		{
-			case 'text':
+			case 'Text':
 				$data = $this->text();
 			break;
 
-			case 'preset-name':
+			case 'PresetName':
 				$data = $this->presetName();
 			break;
 
-			case 'email':
+			case 'Email':
 				$data = $this->email();
 			break;
 
-			case 'preset-email':
+			case 'PresetEmail':
 				$data = $this->presetEmail();
 			break;
 
-			case 'textarea':
+			case 'Textarea':
 				$data = $this->textarea();
 			break;
 
-			case 'password':
+			case 'Password':
 				$data = $this->password();
 			break;
 
-			case 'form-layout':
+			case 'FormLayout':
 				$data = $this->formLayout();
 			break;
 
-			case 'form-actions':
+			case 'FormActions':
 				$data = $this->formActions();
 			break;
 
-			case 'form-settings':
+			case 'FormSettings':
 				$data = $this->formSettings();
 			break;
 
-			case 'preset-comment':
+			case 'PresetComment':
 				$data = $this->presetComment();
 			break;
 
-			case 'preset-password':
+			case 'PresetPassword':
 				$data = $this->presetPassword();
 			break;
 
@@ -120,7 +120,7 @@ class Dlayer_Ribbon_Handler_Form
 			break;
 
 			case 'styling':
-				$ribbon_styling = new Dlayer_Ribbon_Form_Styling_Text();
+				$ribbon_styling = new Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Ribbon();
 				$data = $ribbon_styling->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -247,7 +247,7 @@ class Dlayer_Ribbon_Handler_Form
 			break;
 
 			case 'styling':
-				$ribbon_styling = new Dlayer_Ribbon_Form_Styling_Email();
+				$ribbon_styling = new Dlayer_DesignerTool_FormBuilder_Email_SubTool_Styling_Ribbon();
 				$data = $ribbon_styling->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -302,7 +302,7 @@ class Dlayer_Ribbon_Handler_Form
 			break;
 
 			case 'styling':
-				$ribbon_styling = new Dlayer_Ribbon_Form_Styling_Password();
+				$ribbon_styling = new Dlayer_DesignerTool_FormBuilder_Password_SubTool_Styling_Ribbon();
 				$data = $ribbon_styling->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);
@@ -333,7 +333,7 @@ class Dlayer_Ribbon_Handler_Form
 			break;
 
 			case 'styling':
-				$ribbon_styling = new Dlayer_Ribbon_Form_Styling_Textarea();
+				$ribbon_styling = new Dlayer_DesignerTool_FormBuilder_Textarea_SubTool_Styling_Ribbon();
 				$data = $ribbon_styling->viewData($this->site_id,
 					$this->form_id, $this->tool, $this->tab, $this->multi_use,
 					$this->field_id, $this->edit_mode);

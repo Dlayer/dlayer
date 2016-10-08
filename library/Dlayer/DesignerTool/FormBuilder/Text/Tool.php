@@ -9,8 +9,11 @@
 class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Module_Form
 {
 	protected $field_type = 'text';
-	protected $tool = 'text';
+	protected $tool = 'Text';
 
+	/**
+	 * @var Dlayer_Model_Form_Field
+	 */
 	private $model_field;
 
 	/**
@@ -22,7 +25,7 @@ class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Module_Form
 	* @param integer $form_id Form id
 	* @param integer|NULL $field_id If in edit mode the id of the field being
 	*                               edited
-	* @return array Field id
+	* @return array Field id and tool id
 	*/
 	public function process($site_id, $form_id, $field_id=NULL)
 	{

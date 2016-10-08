@@ -1,12 +1,13 @@
 <?php
+
 /**
-* Authentication model, handles all requests relating to user authentication
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-* @category Model
-*/
+ * Authentication model, handles all requests relating to user authentication
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ * @category Model
+ */
 class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 {
 	private $salt = NULL;
@@ -14,41 +15,48 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 	private $identity_id = NULL;
 
 	/**
-	* Set the salt to use for all crypt calls
-	*
-	* @param string $salt
-	* @return void
-	*/
+	 * Set the salt to use for all crypt calls
+	 *
+	 * @param string $salt
+	 *
+	 * @return void
+	 */
 	public function setSalt($salt)
 	{
 		$this->salt = '$6$rounds=5000$' . $salt . '$';
 	}
 
 	/**
-	* Get the salt
-	*
-	* @return string
-	*/
+	 * Get the salt
+	 *
+	 * @return string
+	 * @throws Exception
+	 */
 	private function salt()
 	{
-		if($this->salt != NULL) {
+		if($this->salt != NULL)
+		{
 			return $this->salt;
-		} else {
+		}
+		else
+		{
 			throw new Exception('Salt not set in authentication model');
 		}
 	}
 
 	/**
-	* Check to see if the supplied identity and credentials exist in the
-	* database, account needs to be active
-	*
-	* @param string $identity Username, always an email address
-	* @param string $credentials Password for identity
-	* @return boolean FALSE if identity and credentials don't exist
-	*/
+	 * Check to see if the supplied identity and credentials exist in the
+	 * database, account needs to be active
+	 *
+	 * @param string $identity Username, always an email address
+	 * @param string $credentials Password for identity
+	 * @return boolean FALSE if identity and credentials don't exist
+	 * @throws Exception
+	 */
 	public function checkCredentials($identity, $credentials)
 	{
-		if($this->salt != NULL) {
+		if($this->salt != NULL)
+		{
 			$sql = "SELECT di.id
 					FROM dlayer_identity di
 					WHERE di.identity = :identity
@@ -64,49 +72,60 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 
 			$result = $stmt->fetch();
 
-			if($result != FALSE) {
+			if($result != FALSE)
+			{
 				$this->identity_id = $result['id'];
+
 				return TRUE;
-			} else {
+			}
+			else
+			{
 				return FALSE;
 			}
-		} else {
+		}
+		else
+		{
 			throw new Exception('Salt not set in authentication model');
 		}
 	}
 
 	/**
-	* Return the hashed string for the given credetials string, crypt SHA-512
-	*
-	* @param string $credentials
-	* @return string Hashed string, uses crypt() with a salt
-	*/
+	 * Return the hashed string for the given credetials string, crypt SHA-512
+	 *
+	 * @param string $credentials
+	 *
+	 * @return string Hashed string, uses crypt() with a salt
+	 */
 	private function hashedCredentials($credentials)
 	{
 		return crypt($credentials, $this->salt());
 	}
 
 	/**
-	* Return the identity id for the currently logged in user, if the identity
-	* id does not exist return FALSE
-	*
-	* @return integer|FALSE
-	*/
+	 * Return the identity id for the currently logged in user, if the identity
+	 * id does not exist return FALSE
+	 *
+	 * @return integer|FALSE
+	 */
 	public function identityId()
 	{
-		if($this->identity_id != NULL) {
+		if($this->identity_id != NULL)
+		{
 			return $this->identity_id;
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 
 	/**
-	* Logout the identity, updated the logged in value, sets it to 0
-	*
-	* @param integer $identity_id
-	* @return void
-	*/
+	 * Logout the identity, updated the logged in value, sets it to 0
+	 *
+	 * @param integer $identity_id
+	 *
+	 * @return void
+	 */
 	public function logoutIdentity($identity_id)
 	{
 		$sql = "UPDATE dlayer_identity
@@ -119,12 +138,13 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Login the identity, updates the last login time and sets the logged in
-	* value to 1.
-	*
-	* @param integer $identity_id
-	* @return void
-	*/
+	 * Login the identity, updates the last login time and sets the logged in
+	 * value to 1.
+	 *
+	 * @param integer $identity_id
+	 *
+	 * @return void
+	 */
 	public function loginIdentity($identity_id)
 	{
 		$sql = "UPDATE dlayer_identity
@@ -137,12 +157,13 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Logout any inactive identities, will have a last_action timestamp that
-	* is older than the current time minus the timeout in seconds
-	*
-	* @param integer $timeout
-	* @return void
-	*/
+	 * Logout any inactive identities, will have a last_action timestamp that
+	 * is older than the current time minus the timeout in seconds
+	 *
+	 * @param integer $timeout
+	 *
+	 * @return void
+	 */
 	public function logoutInactiveIdenties($timeout)
 	{
 		$sql = "UPDATE dlayer_identity
@@ -152,13 +173,14 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':timeout', $timeout, PDO::PARAM_INT);
 		$stmt->execute();
 	}
-	
+
 	/**
-	* Update the last action time for an identity
-	*
-	* @param integer $identity_id
-	* @return void
-	*/
+	 * Update the last action time for an identity
+	 *
+	 * @param integer $identity_id
+	 *
+	 * @return void
+	 */
 	public function updateLastActionTimestamp($identity_id)
 	{
 		$sql = "UPDATE dlayer_identity
@@ -171,10 +193,10 @@ class Dlayer_Model_Authentication extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch all the test identities
-	*
-	* @return array
-	*/
+	 * Fetch all the test identities
+	 *
+	 * @return array
+	 */
 	public function testIdentities()
 	{
 		$sql = "SELECT id, identity, logged_in

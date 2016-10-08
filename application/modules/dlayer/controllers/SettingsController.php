@@ -24,7 +24,7 @@ class Dlayer_SettingsController extends Zend_Controller_Action
 	private $nav_bar_items = array(
 		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
 		array('uri'=>'/dlayer/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
-		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Dlayer Docs', 'title'=>'Read the Docs for Dlayer'),
+		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Docs', 'title'=>'Read the Docs for Dlayer'),
 	);
 	
 	/**

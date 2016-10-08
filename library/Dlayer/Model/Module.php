@@ -13,39 +13,6 @@
 class Dlayer_Model_Module extends Zend_Db_Table_Abstract
 {
     /**
-    * Get all the enabled tools for the requested module. Returns an array
-    * of the tools grouped into section. We use the tool script name for
-    * the url param
-    *
-    * @param string $module
-    * @return array
-    */
-    public function tools($module)
-    {
-        $sql = "SELECT dmt.`name`, dmt.tool, dmt.group_id,
-                dmt.base, dmt.destructive 
-                FROM dlayer_module_tool dmt
-                JOIN dlayer_module dm ON dmt.module_id = dm.id
-                WHERE dm.`name` = :module
-                AND dm.enabled = 1
-                AND dmt.enabled = 1
-                ORDER BY dmt.group_id ASC, dmt.sort_order ASC";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':module', $module, PDO::PARAM_STR);
-        $stmt->execute();
-
-        $result = $stmt->fetchAll();
-
-        $tools = array();
-
-        foreach($result as $row) {
-            $tools[$row['group_id']][] = $row;
-        }
-
-        return $tools;
-    }
-    
-    /**
     * Check to see if the module exists and is valid
     * 
     * @param string $module Module to check exists

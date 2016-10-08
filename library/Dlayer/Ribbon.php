@@ -10,18 +10,18 @@
 class Dlayer_Ribbon
 {
 	/**
-	 * Fetch all the tabs for the requested tool, if the tool is in edit mode
-	 * additonal tabs can be pulled from the database.
+	 * Fetch the tabs for the module tools
+	 * @todo Rename once tabs() refactored away
 	 *
 	 * @param string $module
 	 * @param string $tool
 	 * @param boolean $edit_mode Is the tool in edit mode, if so additional tabs may be pulled from the database
 	 * @return array|FALSE FALSE is there are no active tabs for the tool
 	 */
-	public function tabs($module, $tool, $edit_mode = FALSE)
+	public function modularToolTabs($module, $tool, $edit_mode = FALSE)
 	{
 		$model_ribbon = new Dlayer_Model_Ribbon();
-		$tabs = $model_ribbon->tabs($module, $tool, $edit_mode);
+		$tabs = $model_ribbon->modularToolTabs($module, $tool, $edit_mode);
 
 		if(count($tabs) > 0)
 		{

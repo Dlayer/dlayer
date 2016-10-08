@@ -106,9 +106,7 @@ abstract class Dlayer_Ribbon_Module_Form
 		$model_form_field = new Dlayer_Model_Form_Field();
 		
 		return array(
-			'preview_js'=>$model_form_field->previewMethods(
-				$this->site_id, $this->form_id, $this->field_id), 
-			'field'=>$model_form_field->field($this->field_id, $this->site_id, 
-				$this->form_id, $this->tool));
+			'preview_js'=>$model_form_field->previewMethods($this->site_id, $this->form_id, $this->field_id),
+			'field'=>$model_form_field->field($this->field_id, $this->site_id, $this->form_id, $this->tool));
 	}
 }

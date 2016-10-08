@@ -43,7 +43,7 @@ class Content_DesignController extends Zend_Controller_Action
 		array('uri' => '/dlayer/index/home', 'name' => 'Dlayer Demo', 'title' => 'Dlayer.com: Web development simplified'),
 		array('uri' => '/content/index/index', 'name' => 'Content manager', 'title' => 'Content manager'),
 		array('uri' => '/content/settings/index', 'name' => 'Settings', 'title' => 'Settings'),
-		array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Dlayer Docs', 'title' => 'Read the Docs for Dlayer'),
+		array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
 	);
 
 	/**
@@ -119,25 +119,22 @@ class Content_DesignController extends Zend_Controller_Action
 	 */
 	private function dlayerToolbar()
 	{
-		$model_module = new Dlayer_Model_Module();
+		$model_tool = new Dlayer_Model_Tool();
 
 		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->column_id = $this->session_content->columnId();
 		$this->view->content_id = $this->session_content->contentId();
 
-		$this->view->tools = $model_module->tools($this->getRequest()->getModuleName());
+		$this->view->tools = $model_tool->tools($this->getRequest()->getModuleName());
 		$this->view->tool = $this->session_content->tool();
 
 		return $this->view->render("design/toolbar.phtml");
 	}
 
 	/**
-	 * Generate the html for the ribbon, there are three ribbon states,
-	 * the initial state, div selected and then tool selected. The contents
-	 * of the ribbon are loaded via AJAX, this method just generates the
-	 * container html for when a tool is selected and then the html for the
-	 * two base states
+	 * Generate the HTML for the ribbon, there are two states, tool selected and then the default view, if a tool is
+	 * selected we let the ribbon load the relevant HTML
 	 *
 	 * @return string
 	 */
@@ -145,55 +142,55 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$tool = $this->session_content->tool();
 
-		if($tool != FALSE)
+		if($tool !== FALSE)
 		{
-			$html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab']);
+			$html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab'], $tool['sub_tool']);
 		}
 		else
 		{
-			$ribbon = new Dlayer_Ribbon();
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render("design\\ribbon\\default.phtml");
 		}
 
 		$this->view->html = $html;
 
-		return $this->view->render('design/ribbon.phtml');
+		return $this->view->render("design\\ribbon.phtml");
 	}
 
 	/**
-	 * Generate the container html for a tool ribbon tab, view pulls the
-	 * tabs for the tool and then generates the tab bar and container. The
-	 * contents of the ribbon are loaded via AJAX
+	 * Generate the tabs for the selected tool, an empty container is generated for each tab which will be populated
+	 * via an AJAX request
 	 *
 	 * @param string $tool
 	 * @param string $tab
+	 * @param string|NULL $sub_tool
 	 * @return string
 	 */
-	private function dlayerRibbonHtml($tool, $tab)
+	private function dlayerRibbonHtml($tool, $tab, $sub_tool = NULL)
 	{
-		$ribbon = new Dlayer_Ribbon();
-
-		$edit_mode = FALSE;
-
 		if($this->session_content->contentId() != NULL)
 		{
 			$edit_mode = TRUE;
 		}
-
-		$tabs = $ribbon->tabs($this->getRequest()->getModuleName(), $tool,
-			$edit_mode);
-
-		if($tabs != FALSE)
+		else
 		{
-			$this->view->tab = $tab;
-			$this->view->tool = $tool;
+			$edit_mode = FALSE;
+		}
+
+		$model_tool = new Dlayer_Model_Tool();
+		$tabs = $model_tool->toolTabs('content', $tool, $edit_mode);
+
+		if($tabs !== FALSE)
+		{
+			$this->view->selected_tool = $tool;
+			$this->view->selected_tab = $tab;
+			$this->view->selected_sub_tool = $sub_tool;
 			$this->view->tabs = $tabs;
-			$this->view->module = $this->getRequest()->getModuleName();
-			$html = $this->view->render($ribbon->dynamicViewScriptPath());
+			$this->view->module = 'content';
+			$html = $this->view->render('design/ribbon/ribbon-html.phtml');
 		}
 		else
 		{
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render('design/ribbon/default.phtml');
 		}
 
 		return $html;
@@ -220,16 +217,6 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Generate the html for the requested tool tab, called via AJAX by the
-	 * base view.
-	 *
-	 * The tool and tab are checked to see if they are valid and then the
-	 * daata required to generate the tab is pulled and passed to the view.
-	 *
-	 * @return string
-	 */
-
-	/**
 	 * Generate the html for the requested tool tab, called via Ajax. The tool and tab are checked to ensure they are
 	 * valid and active and then the data required to generate the tool tab is fetched and passed too the view
 	 *
@@ -241,44 +228,60 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout();
 
-		$tool = $this->getRequest()->getParam('tool');
-		$tab = $this->getRequest()->getParam('tab');
 		$module = $this->getRequest()->getModuleName();
+		$tool = $this->getParamAsString('tool');
+		$sub_tool = $this->getParamAsString('sub_tool');
+		$tab = $this->getParamAsString('tab');
 
-		$ribbon = new Dlayer_Ribbon();
-		$ribbon_tab = new Dlayer_Ribbon_Tab();
-
-		if($tab !== NULL && $tool !== NULL)
+		if($tool !== NULL && $tab !== NULL)
 		{
-			$view_script = $ribbon_tab->viewScript($this->getRequest()->getModuleName(), $tool, $tab, TRUE);
-			$multi_use = $ribbon_tab->multiUse($module, $tool, $tab);
+			$model_tool = new Dlayer_Model_Tool();
 
-			if($view_script !== FALSE)
+			$exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
+
+			if($exists === TRUE)
 			{
-				$this->session_content->setRibbonTab($tab);
-				$edit_mode = FALSE;
 				if($this->session_content->contentId() !== NULL)
 				{
 					$edit_mode = TRUE;
 				}
+				else
+				{
+					$edit_mode = FALSE;
+				}
+
+				/**
+				 * @todo Need to remove this class eventually
+				 */
+				$ribbon_tab = new Dlayer_Ribbon_Tab();
+
+				$this->session_content->setRibbonTab($tab, $sub_tool);
 
 				$this->view->color_picker_data = $this->colorPickerData();
-				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab, $multi_use, $edit_mode);
+				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab,
+					$model_tool->multiUse($module, $tool, $tab), $edit_mode);
 
-				$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
-					$this->session_content->tool()['model'] . "\\scripts\\");
+				if($sub_tool === NULL)
+				{
+					$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
+						$tool . "\\scripts\\");
+				}
+				else
+				{
+					$this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
+						$tool . "\\SubTool\\" . $sub_tool ."\\scripts\\");
+				}
 
-				$html = $this->view->render($ribbon->viewScriptPath($view_script, TRUE, 'ContentManager',
-					$this->session_content->tool()['model']));
+				$html = $this->view->render($tab . '.phtml');
 			}
 			else
 			{
-				$html = $this->view->render($ribbon->defaultViewScriptPath());
+				$html = $this->view->render("design\\ribbon\\default.phtml");
 			}
 		}
 		else
 		{
-			$html = $this->view->render($ribbon->defaultViewScriptPath());
+			$html = $this->view->render("design\\ribbon\\default.phtml");
 		}
 
 		$this->view->html = $html;
@@ -412,7 +415,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		if($this->session_content->setTool('page') === TRUE) {
+		if($this->session_content->setTool('Page') === TRUE) {
 			$this->session_content->setPageSelected();
 		}
 
@@ -461,15 +464,15 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$tool = $this->getRequest()->getParam('tool');
 
-		if($tool != NULL && strlen($tool) > 0)
+		if($tool !== NULL && strlen($tool) > 0)
 		{
-			if($tool != 'cancel')
+			if($tool !== 'Cancel')
 			{
-				if($this->session_content->setTool($tool) == TRUE)
+				if($this->session_content->setTool($tool) === TRUE)
 				{
 					$reset = $this->getRequest()->getParam('reset');
 
-					if($reset != NULL && $reset == 1)
+					if($reset !== NULL && $reset === 1)
 					{
 						$this->session_content->clearContentId();
 						$this->session_designer->clearAllImagePicker();

@@ -76,31 +76,31 @@ class Dlayer_Ribbon_Handler_Content
 
 		switch($tool)
 		{
-			case 'add-column':
+			case 'AddColumn':
 				$data = $this->addColumn($tool, $tab);
 			break;
 
-			case 'add-row':
+			case 'AddRow':
 				$data = $this->addRow($tool, $tab);
 			break;
 
-			case 'text':
+			case 'Text':
 				$data = $this->text($tool, $tab);
 			break;
 
-			case 'heading':
+			case 'Heading':
 				$data = $this->heading($tool, $tab);
 			break;
 
-			case 'jumbotron':
+			case 'Jumbotron':
 				$data = $this->jumbotron($tool, $tab);
 			break;
 
-			case 'form':
+			case 'Form':
 				$data = $this->form($tool, $tab);
 			break;
 
-			case 'image':
+			case 'Image':
 				$data = $this->image($tool, $tab);
 			break;
 
@@ -243,7 +243,7 @@ class Dlayer_Ribbon_Handler_Content
 			break;
 
 			case 'styling':
-				$ribbon_text_styling = new Dlayer_Ribbon_Content_Styling_Text();
+				$ribbon_text_styling = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Ribbon();
 				$data = $ribbon_text_styling->viewData($this->toolParams($tool));
 			break;
 

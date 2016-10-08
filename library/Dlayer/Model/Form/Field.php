@@ -1,29 +1,31 @@
 <?php
+
 /**
-* Form field model classes, handles the generic database queries used by
-* multiple form fields
-*
-* @todo Rename method in model, don't need things like form and field in name,
-* implied by name of model
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
+ * Form field model classes, handles the generic database queries used by
+ * multiple form fields
+ *
+ * @todo Rename method in model, don't need things like form and field in name,
+ * implied by name of model
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
 class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 {
 	/**
-	* Add the attributes for the form field, shared method, used by all the
-	* form field tools
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param integer $field_id Id of the new form field
-	* @param array $attributes Attributes to insert for the form field
-	* @param array $params Post params from form
-	* @param string $field_type Type of field to add attributes for
-	* @return void
-	*/
+	 * Add the attributes for the form field, shared method, used by all the
+	 * form field tools
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param integer $field_id Id of the new form field
+	 * @param array $attributes Attributes to insert for the form field
+	 * @param array $params Post params from form
+	 * @param string $field_type Type of field to add attributes for
+	 *
+	 * @return void
+	 */
 	public function addFieldAttributes($site_id, $form_id, $field_id,
 		array $attributes, array $params, $field_type)
 	{
@@ -43,7 +45,8 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':field_id', $field_id, PDO::PARAM_INT);
 		$stmt->bindValue(':field_type', $field_type, PDO::PARAM_STR);
 
-		foreach($attributes as $attribute) {
+		foreach($attributes as $attribute)
+		{
 			$stmt->bindValue(':attribute', $attribute, PDO::PARAM_STR);
 			$stmt->bindValue(':attribute_value', $params[$attribute],
 				PDO::PARAM_STR);
@@ -53,17 +56,18 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Edit the attributes for the form field, shared method, used by all the
-	* form field tools
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param integer $field_id Id of the new form field
-	* @param array $attributes Attributes to insert for the form field
-	* @param array $params Post params from form
-	* @param string $field_type Type of field to add attributes for
-	* @return void
-	*/
+	 * Edit the attributes for the form field, shared method, used by all the
+	 * form field tools
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param integer $field_id Id of the new form field
+	 * @param array $attributes Attributes to insert for the form field
+	 * @param array $params Post params from form
+	 * @param string $field_type Type of field to add attributes for
+	 *
+	 * @return void
+	 */
 	public function editFieldAttributes($site_id, $form_id, $field_id,
 		array $attributes, array $params, $field_type)
 	{
@@ -85,7 +89,8 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 		$stmt->bindValue(':field_id', $field_id, PDO::PARAM_INT);
 		$stmt->bindValue(':field_type', $field_type, PDO::PARAM_STR);
 
-		foreach($attributes as $attribute) {
+		foreach($attributes as $attribute)
+		{
 			$stmt->bindValue(':attribute', $attribute, PDO::PARAM_STR);
 			$stmt->bindValue(':attribute_value', $params[$attribute],
 				PDO::PARAM_STR);
@@ -94,15 +99,16 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Check to see if the given form field id is valid, needs to belong to the
-	* given form id, site id and be of the correct type
-	*
-	* @param integer $id Form field id
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param integer $type Type of form field
-	* @return boolean
-	*/
+	 * Check to see if the given form field id is valid, needs to belong to the
+	 * given form id, site id and be of the correct type
+	 *
+	 * @param integer $id Form field id
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param integer $type Type of form field
+	 *
+	 * @return boolean
+	 */
 	public function valid($id, $site_id, $form_id, $type)
 	{
 		$sql = "SELECT uff.id
@@ -121,30 +127,34 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 
 		$result = $stmt->fetch();
 
-		if($result != FALSE) {
+		if($result != FALSE)
+		{
 			return TRUE;
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 
 	/**
-	* Fetch the details for the requested field, depending on whether a result
-	* is found this method calls a private method to get the options for the
-	* input
-	*
-	* @param integer $id Field id
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param string $tool Form field tool, separate to form field type
-	* @return array|FALSE
-	*/
+	 * Fetch the details for the requested field, depending on whether a result
+	 * is found this method calls a private method to get the options for the
+	 * input
+	 *
+	 * @param integer $id Field id
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param string $tool Form field tool, separate to form field type
+	 *
+	 * @return array|FALSE
+	 */
 	public function field($id, $site_id, $form_id, $tool)
 	{
 		$sql = "SELECT uff.id, uff.label, uff.description
 				FROM user_site_form_field uff
 				JOIN dlayer_module_tool dmt ON uff.tool_id = dmt.id
-				AND dmt.tool = :tool
+				AND dmt.model = :tool
 				AND dmt.module_id = 3
 				AND dmt.enabled = 1
 				WHERE uff.site_id = :site_id
@@ -159,21 +169,25 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 
 		$result = $stmt->fetch();
 
-		if($result != FALSE) {
+		if($result != FALSE)
+		{
 			return $result;
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 
 	/**
-	* Fetch the attributes for a form field, returns an array with the
-	* attributes as the keys, values are all FALSE, can be overridden
-	* in the ribbon data classes
-	*
-	* @param string $field_type
-	* @return array
-	*/
+	 * Fetch the attributes for a form field, returns an array with the
+	 * attributes as the keys, values are all FALSE, can be overridden
+	 * in the ribbon data classes
+	 *
+	 * @param string $field_type
+	 *
+	 * @return array
+	 */
 	public function attributes($field_type)
 	{
 		$sql = "SELECT ffa.attribute
@@ -189,7 +203,8 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 
 		$attributes = array();
 
-		foreach($result as $attribute) {
+		foreach($result as $attribute)
+		{
 			$attributes[$attribute['attribute']] = FALSE;
 		}
 
@@ -197,14 +212,15 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch all the assigned attributes for the requested form field,
-	* attribute array is returned wih the values converted to the correct types
-	*
-	* @param integer $id Form field id
-	* @param integer $site_id
-	* @param integer $form_id
-	* @return array Attributes for requested form field
-	*/
+	 * Fetch all the assigned attributes for the requested form field,
+	 * attribute array is returned wih the values converted to the correct types
+	 *
+	 * @param integer $id Form field id
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 *
+	 * @return array Attributes for requested form field
+	 */
 	public function assignedAttributes($id, $site_id, $form_id)
 	{
 		$sql = "SELECT uffa.field_id, uffa.attribute AS `value`,
@@ -227,8 +243,10 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 
 		$attributes = array();
 
-		foreach($results as $row) {
-			switch($row['type']) {
+		foreach($results as $row)
+		{
+			switch($row['type'])
+			{
 				case 'integer':
 					$value = intval($row['value']);
 					break;
@@ -245,46 +263,53 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Move the requested form field, either up or down. Once the sort order of
-	* the current item has been worked out and the id of the other item that
-	* will be affected is known requests are sent to move the form fields
-	*
-	* @param string $direction
-	* @param string $field_type
-	* @param integer $field_id
-	* @param integer $form_id
-	* @param integer $site_id
-	* @return void
-	*/
+	 * Move the requested form field, either up or down. Once the sort order of
+	 * the current item has been worked out and the id of the other item that
+	 * will be affected is known requests are sent to move the form fields
+	 *
+	 * @param string $direction
+	 * @param string $field_type
+	 * @param integer $field_id
+	 * @param integer $form_id
+	 * @param integer $site_id
+	 *
+	 * @return void
+	 */
 	public function moveFormField($direction, $field_type, $field_id, $form_id,
 		$site_id)
 	{
 		$process = FALSE;
 
 		/**
-		* @todo Need to update this, check the types against the database
-		*/
+		 * @todo Need to update this, check the types against the database
+		 */
 		if(in_array($field_type,
-		array('text', 'textarea', 'password')) == TRUE) {
+				array('text', 'textarea', 'password')) == TRUE
+		)
+		{
 
 			$sort_order = $this->sortOrder($site_id, $form_id, $field_type,
 				$field_id);
 
-			if($sort_order != FALSE) {
+			if($sort_order != FALSE)
+			{
 				$process = TRUE;
 			}
 		}
 
-		if($process == TRUE) {
+		if($process == TRUE)
+		{
 
-			switch($direction) {
+			switch($direction)
+			{
 				case 'up':
-					if($sort_order > 1) {
+					if($sort_order > 1)
+					{
 						$sibling_field_id = $this->formFieldIdBySortOrder(
-							$site_id, $form_id, $sort_order-1);
+							$site_id, $form_id, $sort_order - 1);
 
 						$this->setSortOrder($site_id, $form_id, $field_id,
-							$sort_order-1);
+							$sort_order - 1);
 
 						$this->setSortOrder($site_id, $form_id,
 							$sibling_field_id, $sort_order);
@@ -293,12 +318,14 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 
 				case 'down':
 					if($sort_order < $this->numberFormFields($site_id,
-					$form_id)) {
+							$form_id)
+					)
+					{
 						$sibling_field_id = $this->formFieldIdBySortOrder(
-							$site_id, $form_id, $sort_order+1);
+							$site_id, $form_id, $sort_order + 1);
 
 						$this->setSortOrder($site_id, $form_id, $field_id,
-							$sort_order+1);
+							$sort_order + 1);
 
 						$this->setSortOrder($site_id, $form_id,
 							$sibling_field_id, $sort_order);
@@ -311,7 +338,9 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 					break;
 			}
 
-		} else {
+		}
+		else
+		{
 			throw new Exception('Field type \'' . $field_type . '\' not
 				supported in Dlayer_Model_Form_Field::moveFormField() or
 			sort order not returned by Dlayer_Model_Form_Field::sortOrder');
@@ -319,14 +348,15 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Update the sort order for the requested form field
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param integer $field_id
-	* @param integer $sort_order
-	* @return void
-	*/
+	 * Update the sort order for the requested form field
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param integer $field_id
+	 * @param integer $sort_order
+	 *
+	 * @return void
+	 */
 	private function setSortOrder($site_id, $form_id, $field_id, $sort_order)
 	{
 		$sql = "UPDATE user_site_form_field
@@ -344,14 +374,15 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch the sort order for the requested form field
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param string $field_type
-	* @param integer $field_id
-	* @return integer|FALSE Current sort order
-	*/
+	 * Fetch the sort order for the requested form field
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param string $field_type
+	 * @param integer $field_id
+	 *
+	 * @return integer|FALSE Current sort order
+	 */
 	private function sortOrder($site_id, $form_id, $field_type, $field_id)
 	{
 		$sql = "SELECT usff.sort_order
@@ -371,21 +402,25 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 
 		$result = $stmt->fetch();
 
-		if($result != FALSE) {
+		if($result != FALSE)
+		{
 			return intval($result['sort_order']);
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 
 	/**
-	* Fetch the form field which has the requested sort order
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param integer $sort_order
-	* @return integer|FALSE Form field id
-	*/
+	 * Fetch the form field which has the requested sort order
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param integer $sort_order
+	 *
+	 * @return integer|FALSE Form field id
+	 */
 	private function formFieldIdBySortOrder($site_id, $form_id, $sort_order)
 	{
 		$sql = "SELECT usff.id
@@ -401,20 +436,24 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 
 		$result = $stmt->fetch();
 
-		if($result != FALSE) {
+		if($result != FALSE)
+		{
 			return intval($result['id']);
-		} else {
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
 
 	/**
-	* Fetch the total number of form fields that have been added to the form
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @return integer Number of form fields
-	*/
+	 * Fetch the total number of form fields that have been added to the form
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 *
+	 * @return integer Number of form fields
+	 */
 	private function numberFormFields($site_id, $form_id)
 	{
 		$sql = "SELECT usff.id
@@ -430,16 +469,17 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Calculate the new sort order values, fetches the current MAX and then
-	* adds one
-	*
-	* @todo This method wont be required later when a user can choose exactly
-	* where they want to insert the content block
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @return integer New sort order value
-	*/
+	 * Calculate the new sort order values, fetches the current MAX and then
+	 * adds one
+	 *
+	 * @todo This method wont be required later when a user can choose exactly
+	 * where they want to insert the content block
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 *
+	 * @return integer New sort order value
+	 */
 	private function newSortOrder($site_id, $form_id)
 	{
 		$sql = "SELECT IFNULL(MAX(sort_order), 0) + 1 AS sort_order
@@ -457,29 +497,33 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Add the form field to the form
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param string $field_type
-	* @param string $tool
-	* @param array $params Options for field
-	* @return integer Id of the newly created field
-	*/
-	public function addFormField($site_id, $form_id, $field_type, $tool,
-		array $params)
+	 * Add the form field to the form
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param string $field_type
+	 * @param string $tool
+	 * @param array $params Options for field
+	 *
+	 * @return integer Id of the newly created field
+	 */
+	public function addFormField($site_id, $form_id, $field_type, $tool, array $params)
 	{
 		$sort_order = $this->newSortOrder($site_id, $form_id);
 
 		$sql = "INSERT INTO user_site_form_field
-				(site_id, form_id, field_type_id, tool_id, label,
-				description,
-				sort_order)
+				(site_id, form_id, field_type_id, tool_id, label, description, sort_order)
 				VALUES
-				(:site_id, :form_id, (SELECT id FROM designer_form_field_type
-				WHERE type = :field_type), (SELECT id FROM dlayer_module_tool 
-				WHERE tool = :tool AND module_id = 3 AND enabled = 1), :label,
-				:description, :sort_order)";
+				(:site_id, :form_id, (
+					SELECT id 
+					FROM designer_form_field_type
+					WHERE type = :field_type
+				), (
+					SELECT id 
+					FROM dlayer_module_tool
+					WHERE model = :tool 
+					AND module_id = 3 AND enabled = 1
+				), :label, :description, :sort_order)";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
@@ -495,14 +539,15 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Edit the details for the requested form field
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param integer $field_id
-	* @param array $params
-	* @return void
-	*/
+	 * Edit the details for the requested form field
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param integer $field_id
+	 * @param array $params
+	 *
+	 * @return void
+	 */
 	public function editFormField($site_id, $form_id, $field_id, array $params)
 	{
 		$sql = "UPDATE user_site_form_field
@@ -521,15 +566,16 @@ class Dlayer_Model_Form_Field extends Zend_Db_Table_Abstract
 	}
 
 	/**
-	* Fetch the live edit preview methods and data for the selected form field
-	* params, label and description are standard for all inputs so we only need
-	* to pull the custom attributes
-	*
-	* @param integer $site_id
-	* @param integer $form_id
-	* @param integer $field_id
-	* @return array Contains the js preview method names and params
-	*/
+	 * Fetch the live edit preview methods and data for the selected form field
+	 * params, label and description are standard for all inputs so we only need
+	 * to pull the custom attributes
+	 *
+	 * @param integer $site_id
+	 * @param integer $form_id
+	 * @param integer $field_id
+	 *
+	 * @return array Contains the js preview method names and params
+	 */
 	public function previewMethods($site_id, $form_id, $field_id)
 	{
 		$sql = "SELECT dfpm.method, usff.id AS field_id, dffa.attribute,

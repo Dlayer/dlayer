@@ -67,7 +67,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 	/**
 	 * Validate the instances param, need to see if it should exist first
 	 *
-	 * @param integer site_id
+	 * @param integer $site_id
 	 * @param integer $content_id
 	 * @return boolean
 	 */

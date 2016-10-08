@@ -9,7 +9,7 @@
 class Dlayer_DesignerTool_FormBuilder_Textarea_Tool extends Dlayer_Tool_Module_Form
 {
 	protected $field_type = 'textarea';
-	protected $tool = 'textarea';
+	protected $tool = 'Textarea';
 
 	private $model_field;
 
