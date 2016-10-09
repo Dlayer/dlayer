@@ -341,7 +341,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',1,'2016-10-06 23:36:27','2016-10-07 00:16:54',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-10-09 01:11:59','2016-10-09 01:12:56',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-05-29 15:57:54','2015-05-29 15:58:47',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-05-29 15:59:10','2015-05-29 16:25:10',1);
 
@@ -591,6 +591,9 @@ CREATE TABLE `dlayer_session` (
 /*Data for the table `dlayer_session` */
 
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('25i8lnmk1c62gfgvg80f6iac05','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475795814,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475799414;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1475799414;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}dlayer_session_image|a:7:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:2:{s:8:\"category\";i:1;s:12:\"sub_category\";i:1;}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:8:\"sub_tool\";N;}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('8i28lvccqvnd2edgu43m1q68h3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475967523,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475971123;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1475971122;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:1:{s:7:\"page_id\";N;}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('e43c9ano0d05ebo1grvaltmm12','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475967507,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475971106;}}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('n62piun3bamt9rliaca9f4gfv3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475971986,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475975586;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1475975580;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1475975580;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('nqon6jvoanisk6pij8pk6j9qq5','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475593326,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475596926;}}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('o05o81kmojv79ofohv8s9af6p0','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1474847807,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1474851407;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1474851407;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}dlayer_session_image|a:5:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:2:{s:8:\"category\";i:1;s:12:\"sub_category\";i:1;}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('sqvkhdalvgsiort4pepdvffjf0','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475535306,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475538905;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1475538904;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1475538904;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1475538904;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1475538904;}}dlayer_session_image|a:7:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";N;s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:8:\"sub_tool\";N;}dlayer_session_form|a:6:{s:8:\"field_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;s:7:\"form_id\";N;s:6:\"return\";N;}dlayer_session_content|a:8:{s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
@@ -1476,7 +1479,7 @@ CREATE TABLE `user_site_page_content_item_form` (
   CONSTRAINT `user_site_page_content_item_form_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
   CONSTRAINT `user_site_page_content_item_form_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`),
   CONSTRAINT `user_site_page_content_item_form_ibfk_4` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_content_item_form` */
 
@@ -1484,6 +1487,7 @@ insert  into `user_site_page_content_item_form`(`id`,`site_id`,`page_id`,`conten
 insert  into `user_site_page_content_item_form`(`id`,`site_id`,`page_id`,`content_id`,`form_id`) values (2,1,2,16,2);
 insert  into `user_site_page_content_item_form`(`id`,`site_id`,`page_id`,`content_id`,`form_id`) values (3,1,2,19,2);
 insert  into `user_site_page_content_item_form`(`id`,`site_id`,`page_id`,`content_id`,`form_id`) values (4,1,2,23,2);
+insert  into `user_site_page_content_item_form`(`id`,`site_id`,`page_id`,`content_id`,`form_id`) values (5,1,1,25,2);
 
 /*Table structure for table `user_site_page_content_item_heading` */
 
@@ -1666,11 +1670,11 @@ CREATE TABLE `user_site_page_structure_content` (
   CONSTRAINT `user_site_page_structure_content_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
   CONSTRAINT `user_site_page_structure_content_ibfk_4` FOREIGN KEY (`content_type`) REFERENCES `designer_content_type` (`id`),
   CONSTRAINT `user_site_page_structure_content_ibfk_5` FOREIGN KEY (`column_id`) REFERENCES `user_site_page_structure_column` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_structure_content` */
 
-insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column_id`,`content_type`,`sort_order`) values (1,1,1,1,1,3);
+insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column_id`,`content_type`,`sort_order`) values (1,1,1,1,1,4);
 insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column_id`,`content_type`,`sort_order`) values (2,1,1,2,1,3);
 insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column_id`,`content_type`,`sort_order`) values (3,1,1,1,2,1);
 insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column_id`,`content_type`,`sort_order`) values (4,1,1,2,2,1);
@@ -1691,6 +1695,7 @@ insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column
 insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column_id`,`content_type`,`sort_order`) values (22,1,2,16,4,3);
 insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column_id`,`content_type`,`sort_order`) values (23,1,2,16,3,4);
 insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column_id`,`content_type`,`sort_order`) values (24,1,2,16,5,5);
+insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column_id`,`content_type`,`sort_order`) values (25,1,1,1,3,3);
 
 /*Table structure for table `user_site_page_structure_row` */
 
@@ -1707,7 +1712,7 @@ CREATE TABLE `user_site_page_structure_row` (
   KEY `sort_order` (`sort_order`),
   CONSTRAINT `user_site_page_structure_row_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_site_page_structure_row_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_structure_row` */
 
@@ -1716,64 +1721,7 @@ insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`
 insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`,`sort_order`) values (6,1,2,0,2);
 insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`,`sort_order`) values (7,1,2,0,1);
 insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`,`sort_order`) values (8,1,2,0,3);
-
-/*Table structure for table `user_site_page_structure_style_row_color` */
-
-CREATE TABLE `user_site_page_structure_style_row_color` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `site_id` int(11) unsigned NOT NULL,
-  `page_id` int(11) unsigned NOT NULL,
-  `row_id` int(11) unsigned NOT NULL,
-  `attribute` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `color_hex` char(7) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `site_id` (`site_id`),
-  KEY `page_id` (`page_id`),
-  KEY `content_row_id` (`row_id`),
-  CONSTRAINT `user_site_page_structure_style_row_color_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-  CONSTRAINT `user_site_page_structure_style_row_color_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
-  CONSTRAINT `user_site_page_structure_style_row_color_ibfk_3` FOREIGN KEY (`row_id`) REFERENCES `user_site_page_structure_row` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `user_site_page_structure_style_row_color` */
-
-/*Table structure for table `user_site_page_styles_container_background_color` */
-
-CREATE TABLE `user_site_page_styles_container_background_color` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `site_id` int(11) unsigned NOT NULL,
-  `page_id` int(11) unsigned NOT NULL,
-  `content_id` int(11) unsigned NOT NULL,
-  `color_hex` char(7) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `site_id` (`site_id`),
-  KEY `page_id` (`page_id`),
-  KEY `content_id` (`content_id`),
-  CONSTRAINT `user_site_page_styles_container_background_color_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-  CONSTRAINT `user_site_page_styles_container_background_color_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
-  CONSTRAINT `user_site_page_styles_container_background_color_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `user_site_page_styles_container_background_color` */
-
-/*Table structure for table `user_site_page_styles_item_background_color` */
-
-CREATE TABLE `user_site_page_styles_item_background_color` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `site_id` int(11) unsigned NOT NULL,
-  `page_id` int(11) unsigned NOT NULL,
-  `content_id` int(11) unsigned NOT NULL,
-  `color_hex` char(7) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `site_id` (`site_id`),
-  KEY `page_id` (`page_id`),
-  KEY `content_id` (`content_id`),
-  CONSTRAINT `user_site_page_styles_item_background_color_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-  CONSTRAINT `user_site_page_styles_item_background_color_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
-  CONSTRAINT `user_site_page_styles_item_background_color_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `user_site_page_styles_item_background_color` */
+insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`,`sort_order`) values (9,1,1,0,3);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
