@@ -276,6 +276,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 					$model_authentication->loginIdentity($identity_id);
 
+                    Dlayer_Helper::sendToInfoLog('Identity: ' . $identity_id . ' signed into app');
+
 					$this->redirect('/dlayer/index/home');
 				}
 				else
@@ -307,6 +309,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 		$model_authentication = new Dlayer_Model_Authentication();
 		$model_authentication->logoutIdentity($session_dlayer->identityId());
+
+        Dlayer_Helper::sendToInfoLog('Identity: ' . $session_dlayer->identityId() . ' signed out of app');
 
 		$session_content->clearAll(TRUE);
 		$session_dlayer->clearAll();
