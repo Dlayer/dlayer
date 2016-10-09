@@ -42,7 +42,6 @@ class Content_DesignController extends Zend_Controller_Action
 	private $nav_bar_items = array(
 		array('uri' => '/dlayer/index/home', 'name' => 'Dlayer Demo', 'title' => 'Dlayer.com: Web development simplified'),
 		array('uri' => '/content/index/index', 'name' => 'Content manager', 'title' => 'Content manager'),
-		array('uri' => '/content/settings/index', 'name' => 'Settings', 'title' => 'Settings'),
 		array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
 	);
 
