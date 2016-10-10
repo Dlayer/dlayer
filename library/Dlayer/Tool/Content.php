@@ -8,13 +8,19 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-abstract class Dlayer_Tool_Content extends Dlayer_Tool
+abstract class Dlayer_Tool_Content
 {
 	protected $site_id = NULL;
 	protected $page_id = NULL;
 	protected $row_id = NULL;
 	protected $column_id = NULL;
 	protected $content_id = NULL;
+
+	protected $params = array();
+	protected $params_auto = array();
+
+	protected $validated = FALSE;
+	protected $validated_auto = FALSE;
 
 	/**
 	 * Validate the posted params, checks to ensure the correct params exists and then checks to ensure that the values
@@ -126,7 +132,7 @@ abstract class Dlayer_Tool_Content extends Dlayer_Tool
 	/**
 	 * Validate the instances param, need to see if it should exist first
 	 *
-	 * @param integer site_id
+	 * @param integer $site_id
 	 * @param integer $content_id
 	 * @return boolean
 	 */

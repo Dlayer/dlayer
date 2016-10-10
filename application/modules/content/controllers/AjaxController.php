@@ -47,89 +47,12 @@ class Content_AjaxController extends Zend_Controller_Action
 		$session_dlayer = new Dlayer_Session();
 		$this->site_id = $session_dlayer->siteId();
 
-		$this->session_content = new Dlayer_Session_Content();
-		$this->page_id = $this->session_content->pageId();
+		$session_content = new Dlayer_Session_Content();
+		$this->page_id = $session_content->pageId();
 
 		$this->session_designer = new Dlayer_Session_Designer();
 	}
-	
-	/**
-	* Fetches the data belonging to the option in the import select menu and 
-	* then returns the json so that the tool fields can be updated
-	* 
-	* @return void
-	*/
-	public function importTextAction() 
-	{
-		$this->getResponse()->setHeader('Content-Type', 'application/json');
-		
-		$model_text_data = new Dlayer_Model_Page_Content_Items_Text();
-		$import_data = $model_text_data->existingTextContent(
-			$this->session_dlayer->siteId(), 
-			$this->getRequest()->getParam('id'));
-		
-		$json = array('data'=>FALSE);
-		
-		if($import_data != FALSE) {
-			$json = array('data'=>true, "name"=>$import_data['name'], 
-			"text"=>$import_data['content']);
-		}
-		
-		echo Zend_Json::encode($json);
-	}
-	
-	/**
-	* Fetches the data belonging to the option in the import select menu and 
-	* then returns the json so that the tool fields can be updated
-	* 
-	* @return string
-	*/
-	public function importJumbotronAction() 
-	{
-		$this->getResponse()->setHeader('Content-Type', 'application/json');
-		
-		$model_text_data = new Dlayer_Model_Page_Content_Items_Jumbotron();
-		$import_data = $model_text_data->existingJumbotronContent(
-			$this->session_dlayer->siteId(), 
-			$this->getRequest()->getParam('id'));
-		
-		$json = array('data'=>FALSE);
-		
-		if($import_data != FALSE) {
-			$json = array('data'=>true, "name"=>$import_data['name'],
-				"title"=>$import_data['title'], 
-				"sub_title"=>$import_data['sub_title']);
-		}
-		
-		echo Zend_Json::encode($json);
-	}
-	
-	/**
-	* Fetches the data belonging to the option in the import select menu and 
-	* then returns the json so that the tool fields can be updated
-	* 
-	* @return string
-	*/
-	public function importHeadingAction() 
-	{
-		$this->getResponse()->setHeader('Content-Type', 'application/json');
-		
-		$model_text_data = new Dlayer_Model_Page_Content_Items_Heading();
-		$import_data = $model_text_data->existingHeadingContent(
-			$this->session_dlayer->siteId(), 
-			$this->getRequest()->getParam('id'));
-		
-		$json = array('data'=>FALSE);
-		
-		if($import_data != FALSE) {
-			$json = array('data'=>true, "name"=>$import_data['name'],
-				"heading"=>$import_data['heading'], 
-				"sub_heading"=>$import_data['sub_heading']);
-		}
-		
-		echo Zend_Json::encode($json);
-	}
-	
+
 	/**
 	* Select the image, sets the image id and version id in the session and 
 	* the returns the name of the image to be passed to the image picker, 
@@ -166,32 +89,7 @@ class Content_AjaxController extends Zend_Controller_Action
 		
 		echo Zend_Json::encode($json);
 	}
-	
-	/**
-	* Returns the minimum width for the selected form, required so that we 
-	* can disable the save button if the form won't fit and put up a message.
-	* 
-	* @return void
-	*/
-	public function formMinimumWidthAction() 
-	{
-		$this->getResponse()->setHeader('Content-Type', 'application/json');
-		
-		$model_form_data = new Dlayer_Model_Page_Content_Items_Form();
-		$minimum_width = $model_form_data->minimumWidth(
-		$this->session_dlayer->siteId(), 
-		$this->getRequest()->getParam('data_id'), FALSE);
-		
-		$json = array('data'=>FALSE);
-		
-		if($minimum_width != FALSE) {
-			$json['data'] = TRUE;
-			$json['width'] = intval($minimum_width);
-		}
-		
-		echo Zend_Json::encode($json);
-	}
-	
+
 	/**
 	* Image picker ajax request
 	* 
