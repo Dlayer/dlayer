@@ -32,25 +32,6 @@ class Dlayer_Validate
 	}
 	
 	/**
-	* Check to see if the given border style is valid, needs to exists in the 
-	* given border styles array
-	* 
-	* @todo The called method needs to be in a border class and then all code 
-	* 		calls those classes
-	* @param string $value
-	* @return boolean Validation passed
-	*/
-	public static function borderStyle($value) 
-	{
-		$model_border = new Dlayer_Model_Ribbon_Styles();
-		if(array_key_exists($value, $model_border->borderStyles()) == TRUE) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-	
-	/**
 	* Check to see if the given border position is valid, valid values are 
 	* only top, right, bottom and left
 	* 
