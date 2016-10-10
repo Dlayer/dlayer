@@ -20,10 +20,12 @@ class Dlayer_Helper
 	 */
 	public static function getParamAsInteger($var, $default = NULL)
 	{
-		if($value = Zend_Controller_Front::getInstance()
+		if(Zend_Controller_Front::getInstance()
 			->getRequest()
 			->getParam($var, $default) !== '') {
-			return intval($value);
+			return intval(Zend_Controller_Front::getInstance()
+				->getRequest()
+				->getParam($var, $default));
 		} else {
 			return intval($default);
 		}
@@ -39,10 +41,12 @@ class Dlayer_Helper
 	 */
 	public static function getParamAsString($var, $default = NULL)
 	{
-		if($value = Zend_Controller_Front::getInstance()
+		if(Zend_Controller_Front::getInstance()
 				->getRequest()
 				->getParam($var, $default) !== '') {
-			return $value;
+			return Zend_Controller_Front::getInstance()
+				->getRequest()
+				->getParam($var);
 		} else {
 			return $default;
 		}
