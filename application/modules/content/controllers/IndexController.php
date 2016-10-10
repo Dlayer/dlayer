@@ -81,7 +81,7 @@ class Content_IndexController extends Zend_Controller_Action
 
 		$model_pages = new Dlayer_Model_Page();
 
-		$page_id = Dlayer_Helper::getInteger('page-id');
+		$page_id = Dlayer_Helper::getParamAsInteger('page-id');
 
 		if($page_id !== NULL && $model_pages->valid($page_id, $this->site_id) == TRUE)
 		{

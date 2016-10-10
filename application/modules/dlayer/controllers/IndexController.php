@@ -129,7 +129,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 		$this->_helper->authenticate();
 
-		$site_id = Dlayer_Helper::getInteger('site');
+		$site_id = Dlayer_Helper::getParamAsInteger('site');
 
 		if($site_id != NULL)
 		{

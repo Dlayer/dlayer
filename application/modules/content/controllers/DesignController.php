@@ -228,9 +228,9 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->_helper->disableLayout();
 
 		$module = $this->getRequest()->getModuleName();
-		$tool = $this->getParamAsString('tool');
-		$sub_tool = $this->getParamAsString('sub_tool');
-		$tab = $this->getParamAsString('tab');
+		$tool = Dlayer_Helper::getParamAsString('tool');
+		$sub_tool = Dlayer_Helper::getParamAsString('sub_tool');
+		$tab = Dlayer_Helper::getParamAsString('tab');
 
 		if($tool !== NULL && $tab !== NULL)
 		{
@@ -327,12 +327,6 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->rows = $designer_page->rows();
 		$this->view->columns = $designer_page->columns();
 		$this->view->content = $designer_page->content();
-
-		// Fetch the defined styles for this content page by item type
-		/*$this->view->row_styles = $designer_page_styles->rowStyles();
-		$this->view->content_container_styles = $designer_page_styles->contentContainerStyles();
-		$this->view->content_styles = $designer_page_styles->contentItemStyles();
-		$this->view->form_styles = $designer_page_styles->formStyles();*/
 
 		$this->view->row_styles = array();
 		$this->view->content_container_styles = array();
@@ -443,9 +437,9 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$id = $this->getParamAsInteger('id');
-		$tool = $this->getParamAsString('tool');
-		$content_type = $this->getParamAsString('content-type');
+		$id = Dlayer_Helper::getParamAsInteger('id');
+		$tool = Dlayer_Helper::getParamAsString('tool');
+		$content_type = Dlayer_Helper::getParamAsString('content-type');
 
 		if($this->session_content->setContentId($id, $content_type) === TRUE &&
 			$this->session_content->setTool($tool) === TRUE)
@@ -531,8 +525,8 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$direction = $this->getParamAsString('direction');
-		$row_id = $this->getParamAsInteger('id');
+		$direction = Dlayer_Helper::getParamAsString('direction');
+		$row_id = Dlayer_Helper::getParamAsInteger('id');
 		$page_id = $this->session_content->pageId();
 		$column_id = $this->session_content->columnId();
 
@@ -551,8 +545,8 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$direction = $this->getParamAsString('direction');
-		$column_id = $this->getParamAsInteger('id');
+		$direction = Dlayer_Helper::getParamAsString('direction');
+		$column_id = Dlayer_Helper::getParamAsInteger('id');
 		$page_id = $this->session_content->pageId();
 		$row_id = $this->session_content->rowId();
 
@@ -568,7 +562,7 @@ class Content_DesignController extends Zend_Controller_Action
 	 * and also that the content item is valid for the requested content type and
 	 * page div
 	 *
-	 * @return div
+	 * @return void
 	 */
 	public function moveContentAction()
 	{
@@ -583,31 +577,5 @@ class Content_DesignController extends Zend_Controller_Action
 		$model_page_content->moveContent($this->site_id, $page_id, $column_id, $content_id, $direction);
 
 		$this->redirect('/content/design/');
-	}
-
-	/**
-	 * Get a post param
-	 *
-	 * @todo Move this out of controller
-	 * @param string $param
-	 * @param integer|NULL $default
-	 * @return integer|NULL
-	 */
-	private function getParamAsInteger($param, $default = NULL)
-	{
-		return ($this->getRequest()->getParam($param) !== '' ? intval($this->getRequest()->getParam($param)) : $default);
-	}
-
-	/**
-	 * Get a post param
-	 *
-	 * @todo Move this out of controller
-	 * @param string $param
-	 * @param integer|NULL $default
-	 * @return string|NULL
-	 */
-	private function getParamAsString($param, $default = NULL)
-	{
-		return $this->getRequest()->getParam($param, $default);
 	}
 }

@@ -49,39 +49,6 @@ class Content_ProcessController extends Zend_Controller_Action
 	}
 
 	/**
-	 * Get a post param
-	 *
-	 * @todo Move this out of controller
-	 *
-	 * @param string $param
-	 * @param integer|NULL $default
-	 *
-	 * @return integer|NULL
-	 */
-	private function getPostAsInteger($param, $default = NULL)
-	{
-		return ($this->getRequest()
-			->getPost($param) !== '' ? intval($this->getRequest()
-			->getPost($param)) : $default);
-	}
-
-	/**
-	 * Get a post param
-	 *
-	 * @todo Move this out of controller
-	 *
-	 * @param string $param
-	 * @param string|NULL $default
-	 *
-	 * @return string|NULL
-	 */
-	private function getPostAsString($param, $default = NULL)
-	{
-		return $this->getRequest()
-			->getPost($param, $default);
-	}
-
-	/**
 	 * Validate the request, checks the tool is valid and the base environment params are correct. Values should be
 	 * validated before they get set in session so we can simply check they match here
 	 *
@@ -92,12 +59,12 @@ class Content_ProcessController extends Zend_Controller_Action
 	 */
 	private function validateRequest($session_content)
 	{
-		if($session_content->pageId() === $this->getPostAsInteger('page_id') &&
-			$session_content->rowId() === $this->getPostAsInteger('row_id') &&
-			$session_content->columnId() === $this->getPostAsInteger('column_id') &&
-			$session_content->contentId() === $this->getPostAsInteger('content_id') &&
+		if($session_content->pageId() === Dlayer_Helper::getParamAsInteger('page_id') &&
+			$session_content->rowId() === Dlayer_Helper::getParamAsInteger('row_id') &&
+			$session_content->columnId() === Dlayer_Helper::getParamAsInteger('column_id') &&
+			$session_content->contentId() === Dlayer_Helper::getParamAsInteger('content_id') &&
 			$session_content->tool() !== FALSE &&
-			$session_content->tool()['tool'] === $this->getPostAsString('tool')
+			$session_content->tool()['tool'] === Dlayer_Helper::getParamAsString('tool')
 		)
 		{
 			return TRUE;
@@ -195,13 +162,11 @@ class Content_ProcessController extends Zend_Controller_Action
 			$this->returnToDesigner(FALSE);
 		}
 
-		$tool = $this->toolClass($this->getPostAsString('sub_tool_model', NULL));
+		$tool = $this->toolClass(Dlayer_Helper::getParamAsString('sub_tool_model', NULL));
 
-		if($tool->validate($this->getRequest()
-				->getPost('params'), $session_dlayer->siteId(),
+		if($tool->validate($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
 				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
-				$session_content->contentId()) === TRUE
-		)
+				$session_content->contentId()) === TRUE)
 		{
 			$return_ids = $tool->process();
 
@@ -233,10 +198,9 @@ class Content_ProcessController extends Zend_Controller_Action
 			$this->returnToDesigner(FALSE);
 		}
 
-		$tool = $this->toolClass($this->getPostAsString('sub_tool_model', NULL));
+		$tool = $this->toolClass(Dlayer_Helper::getParamAsString('sub_tool_model', NULL));
 
-		if($tool->validateAuto($this->getRequest()
-				->getPost('params'), $session_dlayer->siteId(),
+		if($tool->validateAuto($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
 				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
 				$session_content->contentId()) === TRUE
 		)
@@ -286,7 +250,7 @@ class Content_ProcessController extends Zend_Controller_Action
 			exit();
 		}
 
-		$multi_use = $this->getPostAsInteger('multi_use');
+		$multi_use = Dlayer_Helper::getParamAsInteger('multi_use');
 
 		if($multi_use !== NULL && $multi_use === 1)
 		{
