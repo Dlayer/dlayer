@@ -249,16 +249,11 @@ class Content_DesignController extends Zend_Controller_Action
 					$edit_mode = FALSE;
 				}
 
-				/**
-				 * @todo Need to remove this class eventually
-				 */
-				$ribbon_tab = new Dlayer_Ribbon_Tab();
-
+				$multi_use = $model_tool->multiUse($module, $tool, $tab);
 				$this->session_content->setRibbonTab($tab, $sub_tool);
 
 				$this->view->color_picker_data = $this->colorPickerData();
-				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab,
-					$model_tool->multiUse($module, $tool, $tab), $edit_mode);
+				$this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
 				if($sub_tool === NULL)
 				{
@@ -284,6 +279,24 @@ class Content_DesignController extends Zend_Controller_Action
 		}
 
 		$this->view->html = $html;
+	}
+
+	/**
+	 * Fetch the view data for the tool tabs
+	 *
+	 * @param string $tool
+	 * @param string $tab
+	 * @param integer $multi_use
+	 * @param boolean $edit_mode
+	 * @return string
+	 */
+	private function toolTabViewData($tool, $tab, $multi_use, $edit_mode)
+	{
+		$handler = new Dlayer_Ribbon_Handler_Content();
+
+		return $handler->viewData($this->site_id, $this->session_content->pageId(),
+			$tool, $tab, $multi_use, $edit_mode, $this->session_content->rowId(),
+			$this->session_content->columnId(), $this->session_content->contentId());
 	}
 
 	/**
