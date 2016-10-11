@@ -315,23 +315,12 @@ class Content_DesignController extends Zend_Controller_Action
 	private function dlayerPage()
 	{
 		// Instantiate the page object and styles object
-		$designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
-		$designer_page_styles = new Dlayer_Designer_Styles_Page($this->site_id, $this->page_id);
-
-		// fetch the styles defined in the settings, heading styles and base font families
-		$this->view->heading_styles = $designer_page_styles->headingStyles();
-		$this->view->base_font_family_content = $designer_page_styles->baseFontFamilyContentManager();
-		$this->view->base_font_family_form = $designer_page_styles->baseFontFamilyFormBuilder();
+		$designer_page = new Dlayer_Designer_ContentPage($this->site_id, $this->page_id); // Fix this
 
 		// Fetch the data that defines the structure of the page
 		$this->view->rows = $designer_page->rows();
 		$this->view->columns = $designer_page->columns();
 		$this->view->content = $designer_page->content();
-
-		$this->view->row_styles = array();
-		$this->view->content_container_styles = array();
-		$this->view->content_styles = array();
-		$this->view->form_styles = array();
 
 		// Set the vars to determine the state of the designer
 		$this->view->page_selected = $this->session_content->pageSelected();
@@ -350,23 +339,12 @@ class Content_DesignController extends Zend_Controller_Action
 	private function dlayerPagePreview()
 	{
 		// Instantiate the page object and styles object
-		$designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
-		$designer_page_styles = new Dlayer_Designer_Styles_Page($this->site_id, $this->page_id);
-
-		// fetch the styles defined in the settings, heading styles and base font families
-		$this->view->heading_styles = $designer_page_styles->headingStyles();
-		$this->view->base_font_family_content = $designer_page_styles->baseFontFamilyContentManager();
-		$this->view->base_font_family_form = $designer_page_styles->baseFontFamilyFormBuilder();
+		$designer_page = new Dlayer_Designer_ContentPage($this->site_id, $this->page_id); // Fix this
 
 		// Fetch the data that defines the structure of the page
 		$this->view->rows = $designer_page->rows();
 		$this->view->columns = $designer_page->columns();
 		$this->view->content = $designer_page->content();
-
-		$this->view->row_styles = array();
-		$this->view->content_container_styles = array();
-		$this->view->content_styles = array();
-		$this->view->form_styles = array();
 
 		return $this->view->render("design/page-preview.phtml");
 	}
@@ -530,7 +508,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$page_id = $this->session_content->pageId();
 		$column_id = $this->session_content->columnId();
 
-		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content = new Dlayer_Model_Content_Page();
 		$model_page_content->moveRow($this->site_id, $page_id, $column_id, $row_id, $direction);
 
 		$this->redirect('/content/design');
@@ -550,7 +528,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$page_id = $this->session_content->pageId();
 		$row_id = $this->session_content->rowId();
 
-		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content = new Dlayer_Model_Content_Page();
 		$model_page_content->moveColumn($this->site_id, $page_id, $row_id, $column_id, $direction);
 
 		$this->redirect('/content/design');
@@ -573,7 +551,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$page_id = $this->session_content->pageId();
 		$column_id = $this->session_content->columnId();
 
-		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content = new Dlayer_Model_Content_Page();
 		$model_page_content->moveContent($this->site_id, $page_id, $column_id, $content_id, $direction);
 
 		$this->redirect('/content/design/');

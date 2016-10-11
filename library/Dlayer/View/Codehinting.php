@@ -295,16 +295,13 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
-	 * @param array $row_styles Defined styles for the rows
-	 * @param array $content_styles Any styles defined for the content items
 	 * @param TRUE|NULL $page_selected Is the content page selected in designer?
 	 * @param integer|NULL $column_id Id of the selected column, if any
 	 * @param integer|NULL $row_id Id of the selected row if any
 	 * @param integer|NULL $content_id Id of the selected content item if any
 	 * @return Dlayer_View_ContentPage
 	 */
-	public function contentPage(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles, $page_selected = NULL, $column_id = NULL, $row_id = NULL, $content_id = NULL)
+	public function contentPage(array $rows, array $columns, array $content, $page_selected = NULL, $column_id = NULL, $row_id = NULL, $content_id = NULL)
 	{
 	}
 
@@ -397,12 +394,9 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
-	 * @param array $row_styles Defined styles for the rows
-	 * @param array $content_styles Any styles defined for the content items
 	 * @return Dlayer_View_ContentPagePreview
 	 */
-	public function contentPagePreview(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles)
+	public function contentPagePreview(array $rows, array $columns, array $content)
 	{
 	}
 

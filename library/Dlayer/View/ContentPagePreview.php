@@ -27,12 +27,9 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
-	 * @param array $row_styles Defined styles for the rows
-	 * @param array $content_styles Any styles defined for the content items
 	 * @return Dlayer_View_ContentPagePreview
 	 */
-	public function contentPagePreview(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles)
+	public function contentPagePreview(array $rows, array $columns, array $content)
 	{
 		$this->view->rowPreview()->setRows($rows);
 		$this->view->columnPreview()->setColumns($columns);

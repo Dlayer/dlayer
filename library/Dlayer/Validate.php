@@ -30,20 +30,4 @@ class Dlayer_Validate
 			return $validator->isValid($value);
 		}
 	}
-	
-	/**
-	* Check to see if the given border position is valid, valid values are 
-	* only top, right, bottom and left
-	* 
-	* @param string $value
-	* @return boolean Validation passed
-	*/
-	public static function borderPosition($value) 
-	{
-		if(in_array($value, array('top', 'right', 'bottom', 'left')) == TRUE) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
 }
