@@ -141,7 +141,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	public function setContentId($content_id, $content_type)
 	{
 		$session_dlayer = new Dlayer_Session();
-		$model_content = new Dlayer_Model_Page_Content();
+		$model_content = new Dlayer_Model_Content_Page();
 
 		if($model_content->validItem($content_id, $session_dlayer->siteId(), $this->pageId(), $this->columnId(),
 			$content_type) === TRUE)
