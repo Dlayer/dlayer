@@ -62,17 +62,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Content area styles view helper, generates the style string for each of
-	 * the content areas on the page, it will call a child view helper for each
-	 * of the styling groups that can be assigned to content areas
-	 *
-	 * @return Dlayer_View_ContentAreaStyles
-	 */
-	public function contentAreaStyles()
-	{
-	}
-
-	/**
 	 * This is the base content view helper, it is called by the content row
 	 * view helper and generates all the html the content items that have been
 	 * added to the requested row, once all the html has been generated the
@@ -157,18 +146,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 */
 	public function moverContentItem($content_id, $div_id, $page_id, $type,
 		$width)
-	{
-	}
-
-	/**
-	 * Generates the html for the movement controls, up and down in the form
-	 * builder
-	 *
-	 * @param integer $field_id Id of the form field
-	 * @param string $type Form field type
-	 * @return Dlayer_View_MoverFormField
-	 */
-	public function moverFormField($field_id, $type)
 	{
 	}
 
@@ -269,48 +246,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Content container styles view helper, generates the style string
-	 * for a content item container using the data defind on the styling tabs
-	 *
-	 * There is a child view helper for each styling group, this view helper
-	 * calls the child view helpers to generate the comple style string before
-	 * returning it the to content item
-	 *
-	 * @return Dlayer_View_ContentContainerStyles
-	 */
-	public function contentContainerStyles()
-	{
-	}
-
-	/**
-	 * Content container styles view helper, generates the style string
-	 * for a content item container using the data defind on the styling tabs
-	 *
-	 * There is a child view helper for each styling group, this view helper
-	 * calls the child view helpers to generate the comple style string before
-	 * returning it the to content item
-	 *
-	 * @return Dlayer_View_ContentItemStyles
-	 */
-	public function contentItemStyles()
-	{
-	}
-
-	/**
-	 * Content row styles view helper, generates the style string for a content
-	 * row using the data defind on the styling tabs
-	 *
-	 * There is a child view helper for each styling group, this view helper
-	 * calls the child view helpers to generate the complete style string
-	 * before returning it the to content row
-	 *
-	 * @return Dlayer_View_ContentRowStyles
-	 */
-	public function contentRowStyles()
-	{
-	}
-
-	/**
 	 * Generates a simple bootstrap navbar with a preview link to the right
 	 * of the menu
 	 *
@@ -360,16 +295,13 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
-	 * @param array $row_styles Defined styles for the rows
-	 * @param array $content_styles Any styles defined for the content items
 	 * @param TRUE|NULL $page_selected Is the content page selected in designer?
 	 * @param integer|NULL $column_id Id of the selected column, if any
 	 * @param integer|NULL $row_id Id of the selected row if any
 	 * @param integer|NULL $content_id Id of the selected content item if any
 	 * @return Dlayer_View_ContentPage
 	 */
-	public function contentPage(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles, $page_selected = NULL, $column_id = NULL, $row_id = NULL, $content_id = NULL)
+	public function contentPage(array $rows, array $columns, array $content, $page_selected = NULL, $column_id = NULL, $row_id = NULL, $content_id = NULL)
 	{
 	}
 
@@ -462,12 +394,9 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
-	 * @param array $row_styles Defined styles for the rows
-	 * @param array $content_styles Any styles defined for the content items
 	 * @return Dlayer_View_ContentPagePreview
 	 */
-	public function contentPagePreview(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles)
+	public function contentPagePreview(array $rows, array $columns, array $content)
 	{
 	}
 

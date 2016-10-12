@@ -14,7 +14,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Designer_Styles_Page
+class Dlayer_Designer_Styles_ContentPage
 {
 	private $site_id;
 	private $page_id;

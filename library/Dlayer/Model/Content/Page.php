@@ -8,7 +8,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Model_Page_Content extends Zend_Db_Table_Abstract
+class Dlayer_Model_Content_Page extends Zend_Db_Table_Abstract
 {
 	/**
 	 * Calculate the sort order for the new content item that is about to be created in the specified row, fetch the
