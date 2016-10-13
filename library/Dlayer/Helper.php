@@ -102,4 +102,19 @@ class Dlayer_Helper
 
 		return $simple_array;
 	}
+
+	/**
+	 * Write a message to the application log
+	 *
+	 * @param string $message
+	 * @return void
+	 */
+	public static function sendToInfoLog($message)
+	{
+		/**
+		 * @var Zend_Log
+		 */
+		$logger = Zend_Registry::get('log-app');
+		$logger->info($message);
+	}
 }
