@@ -64,8 +64,8 @@ class Content_ProcessController extends Zend_Controller_Action
 			$session_content->rowId() === Dlayer_Helper::getParamAsInteger('row_id') &&
 			$session_content->columnId() === Dlayer_Helper::getParamAsInteger('column_id') &&
 			$session_content->contentId() === Dlayer_Helper::getParamAsInteger('content_id') &&
-			$session_designer->tool() !== FALSE &&
-			$session_designer->tool()['tool'] === Dlayer_Helper::getParamAsString('tool')
+			$session_designer->tool('content') !== FALSE &&
+			$session_designer->tool('content')['tool'] === Dlayer_Helper::getParamAsString('tool')
 		)
 		{
 			return TRUE;
@@ -94,7 +94,7 @@ class Content_ProcessController extends Zend_Controller_Action
 		}
 		else
 		{
-			$tool_class = 'Dlayer_DesignerTool_ContentManager_' . $session_designer->tool()['tool'] . '_Tool';
+			$tool_class = 'Dlayer_DesignerTool_ContentManager_' . $session_designer->tool('content')['tool'] . '_Tool';
 		}
 
 		return new $tool_class();
@@ -135,7 +135,7 @@ class Content_ProcessController extends Zend_Controller_Action
 					break;
 
 				case 'tool':
-					$session_designer->setTool($id['id']);
+					$session_designer->setTool('content', $id['id']);
 					break;
 
 				default:

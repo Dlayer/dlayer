@@ -84,7 +84,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
-		$this->view->tool = $this->session_designer->tool();
+		$this->view->tool = $this->session_designer->tool('content');
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/design/index',
 			array('css/dlayer.css', 'css/designer-shared.css', 'css/designer-1170.css',),
@@ -126,7 +126,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_id = $this->session_content->contentId();
 
 		$this->view->tools = $model_tool->tools($this->getRequest()->getModuleName());
-		$this->view->tool = $this->session_designer->tool();
+		$this->view->tool = $this->session_designer->tool('content');
 
 		return $this->view->render("design/toolbar.phtml");
 	}
@@ -139,7 +139,7 @@ class Content_DesignController extends Zend_Controller_Action
 	 */
 	private function dlayerRibbon()
 	{
-		$tool = $this->session_designer->tool();
+		$tool = $this->session_designer->tool('content');
 
 		if($tool !== FALSE)
 		{
@@ -250,7 +250,7 @@ class Content_DesignController extends Zend_Controller_Action
 				}
 
 				$multi_use = $model_tool->multiUse($module, $tool, $tab);
-				$this->session_designer->setToolTab($tab, $sub_tool);
+				$this->session_designer->setToolTab('content', $tab, $sub_tool);
 
 				$this->view->color_picker_data = $this->colorPickerData();
 				$this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
@@ -360,7 +360,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->_helper->disableLayout(FALSE);
 
 		$id = $this->getRequest()->getParam('id');
-		if($this->session_designer->setTool('row') === TRUE)
+		if($this->session_designer->setTool('content', 'row') === TRUE)
 		{
 			$this->session_content->setRowId($id);
 		}
@@ -380,7 +380,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$id = $this->getRequest()->getParam('id');
 
-		if($this->session_designer->setTool('column') === TRUE)
+		if($this->session_designer->setTool('content', 'column') === TRUE)
 		{
 			$this->session_content->setColumnId($id);
 		}
@@ -399,7 +399,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		if($this->session_designer->setTool('Page') === TRUE) {
+		if($this->session_designer->setTool('content', 'Page') === TRUE) {
 			$this->session_content->setPageSelected();
 		}
 
@@ -420,7 +420,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$content_type = Dlayer_Helper::getParamAsString('content-type');
 
 		if($this->session_content->setContentId($id, $content_type) === TRUE &&
-			$this->session_designer->setTool($tool) === TRUE)
+			$this->session_designer->setTool('content', $tool) === TRUE)
 		{
 			$this->redirect('/content/design');
 		}
@@ -452,7 +452,7 @@ class Content_DesignController extends Zend_Controller_Action
 		{
 			if($tool !== 'Cancel')
 			{
-				if($this->session_designer->setTool($tool) === TRUE)
+				if($this->session_designer->setTool('content', $tool) === TRUE)
 				{
 					$reset = $this->getRequest()->getParam('reset');
 

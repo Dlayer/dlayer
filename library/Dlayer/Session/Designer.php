@@ -157,27 +157,27 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	public function clearAll()
 	{
 		$this->clearAllImagePicker();
+		$this->clearAllTool('content');
 	}
 
 	/**
 	 * Set the requested tool as selected, before setting the tool we check to see if the tool is valid and
 	 * then set the default tool tab as active
 	 *
+	 * @param string $module Current module
 	 * @param string $tool Tool model name
 	 *
 	 * @return boolean
 	 */
-	public function setTool($tool)
+	public function setTool($module, $tool)
 	{
-		$session_dlayer = new Dlayer_Session();
 		$model_tool = new Dlayer_Model_Tool();
-
-		$tool = $model_tool->toolAndDefaultTab($session_dlayer->module(), $tool);
+		$tool = $model_tool->toolAndDefaultTab($module, $tool);
 
 		if($tool !== FALSE)
 		{
-			$this->tool = $tool['tool'];
-			$this->setToolTab($tool['tab'], $tool['sub_tool']);
+			$this->tool[$module] = $tool['tool'];
+			$this->setToolTab($module, $tool['tab'], $tool['sub_tool']);
 
 			return TRUE;
 		}
@@ -190,35 +190,52 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	/**
 	 * Set the tool tab
 	 *
+	 * @param string $module Current module
 	 * @param string $tab
 	 * @param string|NULL $sub_tool
+	 *
 	 * @return void
 	 */
-	public function setToolTab($tab, $sub_tool=NULL)
+	public function setToolTab($module, $tab, $sub_tool = NULL)
 	{
-		$this->tab = $tab;
-		$this->sub_tool = $sub_tool;
+		$this->tab[$module] = $tab;
+		$this->sub_tool[$module] = $sub_tool;
 	}
 
 	/**
-	 * Returns the data array for the currently selected tool, if no tool is set the method returns FALSE, a tool is
-	 * the combination of the tool itself and the selected tab
+	 * Returns the data array for the currently selected tool, if no tool is set the method returns FALSE, a
+	 * tool is the combination of the tool itself and the selected tab
+	 *
+	 * @param string $module Current module
 	 *
 	 * @return array|FALSE
 	 */
-	public function tool()
+	public function tool($module)
 	{
-		if($this->tool !== NULL && $this->tab !== NULL)
-		{
+		if(array_key_exists($module, $this->tool) === TRUE &&
+			array_key_exists($module, $this->tab) === TRUE) {
+
 			return array(
-				'tool' => $this->tool,
-				'sub_tool' => $this->sub_tool, // Sub tool model can be NULL
-				'tab' => $this->tab
+				'tool' => $this->tool[$module],
+				'sub_tool' => (array_key_exists($module, $this->sub_tool)) ? $this->sub_tool[$module] : NULL,
+				'tab' => $this->tab[$module],
 			);
-		}
-		else
-		{
+		} else {
 			return FALSE;
 		}
+	}
+
+	/**
+	 * Clear all the session values for the selected tool
+	 *
+	 * @param string $module Current module
+	 *
+	 * @return void
+	 */
+	public function clearAllTool($module)
+	{
+		$this->tool[$module] = array();
+		$this->sub_tool[$module] = array();
+		$this->tab[$module] = array();
 	}
 }
