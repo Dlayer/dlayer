@@ -53,18 +53,19 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * validated before they get set in session so we can simply check they match here
 	 *
 	 * @param Dlayer_Session_Content $session_content
+	 * @param Dlayer_Session_Designer $session_designer
 	 *
 	 * @todo Need to add logging so can easily see where errors occurred
 	 * @return boolean
 	 */
-	private function validateRequest($session_content)
+	private function validateRequest($session_content, $session_designer)
 	{
 		if($session_content->pageId() === Dlayer_Helper::getParamAsInteger('page_id') &&
 			$session_content->rowId() === Dlayer_Helper::getParamAsInteger('row_id') &&
 			$session_content->columnId() === Dlayer_Helper::getParamAsInteger('column_id') &&
 			$session_content->contentId() === Dlayer_Helper::getParamAsInteger('content_id') &&
-			$session_content->tool() !== FALSE &&
-			$session_content->tool()['tool'] === Dlayer_Helper::getParamAsString('tool')
+			$session_designer->tool() !== FALSE &&
+			$session_designer->tool()['tool'] === Dlayer_Helper::getParamAsString('tool')
 		)
 		{
 			return TRUE;
@@ -86,14 +87,14 @@ class Content_ProcessController extends Zend_Controller_Action
 	 */
 	private function toolClass($sub_tool_model = NULL)
 	{
-		$session_content = new Dlayer_Session_Content();
+		$session_designer = new Dlayer_Session_Designer();
 		if($sub_tool_model !== NULL)
 		{
 			$tool_class = 'Dlayer_Tool_Content_' . $sub_tool_model;
 		}
 		else
 		{
-			$tool_class = 'Dlayer_DesignerTool_ContentManager_' . $session_content->tool()['tool'] . '_Tool';
+			$tool_class = 'Dlayer_DesignerTool_ContentManager_' . $session_designer->tool()['tool'] . '_Tool';
 		}
 
 		return new $tool_class();
@@ -108,6 +109,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	 */
 	private function setEnvironmentIds(array $environment_ids)
 	{
+		$session_designer = new Dlayer_Session_Designer();
 		$session_content = new Dlayer_Session_Content();
 		$session_content->clearAll();
 
@@ -133,7 +135,7 @@ class Content_ProcessController extends Zend_Controller_Action
 					break;
 
 				case 'tool':
-					$session_content->setTool($id['id']);
+					$session_designer->setTool($id['id']);
 					break;
 
 				default:
@@ -156,8 +158,9 @@ class Content_ProcessController extends Zend_Controller_Action
 	{
 		$session_dlayer = new Dlayer_Session();
 		$session_content = new Dlayer_Session_Content();
+		$session_designer = new Dlayer_Session_Designer();
 
-		if($this->validateRequest($session_content) === FALSE)
+		if($this->validateRequest($session_content, $session_designer) === FALSE)
 		{
 			$this->returnToDesigner(FALSE);
 		}
@@ -192,8 +195,9 @@ class Content_ProcessController extends Zend_Controller_Action
 	{
 		$session_dlayer = new Dlayer_Session();
 		$session_content = new Dlayer_Session_Content();
+		$session_designer = new Dlayer_Session_Designer();
 
-		if($this->validateRequest($session_content) === FALSE)
+		if($this->validateRequest($session_content, $session_designer) === FALSE)
 		{
 			$this->returnToDesigner(FALSE);
 		}
