@@ -341,7 +341,7 @@ CREATE TABLE `dlayer_identity` (
 
 /*Data for the table `dlayer_identity` */
 
-insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-10-09 01:11:59','2016-10-09 01:12:56',1);
+insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-10-16 21:31:39','2016-10-16 22:45:12',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-05-29 15:57:54','2015-05-29 15:58:47',1);
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values (3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-05-29 15:59:10','2015-05-29 16:25:10',1);
 
@@ -592,8 +592,10 @@ CREATE TABLE `dlayer_session` (
 
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('25i8lnmk1c62gfgvg80f6iac05','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475795814,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475799414;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1475799414;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}dlayer_session_image|a:7:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:2:{s:8:\"category\";i:1;s:12:\"sub_category\";i:1;}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:8:\"sub_tool\";N;}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('8i28lvccqvnd2edgu43m1q68h3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475967523,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475971123;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1475971122;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:1:{s:7:\"page_id\";N;}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('a12hhadc2ic7bqdn50j4mlbf74','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1476654337,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1476657937;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1476657937;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1476657937;}}dlayer_session_content|a:5:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:7:{s:4:\"tool\";a:1:{s:7:\"content\";a:0:{}}s:3:\"tab\";a:1:{s:7:\"content\";a:0:{}}s:8:\"sub_tool\";a:1:{s:7:\"content\";a:0:{}}s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('e43c9ano0d05ebo1grvaltmm12','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475967507,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475971106;}}');
-insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('n62piun3bamt9rliaca9f4gfv3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475971986,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475975586;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1475975580;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1475975580;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('mc7mj9k5len95f8n0lr0bdph84','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1476649896,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1476653495;}}');
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('n62piun3bamt9rliaca9f4gfv3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475974895,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475978495;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1475978495;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1475978495;}}dlayer_session_content|a:8:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('nqon6jvoanisk6pij8pk6j9qq5','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475593326,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475596926;}}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('o05o81kmojv79ofohv8s9af6p0','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1474847807,3601,'__ZF|a:2:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1474851407;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1474851407;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:5:\"image\";}dlayer_session_image|a:5:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";a:2:{s:8:\"category\";i:1;s:12:\"sub_category\";i:1;}s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;}');
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values ('sqvkhdalvgsiort4pepdvffjf0','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1475535306,3601,'__ZF|a:5:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1475538905;}s:20:\"dlayer_session_image\";a:1:{s:3:\"ENT\";i:1475538904;}s:19:\"dlayer_session_form\";a:1:{s:3:\"ENT\";i:1475538904;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1475538904;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1475538904;}}dlayer_session_image|a:7:{s:9:\"edit_mode\";i:0;s:9:\"image_ids\";N;s:4:\"sort\";N;s:10:\"sort_order\";N;s:4:\"tool\";N;s:3:\"tab\";N;s:8:\"sub_tool\";N;}dlayer_session_form|a:6:{s:8:\"field_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;s:7:\"form_id\";N;s:6:\"return\";N;}dlayer_session_content|a:8:{s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:4:\"tool\";N;s:8:\"sub_tool\";N;s:3:\"tab\";N;s:7:\"page_id\";N;}dlayer_session_designer|a:4:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}');
@@ -1722,6 +1724,25 @@ insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`
 insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`,`sort_order`) values (7,1,2,0,1);
 insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`,`sort_order`) values (8,1,2,0,3);
 insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`,`sort_order`) values (9,1,1,0,3);
+
+/*Table structure for table `user_site_page_styling_content_item` */
+
+CREATE TABLE `user_site_page_styling_content_item` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `site_id` int(11) unsigned NOT NULL,
+  `page_id` int(11) unsigned NOT NULL,
+  `content_id` int(11) unsigned NOT NULL,
+  `background_color` char(7) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `site_id` (`site_id`),
+  KEY `page_id` (`page_id`),
+  KEY `content_id` (`content_id`),
+  CONSTRAINT `user_site_page_styling_content_item_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
+  CONSTRAINT `user_site_page_styling_content_item_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
+  CONSTRAINT `user_site_page_styling_content_item_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `user_site_page_styling_content_item` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

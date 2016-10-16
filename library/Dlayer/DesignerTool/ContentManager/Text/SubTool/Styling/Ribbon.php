@@ -23,8 +23,12 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Ribbon extends Dla
         $this->tool = $tool;
 
         return array(
-            'form' => new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Form($tool, $this->contentData(),
-                $this->instancesOfData(), array()),
+            'form' => new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Form(
+                $tool,
+                $this->contentData(),
+                $this->instancesOfData(),
+                array()
+            ),
         );
     }
 
@@ -36,7 +40,25 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Ribbon extends Dla
      */
     protected function contentData()
     {
-        return array();
+        $data = array(
+            'content_background_color' => false,
+        );
+
+        if($this->tool['content_id'] !== null) {
+            $model_styling = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model();
+            $content_background_color = $model_styling->contentBackgroundColor(
+                $this->tool['site_id'],
+                $this->tool['page_id'],
+                $this->tool['content_id']
+            );
+
+            if($content_background_color !== false) {
+                $data['content_background_color'] = $content_background_color;
+            }
+
+        }
+
+        return $data;
     }
 
     /**

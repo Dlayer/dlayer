@@ -90,7 +90,9 @@ class Content_ProcessController extends Zend_Controller_Action
 		$session_designer = new Dlayer_Session_Designer();
 		if($sub_tool_model !== NULL)
 		{
-			$tool_class = 'Dlayer_Tool_Content_' . $sub_tool_model;
+            $tool_class = 'Dlayer_DesignerTool_ContentManager_' .
+                $session_designer->tool('content')['tool'] .
+                '_SubTool_' . $sub_tool_model . '_Tool';
 		}
 		else
 		{

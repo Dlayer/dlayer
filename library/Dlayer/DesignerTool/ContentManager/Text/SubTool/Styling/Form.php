@@ -48,6 +48,19 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Form extends Dlaye
 
     protected function generateUserElements()
     {
-        // TODO: Implement generateUserElements() method.
+        $content_background_color = new Dlayer_Form_Element_ColorPicker('content_background_color');
+        $content_background_color->setLabel('Content item background color');
+        $content_background_color->setDescription('Set the background colour for the selected content item.');
+        $content_background_color->setBelongsTo('params');
+        $content_background_color->addClearLink();
+        $content_background_color->setBelongsTo('params');
+
+        if (array_key_exists('content_background_color', $this->data) === true &&
+            $this->data['content_background_color'] !== false
+        ) {
+            $content_background_color->setValue($this->data['content_background_color']);
+        }
+
+        $this->elements['content_background_color'] = $content_background_color;
     }
 }
