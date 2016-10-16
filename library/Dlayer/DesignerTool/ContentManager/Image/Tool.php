@@ -172,7 +172,7 @@ class Dlayer_DesignerTool_ContentManager_Image_Tool extends Dlayer_Tool_Content
 			),
 			array(
 				'type' => 'tool',
-				'id' => 'image',
+				'id' => 'Image',
 			),
 			array(
 				'type' => 'content_id',

@@ -150,7 +150,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
 			),
 			array(
 				'type' => 'tool',
-				'id' => 'text',
+				'id' => 'Text',
 			),
 			array(
 				'type' => 'content_id',

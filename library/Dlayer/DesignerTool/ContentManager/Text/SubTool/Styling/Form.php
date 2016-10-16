@@ -9,45 +9,45 @@
  */
 class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Form extends Dlayer_Form_Content
 {
-	/**
-	 * Set the properties for the form
-	 *
-	 * @param array $tool Tool and environment data array
-	 * @param array $data Current data for content item
-	 * @param integer $instances Instances of content data on web site
-	 * @param array $element_data
-	 * @param array|NULL $options Zend form options
-	 */
-	public function __construct(array $tool, array $data, $instances, array $element_data, $options=NULL)
-	{
-		$this->content_type = 'text';
-		$this->sub_tool_model = 'Styling';
+    /**
+     * Set the properties for the form
+     *
+     * @param array $tool Tool and environment data array
+     * @param array $data Current data for content item
+     * @param integer $instances Instances of content data on web site
+     * @param array $element_data
+     * @param array|NULL $options Zend form options
+     */
+    public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
+    {
+        $this->content_type = 'text';
+        $this->sub_tool_model = 'Styling';
 
-		parent::__construct($tool, $data, $instances, $element_data, $options);
-	}
+        parent::__construct($tool, $data, $instances, $element_data, $options);
+    }
 
-	/**
-	 * Initialise the form, sets the action and method and then calls the elements to build the form
-	 *
-	 * @return void
-	 */
-	public function init()
-	{
-		$this->setAction('/content/process/tool');
+    /**
+     * Initialise the form, sets the action and method and then calls the elements to build the form
+     *
+     * @return void
+     */
+    public function init()
+    {
+        $this->setAction('/content/process/tool');
 
-		$this->setMethod('post');
+        $this->setMethod('post');
 
-		$this->generateFormElements();
+        $this->generateFormElements();
 
-		$this->addElementsToForm('text_styling', 'Styling', $this->elements);
+        $this->addElementsToForm('text_styling', 'Styling', $this->elements);
 
-		$this->addDefaultElementDecorators();
+        $this->addDefaultElementDecorators();
 
-		$this->addCustomElementDecorators();
-	}
+        $this->addCustomElementDecorators();
+    }
 
-	protected function generateUserElements()
-	{
-		// TODO: Implement generateUserElements() method.
-	}
+    protected function generateUserElements()
+    {
+        // TODO: Implement generateUserElements() method.
+    }
 }

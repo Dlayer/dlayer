@@ -167,7 +167,7 @@ class Dlayer_DesignerTool_ContentManager_Form_Tool extends Dlayer_Tool_Content
 			),
 			array(
 				'type' => 'tool',
-				'id' => 'form',
+				'id' => 'Form',
 			),
 			array(
 				'type' => 'content_id',

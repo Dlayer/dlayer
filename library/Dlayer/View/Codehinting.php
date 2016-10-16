@@ -78,78 +78,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Simple pagination view helper, generates next and previous links as well
-	 * as the text between the links. The text between the links can be either
-	 * of the following formats, 'item n-m of o' or 'page n of m'. All the text
-	 * can be changed to whatever suits bests.
-	 *
-	 * @param integer $per_page The number of results per page
-	 * @param integer $start Start record for paging
-	 * @param integer $total Total number of results in the full recordset
-	 * @param string $url URL to use for pagination links, typically the url
-	 *                    of the current page
-	 * @param integer $text_style Text style for text between links,
-	 *                            1 = item based, 2 = page based
-	 * @param string $previous Previous page link text
-	 * @param string $next Next page link text
-	 * @param string $record Records n of m text, not relevant if page based
-	 *                       text is used
-	 * @param string $records Rather than work out plural for text, just set it,
-	 *                        not relevant if page based text is used
-	 * @return DLayer_View_Pagination
-	 */
-	public function pagination($per_page, $start, $total, $url, $text_style = 1,
-		$previous = 'Previous', $next = 'Next', $record = 'Record',
-		$records = 'Records')
-	{
-	}
-
-	/**
-	 * Simple navigation menu, nav tag wrapped around a tags, selected item
-	 * is given an active class.
-	 *
-	 * @param string $class Class for menu container
-	 * @param array $items Array of menu links, each item should be an array
-	 *                     with url and name fields for the data
-	 * @param string $active_url The active URL, used to assign the selected
-	 *                           class
-	 * @return Dlayer_View_Navigation
-	 */
-	public function navigation($class, array $items, $active_url = '')
-	{
-	}
-
-	/**
-	 * Generates a UL based navigation item, nav tag wrapped around a UL list
-	 *
-	 * @param string $class Class for nav container
-	 * @param array $items Array of menu links, each item should be an array
-	 *                     with url and name fields for the data
-	 * @param string $active_url The active URL, used to assign the selected
-	 *                           class
-	 * @return Dlayer_View_Navigation
-	 */
-	public function ulNavigation($class, array $items, $active_url = '')
-	{
-	}
-
-	/**
-	 * Generates the html for the movement controls, up and down in the content
-	 * manager
-	 *
-	 * @param integer $content_id Id of the content item
-	 * @param integer $div_id Id of the page div content is applied to
-	 * @param integer $page_id Id of the page
-	 * @param string $type Content item type
-	 * @param integer $width Width of the mover
-	 * @return Dlayer_View_MoverContentItem
-	 */
-	public function moverContentItem($content_id, $div_id, $page_id, $type,
-		$width)
-	{
-	}
-
-	/**
 	 * Generates the html and javascript for the color picker, called on ribbon
 	 * tabs that have color inputs that need to the replaced by calls to the
 	 * color picker
@@ -204,67 +132,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Generates the HTML for a bootstrap nav item
-	 *
-	 * @param string $class Class for UL, defauilts to 'nav nav-tabs'
-	 * @param array $items Array of menu links, each item should be an array
-	 *                     with url, name and title fields for the data
-	 * @param string $active_url The active URL, used to assign the active
-	 *                           class
-	 * @return Dlayer_View_BootstrapNav
-	 */
-	public function bootstrapNav(array $items, $active_url = '',
-		$class = 'nav nav-tabs')
-	{
-	}
-
-	/**
-	 * Simple pagination view helper, generates next and previous links as well
-	 * as the text between the links. The text between the links can be either
-	 * of the following formats, 'item n-m of o' or 'page n of m'. All the text
-	 * can be changed to whatever suits bests.
-	 *
-	 * @param integer $per_page The number of results per page
-	 * @param integer $start Start record for paging
-	 * @param integer $total Total number of results in the full recordset
-	 * @param string $url URL to use for pagination links, typically the url
-	 *                    of the current page
-	 * @param integer $text_style Text style for text between links,
-	 *                            1 = item based, 2 = page based
-	 * @param string $previous Previous page link text
-	 * @param string $next Next page link text
-	 * @param string $record Records n of m text, not relevant if page based
-	 *                       text is used
-	 * @param string $records Rather than work out plural for text, just set it,
-	 *                        not relevant if page based text is used
-	 * @return DLayer_View_BootstrapPagination
-	 */
-	public function bootstrapPagination($per_page, $start, $total, $url,
-		$text_style = 1, $previous = 'Previous', $next = 'Next', $record = 'Record',
-		$records = 'Records')
-	{
-	}
-
-	/**
-	 * Generates a simple bootstrap navbar with a preview link to the right
-	 * of the menu
-	 *
-	 * @param string $brand Brand name, appears to let of navbar
-	 * @param array $navbar_items Array containing the navbar items, each item
-	 *                             should be an array with url, title and name
-	 *                             fields, dropdowns can be created by defining
-	 *                             a children field with the same format array
-	 * @param string $active_url The URL of the active item, not always the
-	 *                            current URL
-	 * @param string $preview_url
-	 * @return Dlayer_View_BootstrapNavbarPreview
-	 */
-	public function bootstrapNavbarPreview($brand, array $navbar_items,
-		$active_url = '', $preview_url = '')
-	{
-	}
-
-	/**
 	 * Set the url and well setting for the further reading view helper
 	 *
 	 * @param string $url Optional URL to use for second button, just the
@@ -274,18 +141,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @return Dlayer_View_Navigation
 	 */
 	public function furtherReading($url = NULL, $well = FALSE)
-	{
-	}
-
-	/**
-	 * Generates a bootstrap label html fragment, class and label text can be
-	 * defined
-	 *
-	 * @param string $text Text for the label
-	 * @param string $class Bootstrap class for label
-	 * @return Dlayer_View_BootstrapLabel
-	 */
-	public function bootstrapLabel($text, $class = 'default')
 	{
 	}
 
