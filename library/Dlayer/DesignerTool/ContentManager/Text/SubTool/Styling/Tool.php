@@ -18,7 +18,12 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      */
     protected function paramsExist(array $params)
     {
-        // TODO: Implement paramsExist() method.
+        $valid = false;
+        if (array_key_exists('content_background_color', $params) === true) {
+            $valid = true;
+        }
+
+        return $valid;
     }
 
     /**
@@ -29,7 +34,14 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      */
     protected function paramsValid(array $params)
     {
-        // TODO: Implement paramsValid() method.
+        $valid = false;
+        if (strlen(trim($params['content_background_color'])) === 0 ||
+            (strlen(trim($params['content_background_color'])) === 7 &&
+                Dlayer_Validate::colorHex($params['content_background_color']) === true)
+        ) {
+            $valid = true;
+        }
+        return $valid;
     }
 
     /**
@@ -41,7 +53,9 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      */
     protected function paramsAssign(array $params, $manual_tool = true)
     {
-        // TODO: Implement paramsAssign() method.
+        if (array_key_exists('content_background_color', $params) === true) {
+            $this->params['content_background_color'] = trim($params['content_background_color']);
+        }
     }
 
     /**
@@ -74,7 +88,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      */
     protected function edit()
     {
-        // TODO: Implement edit() method.
+        die('We are in here');
     }
 
     /**
