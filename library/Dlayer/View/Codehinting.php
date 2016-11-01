@@ -62,17 +62,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Content area styles view helper, generates the style string for each of
-	 * the content areas on the page, it will call a child view helper for each
-	 * of the styling groups that can be assigned to content areas
-	 *
-	 * @return Dlayer_View_ContentAreaStyles
-	 */
-	public function contentAreaStyles()
-	{
-	}
-
-	/**
 	 * This is the base content view helper, it is called by the content row
 	 * view helper and generates all the html the content items that have been
 	 * added to the requested row, once all the html has been generated the
@@ -85,90 +74,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @return Dlayer_View_Content
 	 */
 	public function content()
-	{
-	}
-
-	/**
-	 * Simple pagination view helper, generates next and previous links as well
-	 * as the text between the links. The text between the links can be either
-	 * of the following formats, 'item n-m of o' or 'page n of m'. All the text
-	 * can be changed to whatever suits bests.
-	 *
-	 * @param integer $per_page The number of results per page
-	 * @param integer $start Start record for paging
-	 * @param integer $total Total number of results in the full recordset
-	 * @param string $url URL to use for pagination links, typically the url
-	 *                    of the current page
-	 * @param integer $text_style Text style for text between links,
-	 *                            1 = item based, 2 = page based
-	 * @param string $previous Previous page link text
-	 * @param string $next Next page link text
-	 * @param string $record Records n of m text, not relevant if page based
-	 *                       text is used
-	 * @param string $records Rather than work out plural for text, just set it,
-	 *                        not relevant if page based text is used
-	 * @return DLayer_View_Pagination
-	 */
-	public function pagination($per_page, $start, $total, $url, $text_style = 1,
-		$previous = 'Previous', $next = 'Next', $record = 'Record',
-		$records = 'Records')
-	{
-	}
-
-	/**
-	 * Simple navigation menu, nav tag wrapped around a tags, selected item
-	 * is given an active class.
-	 *
-	 * @param string $class Class for menu container
-	 * @param array $items Array of menu links, each item should be an array
-	 *                     with url and name fields for the data
-	 * @param string $active_url The active URL, used to assign the selected
-	 *                           class
-	 * @return Dlayer_View_Navigation
-	 */
-	public function navigation($class, array $items, $active_url = '')
-	{
-	}
-
-	/**
-	 * Generates a UL based navigation item, nav tag wrapped around a UL list
-	 *
-	 * @param string $class Class for nav container
-	 * @param array $items Array of menu links, each item should be an array
-	 *                     with url and name fields for the data
-	 * @param string $active_url The active URL, used to assign the selected
-	 *                           class
-	 * @return Dlayer_View_Navigation
-	 */
-	public function ulNavigation($class, array $items, $active_url = '')
-	{
-	}
-
-	/**
-	 * Generates the html for the movement controls, up and down in the content
-	 * manager
-	 *
-	 * @param integer $content_id Id of the content item
-	 * @param integer $div_id Id of the page div content is applied to
-	 * @param integer $page_id Id of the page
-	 * @param string $type Content item type
-	 * @param integer $width Width of the mover
-	 * @return Dlayer_View_MoverContentItem
-	 */
-	public function moverContentItem($content_id, $div_id, $page_id, $type,
-		$width)
-	{
-	}
-
-	/**
-	 * Generates the html for the movement controls, up and down in the form
-	 * builder
-	 *
-	 * @param integer $field_id Id of the form field
-	 * @param string $type Form field type
-	 * @return Dlayer_View_MoverFormField
-	 */
-	public function moverFormField($field_id, $type)
 	{
 	}
 
@@ -227,109 +132,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Generates the HTML for a bootstrap nav item
-	 *
-	 * @param string $class Class for UL, defauilts to 'nav nav-tabs'
-	 * @param array $items Array of menu links, each item should be an array
-	 *                     with url, name and title fields for the data
-	 * @param string $active_url The active URL, used to assign the active
-	 *                           class
-	 * @return Dlayer_View_BootstrapNav
-	 */
-	public function bootstrapNav(array $items, $active_url = '',
-		$class = 'nav nav-tabs')
-	{
-	}
-
-	/**
-	 * Simple pagination view helper, generates next and previous links as well
-	 * as the text between the links. The text between the links can be either
-	 * of the following formats, 'item n-m of o' or 'page n of m'. All the text
-	 * can be changed to whatever suits bests.
-	 *
-	 * @param integer $per_page The number of results per page
-	 * @param integer $start Start record for paging
-	 * @param integer $total Total number of results in the full recordset
-	 * @param string $url URL to use for pagination links, typically the url
-	 *                    of the current page
-	 * @param integer $text_style Text style for text between links,
-	 *                            1 = item based, 2 = page based
-	 * @param string $previous Previous page link text
-	 * @param string $next Next page link text
-	 * @param string $record Records n of m text, not relevant if page based
-	 *                       text is used
-	 * @param string $records Rather than work out plural for text, just set it,
-	 *                        not relevant if page based text is used
-	 * @return DLayer_View_BootstrapPagination
-	 */
-	public function bootstrapPagination($per_page, $start, $total, $url,
-		$text_style = 1, $previous = 'Previous', $next = 'Next', $record = 'Record',
-		$records = 'Records')
-	{
-	}
-
-	/**
-	 * Content container styles view helper, generates the style string
-	 * for a content item container using the data defind on the styling tabs
-	 *
-	 * There is a child view helper for each styling group, this view helper
-	 * calls the child view helpers to generate the comple style string before
-	 * returning it the to content item
-	 *
-	 * @return Dlayer_View_ContentContainerStyles
-	 */
-	public function contentContainerStyles()
-	{
-	}
-
-	/**
-	 * Content container styles view helper, generates the style string
-	 * for a content item container using the data defind on the styling tabs
-	 *
-	 * There is a child view helper for each styling group, this view helper
-	 * calls the child view helpers to generate the comple style string before
-	 * returning it the to content item
-	 *
-	 * @return Dlayer_View_ContentItemStyles
-	 */
-	public function contentItemStyles()
-	{
-	}
-
-	/**
-	 * Content row styles view helper, generates the style string for a content
-	 * row using the data defind on the styling tabs
-	 *
-	 * There is a child view helper for each styling group, this view helper
-	 * calls the child view helpers to generate the complete style string
-	 * before returning it the to content row
-	 *
-	 * @return Dlayer_View_ContentRowStyles
-	 */
-	public function contentRowStyles()
-	{
-	}
-
-	/**
-	 * Generates a simple bootstrap navbar with a preview link to the right
-	 * of the menu
-	 *
-	 * @param string $brand Brand name, appears to let of navbar
-	 * @param array $navbar_items Array containing the navbar items, each item
-	 *                             should be an array with url, title and name
-	 *                             fields, dropdowns can be created by defining
-	 *                             a children field with the same format array
-	 * @param string $active_url The URL of the active item, not always the
-	 *                            current URL
-	 * @param string $preview_url
-	 * @return Dlayer_View_BootstrapNavbarPreview
-	 */
-	public function bootstrapNavbarPreview($brand, array $navbar_items,
-		$active_url = '', $preview_url = '')
-	{
-	}
-
-	/**
 	 * Set the url and well setting for the further reading view helper
 	 *
 	 * @param string $url Optional URL to use for second button, just the
@@ -343,33 +145,18 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
 	/**
-	 * Generates a bootstrap label html fragment, class and label text can be
-	 * defined
-	 *
-	 * @param string $text Text for the label
-	 * @param string $class Bootstrap class for label
-	 * @return Dlayer_View_BootstrapLabel
-	 */
-	public function bootstrapLabel($text, $class = 'default')
-	{
-	}
-
-	/**
 	 * Pass in anything required to set up the object
 	 *
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
-	 * @param array $row_styles Defined styles for the rows
-	 * @param array $content_styles Any styles defined for the content items
 	 * @param TRUE|NULL $page_selected Is the content page selected in designer?
 	 * @param integer|NULL $column_id Id of the selected column, if any
 	 * @param integer|NULL $row_id Id of the selected row if any
 	 * @param integer|NULL $content_id Id of the selected content item if any
 	 * @return Dlayer_View_ContentPage
 	 */
-	public function contentPage(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles, $page_selected = NULL, $column_id = NULL, $row_id = NULL, $content_id = NULL)
+	public function contentPage(array $rows, array $columns, array $content, $page_selected = NULL, $column_id = NULL, $row_id = NULL, $content_id = NULL)
 	{
 	}
 
@@ -462,12 +249,9 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
-	 * @param array $row_styles Defined styles for the rows
-	 * @param array $content_styles Any styles defined for the content items
 	 * @return Dlayer_View_ContentPagePreview
 	 */
-	public function contentPagePreview(array $rows, array $columns, array $content, array $row_styles,
-		array $content_styles)
+	public function contentPagePreview(array $rows, array $columns, array $content)
 	{
 	}
 

@@ -68,25 +68,4 @@ class Dlayer_Model_Module extends Zend_Db_Table_Abstract
 
         return $stmt->fetchAll();
     }
-
-    /**
-    * Mode buttons for the designer, returns all the active modules excluding
-    * the procided module
-    *
-    * @param string $module
-    * @return array
-    */
-    public function modes($module)
-    {
-        $sql = "SELECT `name`, button_name, title
-                FROM dlayer_module
-                WHERE enabled = 1
-                AND `name` <> :module
-                ORDER BY sort_order ASC";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':module', $module, PDO::PARAM_STR);
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
 }

@@ -6,8 +6,7 @@
 * @author Dean Blackborough
 * @copyright G3D Development Limited
 */
-class Dlayer_Form_LayoutDecorator_FormInline extends 
-Dlayer_Form_LayoutDecorator_Base
+class Dlayer_Form_LayoutDecorator_FormInline extends Dlayer_Form_LayoutDecorator
 {
 	/**
 	* Return the data array for the form decorator

@@ -300,7 +300,7 @@ class Dlayer_Form_Builder extends Zend_Form
 	*/
 	private function addCustomElementDecorators()
 	{
-		$decorators = new Dlayer_Form_LayoutDecorator(
+		$decorators = new Dlayer_Form_LayoutDecoratorHelper(
 			$this->layout_mode['mode'], $this->layout_mode['label'], 
 			$this->layout_mode['field'], $this->view, $this->field_id);
 		

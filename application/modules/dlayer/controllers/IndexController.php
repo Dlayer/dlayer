@@ -32,7 +32,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	 */
 	private $nav_bar_items_private = array(
 		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
-		array('uri'=>'/dlayer/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
 		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Docs', 'title'=>'Read the Docs for Dlayer'),
 	);
 
@@ -130,7 +129,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 		$this->_helper->authenticate();
 
-		$site_id = Dlayer_Helper::getInteger('site');
+		$site_id = Dlayer_Helper::getParamAsInteger('site');
 
 		if($site_id != NULL)
 		{
@@ -277,6 +276,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
 					$model_authentication->loginIdentity($identity_id);
 
+                    Dlayer_Helper::sendToInfoLog('Identity: ' . $identity_id . ' signed into app');
+
 					$this->redirect('/dlayer/index/home');
 				}
 				else
@@ -302,20 +303,18 @@ class Dlayer_IndexController extends Zend_Controller_Action
 	 */
 	private function handleLogout()
 	{
-		$session_form = new Dlayer_Session_Form();
 		$session_content = new Dlayer_Session_Content();
-		$session_image = new Dlayer_Session_Image();
 		$session_designer = new Dlayer_Session_Designer();
 		$session_dlayer = new Dlayer_Session();
 
 		$model_authentication = new Dlayer_Model_Authentication();
 		$model_authentication->logoutIdentity($session_dlayer->identityId());
 
-		$session_form->clearAll(TRUE);
+        Dlayer_Helper::sendToInfoLog('Identity: ' . $session_dlayer->identityId() . ' signed out of app');
+
 		$session_content->clearAll(TRUE);
 		$session_dlayer->clearAll();
 		$session_designer->clearAll();
-		$session_image->clearAll();
 
 		$this->redirect('/dlayer');
 	}

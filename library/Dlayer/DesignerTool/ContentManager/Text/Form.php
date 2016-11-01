@@ -24,7 +24,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Form extends Dlayer_Form_Content
 	 */
 	public function __construct(array $tool, array $data, $instances, array $element_data, $options=NULL)
 	{
-		$this->content_type = 'heading';
+		$this->content_type = 'text';
 
 		parent::__construct($tool, $data, $instances, $element_data, $options);
 	}

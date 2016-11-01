@@ -178,7 +178,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 			),
 			array(
 				'type' => 'tool',
-				'id' => 'heading',
+				'id' => 'Heading',
 			),
 			array(
 				'type' => 'content_id',

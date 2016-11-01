@@ -42,7 +42,6 @@ class Content_DesignController extends Zend_Controller_Action
 	private $nav_bar_items = array(
 		array('uri' => '/dlayer/index/home', 'name' => 'Dlayer Demo', 'title' => 'Dlayer.com: Web development simplified'),
 		array('uri' => '/content/index/index', 'name' => 'Content manager', 'title' => 'Content manager'),
-		array('uri' => '/content/settings/index', 'name' => 'Settings', 'title' => 'Settings'),
 		array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
 	);
 
@@ -85,7 +84,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->row_id = $this->session_content->rowId();
 		$this->view->content_id = $this->session_content->contentId();
-		$this->view->tool = $this->session_content->tool();
+		$this->view->tool = $this->session_designer->tool('content');
 
 		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/design/index',
 			array('css/dlayer.css', 'css/designer-shared.css', 'css/designer-1170.css',),
@@ -127,7 +126,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_id = $this->session_content->contentId();
 
 		$this->view->tools = $model_tool->tools($this->getRequest()->getModuleName());
-		$this->view->tool = $this->session_content->tool();
+		$this->view->tool = $this->session_designer->tool('content');
 
 		return $this->view->render("design/toolbar.phtml");
 	}
@@ -140,7 +139,7 @@ class Content_DesignController extends Zend_Controller_Action
 	 */
 	private function dlayerRibbon()
 	{
-		$tool = $this->session_content->tool();
+		$tool = $this->session_designer->tool('content');
 
 		if($tool !== FALSE)
 		{
@@ -229,9 +228,9 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->_helper->disableLayout();
 
 		$module = $this->getRequest()->getModuleName();
-		$tool = $this->getParamAsString('tool');
-		$sub_tool = $this->getParamAsString('sub_tool');
-		$tab = $this->getParamAsString('tab');
+		$tool = Dlayer_Helper::getParamAsString('tool');
+		$sub_tool = Dlayer_Helper::getParamAsString('sub_tool');
+		$tab = Dlayer_Helper::getParamAsString('tab');
 
 		if($tool !== NULL && $tab !== NULL)
 		{
@@ -250,16 +249,11 @@ class Content_DesignController extends Zend_Controller_Action
 					$edit_mode = FALSE;
 				}
 
-				/**
-				 * @todo Need to remove this class eventually
-				 */
-				$ribbon_tab = new Dlayer_Ribbon_Tab();
-
-				$this->session_content->setRibbonTab($tab, $sub_tool);
+				$multi_use = $model_tool->multiUse($module, $tool, $tab);
+				$this->session_designer->setToolTab('content', $tab, $sub_tool);
 
 				$this->view->color_picker_data = $this->colorPickerData();
-				$this->view->data = $ribbon_tab->viewData($module, $tool, $tab,
-					$model_tool->multiUse($module, $tool, $tab), $edit_mode);
+				$this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
 				if($sub_tool === NULL)
 				{
@@ -288,6 +282,24 @@ class Content_DesignController extends Zend_Controller_Action
 	}
 
 	/**
+	 * Fetch the view data for the tool tabs
+	 *
+	 * @param string $tool
+	 * @param string $tab
+	 * @param integer $multi_use
+	 * @param boolean $edit_mode
+	 * @return string
+	 */
+	private function toolTabViewData($tool, $tab, $multi_use, $edit_mode)
+	{
+		$handler = new Dlayer_Ribbon_Handler_Content();
+
+		return $handler->viewData($this->site_id, $this->session_content->pageId(),
+			$tool, $tab, $multi_use, $edit_mode, $this->session_content->rowId(),
+			$this->session_content->columnId(), $this->session_content->contentId());
+	}
+
+	/**
 	 * Generate the html for the content page, this will be as visually accurate to the live version of the
 	 * page as possible
 	 *
@@ -303,29 +315,12 @@ class Content_DesignController extends Zend_Controller_Action
 	private function dlayerPage()
 	{
 		// Instantiate the page object and styles object
-		$designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
-		$designer_page_styles = new Dlayer_Designer_Styles_Page($this->site_id, $this->page_id);
-
-		// fetch the styles defined in the settings, heading styles and base font families
-		$this->view->heading_styles = $designer_page_styles->headingStyles();
-		$this->view->base_font_family_content = $designer_page_styles->baseFontFamilyContentManager();
-		$this->view->base_font_family_form = $designer_page_styles->baseFontFamilyFormBuilder();
+		$designer_page = new Dlayer_Designer_ContentPage($this->site_id, $this->page_id); // Fix this
 
 		// Fetch the data that defines the structure of the page
 		$this->view->rows = $designer_page->rows();
 		$this->view->columns = $designer_page->columns();
 		$this->view->content = $designer_page->content();
-
-		// Fetch the defined styles for this content page by item type
-		/*$this->view->row_styles = $designer_page_styles->rowStyles();
-		$this->view->content_container_styles = $designer_page_styles->contentContainerStyles();
-		$this->view->content_styles = $designer_page_styles->contentItemStyles();
-		$this->view->form_styles = $designer_page_styles->formStyles();*/
-
-		$this->view->row_styles = array();
-		$this->view->content_container_styles = array();
-		$this->view->content_styles = array();
-		$this->view->form_styles = array();
 
 		// Set the vars to determine the state of the designer
 		$this->view->page_selected = $this->session_content->pageSelected();
@@ -344,23 +339,12 @@ class Content_DesignController extends Zend_Controller_Action
 	private function dlayerPagePreview()
 	{
 		// Instantiate the page object and styles object
-		$designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
-		$designer_page_styles = new Dlayer_Designer_Styles_Page($this->site_id, $this->page_id);
-
-		// fetch the styles defined in the settings, heading styles and base font families
-		$this->view->heading_styles = $designer_page_styles->headingStyles();
-		$this->view->base_font_family_content = $designer_page_styles->baseFontFamilyContentManager();
-		$this->view->base_font_family_form = $designer_page_styles->baseFontFamilyFormBuilder();
+		$designer_page = new Dlayer_Designer_ContentPage($this->site_id, $this->page_id); // Fix this
 
 		// Fetch the data that defines the structure of the page
 		$this->view->rows = $designer_page->rows();
 		$this->view->columns = $designer_page->columns();
 		$this->view->content = $designer_page->content();
-
-		$this->view->row_styles = array();
-		$this->view->content_container_styles = array();
-		$this->view->content_styles = array();
-		$this->view->form_styles = array();
 
 		return $this->view->render("design/page-preview.phtml");
 	}
@@ -376,7 +360,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->_helper->disableLayout(FALSE);
 
 		$id = $this->getRequest()->getParam('id');
-		if($this->session_content->setTool('row') === TRUE)
+		if($this->session_designer->setTool('content', 'row') === TRUE)
 		{
 			$this->session_content->setRowId($id);
 		}
@@ -396,7 +380,7 @@ class Content_DesignController extends Zend_Controller_Action
 
 		$id = $this->getRequest()->getParam('id');
 
-		if($this->session_content->setTool('column') === TRUE) 
+		if($this->session_designer->setTool('content', 'column') === TRUE)
 		{
 			$this->session_content->setColumnId($id);
 		}
@@ -415,7 +399,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		if($this->session_content->setTool('Page') === TRUE) {
+		if($this->session_designer->setTool('content', 'Page') === TRUE) {
 			$this->session_content->setPageSelected();
 		}
 
@@ -431,12 +415,12 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$id = $this->getParamAsInteger('id');
-		$tool = $this->getParamAsString('tool');
-		$content_type = $this->getParamAsString('content-type');
+		$id = Dlayer_Helper::getParamAsInteger('id');
+		$tool = Dlayer_Helper::getParamAsString('tool');
+		$content_type = Dlayer_Helper::getParamAsString('content-type');
 
 		if($this->session_content->setContentId($id, $content_type) === TRUE &&
-			$this->session_content->setTool($tool) === TRUE)
+			$this->session_designer->setTool('content', $tool) === TRUE)
 		{
 			$this->redirect('/content/design');
 		}
@@ -468,7 +452,7 @@ class Content_DesignController extends Zend_Controller_Action
 		{
 			if($tool !== 'Cancel')
 			{
-				if($this->session_content->setTool($tool) === TRUE)
+				if($this->session_designer->setTool('content', $tool) === TRUE)
 				{
 					$reset = $this->getRequest()->getParam('reset');
 
@@ -506,6 +490,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->session_content->clearAll();
 		$this->session_designer->clearAllImagePicker();
+		$this->session_designer->clearAllTool('content');
 
 		$this->redirect('/content/design');
 	}
@@ -519,12 +504,12 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$direction = $this->getParamAsString('direction');
-		$row_id = $this->getParamAsInteger('id');
+		$direction = Dlayer_Helper::getParamAsString('direction');
+		$row_id = Dlayer_Helper::getParamAsInteger('id');
 		$page_id = $this->session_content->pageId();
 		$column_id = $this->session_content->columnId();
 
-		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content = new Dlayer_Model_Content_Page();
 		$model_page_content->moveRow($this->site_id, $page_id, $column_id, $row_id, $direction);
 
 		$this->redirect('/content/design');
@@ -539,12 +524,12 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$direction = $this->getParamAsString('direction');
-		$column_id = $this->getParamAsInteger('id');
+		$direction = Dlayer_Helper::getParamAsString('direction');
+		$column_id = Dlayer_Helper::getParamAsInteger('id');
 		$page_id = $this->session_content->pageId();
 		$row_id = $this->session_content->rowId();
 
-		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content = new Dlayer_Model_Content_Page();
 		$model_page_content->moveColumn($this->site_id, $page_id, $row_id, $column_id, $direction);
 
 		$this->redirect('/content/design');
@@ -556,7 +541,7 @@ class Content_DesignController extends Zend_Controller_Action
 	 * and also that the content item is valid for the requested content type and
 	 * page div
 	 *
-	 * @return div
+	 * @return void
 	 */
 	public function moveContentAction()
 	{
@@ -567,35 +552,9 @@ class Content_DesignController extends Zend_Controller_Action
 		$page_id = $this->session_content->pageId();
 		$column_id = $this->session_content->columnId();
 
-		$model_page_content = new Dlayer_Model_Page_Content();
+		$model_page_content = new Dlayer_Model_Content_Page();
 		$model_page_content->moveContent($this->site_id, $page_id, $column_id, $content_id, $direction);
 
 		$this->redirect('/content/design/');
-	}
-
-	/**
-	 * Get a post param
-	 *
-	 * @todo Move this out of controller
-	 * @param string $param
-	 * @param integer|NULL $default
-	 * @return integer|NULL
-	 */
-	private function getParamAsInteger($param, $default = NULL)
-	{
-		return ($this->getRequest()->getParam($param) !== '' ? intval($this->getRequest()->getParam($param)) : $default);
-	}
-
-	/**
-	 * Get a post param
-	 *
-	 * @todo Move this out of controller
-	 * @param string $param
-	 * @param integer|NULL $default
-	 * @return string|NULL
-	 */
-	private function getParamAsString($param, $default = NULL)
-	{
-		return $this->getRequest()->getParam($param, $default);
 	}
 }

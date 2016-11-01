@@ -30,7 +30,6 @@ class Content_IndexController extends Zend_Controller_Action
 	private $nav_bar_items = array(
 		array('uri'=>'/dlayer/index/home', 'name'=>'Dlayer Demo', 'title'=>'Dlayer.com: Web development simplified'),
 		array('uri'=>'/content/index/index', 'name'=>'Content manager', 'title'=>'Content manager'),
-		array('uri'=>'/content/settings/index', 'name'=>'Settings', 'title'=>'Settings'),
 		array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Docs', 'title'=>'Read the Docs for Dlayer'),
 	);
 
@@ -60,7 +59,7 @@ class Content_IndexController extends Zend_Controller_Action
 	public function indexAction()
 	{
 		$model_sites = new Dlayer_Model_Site();
-		$model_pages = new Dlayer_Model_Page();
+		$model_pages = new Dlayer_Model_ContentPage();
 
 		$this->view->site = $model_sites->site($this->site_id);
 		$this->view->pages = $model_pages->pages($this->site_id);
@@ -80,9 +79,9 @@ class Content_IndexController extends Zend_Controller_Action
 	{
 		$this->_helper->disableLayout(FALSE);
 
-		$model_pages = new Dlayer_Model_Page();
+		$model_pages = new Dlayer_Model_ContentPage();
 
-		$page_id = Dlayer_Helper::getInteger('page-id');
+		$page_id = Dlayer_Helper::getParamAsInteger('page-id');
 
 		if($page_id !== NULL && $model_pages->valid($page_id, $this->site_id) == TRUE)
 		{
@@ -110,7 +109,7 @@ class Content_IndexController extends Zend_Controller_Action
 		
 		if($this->content_page_form->isValid($post)) 
 		{
-			$model_pages = new Dlayer_Model_Page();
+			$model_pages = new Dlayer_Model_ContentPage();
 			$page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description']);
 
 			if($page_id !== FALSE)
@@ -133,7 +132,7 @@ class Content_IndexController extends Zend_Controller_Action
 
 		if($this->content_page_form->isValid($post))
 		{
-			$model_pages = new Dlayer_Model_Page();
+			$model_pages = new Dlayer_Model_ContentPage();
 			$page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description'],
 				$this->session_content->pageId());
 

@@ -179,7 +179,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 			),
 			array(
 				'type' => 'tool',
-				'id' => 'jumbotron',
+				'id' => 'Jumbotron',
 			),
 			array(
 				'type' => 'content_id',

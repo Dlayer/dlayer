@@ -141,7 +141,7 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	public function setContentId($content_id, $content_type)
 	{
 		$session_dlayer = new Dlayer_Session();
-		$model_content = new Dlayer_Model_Page_Content();
+		$model_content = new Dlayer_Model_Content_Page();
 
 		if($model_content->validItem($content_id, $session_dlayer->siteId(), $this->pageId(), $this->columnId(),
 			$content_type) === TRUE)
@@ -167,68 +167,6 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 	}
 
 	/**
-	 * Set the selected tool, before setting we check to see if the requested tool is valid, a tool is a
-	 * combination of a tool model, an option sub tool model and the tab itself
-	 *
-	 * @param string $tool Tool model name
-	 * @return boolean
-	 */
-	public function setTool($tool)
-	{
-		$session_dlayer = new Dlayer_Session();
-		$model_tool = new Dlayer_Model_Tool();
-
-		$tool = $model_tool->toolAndDefaultTab($session_dlayer->module(), $tool);
-
-		if($tool !== FALSE)
-		{
-			$this->tool = $tool['tool'];
-			$this->setRibbonTab($tool['tab'], $tool['sub_tool']);
-
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	/**
-	 * Set the tool tab
-	 *
-	 * @param string $tab
-	 * @param string|NULL $sub_tool
-	 * @return void
-	 */
-	public function setRibbonTab($tab, $sub_tool=NULL)
-	{
-		$this->tab = $tab;
-		$this->sub_tool = $sub_tool;
-	}
-
-	/**
-	 * Returns the data array for the currently selected tool, if no tool is set the method returns FALSE, a tool is
-	 * the combination of the tool itself and the selected tab
-	 *
-	 * @return array|FALSE
-	 */
-	public function tool()
-	{
-		if($this->tool !== NULL && $this->tab !== NULL)
-		{
-			return array(
-				'tool' => $this->tool,
-				'sub_tool' => $this->sub_tool, // Sub tool model can be NULL
-				'tab' => $this->tab
-			);
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	/**
 	 * Clears the session values for the content manager, these are the vars
 	 * that relate to the current state of the designer, selected div,
 	 * content row, content item, tool and tab.
@@ -246,10 +184,6 @@ class Dlayer_Session_Content extends Zend_Session_Namespace
 		$this->column_id = NULL;
 		$this->row_id = NULL;
 		$this->content_id = NULL;
-
-		$this->tool = NULL;
-		$this->sub_tool = NULL;
-		$this->tab = NULL;
 
 		if($reset == TRUE)
 		{

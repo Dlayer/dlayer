@@ -11,47 +11,44 @@
 class Dlayer_Helper
 {
 	/**
-	 * Fetch a $_GET param and check to ensure it is an integer value, if no
-	 * values exists or it is not a integer or no $_GET param exists return the
-	 * default value or NULL
+	 * Fetch a $_GET param and return the integer value, use the default value if no value is found
 	 *
 	 * @param string $var Name of the $_GET var to fetch
 	 * @param integer|NULL $default Default value if no value found or type incorrect
+	 *
 	 * @return integer|NULL
 	 */
-	public static function getInteger($var, $default = NULL)
+	public static function getParamAsInteger($var, $default = NULL)
 	{
-		$value = Zend_Controller_Front::getInstance()->getRequest()->getParam(
-			$var, $default);
-
-		if($default !== NULL)
-		{
-			if($value !== $default && is_numeric($value) == TRUE)
-			{
-				return intval($value);
-			}
-			else
-			{
-				return $default;
-			}
+		if(Zend_Controller_Front::getInstance()
+			->getRequest()
+			->getParam($var, $default) !== '') {
+			return intval(Zend_Controller_Front::getInstance()
+				->getRequest()
+				->getParam($var, $default));
+		} else {
+			return intval($default);
 		}
-		else
-		{
-			if($value === NULL)
-			{
-				return NULL;
-			}
-			else
-			{
-				if(is_numeric($value) == TRUE)
-				{
-					return intval($value);
-				}
-				else
-				{
-					return NULL;
-				}
-			}
+	}
+
+	/**
+	 * Fetch a $_GET param and return the integer value, use the default value if no value is found
+	 *
+	 * @param string $var Name of the $_GET var to fetch
+	 * @param integer|NULL $default Default value if no value found or type incorrect
+	 *
+	 * @return integer|NULL
+	 */
+	public static function getParamAsString($var, $default = NULL)
+	{
+		if(Zend_Controller_Front::getInstance()
+				->getRequest()
+				->getParam($var, $default) !== '') {
+			return Zend_Controller_Front::getInstance()
+				->getRequest()
+				->getParam($var);
+		} else {
+			return $default;
 		}
 	}
 
@@ -59,7 +56,9 @@ class Dlayer_Helper
 	 * Convert the given bytes file size into human readable text
 	 *
 	 * @since 0.99
+	 *
 	 * @param integer $bytes
+	 *
 	 * @return string More human readable version of file size
 	 */
 	public static function readableFilesize($bytes = 0)
@@ -89,6 +88,7 @@ class Dlayer_Helper
 	 * @param array $array The array to convert
 	 * @param string $index Key to use for the array index
 	 * @param string $value Key to use for the array value
+	 *
 	 * @return array
 	 */
 	public static function convertToSimpleArray(array $array, $index, $value)
@@ -101,5 +101,20 @@ class Dlayer_Helper
 		}
 
 		return $simple_array;
+	}
+
+	/**
+	 * Write a message to the application log
+	 *
+	 * @param string $message
+	 * @return void
+	 */
+	public static function sendToInfoLog($message)
+	{
+		/**
+		 * @var Zend_Log
+		 */
+		$logger = Zend_Registry::get('log-app');
+		$logger->info($message);
 	}
 }
