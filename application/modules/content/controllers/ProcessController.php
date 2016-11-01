@@ -140,6 +140,10 @@ class Content_ProcessController extends Zend_Controller_Action
 					$session_designer->setTool('content', $id['id']);
 					break;
 
+                case 'tab':
+                    $session_designer->setToolTab('content', $id['id'], $id['sub_tool']);
+                    break;
+
 				default:
 					break;
 			}

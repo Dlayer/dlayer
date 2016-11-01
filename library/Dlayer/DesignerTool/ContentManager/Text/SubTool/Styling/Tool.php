@@ -14,6 +14,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      * Check that the required params have been submitted, check the keys in the params array
      *
      * @param array $params
+     *
      * @return boolean
      */
     protected function paramsExist(array $params)
@@ -30,6 +31,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      * Check to ensure the posted params are of the correct type and optionally within range
      *
      * @param array $params
+     *
      * @return boolean
      */
     protected function paramsValid(array $params)
@@ -41,6 +43,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
         ) {
             $valid = true;
         }
+
         return $valid;
     }
 
@@ -49,6 +52,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      *
      * @param array $params
      * @param boolean $manual_tool Are the values to be assigned to $this->params or $this->params_auto
+     *
      * @return void
      */
     protected function paramsAssign(array $params, $manual_tool = true)
@@ -63,6 +67,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      *
      * @param integer $site_id
      * @param integer $content_id
+     *
      * @return boolean
      */
     protected function validateInstances($site_id, $content_id)
@@ -88,7 +93,41 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      */
     protected function edit()
     {
-        die('We are in here');
+        $this->backgroundColorContentItem();
+
+        return $this->returnIds();
+    }
+
+    /**
+     * Manage the background colour for a content item
+     *
+     * @return void
+     * @throws Exception
+     */
+    protected function backgroundColorContentItem()
+    {
+        $model_text = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model();
+
+        $id = $model_text->existingBackgroundColorContentItem($this->site_id, $this->page_id, $this->content_id);
+
+        if ($id === false) {
+            try {
+                $model_text->addBackgroundColorContentItem(
+                    $this->site_id,
+                    $this->page_id,
+                    $this->content_id,
+                    $this->params['content_background_color']
+                );
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+        } else {
+            try {
+                $model_text->updateBackgroundColorContentItem($id, $this->params['content_background_color']);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+        }
     }
 
     /**
@@ -99,5 +138,42 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
     protected function structure()
     {
         // TODO: Implement structure() method.
+    }
+
+    /**
+     * Generate the return ids array
+     *
+     * @return array
+     */
+    protected function returnIds()
+    {
+        return array(
+            array(
+                'type' => 'page_id',
+                'id' => $this->page_id,
+            ),
+            array(
+                'type' => 'row_id',
+                'id' => $this->row_id,
+            ),
+            array(
+                'type' => 'column_id',
+                'id' => $this->column_id,
+            ),
+            array(
+                'type' => 'tool',
+                'id' => 'Text',
+            ),
+            array(
+                'type' => 'tab',
+                'id' => 'styling',
+                'sub_tool' => 'Styling'
+            ),
+            array(
+                'type' => 'content_id',
+                'id' => $this->content_id,
+                'content_type' => 'text'
+            )
+        );
     }
 }

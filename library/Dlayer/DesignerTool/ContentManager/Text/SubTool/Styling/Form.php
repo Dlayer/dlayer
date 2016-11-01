@@ -46,6 +46,11 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Form extends Dlaye
         $this->addCustomElementDecorators();
     }
 
+    /**
+     * Generate the tool elements that the user interacts with
+     *
+     * @return void
+     */
     protected function generateUserElements()
     {
         $content_background_color = new Dlayer_Form_Element_ColorPicker('content_background_color');
