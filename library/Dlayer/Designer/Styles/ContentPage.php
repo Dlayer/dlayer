@@ -10,6 +10,8 @@
  * another object which will generate the classes to be used so that as few
  * inline styles can be used as possible.
  *
+ * @todo This needs to be reworked
+ *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
