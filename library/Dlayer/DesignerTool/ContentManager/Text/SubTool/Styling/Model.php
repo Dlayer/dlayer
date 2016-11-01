@@ -46,6 +46,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      * @param integer $site_id
      * @param integer $page_id
      * @param integer $content_id
+     *
      * @return integer|false
      */
     public function existingBackgroundColorContentItem($site_id, $page_id, $content_id)
@@ -77,6 +78,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      * @param integer $page_id
      * @param integer $content_id
      * @param string $color_hex
+     *
      * @return boolean
      */
     public function addBackgroundColorContentItem($site_id, $page_id, $content_id, $color_hex)
@@ -90,7 +92,28 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
         $stmt->bindValue(':page_id', $page_id);
         $stmt->bindValue(':content_id', $content_id);
         $stmt->bindValue(':background_color', $color_hex);
+
         return $stmt->execute();
+    }
+
+    /**
+     * Edit the background colour for a content item, optionally delete the existing value if the user is clearing the
+     * value
+     *
+     * @todo This will have to switch to SET NULL as more fields are added to the table
+     *
+     * @param integer $id
+     * @param string $color_hex
+     *
+     * @return boolean
+     */
+    public function editBackgroundColorContentItem($id, $color_hex)
+    {
+        if (strlen($color_hex) !== 0) {
+            return $this->updateBackgroundColorContentItem($id, $color_hex);
+        } else {
+            return $this->deleteBackgroundColorContentItem($id);
+        }
     }
 
     /**
@@ -98,9 +121,10 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      *
      * @param integer $id
      * @param string $color_hex
+     *
      * @return boolean
      */
-    public function updateBackgroundColorContentItem($id, $color_hex)
+    protected function updateBackgroundColorContentItem($id, $color_hex)
     {
         $sql = "UPDATE user_site_page_styling_content_item 
                 SET background_color = :background_color 
@@ -109,6 +133,25 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':id', $id);
         $stmt->bindValue(':background_color', $color_hex);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Remove a background colour for a content item
+     *
+     * @param integer $id
+     *
+     * @return boolean
+     */
+    protected function deleteBackgroundColorContentItem($id)
+    {
+        $sql = "DELETE FROM user_site_page_styling_content_item 
+                WHERE id = :id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':id', $id);
+
         return $stmt->execute();
     }
 }

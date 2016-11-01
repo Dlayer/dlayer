@@ -490,6 +490,7 @@ class Content_DesignController extends Zend_Controller_Action
 	{
 		$this->session_content->clearAll();
 		$this->session_designer->clearAllImagePicker();
+		$this->session_designer->clearAllTool('content');
 
 		$this->redirect('/content/design');
 	}

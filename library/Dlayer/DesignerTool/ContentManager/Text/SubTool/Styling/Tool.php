@@ -123,7 +123,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
             }
         } else {
             try {
-                $model_text->updateBackgroundColorContentItem($id, $this->params['content_background_color']);
+                $model_text->editBackgroundColorContentItem($id, $this->params['content_background_color']);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
