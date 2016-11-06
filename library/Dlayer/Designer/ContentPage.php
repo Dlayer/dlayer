@@ -11,10 +11,25 @@
  */
 class Dlayer_Designer_ContentPage
 {
+    /**
+     * @var integer The id of the currently selected site
+     */
     private $site_id;
+
+    /**
+     * @var integer The od of the currently selected page
+     */
     private $page_id;
 
+    /**
+     * @var \Dlayer_Model_View_ContentPage
+     */
     private $model_page;
+
+    /**
+     * @var \Dlayer_Model_View_ContentPage_Styling
+     */
+    private $model_styling;
 
     /**
      * Pass in anything needed to set up the object
@@ -28,7 +43,7 @@ class Dlayer_Designer_ContentPage
         $this->page_id = $page_id;
 
         $this->model_page = new Dlayer_Model_View_ContentPage();
-        $this->model_styling = new Dlayer_Model_View_Styling_ContentPage();
+        $this->model_styling = new Dlayer_Model_View_ContentPage_Styling();
     }
 
     /**
