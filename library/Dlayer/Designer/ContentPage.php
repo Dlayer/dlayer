@@ -28,6 +28,7 @@ class Dlayer_Designer_ContentPage
         $this->page_id = $page_id;
 
         $this->model_page = new Dlayer_Model_View_ContentPage();
+        $this->model_styling = new Dlayer_Model_View_Styling_ContentPage();
     }
 
     /**

@@ -192,7 +192,7 @@ class Dlayer_Model_View_ContentPage extends Zend_Db_Table_Abstract
 	 */
 	private function text($id)
 	{
-		$model_text = new Dlayer_Model_View_ContentItem_Text();
+		$model_text = new Dlayer_Model_View_ContentPage_Item_Text();
 
 		return $model_text->data($this->site_id, $this->page_id, $id);
 	}
@@ -205,7 +205,7 @@ class Dlayer_Model_View_ContentPage extends Zend_Db_Table_Abstract
 	 */
 	private function jumbotron($id)
 	{
-		$model_jumbotron = new Dlayer_Model_View_ContentItem_Jumbotron();
+		$model_jumbotron = new Dlayer_Model_View_ContentPage_Item_Jumbotron();
 
 		return $model_jumbotron->data($this->site_id, $this->page_id, $id);
 	}
@@ -218,7 +218,7 @@ class Dlayer_Model_View_ContentPage extends Zend_Db_Table_Abstract
 	 */
 	private function image($id)
 	{
-		$model_image = new Dlayer_Model_View_ContentItem_Image();
+		$model_image = new Dlayer_Model_View_ContentPage_Item_Image();
 
 		return $model_image->data($this->site_id, $this->page_id, $id);
 	}
@@ -231,7 +231,7 @@ class Dlayer_Model_View_ContentPage extends Zend_Db_Table_Abstract
 	 */
 	private function heading($id)
 	{
-		$model_heading = new Dlayer_Model_View_ContentItem_Heading();
+		$model_heading = new Dlayer_Model_View_ContentPage_Item_Heading();
 
 		return $model_heading->data($this->site_id, $this->page_id, $id);
 	}
@@ -244,7 +244,7 @@ class Dlayer_Model_View_ContentPage extends Zend_Db_Table_Abstract
 	 */
 	private function form($id)
 	{
-		$model_form = new Dlayer_Model_View_ContentItem_Form();
+		$model_form = new Dlayer_Model_View_ContentPage_Item_Form();
 
 		return $model_form->data($this->site_id, $this->page_id, $id);
 	}
