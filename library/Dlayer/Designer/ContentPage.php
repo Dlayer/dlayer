@@ -27,7 +27,7 @@ class Dlayer_Designer_ContentPage
         $this->site_id = $site_id;
         $this->page_id = $page_id;
 
-        $this->model_page = new Dlayer_Model_View_Page();
+        $this->model_page = new Dlayer_Model_View_ContentPage();
     }
 
     /**
@@ -61,5 +61,15 @@ class Dlayer_Designer_ContentPage
     public function columns()
     {
         return $this->model_page->columns($this->site_id, $this->page_id);
+    }
+
+    /**
+     * Fetch all the styles for the content items that have been assigned to the current page
+     *
+     * @return array
+     */
+    public function contentItemStyles()
+    {
+        return array();
     }
 }
