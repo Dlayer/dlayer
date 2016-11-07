@@ -10,109 +10,130 @@
  */
 class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
 {
-	/**
-	 * Override the hinting for the view property so that we can see the view helpers that have been defined
-	 *
-	 * @var Dlayer_View_Codehinting
-	 */
-	public $view;
+    /**
+     * Override the hinting for the view property so that we can see the view helpers that have been defined
+     *
+     * @var Dlayer_View_Codehinting
+     */
+    public $view;
 
-	/**
-	 * @var string
-	 */
-	private $html;
+    /**
+     * @var string
+     */
+    private $html;
 
-	/**
-	 * @var TRUE|NULL Is the content page selected in designer
-	 */
-	private $page_selected;
+    /**
+     * @var TRUE|NULL Is the content page selected in designer
+     */
+    private $page_selected;
 
-	/**
-	 * @var integer|NULL Id of the selected column
-	 */
-	private $selected_column_id;
+    /**
+     * @var integer|NULL Id of the selected column
+     */
+    private $selected_column_id;
 
-	/**
-	 * @var integer|NULL Id of the selected row
-	 */
-	private $selected_row_id;
+    /**
+     * @var integer|NULL Id of the selected row
+     */
+    private $selected_row_id;
 
-	/**
-	 * @var integer|NULL Id of the selected content item
-	 */
-	private $selected_content_id;
+    /**
+     * @var integer|NULL Id of the selected content item
+     */
+    private $selected_content_id;
 
-	/**
-	 * Pass in anything required to set up the object
-	 *
-	 * @param array $rows The rows that make up the content page
-	 * @param array $columns The columns that make up the content page
-	 * @param array $content Contains the raw data to generate the content items and assign them to their row
-	 * @param TRUE|NULL $page_selected Is the page selected in the designer?
-	 * @param integer|NULL $column_id Id of the selected column, if any
-	 * @param integer|NULL $row_id Id of the selected row, if any
-	 * @param integer|NULL $content_id Id of the selected content item if any
-	 * @return Dlayer_View_ContentPage
-	 */
-	public function contentPage(array $rows, array $columns, array $content, $page_selected, $column_id = NULL, $row_id = NULL, $content_id = NULL)
-	{
-		$this->view->row()->setRows($rows);
-		$this->view->column()->setColumns($columns);
-		$this->view->content()->setContent($content);
+    /**
+     * Pass in anything required to set up the object
+     *
+     * @param array $rows The rows that make up the content page
+     * @param array $columns The columns that make up the content page
+     * @param array $content Contains the raw data to generate the content items and assign them to their row
+     * @param TRUE|NULL $page_selected Is the page selected in the designer?
+     * @param integer|NULL $column_id Id of the selected column, if any
+     * @param integer|NULL $row_id Id of the selected row, if any
+     * @param integer|NULL $content_id Id of the selected content item if any
+     *
+     * @return Dlayer_View_ContentPage
+     */
+    public function contentPage(
+        array $rows,
+        array $columns,
+        array $content,
+        $page_selected,
+        $column_id = null,
+        $row_id = null,
+        $content_id = null
+    ) {
+        $this->view->row()->setRows($rows);
+        $this->view->column()->setColumns($columns);
+        $this->view->content()->setContent($content);
 
-		$this->page_selected = $page_selected;
-		$this->selected_column_id = $column_id;
-		$this->selected_row_id = $row_id;
-		$this->selected_content_id = $content_id;
+        $this->page_selected = $page_selected;
+        $this->selected_column_id = $column_id;
+        $this->selected_row_id = $row_id;
+        $this->selected_content_id = $content_id;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Generates the base structure for the page and then calls a recursive method to do the rest of the work
-	 *
-	 * @return string
-	 * @throws \Exception
-	 */
-	private function render()
-	{
-		$page_class = 'container-fluid';
-		if($this->page_selected === NULL)
-		{
-			$page_class .= ' selectable';
-		}
-		else
-		{
-			if($this->selected_row_id == NULL)
-			{
-				$page_class .= ' selected';
-			}
-		}
+    /**
+     * Pass in the styling data for the page
+     *
+     * @param array $content_row_styles
+     * @param array $content_column_styles
+     * @param array $content_item_styles
+     *
+     * @return Dlayer_View_ContentPage
+     */
+    public function setStyling(
+        array $content_row_styles,
+        array $content_column_styles,
+        array $content_item_styles)
+    {
+        //$this->view->contentItemStyles()->setStyles($content_item_styles);
+    }
 
-		$this->html = '<div class="' . $page_class . '">';
+    /**
+     * Generates the base structure for the page and then calls a recursive method to do the rest of the work
+     *
+     * @return string
+     * @throws \Exception
+     */
+    private function render()
+    {
+        $page_class = 'container-fluid';
+        if ($this->page_selected === null) {
+            $page_class .= ' selectable';
+        } else {
+            if ($this->selected_row_id == null) {
+                $page_class .= ' selected';
+            }
+        }
 
-		$this->view->row()->setColumnId(0);
-		$this->view->row()->setSelectedColumnId($this->selected_column_id);
-		$this->view->row()->setSelectedRowId($this->selected_row_id);
-		$this->view->row()->setSelectedContentId($this->selected_content_id);
+        $this->html = '<div class="' . $page_class . '">';
 
-		$this->html .= $this->view->row()->render();
+        $this->view->row()->setColumnId(0);
+        $this->view->row()->setSelectedColumnId($this->selected_column_id);
+        $this->view->row()->setSelectedRowId($this->selected_row_id);
+        $this->view->row()->setSelectedContentId($this->selected_content_id);
 
-		$this->html .= '</div>';
+        $this->html .= $this->view->row()->render();
 
-		return $this->html;
-	}
+        $this->html .= '</div>';
+
+        return $this->html;
+    }
 
 
-	/**
-	 * THis view helper can be ouput directly using print and echo, there is no
-	 * need to call the render method. The __toString method is defined to allow
-	 * this functionality, all it does it call the render method
-	 *
-	 * @return string The html generated by the render method
-	 */
-	public function __toString()
-	{
-		return $this->render();
-	}
+    /**
+     * THis view helper can be ouput directly using print and echo, there is no
+     * need to call the render method. The __toString method is defined to allow
+     * this functionality, all it does it call the render method
+     *
+     * @return string The html generated by the render method
+     */
+    public function __toString()
+    {
+        return $this->render();
+    }
 }
