@@ -50,7 +50,9 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
      */
     public function contentItems()
     {
-
+        return array(
+            'background_color' => $this->contentItemBackgroundColors()
+        );
     }
 
     /**
@@ -63,6 +65,15 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
      */
     private function contentItemBackgroundColors()
     {
+        $sql = "SELECT background_color 
+                FROM user_site_page_styling_content_item_background_color 
+                WHERE site_id = :site_id 
+                AND page_id = :page_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $this->site_id);
+        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->execute();
 
+        return $stmt->fetchAll();
     }
 }

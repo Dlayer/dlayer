@@ -12,16 +12,6 @@
 class Dlayer_Designer_ContentPage
 {
     /**
-     * @var integer The id of the currently selected site
-     */
-    private $site_id;
-
-    /**
-     * @var integer The od of the currently selected page
-     */
-    private $page_id;
-
-    /**
      * @var \Dlayer_Model_View_ContentPage
      */
     private $model_page;
@@ -39,11 +29,11 @@ class Dlayer_Designer_ContentPage
      */
     public function __construct($site_id, $page_id)
     {
-        $this->site_id = $site_id;
-        $this->page_id = $page_id;
-
         $this->model_page = new Dlayer_Model_View_ContentPage();
+        $this->model_page->setUp($site_id, $page_id);
+
         $this->model_styling = new Dlayer_Model_View_ContentPage_Styling();
+        $this->model_styling->setUp($site_id, $page_id);
     }
 
     /**
@@ -54,7 +44,7 @@ class Dlayer_Designer_ContentPage
      */
     public function content()
     {
-        return $this->model_page->content($this->site_id, $this->page_id);
+        return $this->model_page->content();
     }
 
     /**
@@ -65,7 +55,7 @@ class Dlayer_Designer_ContentPage
      */
     public function rows()
     {
-        return $this->model_page->rows($this->site_id, $this->page_id);
+        return $this->model_page->rows();
     }
 
     /**
@@ -76,7 +66,7 @@ class Dlayer_Designer_ContentPage
      */
     public function columns()
     {
-        return $this->model_page->columns($this->site_id, $this->page_id);
+        return $this->model_page->columns();
     }
 
     /**
@@ -86,6 +76,6 @@ class Dlayer_Designer_ContentPage
      */
     public function contentItemStyles()
     {
-        return array();
+        return $this->model_styling->contentItems();
     }
 }
