@@ -48,8 +48,10 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
      * @param integer $id
      * @return Dlayer_View_StylingContentItem
      */
-    public function setContentItemId($id)
+    public function setContentItem($id)
     {
+        $this->resetParams();
+
         $this->id = $id;
 
         return $this;
@@ -63,7 +65,7 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
      */
     private function resetParams()
     {
-        $this->style = '';
+        $this->styles = '';
         $this->id = null;
     }
 
@@ -74,7 +76,9 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
      */
     private function render()
     {
-        return $this->style;
+        $this->styles .= 'style="background-color:green;"';
+
+        return $this->styles;
     }
 
     /**

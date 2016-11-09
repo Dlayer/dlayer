@@ -85,12 +85,14 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
      *
      * @return Dlayer_View_ContentPage
      */
-    public function setStyling(
+    public function setStyles(
         array $content_row_styles,
         array $content_column_styles,
         array $content_item_styles)
     {
-        //$this->view->contentItemStyles()->setStyles($content_item_styles);
+        $this->view->stylingContentItem()->setStyles($content_item_styles);
+
+        return $this;
     }
 
     /**

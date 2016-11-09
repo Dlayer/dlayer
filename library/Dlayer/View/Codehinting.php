@@ -264,6 +264,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	{
 	}
 
+    /**
+     * View helper constructor, pass in anything that may be needed to create the object
+     *
+     * @return Dlayer_View_StylingContentItem
+     */
+    public function stylingContentItem()
+    {
+    }
+
 	/**
 	 * Preview version of the column view helper
 	 *
@@ -271,7 +280,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 */
 	public function columnPreview()
 	{
-		return $this;
 	}
 
 	/**
