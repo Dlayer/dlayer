@@ -38,6 +38,25 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
 		return $this;
 	}
 
+    /**
+     * Pass in the styling data for the page
+     *
+     * @param array $content_row_styles
+     * @param array $content_column_styles
+     * @param array $content_item_styles
+     *
+     * @return Dlayer_View_ContentPagePreview
+     */
+    public function setStyles(
+        array $content_row_styles,
+        array $content_column_styles,
+        array $content_item_styles)
+    {
+        $this->view->stylingContentItem()->setStyles($content_item_styles);
+
+        return $this;
+    }
+
 	/**
 	 * Generates the base structure for the page and then calls a recursive method to do the rest of the work
 	 *

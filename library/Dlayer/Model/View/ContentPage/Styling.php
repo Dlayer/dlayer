@@ -56,16 +56,13 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Fetch the background colour styles
+     * Fetch the background color styles array indexed by content item id
      *
-     * @todo The different styles will probably be fields of the table, rather than different tables, may just
-     * need one select and methods to organise, for now keep it separate, maybe rename the table for now
-     *
-     * @return array|FALSE
+     * @return array
      */
     private function contentItemBackgroundColors()
     {
-        $sql = "SELECT background_color 
+        $sql = "SELECT content_id, background_color 
                 FROM user_site_page_styling_content_item_background_color 
                 WHERE site_id = :site_id 
                 AND page_id = :page_id";
@@ -74,6 +71,12 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
         $stmt->bindValue(':page_id', $this->page_id);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        $styles = array();
+
+        foreach($stmt->fetchAll() as $row) {
+            $styles[intval($row['content_id'])] = $row['background_color'];
+        }
+
+        return $styles;
     }
 }

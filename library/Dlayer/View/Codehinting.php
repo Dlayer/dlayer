@@ -265,7 +265,18 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	}
 
     /**
-     * View helper constructor, pass in anything that may be needed to create the object
+     * Background colour style attribute
+     *
+     * @param string $hex The background color
+     *
+     * @return Dlayer_View_StylingAttributeBackgroundColor
+     */
+    public function stylingAttributeBackgroundColor($hex)
+    {
+    }
+
+    /**
+     * Styles for content items
      *
      * @return Dlayer_View_StylingContentItem
      */

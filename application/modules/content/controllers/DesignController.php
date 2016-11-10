@@ -348,6 +348,8 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->columns = $designer_page->columns();
 		$this->view->content = $designer_page->content();
 
+        $this->view->styling_content_items = $designer_page->contentItemStyles();
+
 		return $this->view->render("design/page-preview.phtml");
 	}
 

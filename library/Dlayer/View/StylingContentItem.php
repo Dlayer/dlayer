@@ -10,9 +10,16 @@
 class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
 {
     /**
+     * Override the hinting for the view property so that we can see the view helpers that have been defined
+     *
+     * @var Dlayer_View_Codehinting
+     */
+    public $view;
+
+    /**
      * @var string The complete style attribute
      */
-    private $style;
+    private $styles;
 
     /**
      * @var integer The id of the content item currently being looked at
@@ -37,7 +44,7 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
      */
     public function setStyles(array $styles)
     {
-        $this->style = $styles;
+        $this->styles = $styles;
 
         return $this;
     }
@@ -65,7 +72,6 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
      */
     private function resetParams()
     {
-        $this->styles = '';
         $this->id = null;
     }
 
@@ -76,9 +82,18 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
      */
     private function render()
     {
-        $this->styles .= 'style="background-color:green;"';
+        $styles = '';
 
-        return $this->styles;
+        if(array_key_exists('background_color', $this->styles) === true &&
+        array_key_exists($this->id, $this->styles['background_color']) === true) {
+            $styles .= $this->view->stylingAttributeBackgroundColor($this->styles['background_color'][$this->id]);
+        }
+
+        if(strlen($styles) > 0) {
+            $styles = 'style="' . $styles . '"';
+        }
+
+        return $styles;
     }
 
     /**
