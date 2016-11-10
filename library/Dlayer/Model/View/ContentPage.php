@@ -8,7 +8,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
+class Dlayer_Model_View_ContentPage extends Zend_Db_Table_Abstract
 {
 	/**
 	 * @var integer
@@ -19,16 +19,28 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	 */
 	private $page_id;
 
+    /**
+     * Set the site id and page id
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     *
+     * @return void
+     */
+    public function setUp($site_id, $page_id)
+    {
+        $this->site_id = $site_id;
+        $this->page_id = $page_id;
+    }
+
 	/**
 	 * Fetch all the rows that have been assigned to the requested content page, the results will be grouped
 	 * by column id with null (0 in code) being rows that are assigned to the body div, rows can only ever be
 	 * assigned to columns or the body div
 	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
 	 * @return array Always returns an array
 	 */
-	public function rows($site_id, $page_id)
+	public function rows()
 	{
 		$sql = 'SELECT uspsr.id AS row_id, uspsr.column_id 
 				FROM user_site_page_structure_row uspsr 
@@ -36,8 +48,8 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 				AND uspsr.page_id = :page_id 
 				ORDER BY uspsr.column_id ASC, uspsr.sort_order ASC';
 		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		$result = $stmt->fetchAll();
@@ -66,11 +78,9 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	 * Fetch all the columns that have been assigned to the content oage, the results will be grouped by row id, columns
 	 * can only ever be assigned to columns
 	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
 	 * @return array Always returns an array
 	 */
-	public function columns($site_id, $page_id)
+	public function columns()
 	{
 		$sql = 'SELECT uspsc.id, uspsc.row_id, uspsc.size, uspsc.column_type, uspsc.offset
 				FROM user_site_page_structure_column uspsc 
@@ -81,8 +91,8 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 				AND uspsc.page_id = :page_id 
 				ORDER BY uspsr.sort_order, uspsc.sort_order';
 		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+		$stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+		$stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
 		$stmt->execute();
 
 		$result = $stmt->fetchAll();
@@ -108,15 +118,10 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	 * results the details for each content item type are pulled, the results are grouped by column id and returned
 	 * as a single array
 	 *
-	 * @param integer $site_id
-	 * @param integer $page_id
 	 * @return array Content items indexed by row id
 	 */
-	public function content($site_id, $page_id)
+	public function content()
 	{
-		$this->site_id = $site_id;
-		$this->page_id = $page_id;
-
 		$sql = 'SELECT uspsc.id AS content_id, uspsc.column_id, dct.name AS content_type 
                 FROM user_site_page_structure_content uspsc
                 JOIN designer_content_type dct ON uspsc.content_type = dct.id
@@ -192,7 +197,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	 */
 	private function text($id)
 	{
-		$model_text = new Dlayer_Model_View_ContentItem_Text();
+		$model_text = new Dlayer_Model_View_ContentPage_Item_Text();
 
 		return $model_text->data($this->site_id, $this->page_id, $id);
 	}
@@ -205,7 +210,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	 */
 	private function jumbotron($id)
 	{
-		$model_jumbotron = new Dlayer_Model_View_ContentItem_Jumbotron();
+		$model_jumbotron = new Dlayer_Model_View_ContentPage_Item_Jumbotron();
 
 		return $model_jumbotron->data($this->site_id, $this->page_id, $id);
 	}
@@ -218,7 +223,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	 */
 	private function image($id)
 	{
-		$model_image = new Dlayer_Model_View_ContentItem_Image();
+		$model_image = new Dlayer_Model_View_ContentPage_Item_Image();
 
 		return $model_image->data($this->site_id, $this->page_id, $id);
 	}
@@ -231,7 +236,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	 */
 	private function heading($id)
 	{
-		$model_heading = new Dlayer_Model_View_ContentItem_Heading();
+		$model_heading = new Dlayer_Model_View_ContentPage_Item_Heading();
 
 		return $model_heading->data($this->site_id, $this->page_id, $id);
 	}
@@ -244,7 +249,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 	 */
 	private function form($id)
 	{
-		$model_form = new Dlayer_Model_View_ContentItem_Form();
+		$model_form = new Dlayer_Model_View_ContentPage_Item_Form();
 
 		return $model_form->data($this->site_id, $this->page_id, $id);
 	}

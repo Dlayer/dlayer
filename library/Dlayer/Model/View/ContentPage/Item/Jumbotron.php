@@ -8,14 +8,14 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Model_View_ContentItem_Jumbotron extends Zend_Db_Table_Abstract
+class Dlayer_Model_View_ContentPage_Item_Jumbotron extends Zend_Db_Table_Abstract
 {
 	/**
 	 * Fetch the core data needed to create a 'jumbotron' based content item
 	 *
-	 * @param $site_id
-	 * @param $page_id
-	 * @param $id Id of the content item
+	 * @param integer $site_id
+	 * @param integer $page_id
+	 * @param integer $id Id of the content item
 	 * @return array|FALSE Either the content item data array or FALSE upon error
 	 */
 	private function baseItemData($site_id, $page_id, $id)

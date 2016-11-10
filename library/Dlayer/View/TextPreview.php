@@ -54,7 +54,7 @@ class Dlayer_View_TextPreview extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		$html = '<p>' . nl2br($this->view->escape($this->data['content']), TRUE) . '</p>';
+		$html = '<p ' . $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>' . nl2br($this->view->escape($this->data['content']), TRUE) . '</p>';
 
 		return $html;
 	}

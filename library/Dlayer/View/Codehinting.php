@@ -264,6 +264,26 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	{
 	}
 
+    /**
+     * Background colour style attribute
+     *
+     * @param string $hex The background color
+     *
+     * @return Dlayer_View_StylingAttributeBackgroundColor
+     */
+    public function stylingAttributeBackgroundColor($hex)
+    {
+    }
+
+    /**
+     * Styles for content items
+     *
+     * @return Dlayer_View_StylingContentItem
+     */
+    public function stylingContentItem()
+    {
+    }
+
 	/**
 	 * Preview version of the column view helper
 	 *
@@ -271,7 +291,6 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
 	 */
 	public function columnPreview()
 	{
-		return $this;
 	}
 
 	/**

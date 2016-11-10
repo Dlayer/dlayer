@@ -21,7 +21,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
     public function contentBackgroundColor($site_id, $page_id, $content_id)
     {
         $sql = 'SELECT background_color 
-                FROM user_site_page_styling_content_item 
+                FROM user_site_page_styling_content_item_background_color
                 WHERE site_id = :site_id 
                 AND page_id = :page_id 
                 AND content_id = :content_id 
@@ -52,7 +52,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
     public function existingBackgroundColorContentItem($site_id, $page_id, $content_id)
     {
         $sql = "SELECT id 
-                FROM user_site_page_styling_content_item 
+                FROM user_site_page_styling_content_item_background_color 
                 WHERE site_id = :site_id 
                 AND page_id = :page_id 
                 AND content_id = :content_id 
@@ -83,7 +83,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      */
     public function addBackgroundColorContentItem($site_id, $page_id, $content_id, $color_hex)
     {
-        $sql = "INSERT INTO user_site_page_styling_content_item 
+        $sql = "INSERT INTO user_site_page_styling_content_item_background_color 
                 (site_id, page_id, content_id, background_color) 
                 VALUES 
                 (:site_id, :page_id, :content_id, :background_color)";
@@ -126,7 +126,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      */
     protected function updateBackgroundColorContentItem($id, $color_hex)
     {
-        $sql = "UPDATE user_site_page_styling_content_item 
+        $sql = "UPDATE user_site_page_styling_content_item_background_color 
                 SET background_color = :background_color 
                 WHERE id = :id 
                 LIMIT 1";
@@ -146,7 +146,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      */
     protected function deleteBackgroundColorContentItem($id)
     {
-        $sql = "DELETE FROM user_site_page_styling_content_item 
+        $sql = "DELETE FROM user_site_page_styling_content_item_background_color 
                 WHERE id = :id 
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);
