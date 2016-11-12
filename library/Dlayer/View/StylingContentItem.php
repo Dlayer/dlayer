@@ -90,7 +90,7 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
         }
 
         if(strlen($styles) > 0) {
-            $styles = 'style="' . $styles . '"';
+            $styles = ' style="' . $styles . '"';
         }
 
         return $styles;
