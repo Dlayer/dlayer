@@ -46,7 +46,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Ribbon extends Dla
 
         if($this->tool['content_id'] !== null) {
             $model_styling = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model();
-            $content_background_color = $model_styling->contentBackgroundColor(
+            $content_background_color = $model_styling->backgroundColor(
                 $this->tool['site_id'],
                 $this->tool['page_id'],
                 $this->tool['content_id']

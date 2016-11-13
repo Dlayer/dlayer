@@ -108,11 +108,11 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
     {
         $model_text = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model();
 
-        $id = $model_text->existingBackgroundColorContentItem($this->site_id, $this->page_id, $this->content_id);
+        $id = $model_text->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
 
         if ($id === false) {
             try {
-                $model_text->addBackgroundColorContentItem(
+                $model_text->addBackgroundColor(
                     $this->site_id,
                     $this->page_id,
                     $this->content_id,
@@ -123,7 +123,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
             }
         } else {
             try {
-                $model_text->editBackgroundColorContentItem($id, $this->params['content_background_color']);
+                $model_text->editBackgroundColor($id, $this->params['content_background_color']);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
