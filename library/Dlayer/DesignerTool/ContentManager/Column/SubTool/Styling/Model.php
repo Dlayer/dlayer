@@ -33,6 +33,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Model extends Ze
         $stmt->execute();
 
         $result = $stmt->fetch();
+
         if ($result !== false) {
             return $result['background_color'];
         } else {

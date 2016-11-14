@@ -32,7 +32,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Form extends Dla
      */
     public function init()
     {
-        $this->setAction('/content/process/tool');
+        $this->setAction('/content/process/tool-auto');
 
         $this->setMethod('post');
 
@@ -52,19 +52,19 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Form extends Dla
      */
     protected function generateUserElements()
     {
-        $column_background_color = new Dlayer_Form_Element_ColorPicker('column_background_color');
-        $column_background_color->setLabel('Column background color');
-        $column_background_color->setDescription('Set the background colour for the selected column.');
-        $column_background_color->setBelongsTo('params');
-        $column_background_color->addClearLink();
-        $column_background_color->setBelongsTo('params');
+        $background_color = new Dlayer_Form_Element_ColorPicker('background_color');
+        $background_color->setLabel('Column background color');
+        $background_color->setDescription('Set the background colour for the selected column.');
+        $background_color->setBelongsTo('params');
+        $background_color->addClearLink();
+        $background_color->setBelongsTo('params');
 
-        if (array_key_exists('column_background_color', $this->data) === true &&
-            $this->data['column_background_color'] !== false
+        if (array_key_exists('background_color', $this->data) === true &&
+            $this->data['background_color'] !== false
         ) {
-            $column_background_color->setValue($this->data['column_background_color']);
+            $background_color->setValue($this->data['background_color']);
         }
 
-        $this->elements['column_background_color'] = $column_background_color;
+        $this->elements['background_color'] = $background_color;
     }
 }

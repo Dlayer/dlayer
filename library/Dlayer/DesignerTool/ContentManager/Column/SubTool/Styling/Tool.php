@@ -1,4 +1,4 @@
-a<?php
+<?php
 
 /**
  * Styling sub tool
@@ -92,9 +92,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Tool extends Dla
      */
     protected function edit()
     {
-        $this->backgroundColor();
-
-        return $this->returnIds();
+        // TODO: Implement add() method.
     }
 
     /**
@@ -136,7 +134,9 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Tool extends Dla
      */
     protected function structure()
     {
-        // TODO: Implement structure() method.
+        $this->backgroundColor();
+
+        return $this->returnIds();
     }
 
     /**

@@ -348,7 +348,7 @@ class Dlayer_Ribbon_Handler_Content
     {
         switch($tab) {
             case 'styling':
-                $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Ribbon();
+                $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon();
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
                 break;
 

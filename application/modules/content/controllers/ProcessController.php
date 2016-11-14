@@ -77,6 +77,32 @@ class Content_ProcessController extends Zend_Controller_Action
 		}
 	}
 
+    /**
+     * Validate the request, checks the tool is valid and the base environment params are correct. Values should be
+     * validated before they get set in session so we can simply check they match here
+     *
+     * @param Dlayer_Session_Content $session_content
+     * @param Dlayer_Session_Designer $session_designer
+     *
+     * @todo Need to add logging so can easily see where errors occurred
+     * @return boolean
+     */
+    private function validateAutoRequest($session_content, $session_designer)
+    {
+        if($session_content->pageId() === Dlayer_Helper::getParamAsInteger('page_id') &&
+            $session_designer->tool('content') !== FALSE &&
+            $session_designer->tool('content')['tool'] === Dlayer_Helper::getParamAsString('tool')
+        )
+        {
+            return TRUE;
+        }
+        else
+        {
+            // Add logging
+            return FALSE;
+        }
+    }
+
 	/**
 	 * Fetch the tool class, either returns the tool defined in the session or the tool that matches the
 	 * POSTed sub tool
@@ -88,10 +114,10 @@ class Content_ProcessController extends Zend_Controller_Action
 	private function toolClass($sub_tool_model = NULL)
 	{
 		$session_designer = new Dlayer_Session_Designer();
+
 		if($sub_tool_model !== NULL)
 		{
-            $tool_class = 'Dlayer_DesignerTool_ContentManager_' .
-                $session_designer->tool('content')['tool'] .
+            $tool_class = 'Dlayer_DesignerTool_ContentManager_' .$session_designer->tool('content')['tool'] .
                 '_SubTool_' . $sub_tool_model . '_Tool';
 		}
 		else
@@ -203,7 +229,7 @@ class Content_ProcessController extends Zend_Controller_Action
 		$session_content = new Dlayer_Session_Content();
 		$session_designer = new Dlayer_Session_Designer();
 
-		if($this->validateRequest($session_content, $session_designer) === FALSE)
+		if($this->validateAutoRequest($session_content, $session_designer) === FALSE)
 		{
 			$this->returnToDesigner(FALSE);
 		}
@@ -211,11 +237,9 @@ class Content_ProcessController extends Zend_Controller_Action
 		$tool = $this->toolClass(Dlayer_Helper::getParamAsString('sub_tool_model', NULL));
 
 		if($tool->validateAuto($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
-				$session_content->pageId(), $session_content->rowId(), $session_content->columnId(),
-				$session_content->contentId()) === TRUE
-		)
-		{
-			$return_ids = $tool->processAuto();
+				$session_content->pageId(), $session_content->rowId(), $session_content->columnId()) === TRUE) {
+
+            $return_ids = $tool->processAuto();
 
 			if($return_ids !== FALSE)
 			{
@@ -223,7 +247,7 @@ class Content_ProcessController extends Zend_Controller_Action
 
 				/**
 				 * Multi use does not really apply to structure tools so not calling returnToDesigner, will review
-				 * that as we and more tools, may just need another param for the method
+				 * that as we add more tools, may just need another param for the method
 				 *
 				 * @todo Review this
 				 */
@@ -233,7 +257,9 @@ class Content_ProcessController extends Zend_Controller_Action
 			{
 				$this->returnToDesigner(FALSE);
 			}
-		}
+		} else {
+            die('dh');
+        }
 	}
 
 	/**

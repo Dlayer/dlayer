@@ -43,19 +43,17 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon extends D
             'background_color' => false,
         );
 
-        if ($this->tool['content_id'] !== null) {
-            $model_styling = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Model();
-            $background_color = $model_styling->backgroundColor(
-                $this->tool['site_id'],
-                $this->tool['page_id'],
-                $this->tool['column_id']
-            );
+        $model_styling = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Model();
+        $background_color = $model_styling->backgroundColor(
+            $this->tool['site_id'],
+            $this->tool['page_id'],
+            $this->tool['column_id']
+        );
 
-            if ($background_color !== false) {
-                $data['background_color'] = $background_color;
-            }
-
+        if ($background_color !== false) {
+            $data['background_color'] = $background_color;
         }
+
 
         return $data;
     }
