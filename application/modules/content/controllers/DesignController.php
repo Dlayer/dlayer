@@ -329,7 +329,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_id = $this->session_content->contentId();
 
         $this->view->styling_content_items = $designer_page->contentItemStyles();
-        $this->view->styling_rows = $designer_page->rowStyles();
+        $this->view->styling_columns = $designer_page->columnStyles();
 
 		return $this->view->render("design/page.phtml");
 	}

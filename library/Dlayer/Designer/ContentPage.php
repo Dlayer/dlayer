@@ -80,11 +80,11 @@ class Dlayer_Designer_ContentPage
     }
 
     /**
-     * Fetch all the styles for the rows that make up the page
+     * Fetch all the styles for the columns that make up the page
      *
      * @return array
      */
-    public function rowStyles()
+    public function columnStyles()
     {
         return array();
     }

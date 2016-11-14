@@ -56,6 +56,19 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
     }
 
     /**
+     * Return the column styles, grouped by styling group and then column id, contains the data for all the columns
+     * that make up the page
+     *
+     * @return array
+     */
+    public function columns()
+    {
+        return array(
+            'background_color' => $this->columnBackgroundColors()
+        );
+    }
+
+    /**
      * Fetch the background color styles array indexed by content item id
      *
      * @return array
@@ -75,6 +88,31 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
 
         foreach($stmt->fetchAll() as $row) {
             $styles[intval($row['content_id'])] = $row['background_color'];
+        }
+
+        return $styles;
+    }
+
+    /**
+     * Fetch the background color styles array indexed by column id
+     *
+     * @return array
+     */
+    private function columnBackgroundColors()
+    {
+        $sql = "SELECT column_id, background_color 
+                FROM user_site_page_styling_column_background_color 
+                WHERE site_id = :site_id 
+                AND page_id = :page_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $this->site_id);
+        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->execute();
+
+        $styles = array();
+
+        foreach($stmt->fetchAll() as $row) {
+            $styles[intval($row['column_id'])] = $row['background_color'];
         }
 
         return $styles;
