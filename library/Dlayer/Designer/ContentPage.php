@@ -86,6 +86,6 @@ class Dlayer_Designer_ContentPage
      */
     public function columnStyles()
     {
-        return array();
+        return $this->model_styling->columns();
     }
 }

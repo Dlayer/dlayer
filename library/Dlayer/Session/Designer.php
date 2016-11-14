@@ -212,7 +212,8 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	 */
 	public function tool($module)
 	{
-		if(array_key_exists($module, $this->tool) === TRUE &&
+		if($this->tool !== null &&
+            array_key_exists($module, $this->tool) === TRUE &&
 			array_key_exists($module, $this->tab) === TRUE &&
             $this->tool[$module] !== null) {
 
