@@ -108,11 +108,11 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
     {
         $model_heading = new Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model();
 
-        $id = $model_heading->existingBackgroundColorContentItem($this->site_id, $this->page_id, $this->content_id);
+        $id = $model_heading->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
 
         if ($id === false) {
             try {
-                $model_heading->addBackgroundColorContentItem(
+                $model_heading->addBackgroundColor(
                     $this->site_id,
                     $this->page_id,
                     $this->content_id,
@@ -123,7 +123,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
             }
         } else {
             try {
-                $model_heading->editBackgroundColorContentItem($id, $this->params['content_background_color']);
+                $model_heading->editBackgroundColor($id, $this->params['content_background_color']);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }

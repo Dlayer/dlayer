@@ -57,10 +57,12 @@ abstract class Dlayer_Form_Content extends Dlayer_Form
 			$this->elements['sub_tool_model'] = $sub_tool_model;
 		}
 
-		$content_type = new Zend_Form_Element_Hidden('content_type');
-		$content_type->setValue($this->content_type);
+		if(isset($this->content_type) && $this->content_type !== null) {
+            $content_type = new Zend_Form_Element_Hidden('content_type');
+            $content_type->setValue($this->content_type);
 
-		$this->elements['content_type'] = $content_type;
+            $this->elements['content_type'] = $content_type;
+        }
 
 		$multi_use = new Zend_Form_Element_Hidden('multi_use');
 		$multi_use->setValue($this->tool['multi_use']);

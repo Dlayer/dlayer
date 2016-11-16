@@ -14,11 +14,11 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model extends Z
      *
      * @param integer $site_id
      * @param integer $page_id
-     * @param integer $content_id
+     * @param integer $id
      *
      * @return string|false
      */
-    public function contentBackgroundColor($site_id, $page_id, $content_id)
+    public function backgroundColor($site_id, $page_id, $id)
     {
         $sql = "SELECT background_color 
                 FROM user_site_page_styling_content_item_background_color
@@ -29,7 +29,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model extends Z
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
         $stmt->bindValue(':page_id', $page_id);
-        $stmt->bindValue(':content_id', $content_id);
+        $stmt->bindValue(':content_id', $id);
         $stmt->execute();
 
         $result = $stmt->fetch();
@@ -45,11 +45,11 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model extends Z
      *
      * @param integer $site_id
      * @param integer $page_id
-     * @param integer $content_id
+     * @param integer $id
      *
      * @return integer|false
      */
-    public function existingBackgroundColorContentItem($site_id, $page_id, $content_id)
+    public function existingBackgroundColor($site_id, $page_id, $id)
     {
         $sql = "SELECT id 
                 FROM user_site_page_styling_content_item_background_color 
@@ -60,7 +60,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model extends Z
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
         $stmt->bindValue(':page_id', $page_id);
-        $stmt->bindValue(':content_id', $content_id);
+        $stmt->bindValue(':content_id', $id);
         $stmt->execute();
 
         $result = $stmt->fetch();
@@ -76,12 +76,12 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model extends Z
      *
      * @param integer $site_id
      * @param integer $page_id
-     * @param integer $content_id
+     * @param integer $id
      * @param string $color_hex
      *
      * @return boolean
      */
-    public function addBackgroundColorContentItem($site_id, $page_id, $content_id, $color_hex)
+    public function addBackgroundColor($site_id, $page_id, $id, $color_hex)
     {
         $sql = "INSERT INTO user_site_page_styling_content_item_background_color 
                 (site_id, page_id, content_id, background_color) 
@@ -90,7 +90,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model extends Z
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
         $stmt->bindValue(':page_id', $page_id);
-        $stmt->bindValue(':content_id', $content_id);
+        $stmt->bindValue(':content_id', $id);
         $stmt->bindValue(':background_color', $color_hex);
 
         return $stmt->execute();
@@ -105,12 +105,12 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model extends Z
      *
      * @return boolean
      */
-    public function editBackgroundColorContentItem($id, $color_hex)
+    public function editBackgroundColor($id, $color_hex)
     {
         if (strlen($color_hex) !== 0) {
-            return $this->updateBackgroundColorContentItem($id, $color_hex);
+            return $this->updateBackgroundColor($id, $color_hex);
         } else {
-            return $this->deleteBackgroundColorContentItem($id);
+            return $this->deleteBackgroundColor($id);
         }
     }
 
@@ -122,7 +122,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model extends Z
      *
      * @return boolean
      */
-    protected function updateBackgroundColorContentItem($id, $color_hex)
+    protected function updateBackgroundColor($id, $color_hex)
     {
         $sql = "UPDATE user_site_page_styling_content_item_background_color 
                 SET background_color = :background_color 
@@ -142,7 +142,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model extends Z
      *
      * @return boolean
      */
-    protected function deleteBackgroundColorContentItem($id)
+    protected function deleteBackgroundColor($id)
     {
         $sql = "DELETE FROM user_site_page_styling_content_item_background_color 
                 WHERE id = :id 

@@ -78,11 +78,9 @@ abstract class Dlayer_Tool_Content
 	 * @param integer $page_id
 	 * @param integer|NULL $row_id
 	 * @param integer|NULL $column_id
-	 * @param integer|NULL $content_id
 	 * @return boolean
 	 */
-	public function validateAuto(array $params, $site_id, $page_id, $row_id = NULL, $column_id = NULL,
-		$content_id = NULL)
+	public function validateAuto(array $params, $site_id, $page_id, $row_id = NULL, $column_id = NULL)
 	{
 		if($this->paramsExist($params) === TRUE && $this->paramsValid($params))
 		{
@@ -90,7 +88,6 @@ abstract class Dlayer_Tool_Content
 			$this->page_id = $page_id;
 			$this->row_id = $row_id;
 			$this->column_id = $column_id;
-			$this->content_id = $content_id;
 
 			$this->paramsAssign($params, FALSE);
 

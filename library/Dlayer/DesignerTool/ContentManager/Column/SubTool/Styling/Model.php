@@ -7,10 +7,10 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend_Db_Table_Abstract
+class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Model extends Zend_Db_Table_Abstract
 {
     /**
-     * Fetch the background color for a content item
+     * Fetch the background color assigned to the selected column
      *
      * @param integer $site_id
      * @param integer $page_id
@@ -20,19 +20,20 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      */
     public function backgroundColor($site_id, $page_id, $id)
     {
-        $sql = 'SELECT background_color 
-                FROM user_site_page_styling_content_item_background_color
+        $sql = "SELECT background_color 
+                FROM user_site_page_styling_column_background_color
                 WHERE site_id = :site_id 
                 AND page_id = :page_id 
-                AND content_id = :content_id 
-                LIMIT 1';
+                AND column_id = :column_id 
+                LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
         $stmt->bindValue(':page_id', $page_id);
-        $stmt->bindValue(':content_id', $id);
+        $stmt->bindValue(':column_id', $id);
         $stmt->execute();
 
         $result = $stmt->fetch();
+
         if ($result !== false) {
             return $result['background_color'];
         } else {
@@ -41,7 +42,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
     }
 
     /**
-     * Check to see if there is an existing background colour defined for the content item
+     * Check to see if there is an existing background colour defined for the column
      *
      * @param integer $site_id
      * @param integer $page_id
@@ -52,15 +53,15 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
     public function existingBackgroundColor($site_id, $page_id, $id)
     {
         $sql = "SELECT id 
-                FROM user_site_page_styling_content_item_background_color 
+                FROM user_site_page_styling_column_background_color 
                 WHERE site_id = :site_id 
                 AND page_id = :page_id 
-                AND content_id = :content_id 
+                AND column_id = :column_id 
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
         $stmt->bindValue(':page_id', $page_id);
-        $stmt->bindValue(':content_id', $id);
+        $stmt->bindValue(':column_id', $id);
         $stmt->execute();
 
         $result = $stmt->fetch();
@@ -72,7 +73,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
     }
 
     /**
-     * Add a new background colour for the current content item
+     * Add a new background color to the column
      *
      * @param integer $site_id
      * @param integer $page_id
@@ -83,21 +84,21 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      */
     public function addBackgroundColor($site_id, $page_id, $id, $color_hex)
     {
-        $sql = "INSERT INTO user_site_page_styling_content_item_background_color 
-                (site_id, page_id, content_id, background_color) 
+        $sql = "INSERT INTO user_site_page_styling_column_background_color 
+                (site_id, page_id, column_id, background_color) 
                 VALUES 
-                (:site_id, :page_id, :content_id, :background_color)";
+                (:site_id, :page_id, :column_id, :background_color)";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
         $stmt->bindValue(':page_id', $page_id);
-        $stmt->bindValue(':content_id', $id);
+        $stmt->bindValue(':column_id', $id);
         $stmt->bindValue(':background_color', $color_hex);
 
         return $stmt->execute();
     }
 
     /**
-     * Edit the background colour for a content item, optionally delete the existing value if the user is clearing the
+     * Edit the background color for the selected column, optionally delete any cleared values
      * value
      *
      * @param integer $id
@@ -115,7 +116,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
     }
 
     /**
-     * Update background colour for a content item
+     * Update the background colour for the column
      *
      * @param integer $id
      * @param string $color_hex
@@ -124,7 +125,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      */
     protected function updateBackgroundColor($id, $color_hex)
     {
-        $sql = "UPDATE user_site_page_styling_content_item_background_color 
+        $sql = "UPDATE user_site_page_styling_column_background_color 
                 SET background_color = :background_color 
                 WHERE id = :id 
                 LIMIT 1";
@@ -136,7 +137,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
     }
 
     /**
-     * Remove a background colour for a content item
+     * Remove a background colour for the selected column
      *
      * @param integer $id
      *
@@ -144,7 +145,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model extends Zend
      */
     protected function deleteBackgroundColor($id)
     {
-        $sql = "DELETE FROM user_site_page_styling_content_item_background_color 
+        $sql = "DELETE FROM user_site_page_styling_column_background_color 
                 WHERE id = :id 
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);

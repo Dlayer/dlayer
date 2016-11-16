@@ -78,4 +78,14 @@ class Dlayer_Designer_ContentPage
     {
         return $this->model_styling->contentItems();
     }
+
+    /**
+     * Fetch all the styles for the columns that make up the page
+     *
+     * @return array
+     */
+    public function columnStyles()
+    {
+        return $this->model_styling->columns();
+    }
 }

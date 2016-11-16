@@ -212,8 +212,10 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	 */
 	public function tool($module)
 	{
-		if(array_key_exists($module, $this->tool) === TRUE &&
-			array_key_exists($module, $this->tab) === TRUE) {
+		if($this->tool !== null &&
+            array_key_exists($module, $this->tool) === TRUE &&
+			array_key_exists($module, $this->tab) === TRUE &&
+            $this->tool[$module] !== null) {
 
 			return array(
 				'tool' => $this->tool[$module],
@@ -234,8 +236,8 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	 */
 	public function clearAllTool($module)
 	{
-		$this->tool[$module] = array();
-		$this->sub_tool[$module] = array();
-		$this->tab[$module] = array();
+		$this->tool[$module] = null;
+		$this->sub_tool[$module] = null;
+		$this->tab[$module] = null;
 	}
 }

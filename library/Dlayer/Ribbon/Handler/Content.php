@@ -93,7 +93,7 @@ class Dlayer_Ribbon_Handler_Content
                 break;
 
             case 'Column':
-                $data = false;
+                $data = $this->column($tool, $tab);
                 break;
 
             case 'Form':
@@ -117,7 +117,7 @@ class Dlayer_Ribbon_Handler_Content
                 break;
 
             case 'Row':
-                $data = false;
+                $data = $this->row($tool, $tab);
                 break;
 
             case 'Text':
@@ -334,6 +334,42 @@ class Dlayer_Ribbon_Handler_Content
         }
 
         return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the column tools
+     *
+     * @param string $tool The tool name
+     * @param string $tob The tool tab name
+     *
+     * @return array|false
+     */
+    private function column($tool, $tab)
+    {
+        switch($tab) {
+            case 'styling':
+                $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon();
+                $data = $ribbon_styling->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the row tools
+     *
+     * @param string $tool The tool name
+     * @param string $tob The tool tab name
+     *
+     * @return array|false
+     */
+    private function row($tool, $tab)
+    {
+        return false;
     }
 
     /**
