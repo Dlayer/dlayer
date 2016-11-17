@@ -107,6 +107,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
     protected function backgroundColorContentItem()
     {
         $model_text = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model();
+        $model_palette = new Dlayer_Model_Palette();
 
         $id = $model_text->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
 
@@ -118,12 +119,14 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
                     $this->content_id,
                     $this->params['content_background_color']
                 );
+                $model_palette->addToHistory($this->site_id, $this->params['background_color']);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
         } else {
             try {
                 $model_text->editBackgroundColor($id, $this->params['content_background_color']);
+                $model_palette->addToHistory($this->site_id, $this->params['background_color']);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
