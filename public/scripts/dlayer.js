@@ -904,37 +904,30 @@ var dlayer = {
 				* Preview function which updates the background colour for the 
 				* requested page element
 				*
-				* @param {String} Selector for the element being affected
-				* @param {String} Selector for the tool form field
-				* @returns {Void}
+				* @param {String} element_selector for the element being affected
+				* @param {String} field_selector for the tool form field
 				*/
-				elementBackgroundColor: function(element_selector, 
-					field_selector)
+				elementBackgroundColor: function(element_selector, field_selector)
 				{
 					$(field_selector).change(function()
 					{
 						var new_value = this.value;
-						
-						console.log(new_value);
-						console.log($(element_selector));
-						$(element_selector).css('background-color', 
-								new_value);
+
+						$(element_selector).css('background-color', new_value);
 
 						if(new_value.length == 7) {
-							$(element_selector).css('background-color', 
-								new_value);
+							$(element_selector).css('background-color', new_value);
 							dlayer.preview.changed = true;
 						} else {
 							if(new_value.length == 0) {
-								$(element_selector).css('background-color', 
-									'inherit');
+								$(element_selector).css('background-color', 'inherit');
 								dlayer.preview.changed = true;
 							}
 						}
 
 						dlayer.preview.unsaved();
 					});
-				},
+				}
 			}, 
 			
 			helper: {
