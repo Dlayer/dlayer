@@ -901,8 +901,7 @@ var dlayer = {
 				}, 
 				
 				/**
-				* Preview function which updates the background colour for the 
-				* requested page element
+				* Preview function which updates the background colour for the requested page element
 				*
 				* @param {String} element_selector for the element being affected
 				* @param {String} field_selector for the tool form field

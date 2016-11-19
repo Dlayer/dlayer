@@ -78,7 +78,7 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 		}
 		if($this->selected === TRUE)
 		{
-			$class = ' selected';
+			$class .= ' selected';
 		}
 
 		$html = '<div class="' . $class . '" data-content-id="' . $this->view->escape($this->data['content_id'])  .

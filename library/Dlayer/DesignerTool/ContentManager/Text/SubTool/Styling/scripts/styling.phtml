@@ -1,12 +1,9 @@
 <?php /** @var Dlayer_View_Codehinting */ $this ?>
 
 <script>
-    dlayer.preview.content.fn.elementBackgroundColor(
-        '<?php echo $this->data['preview']['container']; ?>',
-        '#params-container_background_color');
-    dlayer.preview.content.fn.elementBackgroundColor(
-        '<?php echo $this->data['preview']['element']; ?>',
-        '#params-item_background_color');
+    <?php if($this->data['preview']['background_color'] !== false) { ?>
+    previewContentManager.contentItemBackgroundColor(<?php echo $this->data['preview']['id']; ?>, '<?php echo $this->data['preview']['background_color']; ?>');
+    <?php } ?>
 </script>
 
 <div class="col-md-12 col-sm-12">

@@ -21,16 +21,16 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Ribbon extends Dla
     {
         $this->tool = $tool;
 
+        $this->contentData();
+
         return array(
             'form' => new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Form(
                 $tool,
-                $this->contentData(),
+                $this->content_data,
                 $this->instancesOfData(),
                 array()
             ),
-            'preview' => array(
-
-            )
+            'preview' => $this->previewData()
         );
     }
 
@@ -62,8 +62,21 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Ribbon extends Dla
 
             $this->content_fetched = true;
         }
+    }
 
-        return $this->content_data;
+    /**
+     * Fetch the data required by the preview functions
+     *
+     * @return array
+     */
+    protected function previewData()
+    {
+        $this->contentData();
+
+        return array(
+            'id' => $this->tool['content_id'],
+            'background_color' => $this->content_data['content_background_color']
+        );
     }
 
     /**

@@ -462,8 +462,6 @@ dlayerDesigner = {
 
 		load: function(module, tool, sub_tool, tab, reload)
 		{
-			//if(typeof reload == 'undefined') { reload = false; }
-
 			var data = {
 				tool: tool,
 				tab: tab
@@ -477,7 +475,7 @@ dlayerDesigner = {
 				function(data) {
 					$('.ribbon > div.content[data-tab-content="' + tab + '"]').html(data).addClass('open');
 					//$('#color_picker').hide();
-					if(reload == true) { window.location.replace('/' + module + '/design/'); }
+					//if(reload == true) { window.location.replace('/' + module + '/design/'); }
 				},
 				'html'
 			)
