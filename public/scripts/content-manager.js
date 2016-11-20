@@ -49,7 +49,6 @@ var contentManager =
     rowSelector: function ()
     {
         var selector = 'div.selected > div.row.selectable';
-        var selector_columns = 'div.selected > div.row.selectable div.column';
         var background_color = null;
         var background_colors_columns = [];
 
@@ -107,17 +106,40 @@ var contentManager =
     {
         var selector = '.row.selected > .column.selectable';
         var background_color = null;
+        var background_colors_rows = [];
 
         $(selector).hover(
             function ()
             {
                 background_color = $(this).css('background-color');
+
+                var selector_rows = '.column[data-column-id="' + $(this).data('column-id') + '"] div.row';
+
+                $(selector_rows).each(
+                    function (index)
+                    {
+                        var id = $(this).data('row-id');
+                        background_colors_rows[id] = $(this).css('background-color');
+                        $('.row[data-row-id="' + id + '"]').css('background-color', 'transparent');
+                    }
+                );
+
                 $(this).css('background-color', contentManager.highlightColor);
                 $(this).css('cursor', 'pointer');
                 $(this).find('div.column-mover').show();
             },
             function ()
             {
+                var selector_rows = '.column[data-column-id="' + $(this).data('column-id') + '"] div.row';
+
+                $(selector_rows).each(
+                    function (index)
+                    {
+                        var id = $(this).data('row-id');
+                        $('.row[data-row-id="' + id + '"]').css('background-color', background_colors_columns[id]);
+                    }
+                );
+
                 $(this).css('background-color', background_color);
                 $(this).find('div.column-mover').hide();
             }
