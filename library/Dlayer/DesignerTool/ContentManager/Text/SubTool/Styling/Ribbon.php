@@ -38,7 +38,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Ribbon extends Dla
      * Fetch the data array for the content item, if in edit mode mode populate the values otherwise every value is
      * set to FALSE, the tool form can simply check to see if the value is FALSe or not and then set the existing value
      *
-     * @return array
+     * @return void Writes to $this->content_data
      */
     protected function contentData()
     {
