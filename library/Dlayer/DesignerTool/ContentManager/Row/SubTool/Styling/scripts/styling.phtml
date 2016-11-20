@@ -1,0 +1,24 @@
+<?php /** @var Dlayer_View_Codehinting */ $this ?>
+
+<script>
+    //previewContentManager.columnBackgroundColor(<?php echo $this->data['preview']['id']; ?>, '<?php echo $this->data['preview']['background_color']; ?>');
+</script>
+
+<div class="col-md-12 col-sm-12">
+    <p class="dev-note bg-danger unsaved">Data has been modified!</p>
+</div>
+
+<div class="col-md-12 col-sm-12 small">
+    <?php echo $this->colorPicker()->picker($this->color_picker_data['palettes'],
+        $this->color_picker_data['history'], TRUE, TRUE); ?>
+</div>
+
+<div class="col-md-12 col-sm-12 small">
+    <?php
+    if($this->data != FALSE) {
+        echo $this->data['form'];
+    }
+    ?>
+</div>
+
+<?php echo $this->colorPicker()->javascript(); ?>
