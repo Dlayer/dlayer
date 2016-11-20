@@ -53,11 +53,6 @@ var previewContentManager =
      */
     contentItemBackgroundColor: function(content_id, value)
     {
-        if(typeof optional == 'undefined')
-        {
-            optional = false
-        }
-
         $('#params-content_background_color').change(function()
         {
             var new_value = this.value;
@@ -65,7 +60,41 @@ var previewContentManager =
 
             if(new_value.length === 7)
             {
-                console.log('in here');
+                $(selector).css('background-color', new_value);
+
+                previewContentManager.changed = true;
+                previewContentManager.highlight = true;
+            }
+            else
+            {
+                if(new_value.length == 0)
+                {
+                    $(selector).css('background-color', 'inherit');
+                    previewContentManager.changed = true;
+                    previewContentManager.highlight = true;
+                }
+            }
+
+            previewContentManager.unsaved();
+            previewContentManager.highlightItem(selector);
+        });
+    },
+
+    /**
+     * Background colour preview, column
+     *
+     * @param {Number} column_id Id of the column
+     * @param {String} value The background color to set
+     */
+    columnBackgroundColor: function(column_id, value)
+    {
+        $('#params-background_color').change(function()
+        {
+            var new_value = this.value;
+            var selector = '.column[data-column-id="' + column_id + '"]';
+
+            if(new_value.length === 7)
+            {
                 $(selector).css('background-color', new_value);
 
                 previewContentManager.changed = true;

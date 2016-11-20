@@ -42,7 +42,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Ribbon extends 
      */
     protected function contentData()
     {
-        if($this->content_fetched === false) {
+        if ($this->content_fetched === false) {
             $this->content_data = array(
                 'content_background_color' => false,
             );

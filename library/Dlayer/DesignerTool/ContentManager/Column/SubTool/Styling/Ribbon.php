@@ -21,13 +21,16 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon extends D
     {
         $this->tool = $tool;
 
+        $this->contentData();
+
         return array(
             'form' => new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Form(
                 $tool,
-                $this->contentData(),
+                $this->content_data,
                 $this->instancesOfData(),
                 array()
             ),
+            'preview' => $this->previewData()
         );
     }
 
@@ -35,27 +38,43 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon extends D
      * Fetch the data array for the column, if in edit mode populate the values otherwise every value is
      * set to FALSE, the tool form can simply check to see if the value is FALSE, if not it can use the value directly
      *
-     * @return array
+     * @return void
      */
     protected function contentData()
     {
-        $data = array(
-            'background_color' => false,
-        );
+        if ($this->content_fetched === false) {
+            $this->content_data = array(
+                'background_color' => false,
+            );
 
-        $model_styling = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Model();
-        $background_color = $model_styling->backgroundColor(
-            $this->tool['site_id'],
-            $this->tool['page_id'],
-            $this->tool['column_id']
-        );
+            $model_styling = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Model();
+            $background_color = $model_styling->backgroundColor(
+                $this->tool['site_id'],
+                $this->tool['page_id'],
+                $this->tool['column_id']
+            );
 
-        if ($background_color !== false) {
-            $data['background_color'] = $background_color;
+            if ($background_color !== false) {
+                $this->content_data['background_color'] = $background_color;
+            }
+
+            $this->content_fetched = true;
         }
+    }
 
+    /**
+     * Fetch the data required by the preview functions
+     *
+     * @return array
+     */
+    protected function previewData()
+    {
+        $this->contentData();
 
-        return $data;
+        return array(
+            'id' => $this->tool['column_id'],
+            'background_color' => $this->content_data['background_color']
+        );
     }
 
     /**
