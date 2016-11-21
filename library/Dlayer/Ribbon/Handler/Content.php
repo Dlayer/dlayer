@@ -392,6 +392,17 @@ class Dlayer_Ribbon_Handler_Content
      */
     private function page($tool, $tab)
     {
-        return false;
+        switch ($tab) {
+            case 'styling':
+                $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Ribbon();
+                $data = $ribbon_styling->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
     }
 }
