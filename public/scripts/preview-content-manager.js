@@ -97,5 +97,33 @@ var previewContentManager =
 
             previewContentManager.unsaved();
         });
+    },
+
+    /**
+     * Background colour preview, row
+     *
+     * @param {Number} row_id Id of the row
+     * @param {String} value The background color to set
+     */
+    rowBackgroundColor: function (row_id, value)
+    {
+        $('#params-background_color').change(function ()
+        {
+            var new_value = this.value;
+            var selector = '.row[data-row-id="' + row_id + '"]';
+
+            if (new_value.length === 7) {
+                $(selector).animate({'backgroundColor': new_value}, previewContentManager.animateDuration);
+
+                previewContentManager.changed = true;
+            } else {
+                if (new_value.length == 0) {
+                    $(selector).css('background-color', 'inherit');
+                    previewContentManager.changed = true;
+                }
+            }
+
+            previewContentManager.unsaved();
+        });
     }
 };
