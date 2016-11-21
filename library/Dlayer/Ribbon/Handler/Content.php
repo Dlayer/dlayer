@@ -135,8 +135,6 @@ class Dlayer_Ribbon_Handler_Content
     /**
      * Base tool params, uses by every tool, accessible via $data['tool'] in the view
      *
-     * @todo Once all the tool have been updated move this method, could be in controller
-     *
      * @param string $tool
      *
      * @return array
@@ -340,13 +338,13 @@ class Dlayer_Ribbon_Handler_Content
      * Fetch the view tab data for the column tools
      *
      * @param string $tool The tool name
-     * @param string $tob The tool tab name
+     * @param string $tab The tool tab name
      *
      * @return array|false
      */
     private function column($tool, $tab)
     {
-        switch($tab) {
+        switch ($tab) {
             case 'styling':
                 $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon();
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
@@ -354,6 +352,7 @@ class Dlayer_Ribbon_Handler_Content
 
             default:
                 $data = false;
+                break;
         }
 
         return $data;
@@ -363,13 +362,24 @@ class Dlayer_Ribbon_Handler_Content
      * Fetch the view tab data for the row tools
      *
      * @param string $tool The tool name
-     * @param string $tob The tool tab name
+     * @param string $tab The tool tab name
      *
      * @return array|false
      */
     private function row($tool, $tab)
     {
-        return false;
+        switch ($tab) {
+            case 'styling':
+                $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Ribbon();
+                $data = $ribbon_styling->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
     }
 
     /**

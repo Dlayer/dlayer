@@ -10,8 +10,8 @@ var previewContentManager =
     highlight: false,
     changed: false,
     visible: false,
-    animateDuration: 600,
-    hightlightDuration: 400,
+    animateDuration: 800,
+    highlightDuration: 400,
 
     /**
      * Display a message if any data has changed and not yet been saved
@@ -30,12 +30,12 @@ var previewContentManager =
      * Add a slight highlight to the item that has just been changed
      *
      * @param {String} selector Element selector
-     * @param {Number} effect_length Length for effect, defaults to hightlightDuration if not set
+     * @param {Number} effect_length Length for effect, defaults to highlightDuration if not set
      */
     highlightItem: function (selector, effect_length)
     {
         if (typeof effect_length == 'undefined') {
-            effect_length = previewContentManager.hightlightDuration;
+            effect_length = previewContentManager.highlightDuration;
         }
 
         if (previewContentManager.highlight === true) {
