@@ -61,7 +61,7 @@ var previewContentManager =
 
                 previewContentManager.changed = true;
             } else {
-                if (new_value.length == 0) {
+                if (new_value.length === 0) {
                     $(selector).css('background-color', 'inherit');
                     previewContentManager.changed = true;
                 }
@@ -89,7 +89,7 @@ var previewContentManager =
 
                 previewContentManager.changed = true;
             } else {
-                if (new_value.length == 0) {
+                if (new_value.length === 0) {
                     $(selector).css('background-color', 'inherit');
                     previewContentManager.changed = true;
                 }
@@ -117,7 +117,34 @@ var previewContentManager =
 
                 previewContentManager.changed = true;
             } else {
-                if (new_value.length == 0) {
+                if (new_value.length === 0) {
+                    $(selector).css('background-color', 'inherit');
+                    previewContentManager.changed = true;
+                }
+            }
+
+            previewContentManager.unsaved();
+        });
+    },
+
+    /**
+     * Background colour preview, page
+     *
+     * @param {String} value The background color to set
+     */
+    pageBackgroundColor: function (value)
+    {
+        $('#params-background_color').change(function ()
+        {
+            var new_value = this.value;
+            var selector = '.container-fluid.selected';
+
+            if (new_value.length === 7) {
+                $(selector).animate({'backgroundColor': new_value}, previewContentManager.animateDuration);
+
+                previewContentManager.changed = true;
+            } else {
+                if (new_value.length === 0) {
                     $(selector).css('background-color', 'inherit');
                     previewContentManager.changed = true;
                 }
