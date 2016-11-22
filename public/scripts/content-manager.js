@@ -17,16 +17,55 @@ var contentManager =
     pageSelector: function ()
     {
         var selector = 'div.container-fluid.selectable';
+        var selector_rows = '.row';
+        var selector_columns = '.column';
+        var background_colors_rows = [];
+        var background_colors_columns = [];
 
         $(selector).hover(
             function ()
             {
+                $(selector_rows).each(
+                    function (index)
+                    {
+                        var id = $(this).data('row-id');
+                        background_colors_rows[id] = $(this).css('background-color');
+                        $('.row[data-row-id="' + id + '"]').css('background-color', 'transparent');
+                    }
+                );
+
+                $(selector_columns).each(
+                    function (index)
+                    {
+                        var id = $(this).data('column-id');
+                        background_colors_columns[id] = $(this).css('background-color');
+                        $('.column[data-column-id="' + id + '"]').css('background-color', 'transparent');
+                    }
+                );
+
                 contentManager.pageBackgroundColor = $(this).css('background-color');
                 $(this).css('background-color', contentManager.highlightColor);
                 $(this).css('cursor', 'pointer');
             },
             function ()
             {
+                $(selector_rows).each(
+                    function (index)
+                    {
+                        var id = $(this).data('row-id');
+                        $('.row[data-row-id="' + id + '"]').css('background-color', background_colors_columns[id]);
+                    }
+                );
+
+                $(selector_columns).each(
+                    function (index)
+                    {
+                        var id = $(this).data('column-id');
+                        $('.column[data-column-id="' + id + '"]').css('background-color',
+                            background_colors_columns[id]);
+                    }
+                );
+
                 $(this).css('background-color', contentManager.pageBackgroundColor);
             }
         );
