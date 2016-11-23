@@ -9,7 +9,6 @@
  */
 class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dlayer_Tool_Content
 {
-
     /**
      * Check that the required params have been submitted, check the keys in the params array
      *

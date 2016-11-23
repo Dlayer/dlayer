@@ -302,6 +302,11 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_form->viewData($this->toolParams($tool));
                 break;
 
+            case 'styling':
+                $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Form_SubTool_Styling_Ribbon();
+                $data = $ribbon_styling->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;
