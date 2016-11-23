@@ -88,4 +88,14 @@ class Dlayer_Designer_ContentPage
     {
         return $this->model_styling->columns();
     }
+
+    /**
+     * Fetch all the styles for the rows that make up the page
+     *
+     * @return array
+     */
+    public function rowStyles()
+    {
+        return $this->model_styling->rows();
+    }
 }

@@ -21,7 +21,7 @@ $(document).ready(function() {
 });
 </script>
 
-<?php echo $this->contentPagePreview($this->rows, $this->columns, $this->content)->setStyles(array(), $this->styling_columns, $this->styling_content_items); ?>
+<?php echo $this->contentPagePreview($this->rows, $this->columns, $this->content)->setStyles($this->styling_rows, $this->styling_columns, $this->styling_content_items); ?>
 
 <div class="modal fade" id="imageModalDialog" tabindex="-1" role="dialog" 
 	aria-labelledby="imageModalDialogLabel" aria-hidden="true">	

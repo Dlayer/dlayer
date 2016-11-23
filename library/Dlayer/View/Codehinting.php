@@ -146,7 +146,7 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
      *    fragment after the domain, http://specification.dlayer.com/
      * @param boolean $well Should the content be placed inside a bootstrap
      *    well, useful to separate the further section from other content
-     * @return Dlayer_View_Navigation
+     * @return Dlayer_View_FurtherReading
      */
     public function furtherReading($url = null, $well = false)
     {
@@ -296,6 +296,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
      * @return Dlayer_View_StylingColumn
      */
     public function stylingColumn()
+    {
+    }
+
+    /**
+     * Styles for rows
+     *
+     * @return Dlayer_View_StylingRow
+     */
+    public function stylingRow()
     {
     }
 

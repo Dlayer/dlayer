@@ -53,7 +53,7 @@ var contentManager =
                     function (index)
                     {
                         var id = $(this).data('row-id');
-                        $('.row[data-row-id="' + id + '"]').css('background-color', background_colors_columns[id]);
+                        $('.row[data-row-id="' + id + '"]').css('background-color', background_colors_rows[id]);
                     }
                 );
 

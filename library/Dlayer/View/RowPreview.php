@@ -57,7 +57,7 @@ class Dlayer_View_RowPreview extends Zend_View_Helper_Abstract
 	 * array once
 	 *
 	 * @param array $rows
-	 * @return Dlayer_View_Row
+	 * @return Dlayer_View_RowPreview
 	 */
 	public function setRows(array $rows)
 	{
@@ -86,7 +86,8 @@ class Dlayer_View_RowPreview extends Zend_View_Helper_Abstract
 
 				if(strlen($columns) > 0)
 				{
-					$html .= '<div class="row" id="row-' . $row['id'] . '">' . $columns . '</div>';
+					$html .= '<div class="row" id="row-' . $row['id'] . '"' .
+                        $this->view->stylingRow()->setRow($row['id']) . '>' . $columns . '</div>';
 				}
 			}
 		}

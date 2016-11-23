@@ -341,6 +341,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         $this->view->styling_content_items = $designer_page->contentItemStyles();
         $this->view->styling_columns = $designer_page->columnStyles();
+        $this->view->styling_rows = $designer_page->rowStyles();
 
 		return $this->view->render("design/page.phtml");
 	}
@@ -362,6 +363,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         $this->view->styling_content_items = $designer_page->contentItemStyles();
         $this->view->styling_columns = $designer_page->columnStyles();
+        $this->view->styling_rows = $designer_page->rowStyles();
 
 		return $this->view->render("design/page-preview.phtml");
 	}
