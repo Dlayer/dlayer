@@ -56,7 +56,7 @@ class Dlayer_View_HeadingPreview extends Zend_View_Helper_Abstract
 	{
 		$tag = $this->view->escape($this->data['tag']);
 
-		$html = '<' . $tag . $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '}>' .
+		$html = '<' . $tag . $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>' .
             $this->view->escape($this->data['heading']);
 
 		if(strlen($this->data['sub_heading']) > 0)
