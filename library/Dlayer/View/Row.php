@@ -160,11 +160,14 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 
 				if(strlen($columns) > 0)
 				{
-					$html .= '<div class="' . $class . '" data-row-id="' . $row['id'] . '">' . $columns . '</div>';
+					$html .= '<div class="' . $class . '" data-row-id="' . $row['id'] . '" ' .
+                        $this->view->stylingRow()->setRow($row['id']) .  '>' . $columns . '</div>';
 				}
 				else
 				{
-					$html .= '<div class="' . $class . ' empty" data-row-id="' . $row['id'] . '"><p class="text-muted"><em>Empty row</em></p></div>';
+					$html .= '<div class="' . $class . ' empty" data-row-id="' . $row['id'] . '" ' .
+                        $this->view->stylingRow()->setRow($row['id']) .
+                        '><p class="text-muted"><em>Empty row</em></p></div>';
 				}
 			}
 		}

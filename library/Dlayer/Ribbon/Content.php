@@ -10,6 +10,17 @@
 abstract class Dlayer_Ribbon_Content
 {
 	protected $tool;
+    protected $preview;
+
+    /**
+     * @var bool Has the call to the content data already been made and data set
+     */
+    protected $content_fetched = false;
+
+    /**
+     * @var array The data for the content item/structure item
+     */
+    protected $content_data = array();
 
 	/**
 	 * Fetch the view data for the current tool tab, typically the returned array will have at least two indexes,

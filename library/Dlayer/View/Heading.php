@@ -80,7 +80,7 @@ class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 		}
 		if($this->selected === TRUE)
 		{
-			$class = ' selected';
+			$class .= ' selected';
 		}
 
 		$html = '<' . $tag . ' class="' . $class . '" data-content-id="' .

@@ -7,9 +7,8 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlayer_Tool_Content
 {
-
     /**
      * Check that the required params have been submitted, check the keys in the params array
      *
@@ -20,7 +19,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
     protected function paramsExist(array $params)
     {
         $valid = false;
-        if (array_key_exists('content_background_color', $params) === true) {
+        if (array_key_exists('background_color', $params) === true) {
             $valid = true;
         }
 
@@ -37,9 +36,9 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
     protected function paramsValid(array $params)
     {
         $valid = false;
-        if (strlen(trim($params['content_background_color'])) === 0 ||
-            (strlen(trim($params['content_background_color'])) === 7 &&
-                Dlayer_Validate::colorHex($params['content_background_color']) === true)
+        if (strlen(trim($params['background_color'])) === 0 ||
+            (strlen(trim($params['background_color'])) === 7 &&
+                Dlayer_Validate::colorHex($params['background_color']) === true)
         ) {
             $valid = true;
         }
@@ -57,8 +56,8 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      */
     protected function paramsAssign(array $params, $manual_tool = true)
     {
-        if (array_key_exists('content_background_color', $params) === true) {
-            $this->params['content_background_color'] = trim($params['content_background_color']);
+        if (array_key_exists('background_color', $params) === true) {
+            $this->params['background_color'] = trim($params['background_color']);
         }
     }
 
@@ -76,7 +75,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
     }
 
     /**
-     * Add a new content item or setting
+     * Add a new item
      *
      * @return array|FALSE Ids for new environment vars or FALSE if the request failed
      */
@@ -86,46 +85,44 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
     }
 
     /**
-     * Edit a new content item or setting
+     * Edit the item
      *
      * @return array|FALSE Ids for new environment vars or FALSE if the request failed
      * @throws Exception
      */
     protected function edit()
     {
-        $this->backgroundColorContentItem();
-
-        return $this->returnIds();
+        // TODO: Implement add() method.
     }
 
     /**
-     * Manage the background colour for a content item
+     * Manage the background color for the selected item
      *
      * @return void
      * @throws Exception
      */
-    protected function backgroundColorContentItem()
+    protected function backgroundColor()
     {
-        $model_text = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Model();
+        $model_styling = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
         $model_palette = new Dlayer_Model_Palette();
 
-        $id = $model_text->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
+        $id = $model_styling->existingBackgroundColor($this->site_id, $this->page_id);
 
         if ($id === false) {
             try {
-                $model_text->addBackgroundColor(
+                $model_styling->addBackgroundColor(
                     $this->site_id,
                     $this->page_id,
-                    $this->content_id,
-                    $this->params['content_background_color']
+                    $this->params['background_color']
                 );
+
                 $model_palette->addToHistory($this->site_id, $this->params['background_color']);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
         } else {
             try {
-                $model_text->editBackgroundColor($id, $this->params['content_background_color']);
+                $model_styling->editBackgroundColor($id, $this->params['background_color']);
                 $model_palette->addToHistory($this->site_id, $this->params['background_color']);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
@@ -140,7 +137,9 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
      */
     protected function structure()
     {
-        // TODO: Implement structure() method.
+        $this->backgroundColor();
+
+        return $this->returnIds();
     }
 
     /**
@@ -156,26 +155,13 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends Dlaye
                 'id' => $this->page_id,
             ),
             array(
-                'type' => 'row_id',
-                'id' => $this->row_id,
-            ),
-            array(
-                'type' => 'column_id',
-                'id' => $this->column_id,
-            ),
-            array(
                 'type' => 'tool',
-                'id' => 'Text',
+                'id' => 'Page',
             ),
             array(
                 'type' => 'tab',
                 'id' => 'styling',
                 'sub_tool' => 'Styling'
-            ),
-            array(
-                'type' => 'content_id',
-                'id' => $this->content_id,
-                'content_type' => 'text'
             )
         );
     }

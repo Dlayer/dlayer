@@ -86,9 +86,20 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content_id = $this->session_content->contentId();
 		$this->view->tool = $this->session_designer->tool('content');
 
-		$this->_helper->setLayoutProperties($this->nav_bar_items, '/content/design/index',
-			array('css/dlayer.css', 'css/designer-shared.css', 'css/designer-1170.css',),
-			array('scripts/dlayer.js','scripts/designer.js', 'scripts/content-manager.js'),
+		$this->_helper->setLayoutProperties(
+		    $this->nav_bar_items,
+            '/content/design/index',
+			array(
+			    'css/dlayer.css',
+                'css/designer-shared.css',
+                'css/designer-1170.css'
+            ),
+			array(
+			    'scripts/dlayer.js',
+                'scripts/designer.js',
+                'scripts/content-manager.js',
+                'scripts/preview-content-manager.js'
+            ),
 			'Dlayer.com - Content manager', '/content/design/preview');
 	}
 
@@ -330,6 +341,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         $this->view->styling_content_items = $designer_page->contentItemStyles();
         $this->view->styling_columns = $designer_page->columnStyles();
+        $this->view->styling_rows = $designer_page->rowStyles();
 
 		return $this->view->render("design/page.phtml");
 	}
@@ -350,6 +362,8 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content = $designer_page->content();
 
         $this->view->styling_content_items = $designer_page->contentItemStyles();
+        $this->view->styling_columns = $designer_page->columnStyles();
+        $this->view->styling_rows = $designer_page->rowStyles();
 
 		return $this->view->render("design/page-preview.phtml");
 	}

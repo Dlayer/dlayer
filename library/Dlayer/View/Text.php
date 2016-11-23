@@ -78,7 +78,7 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 		}
 		if($this->selected === TRUE)
 		{
-			$class = ' selected';
+			$class .= ' selected';
 		}
 
 		$html = '<p class="' . $class . '" data-content-id="' .

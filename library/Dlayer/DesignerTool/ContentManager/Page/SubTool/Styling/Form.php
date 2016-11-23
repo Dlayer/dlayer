@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Styling sub tools for a column
+ * Styling sub tools for the page
  *
  * @author Dean Blackborough
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Form extends Dlayer_Form_Content
+class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Form extends Dlayer_Form_Content
 {
     /**
      * Set the properties for the form
@@ -38,7 +38,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Form extends Dla
 
         $this->generateFormElements();
 
-        $this->addElementsToForm('column_styling', 'Styling', $this->elements);
+        $this->addElementsToForm('page_styling', 'Styling', $this->elements);
 
         $this->addDefaultElementDecorators();
 
@@ -53,8 +53,8 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Form extends Dla
     protected function generateUserElements()
     {
         $background_color = new Dlayer_Form_Element_ColorPicker('background_color');
-        $background_color->setLabel('Column background color');
-        $background_color->setDescription('Set the background colour for the selected column.');
+        $background_color->setLabel('Page background color');
+        $background_color->setDescription('Set the background colour for the page.');
         $background_color->setBelongsTo('params');
         $background_color->addClearLink();
 

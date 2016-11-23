@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Column styling sub tool ribbon data class
+ * Page styling sub tool ribbon data class
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon extends Dlayer_Ribbon_Content
+class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Ribbon extends Dlayer_Ribbon_Content
 {
     /**
      * Fetch the view data for the current tool tab, typically the returned array will have at least two indexes,
@@ -24,7 +24,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon extends D
         $this->contentData();
 
         return array(
-            'form' => new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Form(
+            'form' => new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Form(
                 $tool,
                 $this->content_data,
                 $this->instancesOfData(),
@@ -35,7 +35,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon extends D
     }
 
     /**
-     * Fetch the data array for the column, if in edit mode populate the values otherwise every value is
+     * Fetch the data array for the row, if in edit mode populate the values otherwise every value is
      * set to FALSE, the tool form can simply check to see if the value is FALSE, if not it can use the value directly
      *
      * @return void
@@ -47,11 +47,10 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon extends D
                 'background_color' => false,
             );
 
-            $model_styling = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Model();
+            $model_styling = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
             $background_color = $model_styling->backgroundColor(
                 $this->tool['site_id'],
-                $this->tool['page_id'],
-                $this->tool['column_id']
+                $this->tool['page_id']
             );
 
             if ($background_color !== false) {
@@ -72,7 +71,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Styling_Ribbon extends D
         $this->contentData();
 
         return array(
-            'id' => $this->tool['column_id'],
+            'id' => $this->tool['row_id'],
             'background_color' => $this->content_data['background_color']
         );
     }

@@ -15,5 +15,5 @@ $environment = 'production';
 /**
 * Version number and version release date
 */
-$version_no = 'v1.00-alpha-1';
-$version_release_date = '12th November 2016';
+$version_no = 'v1.00-alpha-2';
+$version_release_date = '23rd November 2016';
