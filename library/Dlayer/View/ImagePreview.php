@@ -54,11 +54,11 @@ class Dlayer_View_ImagePreview extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		$html = '';
+		$html = '<div ' . $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>';
 
 		if($this->data['expand'] === 1)
 		{
-			$html = '<a href="#" class="image-modal-dialog">';
+			$html .= '<a href="#" class="image-modal-dialog">';
 		}
 
 		$html .= '<img src="/images/library/' . $this->view->escape($this->data['library_id']) . '/' .
@@ -74,6 +74,8 @@ class Dlayer_View_ImagePreview extends Zend_View_Helper_Abstract
 		{
 			$html .= '</a>';
 		}
+
+		$html .= '</div>';
 
 		return $html;
 	}
