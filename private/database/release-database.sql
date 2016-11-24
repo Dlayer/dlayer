@@ -524,7 +524,7 @@ CREATE TABLE `dlayer_module_tool_tab` (
   KEY `tool_id` (`tool_id`),
   CONSTRAINT `dlayer_module_tool_tab_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `dlayer_module` (`id`),
   CONSTRAINT `dlayer_module_tool_tab_ibfk_2` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tool` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dlayer_module_tool_tab` */
 
@@ -609,7 +609,7 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 (87,4,38,'Row','row',NULL,'align-justify',0,0,1,1,1),
 (88,4,38,'Styles','styling','Styling_ContentRow',NULL,0,0,0,2,0),
 (89,4,39,'Image','image',NULL,'pencil',1,0,1,1,1),
-(90,4,39,'Help','help',NULL,'info-sign',0,0,0,2,1),
+(90,4,39,'Help','help',NULL,'info-sign',0,0,0,3,1),
 (91,4,40,'Carousel','carousel',NULL,NULL,1,0,1,1,0),
 (92,4,40,'Help','help',NULL,NULL,0,0,0,2,0),
 (93,4,39,'Size & position','position','Position_Image',NULL,1,1,0,2,0),
@@ -640,10 +640,11 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 (119,4,51,'Add Column','add-column',NULL,'align-justify',0,0,1,1,1),
 (120,4,51,'Help','help',NULL,'info-sign',0,0,0,2,1),
 (121,4,11,'Styles','styling','Styling','tint',1,1,0,2,1),
-(122,4,50,'Styles','styling','Styling','tint',1,0,0,2,1),
-(123,4,38,'Styles','styling','Styling','tint',1,0,0,2,1),
-(124,4,49,'Styles','styling','Styling','tint',1,0,0,2,1),
-(125,4,16,'Styling','styling','Styling','tint',1,0,0,2,1);
+(122,4,50,'Styles','styling','Styling','tint',1,1,0,2,1),
+(123,4,38,'Styles','styling','Styling','tint',1,1,0,2,1),
+(124,4,49,'Styles','styling','Styling','tint',1,1,0,2,1),
+(125,4,16,'Styling','styling','Styling','tint',1,1,0,2,1),
+(126,4,39,'Styling','styling','Styling','tint',1,1,0,2,1);
 
 /*Table structure for table `dlayer_session` */
 
@@ -662,7 +663,7 @@ CREATE TABLE `dlayer_session` (
 /*Data for the table `dlayer_session` */
 
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values 
-('11f5ll1vgiduvsodus7b4db1d2','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479938793,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479942393;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1479942393;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1479942393;}}dlayer_session_content|a:5:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:7:{s:4:\"tool\";a:1:{s:7:\"content\";N;}s:3:\"tab\";a:1:{s:7:\"content\";N;}s:8:\"sub_tool\";a:1:{s:7:\"content\";N;}s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}'),
+('11f5ll1vgiduvsodus7b4db1d2','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1480028671,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1480032271;}}'),
 ('968c4aumno9eroq1u3pe5hlvv7','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479683298,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479686898;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1479686898;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1479686898;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:5:{s:7:\"page_id\";i:1;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:7:{s:4:\"tool\";a:1:{s:7:\"content\";N;}s:3:\"tab\";a:1:{s:7:\"content\";N;}s:8:\"sub_tool\";a:1:{s:7:\"content\";N;}s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}'),
 ('e8spf97jr0c5rgpdg41u46qcq6','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479774174,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479777774;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1479777774;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1479777774;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:5:{s:7:\"page_id\";i:1;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:1:{s:4:\"tool\";N;}'),
 ('ilgmjfg241oqel9drsfrn3fq87','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479765532,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479769131;}}'),
