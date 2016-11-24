@@ -396,7 +396,7 @@ CREATE TABLE `dlayer_identity` (
 /*Data for the table `dlayer_identity` */
 
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values 
-(1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-11-23 21:15:13','2016-11-23 22:05:55',1),
+(1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-11-24 23:29:58','2016-11-24 23:42:40',1),
 (2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-05-29 15:57:54','2015-05-29 15:58:47',1),
 (3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-05-29 15:59:10','2015-05-29 16:25:10',1);
 
@@ -524,7 +524,7 @@ CREATE TABLE `dlayer_module_tool_tab` (
   KEY `tool_id` (`tool_id`),
   CONSTRAINT `dlayer_module_tool_tab_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `dlayer_module` (`id`),
   CONSTRAINT `dlayer_module_tool_tab_ibfk_2` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tool` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dlayer_module_tool_tab` */
 
@@ -597,11 +597,11 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 (73,4,32,'Row','add-row',NULL,'align-justify',0,0,1,1,1),
 (74,4,32,'Help','help',NULL,'info-sign',0,0,0,2,1),
 (77,4,34,'Jumbotron','jumbotron',NULL,'pencil',1,0,1,1,1),
-(78,4,34,'Help','help',NULL,'info-sign',0,0,0,2,1),
+(78,4,34,'Help','help',NULL,'info-sign',0,0,0,3,1),
 (79,4,34,'Styles','styling','Styling_Jumbotron',NULL,1,1,0,3,0),
 (80,4,34,'Size & position','position','Position_Jumbotron',NULL,1,1,0,2,0),
 (81,4,35,'Import','import-jumbotron',NULL,NULL,1,0,1,1,0),
-(82,4,35,'Help','help',NULL,NULL,0,0,0,2,0),
+(82,4,35,'Help','help',NULL,NULL,0,0,0,3,0),
 (83,4,36,'Move','move-row',NULL,NULL,1,0,1,1,0),
 (84,4,36,'Help','help',NULL,NULL,0,0,0,2,0),
 (85,4,37,'Move','move-item',NULL,NULL,1,0,1,1,0),
@@ -644,7 +644,8 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 (123,4,38,'Styles','styling','Styling','tint',1,1,0,2,1),
 (124,4,49,'Styles','styling','Styling','tint',1,1,0,2,1),
 (125,4,16,'Styling','styling','Styling','tint',1,1,0,2,1),
-(126,4,39,'Styling','styling','Styling','tint',1,1,0,2,1);
+(126,4,39,'Styling','styling','Styling','tint',1,1,0,2,1),
+(127,4,34,'Styling','styling','Styling','tint',1,1,0,2,1);
 
 /*Table structure for table `dlayer_session` */
 
@@ -663,7 +664,7 @@ CREATE TABLE `dlayer_session` (
 /*Data for the table `dlayer_session` */
 
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values 
-('11f5ll1vgiduvsodus7b4db1d2','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1480028671,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1480032271;}}'),
+('11f5ll1vgiduvsodus7b4db1d2','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1480030969,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1480034569;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1480034569;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1480034569;}}dlayer_session_content|a:5:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:7:{s:4:\"tool\";a:1:{s:7:\"content\";N;}s:3:\"tab\";a:1:{s:7:\"content\";N;}s:8:\"sub_tool\";a:1:{s:7:\"content\";N;}s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}'),
 ('968c4aumno9eroq1u3pe5hlvv7','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479683298,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479686898;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1479686898;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1479686898;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:5:{s:7:\"page_id\";i:1;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:7:{s:4:\"tool\";a:1:{s:7:\"content\";N;}s:3:\"tab\";a:1:{s:7:\"content\";N;}s:8:\"sub_tool\";a:1:{s:7:\"content\";N;}s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}'),
 ('e8spf97jr0c5rgpdg41u46qcq6','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479774174,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479777774;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1479777774;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1479777774;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:5:{s:7:\"page_id\";i:1;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:1:{s:4:\"tool\";N;}'),
 ('ilgmjfg241oqel9drsfrn3fq87','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479765532,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479769131;}}'),
@@ -1957,7 +1958,7 @@ CREATE TABLE `user_site_page_styling_content_item_background_color` (
   CONSTRAINT `user_site_page_styling_content_item_background_color_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_site_page_styling_content_item_background_color_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
   CONSTRAINT `user_site_page_styling_content_item_background_color_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_styling_content_item_background_color` */
 
@@ -1965,7 +1966,8 @@ insert  into `user_site_page_styling_content_item_background_color`(`id`,`site_i
 (2,1,1,2,'#f0ad4e'),
 (3,1,1,4,'#5bc0de'),
 (4,1,2,19,'#f0ad4e'),
-(5,1,2,20,'#337ab7');
+(5,1,2,20,'#337ab7'),
+(6,1,2,17,'#eeeeee');
 
 /*Table structure for table `user_site_page_styling_page_background_color` */
 
