@@ -54,7 +54,8 @@ class Dlayer_View_JumbotronPreview extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		$html = '<div class="jumbotron">';
+		$html = '<div class="jumbotron" ' .
+            $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>';
 		$html .= '<h1>' . $this->view->escape($this->data['title']) . '</h1>';
 		$html .= '<p>' . $this->view->escape($this->data['sub_title']) . '</p>';
 
