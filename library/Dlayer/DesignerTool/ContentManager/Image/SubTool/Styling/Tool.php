@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Image_SubTool_Styling_Tool extends Dlayer_Tool_Content
 {
     /**
      * Check that the required params have been submitted, check the keys in the params array
@@ -161,7 +161,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
             ),
             array(
                 'type' => 'tool',
-                'id' => 'Heading',
+                'id' => 'Image',
             ),
             array(
                 'type' => 'tab',
@@ -171,7 +171,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'heading'
+                'content_type' => 'image'
             )
         );
     }

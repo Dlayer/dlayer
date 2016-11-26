@@ -54,9 +54,9 @@ class Dlayer_View_ImportedFormPreview extends Zend_View_Helper_Abstract
 	 */
 	private function render()
 	{
-		/* Need to assign to var before returning else object returned */
-		$html = '';
+		$html = '<div ' . $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>';
 		$html .= $this->data['form']->form();
+        $html .= '</div>';
 
 		return $html;
 	}

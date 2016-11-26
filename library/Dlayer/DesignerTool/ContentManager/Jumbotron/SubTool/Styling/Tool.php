@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Jumbotron_SubTool_Styling_Tool extends Dlayer_Tool_Content
 {
     /**
      * Check that the required params have been submitted, check the keys in the params array
@@ -105,13 +105,13 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
      */
     protected function backgroundColorContentItem()
     {
-        $model_heading = new Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model();
+        $model_jumbotron = new Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model();
 
-        $id = $model_heading->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
+        $id = $model_jumbotron->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
 
         if ($id === false) {
             try {
-                $model_heading->addBackgroundColor(
+                $model_jumbotron->addBackgroundColor(
                     $this->site_id,
                     $this->page_id,
                     $this->content_id,
@@ -122,7 +122,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
             }
         } else {
             try {
-                $model_heading->editBackgroundColor($id, $this->params['content_background_color']);
+                $model_jumbotron->editBackgroundColor($id, $this->params['content_background_color']);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
@@ -161,7 +161,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
             ),
             array(
                 'type' => 'tool',
-                'id' => 'Heading',
+                'id' => 'Jumbotron',
             ),
             array(
                 'type' => 'tab',
@@ -171,7 +171,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'heading'
+                'content_type' => 'jumbotron'
             )
         );
     }

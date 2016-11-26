@@ -82,7 +82,8 @@ class Dlayer_View_Image extends Zend_View_Helper_Abstract
 		}
 
 		$html = '<div class="' . $class . '" data-content-id="' . $this->view->escape($this->data['content_id'])  .
-			'" data-content-type="image" data-tool="Image">';
+			'" data-content-type="image" data-tool="Image" ' .
+            $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>';
 		$html .= '<img src="/images/library/' . $this->view->escape($this->data['library_id']) . '/' .
 			$this->view->escape($this->data['version_id']) . $this->view->escape($this->data['extension']) .
 			'" class="img-responsive" title="' . $this->view->escape($this->data['name']) . '" />';
