@@ -104,6 +104,10 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $this->heading($tool, $tab);
                 break;
 
+            case 'Html':
+                $data = $this->heading($tool, $tab);
+                break;
+
             case 'Image':
                 $data = $this->image($tool, $tab);
                 break;
@@ -234,7 +238,7 @@ class Dlayer_Ribbon_Handler_Content
     }
 
     /**
-     * Fetch the view tab data for the text tool, returns an array containing the form and the data for the tool
+     * Fetch the view tab data for the heading tool, returns an array containing the form and the data for the tool
      *
      * @param string $tool The tool name
      * @param string $tab The tool tab name
@@ -251,6 +255,35 @@ class Dlayer_Ribbon_Handler_Content
 
             case 'styling':
                 $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Ribbon();
+                $data = $ribbon_styling->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the HTML tool, returns an array containing the form and the data for the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|FALSE
+     */
+    private function html($tool, $tab)
+    {
+        switch ($tab) {
+            case 'html':
+                $ribbon_html = new Dlayer_DesignerTool_ContentManager_Html_Ribbon();
+                $data = $ribbon_html->viewData($this->toolParams($tool));
+                break;
+
+            case 'styling':
+                $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Ribbon();
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
                 break;
 
