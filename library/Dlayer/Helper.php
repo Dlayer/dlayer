@@ -117,4 +117,19 @@ class Dlayer_Helper
 		$logger = Zend_Registry::get('log-app');
 		$logger->info($message);
 	}
+
+    /**
+     * Write a message to the error log
+     *
+     * @param string $message
+     * @return void
+     */
+    public static function sendToErrorLog($message)
+    {
+        /**
+         * @var Zend_Log
+         */
+        $logger = Zend_Registry::get('log-error');
+        $logger->err($message);
+    }
 }

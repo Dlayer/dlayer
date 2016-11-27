@@ -55,7 +55,6 @@ class Content_ProcessController extends Zend_Controller_Action
 	 * @param Dlayer_Session_Content $session_content
 	 * @param Dlayer_Session_Designer $session_designer
 	 *
-	 * @todo Need to add logging so can easily see where errors occurred
 	 * @return boolean
 	 */
 	private function validateRequest($session_content, $session_designer)
@@ -63,8 +62,11 @@ class Content_ProcessController extends Zend_Controller_Action
 		if($session_content->pageId() === Dlayer_Helper::getParamAsInteger('page_id') &&
 			$session_content->rowId() === Dlayer_Helper::getParamAsInteger('row_id') &&
 			$session_content->columnId() === Dlayer_Helper::getParamAsInteger('column_id') &&
-			$session_content->contentId() === Dlayer_Helper::getParamAsInteger('content_id') &&
-			$session_designer->tool('content') !== FALSE &&
+            (
+                $session_content->contentId() === Dlayer_Helper::getParamAsInteger('content_id') ||
+                $session_content->contentId() === null
+            ) &&
+			$session_designer->tool('content') !== false &&
 			$session_designer->tool('content')['tool'] === Dlayer_Helper::getParamAsString('tool')
 		)
 		{
@@ -72,7 +74,18 @@ class Content_ProcessController extends Zend_Controller_Action
 		}
 		else
 		{
-			// Add logging
+            Dlayer_Helper::sendToErrorLog('ContentManager::validateRequest() returned FALSE');
+            Dlayer_Helper::sendToErrorLog('- Session page id: ' . $session_content->pageId() . ' POSTed page id: ' .
+                Dlayer_Helper::getParamAsInteger('page_id'));
+            Dlayer_Helper::sendToErrorLog('- Session row id: ' . $session_content->rowId() . ' POSTed row id: ' .
+                Dlayer_Helper::getParamAsInteger('row_id'));
+            Dlayer_Helper::sendToErrorLog('- Session column id: ' . $session_content->columnId() . ' POSTed column id: ' .
+                Dlayer_Helper::getParamAsInteger('column_id'));
+            Dlayer_Helper::sendToErrorLog('- Session content id: ' . $session_content->contentId() . ' POSTed content id: ' .
+                Dlayer_Helper::getParamAsInteger('content_id'));
+            Dlayer_Helper::sendToErrorLog('- Session tool: ' . $session_designer->tool('content')['tool'] . ' POSTed tool: ' .
+                Dlayer_Helper::getParamAsString('tool'));
+
 			return FALSE;
 		}
 	}
@@ -84,7 +97,6 @@ class Content_ProcessController extends Zend_Controller_Action
      * @param Dlayer_Session_Content $session_content
      * @param Dlayer_Session_Designer $session_designer
      *
-     * @todo Need to add logging so can easily see where errors occurred
      * @return boolean
      */
     private function validateAutoRequest($session_content, $session_designer)
@@ -98,7 +110,12 @@ class Content_ProcessController extends Zend_Controller_Action
         }
         else
         {
-            // Add logging
+            Dlayer_Helper::sendToErrorLog('ContentManager::validateAutoRequest() returned FALSE');
+            Dlayer_Helper::sendToErrorLog('- Session page id: ' . $session_content->pageId() . ' POSTed page id: ' .
+                Dlayer_Helper::getParamAsInteger('page_id'));
+            Dlayer_Helper::sendToErrorLog('- Session tool: ' . $session_designer->tool('content')['tool'] . ' POSTed tool: ' .
+                Dlayer_Helper::getParamAsString('tool'));
+
             return FALSE;
         }
     }

@@ -105,7 +105,7 @@ class Dlayer_Ribbon_Handler_Content
                 break;
 
             case 'Html':
-                $data = $this->heading($tool, $tab);
+                $data = $this->html($tool, $tab);
                 break;
 
             case 'Image':
