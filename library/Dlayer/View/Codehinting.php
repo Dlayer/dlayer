@@ -384,4 +384,26 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     public function importedFormPreview(array $data)
     {
     }
+
+    /**
+     * HTML content item view helper, a custom snippet of html
+     *
+     * @param array $data Content item data array
+     * @param boolean $selectable
+     * @param boolean $selected
+     * @return Dlayer_View_Html
+     */
+    public function html(array $data, $selectable = FALSE, $selected = FALSE)
+    {
+    }
+
+    /**
+     * Preview version of the HTML snippet view helper
+     *
+     * @param array $data Content item data array
+     * @return Dlayer_View_HtmlPreview
+     */
+    public function htmlPreview(array $data)
+    {
+    }
 }
