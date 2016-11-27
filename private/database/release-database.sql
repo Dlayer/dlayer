@@ -117,7 +117,7 @@ CREATE TABLE `designer_content_type` (
   PRIMARY KEY (`id`),
   KEY `tool_id` (`tool_id`),
   CONSTRAINT `designer_content_type_ibfk_1` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tool` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `designer_content_type` */
 
@@ -126,7 +126,8 @@ insert  into `designer_content_type`(`id`,`name`,`description`,`tool_id`) values
 (2,'heading','Heading',11),
 (3,'form','Form',16),
 (4,'jumbotron','Jumbotron',34),
-(5,'image','Image',39);
+(5,'image','Image',39),
+(7,'html','Raw html',52);
 
 /*Table structure for table `designer_css_border_style` */
 
@@ -396,7 +397,7 @@ CREATE TABLE `dlayer_identity` (
 /*Data for the table `dlayer_identity` */
 
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values 
-(1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-11-26 20:27:06','2016-11-26 20:37:35',1),
+(1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-11-27 12:08:17','2016-11-27 12:13:26',1),
 (2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-05-29 15:57:54','2015-05-29 15:58:47',1),
 (3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-05-29 15:59:10','2015-05-29 16:25:10',1);
 
@@ -447,7 +448,7 @@ CREATE TABLE `dlayer_module_tool` (
   UNIQUE KEY `module_id` (`module_id`,`model`),
   KEY `enabled` (`enabled`),
   CONSTRAINT `dlayer_module_tool_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `dlayer_module` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dlayer_module_tool` */
 
@@ -498,7 +499,8 @@ insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`base`,`destru
 (48,3,'Password','PresetPassword',0,0,3,4,1),
 (49,4,'Page','Page',1,0,99,1,1),
 (50,4,'Column','Column',1,0,3,3,1),
-(51,4,'Add column(s)','AddColumn',1,0,3,4,1);
+(51,4,'Add column(s)','AddColumn',1,0,3,4,1),
+(52,4,'HTML','Html',0,0,4,4,1);
 
 /*Table structure for table `dlayer_module_tool_tab` */
 
@@ -524,7 +526,7 @@ CREATE TABLE `dlayer_module_tool_tab` (
   KEY `tool_id` (`tool_id`),
   CONSTRAINT `dlayer_module_tool_tab_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `dlayer_module` (`id`),
   CONSTRAINT `dlayer_module_tool_tab_ibfk_2` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tool` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dlayer_module_tool_tab` */
 
@@ -645,7 +647,10 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 (124,4,49,'Styles','styling','Styling','tint',1,1,0,2,1),
 (125,4,16,'Styling','styling','Styling','tint',1,1,0,2,1),
 (126,4,39,'Styling','styling','Styling','tint',1,1,0,2,1),
-(127,4,34,'Styling','styling','Styling','tint',1,1,0,2,1);
+(127,4,34,'Styling','styling','Styling','tint',1,1,0,2,1),
+(128,4,52,'HTML','html',NULL,'pencil',1,0,1,1,1),
+(129,4,52,'Styles','styling','Styling','tint',1,1,0,2,1),
+(130,4,52,'Help','help',NULL,'info-sign',0,0,0,3,1);
 
 /*Table structure for table `dlayer_session` */
 
@@ -664,7 +669,7 @@ CREATE TABLE `dlayer_session` (
 /*Data for the table `dlayer_session` */
 
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values 
-('11f5ll1vgiduvsodus7b4db1d2','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1480192663,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1480196263;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1480196263;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1480196263;}}dlayer_session_content|a:5:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:7:{s:4:\"tool\";a:1:{s:7:\"content\";N;}s:3:\"tab\";a:1:{s:7:\"content\";N;}s:8:\"sub_tool\";a:1:{s:7:\"content\";N;}s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}'),
+('11f5ll1vgiduvsodus7b4db1d2','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1480248809,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1480252409;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1480252409;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1480252409;}}dlayer_session_content|a:5:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:7:{s:4:\"tool\";a:1:{s:7:\"content\";N;}s:3:\"tab\";a:1:{s:7:\"content\";N;}s:8:\"sub_tool\";a:1:{s:7:\"content\";N;}s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}'),
 ('968c4aumno9eroq1u3pe5hlvv7','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479683298,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479686898;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1479686898;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1479686898;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:5:{s:7:\"page_id\";i:1;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:7:{s:4:\"tool\";a:1:{s:7:\"content\";N;}s:3:\"tab\";a:1:{s:7:\"content\";N;}s:8:\"sub_tool\";a:1:{s:7:\"content\";N;}s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}'),
 ('e8spf97jr0c5rgpdg41u46qcq6','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479774174,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479777774;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1479777774;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1479777774;}}dlayer_session|a:3:{s:11:\"identity_id\";i:1;s:7:\"site_id\";i:1;s:6:\"module\";s:7:\"content\";}dlayer_session_content|a:5:{s:7:\"page_id\";i:1;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:1:{s:4:\"tool\";N;}'),
 ('ilgmjfg241oqel9drsfrn3fq87','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1479765532,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1479769131;}}'),
@@ -1088,6 +1093,22 @@ insert  into `user_site_content_heading`(`id`,`site_id`,`name`,`content`) values
 (3,1,'Heading','A column heading-:-with a sub heading'),
 (4,1,'Testing forms and images','Testing forms and images-:-Do they work?'),
 (5,1,'Testing','Testing new tool location-:-:eek:');
+
+/*Table structure for table `user_site_content_html` */
+
+DROP TABLE IF EXISTS `user_site_content_html`;
+
+CREATE TABLE `user_site_content_html` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `site_id` int(11) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Name so user can identity content',
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `site_id` (`site_id`),
+  CONSTRAINT `user_site_content_html_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `user_site_content_html` */
 
 /*Table structure for table `user_site_content_jumbotron` */
 
@@ -1684,6 +1705,29 @@ insert  into `user_site_page_content_item_heading`(`id`,`site_id`,`page_id`,`con
 (4,1,1,14,1,3),
 (5,1,2,18,1,4),
 (6,1,2,20,2,5);
+
+/*Table structure for table `user_site_page_content_item_html` */
+
+DROP TABLE IF EXISTS `user_site_page_content_item_html`;
+
+CREATE TABLE `user_site_page_content_item_html` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `site_id` int(11) unsigned NOT NULL,
+  `page_id` int(11) unsigned NOT NULL,
+  `content_id` int(11) unsigned NOT NULL,
+  `data_id` int(11) unsigned NOT NULL COMMENT 'Id of content in data table',
+  PRIMARY KEY (`id`),
+  KEY `page_id` (`page_id`),
+  KEY `content_id` (`content_id`),
+  KEY `site_id` (`site_id`),
+  KEY `data_id` (`data_id`),
+  CONSTRAINT `user_site_page_content_item_html_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
+  CONSTRAINT `user_site_page_content_item_html_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
+  CONSTRAINT `user_site_page_content_item_html_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`),
+  CONSTRAINT `user_site_page_content_item_html_ibfk_4` FOREIGN KEY (`data_id`) REFERENCES `user_site_content_html` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `user_site_page_content_item_html` */
 
 /*Table structure for table `user_site_page_content_item_image` */
 
