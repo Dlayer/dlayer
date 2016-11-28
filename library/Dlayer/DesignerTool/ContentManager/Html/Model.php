@@ -191,7 +191,7 @@ class Dlayer_DesignerTool_ContentManager_Html_Model extends Zend_Db_Table_Abstra
         $sql = "SELECT usch.`name`, usch.content
 				FROM user_site_page_content_item_html uspcih 
 				JOIN user_site_content_html usch 
-					ON uspcih.data_id = usct.id
+					ON uspcih.data_id = usch.id
 					AND usch.site_id = :site_id 
 				WHERE uspcih.site_id = :site_id
 				AND uspcih.content_id = :content_id";

@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Data model for 'jumbotron' based content items
+ * Data model for 'html' snippet
  *
  * @category View model: These models are used to generate the data in the designers, the user data and later the web site
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Model_View_ContentPage_Item_Jumbotron extends Zend_Db_Table_Abstract
+class Dlayer_Model_View_ContentPage_Item_Html extends Zend_Db_Table_Abstract
 {
     /**
-     * Fetch the core data needed to create a 'jumbotron' based content item
+     * Fetch the core data needed to create a 'html'snippet
      *
      * @param integer $site_id
      * @param integer $page_id
@@ -20,33 +20,26 @@ class Dlayer_Model_View_ContentPage_Item_Jumbotron extends Zend_Db_Table_Abstrac
      */
     private function baseItemData($site_id, $page_id, $id)
     {
-        $sql = "SELECT uspcij.content_id, uscj.content, uspcij.button_label 
-				FROM user_site_page_content_item_jumbotron uspcij 
-				JOIN user_site_content_jumbotron uscj 
-					ON uspcij.data_id = uscj.id 
-					AND uscj.site_id = :site_id 
-				WHERE uspcij.content_id = :content_id  
-				AND uspcij.site_id = :site_id 
-				AND uspcij.page_id = :page_id";
+        $sql = "SELECT uspcih.content_id, usch.content  
+				FROM user_site_page_content_item_html uspcih 
+				JOIN user_site_content_html usch 
+					ON uspcih.data_id = usch.id 
+					AND usch.site_id = :site_id 
+				WHERE uspcih.content_id = :content_id  
+				AND uspcih.site_id = :site_id 
+				AND uspcih.page_id = :page_id";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
         $stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        $result = $stmt->fetch();
-
-        $bits = explode('-:-', $result['content']);
-
-        $result['title'] = $bits[0];
-        $result['sub_title'] = $bits[1];
-
-        return $result;
+        return $stmt->fetch();
     }
 
     /**
-     * Fetch the data needed to create a 'jumbotron' based content item, this will include all the data that may have
-     * been defined by any sub tools
+     * Fetch the data needed to create a 'html' snippet, this will include all the data that may have been defined by
+     * any sub tools
      *
      * @param integer $site_id
      * @param integer $page_id
