@@ -126,7 +126,9 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Tool extends Dlaye
         } else {
             try {
                 $model->editBackgroundColor($id, $this->params['content_background_color']);
-                $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
+                if ($this->params['content_background_color'] !== null && strlen($this->params['content_background_color']) === 7) {
+                    $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
+                }
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
