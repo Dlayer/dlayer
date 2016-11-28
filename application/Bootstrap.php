@@ -186,4 +186,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         Zend_Registry::set('log-app', $logger);
     }
+
+    /**
+     * Set up the error logger
+     *
+     * @return void
+     */
+    public function _initErrorLogger()
+    {
+        $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../private/logs/error.log');
+        $logger = new Zend_Log($writer);
+
+        Zend_Registry::set('log-error', $logger);
+    }
 }

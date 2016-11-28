@@ -67,7 +67,7 @@ class Dlayer_DesignerTool_ContentManager_Image_Model extends Zend_Db_Table_Abstr
 		$stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
 		$stmt->bindValue(':version_id', $params['version_id'], PDO::PARAM_INT);
 		$stmt->bindValue(':expand', $params['expand'], PDO::PARAM_INT);
-		$stmt->bindValue(':caption', $params['caption'], PDO::PARAM_STMT);
+		$stmt->bindValue(':caption', $params['caption'], PDO::PARAM_STR);
 		$result = $stmt->execute();
 
 		return $result;

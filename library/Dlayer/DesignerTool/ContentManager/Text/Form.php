@@ -53,7 +53,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Form extends Dlayer_Form_Content
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');
-		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Into for contact page',
+		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Intro for contact page',
 			'class'=>'form-control input-sm'));
 		$name->setDescription('Give the content item a name, this will allow you to recreate it again later.');
 		$name->setBelongsTo('params');

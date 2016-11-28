@@ -7,8 +7,9 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Image_SubTool_Styling_Tool extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Tool extends Dlayer_Tool_Content
 {
+
     /**
      * Check that the required params have been submitted, check the keys in the params array
      *
@@ -105,14 +106,14 @@ class Dlayer_DesignerTool_ContentManager_Image_SubTool_Styling_Tool extends Dlay
      */
     protected function backgroundColorContentItem()
     {
-        $model_heading = new Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Model();
+        $model = new Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Model();
         $model_palette = new Dlayer_Model_Palette();
 
-        $id = $model_heading->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
+        $id = $model->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
 
         if ($id === false) {
             try {
-                $model_heading->addBackgroundColor(
+                $model->addBackgroundColor(
                     $this->site_id,
                     $this->page_id,
                     $this->content_id,
@@ -124,7 +125,7 @@ class Dlayer_DesignerTool_ContentManager_Image_SubTool_Styling_Tool extends Dlay
             }
         } else {
             try {
-                $model_heading->editBackgroundColor($id, $this->params['content_background_color']);
+                $model->editBackgroundColor($id, $this->params['content_background_color']);
                 if ($this->params['content_background_color'] !== null && strlen($this->params['content_background_color']) === 7) {
                     $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
                 }
@@ -166,7 +167,7 @@ class Dlayer_DesignerTool_ContentManager_Image_SubTool_Styling_Tool extends Dlay
             ),
             array(
                 'type' => 'tool',
-                'id' => 'Image',
+                'id' => 'Html',
             ),
             array(
                 'type' => 'tab',
@@ -176,7 +177,7 @@ class Dlayer_DesignerTool_ContentManager_Image_SubTool_Styling_Tool extends Dlay
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'image'
+                'content_type' => 'html'
             )
         );
     }

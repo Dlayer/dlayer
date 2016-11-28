@@ -143,7 +143,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Model extends Zend_Db_Table_A
 		}
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':content', strtoupper($content), PDO::PARAM_STMT);
+		$stmt->bindValue(':content', strtoupper($content), PDO::PARAM_STR);
 		if($ignore_id !== NULL)
 		{
 			$stmt->bindValue(':ignore_id', $ignore_id, PDO::PARAM_INT);

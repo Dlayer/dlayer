@@ -1,1 +1,2 @@
-Update Bootstrap::_initLogger to control the logging for the app file for the app
+Errors and App notifications are written to app.log and error.log
+Use Dlayer_Helper::sendToInfoLog and Dlayer_Helper::sendToErrorLog to write the the relevant log
