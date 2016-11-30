@@ -43,6 +43,11 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
     private $selected_content_id;
 
     /**
+     * @var boolean Child content
+     */
+    private $child_content = true;
+
+    /**
      * Pass in anything required to set up the object
      *
      * @param array $rows The rows that make up the content page
@@ -67,6 +72,10 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
         $this->view->row()->setRows($rows);
         $this->view->column()->setColumns($columns);
         $this->view->content()->setContent($content);
+
+        if (count($rows) === 0 && count($columns) === 0) {
+            $this->child_content = false;
+        }
 
         $this->page_selected = $page_selected;
         $this->selected_column_id = $column_id;
@@ -121,7 +130,15 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
         $this->view->row()->setSelectedRowId($this->selected_row_id);
         $this->view->row()->setSelectedContentId($this->selected_content_id);
 
-        $this->html .= $this->view->row()->render();
+        if ($this->child_content === true) {
+            $this->html .= $this->view->row()->render();
+        } else {
+            if ($this->page_selected !== null) {
+                $this->html .= '<div style="padding: 2rem 0;">';
+                $this->html .= "<p><a href=\"/content/design/set-tool/tool/AddRow\" class=\"btn btn-primary\">Add Row(s)</a></p>";
+                $this->html .= '</div>';
+            }
+        }
 
         $this->html .= '</div>';
 
