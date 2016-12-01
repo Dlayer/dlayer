@@ -79,6 +79,9 @@ class Dlayer_DesignerTool_ContentManager_AddRow_Tool extends Dlayer_Tool_Content
 
 		$row_id = $model_content->addRows($this->params_auto['rows'], $this->site_id, $this->page_id, $this->column_id);
 
+        Dlayer_Helper::sendToInfoLog('Form added to site id: '. $this->site_id . ' page id: ' . $this->page_id .
+            ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
+
 		return array(
 			array(
 				'type' => 'page_id',

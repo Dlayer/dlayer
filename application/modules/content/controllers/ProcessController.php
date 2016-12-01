@@ -45,7 +45,6 @@ class Content_ProcessController extends Zend_Controller_Action
 
 		$this->debug = intval($this->getInvokeArg('bootstrap')
 			->getOption('debug'));
-		//$this->debug = 0;
 	}
 
 	/**

@@ -81,6 +81,9 @@ class Dlayer_DesignerTool_ContentManager_AddColumn_Tool extends Dlayer_Tool_Cont
 		$column_id = $model_content->addColumns($this->params_auto['columns'], $this->site_id, $this->page_id,
 			$this->row_id);
 
+        Dlayer_Helper::sendToInfoLog('Column added to site id: '. $this->site_id . ' page id: ' . $this->page_id .
+            ' row id: ' . $this->row_id);
+
 		return array(
 			array(
 				'type' => 'page_id',
@@ -104,7 +107,7 @@ class Dlayer_DesignerTool_ContentManager_AddColumn_Tool extends Dlayer_Tool_Cont
 	/**
 	 * Validate the instances param, need to see if it should exist first
 	 *
-	 * @param integer site_id
+	 * @param integer $site_id
 	 * @param integer $content_id
 	 * @return boolean
 	 */
