@@ -170,7 +170,23 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 					}
 					else
 					{
-						$content = '<p class="text-muted"><em>Empty column</em></p>';
+                        if ($this->selected_column_id === $column['id']) {
+                            $content = "<div style=\"padding: 3rem 0;\"><div class=\"btn-group\">
+                                    <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                                    Add content item <span class=\"caret\"></span></button>
+                                    <ul class=\"dropdown-menu\">
+                                        <li><a href=\"/content/design/set-tool/tool/Heading\">Heading</a></li>
+                                        <li><a href=\"/content/design/set-tool/tool/Text\">Text</a></li>
+                                        <li><a href=\"/content/design/set-tool/tool/Jumbotron\">Jumbotron</a></li>
+                                        <li><a href=\"/content/design/set-tool/tool/Html\">HTML</a></li>
+                                        <li role=\"separator\" class=\"divider\"></li>
+                                        <li><a href=\"/content/design/set-tool/tool/Form\">Form</a></li>
+                                        <li><a href=\"/content/design/set-tool/tool/Image\">Image</a></li>
+                                    </ul>
+                                </div></div>";
+                        } else {
+                            $content = '<p class="text-muted"><em>Empty column</em></p>';
+                        }
 						$class .= ' empty';
 					}
 				}

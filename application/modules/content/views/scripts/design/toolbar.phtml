@@ -1,106 +1,129 @@
-<?php /** @var Dlayer_View_Codehinting */ $this ?>
+<?php /** @var Dlayer_View_Codehinting */
+$this ?>
 
-<?php 
+<?php
 $groups = array(
-	1=>'', 
-	2=>'Select <small>Select page elements</small>',
-	3=>'Layout <small>Layout tools for the page</small>',
-	4=>'Create <small>Manage content items</small>',
-	5=>'Import <small>Import content items</small>'
+    1 => '',
+    2 => 'Select <small>Select page elements</small>',
+    3 => 'Layout <small>Layout tools for the page</small>',
+    4 => 'Create <small>Manage content items</small>',
+    5 => 'Import <small>Import content items</small>'
 );
 
-foreach($this->tools as $group_id => $group) {
+foreach ($this->tools as $group_id => $group) {
 
-	$html = '';
+    $html = '';
 
-	foreach($group as $tool) {
+    foreach ($group as $tool) {
 
-		$show = FALSE;
-		$selected = FALSE;
-		
-		switch($tool['group_id'])
-		{
-			case 1: // Cancel tool
-				if($this->page_selected !== NULL)
-				{
-					$show = TRUE;
-				}
-			break;
+        $show = false;
+        $selected = false;
 
-			case 3: // Structure tools
-				// Show the add row tool, either inside the selected page or when a column is selected
-				if($this->page_selected === TRUE && $this->row_id === NULL && $tool['model'] === 'AddRow')
-				{
-					$show = TRUE;
-				}
+        switch ($tool['group_id']) {
+            case 1: // Cancel tool
+                if ($this->page_selected !== null) {
+                    $show = true;
+                }
+                break;
 
-				// Show the column tool, columns can only be added to rows, a content item can't be selected
-				if($this->page_selected === TRUE && $this->row_id !== NULL && $this->content_id === NULL &&
-					$tool['model'] === 'AddColumn')
-				{
-					$show = TRUE;
-				}
-			break;
+            case 3: // Structure tools
+                // Show the add row tool, when the page is selected
+                if ($tool['model'] === 'AddRow' && $this->page_selected === true && $this->row_id === null
+                    && $this->column_id === 0
+                ) {
+                    $show = true;
+                }
 
-			case 4: // Content tools
-				if($this->page_selected === TRUE && $this->row_id !== NULL &&
-					($this->column_id !== NULL && $this->column_id !== 0))
-				{
-					$show = TRUE;
-				}
-			break;
+                // Show the row tool
+                if ($tool['model'] === 'AddRow' && $this->page_selected === true && $this->row_id !== null
+                    && $this->content_id === null
+                ) {
+                    $show = true;
+                }
 
-			case 5: // Import tools
-				if($this->page_selected === TRUE && $this->row_id !== NULL &&
-					($this->column_id !== NULL && $this->column_id !== 0))
-				{
-					$show = TRUE;
-				}
-			break;
+                // Hide row tool
+                if ($tool['model'] === 'AddRow' && $this->tool !== false && $this->tool['tool'] === 'Row') {
+                    $show = false;
+                }
 
-			default:
-			break;
-		}
-				
-		// Set selected status for tool
-		if($this->tool !== FALSE && $this->tool['tool'] === $tool['model']) {
-			$selected = TRUE;
-		}
-		
-		$reset = NULL;
+                // Hide row tool
+                if ($tool['model'] === 'AddRow' && $this->tool !== false && $this->row_id !== null
+                    && ($this->column_id !== 0 || $this->column_id !== null)
+                ) {
+                    $show = false;
+                }
 
-		if($show === TRUE) {
-			$class = "btn btn-default btn-sm";
-			
-			if($selected === TRUE) {
-				$class = "btn btn-primary btn-sm";
-			}
-			
-			if($tool['model'] === 'Cancel') {
-				$class = "btn btn-danger hidden-lg";
-			}
-			
-			$html .= '<a href="/content/design/set-tool/tool/' . 
-			$tool['model'] . $reset . '"class="' . $class . '">' .
-			$tool['name'] . '</a> ';
-		}
-	}
+                // Show the column tool
+                if ($tool['model'] === 'AddColumn' && $this->page_selected === true && $this->column_id !== null
+                    && $this->row_id !== null && $this->content_id === null
+                ) {
+                    $show = true;
+                }
 
-	if(strlen($html) > 0) 
-	{
-		echo '<div class="row">';
-		echo '<div class="col-xs-12">';
-		if(strlen($groups[$group_id]) > 0) {
-			echo '<h4 class="tool-row-' . $group_id . '"> 
+                // Hide column tool
+                if ($tool['model'] === 'AddColumn' && $this->tool !== false && $this->tool['tool'] === 'Column') {
+                    $show = false;
+                }
+                break;
+
+            case 4: // Content tools
+                if ($this->page_selected === true && $this->row_id !== null &&
+                    ($this->column_id !== null && $this->column_id !== 0)
+                ) {
+                    $show = true;
+                }
+                break;
+
+            case 5: // Import tools
+                if ($this->page_selected === true && $this->row_id !== null &&
+                    ($this->column_id !== null && $this->column_id !== 0)
+                ) {
+                    $show = true;
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        // Set selected status for tool
+        if ($this->tool !== false && $this->tool['tool'] === $tool['model']) {
+            $selected = true;
+        }
+
+        $reset = null;
+
+        if ($show === true) {
+            $class = "btn btn-default btn-sm";
+
+            if ($selected === true) {
+                $class = "btn btn-primary btn-sm";
+            }
+
+            if ($tool['model'] === 'Cancel') {
+                $class = "btn btn-danger hidden-lg";
+            }
+
+            $html .= '<a href="/content/design/set-tool/tool/' .
+                $tool['model'] . $reset . '"class="' . $class . '">' .
+                $tool['name'] . '</a> ';
+        }
+    }
+
+    if (strlen($html) > 0) {
+        echo '<div class="row">';
+        echo '<div class="col-xs-12">';
+        if (strlen($groups[$group_id]) > 0) {
+            echo '<h4 class="tool-row-' . $group_id . '"> 
 				<span class="glyphicon glyphicon-minus" 
-				aria-hidden="true"></span> ' . 
-				$groups[$group_id] . '</h4>';
-		}
-		echo '<div class="tool-row-' . $group_id . '">';
-		echo $html;
-		echo '</div>';
-		echo '</div>';
-		echo '</div>';
-	}
-} 
+				aria-hidden="true"></span> ' .
+                $groups[$group_id] . '</h4>';
+        }
+        echo '<div class="tool-row-' . $group_id . '">';
+        echo $html;
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    }
+}
 ?>

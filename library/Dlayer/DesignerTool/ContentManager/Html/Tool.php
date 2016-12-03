@@ -75,6 +75,9 @@ class Dlayer_DesignerTool_ContentManager_Html_Tool extends Dlayer_Tool_Content
 
         if($content_id !== FALSE && $data_added === TRUE)
         {
+            Dlayer_Helper::sendToInfoLog('HTML added to site id: '. $this->site_id . ' page id: ' . $this->page_id .
+                ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
+
             return $this->returnIds($content_id);
         }
         else

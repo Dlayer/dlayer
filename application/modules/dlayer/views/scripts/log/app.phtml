@@ -1,0 +1,15 @@
+<?php /** @var Dlayer_View_Codehinting */ $this ?>
+
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <h1>Logs</h1>
+
+        <h2>Application log</h2>
+
+        <ul>
+        <?php foreach($this->file as $line) { ?>
+            <li><?php echo $this->escape($line); ?></li>
+        <?php } ?>
+        </ul>
+    </div>
+</div>
