@@ -115,7 +115,9 @@ class Dlayer_ErrorController extends Zend_Controller_Action
             array('uri'=>'/dlayer/index/index', 'name'=>'Dlayer Demo', 
                 'title'=>'Dlayer.com: Web development simplified'),
             array('uri'=>'http://www.dlayer.com/docs/', 'name'=>'Docs',
-                'title'=>'Read the Docs for Dlayer')
+                'title'=>'Read the Docs for Dlayer'),
+            array('uri' => '/dlayer/log/app', 'name' => 'App log', 'title' => 'App log'),
+            array('uri' => '/dlayer/log/error', 'name' => 'Error log', 'title' => 'Error log'),
         );
         
         $this->layout->assign('nav', array(
