@@ -117,6 +117,9 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
                 );
 
                 $model_palette->addToHistory($this->site_id, $this->params['background_color']);
+
+                Dlayer_Helper::sendToInfoLog('Set background colour for page: ' . $this->content_id .
+                    ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
@@ -125,6 +128,9 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
                 $model_styling->editBackgroundColor($id, $this->params['background_color']);
                 if ($this->params['background_color'] !== null && strlen($this->params['background_color']) === 7) {
                     $model_palette->addToHistory($this->site_id, $this->params['background_color']);
+
+                    Dlayer_Helper::sendToInfoLog('Set background colour for page: ' . $this->content_id .
+                        ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id);
                 }
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);

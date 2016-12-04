@@ -118,7 +118,12 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
                     $this->content_id,
                     $this->params['content_background_color']
                 );
+
                 $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
+
+                Dlayer_Helper::sendToInfoLog('Set background colour for heading content item: ' . $this->content_id .
+                    ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
+                    ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
@@ -127,6 +132,10 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Styling_Tool extends Dl
                 $model_heading->editBackgroundColor($id, $this->params['content_background_color']);
                 if ($this->params['content_background_color'] !== null && strlen($this->params['content_background_color']) === 7) {
                     $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
+
+                    Dlayer_Helper::sendToInfoLog('Set background colour for heading content item: ' . $this->content_id .
+                        ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
+                        ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
                 }
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
