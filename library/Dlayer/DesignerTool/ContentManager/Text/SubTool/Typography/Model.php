@@ -83,7 +83,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      *
      * @return boolean
      */
-    public function addBackgroundColor($site_id, $page_id, $id, $font_family_id)
+    public function addFontFamily($site_id, $page_id, $id, $font_family_id)
     {
         $sql = "INSERT INTO user_site_page_styling_content_item_typography 
                 (site_id, page_id, content_id, font_family_id) 
@@ -108,7 +108,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      */
     public function editFontFamily($id, $font_family_id)
     {
-        if (intval($font_family_id) === 0) {
+        if (intval($font_family_id) !== DEFAULT_FONT_FAMILY_FOR_MODULE) {
             return $this->updateFontFamily($id, $font_family_id);
         } else {
             return $this->deleteFontFamily($id);
@@ -140,7 +140,6 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      * Remove the font family for a content item
      *
      * @param integer $id
-     *
      * @return boolean
      */
     protected function deleteFontFamily($id)
@@ -152,5 +151,28 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
         $stmt->bindValue(':id', $id);
 
         return $stmt->execute();
+    }
+
+    /**
+     * Font family valid
+     *
+     * @param integer $font_family_id
+     * @return boolean
+     */
+    public function fontFamilyIdValid($font_family_id)
+    {
+        $sql = "SELECT id 
+                FROM designer_css_font_family 
+                WHERE id = :id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':id', $font_family_id);
+        $stmt->execute();
+
+        if ($stmt->fetch() !== false) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
