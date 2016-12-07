@@ -93,7 +93,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
      */
     protected function edit()
     {
-        $this->backgroundColorContentItem();
+        $this->fontFamily();
 
         return $this->returnIds();
     }
