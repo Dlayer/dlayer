@@ -22,8 +22,8 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
     {
         $sql = "SELECT uspscit.font_family_id  
                 FROM user_site_page_styling_content_item_typography uspscit 
-                JOIN designer_css_font_family dcff ON 
-                  uspscit.font_family_id = dcff.id
+                JOIN designer_css_font_family dcff ON
+                    uspscit.font_family_id = dcff.id
                 WHERE uspscit.site_id = :site_id 
                 AND uspscit.page_id = :page_id 
                 AND uspscit.content_id = :content_id 
@@ -191,7 +191,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
 
         $font_families = array();
 
-        foreach($stmt->fetchAll() as $row) {
+        foreach ($stmt->fetchAll() as $row) {
             $font_families[intval($row['id'])] = $row['name'];
         }
 

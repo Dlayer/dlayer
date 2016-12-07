@@ -51,7 +51,8 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
     public function contentItems()
     {
         return array(
-            'background_color' => $this->contentItemBackgroundColors()
+            'background_color' => $this->contentItemBackgroundColors(),
+            'font-family' => $this->contentItemFontFamilies()
         );
     }
 
@@ -104,6 +105,34 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
         }
 
         return $styles;
+    }
+
+    /**
+     * Fetch the defined font families indexed by content id
+     *
+     * @return array
+     */
+    private function contentItemFontFamilies()
+    {
+        $sql = "SELECT uspscit.content_id, dcff.css 
+                FROM user_site_page_styling_content_item_typography uspscit 
+                JOIN designer_css_font_family dcff 
+                    ON uspscit.font_family_id = dcff.id 
+                WHERE uspscit.site_id = :site_id 
+                AND uspscit.page_id = :page_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $this->site_id);
+        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->execute();
+
+        $styles = array();
+
+        foreach($stmt->fetchAll() as $row) {
+            $styles[intval($row['content_id'])] = $row['css'];
+        }
+
+        return $styles;
+
     }
 
     /**
