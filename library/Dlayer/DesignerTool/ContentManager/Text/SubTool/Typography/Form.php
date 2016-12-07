@@ -53,7 +53,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Form extends Dl
      */
     protected function generateUserElements()
     {
-        $font_family = new Zend_Form_Element_Select('font_family');
+        $font_family = new Zend_Form_Element_Select('font_family_id');
         $font_family->setLabel('Font family');
         $font_family->setDescription('Choose a font familiy, defaults to the font familiy set in the settings');
         if ($this->element_data['font_families'] !== false) {
@@ -67,6 +67,6 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Form extends Dl
             $font_family->setValue(DEFAULT_FONT_FAMILY_FOR_MODULE);
         }
 
-        $this->elements['font_family'] = $font_family;
+        $this->elements['font_family_id'] = $font_family;
     }
 }

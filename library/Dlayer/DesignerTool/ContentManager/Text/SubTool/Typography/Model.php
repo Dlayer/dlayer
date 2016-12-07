@@ -20,7 +20,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      */
     public function fontFamily($site_id, $page_id, $id)
     {
-        $sql = "SELECT dcff.css  
+        $sql = "SELECT uspscit.font_family_id  
                 FROM user_site_page_styling_content_item_typography uspscit 
                 JOIN designer_css_font_family dcff ON 
                   uspscit.font_family_id = dcff.id
