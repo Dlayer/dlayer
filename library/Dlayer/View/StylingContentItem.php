@@ -84,13 +84,23 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
     {
         $styles = '';
 
-        if(array_key_exists('background_color', $this->styles) === true &&
-        array_key_exists($this->id, $this->styles['background_color']) === true) {
-            $styles .= $this->view->stylingAttributeBackgroundColor($this->styles['background_color'][$this->id]);
-        }
+        if (is_array($this->styles) === true) {
 
-        if(strlen($styles) > 0) {
-            $styles = ' style="' . $styles . '"';
+            if (array_key_exists('background_color', $this->styles) === true &&
+                array_key_exists($this->id, $this->styles['background_color']) === true
+            ) {
+                $styles .= $this->view->stylingAttributeBackgroundColor($this->styles['background_color'][$this->id]);
+            }
+
+            if (array_key_exists('font_family', $this->styles) === true &&
+                array_key_exists($this->id, $this->styles['font_family']) === true
+            ) {
+                $styles .= $this->view->stylingAttributeFontFamily($this->styles['font_family'][$this->id]);
+            }
+
+            if (strlen($styles) > 0) {
+                $styles = ' style="' . $styles . '"';
+            }
         }
 
         return $styles;

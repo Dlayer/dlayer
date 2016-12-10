@@ -36,7 +36,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
 
         $result = $stmt->fetch();
         if ($result !== false) {
-            return $result['css'];
+            return intval($result['font_family_id']);
         } else {
             return false;
         }

@@ -52,7 +52,7 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
     {
         return array(
             'background_color' => $this->contentItemBackgroundColors(),
-            'font-family' => $this->contentItemFontFamilies()
+            'font_family' => $this->contentItemFontFamilies()
         );
     }
 
@@ -132,7 +132,6 @@ class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
         }
 
         return $styles;
-
     }
 
     /**
