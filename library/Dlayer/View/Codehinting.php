@@ -329,6 +329,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     }
 
     /**
+     * Styles for page
+     *
+     * @return Dlayer_View_StylingPage
+     */
+    public function stylingPage()
+    {
+    }
+
+    /**
      * Preview version of the column view helper
      *
      * @return Dlayer_View_ColumnPreview

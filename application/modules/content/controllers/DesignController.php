@@ -334,6 +334,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$this->view->content = $designer_page->content();
 
 		// Set the vars to determine the state of the designer
+        $this->view->page_id = $this->page_id;
 		$this->view->page_selected = $this->session_content->pageSelected();
 		$this->view->column_id = $this->session_content->columnId();
 		$this->view->row_id = $this->session_content->rowId();
@@ -358,6 +359,7 @@ class Content_DesignController extends Zend_Controller_Action
 		$designer_page = new Dlayer_Designer_ContentPage($this->site_id, $this->page_id); // Fix this
 
 		// Fetch the data that defines the structure of the page
+        $this->view->page_id = $this->page_id;
 		$this->view->rows = $designer_page->rows();
 		$this->view->columns = $designer_page->columns();
 		$this->view->content = $designer_page->content();
