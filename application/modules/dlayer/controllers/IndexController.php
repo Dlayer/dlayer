@@ -205,11 +205,23 @@ class Dlayer_IndexController extends Zend_Controller_Action
      */
     public function logoutAction()
     {
-        if (file_exists(APPLICATION_PATH . '/../private/logs/error.log') === true) {
-            unlink(APPLICATION_PATH . '/../private/logs/error.log');
-        }
-        if (file_exists(APPLICATION_PATH . '/../private/logs/app.log') === true) {
-            unlink(APPLICATION_PATH . '/../private/logs/app.log');
+        $session_dlayer = new Dlayer_Session();
+        $identity_id = $session_dlayer->identityId();
+
+        if ($identity_id === false) {
+            if (file_exists(APPLICATION_PATH . '/../private/logs/error.log') === true) {
+                unlink(APPLICATION_PATH . '/../private/logs/error.log');
+            }
+            if (file_exists(APPLICATION_PATH . '/../private/logs/app.log') === true) {
+                unlink(APPLICATION_PATH . '/../private/logs/app.log');
+            }
+        } else {
+            if (file_exists(APPLICATION_PATH . '/../private/logs/error-' . $identity_id . '.log') === true) {
+                unlink(APPLICATION_PATH . '/../private/logs/error-' . $identity_id . '.log');
+            }
+            if (file_exists(APPLICATION_PATH . '/../private/logs/app-' . $identity_id . '.log') === true) {
+                unlink(APPLICATION_PATH . '/../private/logs/app-' . $identity_id . '.log');
+            }
         }
 
         $this->handleLogout();
