@@ -205,6 +205,13 @@ class Dlayer_IndexController extends Zend_Controller_Action
      */
     public function logoutAction()
     {
+        if (file_exists(APPLICATION_PATH . '/../private/logs/error.log') === true) {
+            unlink(APPLICATION_PATH . '/../private/logs/error.log');
+        }
+        if (file_exists(APPLICATION_PATH . '/../private/logs/app.log') === true) {
+            unlink(APPLICATION_PATH . '/../private/logs/app.log');
+        }
+
         $this->handleLogout();
     }
 

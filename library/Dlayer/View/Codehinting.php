@@ -291,6 +291,17 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     }
 
     /**
+     * Font family style attribute
+     *
+     * @param string $font_family The font family setting
+     *
+     * @return Dlayer_View_StylingAttributeFontFamily
+     */
+    public function stylingAttributeFontFamily($font_family)
+    {
+    }
+
+    /**
      * Styles for columns
      *
      * @return Dlayer_View_StylingColumn
@@ -314,6 +325,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
      * @return Dlayer_View_StylingContentItem
      */
     public function stylingContentItem()
+    {
+    }
+
+    /**
+     * Styles for page
+     *
+     * @return Dlayer_View_StylingPage
+     */
+    public function stylingPage()
     {
     }
 

@@ -21,16 +21,20 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
 	 */
 	private $html;
 
+	private $page_id;
+
 	/**
 	 * Pass in anything required to set up the object
 	 *
+     * @param integer $page_id
 	 * @param array $rows The rows that make up the content page
 	 * @param array $columns The columns that make up the content page
 	 * @param array $content Contains the raw data to generate the content items and assign them to their row
 	 * @return Dlayer_View_ContentPagePreview
 	 */
-	public function contentPagePreview(array $rows, array $columns, array $content)
+	public function contentPagePreview($page_id, array $rows, array $columns, array $content)
 	{
+	    $this->page_id = $page_id;
 		$this->view->rowPreview()->setRows($rows);
 		$this->view->columnPreview()->setColumns($columns);
 		$this->view->contentPreview()->setContent($content);
@@ -41,6 +45,7 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
     /**
      * Pass in the styling data for the page
      *
+     * @param array $page_styles
      * @param array $row_styles
      * @param array $column_styles
      * @param array $content_item_styles
@@ -48,10 +53,12 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
      * @return Dlayer_View_ContentPagePreview
      */
     public function setStyles(
+        array $page_styles,
         array $row_styles,
         array $column_styles,
         array $content_item_styles)
     {
+        $this->view->stylingPage()->setStyles($page_styles);
         $this->view->stylingColumn()->setStyles($column_styles);
         $this->view->stylingRow()->setStyles($row_styles);
         $this->view->stylingContentItem()->setStyles($content_item_styles);
@@ -69,7 +76,7 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
 	{
 		$this->view->rowPreview()->setColumnId(0);
 
-		$this->html = '<div class="container">';
+		$this->html = '<div class="container" ' . $this->view->stylingPage()->setPage($this->page_id) . '>';
 		$this->html .= $this->view->rowPreview()->render();
 		$this->html .= '</div>';
 

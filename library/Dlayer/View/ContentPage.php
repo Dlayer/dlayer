@@ -47,9 +47,12 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
      */
     private $child_content = true;
 
+    private $page_id;
+
     /**
      * Pass in anything required to set up the object
      *
+     * @param integer $page_id
      * @param array $rows The rows that make up the content page
      * @param array $columns The columns that make up the content page
      * @param array $content Contains the raw data to generate the content items and assign them to their row
@@ -61,6 +64,7 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
      * @return Dlayer_View_ContentPage
      */
     public function contentPage(
+        $page_id,
         array $rows,
         array $columns,
         array $content,
@@ -69,6 +73,7 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
         $row_id = null,
         $content_id = null
     ) {
+        $this->page_id = $page_id;
         $this->view->row()->setRows($rows);
         $this->view->column()->setColumns($columns);
         $this->view->content()->setContent($content);
@@ -88,6 +93,7 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
     /**
      * Pass in the styling data for the page
      *
+     * @param array $page_styles
      * @param array $row_styles
      * @param array $column_styles
      * @param array $content_item_styles
@@ -95,10 +101,12 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
      * @return Dlayer_View_ContentPage
      */
     public function setStyles(
+        array $page_styles,
         array $row_styles,
         array $column_styles,
         array $content_item_styles)
     {
+        $this->view->stylingPage()->setStyles($page_styles);
         $this->view->stylingColumn()->setStyles($column_styles);
         $this->view->stylingRow()->setStyles($row_styles);
         $this->view->stylingContentItem()->setStyles($content_item_styles);
@@ -123,7 +131,7 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
             }
         }
 
-        $this->html = '<div class="' . $page_class . '">';
+        $this->html = '<div class="' . $page_class . '" ' . $this->view->stylingPage()->setPage($this->page_id) . '>';
 
         $this->view->row()->setColumnId(0);
         $this->view->row()->setSelectedColumnId($this->selected_column_id);

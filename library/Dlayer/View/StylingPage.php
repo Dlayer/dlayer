@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Styling view helper for the content items, calls child view helpers for each styling group
+ * Styling view helper for the page, calls child view helpers for each styling group
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
+class Dlayer_View_StylingPage extends Zend_View_Helper_Abstract
 {
     /**
      * Override the hinting for the view property so that we can see the view helpers that have been defined
@@ -22,16 +22,16 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
     private $styles;
 
     /**
-     * @var integer The id of the content item currently being looked at
+     * @var integer The id of the page currently being looked at
      */
     private $id;
 
     /**
      * View helper constructor, pass in anything that may be needed to create the object
      *
-     * @return Dlayer_View_StylingContentItem
+     * @return Dlayer_View_StylingPage
      */
-    public function stylingContentItem()
+    public function stylingPage()
     {
         return $this;
     }
@@ -39,8 +39,8 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
     /**
      * Set the base styles data array
      *
-     * @param array $styles Styles data array for all the content items that make up the page
-     * @return Dlayer_View_StylingContentItem
+     * @param array $styles Styles data array for the page
+     * @return Dlayer_View_StylingPage
      */
     public function setStyles(array $styles)
     {
@@ -50,12 +50,12 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
     }
 
     /**
-     * Set the id of the content item the view helper needs to generate styles for
+     * Set the id of the page the view helper needs to generate styles for
      *
      * @param integer $id
-     * @return Dlayer_View_StylingContentItem
+     * @return Dlayer_View_StylingPage
      */
-    public function setContentItem($id)
+    public function setPage($id)
     {
         $this->resetParams();
 
@@ -84,23 +84,13 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
     {
         $styles = '';
 
-        if (is_array($this->styles) === true) {
+        if(array_key_exists('background_color', $this->styles) === true &&
+            array_key_exists($this->id, $this->styles['background_color']) === true) {
+            $styles .= $this->view->stylingAttributeBackgroundColor($this->styles['background_color'][$this->id]);
+        }
 
-            if (array_key_exists('background_color', $this->styles) === true &&
-                array_key_exists($this->id, $this->styles['background_color']) === true
-            ) {
-                $styles .= $this->view->stylingAttributeBackgroundColor($this->styles['background_color'][$this->id]);
-            }
-
-            if (array_key_exists('font_family', $this->styles) === true &&
-                array_key_exists($this->id, $this->styles['font_family']) === true
-            ) {
-                $styles .= $this->view->stylingAttributeFontFamily($this->styles['font_family'][$this->id]);
-            }
-
-            if (strlen($styles) > 0) {
-                $styles = ' style="' . $styles . '"';
-            }
+        if(strlen($styles) > 0) {
+            $styles = ' style="' . $styles . '"';
         }
 
         return $styles;

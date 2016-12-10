@@ -90,6 +90,16 @@ class Dlayer_Designer_ContentPage
     }
 
     /**
+     * Fetch all the styles for the page itself
+     *
+     * @return array
+     */
+    public function pageStyles()
+    {
+        return $this->model_styling->page();
+    }
+
+    /**
      * Fetch all the styles for the rows that make up the page
      *
      * @return array

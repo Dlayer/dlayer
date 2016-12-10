@@ -9,5 +9,11 @@
 */
 class Content_Bootstrap extends Zend_Application_Module_Bootstrap 
 {
-    
+    public function _initModuleDefaults()
+    {
+        /**
+         * @todo Check the settings for the module
+         */
+        define('DEFAULT_FONT_FAMILY_FOR_MODULE', 1);
+    }
 }

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Styling view helper, generates the background color attribute
+ * Styling view helper, generates the font family attribute
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_View_StylingAttributeBackgroundColor extends Zend_View_Helper_Abstract
+class Dlayer_View_StylingAttributeFontFamily extends Zend_View_Helper_Abstract
 {
     /**
      * @var string The complete style attribute
@@ -17,20 +17,20 @@ class Dlayer_View_StylingAttributeBackgroundColor extends Zend_View_Helper_Abstr
     /**
      * @var string $hex
      */
-    private $hex;
+    private $font_family;
 
     /**
      * View helper constructor, pass in anything that may be needed to create the object
      *
-     * @param string $hex The background color
+     * @param string $font_family The font family setting
      *
-     * @return Dlayer_View_StylingAttributeBackgroundColor
+     * @return Dlayer_View_StylingAttributeFontFamily
      */
-    public function stylingAttributeBackgroundColor($hex)
+    public function stylingAttributeFontFamily($font_family)
     {
         $this->resetParams();
 
-        $this->hex = $hex;
+        $this->font_family = $font_family;
 
         return $this;
     }
@@ -43,7 +43,7 @@ class Dlayer_View_StylingAttributeBackgroundColor extends Zend_View_Helper_Abstr
     private function resetParams()
     {
         $this->style = '';
-        $this->hex = null;
+        $this->font_family = null;
     }
 
     /**
@@ -53,7 +53,7 @@ class Dlayer_View_StylingAttributeBackgroundColor extends Zend_View_Helper_Abstr
      */
     private function render()
     {
-        $this->style .= ' background-color:' . $this->view->escape($this->hex) . ';';
+        $this->style .= ' font-family:' . $this->view->escape($this->font_family) . ';';
 
         return $this->style;
     }

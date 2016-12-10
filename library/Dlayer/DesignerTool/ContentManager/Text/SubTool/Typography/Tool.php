@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Styling sub tool
+ * Typography sub tool
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Tool extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dlayer_Tool_Content
 {
 
     /**
@@ -20,7 +20,7 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Tool extends Dlaye
     protected function paramsExist(array $params)
     {
         $valid = false;
-        if (array_key_exists('content_background_color', $params) === true) {
+        if (array_key_exists('font_family_id', $params) === true) {
             $valid = true;
         }
 
@@ -37,10 +37,10 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Tool extends Dlaye
     protected function paramsValid(array $params)
     {
         $valid = false;
-        if (strlen(trim($params['content_background_color'])) === 0 ||
-            (strlen(trim($params['content_background_color'])) === 7 &&
-                Dlayer_Validate::colorHex($params['content_background_color']) === true)
-        ) {
+
+        $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
+
+        if($model->fontFamilyIdValid($params['font_family_id']) === true) {
             $valid = true;
         }
 
@@ -57,8 +57,8 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Tool extends Dlaye
      */
     protected function paramsAssign(array $params, $manual_tool = true)
     {
-        if (array_key_exists('content_background_color', $params) === true) {
-            $this->params['content_background_color'] = trim($params['content_background_color']);
+        if (array_key_exists('font_family_id', $params) === true) {
+            $this->params['font_family_id'] = intval($params['font_family_id']);
         }
     }
 
@@ -93,35 +93,33 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Tool extends Dlaye
      */
     protected function edit()
     {
-        $this->backgroundColorContentItem();
+        $this->fontFamily();
 
         return $this->returnIds();
     }
 
     /**
-     * Manage the background colour for a content item
+     * Manage the font family for a content item
      *
      * @return void
      * @throws Exception
      */
-    protected function backgroundColorContentItem()
+    protected function fontFamily()
     {
-        $model = new Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Model();
-        $model_palette = new Dlayer_Model_Palette();
+        $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
-        $id = $model->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
+        $id = $model->existingFontFamily($this->site_id, $this->page_id, $this->content_id);
 
         if ($id === false) {
             try {
-                $model->addBackgroundColor(
+                $model->addFontFamily(
                     $this->site_id,
                     $this->page_id,
                     $this->content_id,
-                    $this->params['content_background_color']
+                    $this->params['font_family_id']
                 );
-                $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
 
-                Dlayer_Helper::sendToInfoLog('Set background colour for a html snippet: ' . $this->content_id .
+                Dlayer_Helper::sendToInfoLog('Set font family for text content item: ' . $this->content_id .
                     ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
                     ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
             } catch (Exception $e) {
@@ -129,14 +127,7 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Tool extends Dlaye
             }
         } else {
             try {
-                $model->editBackgroundColor($id, $this->params['content_background_color']);
-                if ($this->params['content_background_color'] !== null && strlen($this->params['content_background_color']) === 7) {
-                    $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
-
-                    Dlayer_Helper::sendToInfoLog('Set background colour for html snippet: ' . $this->content_id .
-                        ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
-                        ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
-                }
+                $model->editFontFamily($id, $this->params['font_family_id']);
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
@@ -175,17 +166,17 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Tool extends Dlaye
             ),
             array(
                 'type' => 'tool',
-                'id' => 'Html',
+                'id' => 'Text',
             ),
             array(
                 'type' => 'tab',
-                'id' => 'styling',
-                'sub_tool' => 'Styling'
+                'id' => 'typography',
+                'sub_tool' => 'Typography'
             ),
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'html'
+                'content_type' => 'text'
             )
         );
     }
