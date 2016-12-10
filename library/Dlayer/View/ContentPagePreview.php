@@ -41,6 +41,7 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
     /**
      * Pass in the styling data for the page
      *
+     * @param array $page_styles
      * @param array $row_styles
      * @param array $column_styles
      * @param array $content_item_styles
@@ -48,6 +49,7 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
      * @return Dlayer_View_ContentPagePreview
      */
     public function setStyles(
+        array $page_styles,
         array $row_styles,
         array $column_styles,
         array $content_item_styles)
