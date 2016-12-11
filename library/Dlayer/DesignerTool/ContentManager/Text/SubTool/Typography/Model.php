@@ -177,7 +177,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
     }
 
     /**
-     * Fetch the font familys supported by Dlayer for the select
+     * Fetch the font families supported by Dlayer for the select
      *
      * @return array|false
      */
@@ -193,6 +193,31 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
 
         foreach ($stmt->fetchAll() as $row) {
             $font_families[intval($row['id'])] = $row['name'];
+        }
+
+        if (count($font_families) > 0) {
+            return $font_families;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Fetch the font families supported by Dlayer for the preview
+     *
+     * @return array|false
+     */
+    public function fontFamiliesForPreview()
+    {
+        $sql = "SELECT id, `css`   
+                FROM designer_css_font_family";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+
+        $font_families = array();
+
+        foreach ($stmt->fetchAll() as $row) {
+            $font_families[intval($row['id'])] = $row['css'];
         }
 
         if (count($font_families) > 0) {

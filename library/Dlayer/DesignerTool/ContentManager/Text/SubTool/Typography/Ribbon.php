@@ -23,6 +23,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Ribbon extends 
 
         $this->contentData();
         $this->elementData();
+        $this->previewData();
 
         return array(
             'form' => new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Form(
@@ -31,7 +32,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Ribbon extends 
                 $this->instancesOfData(),
                 $this->element_data
             ),
-            'preview' => $this->previewData()
+            'preview' => $this->preview_data
         );
     }
 
@@ -95,12 +96,24 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Ribbon extends 
      */
     protected function previewData()
     {
-        $this->contentData();
+        if ($this->element_data_fetched === false || $this->preview_data_fetched === false) {
 
-        return array(
-            'id' => $this->tool['content_id'],
-            'font_family_id' => $this->content_data['font_family_id']
-        );
+            $this->contentData();
+
+            $this->preview_data = array(
+                'id' => $this->tool['content_id'],
+                'font_family_id' => $this->content_data['font_family_id'],
+                'font_families' => false
+            );
+
+            $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
+            $font_families = $model->fontFamiliesForPreview();
+            if($font_families !== false) {
+                $this->preview_data['font_families'] = $font_families;
+            }
+
+            $this->preview_data_fetched = true;
+        }
     }
 
     /**
