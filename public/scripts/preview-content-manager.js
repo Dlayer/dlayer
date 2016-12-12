@@ -44,6 +44,28 @@ var previewContentManager =
     },
 
     /**
+     * Set an animate the new background color
+     *
+     * @param {String} selector
+     * @param {String} new_value
+     */
+    setAndAnimateBackgroundColor: function (selector, new_value)
+    {
+        if (new_value.length === 7) {
+            $(selector).animate({'backgroundColor': new_value}, previewContentManager.animateDuration);
+
+            previewContentManager.changed = true;
+        } else {
+            if (new_value.length === 0) {
+                $(selector).css('background-color', 'inherit');
+                previewContentManager.changed = true;
+            }
+        }
+
+        previewContentManager.unsaved();
+    },
+
+    /**
      * Preview function for an elements background color, updates the item with the passed in value
      *
      * @param {Number} content_id Id of the content item
@@ -56,18 +78,7 @@ var previewContentManager =
             var new_value = this.value;
             var selector = '.content[data-content-id="' + content_id + '"]';
 
-            if (new_value.length === 7) {
-                $(selector).animate({'backgroundColor': new_value}, previewContentManager.animateDuration);
-
-                previewContentManager.changed = true;
-            } else {
-                if (new_value.length === 0) {
-                    $(selector).css('background-color', 'inherit');
-                    previewContentManager.changed = true;
-                }
-            }
-
-            previewContentManager.unsaved();
+            previewContentManager.setAndAnimateBackgroundColor(selector, new_value);
         });
     },
 
@@ -84,18 +95,7 @@ var previewContentManager =
             var new_value = this.value;
             var selector = '.column[data-column-id="' + column_id + '"]';
 
-            if (new_value.length === 7) {
-                $(selector).animate({'backgroundColor': new_value}, previewContentManager.animateDuration);
-
-                previewContentManager.changed = true;
-            } else {
-                if (new_value.length === 0) {
-                    $(selector).css('background-color', 'inherit');
-                    previewContentManager.changed = true;
-                }
-            }
-
-            previewContentManager.unsaved();
+            previewContentManager.setAndAnimateBackgroundColor(selector, new_value);
         });
     },
 
@@ -112,18 +112,8 @@ var previewContentManager =
             var new_value = this.value;
             var selector = '.row[data-row-id="' + row_id + '"]';
 
-            if (new_value.length === 7) {
-                $(selector).animate({'backgroundColor': new_value}, previewContentManager.animateDuration);
+            previewContentManager.setAndAnimateBackgroundColor(selector, new_value);
 
-                previewContentManager.changed = true;
-            } else {
-                if (new_value.length === 0) {
-                    $(selector).css('background-color', 'inherit');
-                    previewContentManager.changed = true;
-                }
-            }
-
-            previewContentManager.unsaved();
         });
     },
 
@@ -139,18 +129,7 @@ var previewContentManager =
             var new_value = this.value;
             var selector = '.container-fluid.selected';
 
-            if (new_value.length === 7) {
-                $(selector).animate({'backgroundColor': new_value}, previewContentManager.animateDuration);
-
-                previewContentManager.changed = true;
-            } else {
-                if (new_value.length === 0) {
-                    $(selector).css('background-color', 'inherit');
-                    previewContentManager.changed = true;
-                }
-            }
-
-            previewContentManager.unsaved();
+            previewContentManager.setAndAnimateBackgroundColor(selector, new_value);
         });
     },
 
