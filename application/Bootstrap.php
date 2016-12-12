@@ -181,8 +181,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     public function _initAppLogger()
     {
-        $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../private/logs/app.log');
-        $logger = new Zend_Log($writer);
+        $dlayer_session = new Dlayer_Session();
+
+        if ($dlayer_session->identityId() === false) {
+            $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../private/logs/app.log');
+            $logger = new Zend_Log($writer);
+        } else {
+            $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../private/logs/app-' .
+                $dlayer_session->identityId() . '.log');
+            $logger = new Zend_Log($writer);
+        }
 
         Zend_Registry::set('log-app', $logger);
     }
@@ -194,8 +202,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     public function _initErrorLogger()
     {
-        $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../private/logs/error.log');
-        $logger = new Zend_Log($writer);
+        $dlayer_session = new Dlayer_Session();
+
+        if ($dlayer_session->identityId() === false) {
+            $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../private/logs/error.log');
+            $logger = new Zend_Log($writer);
+        } else {
+            $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/../private/logs/error-' .
+                $dlayer_session->identityId() . '.log');
+            $logger = new Zend_Log($writer);
+        }
 
         Zend_Registry::set('log-error', $logger);
     }

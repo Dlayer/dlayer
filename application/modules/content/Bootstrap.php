@@ -11,9 +11,10 @@ class Content_Bootstrap extends Zend_Application_Module_Bootstrap
 {
     public function _initModuleDefaults()
     {
-        /**
-         * @todo Check the settings for the module
-         */
-        define('DEFAULT_FONT_FAMILY_FOR_MODULE', 1);
+        $dlayer_session = new Dlayer_Session();
+        $model_settings = new Dlayer_Model_Settings();
+
+        define('DEFAULT_FONT_FAMILY_FOR_MODULE',
+            $model_settings->definedFontFamilyId('content', $dlayer_session->siteId()));
     }
 }

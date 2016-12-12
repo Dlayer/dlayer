@@ -91,16 +91,14 @@ class Dlayer_View_ColumnPreview extends Zend_View_Helper_Abstract
 				{
 					$html .= '<p>' . $rows . '</p>';
 				}
-				else
-				{
-					$this->view->contentPreview()->setColumnId($column['id']);
-					$content = $this->view->contentPreview()->render();
 
-					if(strlen($content) > 0)
-					{
-						$html .= $content;
-					}
-				}
+                $this->view->contentPreview()->setColumnId($column['id']);
+                $content = $this->view->contentPreview()->render();
+
+                if(strlen($content) > 0)
+                {
+                    $html .= $content;
+                }
 
 				$html .= '</div>';
 			}

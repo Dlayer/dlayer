@@ -360,4 +360,35 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 			return FALSE;
 		}
 	}
+
+	/**
+     * Fetch the font family defined for a module
+     *
+     * @param string $module
+     * @param integer $site_id
+     *
+     * @return integer
+     */
+	public function definedFontFamilyId($module, $site_id)
+    {
+        $sql = "SELECT usff.`font_family_id` 
+                FROM user_setting_font_family usff 
+                JOIN dlayer_module dm ON
+                    usff.`module_id` = dm.id AND
+                    dm.`name` = :module 
+                WHERE usff.`site_id` = :site_id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':module', $module, PDO::PARAM_STR);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if($result !== false) {
+            return intval($result['font_family_id']);
+        } else {
+            return 1;
+        }
+    }
 }
