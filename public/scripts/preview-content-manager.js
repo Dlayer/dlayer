@@ -152,5 +152,27 @@ var previewContentManager =
 
             previewContentManager.unsaved();
         });
+    },
+
+    /**
+     * Font family for a content item
+     *
+     * @param {Number} content_id Id of the content item
+     * @param {Array} font_families The font families supported by the system
+     */
+    contentItemFontFamily: function (content_id, font_families)
+    {
+        $('#params-font_family_id').change(function ()
+        {
+            var selector = '.content[data-content-id="' + content_id + '"]';
+
+            if ($(this).val() in font_families) {
+                $(selector).css('font-family', font_families[$(this).val()]);
+
+                previewContentManager.changed = true;
+            }
+
+            previewContentManager.unsaved();
+        });
     }
 };
