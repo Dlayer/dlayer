@@ -526,7 +526,7 @@ CREATE TABLE `dlayer_module_tool_tab` (
   KEY `tool_id` (`tool_id`),
   CONSTRAINT `dlayer_module_tool_tab_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `dlayer_module` (`id`),
   CONSTRAINT `dlayer_module_tool_tab_ibfk_2` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tool` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dlayer_module_tool_tab` */
 
@@ -611,7 +611,7 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 (87,4,38,'Row','row',NULL,'align-justify',0,0,1,1,1),
 (88,4,38,'Styles','styling','Styling_ContentRow',NULL,0,0,0,2,0),
 (89,4,39,'Image','image',NULL,'pencil',1,0,1,1,1),
-(90,4,39,'Help','help',NULL,'info-sign',0,0,0,3,1),
+(90,4,39,'Help','help',NULL,'info-sign',0,0,0,4,1),
 (91,4,40,'Carousel','carousel',NULL,NULL,1,0,1,1,0),
 (92,4,40,'Help','help',NULL,NULL,0,0,0,2,0),
 (93,4,39,'Size & position','position','Position_Image',NULL,1,1,0,2,0),
@@ -652,7 +652,8 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 (129,4,52,'Styles','styling','Styling','tint',1,1,0,2,1),
 (130,4,52,'Help','help',NULL,'info-sign',0,0,0,3,1),
 (131,4,11,'Typography','typography','Typography','font',1,1,0,3,1),
-(132,4,34,'Typography','typography','Typography','font',1,1,0,3,1);
+(132,4,34,'Typography','typography','Typography','font',1,1,0,3,1),
+(133,4,39,'Typography','typography','Typography','font',1,1,0,3,1);
 
 /*Table structure for table `dlayer_session` */
 
@@ -2092,7 +2093,7 @@ CREATE TABLE `user_site_page_styling_content_item_typography` (
   CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
   CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`),
   CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_4` FOREIGN KEY (`font_family_id`) REFERENCES `designer_css_font_family` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_styling_content_item_typography` */
 
@@ -2138,7 +2139,7 @@ CREATE TABLE `user_site_page_styling_row_background_color` (
   CONSTRAINT `user_site_page_styling_row_background_color_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_site_page_styling_row_background_color_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
   CONSTRAINT `user_site_page_styling_row_background_color_ibfk_3` FOREIGN KEY (`row_id`) REFERENCES `user_site_page_structure_row` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_styling_row_background_color` */
 
