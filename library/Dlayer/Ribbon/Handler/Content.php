@@ -263,6 +263,11 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
                 break;
 
+            case 'typography':
+                $ribbon_typography = new Dlayer_DesignerTool_ContentManager_Heading_SubTool_Typography_Ribbon();
+                $data = $ribbon_typography->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;
@@ -321,6 +326,11 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
                 break;
 
+            case 'typography':
+                $ribbon_typography = new Dlayer_DesignerTool_ContentManager_Jumbotron_SubTool_Typography_Ribbon();
+                $data = $ribbon_typography->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;
@@ -350,6 +360,11 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
                 break;
 
+            case 'typography':
+                $ribbon_typography = new Dlayer_DesignerTool_ContentManager_Form_SubTool_Typography_Ribbon();
+                $data = $ribbon_typography->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;
@@ -377,6 +392,11 @@ class Dlayer_Ribbon_Handler_Content
             case 'styling':
                 $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Image_SubTool_Styling_Ribbon();
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
+                break;
+
+            case 'typography':
+                $ribbon_typography = new Dlayer_DesignerTool_ContentManager_Image_SubTool_Typography_Ribbon();
+                $data = $ribbon_typography->viewData($this->toolParams($tool));
                 break;
 
             default:

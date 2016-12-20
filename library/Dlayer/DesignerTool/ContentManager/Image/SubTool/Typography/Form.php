@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Typography sub tools for the text content item
+ * Typography sub tools for the Image content item
  *
  * @author Dean Blackborough
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Form extends Dlayer_Form_Content
+class Dlayer_DesignerTool_ContentManager_Image_SubTool_Typography_Form extends Dlayer_Form_Content
 {
     /**
      * Set the properties for the form
@@ -20,7 +20,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Form extends Dl
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
     {
-        $this->content_type = 'text';
+        $this->content_type = 'image';
         $this->sub_tool_model = 'Typography';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);
@@ -39,7 +39,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Form extends Dl
 
         $this->generateFormElements();
 
-        $this->addElementsToForm('text_typography', 'Typography', $this->elements);
+        $this->addElementsToForm('image_typography', 'Typography', $this->elements);
 
         $this->addDefaultElementDecorators();
 
