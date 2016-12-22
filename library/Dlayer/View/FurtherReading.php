@@ -29,7 +29,7 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 	* 	fragment after the domain, http://specification.dlayer.com/
 	* @param boolean $well Should the content be placed inside a bootstrap 
 	* 	well, useful to separate the further section from other content
-	* @return Dlayer_View_Navigation
+	* @return Dlayer_View_FurtherReading
 	*/
 	public function furtherReading($url=NULL, $well=FALSE) 
 	{
@@ -69,12 +69,10 @@ class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 			$html .= '<div class="well well-sm">';
 		}
 		
-		$html .= "<h4>Further reading <small>Do you want to know 
-			more?</small></h4>
+		$html .= "<h4>Further reading <small>Do you want to know more?</small></h4>
 			
 			<p>Check the documentation at <a href=\"http://www.dlayer.com\">Dlayer.com</a>, I'm working towards moving 
-				my all private docs online, eventually there will be an overview of each designer as well as a section 
-				on every tool and feature in Dlayer.<br />";
+				my of my private documentation into a git hub pages site and then into the app and tool helper page. ";
 		
 		if($this->url == NULL) {
 			$primary = TRUE;

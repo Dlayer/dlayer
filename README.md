@@ -1,40 +1,43 @@
 Dlayer
 ======
 
-Warning
---------
-Until the official v1.00 beta release the master branch can't be trusted, I will be pushing updates from my personal fork which will both break sections of the app and remove some of the current functionality. Up until this point (28th May 2016) master has always been stable(ish), after the the v1.00 release it will be again, for now though it is just easier for me to commit a cardinal sin.
-  
+Thank you for taking the time to look at Dlayer, I've been working on this project for many years including the inevitable restarts, it has taken an inordinate amount of work to finally get here, now that I have a stable base I'm hoping to grow the project.
+
+Over the next few weeks, I am going to continue to polish the core of the Content manager, work on the set-up process and then start reintegrating the removed designers, first on the list is the Form builder.
+ 
 Overview
 --------
 
 Dlayer is a responsive web development tool aimed primarily at users that don't have any web design or web development experience.
 
 * Copyright: G3D Development Limited
-* Original author: Dean Blackborough <dean@g3d-development.com>
+* Author: Dean Blackborough <dean@g3d-development.com>
 * License https://github.com/Dlayer/dlayer/blob/master/LICENSE
-* Contributions (Coding standards) http://www.dlayer.com/coding-standards.html
+* Contribute?: If you would like to contribute to Dlayer, please review the coding standards at http://www.dlayer.com/coding-standards.html
 
-Requires
+Requirements
 ---------
 
 * Bower (Installs Jquery and Bootstrap)
 * SASS
-* Zend framework 1.12 (Included) and MySQL
+* Zend Framework 1.12 (Included) 
+* MySQL
 
 Documentation 
 ---------
 
-Check http://www.dlayer.com/docs/ for the latest docs and a link to the current demo.
+Please check the documentation at http://www.dlayer.com/docs/ the documentation is currently a little sparse, I am in the progress of moving it to http://dlayer.github.io/dlayer/
 
 Setup
 ---------
 
-* Set up development environment
-* Clone project
-* Setup database and import /private/database/release-database.sql
-* browse to /public ```$ bower install```
+I am working towards improving the set-up/reset process for Dlayer, until then please follow the steps below.
+
+* Set-up your development environment. I have written a blog post on setting up a suitable enviornment on a Linux machine, http://www.deanblackborough.com/2016/04/30/ubuntu-install-apache-php-mysql-sass-bower-and-phpstorm-for-local-development/
+* Clone the project
+* Setup a database and import /private/database/release-database.sql
+* browse to /public and run ```$ bower install```
 * Edit /application/configs/application.ini
 * Edit /application/configs/environment.php
-* browse to /public ```$ sass --watch scss:css```
+* browse to /public and run ```$ sass --watch scss:css```
 * Sign-in to demo
