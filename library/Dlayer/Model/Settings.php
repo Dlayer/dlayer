@@ -367,16 +367,20 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
      * @param string $module
      * @param integer $site_id
      *
-     * @return integer
+     * @return array|false
      */
-	public function definedFontFamilyId($module, $site_id)
+	public function definedFontAndTextSettings($module, $site_id)
     {
-        $sql = "SELECT `usfat`.`font_family_id` 
-                FROM `user_setting_font_and_text` `usfat` 
+        $sql = "SELECT 
+                    `usfat`.`font_family_id`, 
+                    `usfat`.`text_weight_id`
+                FROM 
+                    `user_setting_font_and_text` `usfat` 
                 JOIN `dlayer_module` `dm` ON
                     `usfat`.`module_id` = `dm`.`id` AND
                     `dm`.`name` = :module 
-                WHERE `usfat`.`site_id` = :site_id 
+                WHERE 
+                    `usfat`.`site_id` = :site_id 
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':module', $module, PDO::PARAM_STR);
@@ -386,9 +390,9 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
         $result = $stmt->fetch();
 
         if($result !== false) {
-            return intval($result['font_family_id']);
+            return $result;
         } else {
-            return 1;
+            return false;
         }
     }
 }
