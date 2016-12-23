@@ -159,12 +159,12 @@ class Content_DesignController extends Zend_Controller_Action
         if ($tool !== false) {
             $html = $this->dlayerRibbonHtml($tool['tool'], $tool['tab'], $tool['sub_tool']);
         } else {
-            $html = $this->view->render("design\\ribbon\\default.phtml");
+            $html = $this->view->render("design/ribbon/default.phtml");
         }
 
         $this->view->html = $html;
 
-        return $this->view->render("design\\ribbon.phtml");
+        return $this->view->render("design/ribbon.phtml");
     }
 
     /**
@@ -257,19 +257,19 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
                 if ($sub_tool === null) {
-                    $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
-                        $tool . "\\scripts\\");
+                    $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .
+                        $tool . "/scripts/");
                 } else {
-                    $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "\\Dlayer\\DesignerTool\\ContentManager\\" .
-                        $tool . "\\SubTool\\" . $sub_tool . "\\scripts\\");
+                    $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .
+                        $tool . "/SubTool/" . $sub_tool . "/scripts/");
                 }
 
                 $html = $this->view->render($tab . '.phtml');
             } else {
-                $html = $this->view->render("design\\ribbon\\default.phtml");
+                $html = $this->view->render("design/ribbon/default.phtml");
             }
         } else {
-            $html = $this->view->render("design\\ribbon\\default.phtml");
+            $html = $this->view->render("design/ribbon/default.phtml");
         }
 
         $this->view->html = $html;
