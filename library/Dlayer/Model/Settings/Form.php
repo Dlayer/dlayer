@@ -22,7 +22,7 @@ class Dlayer_Model_Settings_Form extends Zend_Db_Table_Abstract
 	public function baseFontFamily($site_id)
 	{
 		$sql = "SELECT dcff.id, dcff.css, dcff.`name`
-				FROM user_setting_font_family usff
+				FROM user_setting_font_and_text usff
 				JOIN dlayer_module dm ON usff.module_id = dm.id
 				AND dm.enabled = 1
 				JOIN designer_css_font_family dcff
@@ -46,11 +46,20 @@ class Dlayer_Model_Settings_Form extends Zend_Db_Table_Abstract
 	*/
 	public function updateFontFamily($site_id, $font_family_id)
 	{
-		$sql = "UPDATE user_setting_font_family
-				SET font_family_id = :font_family_id
-				WHERE site_id = :site_id
-				AND module_id = (SELECT id FROM dlayer_module
-				WHERE `name` = :module)
+		$sql = "UPDATE 
+                    `user_setting_font_and_text`
+				SET 
+				    `font_family_id` = :font_family_id
+				WHERE 
+				    `site_id` = :site_id AND 
+				    `module_id` = (
+				        SELECT 
+				            `id` 
+                        FROM 
+                            `dlayer_module`
+                        WHERE 
+                            `name` = :module
+                        )
 				LIMIT 1";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);

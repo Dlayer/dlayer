@@ -16,5 +16,7 @@ class Content_Bootstrap extends Zend_Application_Module_Bootstrap
 
         define('DEFAULT_FONT_FAMILY_FOR_MODULE',
             $model_settings->definedFontFamilyId('content', $dlayer_session->siteId()));
+
+        define('DEFAULT_TEXT_WEIGHT_FOR_MODULE', 1);
     }
 }

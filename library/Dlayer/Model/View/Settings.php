@@ -46,13 +46,20 @@ class Dlayer_Model_View_Settings extends Zend_Db_Table_Abstract
 	*/
 	public function baseFontFamily($site_id, $module)
 	{
-		$sql = "SELECT dcff.css AS font_family
-				FROM user_setting_font_family usff
-				JOIN dlayer_module dm ON usff.module_id = dm.id
-				JOIN designer_css_font_family dcff
-					ON usff.font_family_id = dcff.id
-				WHERE usff.site_id = :site_id
-				AND dm.`name` = :module";
+		$sql = "SELECT 
+                    `dcff`.`css` AS `font_family`
+				FROM 
+				    `user_setting_font_and_text` `usfat`
+				JOIN 
+				    `dlayer_module` `dm` ON 
+				        `usfat`.`module_id` = `dm`.`id`
+				JOIN 
+				    `designer_css_font_family` `dcff` ON 
+				        `usfat`.`font_family_id` = `dcff`.`id`
+				WHERE 
+				    `usfat`.`site_id` = :site_id
+				AND 
+				    `dm`.`name` = :module";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':module', $module, PDO::PARAM_STR);

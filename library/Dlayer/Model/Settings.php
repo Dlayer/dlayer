@@ -218,8 +218,8 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
 	 */
 	public function setDefaultBaseFontFamilies($site_id)
 	{
-		$sql = "INSERT INTO user_setting_font_family
-				(site_id, module_id, font_family_id)
+		$sql = "INSERT INTO `user_setting_font_and_text`
+				(`site_id`, `module_id`, `font_family_id`)
 				VALUES
 				(:site_id, :module_id, :font_family_id)";
 		$stmt = $this->_db->prepare($sql);
@@ -371,12 +371,12 @@ class Dlayer_Model_Settings extends Zend_Db_Table_Abstract
      */
 	public function definedFontFamilyId($module, $site_id)
     {
-        $sql = "SELECT usff.`font_family_id` 
-                FROM user_setting_font_family usff 
-                JOIN dlayer_module dm ON
-                    usff.`module_id` = dm.id AND
-                    dm.`name` = :module 
-                WHERE usff.`site_id` = :site_id 
+        $sql = "SELECT `usfat`.`font_family_id` 
+                FROM `user_setting_font_and_text` `usfat` 
+                JOIN `dlayer_module` `dm` ON
+                    `usfat`.`module_id` = `dm`.`id` AND
+                    `dm`.`name` = :module 
+                WHERE `usfat`.`site_id` = :site_id 
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':module', $module, PDO::PARAM_STR);
