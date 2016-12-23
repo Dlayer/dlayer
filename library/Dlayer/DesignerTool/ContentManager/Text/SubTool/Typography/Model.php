@@ -203,14 +203,40 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
     }
 
     /**
+     * Fetch the text weights support by Dlayer for the select
+     *
+     * @return array|false
+     */
+    public function textWeightsForSelect()
+    {
+        $sql = "SELECT `id`, `name` 
+                FROM `designer_css_text_weight` 
+                ORDER BY `sort_order` ASC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+
+        $text_weights = array();
+
+        foreach ($stmt->fetchAll() as $row) {
+            $text_weights[intval($row['id'])] = $row['name'];
+        }
+
+        if (count($text_weights) > 0) {
+            return $text_weights;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Fetch the font families supported by Dlayer for the preview
      *
      * @return array|false
      */
     public function fontFamiliesForPreview()
     {
-        $sql = "SELECT id, `css`   
-                FROM designer_css_font_family";
+        $sql = "SELECT `id`, `css`   
+                FROM `designer_css_font_family`";
         $stmt = $this->_db->prepare($sql);
         $stmt->execute();
 
@@ -222,6 +248,31 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
 
         if (count($font_families) > 0) {
             return $font_families;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Fetch the font weights supported by Dlayer for preview
+     *
+     * @return array|false
+     */
+    public function textWeightsForPreview()
+    {
+        $sql = "SELECT `id`, `css`
+                FROM `designer_css_text_weight`";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+
+        $text_weights = array();
+
+        foreach ($stmt->fetchAll() as $row) {
+            $text_weights[intval($row['id'])] = $row['css'];
+        }
+
+        if (count($text_weights) > 0) {
+            return $text_weights;
         } else {
             return false;
         }
