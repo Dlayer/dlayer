@@ -10,23 +10,28 @@
 class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Zend_Db_Table_Abstract
 {
     /**
-     * Fetch the font family for a content item
+     * Fetch the font and text values for the current content item
      *
      * @param integer $site_id
      * @param integer $page_id
      * @param integer $id
      *
-     * @return string|false
+     * @return array|false
      */
-    public function fontFamily($site_id, $page_id, $id)
+    public function fontAndTextValues($site_id, $page_id, $id)
     {
-        $sql = "SELECT uspscit.font_family_id  
-                FROM user_site_page_styling_content_item_typography uspscit 
-                JOIN designer_css_font_family dcff ON
-                    uspscit.font_family_id = dcff.id
-                WHERE uspscit.site_id = :site_id 
-                AND uspscit.page_id = :page_id 
-                AND uspscit.content_id = :content_id 
+        $sql = "SELECT 
+                    `uspscit`.`font_family_id`,
+                    `uspscit`.`text_weight_id`
+                FROM 
+                    `user_site_page_styling_content_item_typography` `uspscit` 
+                JOIN 
+                    `designer_css_font_family` `dcff` ON
+                        `uspscit`.`font_family_id` = `dcff`.`id`
+                WHERE 
+                    `uspscit`.`site_id` = :site_id AND 
+                    `uspscit`.`page_id` = :page_id AND 
+                    `uspscit`.`content_id` = :content_id 
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
@@ -35,8 +40,12 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
         $stmt->execute();
 
         $result = $stmt->fetch();
+
         if ($result !== false) {
-            return intval($result['font_family_id']);
+            return array(
+                'font_family_id' => ($result['font_family_id'] === null) ? null: intval($result['font_family_id']),
+                'text_weight_id' => ($result['text_weight_id'] === null) ? null: intval($result['text_weight_id'])
+            );
         } else {
             return false;
         }

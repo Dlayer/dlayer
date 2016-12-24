@@ -397,7 +397,7 @@ CREATE TABLE `dlayer_identity` (
 /*Data for the table `dlayer_identity` */
 
 insert  into `dlayer_identity`(`id`,`identity`,`credentials`,`logged_in`,`last_login`,`last_action`,`enabled`) values 
-(1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-12-23 17:56:42','2016-12-23 17:57:15',1),
+(1,'user-1@dlayer.com','$6$rounds=5000$jks453yuyt55d$CZJCjaieFQghQ6MwQ1OUI5nVKDy/Fi2YXk7MyW2hcex9AdJ/jvZA8ulvjzK1lo3rRVFfmd10lgjqAbDQM4ehR1',0,'2016-12-24 12:30:21','2016-12-24 12:45:34',1),
 (2,'user-2@dlayer.com','$6$rounds=5000$jks453yuyt55d$ZVEJgs2kNjxOxNEayqqoh2oJUiGbmxIKRqOTxVM05MP2YRcAjE9adCZfQBWCc.qe1nDjEM9.ioivNz3c/qyZ80',0,'2015-05-29 15:57:54','2015-05-29 15:58:47',1),
 (3,'user-3@dlayer.com','$6$rounds=5000$jks453yuyt55d$NYF6yCvxXplefx7nr8vDe4cUGBEFtd3G5vuJ2utfqvPwEf3dSgNXNTcGbFO6WrJSn21CXHgZwNOQHy691E/Rm.',0,'2015-05-29 15:59:10','2015-05-29 16:25:10',1);
 
@@ -673,7 +673,7 @@ CREATE TABLE `dlayer_session` (
 /*Data for the table `dlayer_session` */
 
 insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values 
-('rurvk3qdusgvdqpk2e96phb5p3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1482515838,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1482519438;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1482519438;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1482519438;}}dlayer_session_content|a:5:{s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;s:7:\"page_id\";N;}dlayer_session_designer|a:7:{s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;s:4:\"tool\";a:1:{s:7:\"content\";N;}s:8:\"sub_tool\";a:1:{s:7:\"content\";N;}s:3:\"tab\";a:1:{s:7:\"content\";N;}}dlayer_session|a:1:{s:7:\"site_id\";N;}');
+('rurvk3qdusgvdqpk2e96phb5p3','C:\\Users\\g3d\\Documents\\Xampp\\tmp','PHPSESSID',1482583664,3601,'__ZF|a:3:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1482587264;}s:22:\"dlayer_session_content\";a:1:{s:3:\"ENT\";i:1482587263;}s:23:\"dlayer_session_designer\";a:1:{s:3:\"ENT\";i:1482587263;}}dlayer_session_content|a:5:{s:7:\"page_id\";N;s:13:\"page_selected\";N;s:9:\"column_id\";N;s:6:\"row_id\";N;s:10:\"content_id\";N;}dlayer_session_designer|a:7:{s:4:\"tool\";a:1:{s:7:\"content\";N;}s:3:\"tab\";a:1:{s:7:\"content\";N;}s:8:\"sub_tool\";a:1:{s:7:\"content\";N;}s:24:\"image_picker_category_id\";N;s:28:\"image_picker_sub_category_id\";N;s:21:\"image_picker_image_id\";N;s:23:\"image_picker_version_id\";N;}dlayer_session|a:1:{s:7:\"site_id\";N;}');
 
 /*Table structure for table `dlayer_setting` */
 
@@ -2003,9 +2003,9 @@ insert  into `user_site_page_structure_row`(`id`,`site_id`,`page_id`,`column_id`
 (10,1,1,0,4),
 (11,1,1,0,5),
 (12,1,2,0,4),
-(13,1,3,0,2),
+(13,1,3,0,1),
 (14,1,3,0,3),
-(15,1,3,0,1),
+(15,1,3,0,2),
 (16,1,3,0,4);
 
 /*Table structure for table `user_site_page_styling_column_background_color` */
@@ -2077,24 +2077,27 @@ CREATE TABLE `user_site_page_styling_content_item_typography` (
   `site_id` int(11) unsigned NOT NULL,
   `page_id` int(11) unsigned NOT NULL,
   `content_id` int(11) unsigned NOT NULL,
-  `font_family_id` tinyint(3) unsigned NOT NULL,
+  `font_family_id` tinyint(3) unsigned DEFAULT NULL,
+  `text_weight_id` tinyint(3) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `page_id` (`page_id`),
   KEY `content_id` (`content_id`),
   KEY `font_family_id` (`font_family_id`),
+  KEY `text_weight_id` (`text_weight_id`),
   CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
   CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
   CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`),
-  CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_4` FOREIGN KEY (`font_family_id`) REFERENCES `designer_css_font_family` (`id`)
+  CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_4` FOREIGN KEY (`font_family_id`) REFERENCES `designer_css_font_family` (`id`),
+  CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_5` FOREIGN KEY (`text_weight_id`) REFERENCES `designer_css_text_weight` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_page_styling_content_item_typography` */
 
-insert  into `user_site_page_styling_content_item_typography`(`id`,`site_id`,`page_id`,`content_id`,`font_family_id`) values 
-(2,1,3,28,2),
-(3,1,3,31,5),
-(4,1,2,16,5);
+insert  into `user_site_page_styling_content_item_typography`(`id`,`site_id`,`page_id`,`content_id`,`font_family_id`,`text_weight_id`) values 
+(2,1,3,28,2,NULL),
+(3,1,3,31,5,NULL),
+(4,1,2,16,5,NULL);
 
 /*Table structure for table `user_site_page_styling_page_background_color` */
 

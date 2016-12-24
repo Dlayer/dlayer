@@ -68,5 +68,21 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Form extends Dl
         }
 
         $this->elements['font_family_id'] = $font_family;
+
+        $text_weight = new Zend_Form_Element_Select('text_weight_id');
+        $text_weight->setLabel('Text weight');
+        $text_weight->setDescription('Choose the text weight, defaults to the the text weight selected in settings');
+        if ($this->element_data['text_weights'] !== false) {
+            $text_weight->setMultiOptions($this->element_data['text_weights']);
+        }
+        $text_weight->setAttribs(array('class' => 'form-control input-sm'));
+        $text_weight->setBelongsTo('params');
+        if ($this->data['text_weight_id'] !== false) {
+            $text_weight->setValue($this->data['text_weight_id']);
+        } else {
+            $text_weight->setValue(DEFAULT_TEXT_WEIGHT_FOR_MODULE);
+        }
+
+        $this->elements['text_weight_id'] = $text_weight;
     }
 }

@@ -47,18 +47,27 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Ribbon extends 
         if ($this->content_fetched === false) {
             $this->content_data = array(
                 'font_family_id' => false,
+                'text_weight_id' => false
             );
 
             if ($this->tool['content_id'] !== null) {
                 $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
-                $font_family_id = $model->fontFamily(
+
+                $font_and_text_values = $model->fontAndTextValues(
                     $this->tool['site_id'],
                     $this->tool['page_id'],
                     $this->tool['content_id']
                 );
 
-                if ($font_family_id !== false) {
-                    $this->content_data['font_family_id'] = $font_family_id;
+                if ($font_and_text_values !== false) {
+
+                    if($font_and_text_values['text_weight_id'] !== null) {
+                        $this->content_data['text_weight_id'];
+                    }
+
+                    if($font_and_text_values['font_family_id'] !== null) {
+                        $this->content_data['font_family_id'];
+                    }
                 }
             }
 
