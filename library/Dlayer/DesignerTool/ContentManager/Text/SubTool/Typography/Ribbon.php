@@ -60,13 +60,12 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Ribbon extends 
                 );
 
                 if ($font_and_text_values !== false) {
-
-                    if($font_and_text_values['text_weight_id'] !== null) {
-                        $this->content_data['text_weight_id'];
+                    if ($font_and_text_values['text_weight_id'] !== null) {
+                        $this->content_data['text_weight_id'] = $font_and_text_values['text_weight_id'];
                     }
 
-                    if($font_and_text_values['font_family_id'] !== null) {
-                        $this->content_data['font_family_id'];
+                    if ($font_and_text_values['font_family_id'] !== null) {
+                        $this->content_data['font_family_id'] = $font_and_text_values['font_family_id'];
                     }
                 }
             }
