@@ -252,7 +252,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
     {
         $sql = "UPDATE `user_site_page_styling_content_item_typography` 
                 SET 
-                    'font_family_id' = NULL
+                    `font_family_id` = NULL
                 WHERE 
                     `id` = :id 
                 LIMIT 1";
@@ -272,7 +272,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
     {
         $sql = "UPDATE `user_site_page_styling_content_item_typography` 
                 SET 
-                    'text_weight_id' = NULL
+                    `text_weight_id` = NULL
                 WHERE 
                     `id` = :id 
                 LIMIT 1";

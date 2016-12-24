@@ -119,8 +119,9 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
         $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
         $id = $model->existingFontAndTextValues($this->site_id, $this->page_id, $this->content_id);
+        var_dump('Font family: ' . $id);
 
-        if ($id === false) {
+        /*if ($id === false) {
             try {
                 $model->addFontFamily(
                     $this->site_id,
@@ -141,7 +142,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
-        }
+        }*/
     }
 
     /**
@@ -155,8 +156,9 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
         $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
         $id = $model->existingFontAndTextValues($this->site_id, $this->page_id, $this->content_id);
+        var_dump('Text weight: ' . $id);
 
-        if ($id === false) {
+        /*if ($id === false) {
             try {
                 $model->addTextWeight(
                     $this->site_id,
@@ -177,7 +179,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
             } catch (Exception $e) {
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
-        }
+        }*/
     }
 
     /**
