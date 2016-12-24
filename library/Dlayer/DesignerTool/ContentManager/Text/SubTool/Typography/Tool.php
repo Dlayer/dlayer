@@ -93,7 +93,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     }
 
     /**
-     * Edit a new content item or setting
+     * Edit a content item or setting
      *
      * @return array|FALSE Ids for new environment vars or FALSE if the request failed
      * @throws Exception
@@ -101,6 +101,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     protected function edit()
     {
         $this->fontFamily();
+        $this->textWeight();
 
         $this->cleanUp();
 
@@ -114,6 +115,42 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
      * @throws Exception
      */
     protected function fontFamily()
+    {
+        $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
+
+        $id = $model->existingFontFamily($this->site_id, $this->page_id, $this->content_id);
+
+        if ($id === false) {
+            try {
+                $model->addFontFamily(
+                    $this->site_id,
+                    $this->page_id,
+                    $this->content_id,
+                    $this->params['font_family_id']
+                );
+
+                Dlayer_Helper::sendToInfoLog('Set font family for text content item: ' . $this->content_id .
+                    ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
+                    ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+        } else {
+            try {
+                $model->editFontFamily($id, $this->params['font_family_id']);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+    }
+
+    /**
+     * Manage the text weight for a content item
+     *
+     * @return void
+     * @throws Exception
+     */
+    protected function textWeight()
     {
         $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
