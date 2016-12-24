@@ -20,7 +20,9 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     protected function paramsExist(array $params)
     {
         $valid = false;
-        if (array_key_exists('font_family_id', $params) === true) {
+        if (array_key_exists('font_family_id', $params) === true &&
+            array_key_exists('text_weight_id', $params) === true
+        ) {
             $valid = true;
         }
 
@@ -40,7 +42,8 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
 
         $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
-        if($model->fontFamilyIdValid($params['font_family_id']) === true) {
+        if ($model->fontFamilyIdValid($params['font_family_id']) === true &&
+            $model->textWeightIdValid($params['text_weight_id']) === true) {
             $valid = true;
         }
 
@@ -59,6 +62,10 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     {
         if (array_key_exists('font_family_id', $params) === true) {
             $this->params['font_family_id'] = intval($params['font_family_id']);
+        }
+
+        if (array_key_exists('text_weight_id', $params) === true) {
+            $this->params['text_weight_id'] = intval($params['text_weight_id']);
         }
     }
 
@@ -94,6 +101,8 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     protected function edit()
     {
         $this->fontFamily();
+
+        $this->cleanUp();
 
         return $this->returnIds();
     }
@@ -132,6 +141,14 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
         }
+    }
+
+    /**
+     * Clean up the typography table if required, don't want null values stored if not necessary
+     */
+    protected function cleanUp()
+    {
+
     }
 
     /**

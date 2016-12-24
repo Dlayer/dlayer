@@ -94,10 +94,20 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      */
     public function addFontFamily($site_id, $page_id, $id, $font_family_id)
     {
-        $sql = "INSERT INTO user_site_page_styling_content_item_typography 
-                (site_id, page_id, content_id, font_family_id) 
+        $sql = "INSERT INTO `user_site_page_styling_content_item_typography` 
+                (
+                    `site_id`, 
+                    `page_id`, 
+                    `content_id`, 
+                    `font_family_id`
+                ) 
                 VALUES 
-                (:site_id, :page_id, :content_id, :font_family_id)";
+                (
+                    :site_id, 
+                    :page_id, 
+                    :content_id, 
+                    :font_family_id
+                )";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
         $stmt->bindValue(':page_id', $page_id);
@@ -120,7 +130,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
         if (intval($font_family_id) !== DEFAULT_FONT_FAMILY_FOR_MODULE) {
             return $this->updateFontFamily($id, $font_family_id);
         } else {
-            return $this->deleteFontFamily($id);
+            return $this->clearFontFamily($id);
         }
     }
 
@@ -134,9 +144,12 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      */
     protected function updateFontFamily($id, $font_family_id)
     {
-        $sql = "UPDATE user_site_page_styling_content_item_typography 
-                SET font_family_id = :font_family_id  
-                WHERE id = :id 
+        $sql = "UPDATE 
+                    `user_site_page_styling_content_item_typography` 
+                SET 
+                    `font_family_id` = :font_family_id  
+                WHERE
+                    `id` = :id 
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':id', $id);
@@ -151,10 +164,13 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      * @param integer $id
      * @return boolean
      */
-    protected function deleteFontFamily($id)
+    protected function clearFontFamily($id)
     {
-        $sql = "DELETE FROM user_site_page_styling_content_item_typography 
-                WHERE id = :id 
+        $sql = "UPDATE `user_site_page_styling_content_item_typography` 
+                SET 
+                    'font_family_id' = NULL
+                WHERE 
+                    `id` = :id 
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':id', $id);
@@ -170,12 +186,41 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      */
     public function fontFamilyIdValid($font_family_id)
     {
-        $sql = "SELECT id 
-                FROM designer_css_font_family 
-                WHERE id = :id 
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `designer_css_font_family` 
+                WHERE 
+                    `id` = :id 
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':id', $font_family_id);
+        $stmt->execute();
+
+        if ($stmt->fetch() !== false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Text weight valid
+     *
+     * @param integer $text_weight_id
+     * @return boolean
+     */
+    public function textWeightIdValid($text_weight_id)
+    {
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `designer_css_text_weight` 
+                WHERE 
+                     `id` = :id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':id', $text_weight_id, PDO::PARAM_INT);
         $stmt->execute();
 
         if ($stmt->fetch() !== false) {
@@ -192,9 +237,13 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      */
     public function fontFamiliesForSelect()
     {
-        $sql = "SELECT id, `name`   
-                FROM designer_css_font_family 
-                ORDER BY `name` ASC";
+        $sql = "SELECT 
+                    `id`, 
+                    `name`   
+                FROM 
+                    `designer_css_font_family` 
+                ORDER BY 
+                    `name` ASC";
         $stmt = $this->_db->prepare($sql);
         $stmt->execute();
 
@@ -218,9 +267,13 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      */
     public function textWeightsForSelect()
     {
-        $sql = "SELECT `id`, `name` 
-                FROM `designer_css_text_weight` 
-                ORDER BY `sort_order` ASC";
+        $sql = "SELECT 
+                    `id`, 
+                    `name` 
+                FROM 
+                    `designer_css_text_weight` 
+                ORDER BY 
+                    `sort_order` ASC";
         $stmt = $this->_db->prepare($sql);
         $stmt->execute();
 
@@ -244,8 +297,11 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      */
     public function fontFamiliesForPreview()
     {
-        $sql = "SELECT `id`, `css`   
-                FROM `designer_css_font_family`";
+        $sql = "SELECT 
+                    `id`, 
+                    `css`   
+                FROM 
+                    `designer_css_font_family`";
         $stmt = $this->_db->prepare($sql);
         $stmt->execute();
 
@@ -269,8 +325,11 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      */
     public function textWeightsForPreview()
     {
-        $sql = "SELECT `id`, `css`
-                FROM `designer_css_text_weight`";
+        $sql = "SELECT 
+                    `id`, 
+                    `css`
+                FROM 
+                    `designer_css_text_weight`";
         $stmt = $this->_db->prepare($sql);
         $stmt->execute();
 
