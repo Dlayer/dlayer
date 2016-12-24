@@ -118,7 +118,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     {
         $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
-        $id = $model->existingFontFamily($this->site_id, $this->page_id, $this->content_id);
+        $id = $model->existingFontAndTextValues($this->site_id, $this->page_id, $this->content_id);
 
         if ($id === false) {
             try {
@@ -154,18 +154,18 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     {
         $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
-        $id = $model->existingFontFamily($this->site_id, $this->page_id, $this->content_id);
+        $id = $model->existingFontAndTextValues($this->site_id, $this->page_id, $this->content_id);
 
         if ($id === false) {
             try {
-                $model->addFontFamily(
+                $model->addTextWeight(
                     $this->site_id,
                     $this->page_id,
                     $this->content_id,
-                    $this->params['font_family_id']
+                    $this->params['text_weight_id']
                 );
 
-                Dlayer_Helper::sendToInfoLog('Set font family for text content item: ' . $this->content_id .
+                Dlayer_Helper::sendToInfoLog('Set text weight for text content item: ' . $this->content_id .
                     ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
                     ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
             } catch (Exception $e) {

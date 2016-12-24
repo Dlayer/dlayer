@@ -43,8 +43,8 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
 
         if ($result !== false) {
             return array(
-                'font_family_id' => ($result['font_family_id'] === null) ? null: intval($result['font_family_id']),
-                'text_weight_id' => ($result['text_weight_id'] === null) ? null: intval($result['text_weight_id'])
+                'font_family_id' => ($result['font_family_id'] === null) ? null : intval($result['font_family_id']),
+                'text_weight_id' => ($result['text_weight_id'] === null) ? null : intval($result['text_weight_id'])
             );
         } else {
             return false;
@@ -52,7 +52,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
     }
 
     /**
-     * Check to see if there is an existing font family defined for the content item
+     * Check to see if there if there is a row for ant text and font values
      *
      * @param integer $site_id
      * @param integer $page_id
@@ -60,13 +60,20 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
      *
      * @return integer|false
      */
-    public function existingFontFamily($site_id, $page_id, $id)
+    public function existingFontAndTextValues($site_id, $page_id, $id)
     {
-        $sql = "SELECT id 
-                FROM user_site_page_styling_content_item_typography 
-                WHERE site_id = :site_id 
-                AND page_id = :page_id 
-                AND content_id = :content_id 
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `user_site_page_styling_content_item_typography` 
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `page_id` = :page_id AND 
+                    `content_id` = :content_id AND 
+                    (
+                        `text_weight_id` IS NOT NULL OR 
+                        `font_family_id` IS NOT NULL
+                    )
                 LIMIT 1";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
@@ -75,6 +82,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
         $stmt->execute();
 
         $result = $stmt->fetch();
+
         if ($result !== false) {
             return intval($result['id']);
         } else {
@@ -118,7 +126,42 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
     }
 
     /**
-     * Edit the font family for a content item, optionally delete the existing value if the user is clearing the value
+     * Add a new text weight settings for the current content item
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $id
+     * @param integer $text_weight_id
+     *
+     * @return boolean
+     */
+    public function addTextWeight($site_id, $page_id, $id, $text_weight_id)
+    {
+        $sql = "INSERT INTO `user_site_page_styling_content_item_typography` 
+                (
+                    `site_id`, 
+                    `page_id`, 
+                    `content_id`, 
+                    `text_weight_id`
+                ) 
+                VALUES 
+                (
+                    :site_id, 
+                    :page_id, 
+                    :content_id, 
+                    :text_weight_id
+                )";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id);
+        $stmt->bindValue(':page_id', $page_id);
+        $stmt->bindValue(':content_id', $id);
+        $stmt->bindValue(':text_weight_id', $text_weight_id);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Edit the font family for a content item, optionally clear the existing value if the user is clearing the value
      *
      * @param integer $id
      * @param integer $font_family_id
@@ -131,6 +174,23 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
             return $this->updateFontFamily($id, $font_family_id);
         } else {
             return $this->clearFontFamily($id);
+        }
+    }
+
+    /**
+     * Edit the text weight for a content item, optionally clear the existing value if the user is clearing the value
+     *
+     * @param integer $id
+     * @param integer $text_weight_id
+     *
+     * @return boolean
+     */
+    public function editTextWeight($id, $text_weight_id)
+    {
+        if (intval($text_weight_id) !== DEFAULT_TEXT_WEIGHT_FOR_MODULE) {
+            return $this->updateTextWeight($id, $text_weight_id);
+        } else {
+            return $this->clearTextWeight($id);
         }
     }
 
@@ -159,6 +219,30 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
     }
 
     /**
+     * Update text weight for a content item
+     *
+     * @param integer $id
+     * @param integer $text_weight_id
+     *
+     * @return boolean
+     */
+    protected function updateTextWeight($id, $text_weight_id)
+    {
+        $sql = "UPDATE 
+                    `user_site_page_styling_content_item_typography` 
+                SET 
+                    `text_weight_id` = :text_weight_id  
+                WHERE
+                    `id` = :id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':text_weight_id', $text_weight_id);
+
+        return $stmt->execute();
+    }
+
+    /**
      * Remove the font family for a content item
      *
      * @param integer $id
@@ -169,6 +253,26 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
         $sql = "UPDATE `user_site_page_styling_content_item_typography` 
                 SET 
                     'font_family_id' = NULL
+                WHERE 
+                    `id` = :id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':id', $id);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Remove the text weight for a content item
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    protected function clearTextWeight($id)
+    {
+        $sql = "UPDATE `user_site_page_styling_content_item_typography` 
+                SET 
+                    'text_weight_id' = NULL
                 WHERE 
                     `id` = :id 
                 LIMIT 1";
