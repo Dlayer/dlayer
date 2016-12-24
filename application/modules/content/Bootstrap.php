@@ -14,7 +14,11 @@ class Content_Bootstrap extends Zend_Application_Module_Bootstrap
         $dlayer_session = new Dlayer_Session();
         $model_settings = new Dlayer_Model_Settings();
 
-        define('DEFAULT_FONT_FAMILY_FOR_MODULE',
-            $model_settings->definedFontFamilyId('content', $dlayer_session->siteId()));
+        $font_and_text_settings = $model_settings->definedFontAndTextSettings('content', $dlayer_session->siteId());
+
+        if ($font_and_text_settings !== false) {
+            define('DEFAULT_FONT_FAMILY_FOR_MODULE', intval($font_and_text_settings['font_family_id']));
+            define('DEFAULT_TEXT_WEIGHT_FOR_MODULE', intval($font_and_text_settings['text_weight_id']));
+        }
     }
 }

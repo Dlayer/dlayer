@@ -20,7 +20,9 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     protected function paramsExist(array $params)
     {
         $valid = false;
-        if (array_key_exists('font_family_id', $params) === true) {
+        if (array_key_exists('font_family_id', $params) === true &&
+            array_key_exists('text_weight_id', $params) === true
+        ) {
             $valid = true;
         }
 
@@ -40,7 +42,8 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
 
         $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
-        if($model->fontFamilyIdValid($params['font_family_id']) === true) {
+        if ($model->fontFamilyIdValid($params['font_family_id']) === true &&
+            $model->textWeightIdValid($params['text_weight_id']) === true) {
             $valid = true;
         }
 
@@ -59,6 +62,10 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     {
         if (array_key_exists('font_family_id', $params) === true) {
             $this->params['font_family_id'] = intval($params['font_family_id']);
+        }
+
+        if (array_key_exists('text_weight_id', $params) === true) {
+            $this->params['text_weight_id'] = intval($params['text_weight_id']);
         }
     }
 
@@ -86,7 +93,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     }
 
     /**
-     * Edit a new content item or setting
+     * Edit a content item or setting
      *
      * @return array|FALSE Ids for new environment vars or FALSE if the request failed
      * @throws Exception
@@ -94,6 +101,10 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     protected function edit()
     {
         $this->fontFamily();
+        $this->textWeight();
+        die;
+
+        $this->cleanUp();
 
         return $this->returnIds();
     }
@@ -108,9 +119,10 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
     {
         $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
-        $id = $model->existingFontFamily($this->site_id, $this->page_id, $this->content_id);
+        $id = $model->existingFontAndTextValues($this->site_id, $this->page_id, $this->content_id);
+        var_dump('Font family: ' . $id);
 
-        if ($id === false) {
+        if ($id === false && $this->params['font_family_id'] !== DEFAULT_FONT_FAMILY_FOR_MODULE) {
             try {
                 $model->addFontFamily(
                     $this->site_id,
@@ -132,6 +144,51 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
                 throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
         }
+    }
+
+    /**
+     * Manage the text weight for a content item
+     *
+     * @return void
+     * @throws Exception
+     */
+    protected function textWeight()
+    {
+        $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
+
+        $id = $model->existingFontAndTextValues($this->site_id, $this->page_id, $this->content_id);
+        var_dump('Text weight: ' . $id);
+
+        if ($id === false && $this->params['text_weight_id'] !== DEFAULT_TEXT_WEIGHT_FOR_MODULE)  {
+            try {
+                $model->addTextWeight(
+                    $this->site_id,
+                    $this->page_id,
+                    $this->content_id,
+                    $this->params['text_weight_id']
+                );
+
+                Dlayer_Helper::sendToInfoLog('Set text weight for text content item: ' . $this->content_id .
+                    ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
+                    ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+        } else {
+            try {
+                $model->editTextWeight($id, $this->params['text_weight_id']);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+    }
+
+    /**
+     * Clean up the typography table if required, don't want null values stored if not necessary
+     */
+    protected function cleanUp()
+    {
+
     }
 
     /**
