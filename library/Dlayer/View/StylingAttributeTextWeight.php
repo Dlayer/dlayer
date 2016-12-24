@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Styling view helper, generates the font family attribute
+ * Styling view helper, generates the text weight attribute
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_View_StylingAttributeFontFamily extends Zend_View_Helper_Abstract
+class Dlayer_View_StylingAttributeTextWeight extends Zend_View_Helper_Abstract
 {
     /**
      * @var string The complete style attribute
@@ -15,22 +15,22 @@ class Dlayer_View_StylingAttributeFontFamily extends Zend_View_Helper_Abstract
     private $style;
 
     /**
-     * @var string $font_family
+     * @var integer $text_weight
      */
-    private $font_family;
+    private $text_weight;
 
     /**
      * View helper constructor, pass in anything that may be needed to create the object
      *
-     * @param string $font_family The font family setting
+     * @param integer $text_weight The text weight setting
      *
-     * @return Dlayer_View_StylingAttributeFontFamily
+     * @return Dlayer_View_StylingAttributeTextWeight
      */
-    public function stylingAttributeFontFamily($font_family)
+    public function stylingAttributeTextWeight($text_weight)
     {
         $this->resetParams();
 
-        $this->font_family = $font_family;
+        $this->text_weight = $text_weight;
 
         return $this;
     }
@@ -43,7 +43,7 @@ class Dlayer_View_StylingAttributeFontFamily extends Zend_View_Helper_Abstract
     private function resetParams()
     {
         $this->style = '';
-        $this->font_family = null;
+        $this->text_weight = null;
     }
 
     /**
@@ -53,7 +53,7 @@ class Dlayer_View_StylingAttributeFontFamily extends Zend_View_Helper_Abstract
      */
     private function render()
     {
-        $this->style .= ' font-family:' . $this->view->escape($this->font_family) . ';';
+        $this->style .= ' font-weight:' . $this->text_weight . ';';
 
         return $this->style;
     }

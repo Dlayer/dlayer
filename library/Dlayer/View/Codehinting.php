@@ -302,6 +302,17 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     }
 
     /**
+     * Text weight style attribute
+     *
+     * @param integer $text_weight The text weight setting
+     *
+     * @return Dlayer_View_StylingAttributeTextWeight
+     */
+    public function stylingAttributeTextWeight($text_weight)
+    {
+    }
+
+    /**
      * Styles for columns
      *
      * @return Dlayer_View_StylingColumn

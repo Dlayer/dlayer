@@ -98,6 +98,12 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
                 $styles .= $this->view->stylingAttributeFontFamily($this->styles['font_family'][$this->id]);
             }
 
+            if (array_key_exists('text_weight', $this->styles) === true &&
+                array_key_exists($this->id, $this->styles['text_weight']) === true
+            ) {
+                $styles .= $this->view->stylingAttributeTextWeight($this->styles['text_weight'][$this->id]);
+            }
+
             if (strlen($styles) > 0) {
                 $styles = ' style="' . $styles . '"';
             }
