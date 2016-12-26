@@ -4,6 +4,10 @@ Dlayer
 Thank you for taking the time to look at Dlayer, I've been working on this project for many years including the inevitable restarts, it has taken an inordinate amount of work to finally get here, now that I have a stable base I'm hoping to grow the project.
 
 Over the next few weeks, I am going to continue to polish the core of the Content manager, work on the set-up process and then start reintegrating the removed designers, first on the list is the Form builder.
+
+Latest stable release 
+--------
+v1.00 - Release 22nd December 2016
  
 Overview
 --------
