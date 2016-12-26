@@ -153,5 +153,27 @@ var previewContentManager =
 
             previewContentManager.unsaved();
         });
+    },
+
+    /**
+     * Text weight for a content item
+     *
+     * @param {Number} content_id Id of the content item
+     * @param {Array} text_weights The text weights supported by the system
+     */
+    contentItemTextWeight: function (content_id, text_weights)
+    {
+        $('#params-text_weight_id').change(function ()
+        {
+            var selector = '.content[data-content-id="' + content_id + '"]';
+
+            if ($(this).val() in text_weights) {
+                $(selector).css('font-weight', text_weights[$(this).val()]);
+
+                previewContentManager.changed = true;
+            }
+
+            previewContentManager.unsaved();
+        });
     }
 };
