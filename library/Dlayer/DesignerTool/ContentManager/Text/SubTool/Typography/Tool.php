@@ -185,7 +185,9 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Tool extends Dl
      */
     protected function cleanUp()
     {
+        $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
 
+        $model->cleanUp($this->site_id, $this->page_id, $this->content_id);
     }
 
     /**
