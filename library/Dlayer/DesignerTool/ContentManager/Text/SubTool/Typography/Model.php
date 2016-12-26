@@ -449,4 +449,31 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends Z
             return false;
         }
     }
+
+    /**
+     * Clean up
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $content_id
+     * @return boolean
+     */
+    public function cleanUp($site_id, $page_id, $content_id)
+    {
+        $sql = "DELETE FROM 
+                    `user_site_page_styling_content_item_typography` 
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `page_id` = :page_id AND 
+                    `content_id` = :content_id AND  
+                    `font_family_id` IS NULL AND 
+                    `text_weight_id` IS NULL 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
 }
