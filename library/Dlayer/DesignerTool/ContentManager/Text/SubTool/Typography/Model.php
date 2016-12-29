@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Shared data model for typography sub tools
+ * Data model for typography sub tool
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
