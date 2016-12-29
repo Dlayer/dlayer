@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Typography sub tools for the Image content item
+ * Typography sub tools for the image content item
  *
  * @author Dean Blackborough
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Image_SubTool_Typography_Form extends Dlayer_Form_Content
+class Dlayer_DesignerTool_ContentManager_Image_SubTool_Typography_Form extends
+    Dlayer_DesignerTool_ContentManager_Shared_Form_Typography
 {
     /**
      * Set the properties for the form
@@ -24,49 +25,5 @@ class Dlayer_DesignerTool_ContentManager_Image_SubTool_Typography_Form extends D
         $this->sub_tool_model = 'Typography';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);
-    }
-
-    /**
-     * Initialise the form, sets the action and method and then calls the elements to build the form
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $this->setAction('/content/process/tool');
-
-        $this->setMethod('post');
-
-        $this->generateFormElements();
-
-        $this->addElementsToForm('image_typography', 'Typography', $this->elements);
-
-        $this->addDefaultElementDecorators();
-
-        $this->addCustomElementDecorators();
-    }
-
-    /**
-     * Generate the tool elements that the user interacts with
-     *
-     * @return void
-     */
-    protected function generateUserElements()
-    {
-        $font_family = new Zend_Form_Element_Select('font_family_id');
-        $font_family->setLabel('Font family');
-        $font_family->setDescription('Choose a font family, defaults to the font family selected in the settings');
-        if ($this->element_data['font_families'] !== false) {
-            $font_family->setMultiOptions($this->element_data['font_families']);
-        }
-        $font_family->setAttribs(array('class' => 'form-control input-sm'));
-        $font_family->setBelongsTo('params');
-        if ($this->data['font_family_id'] !== false) {
-            $font_family->setValue($this->data['font_family_id']);
-        } else {
-            $font_family->setValue(DEFAULT_FONT_FAMILY_FOR_MODULE);
-        }
-
-        $this->elements['font_family_id'] = $font_family;
     }
 }
