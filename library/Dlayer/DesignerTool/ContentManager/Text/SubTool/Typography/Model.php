@@ -10,5 +10,5 @@
 class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model extends
     Dlayer_DesignerTool_ContentManager_Shared_Model_Typography
 {
-    // No custom logic
+    // No custom logic, here if required
 }
