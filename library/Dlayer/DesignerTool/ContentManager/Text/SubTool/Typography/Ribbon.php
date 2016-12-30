@@ -51,7 +51,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Ribbon extends 
             );
 
             if ($this->tool['content_id'] !== null) {
-                $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
+                $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
 
                 $font_and_text_values = $model->fontAndTextValues(
                     $this->tool['site_id'],
@@ -88,7 +88,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Ribbon extends 
                 'text_weights' => false
             );
 
-            $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
+            $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
 
             $font_families = $model->fontFamiliesForSelect();
             if ($font_families !== false) {
@@ -122,7 +122,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Ribbon extends 
                 'text_weights' => false
             );
 
-            $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Model();
+            $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
 
             $font_families = $model->fontFamiliesForPreview();
             if ($font_families !== false) {
