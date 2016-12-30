@@ -47,18 +47,26 @@ class Dlayer_DesignerTool_ContentManager_Form_SubTool_Typography_Ribbon extends 
         if ($this->content_fetched === false) {
             $this->content_data = array(
                 'font_family_id' => false,
+                'text_weight_id' => false
             );
 
             if ($this->tool['content_id'] !== null) {
-                $model = new Dlayer_DesignerTool_ContentManager_Form_SubTool_Typography_Model();
-                $font_family_id = $model->fontFamily(
+                $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
+
+                $font_and_text_values = $model->fontAndTextValues(
                     $this->tool['site_id'],
                     $this->tool['page_id'],
                     $this->tool['content_id']
                 );
 
-                if ($font_family_id !== false) {
-                    $this->content_data['font_family_id'] = $font_family_id;
+                if ($font_and_text_values !== false) {
+                    if ($font_and_text_values['text_weight_id'] !== null) {
+                        $this->content_data['text_weight_id'] = $font_and_text_values['text_weight_id'];
+                    }
+
+                    if ($font_and_text_values['font_family_id'] !== null) {
+                        $this->content_data['font_family_id'] = $font_and_text_values['font_family_id'];
+                    }
                 }
             }
 
@@ -76,13 +84,20 @@ class Dlayer_DesignerTool_ContentManager_Form_SubTool_Typography_Ribbon extends 
         if ($this->element_data_fetched === false) {
 
             $this->element_data = array(
-                'font_families' => false
+                'font_families' => false,
+                'text_weights' => false
             );
 
-            $model = new Dlayer_DesignerTool_ContentManager_Form_SubTool_Typography_Model();
+            $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
+
             $font_families = $model->fontFamiliesForSelect();
-            if($font_families !== false) {
+            if ($font_families !== false) {
                 $this->element_data['font_families'] = $font_families;
+            }
+
+            $text_weights = $model->textWeightsForSelect();
+            if ($text_weights !== false) {
+                $this->element_data['text_weights'] = $text_weights;
             }
 
             $this->element_data_fetched = true;
@@ -103,13 +118,20 @@ class Dlayer_DesignerTool_ContentManager_Form_SubTool_Typography_Ribbon extends 
             $this->preview_data = array(
                 'id' => $this->tool['content_id'],
                 'font_family_id' => $this->content_data['font_family_id'],
-                'font_families' => false
+                'font_families' => false,
+                'text_weights' => false
             );
 
-            $model = new Dlayer_DesignerTool_ContentManager_Form_SubTool_Typography_Model();
+            $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
+
             $font_families = $model->fontFamiliesForPreview();
-            if($font_families !== false) {
+            if ($font_families !== false) {
                 $this->preview_data['font_families'] = $font_families;
+            }
+
+            $text_weights = $model->textWeightsForPreview();
+            if ($text_weights !== false) {
+                $this->preview_data['text_weights'] = $text_weights;
             }
 
             $this->preview_data_fetched = true;
