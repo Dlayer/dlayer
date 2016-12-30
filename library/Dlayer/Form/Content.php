@@ -93,7 +93,7 @@ abstract class Dlayer_Form_Content extends Dlayer_Form
 	protected function generateSubmitElement()
 	{
 		$submit = new Zend_Form_Element_Submit('submit');
-		$submit->setAttribs(array('class'=>'btn btn-primary'));
+		$submit->setAttribs(array('class'=>'btn btn-success'));
 		$submit->setLabel('Save');
 
 		$this->elements['submit'] = $submit;
