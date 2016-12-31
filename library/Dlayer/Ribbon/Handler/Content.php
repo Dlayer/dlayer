@@ -297,6 +297,11 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
                 break;
 
+            case 'typography':
+                $ribbon_typography = new Dlayer_DesignerTool_ContentManager_Html_SubTool_Typography_Ribbon();
+                $data = $ribbon_typography->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;
