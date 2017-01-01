@@ -80,6 +80,13 @@ class Content_DesignController extends Zend_Controller_Action
     {
         $this->_helper->setLayout('designer');
 
+        /**
+         * Auto select the page if not selected, better UX as there is only one page per designer
+         */
+        if ($this->session_content->pageSelected() === null) {
+            $this->redirect('/content/design/set-page-selected');
+        }
+
         $this->view->dlayer_toolbar = $this->dlayerToolbar();
         $this->view->dlayer_page = $this->dlayerPage();
         $this->view->dlayer_ribbon = $this->dlayerRibbon();
@@ -472,6 +479,8 @@ class Content_DesignController extends Zend_Controller_Action
      * The cancel tool clears all the currently set content template vars, the
      * user is returned to the manager after the session is cleared
      *
+     * We auto select the page to ease selections for user, should not always have to choose a page if there is only one
+     *
      * @return void
      */
     private function cancelTool()
@@ -480,7 +489,7 @@ class Content_DesignController extends Zend_Controller_Action
         $this->session_designer->clearAllImagePicker();
         $this->session_designer->clearAllTool('content');
 
-        $this->redirect('/content/design');
+        $this->redirect('/content/design/set-page-selected');
     }
 
     /**
