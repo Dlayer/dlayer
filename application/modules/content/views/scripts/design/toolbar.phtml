@@ -34,22 +34,15 @@ foreach ($this->tools as $group_id => $group) {
                     $show = true;
                 }
 
-                // Show the row tool
+                // Show the add row tool when column selected
                 if ($tool['model'] === 'AddRow' && $this->page_selected === true && $this->row_id !== null
-                    && $this->content_id === null
+                    && ($this->column_id !== 1 || $this->column_id !== 1)
                 ) {
                     $show = true;
                 }
 
-                // Hide row tool
-                if ($tool['model'] === 'AddRow' && $this->tool !== false && $this->tool['tool'] === 'Row') {
-                    $show = false;
-                }
-
-                // Hide row tool
-                if ($tool['model'] === 'AddRow' && $this->tool !== false && $this->row_id !== null
-                    && ($this->column_id !== 0 || $this->column_id !== null)
-                ) {
+                // Hide add row tool when row selected
+                if ($tool['model'] === 'AddRow' && $this->tool !== false && ($this->tool['tool'] === 'Row' || $this->tool['tool'] === 'AddColumn')) {
                     $show = false;
                 }
 
