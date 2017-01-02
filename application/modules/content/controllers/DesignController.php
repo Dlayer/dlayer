@@ -263,6 +263,11 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->color_picker_data = $this->colorPickerData();
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
+                $this->view->page_selected = $this->session_content->pageSelected();
+                $this->view->row_id = $this->session_content->rowId();
+                $this->view->column_id = $this->session_content->columnId();
+                $this->view->content_id = $this->session_content->contentId();
+
                 if ($sub_tool === null) {
                     $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .
                         $tool . "/scripts/");
@@ -371,6 +376,10 @@ class Content_DesignController extends Zend_Controller_Action
         $id = $this->getRequest()->getParam('id');
         if ($this->session_designer->setTool('content', 'row') === true) {
             $this->session_content->setRowId($id);
+
+            if ($this->getRequest()->getParam('column') !== null) {
+                $this->session_content->setColumnId($this->getRequest()->getParam('column'));
+            }
         }
 
         $this->redirect('/content/design');
