@@ -399,6 +399,10 @@ class Content_DesignController extends Zend_Controller_Action
 
         if ($this->session_designer->setTool('content', 'column') === true) {
             $this->session_content->setColumnId($id);
+
+            /*if ($this->getRequest()->getParam('row') !== null) {
+                $this->session_content->setRowId($this->getRequest()->getParam('row'));
+            }*/
         }
 
         $this->redirect('/content/design/');
