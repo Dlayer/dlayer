@@ -1025,5 +1025,59 @@ class Dlayer_Model_Content_Page extends Zend_Db_Table_Abstract
         }
     }
 
+    /**
+     * Fetch the parent id for a column
+     *
+     * @param integer $column_id
+     * @return integer|false
+     */
+    public function parentRowId($column_id)
+    {
+        $sql = "SELECT 
+                    `row_id` 
+                FROM 
+                    `user_site_page_structure_column` 
+                WHERE 
+                    `id` = :column_id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->execute();
 
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['row_id']);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Fetch the parent id for a row
+     *
+     * @param integer $row_id
+     * @return integer|false
+     */
+    public function parentColumnId($row_id)
+    {
+        $sql = "SELECT 
+                    `column_id` 
+                FROM 
+                    `user_site_page_structure_row` 
+                WHERE 
+                    `id` = :row_id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['column_id']);
+        } else {
+            return false;
+        }
+    }
 }

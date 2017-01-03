@@ -269,8 +269,8 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->column_id = $this->session_content->columnId();
                 $this->view->content_id = $this->session_content->contentId();
 
-                $this->view->parent_column_id = null;
-                $this->view->parent_row_id = null;
+                $this->view->parent_column_id = $model_page->parentColumnId($this->session_content->rowId());
+                $this->view->parent_row_id = $model_page->parentRowId($this->session_content->columnId());
 
                 if ($sub_tool === null) {
                     $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .
