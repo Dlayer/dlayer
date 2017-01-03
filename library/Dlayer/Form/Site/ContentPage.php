@@ -87,7 +87,7 @@ class Dlayer_Form_Site_ContentPage extends Dlayer_Form_Module_App
 	{
 		if($this->page_id !== NULL)
 		{
-			$model_pages = new Dlayer_Model_ContentPage();
+			$model_pages = new Dlayer_Model_Page();
 			$page = $model_pages->page($this->page_id);
 
 			if($page !== false)

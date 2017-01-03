@@ -41,7 +41,7 @@ class Dlayer_Validate_PageNameUnique extends Zend_Validate_Abstract
     {
         $this->_setValue($value);
         
-        $model_pages = new Dlayer_Model_ContentPage();
+        $model_pages = new Dlayer_Model_Page();
         
         if($model_pages->nameUnique($value, $this->site_id, $this->page_id) == TRUE)
         {

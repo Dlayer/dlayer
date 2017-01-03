@@ -247,6 +247,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         if ($tool !== null && $tab !== null) {
             $model_tool = new Dlayer_Model_Tool();
+            $model_page = new Dlayer_Model_Content_Page();
 
             $exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
 
@@ -267,6 +268,9 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->row_id = $this->session_content->rowId();
                 $this->view->column_id = $this->session_content->columnId();
                 $this->view->content_id = $this->session_content->contentId();
+
+                $this->view->parent_column_id = null;
+                $this->view->parent_row_id = null;
 
                 if ($sub_tool === null) {
                     $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .
@@ -320,7 +324,7 @@ class Content_DesignController extends Zend_Controller_Action
      */
     private function dlayerPage()
     {
-        $designer_page = new Dlayer_Designer_ContentPage($this->site_id, $this->page_id); // Fix this
+        $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
 
         $this->view->rows = $designer_page->rows();
         $this->view->columns = $designer_page->columns();
@@ -347,7 +351,7 @@ class Content_DesignController extends Zend_Controller_Action
      */
     private function dlayerPagePreview()
     {
-        $designer_page = new Dlayer_Designer_ContentPage($this->site_id, $this->page_id); // Fix this
+        $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
 
         $this->view->page_id = $this->page_id;
 

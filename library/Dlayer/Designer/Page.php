@@ -9,15 +9,15 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Designer_ContentPage
+class Dlayer_Designer_Page
 {
     /**
-     * @var \Dlayer_Model_View_ContentPage
+     * @var \Dlayer_Model_View_Page
      */
     private $model_page;
 
     /**
-     * @var \Dlayer_Model_View_ContentPage_Styling
+     * @var \Dlayer_Model_View_Page_Styling
      */
     private $model_styling;
 
@@ -29,10 +29,10 @@ class Dlayer_Designer_ContentPage
      */
     public function __construct($site_id, $page_id)
     {
-        $this->model_page = new Dlayer_Model_View_ContentPage();
+        $this->model_page = new Dlayer_Model_View_Page();
         $this->model_page->setUp($site_id, $page_id);
 
-        $this->model_styling = new Dlayer_Model_View_ContentPage_Styling();
+        $this->model_styling = new Dlayer_Model_View_Page_Styling();
         $this->model_styling->setUp($site_id, $page_id);
     }
 
