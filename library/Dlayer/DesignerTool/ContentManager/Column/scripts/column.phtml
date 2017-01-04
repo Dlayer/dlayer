@@ -3,6 +3,8 @@
 <div class="col-md-12 col-sm-12">
 	<h3>Column selected</h3>
 
+	<?php if ($this->column_contains_content === false) { ?>
+
 	<a href="#collapse-add-row" role="button" data-toggle="collapse" aria-controls="collapse-add-row">
 		<h5>
 			<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Add a row
@@ -23,7 +25,15 @@
 		<p>If a row is selectable it will highlight when you hover your cursor over it, to select the row, click.</p>
 	</div>
 
+	<?php } ?>
+
+	<?php if ($this->column_contains_content === false && $this->column_contains_rows === false) { ?>
+
 	<h5>Or...</h5>
+
+	<?php } ?>
+
+	<?php if ($this->column_contains_rows === false) { ?>
 			
 	<a href="#collapse-add-item" role="button" data-toggle="collapse" aria-controls="collapse-add-item">
 		<h5>
@@ -55,6 +65,8 @@
 	<div class="collapse" id="collapse-edit-column">
 		<p>To edit the properties for the column select a tab above.</p>
 	</div>
+
+	<?php } ?>
 
     <?php if ($this->column_id !== null) { ?>
     <a class="btn btn-info" href="/content/design/set-selected-row/id/<?php echo $this->escape($this->row_id); ?>/column/0">Select parent row</a>

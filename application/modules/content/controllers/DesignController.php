@@ -264,13 +264,18 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->color_picker_data = $this->colorPickerData();
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
+                $column_id = $this->session_content->columnId();
+                $row_id = $this->session_content->rowId();
+
                 $this->view->page_selected = $this->session_content->pageSelected();
-                $this->view->row_id = $this->session_content->rowId();
-                $this->view->column_id = $this->session_content->columnId();
+                $this->view->row_id = $row_id;
+                $this->view->column_id = $column_id;
                 $this->view->content_id = $this->session_content->contentId();
 
-                $this->view->parent_column_id = $model_page->parentColumnId($this->session_content->rowId());
-                $this->view->parent_row_id = $model_page->parentRowId($this->session_content->columnId());
+                $this->view->parent_column_id = $model_page->parentColumnId($row_id);
+                $this->view->parent_row_id = $model_page->parentRowId($column_id);
+                $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
+                $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
 
                 if ($sub_tool === null) {
                     $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .

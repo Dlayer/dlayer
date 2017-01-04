@@ -1080,4 +1080,54 @@ class Dlayer_Model_Content_Page extends Zend_Db_Table_Abstract
             return false;
         }
     }
+
+    /**
+     * Check to see if the selected column has any child row
+     *
+     * @param integer $column_id
+     * @return boolean
+     */
+    public function columnContainsRows($column_id)
+    {
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `user_site_page_structure_row` 
+                WHERE 
+                    `column_id` = :column_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if (count($stmt->fetchAll()) === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Check to see if the selected column has any content
+     *
+     * @param integer $column_id
+     * @return boolean
+     */
+    public function columnContainsContent($column_id)
+    {
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `user_site_page_structure_content` 
+                WHERE 
+                    `column_id` = :column_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if (count($stmt->fetchAll()) === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
