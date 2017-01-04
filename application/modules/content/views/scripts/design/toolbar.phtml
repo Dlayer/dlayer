@@ -7,7 +7,7 @@ $groups = array(
     2 => 'Select <small>Select page elements</small>',
     3 => 'Layout <small>Layout tools for the page</small>',
     4 => 'Create <small>Manage content items</small>',
-    5 => 'Import <small>Import content items</small>'
+    5 => 'Import <small>Import content items</small>',
 );
 
 foreach ($this->tools as $group_id => $group) {
@@ -29,20 +29,23 @@ foreach ($this->tools as $group_id => $group) {
             case 3: // Structure tools
                 // Show the add row tool, when the page is selected
                 if ($tool['model'] === 'AddRow' && $this->page_selected === true && $this->row_id === null
-                    && $this->column_id === 0
+                    && $this->column_id === 0 && $this->column_contains_content === false
                 ) {
                     $show = true;
                 }
 
                 // Show the add row tool when column selected
                 if ($tool['model'] === 'AddRow' && $this->page_selected === true && $this->row_id !== null
-                    && ($this->column_id !== 1 || $this->column_id !== 1)
+                    && ($this->column_id !== 0 || $this->column_id !== null) && $this->column_contains_content === false
                 ) {
                     $show = true;
                 }
 
                 // Hide add row tool when row selected
-                if ($tool['model'] === 'AddRow' && $this->tool !== false && ($this->tool['tool'] === 'Row' || $this->tool['tool'] === 'AddColumn')) {
+                if ($tool['model'] === 'AddRow' && $this->tool !== false &&
+                    ($this->tool['tool'] === 'Row' || $this->tool['tool'] === 'AddColumn') &&
+                    $this->column_contains_content === false
+                ) {
                     $show = false;
                 }
 
@@ -61,7 +64,8 @@ foreach ($this->tools as $group_id => $group) {
 
             case 4: // Content tools
                 if ($this->page_selected === true && $this->row_id !== null &&
-                    ($this->column_id !== null && $this->column_id !== 0)
+                    ($this->column_id !== null && $this->column_id !== 0) &&
+                    $this->column_contains_rows === false
                 ) {
                     $show = true;
                 }
@@ -69,7 +73,8 @@ foreach ($this->tools as $group_id => $group) {
 
             case 5: // Import tools
                 if ($this->page_selected === true && $this->row_id !== null &&
-                    ($this->column_id !== null && $this->column_id !== 0)
+                    ($this->column_id !== null && $this->column_id !== 0 &&
+                        $this->column_contains_rows === false)
                 ) {
                     $show = true;
                 }

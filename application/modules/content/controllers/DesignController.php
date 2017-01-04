@@ -141,11 +141,16 @@ class Content_DesignController extends Zend_Controller_Action
     private function dlayerToolbar()
     {
         $model_tool = new Dlayer_Model_Tool();
+        $model_page = new Dlayer_Model_Content_Page();
+
+        $column_id = $this->session_content->columnId();
 
         $this->view->page_selected = $this->session_content->pageSelected();
         $this->view->row_id = $this->session_content->rowId();
-        $this->view->column_id = $this->session_content->columnId();
+        $this->view->column_id = $column_id;
         $this->view->content_id = $this->session_content->contentId();
+        $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
+        $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
 
         $this->view->tools = $model_tool->tools($this->getRequest()->getModuleName());
         $this->view->tool = $this->session_designer->tool('content');
