@@ -153,18 +153,19 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
                 $columns = $this->view->column()->render();
 
                 if (strlen($columns) > 0) {
-                    $html .= '<div class="' . $class . '" data-row-id="' . $row['id'] . '" ' .
-                        $this->view->stylingRow()->setRow($row['id']) . '>' . $columns . '</div>';
+                    $content = $columns;
                 } else {
+                    $class .= ' empty';
+
                     if ($this->selected_row_id === $row['id']) {
                         $content = "<p><a href=\"/content/design/set-tool/tool/AddColumn\" class=\"btn btn-primary\">Add Column(s)</a></p>";
                     } else {
                         $content = '<p class="text-muted"><em>Empty row</em></p>';
                     }
-                    $html .= '<div class="' . $class . ' empty" data-row-id="' . $row['id'] . '" ' .
-                        $this->view->stylingRow()->setRow($row['id']) .
-                        ">{$content}</div>";
                 }
+
+                $html .= '<div class="' . $class . ' empty" data-row-id="' . $row['id'] . '" ' .
+                    $this->view->stylingRow()->setRow($row['id']) . ">{$content}</div>";
             }
         }
 
