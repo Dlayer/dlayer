@@ -11,7 +11,7 @@
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  * @category Model
  */
-class Dlayer_Model_ContentPage extends Zend_Db_Table_Abstract
+class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 {
     /**
      * Check to see if the given page id is valid. It needs to exist in the

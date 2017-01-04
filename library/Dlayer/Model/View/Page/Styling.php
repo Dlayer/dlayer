@@ -9,7 +9,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Model_View_ContentPage_Styling extends Zend_Db_Table_Abstract
+class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
 {
     /**
      * @var integer The id of the currently selected site

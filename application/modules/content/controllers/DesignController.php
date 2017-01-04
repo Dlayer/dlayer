@@ -80,6 +80,13 @@ class Content_DesignController extends Zend_Controller_Action
     {
         $this->_helper->setLayout('designer');
 
+        /**
+         * Auto select the page if not selected, better UX as there is only one page per designer
+         */
+        if ($this->session_content->pageSelected() === null) {
+            $this->redirect('/content/design/set-page-selected');
+        }
+
         $this->view->dlayer_toolbar = $this->dlayerToolbar();
         $this->view->dlayer_page = $this->dlayerPage();
         $this->view->dlayer_ribbon = $this->dlayerRibbon();
@@ -134,11 +141,16 @@ class Content_DesignController extends Zend_Controller_Action
     private function dlayerToolbar()
     {
         $model_tool = new Dlayer_Model_Tool();
+        $model_page = new Dlayer_Model_Content_Page();
+
+        $column_id = $this->session_content->columnId();
 
         $this->view->page_selected = $this->session_content->pageSelected();
         $this->view->row_id = $this->session_content->rowId();
-        $this->view->column_id = $this->session_content->columnId();
+        $this->view->column_id = $column_id;
         $this->view->content_id = $this->session_content->contentId();
+        $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
+        $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
 
         $this->view->tools = $model_tool->tools($this->getRequest()->getModuleName());
         $this->view->tool = $this->session_designer->tool('content');
@@ -240,6 +252,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         if ($tool !== null && $tab !== null) {
             $model_tool = new Dlayer_Model_Tool();
+            $model_page = new Dlayer_Model_Content_Page();
 
             $exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
 
@@ -255,6 +268,19 @@ class Content_DesignController extends Zend_Controller_Action
 
                 $this->view->color_picker_data = $this->colorPickerData();
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
+
+                $column_id = $this->session_content->columnId();
+                $row_id = $this->session_content->rowId();
+
+                $this->view->page_selected = $this->session_content->pageSelected();
+                $this->view->row_id = $row_id;
+                $this->view->column_id = $column_id;
+                $this->view->content_id = $this->session_content->contentId();
+
+                $this->view->parent_column_id = $model_page->parentColumnId($row_id);
+                $this->view->parent_row_id = $model_page->parentRowId($column_id);
+                $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
+                $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
 
                 if ($sub_tool === null) {
                     $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .
@@ -308,7 +334,7 @@ class Content_DesignController extends Zend_Controller_Action
      */
     private function dlayerPage()
     {
-        $designer_page = new Dlayer_Designer_ContentPage($this->site_id, $this->page_id); // Fix this
+        $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
 
         $this->view->rows = $designer_page->rows();
         $this->view->columns = $designer_page->columns();
@@ -335,7 +361,7 @@ class Content_DesignController extends Zend_Controller_Action
      */
     private function dlayerPagePreview()
     {
-        $designer_page = new Dlayer_Designer_ContentPage($this->site_id, $this->page_id); // Fix this
+        $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
 
         $this->view->page_id = $this->page_id;
 
@@ -364,6 +390,10 @@ class Content_DesignController extends Zend_Controller_Action
         $id = $this->getRequest()->getParam('id');
         if ($this->session_designer->setTool('content', 'row') === true) {
             $this->session_content->setRowId($id);
+
+            if ($this->getRequest()->getParam('column') !== null) {
+                $this->session_content->setColumnId($this->getRequest()->getParam('column'));
+            }
         }
 
         $this->redirect('/content/design');
@@ -383,6 +413,10 @@ class Content_DesignController extends Zend_Controller_Action
 
         if ($this->session_designer->setTool('content', 'column') === true) {
             $this->session_content->setColumnId($id);
+
+            /*if ($this->getRequest()->getParam('row') !== null) {
+                $this->session_content->setRowId($this->getRequest()->getParam('row'));
+            }*/
         }
 
         $this->redirect('/content/design/');
@@ -472,6 +506,8 @@ class Content_DesignController extends Zend_Controller_Action
      * The cancel tool clears all the currently set content template vars, the
      * user is returned to the manager after the session is cleared
      *
+     * We auto select the page to ease selections for user, should not always have to choose a page if there is only one
+     *
      * @return void
      */
     private function cancelTool()
@@ -480,7 +516,7 @@ class Content_DesignController extends Zend_Controller_Action
         $this->session_designer->clearAllImagePicker();
         $this->session_designer->clearAllTool('content');
 
-        $this->redirect('/content/design');
+        $this->redirect('/content/design/set-page-selected');
     }
 
     /**
