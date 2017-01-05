@@ -40,8 +40,8 @@ div#designer {
 		}
 		
 		div.content-manager {
-			& > div.container-fluid {
-				min-height: 400px;;
+			div.page-min-height {
+				min-height: 500px;
 			}
 
 			div.selected {

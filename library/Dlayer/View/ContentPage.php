@@ -131,6 +131,10 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
             }
         }
 
+        if ($this->child_content === false) {
+            $page_class .= ' page-min-height';
+        }
+
         $this->html = '<div class="' . $page_class . '" ' . $this->view->stylingPage()->setPage($this->page_id) . '>';
 
         $this->view->row()->setColumnId(0);
