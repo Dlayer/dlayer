@@ -30,16 +30,6 @@ class Dlayer_LogController extends Zend_Controller_Action
             'uri' => 'http://www.dlayer.com/docs/',
             'name' => 'Docs',
             'title' => 'Read the Docs for Dlayer'
-        ),
-        array(
-            'uri' => '/dlayer/log/app',
-            'name' => 'App log',
-            'title' => 'App log'
-        ),
-        array(
-            'uri' => '/dlayer/log/error',
-            'name' => 'Error log',
-            'title' => 'Error log'
         )
     );
 
@@ -63,7 +53,9 @@ class Dlayer_LogController extends Zend_Controller_Action
     {
         $this->_helper->authenticate();
 
-        $file = file(APPLICATION_PATH . '/../private/logs/app.log');
+        $session_dlayer = new Dlayer_Session();
+
+        $file = file(APPLICATION_PATH . '/../private/logs/app-' . $session_dlayer->identityId() . '.log');
         $this->view->file = array_reverse($file);
 
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/dlayer/log/app', array('css/dlayer.css'),
@@ -79,7 +71,9 @@ class Dlayer_LogController extends Zend_Controller_Action
     {
         $this->_helper->authenticate();
 
-        $file = file(APPLICATION_PATH . '/../private/logs/error.log');
+        $session_dlayer = new Dlayer_Session();
+
+        $file = file(APPLICATION_PATH . '/../private/logs/error-' . $session_dlayer->identityId() . '.log');
         $this->view->file = array_reverse($file);
 
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/dlayer/log/error', array('css/dlayer.css'),

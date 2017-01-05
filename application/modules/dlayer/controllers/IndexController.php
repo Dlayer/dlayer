@@ -35,11 +35,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
         array(
             'uri' => '/dlayer/index/home',
             'name' => 'Dlayer Demo',
-            'title' => 'Dlayer.com: Web development simplified'
+            'title' => 'Dlayer.com: Web development simplified',
         ),
-        array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
-        array('uri' => '/dlayer/log/app', 'name' => 'App log', 'title' => 'App log'),
-        array('uri' => '/dlayer/log/error', 'name' => 'Error log', 'title' => 'Error log'),
+        array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer')
     );
 
     /**
@@ -49,7 +47,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
         array(
             'uri' => '/dlayer/index/home',
             'name' => 'Dlayer Demo',
-            'title' => 'Dlayer.com: Web development simplified'
+            'title' => 'Dlayer.com: Web development simplified',
         ),
         array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
     );
@@ -72,7 +70,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $session = $this->getInvokeArg('bootstrap')->getOption('session');
+        $session = $this->getInvokeArg('bootstrap')
+            ->getOption('session');
 
         $model_authentication = new Dlayer_Model_Authentication();
         $model_authentication->logoutInactiveIdenties($session['timeout']);
@@ -87,7 +86,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
         $this->login_form = new Dlayer_Form_Login();
 
-        if ($this->getRequest()->isPost()) {
+        if ($this->getRequest()
+            ->isPost()
+        ) {
             $this->handleLogin();
         }
 
@@ -165,7 +166,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
         $this->site_form = new Dlayer_Form_Site_Site('/dlayer/index/new-site');
 
-        if ($this->getRequest()->isPost()) {
+        if ($this->getRequest()
+            ->isPost()
+        ) {
             $this->handleAddSite();
         }
 
@@ -188,7 +191,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
         $this->site_form = new Dlayer_Form_Site_Site('/dlayer/index/edit-site', $session_dlayer->siteId());
 
-        if ($this->getRequest()->isPost()) {
+        if ($this->getRequest()
+            ->isPost()
+        ) {
             $this->handleEditSite();
         }
 
@@ -235,7 +240,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
      */
     private function handleAddSite()
     {
-        $post = $this->getRequest()->getPost();
+        $post = $this->getRequest()
+            ->getPost();
 
         if ($this->site_form->isValid($post)) {
             $model_sites = new Dlayer_Model_Site();
@@ -254,7 +260,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
      */
     private function handleEditSite()
     {
-        $post = $this->getRequest()->getPost();
+        $post = $this->getRequest()
+            ->getPost();
 
         if ($this->site_form->isValid($post)) {
             $session_dlayer = new Dlayer_Session();
@@ -277,10 +284,12 @@ class Dlayer_IndexController extends Zend_Controller_Action
     {
         $model_authentication = new Dlayer_Model_Authentication();
 
-        $post = $this->getRequest()->getPost();
+        $post = $this->getRequest()
+            ->getPost();
 
         if ($this->login_form->isValid($post)) {
-            $authentication_options = $this->getInvokeArg('bootstrap')->getOption('authentication');
+            $authentication_options = $this->getInvokeArg('bootstrap')
+                ->getOption('authentication');
 
             $model_authentication->setSalt($authentication_options['salt']);
 
@@ -297,12 +306,14 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
                     $this->redirect('/dlayer/index/home');
                 } else {
-                    $this->login_form->getElement('identity')->addError('There was an error fetching your details,
+                    $this->login_form->getElement('identity')
+                        ->addError('There was an error fetching your details,
 						    please try again.');
                     $this->login_form->markAsError();
                 }
             } else {
-                $this->login_form->getElement('identity')->addError('Username and password combination invalid or 
+                $this->login_form->getElement('identity')
+                    ->addError('Username and password combination invalid or 
 					    the account is already logged into Dlayer, please try again.');
                 $this->login_form->markAsError();
             }
