@@ -172,7 +172,7 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
 
                 $html .= '<div class="' . $class . '" data-row-id="' . $row['id'] . '" ' . $this->view->stylingRow()->setRow($row['id']) . '">';
                 if ($show_toggle === true) {
-                    $html .= '<div style="position: relative"><button type="button" class="btn btn-default btn-xs" style="position: absolute; top: 5px; left: 5px; z-index: 1000;"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></button></div>';
+                    $html .= '<div style="position: relative"><button type="button" class="btn btn-default btn-xs toggle-row" data-row-id="' . $this->view->escape($row['id']) . '" style="position: absolute; top: 5px; left: 5px; z-index: 1000;"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></button></div>';
                 }
                 $html .= $content;
                 $html .= '</div>';
