@@ -96,20 +96,23 @@ var contentManager =
                 {
                     background_color = $(this).css('background-color');
 
-                    var selector_columns = '.row[data-row-id="' + $(this).data('row-id') + '"] div.column';
+                    if ($(this).hasClass('collapsed') === false) {
 
-                    $(selector_columns).each(
-                        function(index)
-                        {
-                            var id = $(this).data('column-id');
-                            background_colors_columns[id] = $(this).css('background-color');
-                            $('.column[data-column-id="' + id + '"]').css('background-color', 'transparent');
-                        }
-                    );
+                        var selector_columns = '.row[data-row-id="' + $(this).data('row-id') + '"] div.column';
 
-                    $(this).css('background-color', contentManager.highlightColor);
-                    $(this).css('cursor', 'pointer');
-                    $(this).find('div.row-mover').show();
+                        $(selector_columns).each(
+                            function(index)
+                            {
+                                var id = $(this).data('column-id');
+                                background_colors_columns[id] = $(this).css('background-color');
+                                $('.column[data-column-id="' + id + '"]').css('background-color', 'transparent');
+                            }
+                        );
+
+                        $(this).css('background-color', contentManager.highlightColor);
+                        $(this).css('cursor', 'pointer');
+                        $(this).find('div.row-mover').show();
+                    }
                 },
                 function()
                 {
@@ -131,8 +134,10 @@ var contentManager =
             $(selector).click(
                 function()
                 {
-                    $(this).css('background-color', contentManager.clickColor);
-                    window.location.replace('/content/design/set-selected-row/id/' + $(this).data('row-id'));
+                    if ($(this).hasClass('collapsed') === false) {
+                        $(this).css('background-color', contentManager.clickColor);
+                        window.location.replace('/content/design/set-selected-row/id/' + $(this).data('row-id'));
+                    }
                 }
             );
         },
@@ -360,20 +365,25 @@ var contentManager =
 
                     var id = $(this).data('row-id');
 
-                    if ($(this).hasClass('collapsed') === true) {
+                    if($(this).hasClass('collapsed') === true)
+                    {
                         $(this).removeClass('collapsed');
+                        $('.row[data-row-id="' + id + '"]').removeClass('collapsed');
                         $(this).find('span').removeClass('glyphicon-menu-down').addClass('glyphicon-menu-up');
                         $('.row[data-row-id="' + id + '"]').css('height', 'auto').css('border', 'none');
                         $('.row[data-row-id="' + id + '"] .column').show();
-                    } else {
+                    }
+                    else
+                    {
                         $(this).addClass('collapsed');
+                        $('.row[data-row-id="' + id + '"]').addClass('collapsed');
                         $(this).find('span').removeClass('glyphicon-menu-up').addClass('glyphicon-menu-down');
                         $('.row[data-row-id="' + id + '"]').css('height', '50px').css('border', 'dashed 1px #000000');
                         $('.row[data-row-id="' + id + '"] .column').hide();
                     }
 
                     /*window.location.replace('/content/design/move-content/direction/' + $(this).data('move') +
-                        '/id/' + $(this).data('id'));*/
+                     '/id/' + $(this).data('id'));*/
                 }
             );
         }
