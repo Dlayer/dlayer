@@ -137,6 +137,7 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
         if (array_key_exists($this->column_id, $this->rows) === true) {
             foreach ($this->rows[$this->column_id] as $row) {
                 $class = "row";
+                $show_toggle = false;
 
                 if ($this->selected_column_id === $row['column_id']) {
                     if ($this->selected_row_id === $row['id']) {
@@ -144,6 +145,11 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
                     } else {
                         $class .= ' selectable';
                     }
+                }
+
+                // Show collapse on top level rows
+                if ($row['column_id'] === 0) {
+                    $show_toggle = true;
                 }
 
                 $this->view->column()->setRowId($row['id']);
@@ -158,14 +164,18 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
                     $class .= ' empty';
 
                     if ($this->selected_row_id === $row['id']) {
-                        $content = "<p><a href=\"/content/design/set-tool/tool/AddColumn\" class=\"btn btn-primary\">Add Column(s)</a></p>";
+                        $content = '<p><a href="/content/design/set-tool/tool/AddColumn" class="btn btn-primary">Add Column(s)</a></p>';
                     } else {
                         $content = '<p class="text-muted"><em>Empty row</em></p>';
                     }
                 }
 
-                $html .= '<div class="' . $class . ' empty" data-row-id="' . $row['id'] . '" ' .
-                    $this->view->stylingRow()->setRow($row['id']) . ">{$content}</div>";
+                $html .= '<div class="' . $class . '" data-row-id="' . $row['id'] . '" ' . $this->view->stylingRow()->setRow($row['id']) . '">';
+                if ($show_toggle === true) {
+                    $html .= '<div style="position: relative"><button type="button" class="btn btn-default btn-xs" style="position: absolute; top: 5px; left: 5px; z-index: 1000;"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></button></div>';
+                }
+                $html .= $content;
+                $html .= '</div>';
             }
         }
 
