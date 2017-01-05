@@ -37,9 +37,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
             'name' => 'Dlayer Demo',
             'title' => 'Dlayer.com: Web development simplified',
         ),
-        array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
-        array('uri' => '/dlayer/log/app', 'name' => 'App log', 'title' => 'App log'),
-        array('uri' => '/dlayer/log/error', 'name' => 'Error log', 'title' => 'Error log'),
+        array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer')
     );
 
     /**

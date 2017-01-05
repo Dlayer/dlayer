@@ -6,10 +6,14 @@
 
         <h2>Application log</h2>
 
+        <?php if(count($this->file) > 0) { ?>
         <ul>
         <?php foreach($this->file as $line) { ?>
             <li><?php echo $this->escape($line); ?></li>
         <?php } ?>
         </ul>
+	    <?php } else { ?>
+	    <h3>No log data</h3>
+	    <?php } ?>
     </div>
 </div>
