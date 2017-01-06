@@ -34,9 +34,9 @@
 	</div>
 
     <?php if ($this->column_id === 0) { ?>
-        <a class="btn btn-info" href="/content/design/set-page-selected">Select page</a>
+        <a class="btn btn-sm btn-info" href="/content/design/set-page-selected">Select page</a>
     <?php } else { ?>
-		<a class="btn btn-info" href="/content/design/set-selected-column/id/<?php echo $this->escape($this->parent_column_id); ?>/row/<?php echo $this->escape($this->parent_row_id) ;?>">Select parent column</a>
+		<a class="btn btn-sm btn-info" href="/content/design/set-selected-column/id/<?php echo $this->escape($this->parent_column_id); ?>/row/<?php echo $this->escape($this->parent_row_id) ;?>">Select parent column</a>
     <?php } ?>
 
 
