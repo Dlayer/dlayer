@@ -5,20 +5,20 @@
 		<h1>Dlayer Demo <small>Web development simplified</small></h1>
 		
 		<h2>Welcome to Dlayer</h2>
-		
-		<p>The goal of this demo is simple, it is meant to showcase 
-			the designers that are currently in development, please check the 
-			docs at <a href="http://www.dlayer.com">Dlayer.com</a> to see what 
-			other designers are planned.</p>
-		
-		<p>Dlayer is an Open Source project so if you see something you 
-			think could be better you can let me know on 
-			<a href="https://github.com/Dlayer/dlayer">GitHub</a> or code it 
-			yourself, if you spot a bug please check the issues list on 
-			<a href="https://github.com/Dlayer/dlayer">GitHub</a>, if your bug 
-			is not listed please add it.</p>
-		
-		<h3>Designers <small>All still in development</small></h3>
+
+		<p>I have one very simple goal for this demo; I want to showcase the fundamental idea behind Dlayer,
+			to show how simple the process of creating a custom responsive website can and should be.</p>
+
+		<p>Dlayer is in active development, the enabled modules are liable to change, please keep an eye on the
+			<a href="https://github.com/Dlayer/dlayer/projects">GitHub development board</a> to see what is happening
+			and planned.</p>
+
+		<p>Dlayer is an Open Source project, if you see something you think could be better please let know on
+			<a href="https://github.com/Dlayer/dlayer">GitHub</a> or clone the project and submit a pull request,
+			alternatively, if you spot a bug or believe that you can help in another way, please check the
+			<a href="http://www.dlayer.com/coding-standards.html">contributions</a> page at Dlayer.com</p>
+
+		<h3>Active designers</h3>
 
 		<ol>
 			<?php foreach($this->modules_enabled as $module) { ?>
@@ -27,8 +27,12 @@
 				<?php echo $module['description']; ?></li>
 				<?php } ?>
 		</ol>
+
+		<p class="text-muted"><em>There are several designers in various states of planning/development; these are
+			the Form Builder, Image Library, Website Manager, Widget Designer, Data Manager and
+			Question Manager.</em></p>
 		
-		<h3>Demo sites <small>Play at will, reset periodically</small></h3>
+		<h3>Demo sites <small>Play at will, sites are reset periodically</small></h3>
 
 		<ul class="listing">
 		<?php foreach($this->sites as $site) { ?>
