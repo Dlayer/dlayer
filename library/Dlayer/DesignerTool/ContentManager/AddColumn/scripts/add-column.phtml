@@ -1,4 +1,4 @@
-<?php /** @var Dlayer_View_Codehinting */ $this ?>
+<?php /** @var $this Dlayer_View_Codehinting */?>
 
 <div class="col-md-12 col-sm-12" style="border-bottom: 1px dashed #dddddd;">
 	<h3>Column <small>Add a new column</small></h3>
@@ -15,7 +15,7 @@
 				<input type="hidden" name="column_id" value="<?php echo $this->escape($this->data['tool']['column_id']); ?>" />
 				<input type="hidden" name="content_id" value="<?php echo $this->escape($this->data['tool']['content_id']); ?>" />
 				<input type="hidden" name="params[columns]" value="1" />
-				<input type="submit" class="btn btn-success" name="submit" value="Add column" />
+				<input type="submit" class="btn btn-sm btn-success" name="submit" value="Add column" />
 			</div>
 		</fieldset>
 	</form>
@@ -42,7 +42,7 @@
 				<p class="help-block">Please choose the number of columns you would like to create</p>
 			</div>
 			<div class="form-group">
-				<input type="submit" class="btn btn-success" name="submit" value="Add columns" />
+				<input type="submit" class="btn btn-sm btn-success" name="submit" value="Add columns" />
 			</div>
 		</fieldset>
 	</form>

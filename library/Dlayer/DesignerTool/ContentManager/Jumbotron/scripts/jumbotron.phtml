@@ -1,11 +1,11 @@
-<?php /** @var Dlayer_View_Codehinting */ $this ?>
+<?php /** @var $this Dlayer_View_Codehinting */?>
 
-<?php if($this->edit_mode == TRUE) { ?>
-<script>
+<?php if ($this->edit_mode == true) { ?>
+	<script>
 dlayer.preview.content.fn.elementTextNoBr(
-	<?php echo $this->data['preview']['title']; ?>, '#params-title');
+    <?php echo $this->data['preview']['title']; ?>, '#params-title');
 dlayer.preview.content.fn.elementText(
-	<?php echo $this->data['preview']['sub_title']; ?>, '#params-sub_title');
+    <?php echo $this->data['preview']['sub_title']; ?>, '#params-sub_title');
 </script>
 <?php } ?>
 
@@ -14,9 +14,11 @@ dlayer.preview.content.fn.elementText(
 </div>
 
 <div class="col-md-12 col-sm-12">
-	<?php 
-	if($this->data != FALSE) {
-		echo $this->data['form'];
-	}
-	?>
+	<?php
+    if ($this->data != false) {
+        echo $this->data['form'];
+    }
+    ?>
 </div>
+
+<?php echo $this->contentNavigationControls($this->column_id, $this->row_id, $this->parent_column_id, $this->row_id); ?>
