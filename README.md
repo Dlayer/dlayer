@@ -7,7 +7,7 @@ Over the next few weeks, I am going to continue to polish the core of the Conten
 
 Latest stable release 
 --------
-v1.00 - Release 22nd December 2016
+v1.03 - Released 7th January 2017
  
 Overview
 --------
