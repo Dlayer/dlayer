@@ -90,6 +90,9 @@ foreach ($this->tools as $group_id => $group) {
         }
 
         $reset = null;
+        if ($this->content_id !== null) {
+            $reset = '/reset/1';
+        }
 
         if ($show === true) {
             $class = "btn btn-default btn-sm";

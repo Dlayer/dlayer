@@ -36,7 +36,7 @@ class Dlayer_DesignerTool_ContentManager_Shared_Form_Typography extends Dlayer_F
 
         $this->generateFormElements();
 
-        $this->addElementsToForm('text_typography', 'Typography', $this->elements);
+        $this->addElementsToForm('typography', 'Typography', $this->elements);
 
         $this->addDefaultElementDecorators();
 
