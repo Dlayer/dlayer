@@ -283,7 +283,7 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
                 $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
 
-                $siblings = null;
+                $siblings = false;
                 if ($content_id !== null) {
                     $siblings = $model_page->contentSiblings($this->site_id, $this->page_id, $column_id, $content_id);
                 }

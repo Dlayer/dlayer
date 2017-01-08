@@ -1143,9 +1143,17 @@ class Dlayer_Model_Content_Page extends Zend_Db_Table_Abstract
     public function contentSiblings($site_id, $page_id, $column_id, $content_id)
     {
         $sql = "SELECT 
-                    `uspsc`.`id`
+                    `uspsc`.`id`, 
+                    `dct`.`name` AS `content_type`, 
+	                `dmt`.`model` AS `tool` 
                 FROM 
-                    `user_site_page_structure_content` `uspsc`
+                    `user_site_page_structure_content` `uspsc` 
+                INNER JOIN 
+	                `designer_content_type` `dct` ON 
+		                `uspsc`.`content_type` = `dct`.`id` 
+                INNER JOIN 
+                    `dlayer_module_tool` `dmt` ON  
+		                `dct`.`tool_id` = `dmt`.`id`
                 WHERE 
                     `uspsc`.`site_id` = :site_id AND 
                     `uspsc`.`page_id` = :page_id AND 
@@ -1159,14 +1167,35 @@ class Dlayer_Model_Content_Page extends Zend_Db_Table_Abstract
         $stmt->execute();
 
         $content = array();
+        $data = array();
         foreach ($stmt->fetchAll() as $row) {
             $content[] = intval($row['id']);
+            $data[] = array(
+                'tool' => $row['tool'],
+                'content_type' => $row['content_type']
+            );
         }
 
         $result = array(
             'previous' => false,
             'next' => false
         );
+
+        if (count($result) > 1) {
+            $key = array_search($content_id, $content);
+
+            if ($key > 0) {
+                if (array_key_exists(($key-1), $content) === true) {
+                    $result['previous'] = $content[($key-1)];
+                    $result['previous_data'] = $data[($key-1)];
+                }
+            }
+
+            if (array_key_exists(($key+1), $content) === true) {
+                $result['next'] = $content[($key+1)];
+                $result['next_data'] = $data[($key+1)];
+            }
+        }
 
         return $result;
     }
