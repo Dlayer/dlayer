@@ -1130,4 +1130,44 @@ class Dlayer_Model_Content_Page extends Zend_Db_Table_Abstract
             return true;
         }
     }
+
+    /**
+     * Content item siblings for next and previous selection buttons
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $column_id
+     * @param integer $content_id
+     * @return array
+     */
+    public function contentSiblings($site_id, $page_id, $column_id, $content_id)
+    {
+        $sql = "SELECT 
+                    `uspsc`.`id`
+                FROM 
+                    `user_site_page_structure_content` `uspsc`
+                WHERE 
+                    `uspsc`.`site_id` = :site_id AND 
+                    `uspsc`.`page_id` = :page_id AND 
+                    `uspsc`.`column_id` = :column_id 
+                ORDER BY 
+                    `uspsc`.`sort_order` ASC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $content = array();
+        foreach ($stmt->fetchAll() as $row) {
+            $content[] = intval($row['id']);
+        }
+
+        $result = array(
+            'previous' => false,
+            'next' => false
+        );
+
+        return $result;
+    }
 }
