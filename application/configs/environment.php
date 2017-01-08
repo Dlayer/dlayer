@@ -10,7 +10,7 @@
 * production, development, testing or staging
 */
 //$environment = 'production';
-$environment = 'development';
+//$environment = 'development';
 
 /**
 * Version number and version release date
