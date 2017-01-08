@@ -66,8 +66,9 @@ class Dlayer_View_ContentNavigationControls extends Zend_View_Helper_Abstract
     private function render()
     {
         $html = '<div class="col-md-12 col-sm-12">
-            <a class="btn btn-sm btn-info" href="/content/design/set-selected-column/id/' . $this->view->escape($this->column_column_id) . '/row/' . $this->view->escape($this->column_row_id) . '">Select column</a>
-            <a class="btn btn-sm btn-info" href="/content/design/set-selected-row/id/' . $this->view->escape($this->row_row_id) . '/column/' . $this->view->escape($this->row_column_id) . '">Select row</a>
+            <h5>Parents: <small>Select to go back</small></h5>
+            <a class="btn btn-sm btn-info" title="Select the parent column" href="/content/design/set-selected-column/id/' . $this->view->escape($this->column_column_id) . '/row/' . $this->view->escape($this->column_row_id) . '">Select column</a>
+            <a class="btn btn-sm btn-info" title="Select the parent row" href="/content/design/set-selected-row/id/' . $this->view->escape($this->row_row_id) . '/column/' . $this->view->escape($this->row_column_id) . '">Select row</a>
             </div>';
 
         return $html;

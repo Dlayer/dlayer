@@ -451,4 +451,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     public function contentNavigationControls($column_column_id, $column_row_id, $row_column_id, $row_row_id)
     {
     }
+
+    /**
+     * Generate the sibling content item controls
+     *
+     * @param array $siblings
+     *
+     * @return Dlayer_View_ContentSiblingControls
+     */
+    public function contentSiblingControls($siblings)
+    {
+    }
 }
