@@ -1,12 +1,12 @@
 <?php /** @var $this Dlayer_View_Codehinting */?>
 
 <div class="row">
-	<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+	<div class="col-md-6 col-sm-6 col-xs-12">
 		<?php echo $this->form; ?>
 		
 		<h4>Test credentials.</h4>
 		
-		<p>Use one of the free combinations below to sign in to the demo.</p>
+		<p>Please use one of the free combinations below to sign in to the demo.</p>
 			
 		<ul>
 			<?php foreach($this->test_identities as $identity) { ?>
@@ -22,4 +22,30 @@
 			<?php } ?>
 		</ul>
 	</div>
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <h3><span class="label label-success">v1.03</span> UX improvements <small class="text-muted">(7th January 2017)</small></h3>
+
+        <ul>
+            <li>The page tool is now auto selected in the designer, both on initial entry and whenever you click the cancel button. It is stupid to force you to choose the page when there is only ever one page which always needs to be selected. [UX]</li>
+            <li>Added select parent row to the column tool, now easier to go back. [UX]</li>
+            <li>Added select parent column/page to the row tool, now easier to go back. [UX]</li>
+            <li>Added nesting support for rows and columns. [Feature]</li>
+            <li>The 'Add row' and 'Add content' tools are aware of state, they will only display when relevant. [UX]</li>
+            <li>I have added the ability to collapse top level rows so you can concentrate on a particular area of the design. [UX]</li>
+            <li>The min-height on a page is only applied when the page is empty.</li>
+            <li>I have updated the sample site for all three demo users.</li>
+            <li>Creating a default site no longer errors, an issue with insert default text weights. [Bugfix]</li>
+            <li>Removed the log links, not currently necessary</li>
+            <li>Updated the code hinting in all view files, now correctly shows all view helpers</li>
+            <li>Added select parent row and column to content item tools, now easier to go back. [UX]</li>
+            <li>I have reduced the size of all the buttons in the designer. [UI]</li>
+            <li>I have updated the content for the demo home page and the Content Manager home page.</li>
+            <li>Set the stable version to v1.03</li>
+            <li>Refactoring</li>
+        </ul>
+
+        <p>The full <a href="http://www.dlayer.com/releases.html">release history</a> is available at Dlayer.com and
+            on <a href="https://github.com/Dlayer/dlayer/releases">GitHub</a>.</p>
+    </div>
 </div>
