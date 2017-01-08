@@ -19,6 +19,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 	protected function paramsExist(array $params)
 	{
 		$valid = FALSE;
+
 		if(array_key_exists('name', $params) === TRUE && array_key_exists('heading', $params) === TRUE &&
 			array_key_exists('sub_heading', $params) === TRUE && array_key_exists('heading_type', $params) === TRUE)
 		{
