@@ -55,6 +55,21 @@ class Dlayer_View_ImportedFormPreview extends Zend_View_Helper_Abstract
 	private function render()
 	{
 		$html = '<div ' . $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>';
+
+        $title = false;
+
+        if ($this->data['title'] !== null) {
+            $title = '<h2>' . $this->view->escape($this->data['title']);
+            if ($this->data['sub_title'] !== null) {
+                $title .= ' <small>' . $this->view->escape($this->data['sub_title']) . '</small>';
+            }
+            $title .= '</h2>';
+        }
+
+        if ($title !== false) {
+            $html .= $title;
+        }
+
 		$html .= $this->data['form']->form();
         $html .= '</div>';
 

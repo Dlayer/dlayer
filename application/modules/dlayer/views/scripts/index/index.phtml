@@ -24,25 +24,22 @@
 	</div>
 
     <div class="col-md-6 col-sm-6 col-xs-12">
-        <h3><span class="label label-success">v1.03</span> UX improvements <small class="text-muted">(7th January 2017)</small></h3>
+        <h3><span class="label label-success">v1.04</span> Bugs... <small class="text-muted">(8th January 2017)</small></h3>
 
         <ul>
-            <li>The page tool is now auto selected in the designer, both on initial entry and whenever you click the cancel button. It is stupid to force you to choose the page when there is only ever one page which always needs to be selected. [UX]</li>
-            <li>Added select parent row to the column tool, now easier to go back. [UX]</li>
-            <li>Added select parent column/page to the row tool, now easier to go back. [UX]</li>
-            <li>Added nesting support for rows and columns. [Feature]</li>
-            <li>The 'Add row' and 'Add content' tools are aware of state, they will only display when relevant. [UX]</li>
-            <li>I have added the ability to collapse top level rows so you can concentrate on a particular area of the design. [UX]</li>
-            <li>The min-height on a page is only applied when the page is empty.</li>
-            <li>I have updated the sample site for all three demo users.</li>
-            <li>Creating a default site no longer errors, an issue with insert default text weights. [Bugfix]</li>
-            <li>Removed the log links, not currently necessary</li>
-            <li>Updated the code hinting in all view files, now correctly shows all view helpers</li>
-            <li>Added select parent row and column to content item tools, now easier to go back. [UX]</li>
-            <li>I have reduced the size of all the buttons in the designer. [UI]</li>
-            <li>I have updated the content for the demo home page and the Content Manager home page.</li>
-            <li>Set the stable version to v1.03</li>
-            <li>Refactoring</li>
+            <li>I have updated the styling sub tools, the Form, Model and Tool classes extend from shared classes
+	            as per the typography sub tool.</li>
+            <li>If you only have one page in the Content Manager, it is now automatically selected.</li>
+            <li>The title and subtitle set for a form now display in the Content Manager [Bugfix].</li>
+            <li>I have updated the content for the demo sign-in page; it now shows the changelog for the latest
+	            version.</li>
+            <li>The heading type is now updateable for heading based content items [Bugfix].</li>
+            <li>If you try to create a new content item when in edit mode for an existing content item you will no
+	            longer be met with a nasty error [Bugfix].</li>
+            <li>I have added controls to select the sibling (next|previous) content items in a column; this should
+	            reduce the number of clicks when editing [UX].</li>
+            <li>I have added titles above each of the new navigation controls, 'Parents' and
+	            'Column content items'.</li>
         </ul>
 
         <p>The full <a href="http://www.dlayer.com/releases.html">release history</a> is available at Dlayer.com and
