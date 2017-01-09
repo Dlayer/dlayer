@@ -194,9 +194,9 @@ var previewContentManager =
          *
          * @param {String} field Field selector
          * @param {String} content Content selector
-         * @param {Json} initial_value Initial value
+         * @param {String} initial_value Initial value
          * @param {Boolean} nl2br
-         * @paran {Boolean} Is the text optional
+         * @param {Boolean} optional Is the text optional
          */
         elementText: function(field, content, initial_value, nl2br, optional)
         {
@@ -225,6 +225,73 @@ var previewContentManager =
             });
 
             $(field).blur(function()
+            {
+                if (previewContentManager.changed === true) {
+                    previewContentManager.highlight = true;
+                    previewContentManager.highlightItem(content);
+                }
+            });
+        },
+
+        /**
+         * Update the text for an element
+         *
+         * @param {String} field_title Field title selector
+         * @param {String} field_subtitle Field subtitle selector
+         * @param {String} content Content selector
+         * @param {String} initial_title Initial title value
+         * @param {String} initial_subtitle Initial subtitle value
+         * @param {Boolean} optional Is the text optional
+         */
+        headingText: function(field_title, field_subtitle, content, initial_title, initial_subtitle, optional)
+        {
+            $(field_title).keyup(function()
+            {
+                if (this.value.trim().length > 0) {
+                    $(content).html(this.value.trim() + ' <small>' +
+                        $(field_subtitle).val() + '</small>');
+
+                    previewContentManager.changed = true;
+                } else {
+                    if (optional === true) {
+                        $(content).html('');
+
+                        previewContentManager.changed = true;
+                    } else {
+                        $(content).html(initial_title + ' <small>' +
+                            $(field_subtitle).val() + '</small>');
+                        $(field_title).val(initial_title);
+                    }
+                }
+
+                previewContentManager.unsaved();
+            });
+
+            $(field_subtitle).keyup(function()
+            {
+                if (this.value.trim().length > 0) {
+                    $(content).html($(field_title).val() + ' <small>' +
+                        this.value.trim() + '</small>');
+
+                    previewContentManager.changed = true;
+                } else {
+                    $(content + ' > small').html('');
+
+                    previewContentManager.changed = true;
+                }
+
+                previewContentManager.unsaved();
+            });
+
+            $(field_title).blur(function()
+            {
+                if (previewContentManager.changed === true) {
+                    previewContentManager.highlight = true;
+                    previewContentManager.highlightItem(content);
+                }
+            });
+
+            $(field_subtitle).blur(function()
             {
                 if (previewContentManager.changed === true) {
                     previewContentManager.highlight = true;

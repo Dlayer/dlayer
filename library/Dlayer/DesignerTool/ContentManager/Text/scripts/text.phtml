@@ -2,7 +2,8 @@
 
 <?php if ($this->content_id !== null) { ?>
 <script>
-previewContentManager.elementText('#params-content', '.content[data-content-id="' + <?php echo $this->escape($this->content_id); ?> + '"]', <?php echo $this->json($this->data['preview']['text']); ?>, true, false);</script>
+previewContentManager.elementText('#params-content', '.content[data-content-id="' + <?php echo $this->escape($this->content_id); ?> + '"]', <?php echo $this->json($this->data['preview']['text']); ?>, true, false);
+</script>
 <?php } ?>
 
 <div class="col-md-12 col-sm-12">

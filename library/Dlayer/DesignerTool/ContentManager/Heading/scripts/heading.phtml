@@ -1,12 +1,8 @@
 <?php /** @var $this Dlayer_View_Codehinting */?>
 
-<?php if($this->edit_mode == TRUE) { ?>
+<?php if ($this->content_id !== null) { ?>
 <script>
-dlayer.preview.content.fn.headingText(
-	<?php echo $this->data['preview']['heading']; ?>, '#params-heading');
-dlayer.preview.content.fn.elementTextNoBr(
-	<?php echo $this->data['preview']['sub_heading']; ?>, 
-	'#params-sub_heading', true);
+previewContentManager.headingText('#params-heading', '#params-sub_heading', '.content[data-content-id="' + <?php echo $this->escape($this->content_id); ?> + '"]', <?php echo $this->json($this->data['preview']['title']); ?>, <?php echo $this->json($this->data['preview']['subtitle']); ?>, false);
 </script>
 <?php } ?>
 

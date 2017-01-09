@@ -23,7 +23,8 @@ class Dlayer_DesignerTool_ContentManager_Heading_Ribbon extends Dlayer_Ribbon_Co
 
 		return array(
 			'form' => new Dlayer_DesignerTool_ContentManager_Heading_Form($tool, $this->contentData(), $this->instancesOfData(),
-				$this->elementData())
+				$this->elementData()),
+            'preview' => $this->previewData()
 		);
 	}
 
@@ -111,4 +112,21 @@ class Dlayer_DesignerTool_ContentManager_Heading_Ribbon extends Dlayer_Ribbon_Co
 
 		return $instances;
 	}
+
+    /**
+     * Fetch the data required by the preview functions
+     *
+     * @return array
+     */
+    protected function previewData()
+    {
+        $data = $this->contentData();
+
+        $this->preview_data = array(
+            'title' => $data['heading'],
+            'subtitle' => $data['sub_heading']
+        );
+
+        return $this->preview_data;
+    }
 }
