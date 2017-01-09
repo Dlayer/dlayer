@@ -298,5 +298,10 @@ var previewContentManager =
                     previewContentManager.highlightItem(content);
                 }
             });
+        },
+
+        headingType: function()
+        {
+            
         }
     };
