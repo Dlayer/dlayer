@@ -22,7 +22,8 @@ class Dlayer_DesignerTool_ContentManager_Text_Ribbon extends Dlayer_Ribbon_Conte
 
 		return array(
 			'form' => new Dlayer_DesignerTool_ContentManager_Text_Form($tool, $this->contentData(),
-				$this->instancesOfData(), array())
+				$this->instancesOfData(), array()),
+            'preview' => $this->previewData()
 		);
 	}
 
@@ -70,4 +71,20 @@ class Dlayer_DesignerTool_ContentManager_Text_Ribbon extends Dlayer_Ribbon_Conte
 
 		return $instances;
 	}
+
+    /**
+     * Fetch the data required by the preview functions
+     *
+     * @return array
+     */
+    protected function previewData()
+    {
+        $data = $this->contentData();
+
+        $this->preview_data = array(
+            'text' => $data['content']
+        );
+
+        return $this->preview_data;
+    }
 }

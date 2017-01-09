@@ -1,14 +1,12 @@
 <?php /** @var $this Dlayer_View_Codehinting */?>
 
-<?php if($this->edit_mode == TRUE) { ?>
+<?php if ($this->content_id !== null) { ?>
 <script>
-dlayer.preview.content.fn.elementText(
-	<?php echo $this->data['preview']; ?>, '#params-text');
-</script>
+previewContentManager.elementText('#params-content', '.content[data-content-id="' + <?php echo $this->escape($this->content_id); ?> + '"]', <?php echo $this->json($this->data['preview']['text']); ?>, true, false);</script>
 <?php } ?>
 
 <div class="col-md-12 col-sm-12">
-	<p class="dev-note bg-danger unsaved">Data has been modified!</p>
+    <p class="dev-note bg-danger unsaved">Data has been modified!</p>
 </div>
 
 <div class="col-md-12 col-sm-12">
