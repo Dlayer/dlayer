@@ -23,7 +23,8 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
 
 		return array(
 			'form' => new Dlayer_DesignerTool_ContentManager_Jumbotron_Form($tool, $this->contentData(),
-				$this->instancesOfData(), array())
+				$this->instancesOfData(), array()),
+            'preview' => $this->previewData()
 		);
 	}
 
@@ -91,4 +92,21 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
 
 		return $instances;
 	}
+
+    /**
+     * Fetch the data required by the preview functions
+     *
+     * @return array
+     */
+    protected function previewData()
+    {
+        $data = $this->contentData();
+
+        $this->preview_data = array(
+            'title' => $data['title'],
+            'intro' => $data['intro']
+        );
+
+        return $this->preview_data;
+    }
 }
