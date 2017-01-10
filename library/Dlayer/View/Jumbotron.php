@@ -86,7 +86,7 @@ class Dlayer_View_Jumbotron extends Zend_View_Helper_Abstract
 			'" data-content-type="jumbotron" data-tool="Jumbotron" ' .
             $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>';
 		$html .= '<h1>' . $this->view->escape($this->data['title']) . '</h1>';
-		$html .= '<p>' . $this->view->escape($this->data['sub_title']) . '</p>';
+		$html .= '<p class="intro">' . $this->view->escape($this->data['sub_title']) . '</p>';
 
 		if(strlen($this->data['button_label']) > 0)
 		{
