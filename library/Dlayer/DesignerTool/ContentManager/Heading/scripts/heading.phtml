@@ -3,6 +3,7 @@
 <?php if ($this->content_id !== null) { ?>
 <script>
 previewContentManager.headingText('#params-heading', '#params-sub_heading', '.content[data-content-id="' + <?php echo $this->escape($this->content_id); ?> + '"]', <?php echo $this->json($this->data['preview']['title']); ?>, <?php echo $this->json($this->data['preview']['subtitle']); ?>, false);
+previewContentManager.headingType('#params-heading_type', '.content[data-content-id="' + <?php echo $this->escape($this->content_id); ?> + '"]');
 </script>
 <?php } ?>
 

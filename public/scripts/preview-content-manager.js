@@ -300,8 +300,28 @@ var previewContentManager =
             });
         },
 
-        headingType: function()
+        /**
+         * Update heading tag
+         *
+         * @param {String} field Field title selector
+         * @param {String} content Content selector
+         */
+        headingType: function(field, content)
         {
-            
+            $(field).change(function()
+            {
+                var tag = $(content)[0].tagName.replace('H', '');
+                var heading = $(content).parent().html();
+
+                $(content).
+                    parent().
+                    html(heading.replace('<h' + tag, '<h' + this.value).
+                    replace('</h' + tag, '</h' + this.value));
+
+                previewContentManager.changed = true;
+                previewContentManager.highlight = true;
+                previewContentManager.highlightItem(content);
+                previewContentManager.unsaved();
+            });
         }
     };
