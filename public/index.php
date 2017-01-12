@@ -45,5 +45,11 @@ $application = new Zend_Application(
 	APPLICATION_PATH . '/configs/application.ini'
 );
 
+// Disable buffering for setup controller
+if (isset($_GET['setup']) && intval($_GET['setup']) === 1) {
+    $frontController = Zend_Controller_Front::getInstance();
+    $frontController->setParam('disableOutputBuffering', true);
+}
+
 $application->bootstrap()
 			->run();
