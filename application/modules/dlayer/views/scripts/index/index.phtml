@@ -3,13 +3,15 @@
 <div class="row">
 	<div class="col-md-6 col-sm-6 col-xs-12">
 		<?php echo $this->form; ?>
+
+        <?php if ($this->test_credentials !== false) { ?>
 		
-		<h4>Test credentials.</h4>
+		<h3>Test credentials.</h3>
 		
 		<p>Please use one of the free combinations below to sign in to the demo.</p>
 			
 		<ul>
-			<?php foreach($this->test_identities as $identity) { ?>
+			<?php foreach($this->test_credentials as $identity) { ?>
 				<li>
 				<strong>Username:</strong> <?php echo $this->escape($identity['identity']); ?><br />
 				<strong>Password:</strong> password-<?php echo $this->escape($identity['id']); ?> 
@@ -21,6 +23,11 @@
 				</li>
 			<?php } ?>
 		</ul>
+
+        <?php } else { ?>
+        <h3>No account?</h3>
+        <p>Please ask your site administrator to create an account if you don't have one.</p>
+        <?php } ?>
 	</div>
 
     <div class="col-md-6 col-sm-6 col-xs-12">

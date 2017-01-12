@@ -1,0 +1,23 @@
+
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (1,1,1,1);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (2,1,2,2);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (3,1,3,3);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (4,1,4,4);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (5,1,5,5);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (6,1,6,6);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (7,1,7,23);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (8,3,8,8);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (9,3,9,9);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (10,3,10,10);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (11,3,11,11);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (12,3,12,12);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (13,3,13,13);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (14,3,14,14);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (15,2,15,15);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (16,2,16,16);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (17,2,17,17);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (18,2,18,18);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (19,2,19,19);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (20,2,20,20);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (21,2,21,21);
+insert  into `user_site_image_library_link`(`id`,`site_id`,`library_id`,`version_id`) values (22,1,22,22);

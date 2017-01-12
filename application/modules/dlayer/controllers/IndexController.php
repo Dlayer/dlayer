@@ -45,11 +45,20 @@ class Dlayer_IndexController extends Zend_Controller_Action
      */
     private $nav_bar_items_public = array(
         array(
-            'uri' => '/dlayer/index/home',
+            'uri' => '/dlayer/index/index',
             'name' => 'Dlayer Demo',
             'title' => 'Dlayer.com: Web development simplified',
         ),
-        array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
+        array(
+            'uri' => '/setup/index/index',
+            'name' => 'Setup',
+            'title' => 'Setup Dlayer'
+        ),
+        array(
+            'uri' => 'http://www.dlayer.com/docs/',
+            'name' => 'Docs',
+            'title' => 'Read the Docs for Dlayer'
+        ),
     );
 
     /**
@@ -72,6 +81,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
     {
         $session = $this->getInvokeArg('bootstrap')
             ->getOption('session');
+        $app_settings = $this->getInvokeArg('bootstrap')->getOption('app');
 
         $model_authentication = new Dlayer_Model_Authentication();
         $model_authentication->logoutInactiveIdenties($session['timeout']);
@@ -92,10 +102,16 @@ class Dlayer_IndexController extends Zend_Controller_Action
             $this->handleLogin();
         }
 
-        $this->view->test_identities = $model_authentication->testIdentities();
+        $test_credentials = false;
+
+        if (intval($app_settings['demo']['show_credentials']) === 1) {
+            $test_credentials = $model_authentication->testIdentities();
+        }
+
+        $this->view->test_credentials = $test_credentials;
         $this->view->form = $this->login_form;
 
-        $this->_helper->setLayoutProperties($this->nav_bar_items_public, '/dlayer/index/home', array('css/dlayer.css'),
+        $this->_helper->setLayoutProperties($this->nav_bar_items_public, '/dlayer/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Sign in', '', false);
     }
 

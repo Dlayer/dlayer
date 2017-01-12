@@ -1,0 +1,23 @@
+
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (1,1,'#337ab7');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (2,1,'#5cb85c');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (3,1,'#555555');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (4,1,'#EEEEEE');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (5,1,'#f0ad4e');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (6,2,'#337ab7');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (7,2,'#5cb85c');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (8,2,'#555555');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (9,2,'#EEEEEE');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (10,2,'#f0ad4e');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (11,3,'#337ab7');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (12,3,'#5cb85c');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (13,3,'#555555');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (14,3,'#EEEEEE');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (15,3,'#f0ad4e');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (16,1,'#d9534f');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (17,1,'#5bc0de');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (18,1,'#f0ad4e');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (19,1,'#d9534f');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (20,1,'#337ab7');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (21,1,'#eeeeee');
+insert  into `user_setting_color_history`(`id`,`site_id`,`color_hex`) values (22,1,'#5bc0de');
