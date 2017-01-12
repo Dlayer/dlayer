@@ -56,6 +56,8 @@ class Setup_ImportController extends Zend_Controller_Action
      */
     public function demoAction()
     {
+        $model = new Setup_Model_Import();
+
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Setup', '', false);
     }
