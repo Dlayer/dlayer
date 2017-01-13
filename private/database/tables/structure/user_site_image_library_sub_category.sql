@@ -7,7 +7,5 @@ CREATE TABLE `user_site_image_library_sub_category` (
 	`name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY `site_id` (`site_id`),
-	KEY `category_id` (`category_id`),
-	CONSTRAINT `user_site_image_library_sub_category_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_image_library_sub_category_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `user_site_image_library_category` (`id`)
+	KEY `category_id` (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

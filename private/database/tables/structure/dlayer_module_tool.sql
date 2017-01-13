@@ -11,6 +11,5 @@ CREATE TABLE `dlayer_module_tool` (
 	`enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `module_id` (`module_id`,`model`),
-	KEY `enabled` (`enabled`),
-	CONSTRAINT `dlayer_module_tool_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `dlayer_module` (`id`)
+	KEY `enabled` (`enabled`)
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

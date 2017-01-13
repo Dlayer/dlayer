@@ -8,7 +8,5 @@ CREATE TABLE `user_site_form_setting` (
 	`button` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Text for the submit button',
 	PRIMARY KEY (`id`),
 	KEY `site_id` (`site_id`),
-	KEY `form_id` (`form_id`),
-	CONSTRAINT `user_site_form_setting_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_form_setting_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`)
+	KEY `form_id` (`form_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

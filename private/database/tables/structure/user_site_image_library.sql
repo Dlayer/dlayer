@@ -9,8 +9,5 @@ CREATE TABLE `user_site_image_library` (
 	PRIMARY KEY (`id`),
 	KEY `site_id` (`site_id`),
 	KEY `category_id` (`category_id`),
-	KEY `sub_category_id` (`sub_category_id`),
-	CONSTRAINT `user_site_image_library_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_image_library_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `user_site_image_library_category` (`id`),
-	CONSTRAINT `user_site_image_library_ibfk_3` FOREIGN KEY (`sub_category_id`) REFERENCES `user_site_image_library_sub_category` (`id`)
+	KEY `sub_category_id` (`sub_category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

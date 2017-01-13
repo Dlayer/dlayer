@@ -13,10 +13,8 @@ CREATE TABLE `dlayer_module_tool_tab` (
 	`sort_order` tinyint(3) unsigned NOT NULL DEFAULT '1',
 	`enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`),
-	UNIQUE KEY `module_id_2` (`module_id`,`tool_id`,`model`),
+	UNIQUE KEY `module_tool_model` (`module_id`,`tool_id`,`model`),
 	KEY `enabled` (`enabled`),
 	KEY `module_id` (`module_id`),
-	KEY `tool_id` (`tool_id`),
-	CONSTRAINT `dlayer_module_tool_tab_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `dlayer_module` (`id`),
-	CONSTRAINT `dlayer_module_tool_tab_ibfk_2` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tool` (`id`)
+	KEY `tool_id` (`tool_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

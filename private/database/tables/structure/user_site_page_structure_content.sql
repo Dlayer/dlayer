@@ -11,9 +11,5 @@ CREATE TABLE `user_site_page_structure_content` (
 	KEY `site_id` (`site_id`),
 	KEY `page_id` (`page_id`),
 	KEY `content_type` (`content_type`),
-	KEY `column_id` (`column_id`),
-	CONSTRAINT `user_site_page_structure_content_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_page_structure_content_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
-	CONSTRAINT `user_site_page_structure_content_ibfk_4` FOREIGN KEY (`content_type`) REFERENCES `designer_content_type` (`id`),
-	CONSTRAINT `user_site_page_structure_content_ibfk_5` FOREIGN KEY (`column_id`) REFERENCES `user_site_page_structure_column` (`id`)
+	KEY `column_id` (`column_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
