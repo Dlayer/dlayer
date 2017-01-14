@@ -8,8 +8,6 @@ CREATE TABLE `user_site_page_structure_row` (
 	PRIMARY KEY (`id`),
 	KEY `page_id` (`page_id`),
 	KEY `column_id` (`column_id`),
-	KEY `user_site_page_structure_row_ibfk_1` (`site_id`),
-	KEY `sort_order` (`sort_order`),
-	CONSTRAINT `user_site_page_structure_row_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_page_structure_row_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`)
+	KEY `site_id` (`site_id`),
+	KEY `sort_order` (`sort_order`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

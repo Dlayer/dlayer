@@ -11,10 +11,5 @@ CREATE TABLE `user_site_page_styling_content_item_typography` (
 	KEY `page_id` (`page_id`),
 	KEY `content_id` (`content_id`),
 	KEY `font_family_id` (`font_family_id`),
-	KEY `text_weight_id` (`text_weight_id`),
-	CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
-	CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`),
-	CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_4` FOREIGN KEY (`font_family_id`) REFERENCES `designer_css_font_family` (`id`),
-	CONSTRAINT `user_site_page_styling_content_item_typography_ibfk_5` FOREIGN KEY (`text_weight_id`) REFERENCES `designer_css_text_weight` (`id`)
+	KEY `text_weight_id` (`text_weight_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

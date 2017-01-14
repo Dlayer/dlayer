@@ -1,3 +1,4 @@
 
-insert  into `designer_form_preview_method`(`id`,`method`) values (1,'elementAttributeString');
-insert  into `designer_form_preview_method`(`id`,`method`) values (3,'elementAttributeInteger');
+insert  into `designer_form_preview_method`(`id`,`method`) values
+    (1,'elementAttributeString'),
+    (3,'elementAttributeInteger');

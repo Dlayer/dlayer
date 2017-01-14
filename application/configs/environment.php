@@ -9,6 +9,7 @@
 * Environment setting for application.ini, valid options are 
 * production, development, testing or staging
 */
+
 $environment = 'production';
 //$environment = 'development';
 

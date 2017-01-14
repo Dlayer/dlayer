@@ -15,7 +15,5 @@ CREATE TABLE `dlayer_setting` (
 	UNIQUE KEY `url` (`url`),
 	KEY `sort_order` (`sort_order`),
 	KEY `enabled` (`enabled`),
-	KEY `scope_id` (`scope_id`),
-	CONSTRAINT `dlayer_setting_ibfk_1` FOREIGN KEY (`setting_group_id`) REFERENCES `dlayer_setting_group` (`id`),
-	CONSTRAINT `dlayer_setting_ibfk_2` FOREIGN KEY (`scope_id`) REFERENCES `dlayer_setting_scope` (`id`)
+	KEY `scope_id` (`scope_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -13,6 +13,5 @@ CREATE TABLE `dlayer_setting_group` (
 	UNIQUE KEY `url` (`url`),
 	KEY `sort_order` (`sort_order`),
 	KEY `enabled` (`enabled`),
-	KEY `module_id` (`module_id`),
-	CONSTRAINT `dlayer_setting_group_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `dlayer_module` (`id`)
+	KEY `module_id` (`module_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -7,6 +7,5 @@ CREATE TABLE `user_setting_color_palette` (
 	`sort_order` tinyint(2) NOT NULL DEFAULT '1',
 	PRIMARY KEY (`id`),
 	KEY `site_id` (`site_id`),
-	KEY `view_script` (`view_script`),
-	CONSTRAINT `user_setting_color_palette_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`)
+	KEY `view_script` (`view_script`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

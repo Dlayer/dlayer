@@ -1,24 +1,25 @@
 
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (1,1,1,1,'.jpg','image/jpeg',615,453,173442);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (2,1,2,2,'.jpg','image/jpeg',615,461,124479);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (3,1,3,3,'.jpg','image/jpeg',615,389,42910);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (4,1,4,4,'.jpg','image/jpeg',615,410,51533);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (5,1,5,5,'.jpg','image/jpeg',615,407,32763);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (6,1,6,6,'.jpg','image/jpeg',615,461,49367);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (7,1,7,7,'.jpg','image/jpeg',615,410,47362);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (8,3,8,8,'.jpg','image/jpeg',615,453,173442);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (9,3,9,9,'.jpg','image/jpeg',615,461,124479);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (10,3,10,10,'.jpg','image/jpeg',615,389,42910);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (11,3,11,11,'.jpg','image/jpeg',615,410,51533);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (12,3,12,12,'.jpg','image/jpeg',615,407,32763);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (13,3,13,13,'.jpg','image/jpeg',615,461,49367);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (14,3,14,14,'.jpg','image/jpeg',615,410,47362);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (15,2,15,15,'.jpg','image/jpeg',615,453,173442);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (16,2,16,16,'.jpg','image/jpeg',615,461,124479);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (17,2,17,17,'.jpg','image/jpeg',615,389,42910);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (18,2,18,18,'.jpg','image/jpeg',615,410,51533);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (19,2,19,19,'.jpg','image/jpeg',615,407,32763);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (20,2,20,20,'.jpg','image/jpeg',615,461,49367);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (21,2,21,21,'.jpg','image/jpeg',615,410,47362);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (22,1,22,22,'.jpg','image/jpeg',615,453,173442);
-insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values (23,1,7,23,'.jpg','image/jpeg',561,367,42624);
+insert  into `user_site_image_library_version_meta`(`id`,`site_id`,`library_id`,`version_id`,`extension`,`type`,`width`,`height`,`size`) values
+    (1,1,1,1,'.jpg','image/jpeg',615,453,173442),
+    (2,1,2,2,'.jpg','image/jpeg',615,461,124479),
+    (3,1,3,3,'.jpg','image/jpeg',615,389,42910),
+    (4,1,4,4,'.jpg','image/jpeg',615,410,51533),
+    (5,1,5,5,'.jpg','image/jpeg',615,407,32763),
+    (6,1,6,6,'.jpg','image/jpeg',615,461,49367),
+    (7,1,7,7,'.jpg','image/jpeg',615,410,47362),
+    (8,3,8,8,'.jpg','image/jpeg',615,453,173442),
+    (9,3,9,9,'.jpg','image/jpeg',615,461,124479),
+    (10,3,10,10,'.jpg','image/jpeg',615,389,42910),
+    (11,3,11,11,'.jpg','image/jpeg',615,410,51533),
+    (12,3,12,12,'.jpg','image/jpeg',615,407,32763),
+    (13,3,13,13,'.jpg','image/jpeg',615,461,49367),
+    (14,3,14,14,'.jpg','image/jpeg',615,410,47362),
+    (15,2,15,15,'.jpg','image/jpeg',615,453,173442),
+    (16,2,16,16,'.jpg','image/jpeg',615,461,124479),
+    (17,2,17,17,'.jpg','image/jpeg',615,389,42910),
+    (18,2,18,18,'.jpg','image/jpeg',615,410,51533),
+    (19,2,19,19,'.jpg','image/jpeg',615,407,32763),
+    (20,2,20,20,'.jpg','image/jpeg',615,461,49367),
+    (21,2,21,21,'.jpg','image/jpeg',615,410,47362),
+    (22,1,22,22,'.jpg','image/jpeg',615,453,173442),
+    (23,1,7,23,'.jpg','image/jpeg',561,367,42624);

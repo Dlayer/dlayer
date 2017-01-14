@@ -59,4 +59,23 @@ class Setup_ImportController extends Zend_Controller_Action
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Setup', '', false);
     }
+
+    /**
+     * Long script example
+     */
+    public function demoImportAction()
+    {
+        $this->_helper->disableLayout(FALSE);
+
+        $result = '<h2>Finished</h2>';
+
+        $result .= "<p>I am a long running process <br />";
+        for ($i = 0; $i < 10; $i++) {
+            sleep(1);
+            $result .= '.';
+        }
+        $result .= " Processing complete</p>";
+
+        echo $result;
+    }
 }

@@ -12,9 +12,5 @@ CREATE TABLE `user_site_form_field` (
 	KEY `site_id` (`site_id`),
 	KEY `form_id` (`form_id`),
 	KEY `field_type_id` (`field_type_id`),
-	KEY `tool_id` (`tool_id`),
-	CONSTRAINT `user_site_form_field_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_form_field_ibfk_2` FOREIGN KEY (`form_id`) REFERENCES `user_site_form` (`id`),
-	CONSTRAINT `user_site_form_field_ibfk_3` FOREIGN KEY (`field_type_id`) REFERENCES `designer_form_field_type` (`id`),
-	CONSTRAINT `user_site_form_field_ibfk_4` FOREIGN KEY (`tool_id`) REFERENCES `dlayer_module_tool` (`id`)
+	KEY `tool_id` (`tool_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

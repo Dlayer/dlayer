@@ -11,10 +11,5 @@ CREATE TABLE `user_site_page_content_item_heading` (
 	KEY `page_id` (`page_id`),
 	KEY `content_id` (`content_id`),
 	KEY `heading_id` (`heading_id`),
-	KEY `data_id` (`data_id`),
-	CONSTRAINT `user_site_page_content_item_heading_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_page_content_item_heading_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
-	CONSTRAINT `user_site_page_content_item_heading_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`),
-	CONSTRAINT `user_site_page_content_item_heading_ibfk_4` FOREIGN KEY (`heading_id`) REFERENCES `designer_content_heading` (`id`),
-	CONSTRAINT `user_site_page_content_item_heading_ibfk_5` FOREIGN KEY (`data_id`) REFERENCES `user_site_content_heading` (`id`)
+	KEY `data_id` (`data_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

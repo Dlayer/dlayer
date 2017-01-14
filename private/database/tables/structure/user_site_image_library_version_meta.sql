@@ -12,8 +12,5 @@ CREATE TABLE `user_site_image_library_version_meta` (
 	PRIMARY KEY (`id`),
 	KEY `site_id` (`site_id`),
 	KEY `library_id` (`library_id`),
-	KEY `version_id` (`version_id`),
-	CONSTRAINT `user_site_image_library_version_meta_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_image_library_version_meta_ibfk_2` FOREIGN KEY (`library_id`) REFERENCES `user_site_image_library` (`id`),
-	CONSTRAINT `user_site_image_library_version_meta_ibfk_3` FOREIGN KEY (`version_id`) REFERENCES `user_site_image_library_version` (`id`)
+	KEY `version_id` (`version_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -11,9 +11,5 @@ CREATE TABLE `user_site_page_content_item_image` (
 	KEY `site_id` (`site_id`),
 	KEY `page_id` (`page_id`),
 	KEY `version_id` (`version_id`),
-	KEY `content_id` (`content_id`),
-	CONSTRAINT `user_site_page_content_item_image_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`),
-	CONSTRAINT `user_site_page_content_item_image_ibfk_2` FOREIGN KEY (`page_id`) REFERENCES `user_site_page` (`id`),
-	CONSTRAINT `user_site_page_content_item_image_ibfk_3` FOREIGN KEY (`version_id`) REFERENCES `user_site_image_library_version` (`id`),
-	CONSTRAINT `user_site_page_content_item_image_ibfk_4` FOREIGN KEY (`content_id`) REFERENCES `user_site_page_structure_content` (`id`)
+	KEY `content_id` (`content_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
