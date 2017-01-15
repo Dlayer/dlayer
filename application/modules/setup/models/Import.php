@@ -182,22 +182,34 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
             foreach ($this->tables as $table) {
                 $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/structure/' . $table . '.sql');
                 if ($file !== false) {
-                    $stmt = $this->_db->prepare($file);
-                    $result = $stmt->execute();
+
+                    try {
+                        $stmt = $this->_db->prepare($file);
+                        $result = $stmt->execute();
+                    } catch (Exception $e) {
+                        $this->addError('Unable to create table: ' . $table . ' ' . $e->getMessage());
+                        Dlayer_Helper::sendToErrorLog('Unable to create table: ' . $table . ' ' . $e->getMessage());
+                        return false;
+                    }
 
                     if ($result === false) {
                         $this->addError('Unable to create table: ' . $table);
+                        Dlayer_Helper::sendToErrorLog('Unable to create table: ' . $table);
                         return false;
                     } else {
                         $this->addMessage('Successfully created table: ' . $table);
+                        Dlayer_Helper::sendToInfoLog('Successfully created table: ' . $table);
                     }
                 } else {
                     $this->addError('Unable to read file to create table: ' . $table);
+                    Dlayer_Helper::sendToErrorLog('Unable to read file to create table: ' . $table);
                     return false;
                 }
             }
         } else {
             $this->addError('Your database has tables, this script will not run until you empty your database, please make 
+            sure to make a backup first');
+            Dlayer_Helper::sendToErrorLog('Your database has tables, this script will not run until you empty your database, please make 
             sure to make a backup first');
 
             return false;
@@ -225,20 +237,26 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
                     $query .= $file;
                 } else {
                     $this->addError('Unable to read file to import data for table: ' . $table);
-                    Dlayer_Helper::sendToInfoLog('Unable to read file to import data for table: ' . $table);
+                    Dlayer_Helper::sendToErrorLog('Unable to read file to import data for table: ' . $table);
                     return false;
                 }
             }
 
-            $stmt = $this->_db->prepare($query);
-            $result = $stmt->execute();
+            try {
+                $stmt = $this->_db->prepare($query);
+                $result = $stmt->execute();
+            } catch (Exception $e) {
+                $this->addError('Error importing data ' . $e->getMessage());
+                Dlayer_Helper::sendToErrorLog('Error importing data ' . $e->getMessage());
+                return false;
+            }
 
             if ($result !== false) {
                 $this->addMessage('Demo data imported');
                 Dlayer_Helper::sendToInfoLog('Demo data imported');
             } else {
                 $this->addError('Error importing data');
-                Dlayer_Helper::sendToInfoLog('Error importing data');
+                Dlayer_Helper::sendToErrorLog('Error importing data');
                 return false;
             }
         } else {
