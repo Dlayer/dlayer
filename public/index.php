@@ -17,6 +17,9 @@ defined('APPLICATION_PATH')
 // Define path to library
 defined('DLAYER_LIBRARY_PATH')
 || define('DLAYER_LIBRARY_PATH', realpath(dirname(__FILE__) . '/../library'));
+
+defined('DLAYER_SETUP_PATH')
+|| define('DLAYER_SETUP_PATH', realpath(dirname(__FILE__) . '/../private/database'));
 	
 include(APPLICATION_PATH . '/configs/environment.php');
 

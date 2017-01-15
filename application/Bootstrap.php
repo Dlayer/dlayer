@@ -132,30 +132,35 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     public function _initSessionHandler()
     {
-        $session_config = array(
-            'name' => 'dlayer_session',
-            'primary' => array(
-                'session_id',
-                'save_path',
-                'name',
-            ),
-            'primaryAssignment' => array(
-                'sessionId',
-                'sessionSavePath',
-                'sessionName',
-            ),
-            'modifiedColumn' => 'modified',
-            'dataColumn' => 'session_data',
-            'lifetimeColumn' => 'lifetime',
-        );
+        $router = new Zend_Controller_Router_Rewrite();
+        $request = new Zend_Controller_Request_Http();
+        $router->route($request);
+        if ($request->getModuleName() !== 'setup') {
+            $session_config = array(
+                'name' => 'dlayer_session',
+                'primary' => array(
+                    'session_id',
+                    'save_path',
+                    'name',
+                ),
+                'primaryAssignment' => array(
+                    'sessionId',
+                    'sessionSavePath',
+                    'sessionName',
+                ),
+                'modifiedColumn' => 'modified',
+                'dataColumn' => 'session_data',
+                'lifetimeColumn' => 'lifetime',
+            );
 
-        $options = $this->getApplication()
-            ->getOption('session');
+            $options = $this->getApplication()
+                ->getOption('session');
 
-        Zend_Session::setOptions(
-            array('gc_maxlifetime' => intval($options['timeout']) + 1));
-        Zend_Session::setSaveHandler(new Zend_Session_SaveHandler_DbTable(
-            $session_config));
+            Zend_Session::setOptions(
+                array('gc_maxlifetime' => intval($options['timeout']) + 1));
+            Zend_Session::setSaveHandler(new Zend_Session_SaveHandler_DbTable(
+                $session_config));
+        }
     }
 
     /**

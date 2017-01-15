@@ -1,4 +1,8 @@
 <?php
+
+ini_set('mysql.connect_timeout', 300);
+ini_set('default_socket_timeout', 300);
+
 /**
  * Import model
  *
@@ -8,6 +12,75 @@
  */
 class Setup_Model_Import extends Zend_Db_Table_Abstract
 {
+    private $tables = array(
+        'designer_color_palette',
+        'designer_color_palette_color',
+        'designer_color_type',
+        'designer_content_heading',
+        'designer_content_type',
+        'designer_css_border_style',
+        'designer_css_font_family',
+        'designer_css_text_decoration',
+        'designer_css_text_style',
+        'designer_css_text_weight',
+        'designer_form_field_attribute',
+        'designer_form_field_attribute_type',
+        'designer_form_field_param_preview',
+        'designer_form_field_type',
+        'designer_form_layout',
+        'designer_form_preview_method',
+        'dlayer_identity',
+        'dlayer_module',
+        'dlayer_module_tool',
+        'dlayer_module_tool_tab',
+        'dlayer_session',
+        'dlayer_setting',
+        'dlayer_setting_group',
+        'dlayer_setting_scope',
+        'user_setting_color_history',
+        'user_setting_color_palette',
+        'user_setting_color_palette_color',
+        'user_setting_font_and_text',
+        'user_setting_heading',
+        'user_site',
+        'user_site_content_heading',
+        'user_site_content_html',
+        'user_site_content_jumbotron',
+        'user_site_content_text',
+        'user_site_form',
+        'user_site_form_field',
+        'user_site_form_field_attribute',
+        'user_site_form_field_row_background_color',
+        'user_site_form_layout',
+        'user_site_form_setting',
+        'user_site_history',
+        'user_site_image_library',
+        'user_site_image_library_category',
+        'user_site_image_library_link',
+        'user_site_image_library_sub_category',
+        'user_site_image_library_version',
+        'user_site_image_library_version_meta',
+        'user_site_page',
+        'user_site_page_content_item_form',
+        'user_site_page_content_item_heading',
+        'user_site_page_content_item_html',
+        'user_site_page_content_item_image',
+        'user_site_page_content_item_jumbotron',
+        'user_site_page_content_item_text',
+        'user_site_page_meta',
+        'user_site_page_structure_column',
+        'user_site_page_structure_content',
+        'user_site_page_structure_row',
+        'user_site_page_styling_column_background_color',
+        'user_site_page_styling_content_item_background_color',
+        'user_site_page_styling_content_item_typography',
+        'user_site_page_styling_page_background_color',
+        'user_site_page_styling_row_background_color'
+    );
+
+    private $messages = array();
+    private $errors = array();
+
     /**
      * Set foreign key checks value
      *
@@ -20,23 +93,229 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Execute queries
+     * Reset the messages array
      *
-     * @param string $query
-     * @param boolean $foreign_keys Modify SET_FOREIGN_KEYS
+     * @return void
+     */
+    public function resetMessages()
+    {
+        $this->messages = array();
+    }
+
+    /**
+     * Reset the errors array
+     *
+     * @return void
+     */
+    public function resetErrors()
+    {
+        $this->errors = array();
+    }
+
+    /**
+     * Get message
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * Get errors
+     *
+     * @return array
+     */
+    public function errors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * Add an error to the errors array
+     *
+     * @param string $message
+     */
+    private function addError($message)
+    {
+        $this->errors[] = $message;
+    }
+
+    /**
+     * Add an error to the messages array
+     *
+     * @param string $message
+     */
+    private function addMessage($message)
+    {
+        $this->messages[] = $message;
+    }
+
+    /**
+     * Number of database tables
+     */
+    public function numberOfTables()
+    {
+        return count($this->tables);
+    }
+
+    /**
+     * Number of tables in database
+     */
+    public function numberOfTablesInDatabase()
+    {
+        $stmt = $this->_db->prepare('SHOW TABLES');
+        $stmt->execute();
+
+        return count($stmt->fetchAll());
+    }
+
+    /**
+     * Create tables, stops on error
+     *
      * @return boolean
      */
-    public function executeQuery($query, $foreign_keys = false)
+    public function createTables()
     {
-        if ($foreign_keys === true) {
-            $sql = $this->setForeignKeyChecks(0);
-            $sql .= $query . PHP_EOL;
-            $sql .= $this->setForeignKeyChecks(1);
+        if ($this->numberOfTablesInDatabase() === 0) {
+            foreach ($this->tables as $table) {
+                $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/structure/' . $table . '.sql');
+                if ($file !== false) {
+
+                    try {
+                        $stmt = $this->_db->prepare($file);
+                        $result = $stmt->execute();
+                    } catch (Exception $e) {
+                        $this->addError('Unable to create table: ' . $table . ' ' . $e->getMessage());
+                        Dlayer_Helper::sendToErrorLog('Unable to create table: ' . $table . ' ' . $e->getMessage());
+                        return false;
+                    }
+
+                    if ($result === false) {
+                        $this->addError('Unable to create table: ' . $table);
+                        Dlayer_Helper::sendToErrorLog('Unable to create table: ' . $table);
+                        return false;
+                    } else {
+                        $this->addMessage('Successfully created table: ' . $table);
+                        Dlayer_Helper::sendToInfoLog('Successfully created table: ' . $table);
+                    }
+                } else {
+                    $this->addError('Unable to read file to create table: ' . $table);
+                    Dlayer_Helper::sendToErrorLog('Unable to read file to create table: ' . $table);
+                    return false;
+                }
+            }
         } else {
-            $sql = $query;
+            $this->addError('Your database has tables, this script will not run until you empty your database, please make 
+            sure to make a backup first');
+            Dlayer_Helper::sendToErrorLog('Your database has tables, this script will not run until you empty your database, please make 
+            sure to make a backup first');
+
+            return false;
         }
 
-        $stmt = $this->_db->prepare($sql);
-        return $stmt->execute();
+        return true;
     }
+
+    /**
+     * Import the table data
+     *
+     * @return boolean
+     */
+    public function importTableData()
+    {
+        $complete = array();
+
+        if ($this->numberOfTablesInDatabase() === $this->numberOfTables()) {
+
+            $query = '';
+
+            foreach ($this->tables as $k => $table) {
+                $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/data/' . $table . '.sql');
+                if ($file !== false) {
+                    $query .= $file;
+                } else {
+                    $this->addError('Unable to read file to import data for table: ' . $table);
+                    Dlayer_Helper::sendToErrorLog('Unable to read file to import data for table: ' . $table);
+                    return false;
+                }
+            }
+
+            try {
+                $stmt = $this->_db->prepare($query);
+                $result = $stmt->execute();
+            } catch (Exception $e) {
+                $this->addError('Error importing data ' . $e->getMessage());
+                Dlayer_Helper::sendToErrorLog('Error importing data ' . $e->getMessage());
+                return false;
+            }
+
+            if ($result !== false) {
+                $this->addMessage('Demo data imported');
+                Dlayer_Helper::sendToInfoLog('Demo data imported');
+            } else {
+                $this->addError('Error importing data');
+                Dlayer_Helper::sendToErrorLog('Error importing data');
+                return false;
+            }
+        } else {
+            $this->addError('The number of table in the database is not correct, if differs from what we expect, there are 
+             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
+            Dlayer_Helper::sendToErrorLog('The number of table in the database is not correct, if differs from what we expect, there are 
+             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Set the foreign keys
+     *
+     * @return boolean
+     */
+    public function setForeignKeys()
+    {
+        if ($this->numberOfTablesInDatabase() === $this->numberOfTables()) {
+            foreach ($this->tables as $table) {
+                $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/keys/' . $table . '.sql');
+                if ($file !== false) {
+
+                    try {
+                        $stmt = $this->_db->prepare($file);
+                        $result = $stmt->execute();
+                    } catch (Exception $e) {
+                        $this->addError('Unable to set foreign keys for table: ' . $table . ' ' . $e->getMessage());
+                        Dlayer_Helper::sendToErrorLog('Unable to set foreign keys for table: ' . $table . ' ' . $e->getMessage());
+                        return false;
+                    }
+
+                    if ($result === false) {
+                        $this->addError('Unable to set foreign keys for table: ' . $table);
+                        Dlayer_Helper::sendToErrorLog('Unable to set foreign keys for table: ' . $table);
+                        return false;
+                    } else {
+                        $this->addMessage('Successfully set foreign keys for table: ' . $table);
+                        Dlayer_Helper::sendToInfoLog('Successfully set foreign keys for table: ' . $table);
+                    }
+                } else {
+                    $this->addError('Unable to read file to set foreign keys for table: ' . $table);
+                    Dlayer_Helper::sendToErrorLog('Unable to read file to set foreign keys for table: ' . $table);
+                    return false;
+                }
+            }
+        } else {
+            $this->addError('The number of table in the database is not correct, if differs from what we expect, there are 
+             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
+            Dlayer_Helper::sendToErrorLog('The number of table in the database is not correct, if differs from what we expect, there are 
+             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
+
+            return false;
+        }
+
+        return true;
+    }
+
 }

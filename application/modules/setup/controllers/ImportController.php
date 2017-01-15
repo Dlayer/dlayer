@@ -61,21 +61,113 @@ class Setup_ImportController extends Zend_Controller_Action
     }
 
     /**
-     * Long script example
+     * Create the demo database structure
      */
-    public function demoImportAction()
+    public function demoCreateStructureAction()
     {
         $this->_helper->disableLayout(FALSE);
 
-        $result = '<h2>Finished</h2>';
+        $model = new Setup_Model_Import();
+        $model->resetMessages();
+        $model->resetErrors();
 
-        $result .= "<p>I am a long running process <br />";
-        for ($i = 0; $i < 10; $i++) {
-            sleep(1);
-            $result .= '.';
+        $result = $model->createTables();
+
+        if ($result === true) {
+            $html = '<h2>Success</h2>';
+            $html .= "<ul>";
+            foreach ($model->messages() as $message) {
+                $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        } else {
+            $html = '<h2>Error!</h2>';
+            $html .= "<ul>";
+            if (count($model->messages()) > 0) {
+                foreach ($model->messages() as $message) {
+                    $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+                }
+            }
+            foreach ($model->errors() as $message) {
+                $html .= "<li><span class=\"text-danger glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
         }
-        $result .= " Processing complete</p>";
 
-        echo $result;
+        echo $html;
+    }
+
+    /**
+     * Import the demo database data
+     */
+    public function demoImportDataAction()
+    {
+        $this->_helper->disableLayout(FALSE);
+
+        $model = new Setup_Model_Import();
+        $model->resetMessages();
+        $model->resetErrors();
+
+        $result = $model->importTableData();
+
+        if ($result === true) {
+            $html = '<h2>Success</h2>';
+            $html .= "<ul>";
+            foreach ($model->messages() as $message) {
+                $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        } else {
+            $html = '<h2>Error!</h2>';
+            $html .= "<ul>";
+            if (count($model->messages()) > 0) {
+                foreach ($model->messages() as $message) {
+                    $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+                }
+            }
+            foreach ($model->errors() as $message) {
+                $html .= "<li><span class=\"text-danger glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        }
+
+        echo $html;
+    }
+
+    /**
+     * Import the demo database data
+     */
+    public function demoSetForeignKeysAction()
+    {
+        $this->_helper->disableLayout(FALSE);
+
+        $model = new Setup_Model_Import();
+        $model->resetMessages();
+        $model->resetErrors();
+
+        $result = $model->setForeignKeys();
+
+        if ($result === true) {
+            $html = '<h2>Success</h2>';
+            $html .= "<ul>";
+            foreach ($model->messages() as $message) {
+                $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        } else {
+            $html = '<h2>Error!</h2>';
+            $html .= "<ul>";
+            if (count($model->messages()) > 0) {
+                foreach ($model->messages() as $message) {
+                    $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+                }
+            }
+            foreach ($model->errors() as $message) {
+                $html .= "<li><span class=\"text-danger glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        }
+
+        echo $html;
     }
 }
