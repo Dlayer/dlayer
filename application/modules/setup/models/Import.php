@@ -1,5 +1,8 @@
 <?php
 
+ini_set('mysql.connect_timeout', 300);
+ini_set('default_socket_timeout', 300);
+
 /**
  * Import model
  *
@@ -175,9 +178,6 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
      */
     public function createTables()
     {
-        $this->resetMessages();
-        $this->resetErrors();
-
         if ($this->numberOfTablesInDatabase() === 0) {
             foreach ($this->tables as $table) {
                 $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/structure/' . $table . '.sql');
@@ -186,13 +186,13 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
                     $result = $stmt->execute();
 
                     if ($result === false) {
-                        $this->addError('Unable to create file ' . $table);
+                        $this->addError('Unable to create table: ' . $table);
                         return false;
                     } else {
-                        $this->addMessage('Successfully created table ' . $table);
+                        $this->addMessage('Successfully created table: ' . $table);
                     }
                 } else {
-                    $this->addError('Unable to read file to create ' . $table);
+                    $this->addError('Unable to read file to create table: ' . $table);
                     return false;
                 }
             }
@@ -205,4 +205,60 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
 
         return true;
     }
+
+    /**
+     * Import the table data
+     *
+     * @return boolean
+     */
+    public function importTableData()
+    {
+        $complete = array();
+
+        if ($this->numberOfTablesInDatabase() === $this->numberOfTables()) {
+
+            $query = '';
+
+            foreach ($this->tables as $k => $table) {
+                $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/data/' . $table . '.sql');
+                if ($file !== false) {
+                    $query .= $file;
+                } else {
+                    $this->addError('Unable to read file to import data for table: ' . $table);
+                    Dlayer_Helper::sendToInfoLog('Unable to read file to import data for table: ' . $table);
+                    return false;
+                }
+            }
+
+            $stmt = $this->_db->prepare($query);
+            $result = $stmt->execute();
+
+            if ($result !== false) {
+                $this->addMessage('Demo data imported');
+                Dlayer_Helper::sendToInfoLog('Demo data imported');
+            } else {
+                $this->addError('Error importing data');
+                Dlayer_Helper::sendToInfoLog('Error importing data');
+                return false;
+            }
+        } else {
+            $this->addError('The number of table in the database is not correct, if differs from what we expect, there are 
+             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Set the foreign keys
+     *
+     * @return boolean
+     */
+    public function setForeignKeys()
+    {
+        return true;
+    }
+
 }

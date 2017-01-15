@@ -19,7 +19,9 @@
         <p>Please select the button below to import the demo database for Dlayer, if there are any tables in the
             database the script will not run, this process should only be executed ion an empty database.</p>
 
-        <p><a class="btn btn-danger run-script" href="#run">Import demo database</a></p>
+        <p><a class="btn btn-danger run-script" data-action="demo-create-structure" href="#">1: Create database structure</a></p>
+        <p><a class="btn btn-danger run-script" data-action="demo-import-data" href="#">2: Import demo data</a></p>
+        <p><a class="btn btn-danger run-script" data-action="" href="#">3: Set foreign keys</a></p>
     </div>
 
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -31,19 +33,20 @@
 <script>
     $('.run-script').click(function ()
     {
-        $('.run-script').attr('disabled', 'disabled');
-        $('.output').html(
+        var output = '.output';
+
+        $(output).html(
             '<h2><img src="/images/dlayer/ajax-loader.gif" /> Processing</h2><p>Please wait a few moments while the import script runs...</p>');
 
         $.ajax(
             {
                 type: 'GET',
-                url: '/setup/import/demo-import',
+                url: '/setup/import/' + $(this).data('action'),
                 dataType: 'html'
             }
         ).done(function (data)
         {
-            $('.output').html(data);
+            $(output).html(data);
         })
     });
 </script>
