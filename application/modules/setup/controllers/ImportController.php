@@ -67,15 +67,30 @@ class Setup_ImportController extends Zend_Controller_Action
     {
         $this->_helper->disableLayout(FALSE);
 
-        $result = '<h2>Finished</h2>';
+        $model = new Setup_Model_Import();
+        $result = $model->createTables();
 
-        $result .= "<p>I am a long running process <br />";
-        for ($i = 0; $i < 10; $i++) {
-            sleep(1);
-            $result .= '.';
+        if ($result === true) {
+            $html = '<h2>Success</h2>';
+            $html .= "<ul>";
+            foreach ($model->messages() as $message) {
+                $html .= "<li>{$message}</li>";
+            }
+            $html .= "</ul>";
+        } else {
+            $html = '<h2>Error!</h2>';
+            $html .= "<ul>";
+            if (count($model->messages()) > 0) {
+                foreach ($model->messages() as $message) {
+                    $html .= "<li>{$message}</li>";
+                }
+            }
+            foreach ($model->errors() as $message) {
+                $html .= "<li>{$message}</li>";
+            }
+            $html .= "</ul>";
         }
-        $result .= " Processing complete</p>";
 
-        echo $result;
+        echo $html;
     }
 }
