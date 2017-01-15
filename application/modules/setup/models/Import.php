@@ -262,6 +262,8 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         } else {
             $this->addError('The number of table in the database is not correct, if differs from what we expect, there are 
              ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
+            Dlayer_Helper::sendToErrorLog('The number of table in the database is not correct, if differs from what we expect, there are 
+             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
 
             return false;
         }
@@ -276,6 +278,43 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
      */
     public function setForeignKeys()
     {
+        if ($this->numberOfTablesInDatabase() === $this->numberOfTables()) {
+            foreach ($this->tables as $table) {
+                $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/keys/' . $table . '.sql');
+                if ($file !== false) {
+
+                    try {
+                        $stmt = $this->_db->prepare($file);
+                        $result = $stmt->execute();
+                    } catch (Exception $e) {
+                        $this->addError('Unable to set foreign keys for table: ' . $table . ' ' . $e->getMessage());
+                        Dlayer_Helper::sendToErrorLog('Unable to set foreign keys for table: ' . $table . ' ' . $e->getMessage());
+                        return false;
+                    }
+
+                    if ($result === false) {
+                        $this->addError('Unable to set foreign keys for table: ' . $table);
+                        Dlayer_Helper::sendToErrorLog('Unable to set foreign keys for table: ' . $table);
+                        return false;
+                    } else {
+                        $this->addMessage('Successfully set foreign keys for table: ' . $table);
+                        Dlayer_Helper::sendToInfoLog('Successfully set foreign keys for table: ' . $table);
+                    }
+                } else {
+                    $this->addError('Unable to read file to set foreign keys for table: ' . $table);
+                    Dlayer_Helper::sendToErrorLog('Unable to read file to set foreign keys for table: ' . $table);
+                    return false;
+                }
+            }
+        } else {
+            $this->addError('The number of table in the database is not correct, if differs from what we expect, there are 
+             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
+            Dlayer_Helper::sendToErrorLog('The number of table in the database is not correct, if differs from what we expect, there are 
+             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
+
+            return false;
+        }
+
         return true;
     }
 
