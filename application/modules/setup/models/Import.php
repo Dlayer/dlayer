@@ -78,6 +78,31 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'user_site_page_styling_row_background_color'
     );
 
+    private $tables_clean = array(
+        'designer_color_palette',
+        'designer_color_palette_color',
+        'designer_color_type',
+        'designer_content_heading',
+        'designer_content_type',
+        'designer_css_border_style',
+        'designer_css_font_family',
+        'designer_css_text_decoration',
+        'designer_css_text_style',
+        'designer_css_text_weight',
+        'designer_form_field_attribute',
+        'designer_form_field_attribute_type',
+        'designer_form_field_param_preview',
+        'designer_form_field_type',
+        'designer_form_layout',
+        'designer_form_preview_method',
+        'dlayer_module',
+        'dlayer_module_tool',
+        'dlayer_module_tool_tab',
+        'dlayer_setting',
+        'dlayer_setting_group',
+        'dlayer_setting_scope',
+    );
+
     private $messages = array();
     private $errors = array();
 
@@ -221,17 +246,22 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
     /**
      * Import the table data
      *
+     * @param boolean $clean
      * @return boolean
      */
-    public function importTableData()
+    public function importTableData($clean = false)
     {
-        $complete = array();
-
         if ($this->numberOfTablesInDatabase() === $this->numberOfTables()) {
 
             $query = '';
 
-            foreach ($this->tables as $k => $table) {
+            if ($clean === false) {
+                $tables = $this->tables;
+            } else {
+                $tables = $this->tables_clean;
+            }
+
+            foreach ($tables as $k => $table) {
                 $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/data/' . $table . '.sql');
                 if ($file !== false) {
                     $query .= $file;
@@ -252,8 +282,8 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
             }
 
             if ($result !== false) {
-                $this->addMessage('Demo data imported');
-                Dlayer_Helper::sendToInfoLog('Demo data imported');
+                $this->addMessage('Data imported');
+                Dlayer_Helper::sendToInfoLog('Data imported');
             } else {
                 $this->addError('Error importing data');
                 Dlayer_Helper::sendToErrorLog('Error importing data');
