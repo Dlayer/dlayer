@@ -37,11 +37,13 @@ Setup
 
 I am working towards improving the set-up/reset process for Dlayer, until then please follow the steps below.
 
-* Set-up your development environment. I have written a blog post on setting up a suitable enviornment on a Linux machine, http://www.deanblackborough.com/2016/04/30/ubuntu-install-apache-php-mysql-sass-bower-and-phpstorm-for-local-development/
+* Set-up your development environment. I have written a blog post on setting up a suitable environment on a Linux machine, http://www.deanblackborough.com/2016/04/30/ubuntu-install-apache-php-mysql-sass-bower-and-phpstorm-for-local-development/
+* I will assume your local environment is at http://dlayer.dev
 * Clone the project
-* Setup a database and import /private/database/release-database.sql
-* browse to /public and run ```$ bower install```
+* Create database and user
+* Browse to /public and run ```$ bower install```
 * Edit /application/configs/application.ini
 * Edit /application/configs/environment.php
-* browse to /public and run ```$ sass --watch scss:css```
+* Browse to /public and run ```$ sass --watch scss:css```
+* Setup the database, go to http://dlayer.dev/setup to create/import database
 * Sign-in to demo

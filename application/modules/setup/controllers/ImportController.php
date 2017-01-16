@@ -61,6 +61,17 @@ class Setup_ImportController extends Zend_Controller_Action
     }
 
     /**
+     * Reset and demo database import
+     *
+     * @return void
+     */
+    public function resetDemoAction()
+    {
+        $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
+            array(), 'Dlayer.com - Setup: Reset to demo database', '', false);
+    }
+
+    /**
      * Clean database import
      *
      * @return void
@@ -69,6 +80,17 @@ class Setup_ImportController extends Zend_Controller_Action
     {
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Setup: Clean database', '', false);
+    }
+
+    /**
+     * Reset and clean database import
+     *
+     * @return void
+     */
+    public function resetCleanAction()
+    {
+        $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
+            array(), 'Dlayer.com - Setup: Reset to clean database', '', false);
     }
 
     /**
@@ -122,6 +144,41 @@ class Setup_ImportController extends Zend_Controller_Action
         $result = $model->importTableData(false);
 
         if ($result === true) {
+            $html = '<h2>Success</h2>';
+            $html .= "<ul>";
+            foreach ($model->messages() as $message) {
+                $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        } else {
+            $html = '<h2>Error!</h2>';
+            $html .= "<ul>";
+            if (count($model->messages()) > 0) {
+                foreach ($model->messages() as $message) {
+                    $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+                }
+            }
+            foreach ($model->errors() as $message) {
+                $html .= "<li><span class=\"text-danger glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        }
+
+        echo $html;
+    }
+
+    /**
+     * Drop all the dlayer tables
+     */
+    public function dropTablesAction()
+    {
+        $this->_helper->disableLayout(FALSE);
+
+        $model = new Setup_Model_Import();
+        $model->resetMessages();
+        $model->resetErrors();
+
+        if ($model->dropTables() === true) {
             $html = '<h2>Success</h2>';
             $html .= "<ul>";
             foreach ($model->messages() as $message) {
