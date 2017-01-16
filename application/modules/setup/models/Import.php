@@ -78,6 +78,31 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'user_site_page_styling_row_background_color'
     );
 
+    private $tables_clean = array(
+        'designer_color_palette',
+        'designer_color_palette_color',
+        'designer_color_type',
+        'designer_content_heading',
+        'designer_content_type',
+        'designer_css_border_style',
+        'designer_css_font_family',
+        'designer_css_text_decoration',
+        'designer_css_text_style',
+        'designer_css_text_weight',
+        'designer_form_field_attribute',
+        'designer_form_field_attribute_type',
+        'designer_form_field_param_preview',
+        'designer_form_field_type',
+        'designer_form_layout',
+        'designer_form_preview_method',
+        'dlayer_module',
+        'dlayer_module_tool',
+        'dlayer_module_tool_tab',
+        'dlayer_setting',
+        'dlayer_setting_group',
+        'dlayer_setting_scope'
+    );
+
     private $messages = array();
     private $errors = array();
 
@@ -188,28 +213,22 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
                         $result = $stmt->execute();
                     } catch (Exception $e) {
                         $this->addError('Unable to create table: ' . $table . ' ' . $e->getMessage());
-                        Dlayer_Helper::sendToErrorLog('Unable to create table: ' . $table . ' ' . $e->getMessage());
                         return false;
                     }
 
                     if ($result === false) {
                         $this->addError('Unable to create table: ' . $table);
-                        Dlayer_Helper::sendToErrorLog('Unable to create table: ' . $table);
                         return false;
                     } else {
                         $this->addMessage('Successfully created table: ' . $table);
-                        Dlayer_Helper::sendToInfoLog('Successfully created table: ' . $table);
                     }
                 } else {
                     $this->addError('Unable to read file to create table: ' . $table);
-                    Dlayer_Helper::sendToErrorLog('Unable to read file to create table: ' . $table);
                     return false;
                 }
             }
         } else {
             $this->addError('Your database has tables, this script will not run until you empty your database, please make 
-            sure to make a backup first');
-            Dlayer_Helper::sendToErrorLog('Your database has tables, this script will not run until you empty your database, please make 
             sure to make a backup first');
 
             return false;
@@ -221,23 +240,27 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
     /**
      * Import the table data
      *
+     * @param boolean $clean
      * @return boolean
      */
-    public function importTableData()
+    public function importTableData($clean = false)
     {
-        $complete = array();
-
         if ($this->numberOfTablesInDatabase() === $this->numberOfTables()) {
 
             $query = '';
 
-            foreach ($this->tables as $k => $table) {
+            if ($clean === false) {
+                $tables = $this->tables;
+            } else {
+                $tables = $this->tables_clean;
+            }
+
+            foreach ($tables as $k => $table) {
                 $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/data/' . $table . '.sql');
                 if ($file !== false) {
                     $query .= $file;
                 } else {
                     $this->addError('Unable to read file to import data for table: ' . $table);
-                    Dlayer_Helper::sendToErrorLog('Unable to read file to import data for table: ' . $table);
                     return false;
                 }
             }
@@ -247,22 +270,17 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
                 $result = $stmt->execute();
             } catch (Exception $e) {
                 $this->addError('Error importing data ' . $e->getMessage());
-                Dlayer_Helper::sendToErrorLog('Error importing data ' . $e->getMessage());
                 return false;
             }
 
             if ($result !== false) {
-                $this->addMessage('Demo data imported');
-                Dlayer_Helper::sendToInfoLog('Demo data imported');
+                $this->addMessage('Data imported');
             } else {
                 $this->addError('Error importing data');
-                Dlayer_Helper::sendToErrorLog('Error importing data');
                 return false;
             }
         } else {
             $this->addError('The number of table in the database is not correct, if differs from what we expect, there are 
-             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
-            Dlayer_Helper::sendToErrorLog('The number of table in the database is not correct, if differs from what we expect, there are 
              ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
 
             return false;
@@ -288,28 +306,22 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
                         $result = $stmt->execute();
                     } catch (Exception $e) {
                         $this->addError('Unable to set foreign keys for table: ' . $table . ' ' . $e->getMessage());
-                        Dlayer_Helper::sendToErrorLog('Unable to set foreign keys for table: ' . $table . ' ' . $e->getMessage());
                         return false;
                     }
 
                     if ($result === false) {
                         $this->addError('Unable to set foreign keys for table: ' . $table);
-                        Dlayer_Helper::sendToErrorLog('Unable to set foreign keys for table: ' . $table);
                         return false;
                     } else {
                         $this->addMessage('Successfully set foreign keys for table: ' . $table);
-                        Dlayer_Helper::sendToInfoLog('Successfully set foreign keys for table: ' . $table);
                     }
                 } else {
                     $this->addError('Unable to read file to set foreign keys for table: ' . $table);
-                    Dlayer_Helper::sendToErrorLog('Unable to read file to set foreign keys for table: ' . $table);
                     return false;
                 }
             }
         } else {
             $this->addError('The number of table in the database is not correct, if differs from what we expect, there are 
-             ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
-            Dlayer_Helper::sendToErrorLog('The number of table in the database is not correct, if differs from what we expect, there are 
              ' .  $this->numberOfTables() . ' defined for Dlayer but ' . $this->numberOfTablesInDatabase() . ' in your Database');
 
             return false;

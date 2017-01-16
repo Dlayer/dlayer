@@ -50,20 +50,31 @@ class Setup_ImportController extends Zend_Controller_Action
     }
 
     /**
-     * Dlayer splash page
+     * Demo database import
      *
      * @return void
      */
     public function demoAction()
     {
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
-            array(), 'Dlayer.com - Setup', '', false);
+            array(), 'Dlayer.com - Setup: Demo database', '', false);
+    }
+
+    /**
+     * Clean database import
+     *
+     * @return void
+     */
+    public function cleanAction()
+    {
+        $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
+            array(), 'Dlayer.com - Setup: Clean database', '', false);
     }
 
     /**
      * Create the demo database structure
      */
-    public function demoCreateStructureAction()
+    public function createStructureAction()
     {
         $this->_helper->disableLayout(FALSE);
 
@@ -100,7 +111,7 @@ class Setup_ImportController extends Zend_Controller_Action
     /**
      * Import the demo database data
      */
-    public function demoImportDataAction()
+    public function importDemoDataAction()
     {
         $this->_helper->disableLayout(FALSE);
 
@@ -108,7 +119,7 @@ class Setup_ImportController extends Zend_Controller_Action
         $model->resetMessages();
         $model->resetErrors();
 
-        $result = $model->importTableData();
+        $result = $model->importTableData(false);
 
         if ($result === true) {
             $html = '<h2>Success</h2>';
@@ -137,7 +148,44 @@ class Setup_ImportController extends Zend_Controller_Action
     /**
      * Import the demo database data
      */
-    public function demoSetForeignKeysAction()
+    public function importCleanDataAction()
+    {
+        $this->_helper->disableLayout(false);
+
+        $model = new Setup_Model_Import();
+        $model->resetMessages();
+        $model->resetErrors();
+
+        $result = $model->importTableData(true);
+
+        if ($result === true) {
+            $html = '<h2>Success</h2>';
+            $html .= "<ul>";
+            foreach ($model->messages() as $message) {
+                $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        } else {
+            $html = '<h2>Error!</h2>';
+            $html .= "<ul>";
+            if (count($model->messages()) > 0) {
+                foreach ($model->messages() as $message) {
+                    $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+                }
+            }
+            foreach ($model->errors() as $message) {
+                $html .= "<li><span class=\"text-danger glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        }
+
+        echo $html;
+    }
+
+    /**
+     * Import the demo database data
+     */
+    public function setForeignKeysAction()
     {
         $this->_helper->disableLayout(FALSE);
 
