@@ -168,6 +168,41 @@ class Setup_ImportController extends Zend_Controller_Action
     }
 
     /**
+     * Drop all the dlayer tables
+     */
+    public function dropTablesAction()
+    {
+        $this->_helper->disableLayout(FALSE);
+
+        $model = new Setup_Model_Import();
+        $model->resetMessages();
+        $model->resetErrors();
+
+        if ($model->dropTables() === true) {
+            $html = '<h2>Success</h2>';
+            $html .= "<ul>";
+            foreach ($model->messages() as $message) {
+                $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        } else {
+            $html = '<h2>Error!</h2>';
+            $html .= "<ul>";
+            if (count($model->messages()) > 0) {
+                foreach ($model->messages() as $message) {
+                    $html .= "<li><span class=\"text-success glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  {$message}</li>";
+                }
+            }
+            foreach ($model->errors() as $message) {
+                $html .= "<li><span class=\"text-danger glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>  {$message}</li>";
+            }
+            $html .= "</ul>";
+        }
+
+        echo $html;
+    }
+
+    /**
      * Import the demo database data
      */
     public function importCleanDataAction()

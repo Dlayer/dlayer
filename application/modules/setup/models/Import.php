@@ -114,7 +114,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
      */
     public function setForeignKeyChecks($value)
     {
-        return 'SET FOREIGN_KEY_CHECKS = :value;' . PHP_EOL;
+        return "SET FOREIGN_KEY_CHECKS = {$value};" . PHP_EOL;
     }
 
     /**
@@ -287,6 +287,41 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         }
 
         return true;
+    }
+
+    /**
+     * Drop all the Dlayer tables
+     *
+     * @return boolean
+     */
+    public function dropTables()
+    {
+        $query = $this->setForeignKeyChecks(0);
+
+        foreach ($this->tables as $k => $table) {
+            $query .= "DROP TABLE `{$table}`;" . PHP_EOL;
+        }
+
+        $query .= $this->setForeignKeyChecks(1);
+
+        try {
+            $stmt = $this->_db->prepare($query);
+            $result = $stmt->execute();
+        } catch (Exception $e) {
+            $this->addError('Error dropping Dlayer tables ' . $e->getMessage());
+            return false;
+        }
+
+        if ($result !== false) {
+            $this->addMessage('All Dlayer tables dropped:');
+            foreach ($this->tables as $table) {
+                $this->addMessage(" --- Table `{$table}` dropped");
+            }
+            return true;
+        } else {
+            $this->addError('Error dropping Dlayer tables');
+            return false;
+        }
     }
 
     /**
