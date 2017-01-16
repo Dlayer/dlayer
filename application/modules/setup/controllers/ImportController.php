@@ -119,7 +119,7 @@ class Setup_ImportController extends Zend_Controller_Action
         $model->resetMessages();
         $model->resetErrors();
 
-        $result = $model->importTableData();
+        $result = $model->importTableData(false);
 
         if ($result === true) {
             $html = '<h2>Success</h2>';
@@ -150,7 +150,7 @@ class Setup_ImportController extends Zend_Controller_Action
      */
     public function importCleanDataAction()
     {
-        $this->_helper->disableLayout(FALSE);
+        $this->_helper->disableLayout(false);
 
         $model = new Setup_Model_Import();
         $model->resetMessages();

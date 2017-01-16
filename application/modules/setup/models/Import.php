@@ -100,7 +100,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'dlayer_module_tool_tab',
         'dlayer_setting',
         'dlayer_setting_group',
-        'dlayer_setting_scope',
+        'dlayer_setting_scope'
     );
 
     private $messages = array();
