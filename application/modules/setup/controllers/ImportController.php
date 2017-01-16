@@ -61,6 +61,17 @@ class Setup_ImportController extends Zend_Controller_Action
     }
 
     /**
+     * Reset and demo database import
+     *
+     * @return void
+     */
+    public function resetDemoAction()
+    {
+        $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
+            array(), 'Dlayer.com - Setup: Reset to demo database', '', false);
+    }
+
+    /**
      * Clean database import
      *
      * @return void
@@ -69,6 +80,17 @@ class Setup_ImportController extends Zend_Controller_Action
     {
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Setup: Clean database', '', false);
+    }
+
+    /**
+     * Reset and clean database import
+     *
+     * @return void
+     */
+    public function resetCleanAction()
+    {
+        $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
+            array(), 'Dlayer.com - Setup: Reset to clean database', '', false);
     }
 
     /**

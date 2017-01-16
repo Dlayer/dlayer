@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <h1>Dlayer
+            <small>Open Source responsive web development tool</small>
+        </h1>
+
+        <p class="lead">The installation process is a work in progress; Dlayer is rapidly improving, I wanted an
+            installation process, but I wanted it to be simple enough so as not to slow me down as I add new
+            features to Dlayer.</p>
+
+        <p>I want to improve and simplify this installation process, it is not user-friendly, as soon as Dlayer is
+            more mature I will revisit the system. Please keep an eye on the Dlayer development
+            <a href="http://blog.dlayer.com/">blog</a> and of course if you are interested in improving the
+            installation process please <a href="http://dlayer.com/coding-standards.html">get in touch</a> with me.</p>
+
+        <h2>Reset and import demo database</h2>
+
+        <p>Step through the buttons below to reset your database to the demo state, this will drop all dlayer tables,
+            create the table required by Dlayer and import the demo data.</p>
+
+        <p><a class="btn btn-danger run-script" data-action="drop-tables" href="#">1: Drop tables</a> <span class="text-danger glyphicon glyphicon-warning-sign" aria-hidden="true"></span>  Proceed with care, please backup your database first.  <span class="text-danger glyphicon glyphicon-warning-sign" aria-hidden="true"></span></p>
+        <p><a class="btn btn-danger run-script" data-action="create-structure" href="#">2: Create database structure</a></p>
+        <p><a class="btn btn-danger run-script" data-action="import-demo-data" href="#">3: Import demo data</a></p>
+        <p><a class="btn btn-danger run-script" data-action="set-foreign-keys" href="#">4: Set foreign keys</a></p>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="output">
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.run-script').click(function ()
+    {
+        var output = '.output';
+
+        $(output).html(
+            '<h2><img src="/images/dlayer/ajax-loader.gif" /> Processing</h2><p>Please wait a few moments while the import script runs...</p>');
+
+        $.ajax(
+            {
+                type: 'GET',
+                url: '/setup/import/' + $(this).data('action'),
+                dataType: 'html'
+            }
+        ).done(function (data)
+        {
+            $(output).html(data);
+        })
+    });
+</script>
