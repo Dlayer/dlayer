@@ -31,23 +31,26 @@
 	</div>
 
     <div class="col-md-6 col-sm-6 col-xs-12">
-        <h3><span class="label label-success">v1.04</span> Bugs... <small class="text-muted">(8th January 2017)</small></h3>
+        <h3><span class="label label-success">v1.05</span> Database setup <small class="text-muted">(17th January 2017)</small></h3>
 
         <ul>
-            <li>I have updated the styling sub tools, the Form, Model and Tool classes extend from shared classes
-	            as per the typography sub tool.</li>
-            <li>If you only have one page in the Content Manager, it is now automatically selected.</li>
-            <li>The title and subtitle set for a form now display in the Content Manager [Bugfix].</li>
-            <li>I have updated the content for the demo sign-in page; it now shows the changelog for the latest
-	            version.</li>
-            <li>The heading type is now updateable for heading based content items [Bugfix].</li>
-            <li>If you try to create a new content item when in edit mode for an existing content item you will no
-	            longer be met with a nasty error [Bugfix].</li>
-            <li>I have added controls to select the sibling (next|previous) content items in a column; this should
-	            reduce the number of clicks when editing [UX].</li>
-            <li>I have added titles above each of the new navigation controls, 'Parents' and
-	            'Column content items'.</li>
+            <li>I have added a live preview when editing text, jumbotron and heading content items. [Feature]</li>
+            <li>Corrected the class names for the heading tool; it will now correctly load in the demo. [Bugfix]</li>
+            <li>Added a setting to application.ini which controls whether or not the test credentials display on the
+                sign-in page. [Feature]</li>
+            <li>Split the database export into three files per table, one for the structure, another for the data
+                and a third to define the foreign keys.</li>
+            <li>I have added a setup module; this allows you to create the tables for the database and imports the
+                required data, there are four options, import demo database, import base database, reset to demo
+                state and reset to clean state. [Feature]
+            </li>
         </ul>
+
+        <h3><span class="label label-default">v1.04</span> Bugs... <small class="text-muted">(9th January 2017)</small></h3>
+
+        <h3><span class="label label-default">v1.03</span> UX improvements <small class="text-muted">(7th January 2017)</small></h3>
+
+        <h3><span class="label label-default">v1.02</span> Shared tools <small class="text-muted">(31st December 2016)</small></h3>
 
         <p>The full <a href="http://www.dlayer.com/releases.html">release history</a> is available at Dlayer.com and
             on <a href="https://github.com/Dlayer/dlayer/releases">GitHub</a>.</p>
