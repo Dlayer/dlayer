@@ -46,7 +46,7 @@ class Setup_ImportController extends Zend_Controller_Action
      */
     public function init()
     {
-
+        $this->view->environment = APPLICATION_ENV;
     }
 
     /**
@@ -104,7 +104,12 @@ class Setup_ImportController extends Zend_Controller_Action
         $model->resetMessages();
         $model->resetErrors();
 
-        $result = $model->createTables();
+        if (APPLICATION_ENV !== 'production') {
+            $result = $model->createTables();
+        } else {
+            $result = false;
+            $model->addError("Import functions are only available when environment is not set to 'production'");
+        }
 
         if ($result === true) {
             $html = '<h2>Success</h2>';
@@ -141,7 +146,12 @@ class Setup_ImportController extends Zend_Controller_Action
         $model->resetMessages();
         $model->resetErrors();
 
-        $result = $model->importTableData(false);
+        if (APPLICATION_ENV !== 'production') {
+            $result = $model->importTableData(false);
+        } else {
+            $result = false;
+            $model->addError("Import functions are only available when environment is not set to 'production'");
+        }
 
         if ($result === true) {
             $html = '<h2>Success</h2>';
@@ -178,7 +188,14 @@ class Setup_ImportController extends Zend_Controller_Action
         $model->resetMessages();
         $model->resetErrors();
 
-        if ($model->dropTables() === true) {
+        if (APPLICATION_ENV !== 'production') {
+            $result = $model->dropTables();
+        } else {
+            $result = false;
+            $model->addError("Import functions are only available when environment is not set to 'production'");
+        }
+
+        if ($result === true) {
             $html = '<h2>Success</h2>';
             $html .= "<ul>";
             foreach ($model->messages() as $message) {
@@ -213,7 +230,12 @@ class Setup_ImportController extends Zend_Controller_Action
         $model->resetMessages();
         $model->resetErrors();
 
-        $result = $model->importTableData(true);
+        if (APPLICATION_ENV !== 'production') {
+            $result = $model->importTableData(true);
+        } else {
+            $result = false;
+            $model->addError("Import functions are only available when environment is not set to 'production'");
+        }
 
         if ($result === true) {
             $html = '<h2>Success</h2>';
@@ -250,7 +272,12 @@ class Setup_ImportController extends Zend_Controller_Action
         $model->resetMessages();
         $model->resetErrors();
 
-        $result = $model->setForeignKeys();
+        if (APPLICATION_ENV !== 'production') {
+            $result = $model->setForeignKeys();
+        } else {
+            $result = false;
+            $model->addError("Import functions are only available when environment is not set to 'production'");
+        }
 
         if ($result === true) {
             $html = '<h2>Success</h2>';
