@@ -258,7 +258,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
             foreach ($tables as $k => $table) {
                 $file = file_get_contents(DLAYER_SETUP_PATH . '/tables/data/' . $table . '.sql');
                 if ($file !== false) {
-                    $query .= $file;
+                    $query .= $file . PHP_EOL;
                 } else {
                     $this->addError('Unable to read file to import data for table: ' . $table);
                     return false;

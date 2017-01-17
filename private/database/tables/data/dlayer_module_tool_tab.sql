@@ -126,4 +126,3 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (135,4,16,'Typography','typography','Typography','font',1,1,0,3,1),
     (136,4,52,'Typography','typography','Typography','font',1,1,0,3,1),
     (137,4,50,'Settings','settings','Settings','cog',1,0,0,2,1);
-;
