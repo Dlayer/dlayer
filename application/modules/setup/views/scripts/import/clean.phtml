@@ -19,10 +19,14 @@
         <p>Step through the buttons below to import a clean database for Dlayer, if there are any tables in the
             database the script will not run, this process should only be executed on an empty database.</p>
 
-        <p><a class="btn btn-danger run-script" data-action="create-structure" href="#">1: Create database structure</a>
+        <?php if ($this->environment === 'production') { ?>
+            <p class="text-danger">Disabled when environment is set to production.</p>
+        <?php } ?>
+
+        <p><a class="btn btn-danger run-script" data-action="create-structure" href="#" <?php if ($this->environment === 'production') { echo 'disabled="disabled"'; } ?>>1: Create database structure</a>
         </p>
-        <p><a class="btn btn-danger run-script" data-action="import-clean-data" href="#">2: Import base data</a></p>
-        <p><a class="btn btn-danger run-script" data-action="set-foreign-keys" href="#">3: Set foreign keys</a></p>
+        <p><a class="btn btn-danger run-script" data-action="import-clean-data" href="#" <?php if ($this->environment === 'production') { echo 'disabled="disabled"'; } ?>>2: Import base data</a></p>
+        <p><a class="btn btn-danger run-script" data-action="set-foreign-keys" href="#" <?php if ($this->environment === 'production') { echo 'disabled="disabled"'; } ?>>3: Set foreign keys</a></p>
     </div>
 
     <div class="col-md-12 col-sm-12 col-xs-12">

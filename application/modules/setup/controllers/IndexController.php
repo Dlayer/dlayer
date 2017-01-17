@@ -56,6 +56,8 @@ class Setup_IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+        $this->view->environment = APPLICATION_ENV;
+
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/setup/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Setup', '', false);
     }

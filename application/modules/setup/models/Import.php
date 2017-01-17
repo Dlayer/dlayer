@@ -162,7 +162,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
      *
      * @param string $message
      */
-    private function addError($message)
+    public function addError($message)
     {
         $this->errors[] = $message;
     }
