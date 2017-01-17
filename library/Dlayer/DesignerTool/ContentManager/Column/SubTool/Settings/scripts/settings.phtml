@@ -1,0 +1,18 @@
+<?php /** @var $this Dlayer_View_Codehinting */?>
+
+<div class="col-md-12 col-sm-12">
+    <p class="dev-note bg-danger unsaved">Data has been modified!</p>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <h3>Settings</h3>
+    <p>Form should show below</p>
+</div>
+
+<div class="col-md-12 col-sm-12 small">
+    <?php
+    if($this->data != FALSE) {
+        echo $this->data['form'];
+    }
+    ?>
+</div>
