@@ -83,7 +83,7 @@ class Dlayer_View_ColumnPreview extends Zend_View_Helper_Abstract
 				$this->view->rowPreview()->setColumnId($column['id']);
 				$rows = $this->view->rowPreview()->render();
 
-				$html .= '<div class="column col-' . $column['class'] . '-' . $column['size'] .
+				$html .= '<div class="column col-' . $column['column_type'] . '-' . $column['width'] .
 					'" id="column-' . $column['id'] . '" ' .
                     $this->view->stylingColumn()->setColumn($column['id']) . '>';
 

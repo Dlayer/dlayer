@@ -193,7 +193,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 					}
 				}
 
-				$html .= '<div class="' . $class . ' col-' . $column['class'] . '-' . $column['size'] .
+				$html .= '<div class="' . $class . ' col-' . $column['column_type'] . '-' . $column['width'] .
 					'" data-column-id="' . $column['id'] . '" ' .
                     $this->view->stylingColumn()->setColumn($column['id']) . '>';
 				$html .= $content;
