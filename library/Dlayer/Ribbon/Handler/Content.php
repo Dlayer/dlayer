@@ -428,6 +428,11 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
                 break;
 
+            case 'settings':
+                $ribbon_settings = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Settings_Ribbon();
+                $data = $ribbon_settings->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;
