@@ -25,6 +25,7 @@ class Content_ProcessController extends Zend_Controller_Action
 	protected $_helper;
 
 	private $debug;
+	private $tool_class_name;
 
 	/**
 	 * Init the controller, run any set up code required by all the actions
@@ -140,6 +141,8 @@ class Content_ProcessController extends Zend_Controller_Action
 		{
 			$tool_class = 'Dlayer_DesignerTool_ContentManager_' . $session_designer->tool('content')['tool'] . '_Tool';
 		}
+
+		$this->tool_class_name = $tool_class;
 
 		return new $tool_class();
 	}
@@ -274,7 +277,8 @@ class Content_ProcessController extends Zend_Controller_Action
 				$this->returnToDesigner(FALSE);
 			}
 		} else {
-            die('dh');
+            Dlayer_Helper::sendToErrorLog('Validation failure for tool ' . $this->tool_class_name . ' POST' . 
+                var_export($this->getRequest()->getPost('params')));
         }
 	}
 
@@ -290,9 +294,9 @@ class Content_ProcessController extends Zend_Controller_Action
 	 *
 	 * @return void
 	 */
-	public function returnToDesigner($success = TRUE)
+	public function returnToDesigner($success = true)
 	{
-		if($success === FALSE)
+		if($success === false)
 		{
 			$this->redirect('content/design/set-tool/tool/cancel');
 		}

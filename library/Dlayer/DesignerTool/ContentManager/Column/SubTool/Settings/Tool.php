@@ -52,7 +52,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Settings_Tool extends Dl
     {
         $valid = false;
         if (
-            (intval($params['width']) > 0 && intval($params['width']) < 13 === 0)
+            (intval($params['width']) > 0 && intval($params['width']) < 13)
             &&
             intval($params['offset']) >= 0
         ) {
@@ -124,13 +124,90 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Settings_Tool extends Dl
     {
         $this->model = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Settings_Model();
 
-        //$this->currentValues();
+        $this->width();
 
-        //$this->width();
-
-        //$this->offset()
+        $this->offset();
 
         return $this->returnIds();
+    }
+
+    /**
+     * Update the default width for the Bootstrap (md) layout
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function width()
+    {
+        $this->currentValues();
+
+        $width = $this->current_values['width'];
+
+        if ($this->params['width'] !== $width || $width === false) {
+            // $width false should never happen, just in case update the value for the column
+            try {
+                $result = $this->model->updateWidth($this->site_id, $this->page_id, $this->column_id, $this->params['width']);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+
+            if ($result === false) {
+                Dlayer_Helper::sendToErrorLog('Failed to set the column width for the default layout, site_id: ' .
+                    $this->site_id . ' page id: ' . $this->page_id . ' column id: ' . $this->column_id . ' new width: ' .
+                    $this->params['width'] . ' width: ' . $width);
+            }
+        }
+    }
+
+    /**
+     * Update the offset for a column
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function offset()
+    {
+        $this->currentValues();
+
+        $offset = $this->current_values['offset'];
+
+        if ($this->params['offset'] !== $offset || $offset === false) {
+            // $offset false should never happen, just in case update the value for the column
+            try {
+                $result = $this->model->updateOffset($this->site_id, $this->page_id, $this->column_id, $this->params['offset']);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+
+            if ($result === false) {
+                Dlayer_Helper::sendToErrorLog('Failed to set the column offset, site_id: ' .
+                    $this->site_id . ' page id: ' . $this->page_id . ' column id: ' . $this->column_id . ' new offset: ' .
+                    $this->params['offset'] . ' offset: ' . $offset);
+            }
+        }
+    }
+
+    /**
+     * Fetch the current values for the column settings, result assigned to $this->current_values
+     */
+    private function currentValues()
+    {
+        if ($this->current_values_fetched === false) {
+            try {
+                $this->current_values = $this->model->widthProperties($this->site_id, $this->page_id, $this->column_id);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+
+            $this->current_values_fetched = true;
+
+            if ($this->current_values === false) {
+                $this->current_values = array(
+                    'width' => false,
+                    'offset' => false
+                );
+            }
+        }
     }
 
     /**
