@@ -52,15 +52,15 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Settings_Form extends Dl
      */
     protected function generateUserElements()
     {
-        $width = new Dlayer_Form_Element_Range(
+        $width = new Dlayer_Form_Element_Number(
             'width',
             array(
                 'min' => 1,
                 'max' => 12,
-                'step' => 1
+                'class'=>'form-control input-sm'
             )
         );
-        $width->setLabel('Width (1-12)');
+        $width->setLabel('Width (1 - 12)');
         $width->setDescription('Set the base width to use for the default (md) layout.');
         $width->setBelongsTo('params');
 
@@ -71,5 +71,25 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Settings_Form extends Dl
         }
 
         $this->elements['width'] = $width;
+
+        $offset = new Dlayer_Form_Element_Number(
+            'offset',
+            array(
+                'min' => 0,
+                'max' => 12,
+                'class'=>'form-control input-sm'
+            )
+        );
+        $offset->setLabel('Offset (0 - 12)');
+        $offset->setDescription('Set the offset for the column in default (md) layout, defaults to 0.');
+        $offset->setBelongsTo('params');
+
+        if (array_key_exists('offset', $this->data) === true &&
+            $offset->data['offset'] !== false
+        ) {
+            $offset->setValue($this->data['offset']);
+        }
+
+        $this->elements['offset'] = $offset;
     }
 }
