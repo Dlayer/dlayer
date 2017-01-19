@@ -107,11 +107,11 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (114,4,49,'Page','page',NULL,'file',0,0,1,1,1),
     (115,4,49,'Help','help',NULL,'info-sign',0,0,0,3,1),
     (116,4,50,'Column','column',NULL,'align-justify',0,0,1,1,1),
-    (118,4,50,'Help','help',NULL,'info-sign',0,0,0,3,1),
+    (118,4,50,'Help','help',NULL,'info-sign',0,0,0,4,1),
     (119,4,51,'Add Column','add-column',NULL,'align-justify',0,0,1,1,1),
     (120,4,51,'Help','help',NULL,'info-sign',0,0,0,2,1),
     (121,4,11,'Styles','styling','Styling','tint',1,1,0,2,1),
-    (122,4,50,'Styles','styling','Styling','tint',1,0,0,2,1),
+    (122,4,50,'Styles','styling','Styling','tint',1,0,0,3,1),
     (123,4,38,'Styles','styling','Styling','tint',1,0,0,2,1),
     (124,4,49,'Styles','styling','Styling','tint',1,0,0,2,1),
     (125,4,16,'Styling','styling','Styling','tint',1,1,0,2,1),
@@ -124,4 +124,5 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (132,4,34,'Typography','typography','Typography','font',1,1,0,3,1),
     (133,4,39,'Typography','typography','Typography','font',1,1,0,3,1),
     (135,4,16,'Typography','typography','Typography','font',1,1,0,3,1),
-    (136,4,52,'Typography','typography','Typography','font',1,1,0,3,1);
+    (136,4,52,'Typography','typography','Typography','font',1,1,0,3,1),
+    (137,4,50,'Settings','settings','Settings','cog',1,0,0,2,1);

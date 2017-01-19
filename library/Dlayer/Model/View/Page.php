@@ -71,21 +71,32 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Fetch all the columns that have been assigned to the content oage, the results will be grouped by row id, columns
-     * can only ever be assigned to columns
+     * Fetch all the columns that have been assigned to the current content page, the results will be grouped by
+     * row id, columns can only ever be assigned to rows
      *
      * @return array Always returns an array
      */
     public function columns()
     {
-        $sql = 'SELECT uspsc.id, uspsc.row_id, uspsc.size, uspsc.column_type, uspsc.offset
-				FROM user_site_page_structure_column uspsc 
-				JOIN user_site_page_structure_row uspsr ON uspsc.row_id = uspsr.id 
-					AND uspsr.site_id = :site_id 
-					AND uspsr.page_id = :page_id 
-				WHERE uspsc.site_id = :site_id 
-				AND uspsc.page_id = :page_id 
-				ORDER BY uspsr.sort_order, uspsc.sort_order';
+        $sql = "SELECT 
+                    `uspsc`.`id`, 
+                    `uspsc`.`row_id`, 
+                    `uspsc`.`size`, 
+                    `uspsc`.`column_type`, 
+                    `uspsc`.`offset`
+				FROM 
+				    `user_site_page_structure_column` `uspsc` 
+				INNER JOIN 
+				    `user_site_page_structure_row` `uspsr` ON 
+				        `uspsc`.`row_id` = `uspsr`.`id` AND 
+				         `uspsr`.`site_id` = :site_id AND 
+				         `uspsr`.`page_id` = :page_id 
+				WHERE 
+				    `uspsc`.`site_id` = :site_id AND 
+				    `uspsc`.`page_id` = :page_id 
+				ORDER BY 
+				    `uspsr`.`sort_order` ASC, 
+				    `uspsc`.`sort_order` ASC";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
@@ -99,8 +110,8 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
             $columns[intval($column['row_id'])][] = array(
                 'id' => intval($column['id']),
                 'row_id' => intval($column['row_id']),
-                'size' => intval($column['size']),
-                'class' => $column['column_type'],
+                'width' => intval($column['size']),
+                'column_type' => $column['column_type'],
                 'offset' => intval($column['offset']),
             );
         }

@@ -193,8 +193,12 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 					}
 				}
 
-				$html .= '<div class="' . $class . ' col-' . $column['class'] . '-' . $column['size'] .
-					'" data-column-id="' . $column['id'] . '" ' .
+				$class = $class . ' col-' . $column['column_type'] . '-' . $column['width'];
+				if ($column['offset'] !== 0) {
+				    $class .= ' col-' . $column['column_type'] . '-offset-' . $column['offset'];
+                }
+
+				$html .= '<div class="' . $class . '" data-column-id="' . $column['id'] . '" ' .
                     $this->view->stylingColumn()->setColumn($column['id']) . '>';
 				$html .= $content;
 				$html .= '</div>';
