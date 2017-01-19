@@ -123,6 +123,43 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
     }
 
     /**
+     * Fetch all the defined responsive column widths, results are grouped by column_id
+     *
+     * @return array Always returns an array
+     */
+    public function responsiveColumnWidths()
+    {
+        $sql = "SELECT 
+                    `uspscr`.`column_id`,
+                    `uspscr`.`size` AS `width`, 
+                    `dct`.`column_type`
+                FROM 
+                    `user_site_page_structure_column_responsive` `uspscr` 
+                INNER JOIN 
+                    `designer_column_type` dct ON 
+                        `uspscr`.`column_type_id` = `dct`.`id` 
+                WHERE 
+                    `uspscr`.`site_id` = :site_id AND 
+                    `uspscr`.`page_id` = :page_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        $widths = array();
+
+        foreach ($result as $row) {
+            $widths[intval($row['column_id'])] = array(
+                $row['column_type'] => intval($row['width'])
+            );
+        }
+
+        return $widths;
+    }
+
+    /**
      * Fetch all the content items that have been attached to the requested content page, as we loop through the
      * results the details for each content item type are pulled, the results are grouped by column id and returned
      * as a single array

@@ -70,6 +70,17 @@ class Dlayer_Designer_Page
     }
 
     /**
+     * Fetch all the responsive column widths that have been added to the columns that make up the selected page,
+     * these will be passed to the column view helper
+     *
+     * @return array
+     */
+    public function columnResponsiveWidths()
+    {
+        return $this->model_page->responsiveColumnWidths();
+    }
+
+    /**
      * Fetch all the styles for the content items that have been assigned to the current page
      *
      * @return array
