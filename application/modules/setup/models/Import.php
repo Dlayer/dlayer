@@ -16,6 +16,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'designer_color_palette',
         'designer_color_palette_color',
         'designer_color_type',
+        'designer_column_type',
         'designer_content_heading',
         'designer_content_type',
         'designer_css_border_style',
@@ -82,6 +83,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'designer_color_palette',
         'designer_color_palette_color',
         'designer_color_type',
+        'designer_column_type',
         'designer_content_heading',
         'designer_content_type',
         'designer_css_border_style',
@@ -299,7 +301,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         $query = $this->setForeignKeyChecks(0);
 
         foreach ($this->tables as $k => $table) {
-            $query .= "DROP TABLE `{$table}`;" . PHP_EOL;
+            $query .= "DROP TABLE IF EXISTS `{$table}`;" . PHP_EOL;
         }
 
         $query .= $this->setForeignKeyChecks(1);

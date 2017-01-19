@@ -82,7 +82,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
                     `uspsc`.`id`, 
                     `uspsc`.`row_id`, 
                     `uspsc`.`size`, 
-                    `uspsc`.`column_type`, 
+                    `dct`.`column_type`, 
                     `uspsc`.`offset`
 				FROM 
 				    `user_site_page_structure_column` `uspsc` 
@@ -91,6 +91,9 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 				        `uspsc`.`row_id` = `uspsr`.`id` AND 
 				         `uspsr`.`site_id` = :site_id AND 
 				         `uspsr`.`page_id` = :page_id 
+                INNER JOIN 
+                    `designer_column_type` `dct` ON 
+                        `uspsc`.`column_type_id` = `dct`.`id` 
 				WHERE 
 				    `uspsc`.`site_id` = :site_id AND 
 				    `uspsc`.`page_id` = :page_id 

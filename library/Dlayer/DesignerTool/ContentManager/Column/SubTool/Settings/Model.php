@@ -21,15 +21,18 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Settings_Model extends Z
     public function widthProperties($site_id, $page_id, $id)
     {
         $sql = "SELECT 
-                    `size` AS `width`, 
-                    `offset`, 
-                    `column_type` 
+                    `uspsc`.`size` AS `width`, 
+                    `uspsc`.`offset`, 
+                    `dct`.`column_type` 
                 FROM 
-                    `user_site_page_structure_column` 
+                    `user_site_page_structure_column` `uspsc`
+                INNER JOIN 
+                    `designer_column_type` `dct` ON 
+                        `uspsc`.`column_type_id` = `dct`.`id` 
                 WHERE 
-                    `site_id` = :site_id AND  
-                    `page_id` = :page_id AND 
-                    `id` = :column_id";
+                    `uspsc`.`site_id` = :site_id AND  
+                    `uspsc`.`page_id` = :page_id AND 
+                    `uspsc`.`id` = :column_id";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id);
         $stmt->bindValue(':page_id', $page_id);
