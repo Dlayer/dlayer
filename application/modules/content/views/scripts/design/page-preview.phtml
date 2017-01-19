@@ -21,7 +21,19 @@ $(document).ready(function() {
 });
 </script>
 
-<?php echo $this->contentPagePreview($this->page_id, $this->rows, $this->columns, $this->content)->setStyles($this->styling_page, $this->styling_rows, $this->styling_columns, $this->styling_content_items); ?>
+<?php echo $this->contentPagePreview(
+    $this->page_id,
+    $this->rows,
+    $this->columns,
+    $this->content
+)->setStyles(
+    $this->styling_page,
+    $this->styling_rows,
+    $this->styling_columns,
+    $this->styling_content_items
+)->setResponsiveOptions(
+    $this->responsive_columns_widths
+); ?>
 
 <div class="modal fade" id="imageModalDialog" tabindex="-1" role="dialog" 
 	aria-labelledby="imageModalDialogLabel" aria-hidden="true">	

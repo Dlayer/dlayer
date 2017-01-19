@@ -123,7 +123,9 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
      */
     public function setResponsiveOptions(array $responsive_column_widths)
     {
-        //$this->view->column()->setResponsiveWidths($responsive_column_widths);
+        $this->view->column()->setResponsiveWidths($responsive_column_widths);
+
+        return $this;
     }
 
     /**

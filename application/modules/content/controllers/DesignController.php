@@ -345,7 +345,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         $this->view->rows = $designer_page->rows();
         $this->view->columns = $designer_page->columns();
-        $this->view->responsive_columns_widths = $designer_page->columnResponsiveWidths();
+        $this->view->responsive_columns_widths = $designer_page->responsiveColumnWidths();
         $this->view->content = $designer_page->content();
 
         $this->view->page_id = $this->page_id;
@@ -375,7 +375,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         $this->view->rows = $designer_page->rows();
         $this->view->columns = $designer_page->columns();
-        $this->view->responsive_columns_widths = $designer_page->columnResponsiveWidths();
+        $this->view->responsive_columns_widths = $designer_page->responsiveColumnWidths();
         $this->view->content = $designer_page->content();
 
         $this->view->styling_content_items = $designer_page->contentItemStyles();

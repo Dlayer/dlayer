@@ -151,9 +151,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
         $widths = array();
 
         foreach ($result as $row) {
-            $widths[intval($row['column_id'])] = array(
-                $row['column_type'] => intval($row['width'])
-            );
+            $widths[intval($row['column_id'])][$row['column_type']] = intval($row['width']);
         }
 
         return $widths;

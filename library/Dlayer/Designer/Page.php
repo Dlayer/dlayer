@@ -75,7 +75,7 @@ class Dlayer_Designer_Page
      *
      * @return array
      */
-    public function columnResponsiveWidths()
+    public function responsiveColumnWidths()
     {
         return $this->model_page->responsiveColumnWidths();
     }
