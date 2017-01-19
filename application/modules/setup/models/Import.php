@@ -70,6 +70,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'user_site_page_content_item_text',
         'user_site_page_meta',
         'user_site_page_structure_column',
+        'user_site_page_structure_column_responsive',
         'user_site_page_structure_content',
         'user_site_page_structure_row',
         'user_site_page_styling_column_background_color',
