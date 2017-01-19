@@ -15,4 +15,4 @@ CREATE TABLE `user_setting_heading` (
 	KEY `weight_id` (`weight_id`),
 	KEY `decoration_id` (`decoration_id`),
 	KEY `heading_id` (`heading_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

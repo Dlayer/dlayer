@@ -10,4 +10,4 @@ CREATE TABLE `user_setting_font_and_text` (
 	KEY `module_id` (`module_id`),
 	KEY `font_family_id` (`font_family_id`),
 	KEY `text_weight_id` (`text_weight_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -10,4 +10,4 @@ CREATE TABLE `user_setting_color_palette_color` (
 	KEY `site_id` (`site_id`),
 	KEY `palette_id` (`palette_id`),
 	KEY `color_type_id` (`color_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
