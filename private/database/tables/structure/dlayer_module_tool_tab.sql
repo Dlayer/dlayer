@@ -7,6 +7,7 @@ CREATE TABLE `dlayer_module_tool_tab` (
 	`script` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	`model` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 	`glyph` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+	`glyph_style` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 	`multi_use` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	`edit_mode` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	`default` tinyint(1) unsigned NOT NULL DEFAULT '0',
