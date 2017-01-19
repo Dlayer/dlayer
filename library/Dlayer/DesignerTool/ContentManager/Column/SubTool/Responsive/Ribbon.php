@@ -42,10 +42,11 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Ribbon extend
     protected function contentData()
     {
         if ($this->content_fetched === false) {
-            $this->content_data = array(
-                'xs' => false,
-                'sm' => false,
-                'lg' => false
+            $model = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Model();
+            $this->content_data = $model->responsiveWidths(
+                $this->tool['site_id'],
+                $this->tool['page_id'],
+                $this->tool['column_id']
             );
 
             $this->content_fetched = true;

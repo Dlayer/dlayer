@@ -60,7 +60,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Form extends 
                 'class'=>'form-control input-sm'
             )
         );
-        $xs->setLabel('Width for xs layout (1 - 12)');
+        $xs->setLabel("Width for 'xs' layout (1 - 12)");
         $xs->setDescription('Set the column width for the xs (mobile) layout.');
         $xs->setBelongsTo('params');
 
@@ -80,7 +80,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Form extends 
                 'class'=>'form-control input-sm'
             )
         );
-        $sm->setLabel('Width for sm layout (1 - 12)');
+        $sm->setLabel("Width for 'sm' layout (1 - 12)");
         $sm->setDescription('Set the column width for the sm (tablet) layout.');
         $sm->setBelongsTo('params');
 
@@ -100,7 +100,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Form extends 
                 'class'=>'form-control input-sm'
             )
         );
-        $lg->setLabel('Width for lg layout (1 - 12)');
+        $lg->setLabel("Width for 'lg' layout (1 - 12)");
         $lg->setDescription('Set the column width for the lg (Large desktop) layout.');
         $lg->setBelongsTo('params');
 
