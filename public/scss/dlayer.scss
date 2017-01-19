@@ -11,7 +11,7 @@
 /* Content */
 ul.listing {
 	li {
-		padding: 0.2em 0;
+		padding: 0.3em 0;
 	}
 }
 
@@ -19,60 +19,27 @@ ul.listing {
 	padding-top: 1em;
 }
 
-.footer {
-	padding-top: 2em;
-}
-
 p.dev-note {
 	padding: 0.7em;
 	border-radius: 3px;
 }
 
-/* Settings */
-.settings-menu {
-	padding-top: 2em;
-	
-	a.active {
-		font-weight: 600;
-	}
-}
-
-div.heading-styles {
-	padding-top: 2em;
-	border-top: 1px solid #e5e5e5;
-
-	div.form-group {
-		margin: 0 1em 1em 0;
-
-		input.font_sizes {
-			width: 90px;
-		}
-
-		input.font_colors {
-			width: 50px;
-		}
-	}
-}
-
-/* Forms */
-ul.alert-danger {
-	list-style-type: none;
-	padding: 0.5em;
-	margin: 0;
-}
 
 fieldset {
-
 	legend {
+		font-size: 24px;
+		font-weight: 500;
+		margin-top: 20px;
+		margin-bottom: 10px;
 
 		small {
-			font-size: 65%;
+			font-size: 15.6px;
 			color: #777;
+			font-weight: normal;
 		}
 	}
 
 	div.form-group {
-
 		label.required:after {
 			content: ' (required)';
 			display:inline;
