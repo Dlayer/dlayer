@@ -433,6 +433,11 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_settings->viewData($this->toolParams($tool));
                 break;
 
+            case 'responsive':
+                $ribbon_responsive = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Ribbon();
+                $data = $ribbon_responsive->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;
