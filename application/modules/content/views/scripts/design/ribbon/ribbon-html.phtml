@@ -19,7 +19,7 @@ $(document).ready(function()
 
 			<li data-tool="<?php echo $this->escape($tab['tool']); ?>" data-sub-tool="<?php echo $this->escape($tab['sub_tool']); ?>" data-tab="<?php echo $this->escape($tab['script']); ?>" role="presentation" class="<?php echo $class; ?>">
 				<a href="#" title="<?php echo $this->escape($tab['name']); ?>">
-				<span class="glyphicon glyphicon-<?php echo $this->escape($tab['glyph']); ?>" aria-hidden="true"></span> <span class="visible-md-inline visible-sm-inline"> <?php echo $this->escape($tab['name']); ?></span>
+				<span class="glyphicon glyphicon-<?php echo $this->escape($tab['glyph']); ?>" <?php if($tab['glyph_style'] !== null) { echo 'style="' . $this->escape($tab['glyph_style']) .'"'; } ?> aria-hidden="true"></span> <span class="visible-md-inline visible-sm-inline"> <?php echo $this->escape($tab['name']); ?></span>
 				</a>
 			</li>
 			<?php } ?>

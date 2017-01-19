@@ -112,7 +112,8 @@ class Dlayer_Model_Tool extends Zend_Db_Table_Abstract
                     `dmtt`.`model` AS sub_tool,
                     `dmtt`.`name` AS `name`, 
                     `dmtt`.`script`, 
-                    `dmtt`.`glyph`
+                    `dmtt`.`glyph`,
+                    `dmtt`.`glyph_style`
 				FROM 
 				    `dlayer_module_tool_tab` `dmtt` 
 				INNER JOIN 
