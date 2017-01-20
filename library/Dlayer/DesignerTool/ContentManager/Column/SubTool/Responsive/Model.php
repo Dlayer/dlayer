@@ -43,7 +43,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Model extends
         $columns = array(
             'xs' => false,
             'sm' => false,
-            'lg' => false
+            'lg' => false,
         );
 
         foreach ($result as $row) {
@@ -51,5 +51,119 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Model extends
         }
 
         return $columns;
+    }
+
+    /**
+     * Remove the responsive definition for column
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $id Column id
+     * @param string $column_type
+     *
+     * @return boolean
+     */
+    public function removeResponsiveDefinition($site_id, $page_id, $id, $column_type)
+    {
+        $sql = "DELETE 
+                    `uspscr`
+                FROM 
+                    `user_site_page_structure_column_responsive` `uspscr`
+                INNER JOIN 
+                    `designer_column_type` `dct` ON 
+                        `uspscr`.`column_type_id` = `dct`.`id`
+                WHERE 
+                    `uspscr`.`site_id` = :site_id AND 
+                    `uspscr`.`page_id` = :page_id AND 
+                    `uspscr`.`column_id` = :column_id AND 
+                    `dct`.`column_type` = :column_type";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id);
+        $stmt->bindValue(':page_id', $page_id);
+        $stmt->bindValue(':column_id', $id);
+        $stmt->bindValue(':column_type', $column_type);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Add a responsive definition for column
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $id Column id
+     * @param string $column_type
+     * @param integer $size
+     *
+     * @return boolean
+     */
+    public function addResponsiveDefinition($site_id, $page_id, $id, $column_type, $size)
+    {
+        $sql = "INSERT INTO `user_site_page_structure_column_responsive` 
+                (
+                    `site_id`, 
+                    `page_id`, 
+                    `column_id`, 
+                    `column_type_id`, 
+                    `size`
+                )
+                VALUES
+                (
+                    :site_id, 
+                    :page_id, 
+                    :column_id,
+                    (
+                        SELECT 
+                            `id` 
+                        FROM 
+                            `designer_column_type` 
+                        WHERE 
+                            `column_type` = :column_type
+                    ),
+                    :size
+                )";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id);
+        $stmt->bindValue(':page_id', $page_id);
+        $stmt->bindValue(':column_id', $id);
+        $stmt->bindValue(':column_type', $column_type);
+        $stmt->bindValue(':size', $size);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Update a responsive definition for column
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $id Column id
+     * @param string $column_type
+     * @param integer $size
+     *
+     * @return boolean
+     */
+    public function updateResponsiveDefinition($site_id, $page_id, $id, $column_type, $size)
+    {
+        $sql = "UPDATE 
+                    `user_site_page_structure_column_responsive` 
+                INNER JOIN 
+                    `designer_column_type` ON 
+                        `user_site_page_structure_column_responsive`.`column_type_id` = `designer_column_type`.`id`
+                SET 
+                    `size` = :size
+                WHERE 
+                    `user_site_page_structure_column_responsive`.`site_id` = :site_id AND 
+                    `user_site_page_structure_column_responsive`.`page_id` = :page_id AND 
+                    `user_site_page_structure_column_responsive`.`column_id` = :column_id AND 
+                    `designer_column_type`.`column_type` = :column_type";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id);
+        $stmt->bindValue(':page_id', $page_id);
+        $stmt->bindValue(':column_id', $id);
+        $stmt->bindValue(':column_type', $column_type);
+        $stmt->bindValue(':size', $size);
+
+        return $stmt->execute();
     }
 }

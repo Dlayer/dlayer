@@ -36,7 +36,8 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Tool extends 
         $valid = false;
         if (array_key_exists('xs', $params) === true &&
             array_key_exists('sm', $params) === true &&
-            array_key_exists('lg', $params) === true) {
+            array_key_exists('lg', $params) === true
+        ) {
             $valid = true;
         }
 
@@ -76,6 +77,8 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Tool extends 
         foreach (array('xs', 'sm', 'lg') as $column_type) {
             if (array_key_exists($column_type, $params) === true && strlen($params[$column_type]) > 0) {
                 $this->params[$column_type] = intval($params[$column_type]);
+            } else {
+                $this->params[$column_type] = false;
             }
         }
     }
@@ -121,7 +124,90 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Tool extends 
      */
     protected function structure()
     {
+        $this->model = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Tool();
+
+
         return $this->returnIds();
+    }
+
+    /**
+     * Updated the responsive column widths
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function columnWidths()
+    {
+        $this->currentValues();
+
+        $results = array();
+
+        foreach ($this->params as $column_type => $width) {
+            if ($width !== $this->current_values[$column_type]) {
+                if ($width === false) {
+                    try {
+                        $results[] = $this->model->removeResponsiveDefinition(
+                            $this->site_id,
+                            $this->page_id,
+                            $this->column_id,
+                            $column_type
+                        );
+                    } catch (Exception $e) {
+                        throw new Exception($e->getMessage(), $e->getCode(), $e);
+                    }
+                } else if ($this->current_values[$column_type] === false) {
+                    try {
+                        $results[] = $this->model->addResponsiveDefinition(
+                            $this->site_id,
+                            $this->page_id,
+                            $this->column_id,
+                            $column_type,
+                            $width
+                        );
+                    } catch (Exception $e) {
+                        throw new Exception($e->getMessage(), $e->getCode(), $e);
+                    }
+                } else {
+                    try {
+                        $results[] = $this->model->updateResponsiveDefinition(
+                            $this->site_id,
+                            $this->page_id,
+                            $this->column_id,
+                            $column_type,
+                            $width
+                        );
+                    } catch (Exception $e) {
+                        throw new Exception($e->getMessage(), $e->getCode(), $e);
+                    }
+                }
+            }
+        }
+
+        if (in_array(false, $results) === true) {
+            Dlayer_Helper::sendToErrorLog('Failed to set the responsive widths for column, site_id: ' .
+                $this->site_id . ' page id: ' . $this->page_id . ' column id: ' . $this->column_id);
+        }
+    }
+
+    /**
+     * Fetch the current values for the responsive widths
+     */
+    private function currentValues()
+    {
+        if ($this->current_values_fetched === false) {
+            try {
+                $this->current_values =
+                    $this->model->responsiveWidths($this->site_id, $this->page_id, $this->column_id);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+
+            $this->current_values_fetched = true;
+
+            if ($this->current_values === false) {
+                $this->current_values = array();
+            }
+        }
     }
 
     /**
@@ -151,8 +237,8 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Tool extends 
             array(
                 'type' => 'tab',
                 'id' => 'responsive',
-                'sub_tool' => 'Responsive'
-            )
+                'sub_tool' => 'Responsive',
+            ),
         );
     }
 }
