@@ -124,8 +124,9 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Tool extends 
      */
     protected function structure()
     {
-        $this->model = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Tool();
+        $this->model = new Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Model();
 
+        $this->responsiveColumnWidths();
 
         return $this->returnIds();
     }
@@ -136,7 +137,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Responsive_Tool extends 
      * @return void
      * @throws Exception
      */
-    private function columnWidths()
+    private function responsiveColumnWidths()
     {
         $this->currentValues();
 
