@@ -437,29 +437,4 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     public function htmlPreview(array $data)
     {
     }
-
-    /**
-     * Generate the content navigation controls for the content item
-     *
-     * @param integer $column_column_id
-     * @param integer $column_row_id
-     * @param integer $row_column_id
-     * @param integer $row_row_id
-     *
-     * @return Dlayer_View_ContentNavigationControls
-     */
-    public function contentNavigationControls($column_column_id, $column_row_id, $row_column_id, $row_row_id)
-    {
-    }
-
-    /**
-     * Generate the sibling content item controls
-     *
-     * @param array $siblings
-     *
-     * @return Dlayer_View_ContentSiblingControls
-     */
-    public function contentSiblingControls($siblings)
-    {
-    }
 }
