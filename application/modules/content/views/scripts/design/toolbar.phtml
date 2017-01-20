@@ -21,9 +21,9 @@ foreach ($this->tools as $group_id => $group) {
 
         switch ($tool['group_id']) {
             case 1: // Cancel tool
-                if ($this->page_selected !== null) {
-                    $show = true;
-                }
+                //if ($this->page_selected !== null) {
+                    $show = false;
+                //}
                 break;
 
             case 3: // Structure tools
@@ -102,7 +102,7 @@ foreach ($this->tools as $group_id => $group) {
             }
 
             if ($tool['model'] === 'Cancel') {
-                $class = "btn btn-sm btn-danger btn-block hidden-lg";
+                $class = "btn btn-sm btn-danger btn-block";
             }
 
             $html .= '<a href="/content/design/set-tool/tool/' .

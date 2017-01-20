@@ -48,5 +48,29 @@
 		<div class="container container-1170">
 			<?php echo $this->layout()->content; ?>
 		</div>
+        <?php if (count($this->layout()->control_bar) > 0) { ?>
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container container-1170">
+                <!--<div class="collapse navbar-collapse">-->
+                    <div class="nav navbar-nav">
+                        <?php foreach($this->layout()->control_bar as $button) { ?>
+                        <a href="<?php echo $this->escape($button['uri']); ?>" class="navbar-btn btn <?php echo $this->escape($button['class']); ?>"><?php echo $this->escape($button['name']); ?></a>
+                        <?php } ?>
+                        <?php if (count($this->layout()->control_bar_content) > 0) { ?>
+                        <div class="btn-group dropup">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select content item <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <?php foreach($this->layout()->control_bar_content as $button) { ?>
+                                    <li><a href="<?php echo $this->escape($button['uri']); ?>"><?php echo $this->escape($button['name']); ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                        <?php } ?>
+                    </div>
+                <!--</div>-->
+            </div>
+        </nav>
+        <?php } ?>
 	</body>
 </html>

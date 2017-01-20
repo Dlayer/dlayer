@@ -37,6 +37,16 @@ class Content_DesignController extends Zend_Controller_Action
     private $session_designer;
 
     /**
+     * @var array Buttons to display on the control bar
+     */
+    private $control_bar;
+
+    /**
+     * @var array Buttons for the select content part of control bar
+     */
+    private $control_bar_content;
+
+    /**
      * @var array Nav bar items
      */
     private $nav_bar_items = array(
@@ -96,6 +106,62 @@ class Content_DesignController extends Zend_Controller_Action
         $this->view->row_id = $this->session_content->rowId();
         $this->view->content_id = $this->session_content->contentId();
         $this->view->tool = $this->session_designer->tool('content');
+
+        // Assign buttons to control bar
+        $model_page = new Dlayer_Model_Content_Page();
+
+        $column_id = $this->session_content->columnId();
+        $row_id = $this->session_content->rowId();
+        $content_id = $this->session_content->contentId();
+        $parent_column_id = $model_page->parentColumnId($row_id);
+        $parent_row_id = $model_page->parentRowId($column_id);
+
+        $siblings = false;
+        if ($content_id !== null) {
+            $siblings = $model_page->contentSiblings($this->site_id, $this->page_id, $column_id, $content_id);
+        }
+
+        $this->control_bar[] = array(
+            'name' => 'Cancel',
+            'class' => 'btn-danger',
+            'uri' => '/content/design/set-tool/Cancel/reset/1'
+        );
+
+        if ($column_id !== null && $column_id !== 0) {
+            $this->control_bar[] = array(
+                'name' =>'Select parent row',
+                'class' => 'btn-default',
+                'uri' => '/content/design/set-selected-row/id/' . $parent_row_id . '/column/' . $parent_column_id
+            );
+        }
+
+        if ($row_id !== null) {
+            $this->control_bar[] = array(
+                'name' =>'Select parent column',
+                'class' => 'btn-default',
+                'uri' => '/content/design/set-selected-column/id/' . $parent_column_id . '/row/' . $parent_row_id
+            );
+        }
+
+        if ($siblings !== false && $siblings['previous'] !== false) {
+            $this->control_bar_content[] = array(
+                'name' => 'Previous',
+                'class' => 'btn-default',
+                'uri' => '/content/design/set-selected-content/id/' . $siblings['previous'] . '/tool/' . $siblings['previous_data']['tool'] . '/content-type/' . $siblings['previous_data']['content_type'],
+            );
+        }
+
+        if ($siblings !== false && $siblings['next'] !== false) {
+            $this->control_bar_content[] = array(
+                'name' => 'Next',
+                'class' => 'btn-default',
+                'uri' => '/content/design/set-selected-content/id/' . $siblings['next'] . '/tool/' . $siblings['next_data']['tool'] . '/content-type/' . $siblings['next_data']['content_type'],
+            );
+        }
+
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('control_bar', $this->control_bar);
+        $layout->assign('control_bar_content', $this->control_bar_content);
 
         $this->_helper->setLayoutProperties(
             $this->nav_bar_items,
