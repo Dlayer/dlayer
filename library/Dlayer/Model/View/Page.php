@@ -82,7 +82,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
                     `uspsc`.`id`, 
                     `uspsc`.`row_id`, 
                     `uspsc`.`size`, 
-                    `uspsc`.`column_type`, 
+                    `dct`.`column_type`, 
                     `uspsc`.`offset`
 				FROM 
 				    `user_site_page_structure_column` `uspsc` 
@@ -91,6 +91,9 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 				        `uspsc`.`row_id` = `uspsr`.`id` AND 
 				         `uspsr`.`site_id` = :site_id AND 
 				         `uspsr`.`page_id` = :page_id 
+                INNER JOIN 
+                    `designer_column_type` `dct` ON 
+                        `uspsc`.`column_type_id` = `dct`.`id` 
 				WHERE 
 				    `uspsc`.`site_id` = :site_id AND 
 				    `uspsc`.`page_id` = :page_id 
@@ -117,6 +120,41 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
         }
 
         return $columns;
+    }
+
+    /**
+     * Fetch all the defined responsive column widths, results are grouped by column_id
+     *
+     * @return array Always returns an array
+     */
+    public function responsiveColumnWidths()
+    {
+        $sql = "SELECT 
+                    `uspscr`.`column_id`,
+                    `uspscr`.`size` AS `width`, 
+                    `dct`.`column_type`
+                FROM 
+                    `user_site_page_structure_column_responsive` `uspscr` 
+                INNER JOIN 
+                    `designer_column_type` dct ON 
+                        `uspscr`.`column_type_id` = `dct`.`id` 
+                WHERE 
+                    `uspscr`.`site_id` = :site_id AND 
+                    `uspscr`.`page_id` = :page_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+
+        $widths = array();
+
+        foreach ($result as $row) {
+            $widths[intval($row['column_id'])][$row['column_type']] = intval($row['width']);
+        }
+
+        return $widths;
     }
 
     /**

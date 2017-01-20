@@ -24,14 +24,23 @@ class Dlayer_Model_Tool extends Zend_Db_Table_Abstract
 	 */
 	public function tools($module)
 	{
-		$sql = "SELECT dmt.`name`, dmt.`model`, dmt.group_id, dmt.base  
-				FROM dlayer_module_tool dmt 
-				JOIN dlayer_module dm 
-					ON dmt.module_id = dm.id 
-					AND dm.enabled = 1 
-					AND dm.`name` = :module 
-				WHERE dmt.enabled = 1 
-				ORDER BY dmt.group_id ASC, dmt.sort_order ASC";
+		$sql = "SELECT 
+                    `dmt`.`name`, 
+                    `dmt`.`model`, 
+                    `dmt`.`group_id`, 
+                    `dmt`.`base`  
+				FROM 
+				    `dlayer_module_tool` `dmt` 
+				INNER JOIN 
+				    `dlayer_module` `dm` ON				        
+				        `dmt`.`module_id` = `dm`.`id` AND 
+				        `dm`.`enabled` = 1 AND 
+				        `dm`.`name` = :module 
+				WHERE 
+				    `dmt`.`enabled` = 1 
+				ORDER BY 
+				    `dmt`.`group_id` ASC, 
+				    `dmt`.`sort_order` ASC";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':module', $module, PDO::PARAM_STR);
 		$stmt->execute();
@@ -97,18 +106,27 @@ class Dlayer_Model_Tool extends Zend_Db_Table_Abstract
 	 */
 	public function toolTabs($module, $tool, $edit_mode = FALSE)
 	{
-		$sql = "SELECT dmtt.`name`, dmt.`model` AS tool, dmtt.model AS sub_tool, 
-				dmtt.name AS `name`, dmtt.script, dmtt.glyph
-				FROM dlayer_module_tool_tab dmtt 
-				JOIN dlayer_module dm 
-					ON dmtt.module_id = dm.id
-					AND dm.enabled = 1 
-					AND dm.`name` = :module 
-				JOIN dlayer_module_tool dmt 
-					ON dmtt.tool_id = dmt.id 
-					AND dmt.enabled = 1 
-					AND dmt.model = :tool
-				WHERE dmtt.enabled = 1 ";
+		$sql = "SELECT 
+                    `dmtt`.`name`, 
+                    `dmt`.`model` AS `tool`, 
+                    `dmtt`.`model` AS sub_tool,
+                    `dmtt`.`name` AS `name`, 
+                    `dmtt`.`script`, 
+                    `dmtt`.`glyph`,
+                    `dmtt`.`glyph_style`
+				FROM 
+				    `dlayer_module_tool_tab` `dmtt` 
+				INNER JOIN 
+				    `dlayer_module` `dm` ON 
+				        `dmtt`.`module_id` = `dm`.`id` AND 
+				        `dm`.`enabled` = 1 AND 
+				        `dm`.`name` = :module 
+				INNER JOIN `dlayer_module_tool` `dmt` ON 
+				    `dmtt`.`tool_id` = `dmt`.`id` AND 
+				    `dmt`.`enabled` = 1 AND 
+				    `dmt`.`model` = :tool
+				WHERE 
+				    `dmtt`.`enabled` = 1 ";
 		if($edit_mode === FALSE)
 		{
 			$sql .= "AND dmtt.edit_mode = 0 ";

@@ -21,7 +21,7 @@ div#designer {
 	max-width: 1170px;
 	
 	.well {
-		margin-bottom: 0px;
+		margin-bottom: 0;
 	}
 
 	.design {
@@ -101,7 +101,7 @@ div#designer {
 			margin-bottom: 0.5em;
 			
 			&:last-child {
-				margin-bottom: 0px;
+				margin-bottom: 0;
 			}
 			
 			h4 {
@@ -116,12 +116,14 @@ div#designer {
 			}
 		}						
 	}
-	
+
 	legend {
-		padding: 0.3em 0 0 0;
-		margin-bottom: 0;
+		border: none;
+		display: block;
+		float: left;
+		line-height: 1.1;
 	}
-	
+
 	.ribbon {
 		.nav {
 			& > li {

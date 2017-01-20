@@ -23,6 +23,11 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 	 */
 	private $columns;
 
+    /**
+     * @var array Responsive widths
+     */
+    private $responsive_widths;
+
 	/**
 	 * @var integer Id of the current row
 	 */
@@ -121,6 +126,19 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 		return $this;
 	}
 
+    /**
+     * Pass in the responsive width for all columns, indexed by column id
+     *
+     * @param array $responsive_widths;
+     * @return Dlayer_View_Column
+     */
+    public function setResponsiveWidths(array $responsive_widths)
+    {
+        $this->responsive_widths = $responsive_widths;
+
+        return $this;
+    }
+
 	/**
 	 * Generate the html for the content rows, it checks to see if there are any rows for the currently set column and
 	 * then generate the required html
@@ -196,6 +214,13 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
 				$class = $class . ' col-' . $column['column_type'] . '-' . $column['width'];
 				if ($column['offset'] !== 0) {
 				    $class .= ' col-' . $column['column_type'] . '-offset-' . $column['offset'];
+                }
+
+                // Responsive column classes
+                if (array_key_exists($column['id'], $this->responsive_widths) === true) {
+				    foreach ($this->responsive_widths[$column['id']] as $column_type => $width) {
+				        $class .= ' col-' . $column_type . '-' . $width;
+                    }
                 }
 
 				$html .= '<div class="' . $class . '" data-column-id="' . $column['id'] . '" ' .

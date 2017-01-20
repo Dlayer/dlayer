@@ -115,6 +115,20 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
     }
 
     /**
+     * Pass in the data array for the responsive options
+     *
+     * @param array $responsive_column_widths
+     *
+     * @return Dlayer_View_ContentPage
+     */
+    public function setResponsiveOptions(array $responsive_column_widths)
+    {
+        $this->view->column()->setResponsiveWidths($responsive_column_widths);
+
+        return $this;
+    }
+
+    /**
      * Generates the base structure for the page and then calls a recursive method to do the rest of the work
      *
      * @return string

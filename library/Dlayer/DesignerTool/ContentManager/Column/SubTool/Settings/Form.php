@@ -63,6 +63,7 @@ class Dlayer_DesignerTool_ContentManager_Column_SubTool_Settings_Form extends Dl
         $width->setLabel('Width (1 - 12)');
         $width->setDescription('Set the base width to use for the default (md) layout.');
         $width->setBelongsTo('params');
+        $width->setRequired();
 
         if (array_key_exists('width', $this->data) === true &&
             $this->data['width'] !== false
