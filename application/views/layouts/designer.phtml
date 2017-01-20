@@ -48,5 +48,19 @@
 		<div class="container container-1170">
 			<?php echo $this->layout()->content; ?>
 		</div>
+        <?php if (count($this->layout()->control_bar) > 0) { ?>
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container container-1170">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <div class="nav navbar-nav">
+                        <p class="navbar-text"><strong>Control bar:</strong></p>
+                        <?php foreach($this->layout()->control_bar as $button) { ?>
+                        <a href="<?php echo $this->escape($button['uri']); ?>" class="navbar-btn btn btn-default"><?php echo $this->escape($button['name']); ?></a>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <?php } ?>
 	</body>
 </html>

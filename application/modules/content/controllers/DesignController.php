@@ -37,6 +37,11 @@ class Content_DesignController extends Zend_Controller_Action
     private $session_designer;
 
     /**
+     * @var array Buttons to display on the control bar
+     */
+    private $control_bar;
+
+    /**
      * @var array Nav bar items
      */
     private $nav_bar_items = array(
@@ -96,6 +101,30 @@ class Content_DesignController extends Zend_Controller_Action
         $this->view->row_id = $this->session_content->rowId();
         $this->view->content_id = $this->session_content->contentId();
         $this->view->tool = $this->session_designer->tool('content');
+
+        // Assign buttons to control bar
+        $model_page = new Dlayer_Model_Content_Page();
+
+        $column_id = $this->session_content->columnId();
+        $row_id = $this->session_content->rowId();
+        $parent_column_id = $model_page->parentColumnId($row_id);
+        $parent_row_id = $model_page->parentRowId($column_id);
+
+        if ($column_id === 0) {
+            $this->control_bar[] = array(
+                'name' => 'Select page',
+                'uri' => '/content/design/set-page-selected'
+            );
+        }
+        if ($column_id !== null && $column_id !== 0) {
+            $this->control_bar[] = array(
+                'name' =>'Select parent row',
+                'uri' => '/content/design/set-selected-row/id/' . $parent_row_id . '/column/' . $parent_column_id
+            );
+        }
+
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('control_bar', $this->control_bar);
 
         $this->_helper->setLayoutProperties(
             $this->nav_bar_items,
