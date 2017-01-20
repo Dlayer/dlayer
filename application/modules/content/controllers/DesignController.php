@@ -42,6 +42,11 @@ class Content_DesignController extends Zend_Controller_Action
     private $control_bar;
 
     /**
+     * @var array Buttons for the select content part of control bar
+     */
+    private $control_bar_content;
+
+    /**
      * @var array Nav bar items
      */
     private $nav_bar_items = array(
@@ -139,27 +144,24 @@ class Content_DesignController extends Zend_Controller_Action
         }
 
         if ($siblings !== false && $siblings['previous'] !== false) {
-            $this->control_bar[] = array(
-                'name' => 'Select previous item',
+            $this->control_bar_content[] = array(
+                'name' => 'Previous',
                 'class' => 'btn-default',
                 'uri' => '/content/design/set-selected-content/id/' . $siblings['previous'] . '/tool/' . $siblings['previous_data']['tool'] . '/content-type/' . $siblings['previous_data']['content_type'],
             );
         }
 
         if ($siblings !== false && $siblings['next'] !== false) {
-            $this->control_bar[] = array(
-                'name' => 'Select next item',
+            $this->control_bar_content[] = array(
+                'name' => 'Next',
                 'class' => 'btn-default',
                 'uri' => '/content/design/set-selected-content/id/' . $siblings['next'] . '/tool/' . $siblings['next_data']['tool'] . '/content-type/' . $siblings['next_data']['content_type'],
             );
         }
 
-        // Add select parent columns
-
-
-
         $layout = Zend_Layout::getMvcInstance();
         $layout->assign('control_bar', $this->control_bar);
+        $layout->assign('control_bar_content', $this->control_bar_content);
 
         $this->_helper->setLayoutProperties(
             $this->nav_bar_items,
