@@ -108,9 +108,8 @@ class Content_DesignController extends Zend_Controller_Action
 
         $this->controlBar();
 
-        $this->view->dlayer_toolbar = $this->dlayerToolbar();
-        $this->view->dlayer_page = $this->dlayerPage();
-        $this->view->dlayer_ribbon = $this->dlayerRibbon();
+        $this->view->page = $this->page();
+        $this->view->ribbon = $this->ribbon();
 
         $this->view->module = $this->getRequest()->getModuleName();
         $this->view->page_selected = $this->session_content->pageSelected();
@@ -153,41 +152,11 @@ class Content_DesignController extends Zend_Controller_Action
             $siblings = $model_page->contentSiblings($this->site_id, $this->page_id, $column_id, $content_id);
         }
 
-        $this->control_bar[] = array(
-            'name' => 'Cancel',
-            'class' => 'btn-danger',
-            'uri' => '/content/design/set-tool/Cancel/reset/1'
-        );
+        $this->controlBarBase($column_id, $parent_row_id, $parent_column_id, $row_id);
 
-        if ($column_id !== null && $column_id !== 0) {
-            $this->control_bar[] = array(
-                'name' =>'Select parent row',
-                'class' => 'btn-default',
-                'uri' => '/content/design/set-selected-row/id/' . $parent_row_id . '/column/' . $parent_column_id
-            );
-        }
+        $this->contractBarSIblings($siblings);
 
-        if ($row_id !== null) {
-            $this->control_bar[] = array(
-                'name' =>'Select parent column',
-                'class' => 'btn-default',
-                'uri' => '/content/design/set-selected-column/id/' . $parent_column_id . '/row/' . $parent_row_id
-            );
-        }
-
-        if ($siblings !== false && $siblings['previous'] !== false) {
-            $this->control_bar_siblings[] = array(
-                'name' => 'Previous',
-                'uri' => '/content/design/set-selected-content/id/' . $siblings['previous'] . '/tool/' . $siblings['previous_data']['tool'] . '/content-type/' . $siblings['previous_data']['content_type'],
-            );
-        }
-
-        if ($siblings !== false && $siblings['next'] !== false) {
-            $this->control_bar_siblings[] = array(
-                'name' => 'Next',
-                'uri' => '/content/design/set-selected-content/id/' . $siblings['next'] . '/tool/' . $siblings['next_data']['tool'] . '/content-type/' . $siblings['next_data']['content_type'],
-            );
-        }
+        $this->controlBarTools($this->session_content->pageSelected(), $column_id, $row_id, $content_id);
 
         $layout = Zend_Layout::getMvcInstance();
         $layout->assign('control_bar', $this->control_bar);
@@ -204,7 +173,7 @@ class Content_DesignController extends Zend_Controller_Action
     {
         $this->_helper->setLayout('preview');
 
-        $this->view->dlayer_page = $this->dlayerPagePreview();
+        $this->view->dlayer_page = $this->pagePreview();
 
         $layout = Zend_Layout::getMvcInstance();
         $layout->assign('css_include', array('css/dlayer.css'));
@@ -213,39 +182,12 @@ class Content_DesignController extends Zend_Controller_Action
     }
 
     /**
-     * Generate the html for the tool bar, the enabled tools for the module are
-     * selected and then passed to a view file. The view is generated using
-     * the tools array and then the result is passed back to the index action
-     *
-     * @return string
-     */
-    private function dlayerToolbar()
-    {
-        $model_tool = new Dlayer_Model_Tool();
-        $model_page = new Dlayer_Model_Content_Page();
-
-        $column_id = $this->session_content->columnId();
-
-        $this->view->page_selected = $this->session_content->pageSelected();
-        $this->view->row_id = $this->session_content->rowId();
-        $this->view->column_id = $column_id;
-        $this->view->content_id = $this->session_content->contentId();
-        $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
-        $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
-
-        $this->view->tools = $model_tool->tools($this->getRequest()->getModuleName());
-        $this->view->tool = $this->session_designer->tool('content');
-
-        return $this->view->render("design/toolbar.phtml");
-    }
-
-    /**
      * Generate the HTML for the ribbon, there are two states, tool selected and then the default view, if a tool is
      * selected we let the ribbon load the relevant HTML
      *
      * @return string
      */
-    private function dlayerRibbon()
+    private function ribbon()
     {
         $tool = $this->session_designer->tool('content');
 
@@ -405,7 +347,7 @@ class Content_DesignController extends Zend_Controller_Action
      *
      * @return string
      */
-    private function dlayerPage()
+    private function page()
     {
         $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
 
@@ -433,7 +375,7 @@ class Content_DesignController extends Zend_Controller_Action
      *
      * @return string
      */
-    private function dlayerPagePreview()
+    private function pagePreview()
     {
         $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
 
@@ -655,5 +597,164 @@ class Content_DesignController extends Zend_Controller_Action
         $model_page_content->moveContent($this->site_id, $page_id, $column_id, $content_id, $direction);
 
         $this->redirect('/content/design/');
+    }
+
+    /**
+     * Core navigation controls for the control bar
+     *
+     * @param $column_id
+     * @param $parent_row_id
+     * @param $parent_column_id
+     * @param $row_id
+     * @return void
+     */
+    private function controlBarBase($column_id, $parent_row_id, $parent_column_id, $row_id)
+    {
+        $this->control_bar[] = array(
+            'name' => 'Cancel',
+            'class' => 'btn-danger',
+            'uri' => '/content/design/set-tool/Cancel/reset/1'
+        );
+
+        if ($column_id !== null && $column_id !== 0) {
+            $this->control_bar[] = array(
+                'name' => 'Select parent row',
+                'class' => 'btn-default',
+                'uri' => '/content/design/set-selected-row/id/' . $parent_row_id . '/column/' . $parent_column_id
+            );
+        }
+
+        if ($row_id !== null) {
+            $this->control_bar[] = array(
+                'name' => 'Select parent column',
+                'class' => 'btn-default',
+                'uri' => '/content/design/set-selected-column/id/' . $parent_column_id . '/row/' . $parent_row_id
+            );
+        }
+    }
+
+    /**
+     * Control bar content item sibling movement controls
+     *
+     * @param $siblings
+     * @return void
+     */
+    private function contractBarSiblings($siblings)
+    {
+        if ($siblings !== false && $siblings['previous'] !== false) {
+            $this->control_bar_siblings[] = array(
+                'name' => 'Previous',
+                'uri' => '/content/design/set-selected-content/id/' . $siblings['previous'] . '/tool/' . $siblings['previous_data']['tool'] . '/content-type/' . $siblings['previous_data']['content_type'],
+            );
+        }
+
+        if ($siblings !== false && $siblings['next'] !== false) {
+            $this->control_bar_siblings[] = array(
+                'name' => 'Next',
+                'uri' => '/content/design/set-selected-content/id/' . $siblings['next'] . '/tool/' . $siblings['next_data']['tool'] . '/content-type/' . $siblings['next_data']['content_type'],
+            );
+        }
+    }
+
+    /**
+     * Control bar tool bar buttons
+     *
+     * @return void
+     */
+    private function controlBarTools($page_selected, $column_id, $row_id, $content_id)
+    {
+        $model_tool = new Dlayer_Model_Tool();
+        $model_page = new Dlayer_Model_Content_Page();
+
+        $column_contains_content = $model_page->columnContainsContent($column_id);
+        $column_contains_rows = $model_page->columnContainsRows($column_id);
+
+        $tools = $model_tool->tools($this->getRequest()->getModuleName());
+        $current_tool = $this->session_designer->tool('content');
+
+        foreach ($tools as $group_id => $group) {
+            foreach ($group as $tool) {
+
+                $show = false;
+                $group = null;
+
+                switch ($tool['group_id']) {
+                    case 3: // Structure tools
+                        $group = 'layout';
+
+                        // Show the add row tool, when the page is selected
+                        if ($tool['model'] === 'AddRow' && $page_selected === true && $row_id === null
+                            && $column_id === 0 && $column_contains_content === false
+                        ) {
+                            $show = true;
+                        }
+
+                        // Show the add row tool when column selected
+                        if ($tool['model'] === 'AddRow' && $page_selected === true && $row_id !== null
+                            && ($column_id !== 0 || $column_id !== null) && $column_contains_content === false
+                        ) {
+                            $show = true;
+                        }
+
+                        // Hide add row tool when row selected
+                        if ($tool['model'] === 'AddRow' && $current_tool !== false &&
+                            ($current_tool['tool'] === 'Row' || $current_tool['tool'] === 'AddColumn') &&
+                            $column_contains_content === false
+                        ) {
+                            $show = false;
+                        }
+
+                        // Show the column tool
+                        if ($tool['model'] === 'AddColumn' && $page_selected === true && $column_id !== null
+                            && $row_id !== null && $content_id === null
+                        ) {
+                            $show = true;
+                        }
+
+                        // Hide column tool
+                        if ($tool['model'] === 'AddColumn' && $current_tool !== false && $current_tool['tool'] === 'Column') {
+                            $show = false;
+                        }
+                        break;
+
+                    case 4: // Content tools
+                        $group = 'create';
+
+                        if ($page_selected === true && $row_id !== null &&
+                            ($column_id !== null && $column_id !== 0) &&
+                            $column_contains_rows === false
+                        ) {
+                            $show = true;
+                        }
+                        break;
+
+                    case 5: // Import tools
+                        $group = 'import';
+
+                        if ($page_selected === true && $row_id !== null &&
+                            ($column_id !== null && $column_id !== 0 &&
+                                $column_contains_rows === false)
+                        ) {
+                            $show = true;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+                $reset = null;
+                if ($content_id !== null) {
+                    $reset = '/reset/1';
+                }
+
+                if ($show === true) {
+                    $this->control_bar_tools[$group][] = array(
+                        'name' => $tool['name'],
+                        'uri' => '/content/design/set-tool/tool/' . $tool['model'] . $reset
+                    );
+                }
+            }
+        }
     }
 }
