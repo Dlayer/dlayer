@@ -61,10 +61,33 @@ class Dlayer_DesignerTool_ContentManager_AddColumn_Model extends Zend_Db_Table_A
 			$sort_order = 1;
 		}
 
-		$sql = 'INSERT INTO user_site_page_structure_column 
-                (site_id, page_id, row_id, size, column_type, offset, sort_order) 
+		$sql = "INSERT INTO user_site_page_structure_column 
+                (
+                    `site_id`, 
+                    `page_id`, 
+                    `row_id`, 
+                    `size`,
+                    `column_type_id`, 
+                    `offset`, 
+                    `sort_order`
+                ) 
 				VALUES 
-				(:site_id, :page_id, :row_id, :size, :column_type, 0, :sort_order)';
+				(
+				    :site_id, 
+				    :page_id, 
+				    :row_id, 
+				    :size, 
+				    ( 
+				        SELECT 
+				            `id` 
+                        FROM 
+                            `designer_column_type`
+                         WHERE 
+                            `column_type` = :column_type                        
+				    ), 
+				    0, 
+				    :sort_order
+                )";
 		$stmt = $this->_db->prepare($sql);
 		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
 		$stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
