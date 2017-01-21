@@ -42,9 +42,18 @@ class Content_DesignController extends Zend_Controller_Action
     private $control_bar;
 
     /**
-     * @var array Buttons for the select content part of control bar
+     * @var array Buttons for the siblings section of control bar
      */
-    private $control_bar_content;
+    private $control_bar_siblings;
+
+    /**
+     * @var array Buttons for the tools section of control bar
+     */
+    private $control_bar_tools = array(
+        'layout' => array(),
+        'create' => array(),
+        'import' => array()
+    );
 
     /**
      * @var array Nav bar items
@@ -97,6 +106,8 @@ class Content_DesignController extends Zend_Controller_Action
             $this->redirect('/content/design/set-page-selected');
         }
 
+        $this->controlBar();
+
         $this->view->dlayer_toolbar = $this->dlayerToolbar();
         $this->view->dlayer_page = $this->dlayerPage();
         $this->view->dlayer_ribbon = $this->dlayerRibbon();
@@ -107,7 +118,28 @@ class Content_DesignController extends Zend_Controller_Action
         $this->view->content_id = $this->session_content->contentId();
         $this->view->tool = $this->session_designer->tool('content');
 
-        // Assign buttons to control bar
+        $this->_helper->setLayoutProperties(
+            $this->nav_bar_items,
+            '/content/design/index',
+            array(
+                'css/dlayer.css',
+                'css/designer-shared.css',
+                'css/designer-1170.css'
+            ),
+            array(
+                'scripts/dlayer.js',
+                'scripts/designer.js',
+                'scripts/content-manager.js',
+                'scripts/preview-content-manager.js'
+            ),
+            'Dlayer.com - Content manager', '/content/design/preview');
+    }
+
+    /**
+     * Generate the buttons for the control bar
+     */
+    private function controlBar()
+    {
         $model_page = new Dlayer_Model_Content_Page();
 
         $column_id = $this->session_content->columnId();
@@ -144,40 +176,23 @@ class Content_DesignController extends Zend_Controller_Action
         }
 
         if ($siblings !== false && $siblings['previous'] !== false) {
-            $this->control_bar_content[] = array(
+            $this->control_bar_siblings[] = array(
                 'name' => 'Previous',
-                'class' => 'btn-default',
                 'uri' => '/content/design/set-selected-content/id/' . $siblings['previous'] . '/tool/' . $siblings['previous_data']['tool'] . '/content-type/' . $siblings['previous_data']['content_type'],
             );
         }
 
         if ($siblings !== false && $siblings['next'] !== false) {
-            $this->control_bar_content[] = array(
+            $this->control_bar_siblings[] = array(
                 'name' => 'Next',
-                'class' => 'btn-default',
                 'uri' => '/content/design/set-selected-content/id/' . $siblings['next'] . '/tool/' . $siblings['next_data']['tool'] . '/content-type/' . $siblings['next_data']['content_type'],
             );
         }
 
         $layout = Zend_Layout::getMvcInstance();
         $layout->assign('control_bar', $this->control_bar);
-        $layout->assign('control_bar_content', $this->control_bar_content);
-
-        $this->_helper->setLayoutProperties(
-            $this->nav_bar_items,
-            '/content/design/index',
-            array(
-                'css/dlayer.css',
-                'css/designer-shared.css',
-                'css/designer-1170.css'
-            ),
-            array(
-                'scripts/dlayer.js',
-                'scripts/designer.js',
-                'scripts/content-manager.js',
-                'scripts/preview-content-manager.js'
-            ),
-            'Dlayer.com - Content manager', '/content/design/preview');
+        $layout->assign('control_bar_siblings', $this->control_bar_siblings);
+        $layout->assign('control_bar_tools', $this->control_bar_tools);
     }
 
     /**
@@ -336,24 +351,9 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
                 $column_id = $this->session_content->columnId();
-                $row_id = $this->session_content->rowId();
-                $content_id = $this->session_content->contentId();
 
-                $this->view->page_selected = $this->session_content->pageSelected();
-                $this->view->row_id = $row_id;
-                $this->view->column_id = $column_id;
-                $this->view->content_id = $content_id;
-
-                $this->view->parent_column_id = $model_page->parentColumnId($row_id);
-                $this->view->parent_row_id = $model_page->parentRowId($column_id);
                 $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
                 $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
-
-                $siblings = false;
-                if ($content_id !== null) {
-                    $siblings = $model_page->contentSiblings($this->site_id, $this->page_id, $column_id, $content_id);
-                }
-                $this->view->siblings = $siblings;
 
                 if ($sub_tool === null) {
                     $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .
