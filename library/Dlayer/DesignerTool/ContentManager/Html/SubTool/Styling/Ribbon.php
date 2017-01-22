@@ -22,6 +22,7 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Ribbon extends Dla
         $this->tool = $tool;
 
         $this->contentData();
+        $this->previewData();
 
         return array(
             'form' => new Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Form(
@@ -30,7 +31,7 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Ribbon extends Dla
                 $this->instancesOfData(),
                 array()
             ),
-            'preview' => $this->previewData()
+            'preview' => $this->preview_data
         );
     }
 
@@ -67,16 +68,21 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Styling_Ribbon extends Dla
     /**
      * Fetch the data required by the preview functions
      *
-     * @return array
+     * @return void
      */
     protected function previewData()
     {
-        $this->contentData();
+        if ($this->preview_data_fetched === false) {
 
-        return array(
-            'id' => $this->tool['content_id'],
-            'background_color' => $this->content_data['content_background_color']
-        );
+            $this->contentData();
+
+            $this->preview_data = array(
+                'id' => $this->tool['content_id'],
+                'background_color' => $this->content_data['content_background_color']
+            );
+
+            $this->preview_data_fetched = true;
+        }
     }
 
     /**
