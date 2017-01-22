@@ -27,8 +27,7 @@ class Dlayer_Model_Tool extends Zend_Db_Table_Abstract
 		$sql = "SELECT 
                     `dmt`.`name`, 
                     `dmt`.`model`, 
-                    `dmt`.`group_id`, 
-                    `dmt`.`base`  
+                    `dmt`.`group_id`
 				FROM 
 				    `dlayer_module_tool` `dmt` 
 				INNER JOIN 

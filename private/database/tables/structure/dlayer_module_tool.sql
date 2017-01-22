@@ -4,8 +4,6 @@ CREATE TABLE `dlayer_module_tool` (
 	`module_id` tinyint(3) unsigned NOT NULL,
 	`name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	`model` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-	`base` tinyint(1) unsigned NOT NULL DEFAULT '1',
-	`destructive` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	`group_id` tinyint(3) unsigned NOT NULL DEFAULT '1',
 	`sort_order` tinyint(1) unsigned NOT NULL DEFAULT '1',
 	`enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',

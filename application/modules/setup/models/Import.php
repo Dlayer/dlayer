@@ -26,18 +26,13 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'designer_css_text_weight',
         'designer_form_field_attribute',
         'designer_form_field_attribute_type',
-        'designer_form_field_param_preview',
         'designer_form_field_type',
         'designer_form_layout',
-        'designer_form_preview_method',
         'dlayer_identity',
         'dlayer_module',
         'dlayer_module_tool',
         'dlayer_module_tool_tab',
         'dlayer_session',
-        'dlayer_setting',
-        'dlayer_setting_group',
-        'dlayer_setting_scope',
         'user_setting_color_history',
         'user_setting_color_palette',
         'user_setting_color_palette_color',
@@ -94,16 +89,11 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'designer_css_text_weight',
         'designer_form_field_attribute',
         'designer_form_field_attribute_type',
-        'designer_form_field_param_preview',
         'designer_form_field_type',
         'designer_form_layout',
-        'designer_form_preview_method',
         'dlayer_module',
         'dlayer_module_tool',
-        'dlayer_module_tool_tab',
-        'dlayer_setting',
-        'dlayer_setting_group',
-        'dlayer_setting_scope'
+        'dlayer_module_tool_tab'
     );
 
     private $messages = array();

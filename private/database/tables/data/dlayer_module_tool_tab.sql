@@ -106,9 +106,9 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (NULL,3,48,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
     (NULL,4,49,'Page','page',NULL,'file',NULL,0,0,1,1,1),
     (NULL,4,49,'Help','help',NULL,'info-sign',NULL,0,0,0,3,1),
-    (NULL,4,50,'Column','column',NULL,'align-justify','transform: rotate(90deg);',0,0,1,1,1),
+    (NULL,4,50,'Column','column',NULL,'align-justify',"transform: rotate(90deg);",0,0,1,1,1),
     (NULL,4,50,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
-    (NULL,4,51,'Add Column','add-column',NULL,'align-justify','transform: rotate(90deg);',0,0,1,1,1),
+    (NULL,4,51,'Add Column','add-column',NULL,'align-justify',"transform: rotate(90deg);",0,0,1,1,1),
     (NULL,4,51,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
     (NULL,4,11,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
     (NULL,4,50,'Styles','styling','Styling','tint',NULL,1,0,0,4,1),
@@ -126,4 +126,4 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (NULL,4,16,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
     (NULL,4,52,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
     (NULL,4,50,'Settings','settings','Settings','cog',NULL,1,0,0,2,1),
-    (NULL,4,50,'Responsive','responsive','Responsive','equalizer','transform: rotate(90deg);',1,0,0,3,1);
+    (NULL,4,50,'Responsive','responsive','Responsive','equalizer',"transform: rotate(90deg);",1,0,0,3,1);
