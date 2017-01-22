@@ -294,6 +294,7 @@ class Content_DesignController extends Zend_Controller_Action
 
                 $column_id = $this->session_content->columnId();
 
+                $this->view->content_id = $this->session_content->contentId();
                 $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
                 $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
 

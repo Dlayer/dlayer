@@ -170,7 +170,7 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 			{
 				$html .= '<div class="color col-lg-offset-1 col-lg-2 col-xs-offset-1 col-xs-2 col-sm-1" style="background-color:' . 
 					$this->view->escape($color['color_hex']) . ';">&nbsp;</div>';
-				$html .= '<div class="color-label col-lg-9 col-xs-9 col-sm-2 text-muted">' . 
+				$html .= '<div class="color-label col-lg-8 col-xs-9 col-sm-2 text-muted">' .
 					$this->view->escape($color['color_hex']) . '</div>';
 					
 				if($x === 2) 
