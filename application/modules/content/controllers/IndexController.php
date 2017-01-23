@@ -45,8 +45,10 @@ class Content_IndexController extends Zend_Controller_Action
      */
     public function init()
     {
+        $this->_helper->validateModule();
+
         $this->_helper->authenticate();
-        $this->_helper->setModule();
+
         $this->_helper->validateSiteId();
 
         $session_dlayer = new Dlayer_Session();

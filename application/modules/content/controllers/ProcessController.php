@@ -35,12 +35,9 @@ class Content_ProcessController extends Zend_Controller_Action
 	 */
 	public function init()
 	{
-		$this->_helper->authenticate();
+        $this->_helper->validateModule();
 
-		/**
-		 * @todo Not happy with this, needs a better name, not clear what it does
-		 */
-		$this->_helper->setModule();
+		$this->_helper->authenticate();
 
 		$this->_helper->disableLayout(FALSE);
 

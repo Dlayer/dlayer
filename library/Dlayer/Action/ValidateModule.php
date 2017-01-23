@@ -16,6 +16,14 @@ class Dlayer_Action_ValidateModule extends Zend_Controller_Action_Helper_Abstrac
      */
     function direct()
     {
-        return true;
+        $request = Zend_Controller_Front::getInstance()->getRequest();
+
+        $model_modules = new Dlayer_Model_Module();
+
+        if ($model_modules->valid($request->getModuleName(), true) === true) {
+            return true;
+        } else {
+            $this->_actionController->getHelper('Redirector')->gotoUrl('/');
+        }
     }
 }

@@ -40,12 +40,11 @@ class Form_IndexController extends Zend_Controller_Action
     {
         $this->_helper->validateModule();
 
-        //$this->_helper->authenticate();
-        ///$this->_helper->validateSiteId();
+        $this->_helper->authenticate();
 
         $session_dlayer = new Dlayer_Session();
 
-        //$this->site_id = $session_dlayer->siteId();
+        $this->site_id = $session_dlayer->siteId();;
     }
 
     /**
@@ -55,6 +54,8 @@ class Form_IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+        $this->view->forms = array();
+
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Form Builder');
     }

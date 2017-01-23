@@ -75,9 +75,9 @@ class Content_DesignController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_helper->authenticate();
+        $this->_helper->validateModule();
 
-        $this->_helper->setModule();
+        $this->_helper->authenticate();
 
         $this->_helper->validateSiteId();
 
