@@ -20,10 +20,17 @@ class Dlayer_DesignerTool_ContentManager_Text_Ribbon extends Dlayer_Ribbon_Conte
 	{
 		$this->tool = $tool;
 
+		$this->contentData();
+		$this->previewData();
+
 		return array(
-			'form' => new Dlayer_DesignerTool_ContentManager_Text_Form($tool, $this->contentData(),
-				$this->instancesOfData(), array()),
-            'preview' => $this->previewData()
+			'form' => new Dlayer_DesignerTool_ContentManager_Text_Form(
+			    $tool,
+                $this->content_data,
+				$this->instancesOfData(),
+                array()
+            ),
+            'preview' => $this->preview_data
 		);
 	}
 
@@ -31,27 +38,27 @@ class Dlayer_DesignerTool_ContentManager_Text_Ribbon extends Dlayer_Ribbon_Conte
 	 * Fetch the existing data for the content item, always returns  a data array, if not in edit mode the values will
 	 * all be FALSE
 	 *
-	 * @return array
+	 * @return void
 	 */
 	protected function contentData()
 	{
-		$data = array(
-			'name' => FALSE,
-			'content' => FALSE
-		);
+	    if ($this->content_fetched === false) {
+            $this->content_data = array(
+                'name' => false,
+                'content' => false
+            );
 
-		if($this->tool['content_id'] !== NULL)
-		{
-			$model_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
-			$existing_data = $model_text->existingData($this->tool['site_id'], $this->tool['content_id']);
-			if($existing_data !== FALSE)
-			{
-				$data['name'] = $existing_data['name'];
-				$data['content'] = $existing_data['content'];
-			}
-		}
+            if ($this->tool['content_id'] !== null) {
+                $model_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
+                $existing_data = $model_text->existingData($this->tool['site_id'], $this->tool['content_id']);
+                if ($existing_data !== false) {
+                    $this->content_data['name'] = $existing_data['name'];
+                    $this->content_data['content'] = $existing_data['content'];
+                }
+            }
 
-		return $data;
+            $this->content_fetched = true;
+        }
 	}
 
 	/**
@@ -75,16 +82,18 @@ class Dlayer_DesignerTool_ContentManager_Text_Ribbon extends Dlayer_Ribbon_Conte
     /**
      * Fetch the data required by the preview functions
      *
-     * @return array
+     * @return void
      */
     protected function previewData()
     {
-        $data = $this->contentData();
+        if ($this->preview_data_fetched === false) {
+            $this->contentData();
 
-        $this->preview_data = array(
-            'text' => $data['content']
-        );
+            $this->preview_data = array(
+                'text' => $this->content_data['content']
+            );
 
-        return $this->preview_data;
+            $this->preview_data_fetched = true;
+        }
     }
 }

@@ -21,9 +21,16 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
 	{
 		$this->tool = $tool;
 
+		$this->contentData();
+		$this->previewData();
+
 		return array(
-			'form' => new Dlayer_DesignerTool_ContentManager_Jumbotron_Form($tool, $this->contentData(),
-				$this->instancesOfData(), array()),
+			'form' => new Dlayer_DesignerTool_ContentManager_Jumbotron_Form(
+			    $tool,
+                $this->content_data,
+				$this->instancesOfData(),
+                array()
+            ),
             'preview' => $this->previewData()
 		);
 	}
@@ -32,47 +39,46 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
 	 * Fetch the existing data for the content item, if in edit mode mode populate the values otherwise every value is
 	 * set to FALSE, the tool form can simply check to see if the value is FALSE or not and then set the existing value
 	 *
-	 * @return array
+	 * @return void
 	 */
 	protected function contentData()
 	{
-		$data = array(
-			'name' => FALSE,
-			'title' => FALSE,
-			'intro' => FALSE,
-			'button_label' => FALSE
-		);
+	    if ($this->content_fetched === false) {
+            $this->content_data = array(
+                'name' => false,
+                'title' => false,
+                'intro' => false,
+                'button_label' => false
+            );
 
-		if($this->tool['content_id'] !== FALSE)
-		{
-			$model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
-			$existing_data = $model_jumbotron->existingData($this->tool['site_id'], $this->tool['content_id']);
+            if ($this->tool['content_id'] !== false) {
+                $model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
+                $existing_data = $model_jumbotron->existingData($this->tool['site_id'], $this->tool['content_id']);
 
-			if($existing_data !== FALSE)
-			{
-				$title = FALSE;
-				$intro = FALSE;
-				$content_bits = explode(Dlayer_Config::CONTENT_DELIMITER, $existing_data['content']);
-				switch(count($content_bits))
-				{
-					case 2:
-						$title = $content_bits[0];
-						$intro = $content_bits[1];
-					break;
+                if ($existing_data !== false) {
+                    $title = false;
+                    $intro = false;
+                    $content_bits = explode(Dlayer_Config::CONTENT_DELIMITER, $existing_data['content']);
+                    switch (count($content_bits)) {
+                        case 2:
+                            $title = $content_bits[0];
+                            $intro = $content_bits[1];
+                            break;
 
-					case 1:
-						$title = $content_bits[0];
-					break;
-				}
+                        case 1:
+                            $title = $content_bits[0];
+                            break;
+                    }
 
-				$data['name'] = $existing_data['name'];
-				$data['title'] = $title;
-				$data['intro'] = $intro;
-				$data['button_label'] = $existing_data['button_label'];
-			}
-		}
+                    $this->content_data['name'] = $existing_data['name'];
+                    $this->content_data['title'] = $title;
+                    $this->content_data['intro'] = $intro;
+                    $this->content_data['button_label'] = $existing_data['button_label'];
+                }
+            }
 
-		return $data;
+            $this->content_fetched = true;
+        }
 	}
 
 	/**
@@ -96,17 +102,19 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
     /**
      * Fetch the data required by the preview functions
      *
-     * @return array
+     * @return void
      */
     protected function previewData()
     {
-        $data = $this->contentData();
+        if ($this->preview_data_fetched === false) {
+            $this->contentData();
 
-        $this->preview_data = array(
-            'title' => $data['title'],
-            'intro' => $data['intro']
-        );
+            $this->preview_data = array(
+                'title' => $this->content_data['title'],
+                'intro' => $this->content_data['intro']
+            );
 
-        return $this->preview_data;
+            $this->preview_data_fetched = true;
+        }
     }
 }

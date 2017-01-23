@@ -21,9 +21,16 @@ class Dlayer_DesignerTool_ContentManager_Image_Ribbon extends Dlayer_Ribbon_Cont
 	{
 		$this->tool = $tool;
 
+		$this->contentData();
+
 		return array(
-			'form' => new Dlayer_DesignerTool_ContentManager_Image_Form($tool, $this->contentData(),
-				$this->instancesOfData(), array()), 'image' => $this->selectedImage()
+			'form' => new Dlayer_DesignerTool_ContentManager_Image_Form(
+			    $tool,
+                $this->content_data,
+				$this->instancesOfData(),
+                array()
+            ),
+            'image' => $this->selectedImage()
 		);
 	}
 
@@ -31,30 +38,28 @@ class Dlayer_DesignerTool_ContentManager_Image_Ribbon extends Dlayer_Ribbon_Cont
 	 * Fetch the data array for the content item, if in edit mode mode populate the values otherwise every value is
 	 * set to FALSE, the tool form can simply check to see if the value is FALSe or not and then set the existing value
 	 *
-	 * @return array
+	 * @return void
 	 */
 	protected function contentData()
 	{
-		$data = array(
-			'version_id' => FALSE,
-			'expand' => FALSE,
-			'caption' => FALSE
-		);
+	    if ($this->content_fetched === false) {
+            $this->content_data = array(
+                'version_id' => false,
+                'expand' => false,
+                'caption' => false
+            );
 
-		if($this->tool['content_id'] !== FALSE)
-		{
-			$model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
-			$existing_data = $model_image->existingData($this->tool['site_id'], $this->tool['content_id']);
+            if ($this->tool['content_id'] !== false) {
+                $model_image = new Dlayer_DesignerTool_ContentManager_Image_Model();
+                $existing_data = $model_image->existingData($this->tool['site_id'], $this->tool['content_id']);
 
-			if($existing_data !== FALSE)
-			{
-				$data['version_id'] = intval($existing_data['version_id']);
-				$data['expand'] = intval($existing_data['expand']);
-				$data['caption'] = $existing_data['caption'];
-			}
-		}
-
-		return $data;
+                if ($existing_data !== false) {
+                    $this->content_data['version_id'] = intval($existing_data['version_id']);
+                    $this->content_data['expand'] = intval($existing_data['expand']);
+                    $this->content_data['caption'] = $existing_data['caption'];
+                }
+            }
+        }
 	}
 
 	/**

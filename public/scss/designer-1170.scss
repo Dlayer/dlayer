@@ -149,8 +149,15 @@ div#designer {
 			}
 		}
 
+        .nav-tabs {
+            border: none;
+        }
+
 		div.content {
 			display: none;
+			background-color: #f8f8f8;
+			border-radius: 10px;
+			border: 1px solid #ddd;
 
 			p.unsaved {
 				display: none;
