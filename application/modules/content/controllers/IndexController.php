@@ -34,7 +34,7 @@ class Content_IndexController extends Zend_Controller_Action
             'name' => 'Dlayer Demo',
             'title' => 'Dlayer.com: Web development simplified'
         ),
-        array('uri' => '/content/index/index', 'name' => 'Content manager', 'title' => 'Content manager'),
+        array('uri' => '/content/index/index', 'name' => 'Content Manager', 'title' => 'Content Manager'),
         array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
     );
 
@@ -77,7 +77,7 @@ class Content_IndexController extends Zend_Controller_Action
         $this->view->page_id = $this->session_content->pageId();
 
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
-            array(), 'Dlayer.com - Content manager');
+            array(), 'Dlayer.com - Content Manager');
     }
 
     /**

@@ -45,35 +45,7 @@ class Dlayer_Session extends Zend_Session_Namespace
     {
         return $this->site_id;
     }
-    
-    /**
-    * Set the module. 
-    * 
-    * Module is passed to the session so that later calls can simple pull a 
-    * module name knowing it is valid for the request and of the correct status, 
-    * typically enabled. Reduces the need to check the request object and make 
-    * additional calls to the database
-    * 
-    * @param string $module
-    * @return void
-    */
-    public function setModule($module) 
-    {
-		$this->module = $module;
-    }
-    
-    /**
-    * Get the current module, we can assume it will have already have been 
-    * validated earlier in the request, this way we can just use the value 
-    * for limiting queries
-    * 
-    * @return string
-    */
-    public function module() 
-    {
-		return $this->module;
-    }
-    
+
     /**
     * Set the identity id
     * 

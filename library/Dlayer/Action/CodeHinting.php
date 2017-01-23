@@ -78,16 +78,14 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 	{
 	}
 
-	/**
-	 * Validate that a form id is set and valid, it needs to belong to the
-	 * site id in the session. If for some reason the form id is not valid the
-	 * user will be returned to the home page
-	 *
-	 * @return Dlayer_Action_ValidateFormId
-	 */
-	public function validateFormId()
-	{
-	}
+    /**
+     * Validate the module, check that the module is active in the database, should be the first action helper called
+     *
+     * @return Dlayer_Action_ValidateModule
+     */
+    public function validateModule()
+    {
+    }
 
 	/**
 	 * Authenticate the request, checks that the user is logged in, there will
