@@ -21,10 +21,16 @@ class Dlayer_DesignerTool_ContentManager_Heading_Ribbon extends Dlayer_Ribbon_Co
 	{
 		$this->tool = $tool;
 
+		$this->contentData();
+		$this->previewData();
+
 		return array(
-			'form' => new Dlayer_DesignerTool_ContentManager_Heading_Form($tool, $this->contentData(), $this->instancesOfData(),
+			'form' => new Dlayer_DesignerTool_ContentManager_Heading_Form(
+			    $tool,
+                $this->content_data,
+                $this->instancesOfData(),
 				$this->elementData()),
-            'preview' => $this->previewData()
+            'preview' => $this->preview_data
 		);
 	}
 
@@ -52,47 +58,46 @@ class Dlayer_DesignerTool_ContentManager_Heading_Ribbon extends Dlayer_Ribbon_Co
 	 * Fetch the data array for the content item, if in edit mode mode populate the values otherwise every value is
 	 * set to FALSE, the tool form can simply check to see if the value is FALSe or not and then set the existing value
 	 *
-	 * @return array
+	 * @return void
 	 */
 	protected function contentData()
 	{
-		$data = array(
-			'name' => FALSE,
-			'heading' => FALSE,
-			'sub_heading' => FALSE,
-			'heading_type' => FALSE
-		);
+	    if ($this->content_fetched === false) {
+            $this->content_data = array(
+                'name' => false,
+                'heading' => false,
+                'sub_heading' => false,
+                'heading_type' => false
+            );
 
-		if($this->tool['content_id'] !== NULL)
-		{
-			$model_heading = new Dlayer_DesignerTool_ContentManager_Heading_Model();
-			$existing_data = $model_heading->existingData($this->tool['site_id'], $this->tool['content_id']);
+            if ($this->tool['content_id'] !== null) {
+                $model_heading = new Dlayer_DesignerTool_ContentManager_Heading_Model();
+                $existing_data = $model_heading->existingData($this->tool['site_id'], $this->tool['content_id']);
 
-			if($existing_data !== FALSE)
-			{
-				$heading = FALSE;
-				$sub_heading = FALSE;
-				$content_bits = explode(Dlayer_Config::CONTENT_DELIMITER, $existing_data['content']);
-				switch(count($content_bits))
-				{
-					case 2:
-						$heading = $content_bits[0];
-						$sub_heading = $content_bits[1];
-					break;
+                if ($existing_data !== false) {
+                    $heading = false;
+                    $sub_heading = false;
+                    $content_bits = explode(Dlayer_Config::CONTENT_DELIMITER, $existing_data['content']);
+                    switch (count($content_bits)) {
+                        case 2:
+                            $heading = $content_bits[0];
+                            $sub_heading = $content_bits[1];
+                            break;
 
-					case 1:
-						$heading = $content_bits[0];
-					break;
-				}
+                        case 1:
+                            $heading = $content_bits[0];
+                            break;
+                    }
 
-				$data['name'] = $existing_data['name'];
-				$data['heading'] = $heading;
-				$data['sub_heading'] = $sub_heading;
-				$data['heading_type'] = intval($existing_data['heading_id']);
-			}
-		}
+                    $this->content_data['name'] = $existing_data['name'];
+                    $this->content_data['heading'] = $heading;
+                    $this->content_data['sub_heading'] = $sub_heading;
+                    $this->content_data['heading_type'] = intval($existing_data['heading_id']);
+                }
+            }
 
-		return $data;
+            $this->content_fetched = true;
+        }
 	}
 
 	/**
@@ -116,17 +121,20 @@ class Dlayer_DesignerTool_ContentManager_Heading_Ribbon extends Dlayer_Ribbon_Co
     /**
      * Fetch the data required by the preview functions
      *
-     * @return array
+     * @return void
      */
     protected function previewData()
     {
-        $data = $this->contentData();
+        if ($this->preview_data_fetched === false) {
 
-        $this->preview_data = array(
-            'title' => $data['heading'],
-            'subtitle' => $data['sub_heading']
-        );
+            $this->contentData();
 
-        return $this->preview_data;
+            $this->preview_data = array(
+                'title' => $this->content_data['heading'],
+                'subtitle' => $this->content_data['sub_heading']
+            );
+
+            $this->preview_data_fetched = true;
+        }
     }
 }

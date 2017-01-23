@@ -20,9 +20,15 @@ class Dlayer_DesignerTool_ContentManager_Html_Ribbon extends Dlayer_Ribbon_Conte
     {
         $this->tool = $tool;
 
+        $this->contentData();
+
         return array(
-            'form' => new Dlayer_DesignerTool_ContentManager_Html_Form($tool, $this->contentData(),
-                $this->instancesOfData(), array())
+            'form' => new Dlayer_DesignerTool_ContentManager_Html_Form(
+                $tool,
+                $this->content_data,
+                $this->instancesOfData(),
+                array()
+            )
         );
     }
 
@@ -30,27 +36,27 @@ class Dlayer_DesignerTool_ContentManager_Html_Ribbon extends Dlayer_Ribbon_Conte
      * Fetch the existing data for the content item, always returns  a data array, if not in edit mode the values will
      * all be FALSE
      *
-     * @return array
+     * @return void
      */
     protected function contentData()
     {
-        $data = array(
-            'name' => FALSE,
-            'content' => FALSE
-        );
+        if ($this->content_fetched === false) {
+            $this->content_data = array(
+                'name' => false,
+                'content' => false
+            );
 
-        if($this->tool['content_id'] !== NULL)
-        {
-            $model = new Dlayer_DesignerTool_ContentManager_Html_Model();
-            $existing_data = $model->existingData($this->tool['site_id'], $this->tool['content_id']);
-            if($existing_data !== FALSE)
-            {
-                $data['name'] = $existing_data['name'];
-                $data['content'] = $existing_data['content'];
+            if ($this->tool['content_id'] !== null) {
+                $model = new Dlayer_DesignerTool_ContentManager_Html_Model();
+                $existing_data = $model->existingData($this->tool['site_id'], $this->tool['content_id']);
+                if ($existing_data !== false) {
+                    $this->content_data['name'] = $existing_data['name'];
+                    $this->content_data['content'] = $existing_data['content'];
+                }
             }
-        }
 
-        return $data;
+            $this->content_fetched = true;
+        }
     }
 
     /**
