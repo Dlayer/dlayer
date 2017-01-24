@@ -106,4 +106,24 @@ class Form_AdminController extends Zend_Controller_Action
             }
         }
     }
+
+    /**
+     * Activate the selected form, cleans the session and set the new form id
+     *
+     * @return void
+     */
+    public function activateAction()
+    {
+        $this->_helper->disableLayout(false);
+
+        $model = new Dlayer_Model_Form();
+        $form_id = Dlayer_Helper::getParamAsInteger('id');
+
+        if ($form_id !== null && $model->valid($this->site_id, $form_id) === true) {
+            $this->session->clearAll();
+            $this->session->setFormId($form_id);
+        }
+
+        $this->redirect('/form');
+    }
 }

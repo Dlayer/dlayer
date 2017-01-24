@@ -22,12 +22,16 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
         $sql = "SELECT 
                     `user_site_form`.`id`, 
                     `user_site_form`.`name`,
-                    `user_site_form_layout`.`title`
+                    `user_site_form_layout`.`title`, 
+                    `designer_form_layout`.`layout`
 				FROM 
 				    `user_site_form` 
                 INNER JOIN 
                     `user_site_form_layout` ON 
-                        `user_site_form`.`id` = `user_site_form_layout`.`form_id`
+                        `user_site_form`.`id` = `user_site_form_layout`.`form_id`  
+                INNER JOIN 
+                    `designer_form_layout` ON 
+                        `user_site_form_layout`.`layout_id` = `designer_form_layout`.`id`
 				WHERE 
 				    `user_site_form`.`site_id` = :site_id
 				ORDER BY 
@@ -238,6 +242,36 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
             } else {
                 return false;
             }
+        }
+    }
+
+    /**
+     * Check to see if the given id is valid
+     *
+     * @param integer $site_id
+     * @param integer $id
+     *
+     * @return boolean
+     */
+    public function valid($site_id, $id) {
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `user_site_form`
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `id` = :form_id 
+                LIMIT 
+                    1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if ($stmt->fetch() !== false) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
