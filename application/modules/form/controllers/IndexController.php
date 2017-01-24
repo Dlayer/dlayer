@@ -16,7 +16,15 @@ class Form_IndexController extends Zend_Controller_Action
      */
     protected $_helper;
 
+    /**
+     * @var integer
+     */
     private $site_id;
+
+    /**
+     * @var Dlayer_Session_Form
+     */
+    private $session;
 
     /**
      * @var array Nav bar items
@@ -44,7 +52,8 @@ class Form_IndexController extends Zend_Controller_Action
 
         $session_dlayer = new Dlayer_Session();
 
-        $this->site_id = $session_dlayer->siteId();;
+        $this->site_id = $session_dlayer->siteId();
+        $this->session = new Dlayer_Session_Form();
     }
 
     /**
@@ -59,6 +68,7 @@ class Form_IndexController extends Zend_Controller_Action
 
         $this->view->forms = $model_forms->forms($this->site_id);
         $this->view->site = $model_sites->site($this->site_id);
+        $this->view->form_id = $this->session->formId();
 
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Form Builder');

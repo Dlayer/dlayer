@@ -21,6 +21,11 @@ class Form_AdminController extends Zend_Controller_Action
     private $form;
 
     /**
+     * @var Dlayer_Session_Form
+     */
+    private $session;
+
+    /**
      * @var array Nav bar items
      */
     private $nav_bar_items = array(
@@ -29,8 +34,16 @@ class Form_AdminController extends Zend_Controller_Action
             'name' => 'Dlayer Demo',
             'title' => 'Dlayer.com: Web development simplified'
         ),
-        array('uri' => '/form/index/index', 'name' => 'Form Builder', 'title' => 'Form Builder'),
-        array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
+        array(
+            'uri' => '/form/index/index',
+            'name' => 'Form Builder',
+            'title' => 'Form Builder'
+        ),
+        array(
+            'uri' => 'http://www.dlayer.com/docs/',
+            'name' => 'Docs',
+            'title' => 'Read the Docs for Dlayer'
+        )
     );
 
     /**
@@ -46,7 +59,8 @@ class Form_AdminController extends Zend_Controller_Action
 
         $session_dlayer = new Dlayer_Session();
 
-        $this->site_id = $session_dlayer->siteId();;
+        $this->site_id = $session_dlayer->siteId();
+        $this->session = new Dlayer_Session_Form();
     }
 
     /**
@@ -86,18 +100,10 @@ class Form_AdminController extends Zend_Controller_Action
             $form_id = $model_form->saveForm($this->site_id, $post['name'], $post['title']);
 
             if ($form_id !== false) {
+                $this->session->clearAll(true);
+                $this->session->setFormId($form_id);
                 $this->redirect('/form');
             }
-
-
-            /*$model_pages = new Dlayer_Model_Page();
-            $page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description']);
-
-            if ($page_id !== false) {
-                $this->session_content->clearAll(true);
-                $this->session_content->setPageId($page_id);
-                $this->redirect('/content');
-            }*/
         }
     }
 }
