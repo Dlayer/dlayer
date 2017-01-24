@@ -1,0 +1,30 @@
+<?php /** @var $this Dlayer_View_Codehinting */?>
+
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <h1>Form Builder <small>Quickly and easily build forms</span></small></h1>
+
+        <h2><span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></h2>
+
+        <h3>Quick introduction</h3>
+
+        <p>Using the Form Builder, you can build and design forms; these can be placed directly in the Content
+            Manager and Template designer or used to create widgets. </p>
+
+        <p>Forms are typically used to gather information or to control a visitors flow through your website.</p>
+
+        <p class="lead">You can add a new form to your web site by completing the form below:</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <?php echo $this->form; ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-xs-12 further-reading">
+        <?php echo $this->furtherReading(null, true); ?>
+    </div>
+</div>
