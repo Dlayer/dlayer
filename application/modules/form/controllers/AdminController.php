@@ -58,10 +58,46 @@ class Form_AdminController extends Zend_Controller_Action
     {
         $model_sites = new Dlayer_Model_Site();
 
-        $this->view->form = new Dlayer_Form_Site_Form('/form/admin/new', $this->site_id);
+        $this->form = new Dlayer_Form_Site_Form('/form/admin/new', $this->site_id);
+
+        if ($this->getRequest()->isPost()) {
+            $this->processAddForm();
+        }
+
+        $this->view->form = $this->form;
         $this->view->site = $model_sites->site($this->site_id);
 
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Form Builder: New form');
+    }
+
+    /**
+     * Validate for new form data and if successful add the form and redirect the user after activating the form
+     *
+     * @return void
+     */
+    private function processAddForm()
+    {
+        $post = $this->getRequest()->getPost();
+
+        if ($this->form->isValid($post)) {
+
+            $model_form = new Dlayer_Model_Form();
+            $form_id = $model_form->saveForm($this->site_id, $post['name'], $post['title']);
+
+            if ($form_id !== false) {
+                $this->redirect('/form');
+            }
+
+
+            /*$model_pages = new Dlayer_Model_Page();
+            $page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description']);
+
+            if ($page_id !== false) {
+                $this->session_content->clearAll(true);
+                $this->session_content->setPageId($page_id);
+                $this->redirect('/content');
+            }*/
+        }
     }
 }
