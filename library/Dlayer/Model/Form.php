@@ -51,14 +51,17 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
     {
         $where = null;
 
-        if ($id != null) {
+        if ($id !== null) {
             $where = 'AND id != :form_id ';
         }
 
-        $sql = 'SELECT id
-				FROM user_site_form
-				WHERE UPPER(`name`) = :name
-				AND site_id = :site_id ';
+        $sql = 'SELECT 
+                    `id`
+				FROM 
+				    `user_site_form`
+				WHERE 
+				    UPPER(`name`) = :name AND 
+				    `site_id` = :site_id ';
         $sql .= $where;
         $sql .= 'LIMIT 1';
         $stmt = $this->_db->prepare($sql);
@@ -71,7 +74,7 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 
         $result = $stmt->fetch();
 
-        if ($result == false) {
+        if ($result === false) {
             return true;
         } else {
             return false;

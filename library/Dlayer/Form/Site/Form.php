@@ -130,8 +130,8 @@ class Dlayer_Form_Site_Form extends Dlayer_Form_Module_App
      */
     protected function validationRules()
     {
-        /*$this->elements['name']->addValidator(
-            new Dlayer_Validate_PageNameUnique($this->site_id, $this->page_id)
-        );*/
+        $this->elements['name']->addValidator(
+            new Dlayer_Validate_FormNameUnique($this->site_id, $this->form_id)
+        );
     }
 }
