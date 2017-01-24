@@ -55,8 +55,9 @@ class Form_IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         $model_sites = new Dlayer_Model_Site();
+        $model_forms = new Dlayer_Model_Form();
 
-        $this->view->forms = array();
+        $this->view->forms = $model_forms->forms($this->site_id);
         $this->view->site = $model_sites->site($this->site_id);
 
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),

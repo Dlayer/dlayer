@@ -14,20 +14,24 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
     /**
      * Fetch all the forms that have been defined for the requested site.
      *
-     * Initially a user will have 2 sample sites which will contain sample
-     * forms, when a new site is created from scracth there will be no
-     * forms, it is therefore entirely possible that there will be no forms for
-     * the requested site
-     *
      * @param integer $site_id
      * @return array Array of the forms for the site
      */
     public function forms($site_id)
     {
-        $sql = "SELECT id, `name`
-				FROM user_site_form
-				WHERE site_id = :site_id
-				ORDER BY `name` ASC";
+        $sql = "SELECT 
+                    `user_site_form`.`id`, 
+                    `user_site_form`.`name`,
+                    `user_site_form_layout`.`title`
+				FROM 
+				    `user_site_form` 
+                INNER JOIN 
+                    `user_site_form_layout` ON 
+                        `user_site_form`.`id` = `user_site_form_layout`.`form_id`
+				WHERE 
+				    `user_site_form`.`site_id` = :site_id
+				ORDER BY 
+				    `user_site_form`.`name` ASC";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->execute();
