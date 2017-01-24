@@ -56,9 +56,12 @@ class Form_AdminController extends Zend_Controller_Action
      */
     public function newAction()
     {
-        $this->view->forms = array();
+        $model_sites = new Dlayer_Model_Site();
 
-        $this->_helper->setLayoutProperties($this->nav_bar_items, '/form/admin/index', array('css/dlayer.css'),
+        $this->view->form = new Dlayer_Form_Site_Form('/form/admin/new', $this->site_id);
+        $this->view->site = $model_sites->site($this->site_id);
+
+        $this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Form Builder: New form');
     }
 }
