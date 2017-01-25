@@ -61,4 +61,14 @@ class Dlayer_Session_Form extends Zend_Session_Namespace
             $this->form_id = null;
         }
     }
+
+    /**
+     * Clear the currently set field id, set field_id to NULL
+     *
+     * @return void
+     */
+    public function clearFieldId()
+    {
+        $this->field_id = null;
+    }
 }

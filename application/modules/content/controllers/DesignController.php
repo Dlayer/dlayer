@@ -97,7 +97,7 @@ class Content_DesignController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->_helper->setLayout('designer');
+        $this->_helper->setLayout('content-manager');
 
         /**
          * Auto select the page if not selected, better UX as there is only one page per designer
