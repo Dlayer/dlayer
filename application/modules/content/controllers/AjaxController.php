@@ -36,11 +36,11 @@ class Content_AjaxController extends Zend_Controller_Action
 	*/
 	public function init()
 	{
+        $this->_helper->validateModule();
+
 		$this->_helper->authenticate();
 
 		$this->_helper->disableLayout(FALSE);
-
-		$this->_helper->setModule();
 
 		$this->_helper->validateSiteId();
 

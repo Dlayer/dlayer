@@ -156,7 +156,7 @@ div#designer {
 		div.content {
 			display: none;
 			background-color: #f8f8f8;
-			border-radius: 10px;
+			border-radius: 5px;
 			border: 1px solid #ddd;
 
 			p.unsaved {
@@ -180,6 +180,10 @@ div#designer {
             
             .further-reading {
                 padding-bottom: 2em;
+
+                div.well {
+                    background-color: #FFFFFF;
+                }
             }
 
 			a {

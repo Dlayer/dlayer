@@ -10,13 +10,19 @@
 
 /* Content */
 ul.listing {
-	li {
-		padding: 0.3em 0;
+	& > li {
+		padding-bottom: 0.5em;
 	}
 }
 
 .further-reading {
 	padding-top: 1em;
+
+    div.well {
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        background-color: #f8f8f8;
+    }
 }
 
 p.dev-note {
@@ -47,5 +53,15 @@ fieldset {
 			font-weight: normal;
 			font-size: 12px;
 		}
+	}
+}
+
+div.admin-form {
+    margin: 1em 0;
+	form {
+		background-color: #f8f8f8;
+		padding: 1em;
+		border: 1px solid #ddd;
+		border-radius: 5px;
 	}
 }

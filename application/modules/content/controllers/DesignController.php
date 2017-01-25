@@ -64,7 +64,7 @@ class Content_DesignController extends Zend_Controller_Action
             'name' => 'Dlayer Demo',
             'title' => 'Dlayer.com: Web development simplified'
         ),
-        array('uri' => '/content/index/index', 'name' => 'Content manager', 'title' => 'Content manager'),
+        array('uri' => '/content/index/index', 'name' => 'Content Manager', 'title' => 'Content Manager'),
         array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
     );
 
@@ -75,9 +75,9 @@ class Content_DesignController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_helper->authenticate();
+        $this->_helper->validateModule();
 
-        $this->_helper->setModule();
+        $this->_helper->authenticate();
 
         $this->_helper->validateSiteId();
 
@@ -131,7 +131,7 @@ class Content_DesignController extends Zend_Controller_Action
                 'scripts/content-manager.js',
                 'scripts/preview-content-manager.js'
             ),
-            'Dlayer.com - Content manager', '/content/design/preview');
+            'Dlayer.com - Content Manager', '/content/design/preview');
     }
 
     /**

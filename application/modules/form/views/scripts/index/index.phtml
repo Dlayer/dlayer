@@ -1,0 +1,60 @@
+<?php /** @var Dlayer_View_Codehinting */ $this; ?>
+
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		<h1>Form Builder <small>Quickly and easily build forms</small></h1>
+
+        <h2><span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></h2>
+
+		<h3>Quick introduction</h3>
+
+        <p>Using the Form Builder, you can build and design forms; these can be placed directly in the Content
+            Manager and Template Designer or used to create widgets. </p>
+
+        <p>Forms are typically used to gather information or to control a visitors flow through your website.</p>
+
+        <?php if (count($this->forms) > 0) { ?>
+        <h3>Form <small>Select a form from the list below</small></h3>
+
+        <ul class="listing">
+            <?php foreach($this->forms as $form) { ?>
+                <?php if($form['id'] == $this->form_id) { ?>
+                    <li>
+                        <button type="button" class="btn btn-info btn-xs">
+                            <?php echo $this->escape($form['name']); ?>
+                        </button>
+                        <a href="/form/design/" class="btn btn-default btn-xs disabled" disabled="disabled">Design</a>
+                        <a href="/form/admin/edit" class="btn btn-default btn-xs">Edit</a>
+                        <a href="#" class="btn btn-default btn-xs disabled" disabled="disabled">Copy</a>
+                        <span class="label label-success">Selected</span>
+                        <ul class="list-unstyled small">
+                            <li><strong>Title:</strong> <?php echo $this->escape($form['title']); ?></li>
+                            <li><strong>Layout:</strong> <?php echo $this->escape($form['layout']); ?></li>
+                        </ul>
+                    </li>
+                <?php } else { ?>
+                    <li>
+                        <a href="/form/admin/activate/id/<?php echo $this->escape($form['id']); ?>"
+                           class="btn btn-default btn-xs">
+                            <?php echo $this->escape($form['name']); ?> </a>
+                        <ul class="list-unstyled small">
+                            <li><strong>Title:</strong> <?php echo $this->escape($form['title']); ?></li>
+                            <li><strong>Layout:</strong> <?php echo $this->escape($form['layout']); ?></li>
+                        </ul>
+                    </li>
+                <?php } ?>
+            <?php } ?>
+            <li><a href="/form/admin/new" class="btn btn-primary btn-sm">New form</a></li>
+        </ul>
+        <?php } else { ?>
+        <p class="lead">You haven't created any forms for this website, start <a href="/form/admin/new">here</a> to build a form.</p>
+        <?php } ?>
+
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12 col-xs-12 further-reading">
+        <?php echo $this->furtherReading(null, true); ?>
+	</div>
+</div>

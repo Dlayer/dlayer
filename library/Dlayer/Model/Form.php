@@ -1,221 +1,306 @@
 <?php
+
 /**
-* Using the Form builder the user is able to create forms which can be placed
-* withing templates, content pages or widgets using the respective designer
-*
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-* @category Model
-*/
+ * Using the Form builder the user is able to create forms which can be placed
+ * withing templates, content pages or widgets using the respective designer
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ * @category Model
+ */
 class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 {
-	/**
-	* Check to see if the given form id is valid and belongs to the current 
-	* site.
-	*
-	* @param integer $form_id
-	* @param integer $site_id
-	* @return boolean TRUE if the form is valid
-	*/
-	public function valid($form_id, $site_id)
-	{
-		$sql = "SELECT id
-				FROM user_site_form
-				WHERE site_id = :site_id
-				AND id = :form_id";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
-		$stmt->execute();
+    /**
+     * Fetch all the forms that have been defined for the requested site.
+     *
+     * @param integer $site_id
+     * @return array Array of the forms for the site
+     */
+    public function forms($site_id)
+    {
+        $sql = "SELECT 
+                    `user_site_form`.`id`, 
+                    `user_site_form`.`name`,
+                    `user_site_form_layout`.`title`, 
+                    `designer_form_layout`.`layout`
+				FROM 
+				    `user_site_form` 
+                INNER JOIN 
+                    `user_site_form_layout` ON 
+                        `user_site_form`.`id` = `user_site_form_layout`.`form_id`  
+                INNER JOIN 
+                    `designer_form_layout` ON 
+                        `user_site_form_layout`.`layout_id` = `designer_form_layout`.`id`
+				WHERE 
+				    `user_site_form`.`site_id` = :site_id
+				ORDER BY 
+				    `user_site_form`.`name` ASC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->execute();
 
-		$result = $stmt->fetch();
+        return $stmt->fetchAll();
+    }
 
-		if($result != FALSE) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
+    /**
+     * Fetch the requested form
+     *
+     * @param integer $site_id
+     * @param integer $id
+     * @return array|false
+     */
+    public function form($site_id, $id)
+    {
+        $sql = "SELECT 
+                    `user_site_form`.`name`,
+                    `user_site_form_layout`.`title` 
+				FROM 
+				    `user_site_form` 
+                INNER JOIN 
+                    `user_site_form_layout` ON 
+                        `user_site_form`.`id` = `user_site_form_layout`.`form_id`  
+				WHERE 
+				    `user_site_form`.`site_id` = :site_id AND 
+				    `user_site_form`.`id` = :form_id 
+                LIMIT 
+                    1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
 
-	/**
-	* Fetch all the forms that have been defined for the requested site.
-	*
-	* Initially a user will have 2 sample sites which will contain sample
-	* forms, when a new site is created from scracth there will be no
-	* forms, it is therefore entirely possible that there will be no forms for
-	* the requested site
-	*
-	* @param integer $site_id
-	* @return array Array of the forms for the site
-	*/
-	public function forms($site_id)
-	{
-		$sql = "SELECT id, `name`
-				FROM user_site_form
-				WHERE site_id = :site_id
-				ORDER BY `name` ASC";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->execute();
+        return $stmt->fetch();
+    }
 
-		return $stmt->fetchAll();
-	}
+    /**
+     * Check to see if the supplied form name is unique for the site
+     *
+     * @param string $name Name for form
+     * @param integer $site_id Id of the site the form belongs to
+     * @param integer|NULL $id Id of form to exclude from query
+     * @return boolean
+     */
+    public function nameUnique($name, $site_id, $id = null)
+    {
+        $where = null;
 
-	/**
-	 * Check to see if the supplied form name is unique for the site
-	 *
-	 * @param string $name Name for form
-	 * @param integer $site_id Id of the site the form belongs to
-	 * @param integer|NULL $id Id of form to exclude from query
-	 * @return boolean
-	 */
-	public function nameUnique($name, $site_id, $id=NULL)
-	{
-		$where = NULL;
+        if ($id !== null) {
+            $where = 'AND id != :form_id ';
+        }
 
-		if($id != NULL)
-		{
-			$where = 'AND id != :form_id ';
-		}
+        $sql = 'SELECT 
+                    `id`
+				FROM 
+				    `user_site_form`
+				WHERE 
+				    UPPER(`name`) = :name AND 
+				    `site_id` = :site_id ';
+        $sql .= $where;
+        $sql .= 'LIMIT 1';
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':name', strtoupper($name), PDO::PARAM_STR);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        if ($id != null) {
+            $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
+        }
+        $stmt->execute();
 
-		$sql = 'SELECT id
-				FROM user_site_form
-				WHERE UPPER(`name`) = :name
-				AND site_id = :site_id ';
-		$sql .= $where;
-		$sql .= 'LIMIT 1';
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':name', strtoupper($name), PDO::PARAM_STR);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		if($id != NULL)
-		{
-			$stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
-		}
-		$stmt->execute();
+        $result = $stmt->fetch();
 
-		$result = $stmt->fetch();
+        if ($result === false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-		if($result == FALSE)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	/**
-	 * Insert a new form record
-	 *
-	 * @param integer $site_id Site the form belongs to
-	 * @param string $name Name of the form within Dlayer
-	 * @param string $email Email address for copy of submissions
-	 * @param string $title Title/legend for form
-	 * @param string|NULL $sub_title Sub title/legend
-	 * @return integer|FALSE Either the id of the new page or FALSE upon failure
-	 */
-	private function addForm($site_id, $name, $email, $title, $sub_title)
-	{
-		$sql = "INSERT INTO user_site_form 
-				(site_id, `name`, email) 
+    /**
+     * Add a new form to Dlayer
+     *
+     * @param integer $site_id Site the form belongs to
+     * @param string $name Name of the form within Dlayer
+     * @param string $title Title for form
+     *
+     * @return integer|false Either the id of the new form of false upon failure
+     */
+    private function addForm($site_id, $name, $title)
+    {
+        $sql = "INSERT INTO `user_site_form` 
+				(
+				    `site_id`, 
+				    `name`
+                ) 
 				VALUES
-				(:site_id, :name, :email)";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-		$stmt->bindValue(':email', $email, PDO::PARAM_STR);
-		$result = $stmt->execute();
+				(
+				    :site_id, 
+				    :name
+				)";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
 
-		if($result === TRUE)
-		{
-			$form_id = intval($this->_db->lastInsertId('user_site_form'));
+        if ($stmt->execute() === true) {
+            $id = intval($this->_db->lastInsertId('user_site_form'));
 
-			/**
-			 * @todo This is referencing the tool mode, not ideal
-			 */
+            if ($this->setDefaultLayout($site_id, $id, $title) === true) {
+                return $id;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
-			// Insert the default layout settings for the form
-			$model_layout = new Dlayer_DesignerTool_FormBuilder_FormLayout_Model();
-			$model_layout->setDefaults($site_id, $form_id, $title, $sub_title,
-				Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL, Dlayer_Config::FORM_DEFAULT_RESET_LABEL,
-				Dlayer_Config::FORM_DEFAULT_LAYOUT_ID, Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_LABEL,
-				Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_FIELD);
+    /**
+     * Set the default layout options for the form
+     *
+     * @param integer $site_id
+     * @param integer $id
+     * @param integer $title
+     *
+     * @return boolean
+     */
+    private function setDefaultLayout($site_id, $id, $title)
+    {
+        $sql = "INSERT INTO `user_site_form_layout` 
+                (
+                    `site_id`, 
+                    `form_id`,
+                    `title`, 
+                    `submit_label`,
+                    `layout_id`,
+                    `horizontal_width_label`,
+                    `horizontal_width_field`
+                )
+                VALUES 
+                (
+                    :site_id, 
+                    :form_id,
+                    :title, 
+                    :submit_label, 
+                    :layout_id, 
+                    :horizontal_width_label,
+                    :horizontal_width_field
+                )";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':submit_label', Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL, PDO::PARAM_STR);
+        $stmt->bindValue(':layout_id', Dlayer_Config::FORM_DEFAULT_LAYOUT_ID, PDO::PARAM_INT);
+        $stmt->bindValue(':horizontal_width_label', Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_LABEL, PDO::PARAM_INT);
+        $stmt->bindValue(':horizontal_width_field', Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_FIELD, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 
-			return $form_id;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
+    /**
+     * Edit the details for the selected form
+     *
+     * @param integer $id
+     * @param string $name
+     * @return boolean
+     */
+    private function editForm($id, $name)
+    {
+        $sql = "UPDATE 
+                    `user_site_form`
+				SET 
+				    `name` = :name
+				WHERE 
+				    `id` = :form_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
 
-	/**
-	 * Fetch the details for the requested form, used on edit page
-	 *
-	 * @param $id
-	 * @param $site_id
-	 * @return array|FALSE
-	 */
-	public function form($id, $site_id)
-	{
-		$sql = "SELECT `name`, email  
-				FROM user_site_form 
-				WHERE site_id = :site_id
-				AND id = :form_id 
-				LIMIT 1";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-		$stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
-		$stmt->execute();
+        return $stmt->execute();
+    }
 
-		return $stmt->fetch();
-	}
+    /**
+     * Update the title for the selected form
+     *
+     * @param integer $id
+     * @param string $title
+     *
+     * @return boolean
+     */
+    private function editTitle($id, $title)
+    {
+        $sql = "UPDATE 
+                    `user_site_form_layout` 
+                SET 
+                    `title` = :title 
+                WHERE 
+                    `form_id` = :form_id 
+                LIMIT 
+                    1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
 
-	/**
-	 * Edit the details for the selected form
-	 *
-	 * @param integer $id
-	 * @param string $name
-	 * @param string $email
-	 * @return boolean
-	 */
-	private function editForm($id, $name, $email)
-	{
-		$sql = "UPDATE user_site_form
-				SET `name` = :name,
-				email = :email 
-				WHERE id = :form_id";
-		$stmt = $this->_db->prepare($sql);
-		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
-		$stmt->bindValue(':email', $email, PDO::PARAM_STR);
-		$stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
-		return $stmt->execute();
-	}
+        return $stmt->execute();
+    }
 
-	/**
-	 * Save the form, either inserts a new record or updates the given record
-	 *
-	 * @param integer $site_id
-	 * @param string $name Name of form within Dlayer
-	 * @param string $email Email address for copies of submissions
-	 * @param string $title|NULL Form title/legend
-	 * @param string $sub_title|NULL Form sub title/legend
-	 * @param integer|NULL $id Form id when editing
-	 * @return integer|FALSE Either the form id or FALSE upon failure
-	 */
-	public function saveForm($site_id, $name, $email, $title=NULL, $sub_title=NULL, $id=NULL)
-	{
-		if($id === NULL)
-		{
-			$id = $this->addForm($site_id, $name, $email, $title, $sub_title);
-		}
-		else
-		{
-			$id = $this->editForm($id, $name, $email);
-		}
+    /**
+     * Save the form
+     *
+     * @param integer $site_id
+     * @param string $name Name of form within Dlayer
+     * @param string $title |NULL Form title/legend
+     * @param integer|null $id Form id when editing
+     *
+     * @return integer|false Either the form id or false
+     */
+    public function saveForm($site_id, $name, $title, $id = null)
+    {
+        if ($id === null) {
+            $id = $this->addForm($site_id, $name, $title);
+            if ($id !== false) {
+                return $id;
+            } else {
+                return false;
+            }
+        } else {
+            if ($this->editForm($id, $name) === true) {
+                if ($this->editTitle($id, $title) === true) {
+                    return $id;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+    }
 
-		return $id;
-	}
+    /**
+     * Check to see if the given id is valid
+     *
+     * @param integer $site_id
+     * @param integer $id
+     *
+     * @return boolean
+     */
+    public function valid($site_id, $id) {
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `user_site_form`
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `id` = :form_id 
+                LIMIT 
+                    1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if ($stmt->fetch() !== false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -55,19 +55,6 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 	public $viewRenderer;
 
 	/**
-	 * Set the module in the dlayer session.
-	 *
-	 * When setting the module we check to see if it exists and is enabled. If
-	 * the module does not exist or isn't enabled the user is redirected to the
-	 * base of the app
-	 *
-	 * @return Dlayer_Action_SetModule
-	 */
-	public function setModule()
-	{
-	}
-
-	/**
 	 * Checks the session to validate a site id, needs to be set and exist in
 	 * the database. If tthe site id is for some reason not valid the user is
 	 * returned back to the home page
@@ -78,16 +65,14 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 	{
 	}
 
-	/**
-	 * Validate that a form id is set and valid, it needs to belong to the
-	 * site id in the session. If for some reason the form id is not valid the
-	 * user will be returned to the home page
-	 *
-	 * @return Dlayer_Action_ValidateFormId
-	 */
-	public function validateFormId()
-	{
-	}
+    /**
+     * Validate the module, check that the module is active in the database, should be the first action helper called
+     *
+     * @return Dlayer_Action_ValidateModule
+     */
+    public function validateModule()
+    {
+    }
 
 	/**
 	 * Authenticate the request, checks that the user is logged in, there will

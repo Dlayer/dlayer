@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.3.3 (64 bit)
-MySQL - 10.1.16-MariaDB : Database - dlayer
+MySQL - 10.1.19-MariaDB : Database - dlayer
 *********************************************************************
 */
 
@@ -46,7 +46,8 @@ CREATE TABLE `designer_color_palette_color` (
   PRIMARY KEY (`id`),
   KEY `palette_id` (`palette_id`),
   KEY `color_type_id` (`color_type_id`),
-  CONSTRAINT `designer_color_palette_color_fk1` FOREIGN KEY (`palette_id`) REFERENCES `designer_color_palette` (`id`)
+  CONSTRAINT `designer_color_palette_color_fk1` FOREIGN KEY (`palette_id`) REFERENCES `designer_color_palette` (`id`),
+  CONSTRAINT `designer_color_palette_color_fk2` FOREIGN KEY (`color_type_id`) REFERENCES `designer_color_type` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `designer_color_palette_color` */
@@ -389,8 +390,8 @@ CREATE TABLE `dlayer_module` (
 insert  into `dlayer_module`(`id`,`name`,`title`,`description`,`sort_order`,`enabled`) values 
 (1,'template','Template designer','The Template designer lets you create page templates',7,0),
 (2,'widget','Widget designer','The Widget designer lets you to develop reusable content items',4,0),
-(3,'form','Form builder','The Form builder lets you build web forms',2,0),
-(4,'content','Content manager','The Content manager lets you create and manage all your site content',1,1),
+(3,'form','Form Builder','Quickly and easily build forms',2,1),
+(4,'content','Content Manager','Design web pages and manage your content',1,1),
 (5,'website','Web site manager (Preview)','The Web site manager lets you manage the relationships between all your site pages and data',5,0),
 (6,'question','Question manager','Create quizzes, tests and polls. <span class=\"label label-default\">Planning</span>',99,0),
 (7,'dlayer','Dlayer','Home',0,1),
@@ -641,6 +642,9 @@ CREATE TABLE `dlayer_session` (
 
 /*Data for the table `dlayer_session` */
 
+insert  into `dlayer_session`(`session_id`,`save_path`,`name`,`modified`,`lifetime`,`session_data`) values 
+('cad4iar9l0moo5mepnqkvif7h5','C:\\Users\\Dean\\Documents\\Xampp\\tmp','PHPSESSID',1485305616,3601,'__ZF|a:1:{s:14:\"dlayer_session\";a:1:{s:3:\"ENT\";i:1485309216;}}dlayer_session|a:1:{s:7:\"site_id\";N;}');
+
 /*Table structure for table `user_setting_color_history` */
 
 DROP TABLE IF EXISTS `user_setting_color_history`;
@@ -849,7 +853,8 @@ CREATE TABLE `user_site` (
   `identity_id` int(11) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `identity_id` (`identity_id`)
+  KEY `identity_id` (`identity_id`),
+  CONSTRAINT `user_site_fk1` FOREIGN KEY (`identity_id`) REFERENCES `dlayer_identity` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site` */
@@ -961,17 +966,17 @@ CREATE TABLE `user_site_form` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `site_id` int(11) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `site_id` (`site_id`)
+  KEY `site_id` (`site_id`),
+  CONSTRAINT `user_site_form_fk1` FOREIGN KEY (`site_id`) REFERENCES `user_site` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user_site_form` */
 
-insert  into `user_site_form`(`id`,`site_id`,`name`,`email`) values 
-(1,1,'Feeback form','user-1@dlater.com'),
-(2,2,'Feeback form','user-2@dlayer.com'),
-(3,3,'Feeback form','user-3@dlayer.com');
+insert  into `user_site_form`(`id`,`site_id`,`name`) values 
+(1,1,'Feeback form'),
+(2,2,'Feeback form'),
+(3,3,'Feeback form');
 
 /*Table structure for table `user_site_form_field` */
 
@@ -1085,8 +1090,8 @@ CREATE TABLE `user_site_form_layout` (
   `submit_label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `reset_label` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `layout_id` tinyint(3) unsigned NOT NULL,
-  `horizontal_width_label` tinyint(2) unsigned NOT NULL DEFAULT '2',
-  `horizontal_width_field` tinyint(2) unsigned NOT NULL DEFAULT '10',
+  `horizontal_width_label` tinyint(2) unsigned NOT NULL,
+  `horizontal_width_field` tinyint(2) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `site_id` (`site_id`),
   KEY `form_id` (`form_id`),
@@ -1101,9 +1106,9 @@ CREATE TABLE `user_site_form_layout` (
 /*Data for the table `user_site_form_layout` */
 
 insert  into `user_site_form_layout`(`id`,`site_id`,`form_id`,`title`,`sub_title`,`submit_label`,`reset_label`,`layout_id`,`horizontal_width_label`,`horizontal_width_field`) values 
-(1,1,1,'Feedback',NULL,'Send',NULL,1,2,10),
-(2,2,2,'Feedback',NULL,'Send',NULL,1,2,10),
-(3,3,3,'Feedback',NULL,'Send',NULL,1,2,10);
+(1,1,1,'Feedback',NULL,'Send',NULL,1,3,9),
+(2,2,2,'Feedback',NULL,'Send',NULL,1,3,9),
+(3,3,3,'Feedback',NULL,'Send',NULL,1,3,9);
 
 /*Table structure for table `user_site_form_setting` */
 
