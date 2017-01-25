@@ -86,6 +86,36 @@ class Form_AdminController extends Zend_Controller_Action
     }
 
     /**
+     * Edit the selected form
+     *
+     * @return void
+     */
+    public function editAction()
+    {
+        $model_sites = new Dlayer_Model_Site();
+        $model_forms = new Dlayer_Model_Form();
+
+        $form_id = $this->session->formId();
+
+        $this->form = new Dlayer_Form_Site_Form(
+            '/form/admin/edit',
+            $this->site_id,
+            $form_id,
+            $model_forms->form($this->site_id, $form_id)
+        );
+
+        if ($this->getRequest()->isPost()) {
+            $this->processEditForm($form_id);
+        }
+
+        $this->view->form = $this->form;
+        $this->view->site = $model_sites->site($this->site_id);
+
+        $this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
+            array(), 'Dlayer.com - Form Builder: Edit form');
+    }
+
+    /**
      * Validate for new form data and if successful add the form and redirect the user after activating the form
      *
      * @return void
@@ -102,6 +132,32 @@ class Form_AdminController extends Zend_Controller_Action
             if ($form_id !== false) {
                 $this->session->clearAll(true);
                 $this->session->setFormId($form_id);
+                $this->redirect('/form');
+            }
+        }
+    }
+
+    /**
+     * Validate for new form data and if successful edit the form and redirect the user back to the Form Builder
+     *
+     * @param integer $form_id
+     * @return void
+     */
+    private function processEditForm($form_id)
+    {
+        $post = $this->getRequest()->getPost();
+
+        if ($this->form->isValid($post)) {
+
+            $model_form = new Dlayer_Model_Form();
+            $form_id = $model_form->saveForm(
+                $this->site_id,
+                $post['name'],
+                $post['title'],
+                $form_id
+            );
+
+            if ($form_id !== false) {
                 $this->redirect('/form');
             }
         }

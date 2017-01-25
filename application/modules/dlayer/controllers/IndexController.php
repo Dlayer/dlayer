@@ -344,6 +344,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
     private function handleLogout()
     {
         $session_content = new Dlayer_Session_Content();
+        $session_form = new Dlayer_Session_Form();
         $session_designer = new Dlayer_Session_Designer();
         $session_dlayer = new Dlayer_Session();
 
@@ -353,6 +354,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
         Dlayer_Helper::sendToInfoLog('Identity: ' . $session_dlayer->identityId() . ' signed out of app');
 
         $session_content->clearAll(true);
+        $session_form->clearAll(true);
         $session_dlayer->clearAll();
         $session_designer->clearAll();
 

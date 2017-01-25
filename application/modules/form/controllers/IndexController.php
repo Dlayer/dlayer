@@ -66,7 +66,14 @@ class Form_IndexController extends Zend_Controller_Action
         $model_sites = new Dlayer_Model_Site();
         $model_forms = new Dlayer_Model_Form();
 
-        $this->view->forms = $model_forms->forms($this->site_id);
+        $forms = $model_forms->forms($this->site_id);
+
+        // Auto activate if only one form in system
+        if ($this->session->formId() === null && count($forms) === 1) {
+            $this->redirect('/form/admin/activate/id/' . $forms[0]['id']);
+        }
+
+        $this->view->forms = $forms;
         $this->view->site = $model_sites->site($this->site_id);
         $this->view->form_id = $this->session->formId();
 

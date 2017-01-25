@@ -44,6 +44,36 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
     }
 
     /**
+     * Fetch the requested form
+     *
+     * @param integer $site_id
+     * @param integer $id
+     * @return array|false
+     */
+    public function form($site_id, $id)
+    {
+        $sql = "SELECT 
+                    `user_site_form`.`name`,
+                    `user_site_form_layout`.`title` 
+				FROM 
+				    `user_site_form` 
+                INNER JOIN 
+                    `user_site_form_layout` ON 
+                        `user_site_form`.`id` = `user_site_form_layout`.`form_id`  
+				WHERE 
+				    `user_site_form`.`site_id` = :site_id AND 
+				    `user_site_form`.`id` = :form_id 
+                LIMIT 
+                    1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
+    /**
      * Check to see if the supplied form name is unique for the site
      *
      * @param string $name Name for form
@@ -231,7 +261,6 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
             } else {
                 return false;
             }
-
         } else {
             if ($this->editForm($id, $name) === true) {
                 if ($this->editTitle($id, $title) === true) {
