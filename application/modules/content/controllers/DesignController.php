@@ -350,7 +350,7 @@ class Content_DesignController extends Zend_Controller_Action
      */
     private function page()
     {
-        $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
+        $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id);
 
         $this->view->rows = $designer_page->rows();
         $this->view->columns = $designer_page->columns();
@@ -378,7 +378,7 @@ class Content_DesignController extends Zend_Controller_Action
      */
     private function pagePreview()
     {
-        $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id); // Fix this
+        $designer_page = new Dlayer_Designer_Page($this->site_id, $this->page_id);
 
         $this->view->page_id = $this->page_id;
 

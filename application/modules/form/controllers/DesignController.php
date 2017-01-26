@@ -217,6 +217,10 @@ class Form_DesignController extends Zend_Controller_Action
      */
     private function form()
     {
+        $form = new Dlayer_Designer_Form($this->site_id, $this->form_id, true, $this->session->fieldId());
+
+        $this->view->form = $form->form();
+
         return $this->view->render("design/form.phtml");
     }
 
@@ -325,6 +329,6 @@ class Form_DesignController extends Zend_Controller_Action
         $this->session_designer->clearAllImagePicker();
         $this->session_designer->clearAllTool('form');
 
-        $this->redirect('/content/design/index');
+        $this->redirect('/form/design/index');
     }
 }
