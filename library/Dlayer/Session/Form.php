@@ -50,6 +50,16 @@ class Dlayer_Session_Form extends Zend_Session_Namespace
     }
 
     /**
+     * Get the id of the currently selected field
+     *
+     * @return integer|NULL
+     */
+    public function fieldId()
+    {
+        return $this->field_id;
+    }
+
+    /**
      * Clears all the session values for the Form Builder
      *
      * @param boolean $reset If set to true the form id is also cleared
@@ -60,5 +70,15 @@ class Dlayer_Session_Form extends Zend_Session_Namespace
         if ($reset === true) {
             $this->form_id = null;
         }
+    }
+
+    /**
+     * Clear the currently set field id, set field_id to NULL
+     *
+     * @return void
+     */
+    public function clearFieldId()
+    {
+        $this->field_id = null;
     }
 }

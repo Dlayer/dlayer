@@ -14,7 +14,7 @@
 * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
 * @category View model
 */
-class Dlayer_Model_View_Form_Styles extends Zend_Db_Table_Abstract
+class Dlayer_Model_View_Form_Styling extends Zend_Db_Table_Abstract
 {
 	/**
 	* Fetch all the background colors defined for the form field rows, returns

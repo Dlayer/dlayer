@@ -1,0 +1,20 @@
+<?php /** @var $this Dlayer_View_Codehinting */?>
+
+<div id="designer">
+    <div class="row">
+        <div class="col-lg-9 design">
+            <?php echo $this->form; ?>
+        </div>
+        <div class="col-lg-3">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 ribbon">
+                    <?php if(strlen($this->ribbon) > 0)
+                    {
+                        echo $this->ribbon;
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
