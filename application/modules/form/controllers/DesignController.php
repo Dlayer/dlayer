@@ -110,7 +110,7 @@ class Form_DesignController extends Zend_Controller_Action
 
         $this->_helper->setLayoutProperties(
             $this->nav_bar_items,
-            '/form/design/index',
+            '/form/index/index',
             array(
                 'css/dlayer.css',
                 'css/designer-shared.css',
