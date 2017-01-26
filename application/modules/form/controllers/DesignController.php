@@ -126,6 +126,23 @@ class Form_DesignController extends Zend_Controller_Action
     }
 
     /**
+     * Base action for the design controller, fetches the html/data for the tool bar ribbon and content page
+     *
+     * @return void
+     */
+    public function previewAction()
+    {
+        $this->_helper->setLayout('preview');
+
+        $this->view->form = $this->formPreview();
+
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('css_include', array('css/dlayer.css'));
+        $layout->assign('js_include', array());
+        $layout->assign('title', 'Dlayer.com - Form preview');
+    }
+
+    /**
      * Generate the buttons for the control bar
      */
     private function controlBar()
@@ -222,6 +239,20 @@ class Form_DesignController extends Zend_Controller_Action
         $this->view->form = $form->form();
 
         return $this->view->render("design/form.phtml");
+    }
+
+    /**
+     * Generate the html for the preview of the form
+     *
+     * @return string
+     */
+    private function formPreview()
+    {
+        $form = new Dlayer_Designer_Form($this->site_id, $this->form_id);
+
+        $this->view->form = $form->form();
+
+        return $this->view->render("design/preview.phtml");
     }
 
     /**
