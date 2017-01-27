@@ -11,4 +11,12 @@ insert  into `designer_form_field_attribute`(`id`,`field_type_id`,`name`,`attrib
     (9,3,'Placeholder','placeholder',2),
     (10,4,'Size','size',1),
     (11,4,'Max length','maxlength',1),
-    (12,4,'Placeholder','placeholder',2);
+    (12,4,'Placeholder','placeholder',2),
+    (13,1,'Label','label',2),
+    (14,1,'Description','description',2),
+    (15,2,'Label','label',2),
+    (16,2,'Description','description',2),
+    (17,3,'Label','label',2),
+    (18,3,'Description','description',2),
+    (19,4,'Label','label',2),
+    (20,4,'Description','description',2);
