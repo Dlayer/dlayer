@@ -27,4 +27,4 @@ insert  into `user_site_page_structure_content`(`id`,`site_id`,`page_id`,`column
     (25,3,3,19,1,1),
     (26,3,3,20,1,1),
     (27,3,3,21,1,1),
-    (28,1,1,3,7,3);
+    (28,1,1,3,6,3);

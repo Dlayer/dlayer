@@ -44,11 +44,11 @@ class Dlayer_Form_Builder extends Zend_Form
 	private $form_fields;
 
 	/**
-	* View mode, if TRUE don't add ids to form field rows
+	* Builder mode, if true add the ids/data attributes
 	* 
 	* @var boolean
 	*/
-	private $view;
+	private $builder;
 	
 	private $buttons;
 	private $layout_mode;
@@ -60,13 +60,13 @@ class Dlayer_Form_Builder extends Zend_Form
 	*
 	* @param integer $form_id Form id
 	* @param array $form_fields Fields for form
-	* @param boolean $view If in view mode don't add ids 
+	* @param boolean $builder If in builder mode add ids
 	* @param integer|NULL $field_id
 	* @param array|NULL Options for form
 	* @return void
 	*/
 	public function __construct($form_id, array $form_fields=array(),
-		$view=FALSE, $field_id=NULL, $options=NULL)
+		$builder=false, $field_id=NULL, $options=NULL)
 	{
 		$session_dlayer = new Dlayer_Session();
 		$this->site_id = $session_dlayer->siteId();
@@ -74,7 +74,7 @@ class Dlayer_Form_Builder extends Zend_Form
 		$this->form_id = $form_id;
 		$this->field_id = $field_id;
 		$this->form_fields = $form_fields;
-		$this->view = $view;
+		$this->builder = $builder;
 		
 		$this->model_layout = new Dlayer_Model_View_Form_Layout();
 		
@@ -110,7 +110,7 @@ class Dlayer_Form_Builder extends Zend_Form
 				unset($form_field['attributes']['size']);
 			}
 
-			switch($form_field['model']) {
+			switch($form_field['type']) {
 				case 'Text':
 					$this->textInput($form_field);
 					break;
@@ -128,7 +128,7 @@ class Dlayer_Form_Builder extends Zend_Form
 					break;
 
 				default:
-					throw new Exception('Field type: ' . $form_field['model'] .
+					throw new Exception('Field type: ' . $form_field['type'] .
 						' does not exist in form builder switch statement');
 					break;
 			}
@@ -302,7 +302,7 @@ class Dlayer_Form_Builder extends Zend_Form
 	{
 		$decorators = new Dlayer_Form_LayoutDecoratorHelper(
 			$this->layout_mode['mode'], $this->layout_mode['label'], 
-			$this->layout_mode['field'], $this->view, $this->field_id);
+			$this->layout_mode['field'], $this->builder, $this->field_id);
 		
 		$this->setDecorators($decorators->form());
 		
@@ -310,8 +310,7 @@ class Dlayer_Form_Builder extends Zend_Form
 			
 			$field_decorators = $decorators->field($form_field['id'], 
 				array(
-					'tool'=>$form_field['model'],
-					'type'=>$form_field['type'], 
+					'type'=>$form_field['type'],
 					'description'=>$form_field['description']));
 
 			$this->elements['field_' . $form_field['id']]->setDecorators(
