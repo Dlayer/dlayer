@@ -119,7 +119,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         $this->_helper->setLayoutProperties(
             $this->nav_bar_items,
-            '/content/design/index',
+            '/content/index/index',
             array(
                 'css/dlayer.css',
                 'css/designer-shared.css',
