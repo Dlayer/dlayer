@@ -1,18 +1,19 @@
 <?php
 
 /**
- * Base class for the Form Builder tool forms
+ * Base class for the content manager tool forms
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-abstract class Dlayer_Form_Form extends Dlayer_Form
+abstract class Dlayer_Form_Tool_Content extends Dlayer_Form
 {
     protected $tool = array();
-    protected $sub_tool_model = null;
-    protected $field_type;
+    protected $sub_tool_model = NULL;
+    protected $content_type;
     protected $data = array();
+    protected $instances = 0;
     protected $element_data = array();
 
     /**
@@ -20,13 +21,15 @@ abstract class Dlayer_Form_Form extends Dlayer_Form
      *
      * @param array $tool Tool and environment data array
      * @param array $data Current data for content item
+     * @param integer $instances Instances of content data on web site
      * @param array $element_data Data array containing data for elements (Select menu etc.)
      * @param array|NULL $options Zend form options
      */
-    public function __construct(array $tool, array $data, array $element_data, $options = null)
+    public function __construct(array $tool, array $data, $instances, array $element_data, $options=NULL)
     {
         $this->tool = $tool;
         $this->data = $data;
+        $this->instances = $instances;
         $this->element_data = $element_data;
 
         parent::__construct($options);
@@ -36,6 +39,7 @@ abstract class Dlayer_Form_Form extends Dlayer_Form
      * Set up the tool elements, these are the elements that are part of every tool and set the environment
      * properties and tool options
      *
+     * @todo Move this method into base class
      * @return void The elements are written to the $this->elements private property
      */
     protected function generateToolElements()
@@ -45,18 +49,19 @@ abstract class Dlayer_Form_Form extends Dlayer_Form
 
         $this->elements['tool'] = $tool;
 
-        if ($this->sub_tool_model !== null) {
+        if($this->sub_tool_model !== NULL)
+        {
             $sub_tool_model = new Zend_Form_Element_Hidden('sub_tool_model');
             $sub_tool_model->setValue($this->sub_tool_model);
 
             $this->elements['sub_tool_model'] = $sub_tool_model;
         }
 
-        if (isset($this->field_type) && $this->field_type !== null) {
-            $field_type = new Zend_Form_Element_Hidden('field_type');
-            $field_type->setValue($this->content_type);
+        if(isset($this->content_type) && $this->content_type !== null) {
+            $content_type = new Zend_Form_Element_Hidden('content_type');
+            $content_type->setValue($this->content_type);
 
-            $this->elements['field_type'] = $field_type;
+            $this->elements['content_type'] = $content_type;
         }
 
         $multi_use = new Zend_Form_Element_Hidden('multi_use');
@@ -64,21 +69,31 @@ abstract class Dlayer_Form_Form extends Dlayer_Form
 
         $this->elements['multi_use'] = $multi_use;
 
-        $form_id = new Zend_Form_Element_Hidden('form_id');
-        $form_id->setValue($this->tool['form_id']);
+        $page_id = new Zend_Form_Element_Hidden('page_id');
+        $page_id->setValue($this->tool['page_id']);
 
-        $this->elements['form_id'] = $form_id;
+        $this->elements['page_id'] = $page_id;
 
-        $field_id = new Zend_Form_Element_Hidden('field_id');
-        $field_id->setValue($this->tool['field_id']);
+        $row_id = new Zend_Form_Element_Hidden('row_id');
+        $row_id->setValue($this->tool['row_id']);
 
-        $this->elements['field_id'] = $field_id;
+        $this->elements['row_id'] = $row_id;
+
+        $column_id = new Zend_Form_Element_Hidden('column_id');
+        $column_id->setValue($this->tool['column_id']);
+
+        $this->elements['column_id'] = $column_id;
+
+        $content_id = new Zend_Form_Element_Hidden('content_id');
+        $content_id->setValue($this->tool['content_id']);
+
+        $this->elements['content_id'] = $content_id;
     }
 
     protected function generateSubmitElement()
     {
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setAttribs(array('class' => 'btn btn-sm btn-success'));
+        $submit->setAttribs(array('class'=>'btn btn-sm btn-success'));
         $submit->setLabel('Save');
 
         $this->elements['submit'] = $submit;
@@ -120,29 +135,24 @@ abstract class Dlayer_Form_Form extends Dlayer_Form
     {
         $this->setDecorators(array(
             'FormElements',
-            array('Form', array('class' => 'form'))
-        ));
+            array('Form', array('class'=>'form'))));
 
         $this->setElementDecorators(array(
             array('ViewHelper'),
-            array('Description', array('tag' => 'p', 'class' => 'help-block')),
-            array('Errors', array('class' => 'alert alert-danger')),
+            array('Description', array('tag' => 'p', 'class'=>'help-block')),
+            array('Errors', array('class'=> 'alert alert-danger')),
             array('Label'),
-            array(
-                'HtmlTag',
-                array(
-                    'tag' => 'div',
-                    'class' => array(
-                        'callback' => function ($decorator) {
-                            if ($decorator->getElement()->hasErrors()) {
-                                return 'form-group has-error';
-                            } else {
-                                return 'form-group';
-                            }
+            array('HtmlTag', array(
+                'tag' => 'div',
+                'class'=> array(
+                    'callback' => function($decorator) {
+                        if($decorator->getElement()->hasErrors()) {
+                            return 'form-group has-error';
+                        } else {
+                            return 'form-group';
                         }
-                    )
-                )
-            )
+                    })
+            ))
         ));
 
         $this->setDisplayGroupDecorators(array(
@@ -153,14 +163,10 @@ abstract class Dlayer_Form_Form extends Dlayer_Form
 
     protected function addCustomElementDecorators()
     {
-        $this->elements['submit']->setDecorators(array(
-            array('ViewHelper'),
-            array(
-                'HtmlTag',
-                array(
-                    'tag' => 'div',
-                    'class' => 'form-group form-group-submit'
-                )
+        $this->elements['submit']->setDecorators(array(array('ViewHelper'),
+            array('HtmlTag', array(
+                'tag' => 'div',
+                'class'=>'form-group form-group-submit')
             )
         ));
     }
