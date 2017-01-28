@@ -15,7 +15,8 @@ class Dlayer_DesignerTool_FormBuilder_Text_Model extends Zend_Db_Table_Abstract
      * @param integer $site_id
      * @param integer $form_id
      * @param integer $id
-     * @return array|FALSE The data array for the field or false upon failure
+     *
+     * @return array|false The data array for the field or false upon failure
      */
     public function fieldData($site_id, $form_id, $id)
     {
@@ -52,5 +53,91 @@ class Dlayer_DesignerTool_FormBuilder_Text_Model extends Zend_Db_Table_Abstract
         $stmt->execute();
 
         return $stmt->fetch();
+    }
+
+    /**
+     * Add a new form field
+     *
+     * @param integer $site_id
+     * @param integer $form_id
+     * @param string $field_type
+     *
+     * @return integer|false
+     */
+    public function addField($site_id, $form_id, $field_type)
+    {
+        $field_id = false;
+
+        $sort_order = $this->sortOrderForNewField($site_id, $form_id);
+        if ($sort_order === false) {
+            $sort_order = 1;
+        }
+
+        $sql = "INSERT INTO `user_site_form_field` 
+				(
+				    `site_id`, 
+				    `form_id`, 
+				    `field_type_id`, 
+				    `sort_order`
+                ) 
+				VALUES 
+				(
+				    :site_id, 
+				    :form_id, 
+				     (
+				        SELECT 
+				            `id` 
+                        FROM 
+                            `designer_form_field_type` 
+                        WHERE 
+                            `type` = :field_type 
+                        LIMIT 
+                            1
+                    ),                    
+                    :sort_order
+                )";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+        $stmt->bindValue(':field_type', $field_type, PDO::PARAM_INT);
+        $stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+        $result = $stmt->execute();
+
+        if ($result === true) {
+            $field_id = intval($this->_db->lastInsertId('user_site_form_field'));
+        }
+
+        return $field_id;
+    }
+
+    /**
+     * Calculate the sort order for the new form field
+     *
+     * @param integer $site_id
+     * @param integer $form_id
+     *
+     * @return integer|false The new sort order
+     */
+    private function sortOrderForNewField($site_id, $form_id)
+    {
+        $sql = "SELECT 
+                    IFNULL(MAX(`sort_order`), 0) + 1 AS `sort_order`
+				FROM 
+				    `user_site_form_field` 
+				WHERE 
+				    `site_id` = :site_id AND 
+				    `form_id` = :form_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['sort_order']);
+        } else {
+            return false;
+        }
     }
 }

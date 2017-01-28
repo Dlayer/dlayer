@@ -76,7 +76,23 @@ class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Form
      */
     protected function add()
     {
+        $continue = false;
+        $model = new Dlayer_DesignerTool_FormBuilder_Text_Model();
 
+        $field_id = $model->addField($this->site_id, $this->form_id, 'text');
+
+        if ($field_id !== false) {
+            $continue = $model->addAttributes($this->site_id, $this->form_id, $field_id, $this->params);
+        }
+
+        if ($field_id !== false && $continue === true) {
+            Dlayer_Helper::sendToInfoLog('Text element added to site id: ' . $this->site_id . ' form id: ' .
+                $this->form_id);
+
+            return $this->returnIds($field_id);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -87,7 +103,7 @@ class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Form
      */
     protected function edit()
     {
-        
+
     }
 
     /**
