@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        dlayerDesigner.tabs.start('<?php echo $this->escape($this->module); ?>');
+        dlayerDesigner.tabs.load('<?php echo $this->escape($this->module); ?>', '<?php echo $this->escape($this->selected_tool); ?>', '<?php echo $this->escape($this->selected_sub_tool); ?>', '<?php echo $this->escape($this->selected_tab); ?>');
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <ul class="nav nav-tabs">
+            <?php foreach($this->tabs as $tab) { ?>
+                <?php if($tab['script'] === $this->selected_tab)
+                {
+                    $class = 'active';
+                } else {
+                    $class = NULL;
+                } ?>
+
+                <li data-tool="<?php echo $this->escape($tab['tool']); ?>" data-sub-tool="<?php echo $this->escape($tab['sub_tool']); ?>" data-tab="<?php echo $this->escape($tab['script']); ?>" role="presentation" class="<?php echo $class; ?>">
+                    <a href="#" title="<?php echo $this->escape($tab['name']); ?>">
+                        <span class="glyphicon glyphicon-<?php echo $this->escape($tab['glyph']); ?>" <?php if($tab['glyph_style'] !== null) { echo 'style="' . $this->escape($tab['glyph_style']) .'"'; } ?> aria-hidden="true"></span> <span class="visible-md-inline visible-sm-inline"> <?php echo $this->escape($tab['name']); ?></span>
+                    </a>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+</div>
+
+<?php foreach($this->tabs as $tab) { ?>
+    <?php if($tab['script'] === $this->selected_tab) { $class = ' open'; } else { $class = NULL; } ?>
+    <div data-tab-content="<?php echo $this->escape($tab['script']); ?>" class="row content<?php echo $class; ?>"></div>
+<?php } ?>

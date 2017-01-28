@@ -10,7 +10,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Ribbon_Handler_Content
+class Dlayer_Ribbon_Handler_Form
 {
     /**
      * @var integer $site_id Id of the selected site
