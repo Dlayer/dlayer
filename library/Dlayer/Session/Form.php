@@ -40,6 +40,21 @@ class Dlayer_Session_Form extends Zend_Session_Namespace
     }
 
     /**
+     * Set the id for the selected field
+     *
+     * @todo This should check validity
+     * @param integer $id
+     *
+     * @return boolean
+     */
+    public function setFieldId($id)
+    {
+        $this->field_id = intval($id);
+
+        return true;
+    }
+
+    /**
      * Get the id of the current form
      *
      * @return integer|NULL
