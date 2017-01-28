@@ -19,7 +19,7 @@ class Dlayer_DesignerTool_FormBuilder_Text_Form extends Dlayer_Form_Tool_Form
      */
     public function __construct(array $tool, array $data, array $element_data, $options=NULL)
     {
-        $this->field_type = 'text';
+        $this->field_type = 'Text';
 
         parent::__construct($tool, $data, $element_data, $options);
     }
@@ -105,11 +105,13 @@ class Dlayer_DesignerTool_FormBuilder_Text_Form extends Dlayer_Form_Tool_Form
         $this->elements['placeholder'] = $placeholder;
 
         $size = new Zend_Form_Element_Hidden('size');
+        $size->setBelongsTo('params');
         $size->setValue(50);
 
         $this->elements['size'] = $size;
 
         $maxLength = new Zend_Form_Element_Hidden('maxlength');
+        $maxLength->setBelongsTo('params');
         $maxLength->setValue(255);
 
         $this->elements['maxlength'] = $maxLength;

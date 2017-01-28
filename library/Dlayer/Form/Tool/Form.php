@@ -54,7 +54,7 @@ abstract class Dlayer_Form_Tool_Form extends Dlayer_Form
 
         if (isset($this->field_type) && $this->field_type !== null) {
             $field_type = new Zend_Form_Element_Hidden('field_type');
-            $field_type->setValue($this->content_type);
+            $field_type->setValue($this->field_type);
 
             $this->elements['field_type'] = $field_type;
         }

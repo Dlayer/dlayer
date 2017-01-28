@@ -201,8 +201,8 @@ class Form_ProcessController extends Zend_Controller_Action
                 $this->returnToDesigner(false);
             }
         } else {
-            Dlayer_Helper::sendToErrorLog('Validation failure for tool ' . $this->tool_name . ' POST' .
-                var_export($this->getRequest()->getPost('params')));
+            Dlayer_Helper::sendToErrorLog('Validation failure for tool ' . $this->tool_name . ' POSTed: ' .
+                var_export($this->getRequest()->getPost(), true));
         }
     }
 
@@ -244,7 +244,7 @@ class Form_ProcessController extends Zend_Controller_Action
             }
         } else {
             Dlayer_Helper::sendToErrorLog('Validation failure for tool ' . $this->tool_name . ' POST' .
-                var_export($this->getRequest()->getPost('params')));
+                var_export($this->getRequest()->getPost(), true));
         }
     }
 

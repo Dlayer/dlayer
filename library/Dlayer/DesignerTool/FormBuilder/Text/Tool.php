@@ -62,10 +62,10 @@ class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Form
     {
         $this->params = array(
             'label' => trim($params['name']),
-            'description' => trim($params['content']),
-            'placeholder' => trim($params['content']),
-            'size' => intval($params['content']),
-            'maxlength' => intval($params['content'])
+            'description' => trim($params['description']),
+            'placeholder' => trim($params['placeholder']),
+            'size' => intval($params['size']),
+            'maxlength' => intval($params['maxlength'])
         );
     }
 
