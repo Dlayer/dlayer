@@ -140,4 +140,19 @@ class Dlayer_DesignerTool_FormBuilder_Text_Model extends Zend_Db_Table_Abstract
             return false;
         }
     }
+
+    /**
+     * Add attributes for form field
+     *
+     * @param integer $site_id
+     * @param integer $form_id
+     * @param integer $id
+     * @param array $attributes
+     *
+     * @return boolean
+     */
+    public function addAttributes($site_id, $form_id, $id, array $attributes)
+    {
+        $sql = "";
+    }
 }
