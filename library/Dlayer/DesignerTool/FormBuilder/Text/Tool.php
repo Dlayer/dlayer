@@ -61,7 +61,7 @@ class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Form
     protected function paramsAssign(array $params, $manual_tool = true)
     {
         $this->params = array(
-            'label' => trim($params['name']),
+            'label' => trim($params['label']),
             'description' => trim($params['description']),
             'placeholder' => trim($params['placeholder']),
             'size' => intval($params['size']),
@@ -79,10 +79,10 @@ class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Form
         $continue = false;
         $model = new Dlayer_DesignerTool_FormBuilder_Text_Model();
 
-        $field_id = $model->addField($this->site_id, $this->form_id, 'text');
+        $field_id = $model->addField($this->site_id, $this->form_id, 'Text');
 
         if ($field_id !== false) {
-            $continue = $model->addAttributes($this->site_id, $this->form_id, $field_id, $this->params);
+            $continue = $model->addAttributes($this->site_id, $this->form_id, $field_id, $this->params, 'Text');
         }
 
         if ($field_id !== false && $continue === true) {

@@ -49,7 +49,8 @@ class Dlayer_DesignerTool_FormBuilder_Text_Ribbon extends Dlayer_Ribbon_Form
 
             if ($this->tool['field_id'] !== null) {
                 $model = new Dlayer_DesignerTool_FormBuilder_Text_Model();
-                $field_data = $model->fieldData($this->tool['site_id'], $this->tool['form_id'], $this->tool['content_id']);
+                $field_data = $model->fieldData($this->tool['site_id'], $this->tool['form_id'], $this->tool['field_id']);
+
                 if ($field_data !== false) {
                     foreach ($field_data as $row) {
                         if (array_key_exists($row['attribute'], $this->field_data) === true) {
