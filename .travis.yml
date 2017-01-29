@@ -7,3 +7,5 @@ php:
   - '7.1'
   - hhvm
   - nightly
+
+script: phpunit --bootstrap /tests/Bootstrap.php /tests.php
