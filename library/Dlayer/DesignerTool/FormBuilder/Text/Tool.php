@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Form
+class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_DesignerTool_FormBuilder_Shared_Tool_Element
 {
     /**
      * Check that the required params have been submitted, check the keys in the params array
@@ -67,55 +67,6 @@ class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Form
             'size' => intval($params['size']),
             'maxlength' => intval($params['maxlength'])
         );
-    }
-
-    /**
-     * Add a new content item or setting
-     *
-     * @return array|FALSE Ids for new environment vars or FALSE if the request failed
-     */
-    protected function add()
-    {
-        $continue = false;
-        $model = new Dlayer_DesignerTool_FormBuilder_Text_Model();
-
-        $field_id = $model->addField($this->site_id, $this->form_id, 'Text');
-
-        if ($field_id !== false) {
-            $continue = $model->addAttributes($this->site_id, $this->form_id, $field_id, $this->params, 'Text');
-        }
-
-        if ($field_id !== false && $continue === true) {
-            Dlayer_Helper::sendToInfoLog('Text element added to site id: ' . $this->site_id . ' form id: ' .
-                $this->form_id);
-
-            return $this->returnIds($field_id);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Edit a new content item or setting
-     *
-     * @return array|FALSE Ids for new environment vars or FALSE if the request failed
-     * @throws Exception
-     */
-    protected function edit()
-    {
-        $model = new Dlayer_DesignerTool_FormBuilder_Text_Model();
-
-        try {
-            $result = $model->editAttributes($this->site_id, $this->form_id, $this->field_id, $this->params, 'Text');
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
-        }
-
-        if ($result === true) {
-            return $this->returnIds();
-        } else {
-            return false;
-        }
     }
 
     /**

@@ -119,7 +119,7 @@ class Form_DesignController extends Zend_Controller_Action
             array(
                 'scripts/dlayer.js',
                 'scripts/designer.js',
-                //'scripts/form-builder.js',
+                'scripts/form-builder.js',
                 //'scripts/preview-form-builder.js'
             ),
             'Dlayer.com - Form Builder', '/form/design/preview');
@@ -441,5 +441,26 @@ class Form_DesignController extends Zend_Controller_Action
             $edit_mode,
             $this->session->fieldId()
         );
+    }
+
+    /**
+     * Set the id for the selected field
+     *
+     * @return void
+     */
+    public function setSelectedFieldAction()
+    {
+        $this->_helper->disableLayout(false);
+
+        $id = Dlayer_Helper::getParamAsInteger('id');
+        $tool = Dlayer_Helper::getParamAsString('tool');
+
+        if ($this->session->setFieldId($id) === true &&
+            $this->session_designer->setTool('form', $tool) === true
+        ) {
+            $this->redirect('/form/design');
+        } else {
+            $this->cancelTool();
+        }
     }
 }

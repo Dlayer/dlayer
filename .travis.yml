@@ -7,4 +7,4 @@ php:
   - '7.1'
   - hhvm
 
-script: phpunit --bootstrap tests/Bootstrap.php tests/tests.php
+script: phpunit --bootstrap tests/Bootstrap.php tests

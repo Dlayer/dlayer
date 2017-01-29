@@ -96,6 +96,13 @@ div#designer {
 				}
 			}
 		}
+
+		div.form-builder {
+
+			div.selected {
+				@include selected-state();
+			}
+		}
 	}
 	
 	.tools {

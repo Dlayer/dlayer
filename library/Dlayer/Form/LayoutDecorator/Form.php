@@ -46,12 +46,6 @@ class Dlayer_Form_LayoutDecorator_Form extends Dlayer_Form_LayoutDecorator
 			$wrapper_class .= ' selected';
 		}
 
-		if($this->builder === true) {
-			$wrapper_id = $options['type'] . ':' . $field_id;
-		} else {
-			$wrapper_id = '';
-		}
-		
 		if(array_key_exists('description', $options) == TRUE && 
 			strlen($options['description']) > 0) {
 			
@@ -90,7 +84,8 @@ class Dlayer_Form_LayoutDecorator_Form extends Dlayer_Form_LayoutDecorator
 			array(
 				'tag' => 'div', 
 				'class'=> $wrapper_class,
-				'id'=>$wrapper_id
+				'data-id' => $field_id,
+                'data-tool' => $options['type']
 			)
 		);
 		

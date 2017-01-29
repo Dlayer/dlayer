@@ -85,6 +85,8 @@ class Dlayer_Session_Form extends Zend_Session_Namespace
         if ($reset === true) {
             $this->form_id = null;
         }
+
+        $this->clearFieldId();
     }
 
     /**
