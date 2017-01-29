@@ -45,12 +45,6 @@ class Dlayer_Form_LayoutDecorator_FormInline extends Dlayer_Form_LayoutDecorator
 			$wrapper_class .= ' selected';
 		}
 
-		if($this->builder === true) {
-			$wrapper_id = $options['type'] . ':' . $field_id;
-		} else {
-			$wrapper_id = '';
-		}
-			
 		return array(
 			array('ViewHelper'),
 			array('Errors', 
@@ -63,7 +57,8 @@ class Dlayer_Form_LayoutDecorator_FormInline extends Dlayer_Form_LayoutDecorator
 				array(
 					'tag' => 'div', 
 					'class'=> $wrapper_class,
-					'id'=>$wrapper_id
+                    'data-id' => $field_id,
+                    'data-tool' => $options['type']
 				)
 			)
 		);

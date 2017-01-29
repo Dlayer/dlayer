@@ -119,7 +119,7 @@ class Form_DesignController extends Zend_Controller_Action
             array(
                 'scripts/dlayer.js',
                 'scripts/designer.js',
-                //'scripts/form-builder.js',
+                'scripts/form-builder.js',
                 //'scripts/preview-form-builder.js'
             ),
             'Dlayer.com - Form Builder', '/form/design/preview');
