@@ -148,6 +148,7 @@ class Dlayer_DesignerTool_FormBuilder_Text_Model extends Zend_Db_Table_Abstract
      * @param integer $form_id
      * @param integer $id
      * @param array $attributes
+     * @param string $field_type
      *
      * @return boolean
      */
@@ -181,6 +182,61 @@ class Dlayer_DesignerTool_FormBuilder_Text_Model extends Zend_Db_Table_Abstract
                         ), 
                         :value
                 )";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+        $stmt->bindValue(':field_id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':field_type', $field_type, PDO::PARAM_STR);
+
+        $results = array();
+
+        foreach($attributes as $attribute => $value) {
+            $stmt->bindValue(':attribute', $attribute, PDO::PARAM_STR);
+            $stmt->bindValue(':value', $value, PDO::PARAM_STR);
+
+            $results[] = $stmt->execute();
+        }
+
+        if (in_array(false, $results) === true) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Edit the attributes for the selected form field
+     *
+     * @param integer $site_id
+     * @param integer $form_id
+     * @param integer $id
+     * @param array $attributes
+     * @param string $field_type
+     *
+     * @return boolean
+     */
+    public function editAttributes($site_id, $form_id, $id, array $attributes, $field_type)
+    {
+        $sql = "UPDATE 
+                    `user_site_form_field_attribute`
+				SET 
+				    `attribute` = :value
+				WHERE 
+				    `site_id` = :site_id AND 
+				    `form_id` = :form_id AND 
+				    `field_id` = :field_id AND 
+				    `attribute_id` = (
+				        SELECT 
+				            `dffa`.`id`
+                        FROM 
+                            `designer_form_field_attribute` `dffa` 
+                        INNER JOIN 
+                            `designer_form_field_type` `dfft` ON 
+                                `dffa`.`field_type_id` = `dfft`.`id` 
+                        WHERE 
+                            `dffa`.`attribute` = :attribute AND 
+                            `dfft`.`type` = :field_type
+                        )";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);

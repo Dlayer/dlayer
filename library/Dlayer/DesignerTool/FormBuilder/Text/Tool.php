@@ -103,7 +103,19 @@ class Dlayer_DesignerTool_FormBuilder_Text_Tool extends Dlayer_Tool_Form
      */
     protected function edit()
     {
+        $model = new Dlayer_DesignerTool_FormBuilder_Text_Model();
 
+        try {
+            $result = $model->editAttributes($this->site_id, $this->form_id, $this->field_id, $this->params, 'Text');
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
+        }
+
+        if ($result === true) {
+            return $this->returnIds();
+        } else {
+            return false;
+        }
     }
 
     /**
