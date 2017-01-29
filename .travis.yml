@@ -8,4 +8,4 @@ php:
   - hhvm
   - nightly
 
-script: phpunit --bootstrap /tests/Bootstrap.php /tests.php
+script: phpunit --bootstrap tests/Bootstrap.php tests.php
