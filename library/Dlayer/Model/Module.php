@@ -50,26 +50,41 @@ class Dlayer_Model_Module extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Modules list, pull the module details for the application home page
+     * Active items
      *
-     * @param boolean $enabled Return only enabled modules
-     * @return array  Array of modules which match the requested status
+     * @param integer $site_id
+     *
+     * @return array|false
      */
-    public function byStatus($enabled = true)
+    public function activeItems($site_id)
     {
-        $sql = "SELECT `name`, title, description
-                FROM dlayer_module
-                WHERE enabled = :enabled 
-                AND `name` <> 'dlayer' 
-                ORDER BY sort_order ASC";
+        $sql = "SELECT 
+                (
+                    SELECT 
+                        COUNT(`user_site_page`.`id`) 
+                    FROM 
+                        `user_site_page` 
+                    WHERE 
+                        `user_site_page`.`site_id` = 1
+                ) AS `pages`, 
+                (
+                    SELECT 
+                        COUNT(`user_site_form`.`id`) 
+                    FROM 
+                        `user_site_form` 
+                    WHERE 
+                        `user_site_form`.`site_id` = 1
+                ) AS `forms`";
         $stmt = $this->_db->prepare($sql);
-        if ($enabled == true) {
-            $stmt->bindValue(':enabled', 1, PDO::PARAM_INT);
-        } else {
-            $stmt->bindValue(':enabled', 0, PDO::PARAM_INT);
-        }
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetchAll();
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return $result;
+        } else {
+            return false;
+        }
     }
 }

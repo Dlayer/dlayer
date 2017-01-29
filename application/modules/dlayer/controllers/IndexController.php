@@ -128,14 +128,14 @@ class Dlayer_IndexController extends Zend_Controller_Action
         $session_dlayer = new Dlayer_Session();
 
         $model_sites = new Dlayer_Model_Site();
+        $model_modules = new Dlayer_Model_Module();
+
         $last_accessed = $model_sites->lastAccessedSite($session_dlayer->identityId());
 
         $session_dlayer = new Dlayer_Session();
         $session_dlayer->setSiteId($last_accessed['site_id']);
 
-        $model_modules = new Dlayer_Model_Module();
-
-        $this->view->modules_enabled = $model_modules->byStatus();
+        $this->view->active_items = $model_modules->activeItems($session_dlayer->siteId());
         $this->view->sites = $model_sites->byIdentity($session_dlayer->identityId());
         $this->view->site_id = $session_dlayer->siteId();
         $this->view->last_accessed_site = $last_accessed['name'];
