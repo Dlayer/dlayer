@@ -42,14 +42,14 @@ class Dlayer_Validate_ColorHex extends Zend_Validate_Abstract
         
         if(strlen($value) == 7) {
             if($validator->isValid(ltrim($value, '#')) == TRUE) {
-                return TRUE;
+                return true;
             } else {
                 $this->_error(self::COLOR_HEX);
-                return FALSE;
+                return false;
             }
         } else {
             $this->_error(self::COLOR_HEX);
-            return FALSE;
+            return false;
         }
     }
 }
