@@ -20,13 +20,41 @@
 
 		<h3>Live designers</h3>
 
-		<ol>
-			<?php foreach($this->modules_enabled as $module) { ?>
-				<li><a href="/<?php echo $this->escape($module['name']); ?>">
-					<?php echo $this->escape($module['title']); ?></a> - 
-				<?php echo $module['description']; ?></li>
-				<?php } ?>
-		</ol>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><a href="/content">Content Manager</a></h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>The Content Manager allows you to build and edit the web pages that become your web site.</p>
+                    </div>
+
+                    <ul class="list-group">
+                        <li class="list-group-item">Pages in site: <a href="/content"><?php if ($this->active_items !== false) { echo $this->escape($this->active_items['pages']); } else { echo 0; } ?></a></li>
+                        <li class="list-group-item">Add a <a href="/content/index/new-page">new page</a></li>
+                        <li class="list-group-item">Recent: [TITLE HERE]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><a href="/form">Form Builder</a></h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>The Form Builder allows you to quickly and easily build forms to incorporate into your web site.</p>
+                    </div>
+
+                    <ul class="list-group">
+                        <li class="list-group-item">Forms for site: <a href="/form"><?php if ($this->active_items !== false) { echo $this->escape($this->active_items['forms']); } else { echo 0; } ?></a></li>
+                        <li class="list-group-item">Add a <a href="/form/admin/new">new form</a></li>
+                        <li class="list-group-item">Recent: [TITLE HERE]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
 		<p class="text-muted"><em>There are five other designers in various states of planning/development; these are
 			the Image/Media Library, Website Manager, Widget Designer, Data Manager and Question Manager.</em></p>

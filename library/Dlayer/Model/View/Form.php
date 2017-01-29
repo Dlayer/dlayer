@@ -46,23 +46,12 @@ class Dlayer_Model_View_Form extends Zend_Db_Table_Abstract
 
         $sql = "SELECT 
                     `uff`.`id`, 
-                    `uff`.`label`, 
-                    `uff`.`description`, 
-                    `fft`.`type`,
-                    `dmt`.`model` 
+                    `fft`.`type` 
 				FROM 
 				    `user_site_form_field` `uff`
 				INNER JOIN 
 				    `designer_form_field_type` `fft` ON 
 				        `uff`.`field_type_id` = `fft`.`id` 
-                INNER JOIN 
-                    `dlayer_module_tool` `dmt` ON 
-                        `uff`.`tool_id` = `dmt`.`id` AND 
-                        `dmt`.`enabled` = 1 
-                INNER JOIN 
-                    `dlayer_module` `dm` ON 
-                        `dmt`.`module_id` = `dm`.`id` AND 
-                        `dm`.`name` = :module
 				WHERE 
 				    `uff`.`site_id` = :site_id AND 
 				    `uff`.`form_id` = :form_id
@@ -71,7 +60,6 @@ class Dlayer_Model_View_Form extends Zend_Db_Table_Abstract
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
         $stmt->bindValue(':form_id', $this->id, PDO::PARAM_INT);
-        $stmt->bindValue(':module', 'form', PDO::PARAM_STR);
         $stmt->execute();
 
         $results = $stmt->fetchAll();

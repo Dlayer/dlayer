@@ -45,9 +45,8 @@ class Dlayer_Form_LayoutDecorator_FormInline extends Dlayer_Form_LayoutDecorator
 			$wrapper_class .= ' selected';
 		}
 
-		if($this->preview_mode == FALSE) {
-			$wrapper_id = $options['type'] . ':' . $options['tool'] . 
-				':' . $field_id;
+		if($this->builder === true) {
+			$wrapper_id = $options['type'] . ':' . $field_id;
 		} else {
 			$wrapper_id = '';
 		}

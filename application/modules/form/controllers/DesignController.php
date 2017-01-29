@@ -93,7 +93,7 @@ class Form_DesignController extends Zend_Controller_Action
     }
 
     /**
-     * Base action for the design controller, fetches the html/data for the tool bar ribbon and content page
+     * Base action for the design controller, fetches the html/data for the tool bar ribbon and form page
      *
      * @return void
      */
@@ -126,7 +126,7 @@ class Form_DesignController extends Zend_Controller_Action
     }
 
     /**
-     * Base action for the design controller, fetches the html/data for the tool bar ribbon and content page
+     * Base action for the design controller, fetches the html/data for the tool bar ribbon and form
      *
      * @return void
      */
@@ -201,14 +201,18 @@ class Form_DesignController extends Zend_Controller_Action
 
         $tools = $model_tool->tools($this->getRequest()->getModuleName());
 
-        foreach ($tools as $group_id => $group) {
-            foreach ($group as $tool) {
-
-                $group = null;
+        foreach ($tools as $tool_group) {
+            foreach ($tool_group as $tool) {
 
                 switch ($tool['group_id']) {
-                    default:
+                    case 2:
                         $show = true;
+                        $group = 'standard';
+                        break;
+
+                    default:
+                        $show = false; // Don't include cancel tool
+                        $group = null;
                         break;
                 }
 
@@ -263,7 +267,7 @@ class Form_DesignController extends Zend_Controller_Action
      */
     private function ribbon()
     {
-        $tool = $this->session_designer->tool('content');
+        $tool = $this->session_designer->tool('form');
 
         if ($tool !== false) {
             $html = $this->ribbonHtml($tool['tool'], $tool['tab'], $tool['sub_tool']);
@@ -287,7 +291,7 @@ class Form_DesignController extends Zend_Controller_Action
      */
     private function ribbonHtml($tool, $tab, $sub_tool = null)
     {
-        if ($this->session->formId() !== null) {
+        if ($this->session->fieldId() !== null) {
             $edit_mode = true;
         } else {
             $edit_mode = false;
@@ -336,7 +340,7 @@ class Form_DesignController extends Zend_Controller_Action
                         $this->session_designer->clearAllImagePicker();
                     }
 
-                    $this->redirect('/content/design');
+                    $this->redirect('/form/design');
                 } else {
                     $this->cancelTool();
                 }
@@ -361,5 +365,81 @@ class Form_DesignController extends Zend_Controller_Action
         $this->session_designer->clearAllTool('form');
 
         $this->redirect('/form/design/index');
+    }
+
+    /**
+     * Generate the html for the requested tool tab, called via Ajax. The tool and tab are checked to ensure they are
+     * valid and active and then the data required to generate the tool tab is fetched and passed too the view
+     *
+     * @throws \Exception
+     * @return string
+     */
+    public function ribbonTabHtmlAction()
+    {
+        $this->_helper->disableLayout();
+
+        $module = $this->getRequest()->getModuleName();
+        $tool = Dlayer_Helper::getParamAsString('tool');
+        $sub_tool = Dlayer_Helper::getParamAsString('sub_tool');
+        $tab = Dlayer_Helper::getParamAsString('tab');
+
+        if ($tool !== null && $tab !== null) {
+            $model_tool = new Dlayer_Model_Tool();
+
+            $exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
+
+            if ($exists === true) {
+                if ($this->session->fieldId() !== null) {
+                    $edit_mode = true;
+                } else {
+                    $edit_mode = false;
+                }
+
+                $multi_use = $model_tool->multiUse($module, $tool, $tab);
+                $this->session_designer->setToolTab('form', $tab, $sub_tool);
+
+                $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
+
+                if ($sub_tool === null) {
+                    $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/FormBuilder/" .
+                        $tool . "/scripts/");
+                } else {
+                    $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/FormBuilder/" .
+                        $tool . "/SubTool/" . $sub_tool . "/scripts/");
+                }
+
+                $html = $this->view->render($tab . '.phtml');
+            } else {
+                $html = $this->view->render("design/ribbon/default.phtml");
+            }
+        } else {
+            $html = $this->view->render("design/ribbon/default.phtml");
+        }
+
+        $this->view->html = $html;
+    }
+
+    /**
+     * Fetch the view data for the tool tabs
+     *
+     * @param string $tool
+     * @param string $tab
+     * @param integer $multi_use
+     * @param boolean $edit_mode
+     * @return string
+     */
+    private function toolTabViewData($tool, $tab, $multi_use, $edit_mode)
+    {
+        $handler = new Dlayer_Ribbon_Handler_Form();
+
+        return $handler->viewData(
+            $this->site_id,
+            $this->session->formId(),
+            $tool,
+            $tab,
+            $multi_use,
+            $edit_mode,
+            $this->session->fieldId()
+        );
     }
 }

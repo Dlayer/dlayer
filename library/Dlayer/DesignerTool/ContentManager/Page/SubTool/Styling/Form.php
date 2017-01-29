@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Form extends Dlayer_Form_Content
+class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Form extends Dlayer_Form_Tool_Content
 {
     /**
      * Set the properties for the form

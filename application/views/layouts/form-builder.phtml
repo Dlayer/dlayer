@@ -67,11 +67,12 @@
                         </ul>
                     </div>
                     <?php } ?>
+                    <?php $labels = array('settings' => 'Layout and settings', 'standard' => 'Standard Elements', 'preset' => 'Preset fields'); ?>
                     <?php foreach(array('settings', 'preset', 'standard') as $group) { ?>
                         <?php if (count($this->layout()->control_bar_tools[$group]) > 0) { ?>
                             <div class="btn-group dropup">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <?php echo ucfirst($group); ?> tools <span class="caret"></span></button>
+                                    <?php echo $labels[$group]; ?> <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <?php foreach($this->layout()->control_bar_tools[$group] as $button) { ?>
                                         <li><a href="<?php echo $this->escape($button['uri']); ?>"><?php echo $this->escape($button['name']); ?></a></li>

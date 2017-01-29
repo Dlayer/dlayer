@@ -119,7 +119,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         $this->_helper->setLayoutProperties(
             $this->nav_bar_items,
-            '/content/design/index',
+            '/content/index/index',
             array(
                 'css/dlayer.css',
                 'css/designer-shared.css',
@@ -152,7 +152,7 @@ class Content_DesignController extends Zend_Controller_Action
             $siblings = $model_page->contentSiblings($this->site_id, $this->page_id, $column_id, $content_id);
         }
 
-        $this->controlBarBase($column_id, $parent_row_id, $parent_column_id, $row_id);
+        $this->controlBarBase($column_id, $parent_row_id, $parent_column_id, $row_id, $content_id);
 
         $this->contractBarSIblings($siblings);
 
@@ -603,13 +603,15 @@ class Content_DesignController extends Zend_Controller_Action
     /**
      * Core navigation controls for the control bar
      *
-     * @param $column_id
-     * @param $parent_row_id
-     * @param $parent_column_id
-     * @param $row_id
+     * @param integer $column_id
+     * @param integer $parent_row_id
+     * @param integer $parent_column_id
+     * @param integer $row_id
+     * @param integer $content_id
+     *
      * @return void
      */
-    private function controlBarBase($column_id, $parent_row_id, $parent_column_id, $row_id)
+    private function controlBarBase($column_id, $parent_row_id, $parent_column_id, $row_id, $content_id)
     {
         $this->control_bar[] = array(
             'name' => 'Cancel',
@@ -617,20 +619,36 @@ class Content_DesignController extends Zend_Controller_Action
             'uri' => '/content/design/set-tool/Cancel/reset/1'
         );
 
-        if ($column_id !== null && $column_id !== 0) {
-            $this->control_bar[] = array(
-                'name' => 'Select parent row',
-                'class' => 'btn-default',
-                'uri' => '/content/design/set-selected-row/id/' . $parent_row_id . '/column/' . $parent_column_id
-            );
+        if ($column_id !== null) {
+            if ($content_id !== null) {
+                $this->control_bar[] = array(
+                    'name' => 'Select parent row',
+                    'class' => 'btn-default',
+                    'uri' => '/content/design/set-selected-row/id/' . $row_id . '/column/' . $parent_column_id
+                );
+            } else {
+                $this->control_bar[] = array(
+                    'name' => 'Select parent row',
+                    'class' => 'btn-default',
+                    'uri' => '/content/design/set-selected-row/id/' . $row_id . '/column/' . $parent_column_id
+                );
+            }
         }
 
-        if ($row_id !== null) {
-            $this->control_bar[] = array(
-                'name' => 'Select parent column',
-                'class' => 'btn-default',
-                'uri' => '/content/design/set-selected-column/id/' . $parent_column_id . '/row/' . $parent_row_id
-            );
+        if ($row_id !== null && $parent_column_id !== 0) {
+            if ($content_id !== null) {
+                $this->control_bar[] = array(
+                    'name' => 'Select parent column',
+                    'class' => 'btn-default',
+                    'uri' => '/content/design/set-selected-column/id/' . $column_id . '/row/' . $row_id
+                );
+            } else {
+                $this->control_bar[] = array(
+                    'name' => 'Select parent column',
+                    'class' => 'btn-default',
+                    'uri' => '/content/design/set-selected-column/id/' . $parent_column_id . '/row/' . $parent_row_id
+                );
+            }
         }
     }
 
