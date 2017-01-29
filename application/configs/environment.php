@@ -11,7 +11,7 @@
 */
 
 $environment = 'production';
-$environment = 'development';
+//$environment = 'development';
 
 // Version number for current release
 $version_no = 'v1.09';
