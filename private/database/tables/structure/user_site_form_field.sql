@@ -4,8 +4,6 @@ CREATE TABLE `user_site_form_field` (
 	`site_id` int(11) unsigned NOT NULL,
 	`form_id` int(11) unsigned NOT NULL,
 	`field_type_id` tinyint(3) unsigned NOT NULL,
-	`label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-	`description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 	`sort_order` int(11) unsigned NOT NULL DEFAULT '1',
 	PRIMARY KEY (`id`),
 	KEY `site_id` (`site_id`),

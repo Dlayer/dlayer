@@ -46,8 +46,6 @@ class Dlayer_Model_View_Form extends Zend_Db_Table_Abstract
 
         $sql = "SELECT 
                     `uff`.`id`, 
-                    `uff`.`label`, 
-                    `uff`.`description`, 
                     `fft`.`type` 
 				FROM 
 				    `user_site_form_field` `uff`

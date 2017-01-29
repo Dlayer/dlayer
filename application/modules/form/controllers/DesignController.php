@@ -385,7 +385,6 @@ class Form_DesignController extends Zend_Controller_Action
 
         if ($tool !== null && $tab !== null) {
             $model_tool = new Dlayer_Model_Tool();
-            $model_page = new Dlayer_Model_Content_Page();
 
             $exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
 
@@ -399,7 +398,6 @@ class Form_DesignController extends Zend_Controller_Action
                 $multi_use = $model_tool->multiUse($module, $tool, $tab);
                 $this->session_designer->setToolTab('form', $tab, $sub_tool);
 
-                //$this->view->color_picker_data = $this->colorPickerData();
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
                 if ($sub_tool === null) {
