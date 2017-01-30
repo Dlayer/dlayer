@@ -15,5 +15,6 @@ insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`group_id`,`so
     (13, 3, 'Cancel', 'Cancel', 1, 1, 1),
     (14, 3, 'Text', 'Text', 2, 1, 1),
     (15, 3, 'Textarea', 'Textarea', 2, 2, 1),
-    (16, 3, 'Email', 'Email', 2, 3, 1);
+    (16, 3, 'Email', 'Email', 2, 3, 1),
+    (17, 3, 'Password', 'Password', 2, 4, 1);
 

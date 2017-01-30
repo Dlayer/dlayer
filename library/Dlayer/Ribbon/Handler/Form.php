@@ -79,6 +79,10 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $this->email($tool, $tab);
                 break;
 
+            case 'Password':
+                $data = $this->password($tool, $tab);
+                break;
+
             default:
                 $data = false;
                 break;
@@ -170,6 +174,31 @@ class Dlayer_Ribbon_Handler_Form
             case 'email':
                 $ribbon_email = new Dlayer_DesignerTool_FormBuilder_Email_Ribbon();
                 $data = $ribbon_email->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the Password element tool, returns an array containing the form and any additional
+     * data required for the view
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function password($tool, $tab)
+    {
+        switch ($tab) {
+            case 'password':
+                $ribbon_password = new Dlayer_DesignerTool_FormBuilder_Password_Ribbon();
+                $data = $ribbon_password->viewData($this->toolParams($tool));
                 break;
 
             default:

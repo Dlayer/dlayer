@@ -44,4 +44,6 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (NULL,3,15,'Textarea','textarea',NULL,'pencil',NULL,1,0,1,1,1),
     (NULL,3,15,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
     (NULL,3,16,'Email','email',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,3,16,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1);
+    (NULL,3,16,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
+    (NULL,3,17,'Password','password',NULL,'pencil',NULL,1,0,1,1,1),
+    (NULL,3,17,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1);
