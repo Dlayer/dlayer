@@ -4,6 +4,22 @@ Changelog
 
 Full changelog for Dlayer since the v1.00 release.
 
+v1.09: 2017-01-30
+--------
+- Select parent row and column buttons now have the correct URI when a content item is selected. [Bugfix]
+- Minor update to the signed in page. [UI]
+- Added the 'Text element` tool. [Feature]
+- Added the 'Textarea element` tool. [Feature]
+- Added the 'Email element` tool. [Feature]
+- Added the 'Password element` tool. [Feature]
+- Element label and description are now part of the attributes table. [Database]
+- Added form field selector. [Feature]
+- Starting to build up the test suite. [Tests]
+- The active site is visibly clearer on the signed in page. [UI]
+- Added the control bar to non-designer pages. [UX]
+- Minor update to the layout of Form Builder and Content Manager dashboards. [UI]
+- General refactoring and minor fixes.
+
 v1.08: 2017-01-26
 --------
 
