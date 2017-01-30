@@ -4,7 +4,7 @@
 	<div class="col-md-12 col-xs-12">
 		<h1>Form Builder <small>Quickly and easily build forms</small></h1>
 
-        <h2><span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></h2>
+        <h2><span class="label label-default">Website: <?php echo $this->escape($this->site['name']); ?></span></h2>
 
 		<h3>Quick introduction</h3>
 
@@ -13,43 +13,52 @@
 
         <p>Forms are typically used to gather information or to control a visitors flow through your website.</p>
 
-        <?php if (count($this->forms) > 0) { ?>
-        <h3>Form <small>Select a form from the list below</small></h3>
+		<h3>Your forms</h3>
 
-        <ul class="listing">
+        <?php if (count($this->forms) > 0) { ?>
+		<div class="row">
             <?php foreach($this->forms as $form) { ?>
+
                 <?php if($form['id'] == $this->form_id) { ?>
-                    <li>
-                        <button type="button" class="btn btn-info btn-xs">
-                            <?php echo $this->escape($form['name']); ?>
-                        </button>
-                        <a href="/form/design/" class="btn btn-default btn-xs">Design</a>
-                        <a href="/form/admin/edit" class="btn btn-default btn-xs">Edit</a>
-                        <a href="#" class="btn btn-default btn-xs disabled" disabled="disabled">Copy</a>
-                        <span class="label label-success">Selected</span>
-                        <ul class="list-unstyled small">
-                            <li><strong>Title:</strong> <?php echo $this->escape($form['title']); ?></li>
-                            <li><strong>Layout:</strong> <?php echo $this->escape($form['layout']); ?></li>
-                        </ul>
-                    </li>
+		            <div class="col-md-4 col-sm-6">
+			            <div class="panel panel-primary">
+		                    <div class="panel-heading">
+		                        <h3 class="panel-title"><a href="/form/design"><?php echo $this->escape($form['name']); ?></a></h3>
+		                    </div>
+
+		                    <ul class="list-group">
+		                        <li class="list-group-item"><strong>Title:</strong> <?php echo $this->escape($form['title']); ?></li>
+		                        <li class="list-group-item"><strong>Layout:</strong> <?php echo $this->escape($form['layout']); ?></li>
+		                        <li class="list-group-item">
+                                    <a href="/content/design" class="btn btn-success btn-xs">Form Builder</a>
+			                        <a href="/form/admin/edit" class="btn btn-default btn-xs">Edit</a>
+			                        <a href="#" class="btn btn-default btn-sm disabled" disabled="disabled">Copy</a>
+	                            </li>
+		                    </ul>
+                        </div>
+                    </div>
                 <?php } else { ?>
-                    <li>
-                        <a href="/form/admin/activate/id/<?php echo $this->escape($form['id']); ?>"
-                           class="btn btn-default btn-xs">
-                            <?php echo $this->escape($form['name']); ?> </a>
-                        <ul class="list-unstyled small">
-                            <li><strong>Title:</strong> <?php echo $this->escape($form['title']); ?></li>
-                            <li><strong>Layout:</strong> <?php echo $this->escape($form['layout']); ?></li>
-                        </ul>
-                    </li>
+		            <div class="col-md-4 col-sm-6">
+			            <div class="panel panel-default">
+		                    <div class="panel-heading">
+		                        <h3 class="panel-title"><a href="/form/admin/activate/id/<?php echo $this->escape($form['id']); ?>"><?php echo $this->escape($form['name']); ?></a></h3>
+		                    </div>
+
+		                    <ul class="list-group">
+		                        <li class="list-group-item"><strong>Title:</strong> <?php echo $this->escape($form['title']); ?></li>
+		                        <li class="list-group-item"><strong>Layout:</strong> <?php echo $this->escape($form['layout']); ?></li>
+		                        <li class="list-group-item">
+			                        <a href="/form/admin/activate/id/<?php echo $this->escape($form['id']); ?>" class="btn btn-primary btn-xs">Select</a>
+	                            </li>
+		                    </ul>
+                        </div>
+                    </div>
                 <?php } ?>
             <?php } ?>
-            <li><a href="/form/admin/new" class="btn btn-primary btn-sm">New form</a></li>
-        </ul>
+        </div>
         <?php } else { ?>
-        <p class="lead">You haven't created any forms for this website, start <a href="/form/admin/new">here</a> to build a form.</p>
+	        <p class="lead">You haven't created any forms for this website, start <a href="/form/admin/new">here</a> to build a form.</p>
         <?php } ?>
-
 	</div>
 </div>
 

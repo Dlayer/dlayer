@@ -69,7 +69,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
      */
     public function init()
     {
-
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('show_control_bar', false);
     }
 
     /**
@@ -136,12 +137,61 @@ class Dlayer_IndexController extends Zend_Controller_Action
         $session_dlayer->setSiteId($last_accessed['site_id']);
 
         $this->view->active_items = $model_modules->activeItems($session_dlayer->siteId());
-        $this->view->sites = $model_sites->byIdentity($session_dlayer->identityId());
         $this->view->site_id = $session_dlayer->siteId();
-        $this->view->last_accessed_site = $last_accessed['name'];
+        $this->view->site = $model_sites->site($session_dlayer->siteId());
+
+        $this->controlBar($session_dlayer->identityId(), $session_dlayer->siteId());
 
         $this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
             array(), 'Dlayer.com - Web site development');
+    }
+
+    /**
+     * Control bar
+     *
+     * @param integer $identity_id
+     * @param integer $site_id
+     *
+     * @return void
+     */
+    private function controlBar($identity_id, $site_id)
+    {
+        $model_sites = new Dlayer_Model_Site();
+
+        $control_bar_buttons = array(
+            array(
+                'uri'=>'/dlayer/index/new-site',
+                'class' => 'primary',
+                'name'=>'New website'
+            )
+        );
+
+        $control_bar_drops = array(
+            array(
+                'name' => 'Your sites',
+                'class' => 'default',
+                'buttons' => $model_sites->sitesForControlBar($identity_id, $site_id)
+            )
+        );
+
+        $this->assignToControlBar($control_bar_buttons, $control_bar_drops);
+    }
+
+    /**
+     * Assign control bar buttons
+     *
+     * @param array $buttons
+     * @param array $drops
+     *
+     * @todo Move this into an action helper
+     * @return void
+     */
+    private function assignToControlBar(array $buttons, array $drops)
+    {
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('show_control_bar', true);
+        $layout->assign('control_bar_buttons', $buttons);
+        $layout->assign('control_bar_drops', $drops);
     }
 
     /**
@@ -171,7 +221,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
     }
 
     /**
-     * Create a new web site, at the moment a user only needs to define the name they want to use, later there
+     * Create a new website, at the moment a user only needs to define the name they want to use, later there
      * will be an updated to set additional data as well as some Dlayer options
      *
      * @return void
@@ -180,18 +230,22 @@ class Dlayer_IndexController extends Zend_Controller_Action
     {
         $this->_helper->authenticate();
 
+        $session_dlayer = new Dlayer_Session();
+
         $this->site_form = new Dlayer_Form_Site_Site('/dlayer/index/new-site');
 
-        if ($this->getRequest()
-            ->isPost()
-        ) {
+        if ($this->getRequest()->isPost()) {
             $this->handleAddSite();
         }
 
+        $model_sites = new Dlayer_Model_Site();
+        $this->view->site = $model_sites->site($session_dlayer->siteId());
         $this->view->form = $this->site_form;
 
+        $this->controlBar($session_dlayer->identityId(), $session_dlayer->siteId());
+
         $this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
-            array(), 'Dlayer.com - New web site');
+            array(), 'Dlayer.com - New website');
     }
 
     /**
@@ -213,7 +267,11 @@ class Dlayer_IndexController extends Zend_Controller_Action
             $this->handleEditSite();
         }
 
+        $model_sites = new Dlayer_Model_Site();
+        $this->view->site = $model_sites->site($session_dlayer->siteId());
         $this->view->form = $this->site_form;
+
+        $this->controlBar($session_dlayer->identityId(), $session_dlayer->siteId());
 
         $this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
             array(), 'Dlayer.com - Edit web site');

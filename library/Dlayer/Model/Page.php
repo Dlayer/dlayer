@@ -66,10 +66,20 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
      */
     public function pages($site_id)
     {
-        $sql = "SELECT usp.id, usp.`name` 
-				FROM user_site_page usp 
-				WHERE usp.site_id = :site_id 
-				ORDER BY usp.`name` ASC";
+        $sql = "SELECT 
+                    `usp`.`id`, 
+                    `usp`.`name`,
+                    `uspm`.`title`,
+                    `uspm`.`description`
+				FROM 
+				    `user_site_page` `usp` 
+                INNER JOIN 
+                    `user_site_page_meta` `uspm` ON 
+                        `usp`.`id` = `uspm`.`page_id`
+				WHERE 
+				    `usp`.`site_id` = :site_id 
+				ORDER BY 
+				    `usp`.`name` ASC";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->execute();

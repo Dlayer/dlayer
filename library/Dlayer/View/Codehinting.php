@@ -437,4 +437,15 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     public function htmlPreview(array $data)
     {
     }
+
+    /**
+     * Trims a string to a specific length and adds ellipsis if required
+     *
+     * @param string $string
+     * @param integer $length
+     * @return Dlayer_View_TrimToLength
+     */
+    public function trimToLength($string, $length = 50)
+    {
+    }
 }

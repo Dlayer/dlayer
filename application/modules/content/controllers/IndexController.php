@@ -78,8 +78,64 @@ class Content_IndexController extends Zend_Controller_Action
         $this->view->pages = $pages;
         $this->view->page_id = $this->session_content->pageId();
 
+        $session_dlayer = new Dlayer_Session();
+        $this->controlBar($session_dlayer->identityId(), $this->site_id);
+
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Content Manager');
+    }
+
+    /**
+     * Control bar
+     *
+     * @param integer $identity_id
+     * @param integer $site_id
+     *
+     * @return void
+     */
+    private function controlBar($identity_id, $site_id)
+    {
+        $model_sites = new Dlayer_Model_Site();
+
+        $control_bar_buttons = array(
+            array(
+                'uri' => '/dlayer/index/home',
+                'class' => 'default',
+                'name' => 'Dashboard'
+            ),
+            array(
+                'uri'=>'/content/index/new-page',
+                'class' => 'primary',
+                'name'=>'New page'
+            )
+        );
+
+        $control_bar_drops = array(
+            array(
+                'name' => 'Your websites',
+                'class' => 'default',
+                'buttons' => $model_sites->sitesForControlBar($identity_id, $site_id)
+            )
+        );
+
+        $this->assignToControlBar($control_bar_buttons, $control_bar_drops);
+    }
+
+    /**
+     * Assign control bar buttons
+     *
+     * @param array $buttons
+     * @param array $drops
+     *
+     * @todo Move this into an action helper
+     * @return void
+     */
+    private function assignToControlBar(array $buttons, array $drops)
+    {
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('show_control_bar', true);
+        $layout->assign('control_bar_buttons', $buttons);
+        $layout->assign('control_bar_drops', $drops);
     }
 
     /**
@@ -169,6 +225,9 @@ class Content_IndexController extends Zend_Controller_Action
         $this->view->form = $this->content_page_form;
         $this->view->site = $model_sites->site($this->site_id);
 
+        $session_dlayer = new Dlayer_Session();
+        $this->controlBar($session_dlayer->identityId(), $this->site_id);
+
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - New content page');
     }
@@ -191,6 +250,9 @@ class Content_IndexController extends Zend_Controller_Action
 
         $this->view->form = $this->content_page_form;
         $this->view->site = $model_sites->site($this->site_id);
+
+        $session_dlayer = new Dlayer_Session();
+        $this->controlBar($session_dlayer->identityId(), $this->site_id);
 
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Edit content page');

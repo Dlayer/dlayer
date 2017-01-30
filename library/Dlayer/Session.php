@@ -43,7 +43,7 @@ class Dlayer_Session extends Zend_Session_Namespace
     */
     public function siteId() 
     {
-        return $this->site_id;
+        return intval($this->site_id);
     }
 
     /**

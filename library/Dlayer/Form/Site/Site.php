@@ -54,15 +54,15 @@ class Dlayer_Form_Site_Site extends Dlayer_Form_Site
 
 		$this->validationRules();
 
-		if($this->form_id === NULL)
+		if($this->site_id === NULL)
 		{
-			$legend = ' <small>Create a new web site</small>';
+			$legend = ' <small>Create a new website</small>';
 		}
 		else
 		{
-			$legend = ' <small>Edit web site details details</small>';
+			$legend = ' <small>Edit web site details</small>';
 		}
-		$this->addElementsToForm('form_site', 'Web site' . $legend, $this->elements);
+		$this->addElementsToForm('form_site', 'Website' . $legend, $this->elements);
 
 		$this->addDefaultElementDecorators();
 
@@ -99,7 +99,7 @@ class Dlayer_Form_Site_Site extends Dlayer_Form_Site
 	{
 		$name = new Zend_Form_Element_Text('name');
 		$name->setLabel('Name');
-		$name->setDescription('Enter a name for your new web site, this will only display within Dlayer, not anywhere 
+		$name->setDescription('Enter a name for your new website, this will only display within Dlayer, not anywhere 
 		    on your web site.');
 		$name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., My new site',
 			'class'=>'form-control'));

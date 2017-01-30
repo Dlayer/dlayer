@@ -35,6 +35,47 @@ class Dlayer_Model_Site extends Zend_Db_Table_Abstract
     }
 
     /**
+     * Fetch a list of sites for the control bar
+     *
+     * @param integer $identity_id
+     * @param integer $active_site_id
+     *
+     * @return array Array of the sites, name and id, for the control bar
+     */
+    public function sitesForControlBar($identity_id, $active_site_id)
+    {
+        $sql = "SELECT 
+                    `id`, 
+                    `name`
+				FROM 
+				    `user_site`
+				WHERE 
+				    `identity_id` = :identity_id
+				ORDER BY 
+				    `name` ASC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':identity_id', $identity_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $sites = array();
+
+        $result = $stmt->fetchAll();
+
+        foreach ($result as $row) {
+            $append = null;
+            if (intval($row['id']) === $active_site_id) {
+                $append = ' (Active)';
+            }
+            $sites[] = array(
+                'uri' => '/dlayer/index/activate/site/' . $row['id'],
+                'name' => $row['name'] . $append
+            );
+        }
+
+        return $sites;
+    }
+
+    /**
      * Fetch the id for the last accessed site, if for some reason there is
      * no existing value we pull the id for the 'Sample site'
      *
@@ -203,7 +244,7 @@ class Dlayer_Model_Site extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Add a new web site and set the defaul options
+     * Add a new website and set the defaul options
      *
      * @param string $name Site name
      * @param integer $identity_id Id of the user site belongs to

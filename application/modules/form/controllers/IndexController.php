@@ -77,7 +77,63 @@ class Form_IndexController extends Zend_Controller_Action
         $this->view->site = $model_sites->site($this->site_id);
         $this->view->form_id = $this->session->formId();
 
+        $session_dlayer = new Dlayer_Session();
+        $this->controlBar($session_dlayer->identityId(), $session_dlayer->siteId());
+
         $this->_helper->setLayoutProperties($this->nav_bar_items, '/form/index/index', array('css/dlayer.css'),
             array(), 'Dlayer.com - Form Builder');
+    }
+
+    /**
+     * Control bar
+     *
+     * @param integer $identity_id
+     * @param integer $site_id
+     *
+     * @return void
+     */
+    private function controlBar($identity_id, $site_id)
+    {
+        $model_sites = new Dlayer_Model_Site();
+
+        $control_bar_buttons = array(
+            array(
+                'uri' => '/dlayer/index/home',
+                'class' => 'default',
+                'name' => 'Dashboard'
+            ),
+            array(
+                'uri'=>'/form/admin/new',
+                'class' => 'primary',
+                'name'=>'New form'
+            )
+        );
+
+        $control_bar_drops = array(
+            array(
+                'name' => 'Your websites',
+                'class' => 'default',
+                'buttons' => $model_sites->sitesForControlBar($identity_id, $site_id)
+            )
+        );
+
+        $this->assignToControlBar($control_bar_buttons, $control_bar_drops);
+    }
+
+    /**
+     * Assign control bar buttons
+     *
+     * @param array $buttons
+     * @param array $drops
+     *
+     * @todo Move this into an action helper
+     * @return void
+     */
+    private function assignToControlBar(array $buttons, array $drops)
+    {
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('show_control_bar', true);
+        $layout->assign('control_bar_buttons', $buttons);
+        $layout->assign('control_bar_drops', $drops);
     }
 }
