@@ -13,6 +13,7 @@ abstract class Dlayer_Tool_Form
     protected $site_id = null;
     protected $form_id = null;
     protected $field_id = null;
+    protected $field_type = null;
 
     protected $params = array();
     protected $params_auto = array();
@@ -29,14 +30,16 @@ abstract class Dlayer_Tool_Form
      * @param array $params
      * @param integer $site_id
      * @param integer $form_id
+     * @param integer $field_type
      * @param integer|null $field_id
      * @return boolean
      */
-    public function validate(array $params, $site_id, $form_id, $field_id = null)
+    public function validate(array $params, $site_id, $form_id, $field_type, $field_id = null)
     {
         $this->site_id = $site_id;
         $this->form_id = $form_id;
         $this->field_id = $field_id;
+        $this->field_type = $field_type;
 
         if ($this->paramsExist($params) === true && $this->paramsValid($params) === true) {
             $this->validated = true;

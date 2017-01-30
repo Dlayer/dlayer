@@ -19,14 +19,14 @@ abstract class Dlayer_DesignerTool_FormBuilder_Shared_Tool_Element extends Dlaye
         $continue = false;
         $model = new Dlayer_DesignerTool_FormBuilder_Shared_Model_Element();
 
-        $field_id = $model->addField($this->site_id, $this->form_id, 'Text');
+        $field_id = $model->addField($this->site_id, $this->form_id, $this->field_type);
 
         if ($field_id !== false) {
-            $continue = $model->addAttributes($this->site_id, $this->form_id, $field_id, $this->params, 'Text');
+            $continue = $model->addAttributes($this->site_id, $this->form_id, $field_id, $this->params, $this->field_type);
         }
 
         if ($field_id !== false && $continue === true) {
-            Dlayer_Helper::sendToInfoLog('Text element added to site id: ' . $this->site_id . ' form id: ' .
+            Dlayer_Helper::sendToInfoLog('Element added to site id: ' . $this->site_id . ' form id: ' .
                 $this->form_id);
 
             return $this->returnIds($field_id);
@@ -43,10 +43,10 @@ abstract class Dlayer_DesignerTool_FormBuilder_Shared_Tool_Element extends Dlaye
      */
     protected function edit()
     {
-        $model = new Dlayer_DesignerTool_FormBuilder_Text_Model();
+        $model = new Dlayer_DesignerTool_FormBuilder_Shared_Model_Element();
 
         try {
-            $result = $model->editAttributes($this->site_id, $this->form_id, $this->field_id, $this->params, 'Text');
+            $result = $model->editAttributes($this->site_id, $this->form_id, $this->field_id, $this->params, $this->field_type);
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }

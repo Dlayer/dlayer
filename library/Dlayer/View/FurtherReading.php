@@ -1,130 +1,130 @@
 <?php
+
 /**
-* Generates a further reading section with a button to go to the Dlayer alpha 
-* specification site and optionally a button to go the specific section in 
-* the specification
-* 
-* @author Dean Blackborough <dean@g3d-development.com>
-* @copyright G3D Development Limited
-* @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
-*/
-class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract 
+ * Generates a further reading section with a button to go to the Dlayer alpha
+ * specification site and optionally a button to go the specific section in
+ * the specification
+ *
+ * @author Dean Blackborough <dean@g3d-development.com>
+ * @copyright G3D Development Limited
+ * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
+ */
+class Dlayer_View_FurtherReading extends Zend_View_Helper_Abstract
 {
-	/**
-	* Override the hinting for the view property so that we can see the view
-	* helpers that have been defined
-	*
-	* @var Dlayer_View_Codehinting
-	*/
-	public $view;
-	
-	private $domain = 'http://www.dlayer.com/docs';
-	private $url;
-	private $well = FALSE;
-	
-	/**
-	* Set the url and well setting for the further reading view helper
-	* 
-	* @param string $url Optional URL to use for second button, just the 
-	* 	fragment after the domain, http://specification.dlayer.com/
-	* @param boolean $well Should the content be placed inside a bootstrap 
-	* 	well, useful to separate the further section from other content
-	* @return Dlayer_View_FurtherReading
-	*/
-	public function furtherReading($url=NULL, $well=FALSE) 
-	{
-		$this->resetParams();
-		
-		if(strlen($url) > 0) 
-		{
-			$this->url = $url;
-		}
-		$this->well = $well;
-		
-		return $this;
-	}
-	
-	/**
-	* Reset any internal params, we need to reset the params in case the view 
-	* helper is called multiple times within the same view script.
-	* 
-	* @return void
-	*/
-	public function resetParams() 
-	{
-		$this->url = NULL;
-		$this->well = FALSE;
-	}
-	
-	/**
-	* Generate the further reading html 
-	* 
-	* @return string 
-	*/
-	private function render() 
-	{
-		$html = '';
-		
-		if($this->well == TRUE) {
-			$html .= '<div class="well well-sm">';
-		}
-		
-		$html .= "<h4>Further reading <small>Do you want to know more?</small></h4>
+    /**
+     * Override the hinting for the view property so that we can see the view
+     * helpers that have been defined
+     *
+     * @var Dlayer_View_Codehinting
+     */
+    public $view;
+
+    private $domain = 'http://www.dlayer.com/docs';
+    private $url;
+    private $well = false;
+
+    /**
+     * Set the url and well setting for the further reading view helper
+     *
+     * @param string $url Optional URL to use for second button, just the
+     *    fragment after the domain, http://specification.dlayer.com/
+     * @param boolean $well Should the content be placed inside a bootstrap
+     *    well, useful to separate the further section from other content
+     * @return Dlayer_View_FurtherReading
+     */
+    public function furtherReading($url = null, $well = false)
+    {
+        $this->resetParams();
+
+        if (strlen($url) > 0) {
+            $this->url = $url;
+        }
+        $this->well = $well;
+
+        return $this;
+    }
+
+    /**
+     * Reset any internal params, we need to reset the params in case the view
+     * helper is called multiple times within the same view script.
+     *
+     * @return void
+     */
+    public function resetParams()
+    {
+        $this->url = null;
+        $this->well = false;
+    }
+
+    /**
+     * Generate the further reading html
+     *
+     * @return string
+     */
+    private function render()
+    {
+        $html = '';
+
+        if ($this->well == true) {
+            $html .= '<div class="well well-sm">';
+        }
+
+        $html .= "<h4>Further reading <small>Do you want to know more?</small></h4>
 			
 			<p>Check the documentation at <a href=\"http://www.dlayer.com\">Dlayer.com</a>, I'm working towards moving 
-				my of my private documentation into a git hub pages site and then into the app and tool helper page. ";
-		
-		if($this->url == NULL) {
-			$primary = TRUE;
-		} else {
-			$primary = FALSE;
-		}
-			
-		$html .= $this->button('Go to the docs', $primary);
-				
-		if($this->url != NULL) {
-			$html .= ' - ' . $this->button('Go to this section in docs', TRUE, 
-				$this->url);
-		}
-				
-		$html .= '</p>';
-		
-		if($this->well == TRUE) {
-			$html .= '</div>';
-		}
-				
-		return $html;
-	}
-	
-	/**
-	* Generate the html for a bootstrap button
-	* 
-	* @param string $text Button text
-	* @param boolean $primary Whether or not the primary class should be applied
-	* @param string $url URL for button
-	* @return string HTML for the button
-	*/
-	private function button($text, $primary, $url='') 
-	{
-		if($primary == TRUE) {
-			$class = 'primary'; 
-		} else {
-			$class = 'default';
-		}	
-		return '<a class="btn btn-' . $class . ' btn-xs" role="button" href="' . 
-			$this->domain .  $this->view->escape($url) . '">' . 
-			$this->view->escape($text) . '</a>';
-	}
-	
-	/**
-	* The view helpers can be output directly, we define the __toString m
-	* method so that echo and print calls on the object return the html 
-	* generated by the render method
-	* 
-	* @return string The generated html
-	*/
-	public function __toString() 
-	{
-		return $this->render();
-	}
+				all my private documentation into a git hub pages site and then into the app and tool help tabs. ";
+
+        if ($this->url == null) {
+            $primary = true;
+        } else {
+            $primary = false;
+        }
+
+        $html .= $this->button('Go to the docs', $primary);
+
+        if ($this->url != null) {
+            $html .= ' - ' . $this->button('Go to this section in docs', true,
+                    $this->url);
+        }
+
+        $html .= '</p>';
+
+        if ($this->well == true) {
+            $html .= '</div>';
+        }
+
+        return $html;
+    }
+
+    /**
+     * Generate the html for a bootstrap button
+     *
+     * @param string $text Button text
+     * @param boolean $primary Whether or not the primary class should be applied
+     * @param string $url URL for button
+     * @return string HTML for the button
+     */
+    private function button($text, $primary, $url = '')
+    {
+        if ($primary == true) {
+            $class = 'primary';
+        } else {
+            $class = 'default';
+        }
+        return '<a class="btn btn-' . $class . ' btn-xs" role="button" href="' .
+            $this->domain . $this->view->escape($url) . '">' .
+            $this->view->escape($text) . '</a>';
+    }
+
+    /**
+     * The view helpers can be output directly, we define the __toString m
+     * method so that echo and print calls on the object return the html
+     * generated by the render method
+     *
+     * @return string The generated html
+     */
+    public function __toString()
+    {
+        return $this->render();
+    }
 }
