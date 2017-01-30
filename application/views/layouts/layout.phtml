@@ -48,5 +48,25 @@
 		<div class="container container-970">
 			<?php echo $this->layout()->content; ?>
 		</div>
+		<?php if ($this->layout()->show_control_bar === true) { ?>
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container container-970">
+	            <?php foreach ($this->layout()->control_bar_buttons as $button) { ?>
+	            <a href="<?php echo $this->escape($button['uri']); ?>" class="navbar-btn btn btn-primary"><?php echo $this->escape($button['name']); ?></a>
+	            <?php } ?>
+	            <?php foreach ($this->layout()->control_bar_drops as $drop) { ?>
+	            <div class="btn-group dropup">
+	                <button type="button" class="btn btn-<?php echo $this->escape($drop['class']); ?> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                <?php echo $this->escape($drop['name']); ?> <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+	                    <?php foreach ($drop['buttons'] as $button) { ?>
+                        <li><a href="<?php echo $this->escape($button['uri']); ?>"><?php echo $this->escape($button['name']); ?></a></li>
+                        <?php } ?>
+                    </ul>
+	            </div>
+	            <?php } ?>
+            </div>
+        </nav>
+	<?php } ?>
 	</body>
 </html>

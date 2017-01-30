@@ -69,7 +69,8 @@ class Dlayer_IndexController extends Zend_Controller_Action
      */
     public function init()
     {
-
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('show_control_bar', false);
     }
 
     /**
@@ -136,12 +137,44 @@ class Dlayer_IndexController extends Zend_Controller_Action
         $session_dlayer->setSiteId($last_accessed['site_id']);
 
         $this->view->active_items = $model_modules->activeItems($session_dlayer->siteId());
-        $this->view->sites = $model_sites->byIdentity($session_dlayer->identityId());
         $this->view->site_id = $session_dlayer->siteId();
-        $this->view->last_accessed_site = $last_accessed['name'];
+        $this->view->site = $model_sites->site($session_dlayer->siteId());
+
+        $control_bar_buttons = array(
+            array(
+                'uri'=>'/dlayer/index/new-site',
+                'name'=>'New web site'
+            )
+        );
+        $control_bar_drops = array(
+            array(
+                'name' => 'Your sites',
+                'class' => 'info',
+                'buttons' => $model_sites->sitesForControlBar($session_dlayer->identityId(), $session_dlayer->siteId())
+            )
+        );
+
+        $this->assignToControlBar($control_bar_buttons, $control_bar_drops);
 
         $this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
             array(), 'Dlayer.com - Web site development');
+    }
+
+    /**
+     * Assign control bar buttons
+     *
+     * @param array $buttons
+     * @param array $drops
+     *
+     * @todo Move this into an action helper
+     * @return void
+     */
+    private function assignToControlBar(array $buttons, array $drops)
+    {
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('show_control_bar', true);
+        $layout->assign('control_bar_buttons', $buttons);
+        $layout->assign('control_bar_drops', $drops);
     }
 
     /**

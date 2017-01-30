@@ -3,8 +3,10 @@
 <div class="row">
 	<div class="col-md-12 col-xs-12">	
 		<h1>Dlayer Demo <small>Web development simplified</small></h1>
+
+		<h2><span class="label label-default">Site: <?php echo $this->escape($this->site['name']); ?></span></h2>
 		
-		<h2>Welcome to Dlayer</h2>
+		<h3>Welcome to Dlayer</h3>
 
 		<p>I have one very simple goal for this demo; I want to showcase the fundamental idea behind Dlayer,
 			to show how simple the process of creating a custom responsive website can and should be.</p>
@@ -58,29 +60,7 @@
 
 		<p class="text-muted"><em>There are five other designers in various states of planning/development; these are
 			the Image/Media Library, Website Manager, Widget Designer, Data Manager and Question Manager.</em></p>
-		
-		<h3>Demo sites <small>Play at will, sites will be reset periodically</small></h3>
 
-		<ul class="listing">
-		<?php foreach($this->sites as $site) { ?>
-			<?php if($site['id'] == $this->site_id) { ?>
-				<li>
-					<button type="button" class="btn btn-info btn-xs"><?php echo $this->escape($site['name']); ?></button>  
-					<?php if($site['name'] != 'Sample site 1') { ?>
-						<a href="/dlayer/index/edit-site" class="btn btn-default btn-xs">Edit</a> 
-					<?php } ?>
-					<a href="#" class="btn btn-default btn-xs disabled">Copy</a> 
-					<span class="label label-success">Selected</span>
-				</li>
-				<?php } else { ?>
-				<li>
-					<a href="/dlayer/index/activate/site/<?php echo $this->escape($site['id']); ?>" class="btn btn-default btn-xs">
-					<?php echo $this->escape($site['name']); ?></a>
-				</li>
-				<?php } ?>
-			<?php } ?>
-			<li><a href="/dlayer/index/new-site" class="btn btn-primary btn-xs">New web site</a></li>
-		</ul>
 	</div>
 </div>
 <div class="row">
