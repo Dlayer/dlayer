@@ -161,7 +161,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
         $control_bar_buttons = array(
             array(
                 'uri'=>'/dlayer/index/new-site',
-                'name'=>'New web site'
+                'name'=>'New website'
             )
         );
 
@@ -220,7 +220,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
     }
 
     /**
-     * Create a new web site, at the moment a user only needs to define the name they want to use, later there
+     * Create a new website, at the moment a user only needs to define the name they want to use, later there
      * will be an updated to set additional data as well as some Dlayer options
      *
      * @return void
@@ -244,7 +244,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
         $this->controlBar($session_dlayer->identityId(), $session_dlayer->siteId());
 
         $this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
-            array(), 'Dlayer.com - New web site');
+            array(), 'Dlayer.com - New website');
     }
 
     /**

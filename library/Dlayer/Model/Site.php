@@ -244,7 +244,7 @@ class Dlayer_Model_Site extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Add a new web site and set the defaul options
+     * Add a new website and set the defaul options
      *
      * @param string $name Site name
      * @param integer $identity_id Id of the user site belongs to
