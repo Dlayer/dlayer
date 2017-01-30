@@ -71,6 +71,10 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $this->text($tool, $tab);
                 break;
 
+            case 'Textarea':
+                $data = $this->textarea($tool, $tab);
+                break;
+
             default:
                 $data = false;
                 break;
@@ -111,6 +115,31 @@ class Dlayer_Ribbon_Handler_Form
         switch ($tab) {
             case 'text':
                 $ribbon_text = new Dlayer_DesignerTool_FormBuilder_Text_Ribbon();
+                $data = $ribbon_text->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the Textarea element tool, returns an array containing the form and any additional
+     * data required for the view
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function textarea($tool, $tab)
+    {
+        switch ($tab) {
+            case 'textarea':
+                $ribbon_text = new Dlayer_DesignerTool_FormBuilder_Textarea_Ribbon();
                 $data = $ribbon_text->viewData($this->toolParams($tool));
                 break;
 

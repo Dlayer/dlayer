@@ -190,7 +190,7 @@ class Form_ProcessController extends Zend_Controller_Action
         $tool = $this->toolClass(Dlayer_Helper::getParamAsString('sub_tool_model', null));
 
         if ($tool->validate($this->getRequest()->getPost('params'), $session_dlayer->siteId(),
-                $session->formId(), $session->fieldId()) === true) {
+                $session->formId(), $this->getRequest()->getPost('field_type'), $session->fieldId()) === true) {
 
             $return_ids = $tool->process();
 
