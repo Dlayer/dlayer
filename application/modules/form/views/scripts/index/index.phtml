@@ -20,7 +20,7 @@
             <?php foreach($this->forms as $form) { ?>
 
                 <?php if($form['id'] == $this->form_id) { ?>
-		            <div class="col-md-4">
+		            <div class="col-md-4 col-sm-6">
 			            <div class="panel panel-primary">
 		                    <div class="panel-heading">
 		                        <h3 class="panel-title"><a href="/form/design"><?php echo $this->escape($form['name']); ?></a></h3>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 <?php } else { ?>
-		            <div class="col-md-4">
+		            <div class="col-md-4 col-sm-6">
 			            <div class="panel panel-default">
 		                    <div class="panel-heading">
 		                        <h3 class="panel-title"><a href="/form/design"><?php echo $this->escape($form['name']); ?></a></h3>
