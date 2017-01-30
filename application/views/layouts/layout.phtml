@@ -52,7 +52,7 @@
 		<nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="container container-970">
 	            <?php foreach ($this->layout()->control_bar_buttons as $button) { ?>
-	            <a href="<?php echo $this->escape($button['uri']); ?>" class="navbar-btn btn btn-primary"><?php echo $this->escape($button['name']); ?></a>
+	            <a href="<?php echo $this->escape($button['uri']); ?>" class="navbar-btn btn btn-<?php echo $this->escape($button['class']); ?>"><?php echo $this->escape($button['name']); ?></a>
 	            <?php } ?>
 	            <?php foreach ($this->layout()->control_bar_drops as $drop) { ?>
 	            <div class="btn-group dropup">

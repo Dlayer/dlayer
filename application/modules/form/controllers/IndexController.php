@@ -98,15 +98,21 @@ class Form_IndexController extends Zend_Controller_Action
 
         $control_bar_buttons = array(
             array(
+                'uri' => '/dlayer/index/home',
+                'class' => 'default',
+                'name' => 'Dashboard'
+            ),
+            array(
                 'uri'=>'/form/admin/new',
+                'class' => 'primary',
                 'name'=>'New form'
             )
         );
 
         $control_bar_drops = array(
             array(
-                'name' => 'Your sites',
-                'class' => 'info',
+                'name' => 'Your websites',
+                'class' => 'default',
                 'buttons' => $model_sites->sitesForControlBar($identity_id, $site_id)
             )
         );

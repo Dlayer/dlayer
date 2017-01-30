@@ -12,33 +12,51 @@
 			simply blocks of content, in Dlayer a content block can be almost anything, a single image, text, a form,
 			a poll, or even a widget in the form of an Image gallery or Twitter feed.</p>
 
-        <?php if (count($this->pages) > 0) { ?>
-            <h3>Web pages <small>Select a page from the list below</small></h3>
+        <h3>Your pages</h3>
 
-            <ul class="listing">
+        <?php if (count($this->pages) > 0) { ?>
+            <div class="row">
                 <?php foreach($this->pages as $page) { ?>
+
                     <?php if($page['id'] == $this->page_id) { ?>
-                        <li>
-                            <button type="button" class="btn btn-info btn-xs">
-                                <?php echo $this->escape($page['name']); ?>
-                            </button>
-                            <a href="/content/design/" class="btn btn-default btn-xs">Design</a>
-                            <a href="/content/index/edit-page" class="btn btn-default btn-xs">Edit</a>
-                            <a href="#" class="btn btn-default btn-xs disabled">Copy</a>
-                            <span class="label label-success">Selected</span>
-                        </li>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><a href="/content/design"><?php echo $this->escape($page['name']); ?></a></h3>
+                                </div>
+
+                                <ul class="list-group">
+                                    <li class="list-group-item"><strong>Title:</strong> <?php echo $this->escape($page['title']); ?></li>
+                                    <li class="list-group-item"><strong>Desc.:</strong> <?php echo $this->trimToLength($page['description'], 30); ?></li>
+                                    <li class="list-group-item">
+                                        <a href="/content/design" class="btn btn-success btn-xs">Content Manager</a>
+                                        <a href="/content/index/edit-page" class="btn btn-default btn-xs">Edit</a>
+                                        <a href="#" class="btn btn-default btn-xs disabled" disabled="disabled">Copy</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     <?php } else { ?>
-                        <li>
-                            <a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>"
-                               class="btn btn-default btn-xs">
-                                <?php echo $this->escape($page['name']); ?></a>
-                        </li>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>"><?php echo $this->escape($page['name']); ?></a></h3>
+                                </div>
+
+                                <ul class="list-group">
+                                    <li class="list-group-item"><strong>Title:</strong> <?php echo $this->escape($page['title']); ?></li>
+                                    <li class="list-group-item"><strong>Desc.:</strong> <?php echo $this->trimToLength($page['description'], 30); ?></li>
+                                    <li class="list-group-item">
+                                        <a href="/content/index/activate/page-id/<?php echo $this->escape($page['id']); ?>" class="btn btn-primary btn-xs">Select</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     <?php } ?>
                 <?php } ?>
-                <li><a href="/content/index/new-page" class="btn btn-primary btn-xs">New web page</a></li>
-            </ul>
+            </div>
         <?php } else { ?>
-            <p class="lead">You haven't created any web page this website, start <a href="/content/index/new-page">here</a> to design your first web page.</p>
+            <p class="lead">You haven't created any pages for this website, start <a href="/content/index/new-page">here</a> to create a new web page.</p>
         <?php } ?>
 	</div>
 </div>
