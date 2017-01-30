@@ -5,4 +5,11 @@ php:
   - '7.1'
   - hhvm
 
+notifications:
+  email:
+    recipients:
+      - dean@g3d-development.com
+    on_success: never # default: change
+    on_failure: always # default: always
+
 script: phpunit --bootstrap tests/Bootstrap.php tests
