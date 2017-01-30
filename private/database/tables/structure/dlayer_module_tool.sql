@@ -10,4 +10,4 @@ CREATE TABLE `dlayer_module_tool` (
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `module_id` (`module_id`,`model`),
 	KEY `enabled` (`enabled`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
