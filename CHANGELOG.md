@@ -4,7 +4,7 @@ Changelog
 
 Full changelog for Dlayer since the v1.00 release.
 
-v1.08 -  26th January 2017 
+v1.08: 2017-01-26
 --------
 
 - I have removed the full SQL exports, no longer required, setup module will be used for all imports.
@@ -12,7 +12,7 @@ v1.08 -  26th January 2017
 - Added a Preview mode to display the final form.
 - Moving to a separate layout per designer.
 
-v1.07 -  25th January 2017 
+v1.07: 2017-01-25 
 --------
 
 - Added the foundation code for the Form Builder module.
@@ -20,7 +20,7 @@ v1.07 -  25th January 2017
 - Added initial code for the Form Builder session class.
 - Minor styling updates to forms, the further reading block and lists.
 
-v1.06 -  23rd January 2017 
+v1.06: 2017-01-23 
 --------
 
 - Removed additional terminators in SQL data files. [Bugfix]
@@ -35,7 +35,7 @@ v1.06 -  23rd January 2017
 - Updated the tool ribbon classes, general refactoring.
 - Other minor fixes and improvements.
 
-v1.05 -  17th January 2017 
+v1.05:  2017-01-17
 --------
 
 - I have added a live preview when editing text, jumbotron and heading content items. [Feature]
@@ -44,7 +44,7 @@ v1.05 -  17th January 2017
 - Split the database export into three files per table, one for the structure, another for the data and a third to define the foreign keys.
 - I have added a setup module; this allows you to create the tables for the database and imports the required data, there are four options, import demo database, import base database, reset to demo state and reset to clean state. [Feature]
 
-v1.04 -  9th January 2017 
+v1.04: 2017-01-09 
 --------
 
 - I have updated the styling sub tools, the Form, Model and Tool classes extend from shared classes as per the typography sub tool.
@@ -56,7 +56,7 @@ v1.04 -  9th January 2017
 - I have added controls to select the sibling (next|previous) content items in a column; this should reduce the number of clicks when editing [UX].
 - I have added titles above each of the new navigation controls, ‘Parents’ and ‘Column content items’.
 
-v1.03 -  7th January 2017 
+v1.03: 2017-01-07
 --------
 
 - The page tool is now auto selected in the designer, both on initial entry and whenever you click the cancel button. It is stupid to force you to choose the page when there is only ever one page which always needs to be selected. [UX]
@@ -76,7 +76,7 @@ v1.03 -  7th January 2017
 - Set the stable version to v1.03.
 - Refactoring.
 
-v1.02 -  31st December 2016 
+v1.02: 2016-12-31 
 --------
 
 - Initial support for shared tool classes, for now simply extend from a Shared folder. [Feature]
@@ -91,7 +91,7 @@ v1.02 -  31st December 2016
 - Added typography sub tool to HTML tool. [Feature]
 - Initial help text for Page, Column and Row tool tabs hidden behind a collapse.
 
-v1.01 -  26th December 2016 
+v1.01: 2016-12-26 
 --------
 
 - Corrected ordinal for release date. [Bug]
@@ -102,7 +102,7 @@ v1.01 -  26th December 2016
 - Added preview for text weight changes. [Feature]
 - README updated to show last stable/complete release.
 
-v1.00 -  22nd December 2016 
+v1.00: 2016-12-22 
 --------
 Welcome to the first official open source release of Dlayer; it is not a complete product yet but for reasons I have outlined on my blog many times it feels right to badge it as v1.00.
 
