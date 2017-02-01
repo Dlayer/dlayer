@@ -89,7 +89,11 @@ class Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Tool extends Dlayer_T
             ),
             array(
                 'type' => 'tool',
-                'id' => 'Text',
+                'id' => 'Text'
+            ),
+            array(
+                'type' => 'tab',
+                'id' => 'styling',
                 'sub_tool' => 'Styling'
             ),
             array(
@@ -118,6 +122,51 @@ class Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Tool extends Dlayer_T
      */
     protected function edit()
     {
-        // TODO: Implement edit() method.
+        $this->rowBackgroundColor();
+
+        return $this->returnIds();
+    }
+
+    /**
+     * manage the background color for a field row
+     *
+     * @return void
+     * @throws Exception
+     */
+    protected function rowBackgroundColor()
+    {
+        $model = new Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Model();
+        $model_palette = new Dlayer_Model_Palette();
+
+        $id = $model->existingRowBackgroundColor($this->site_id, $this->form_id, $this->field_id);
+
+        if ($id === false) {
+            try {
+                $model->addRowBackgroundColor(
+                    $this->site_id,
+                    $this->form_id,
+                    $this->field_id,
+                    $this->params['row_background_color']
+                );
+                $model_palette->addToHistory($this->site_id, $this->params['row_background_color']);
+
+                Dlayer_Helper::sendToInfoLog('Set row background colour for form field: ' . $this->field_id .
+                    ' site_id: ' . $this->site_id . ' form id: ' . $this->form_id);
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+        } else {
+            try {
+                $model->editRowBackgroundColor($id, $this->params['row_background_color']);
+                if ($this->params['row_background_color'] !== null && strlen($this->params['row_background_color']) === 7) {
+                    $model_palette->addToHistory($this->site_id, $this->params['row_background_color']);
+
+                    Dlayer_Helper::sendToInfoLog('Set row background colour for form field: ' . $this->field_id .
+                        ' site_id: ' . $this->site_id . ' form id: ' . $this->form_id);
+                }
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            }
+        }
     }
 }

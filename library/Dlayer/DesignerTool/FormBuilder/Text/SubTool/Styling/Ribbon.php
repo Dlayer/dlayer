@@ -40,8 +40,21 @@ class Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Ribbon extends Dlayer
     {
         if ($this->field_data_fetched === false) {
             $this->field_data = array(
-                'row_background_coloe' => false
+                'row_background_color' => false
             );
+
+            if ($this->tool['field_id'] !== null) {
+                $model = new Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Model();
+                $row_background_color = $model->rowBackgroundColor(
+                    $this->tool['site_id'],
+                    $this->tool['form_id'],
+                    $this->tool['field_id']
+                );
+
+                if ($row_background_color !== false) {
+                    $this->field_data['row_background_color'] = $row_background_color;
+                }
+            }
 
             $this->field_data_fetched = true;
         }

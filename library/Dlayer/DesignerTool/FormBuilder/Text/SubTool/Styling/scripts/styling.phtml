@@ -5,9 +5,16 @@
 </div>
 
 <div class="col-md-12 col-sm-12 small">
+    <?php echo $this->colorPicker()->picker($this->color_picker['palettes'],
+        $this->color_picker['history'], true, true); ?>
+</div>
+
+<div class="col-md-12 col-sm-12 small">
     <?php
     if ($this->data != false) {
         echo $this->data['form'];
     }
     ?>
 </div>
+
+<?php echo $this->colorPicker()->javascript(); ?>
