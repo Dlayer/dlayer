@@ -46,7 +46,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'user_site_form',
         'user_site_form_field',
         'user_site_form_field_attribute',
-        'user_site_form_field_row_background_color',
+        'user_site_form_field_styling_row_background_color',
         'user_site_form_layout',
         'user_site_form_setting',
         'user_site_history',

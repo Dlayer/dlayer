@@ -4,6 +4,11 @@ Changelog
 
 Full changelog for Dlayer since the v1.00 release.
 
+v1.10: In progress
+--------
+- Added a styling sub tool to the Text, Textarea, Email and password element tools, row background colour can be set. [Feature]
+- Form Builder and Form Builder preview show assigned background colours.
+
 v1.09: 2017-01-30
 --------
 - Select parent row and column buttons now have the correct URI when a content item is selected. [Bugfix]

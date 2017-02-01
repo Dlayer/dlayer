@@ -1,5 +1,17 @@
 <?php /** @var $this Dlayer_View_Codehinting */?>
 
+<style>
+	<?php
+	foreach ($this->row_styling as $group => $styling) {
+		foreach ($styling as $field_id => $style) {
+			echo 'div.row_' . $field_id . ' {' . PHP_EOL;
+			echo $group . ': ' . $style . ';' . PHP_EOL;
+			echo '}' . PHP_EOL;
+		}
+	}
+	?>
+</style>
+
 <div class="form-builder">
     <?php echo $this->form; ?>
 </div>

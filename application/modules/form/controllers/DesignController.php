@@ -241,6 +241,7 @@ class Form_DesignController extends Zend_Controller_Action
         $form = new Dlayer_Designer_Form($this->site_id, $this->form_id, true, $this->session->fieldId());
 
         $this->view->form = $form->form();
+        $this->view->row_styling = $form->rowStyles();
 
         return $this->view->render("design/form.phtml");
     }
@@ -255,6 +256,7 @@ class Form_DesignController extends Zend_Controller_Action
         $form = new Dlayer_Designer_Form($this->site_id, $this->form_id);
 
         $this->view->form = $form->form();
+        $this->view->row_styling = $form->rowStyles();
 
         return $this->view->render("design/preview.phtml");
     }
@@ -398,6 +400,7 @@ class Form_DesignController extends Zend_Controller_Action
                 $multi_use = $model_tool->multiUse($module, $tool, $tab);
                 $this->session_designer->setToolTab('form', $tab, $sub_tool);
 
+                $this->view->color_picker = $this->colorPicker();
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
                 if ($sub_tool === null) {
@@ -462,5 +465,20 @@ class Form_DesignController extends Zend_Controller_Action
         } else {
             $this->cancelTool();
         }
+    }
+
+    /**
+     * Fetch the data for the color picker
+     *
+     * @return array
+     */
+    private function colorPicker()
+    {
+        $model_palettes = new Dlayer_Model_Palette();
+
+        return array(
+            'palettes' => $model_palettes->palettes($this->site_id),
+            'history' => $model_palettes->lastNColors($this->site_id),
+        );
     }
 }

@@ -78,40 +78,24 @@ class Dlayer_Designer_Form
     }
 
     /**
-     * Fetch all the styles for the form, styles are returned in an array
-     * indexed by form field id. The value will be an array of the style
-     * attribute and string. These arrays can then be looped and output above
-     * the form
+     * Fetch the styling for field rows, indexed by field row
      *
      * @return array
      */
-    public function fieldStyles()
+    public function rowStyles()
     {
-        $this->styles = $this->model_form->fieldIds();
-
-        $this->rowBackgroundColors();
-
-        return $this->styles;
+        return array(
+            'background-color' => $this->rowBackgroundColors()
+        );
     }
 
     /**
-     * Fetch the row background color styles and assign the values to the
-     * styles array
+     * Fetch the background colors assigned to the field rows
      *
-     * @return void
+     * @return array
      */
     private function rowBackgroundColors()
     {
-        $background_colors = $this->model_styling->rowBackgroundColors(
-            $this->site_id, $this->id);
-
-        if ($background_colors != false) {
-            foreach ($background_colors as $field_id => $color_hex) {
-                if (array_key_exists($field_id, $this->styles) == true) {
-                    $this->styles[$field_id][] = 'background-color: ' .
-                        $color_hex . ';';
-                }
-            }
-        }
+        return $this->model_styling->rowBackgroundColors($this->site_id, $this->id);
     }
 }
