@@ -241,6 +241,7 @@ class Form_DesignController extends Zend_Controller_Action
         $form = new Dlayer_Designer_Form($this->site_id, $this->form_id, true, $this->session->fieldId());
 
         $this->view->form = $form->form();
+        $this->view->row_styling = $form->rowStyles();
 
         return $this->view->render("design/form.phtml");
     }
@@ -255,6 +256,7 @@ class Form_DesignController extends Zend_Controller_Action
         $form = new Dlayer_Designer_Form($this->site_id, $this->form_id);
 
         $this->view->form = $form->form();
+        $this->view->row_styling = $form->rowStyles();
 
         return $this->view->render("design/preview.phtml");
     }

@@ -22,13 +22,6 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
     private $page_id;
 
     /**
-     * @var array Data array containing all the content item styles group by styl;ing group and content id
-     */
-    private $content_items = array(
-        'background_colors' => false,
-    );
-
-    /**
      * Set the site id and page id
      *
      * @param integer $site_id
