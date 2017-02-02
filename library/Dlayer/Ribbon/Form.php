@@ -22,6 +22,16 @@ abstract class Dlayer_Ribbon_Form
     protected $field_data = array();
 
     /**
+     * @var boolean Has the preview data been fetched
+     */
+    protected $preview_data_fetched = false;
+
+    /**
+     * @var array Preview data
+     */
+    protected $preview_data = array();
+
+    /**
      * Fetch the view data for the current tool tab, typically the returned array will have at least two indexes,
      * one for the form and another with the data required by the preview functions
      *

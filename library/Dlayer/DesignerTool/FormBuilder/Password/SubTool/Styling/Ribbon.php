@@ -21,13 +21,15 @@ class Dlayer_DesignerTool_FormBuilder_Password_SubTool_Styling_Ribbon extends Dl
         $this->tool = $tool;
 
         $this->fieldData();
+        $this->previewData();
 
         return array(
             'form' => new Dlayer_DesignerTool_FormBuilder_Password_SubTool_Styling_Form(
                 $tool,
                 $this->field_data,
                 array()
-            )
+            ),
+            'preview' => $this->preview_data
         );
     }
 
@@ -57,6 +59,26 @@ class Dlayer_DesignerTool_FormBuilder_Password_SubTool_Styling_Ribbon extends Dl
             }
 
             $this->field_data_fetched = true;
+        }
+    }
+
+    /**
+     * Fetch the data required by the preview functions
+     *
+     * @return void
+     */
+    protected function previewData()
+    {
+        if ($this->preview_data_fetched === false) {
+
+            $this->fieldData();
+
+            $this->preview_data = array(
+                'id' => $this->tool['field_id'],
+                'row_background_color' => $this->field_data['row_background_color']
+            );
+
+            $this->preview_data_fetched = true;
         }
     }
 }
