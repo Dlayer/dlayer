@@ -8,6 +8,8 @@ v1.10: In progress
 --------
 - Added a styling sub tool to the Text, Textarea, Email and password element tools, row background colour can be set. [Feature]
 - Form Builder and Form Builder preview show assigned background colours.
+- Added live preview for row background colour changes.
+- Additional tests in test suite. [Tests]
 
 v1.09: 2017-01-30
 --------

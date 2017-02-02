@@ -1,5 +1,10 @@
 <?php /** @var $this Dlayer_View_Codehinting */ ?>
 
+<script>
+    previewFormBuilder.rowBackgroundColor(<?php echo $this->data['preview']['id']; ?>,
+        '<?php echo $this->data['preview']['row_background_color']; ?>');
+</script>
+
 <div class="col-md-12 col-sm-12">
     <p class="dev-note bg-danger unsaved">Data has been modified!</p>
 </div>
