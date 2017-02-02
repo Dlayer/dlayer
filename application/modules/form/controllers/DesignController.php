@@ -402,6 +402,7 @@ class Form_DesignController extends Zend_Controller_Action
 
                 $this->view->color_picker = $this->colorPicker();
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
+                $this->view->edit_mode = $edit_mode;
 
                 if ($sub_tool === null) {
                     $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/FormBuilder/" .

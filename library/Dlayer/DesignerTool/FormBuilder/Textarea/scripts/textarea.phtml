@@ -1,5 +1,24 @@
 <?php /** @var $this Dlayer_View_Codehinting */?>
 
+<?php if ($this->edit_mode === true) { ?>
+    <script>
+        <?php
+        foreach ($this->data['preview']['attribute_values'] as $attribute) {
+            echo "previewFormBuilder.attributeValue('" . $this->escape($attribute['element']) . "', '";
+            echo $this->escape($attribute['field_id']) . "', '";
+            echo $this->escape($attribute['attribute']) . "', '";
+            echo $this->escape($attribute['initial_value']) . "', ";
+            if ($attribute['optional'] === true) {
+                echo 'true';
+            } else {
+                echo 'false';
+            }
+            echo ");";
+        }
+        ?>
+    </script>
+<?php } ?>
+
 <div class="col-md-12 col-sm-12">
     <p class="dev-note bg-danger unsaved">Data has been modified!</p>
 </div>

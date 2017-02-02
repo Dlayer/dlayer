@@ -21,13 +21,15 @@ class Dlayer_DesignerTool_FormBuilder_Textarea_Ribbon extends Dlayer_Ribbon_Form
         $this->tool = $tool;
 
         $this->fieldData();
+        $this->previewData();
 
         return array(
             'form' => new Dlayer_DesignerTool_FormBuilder_Textarea_Form(
                 $tool,
                 $this->field_data,
                 array()
-            )
+            ),
+            'preview' => $this->preview_data
         );
     }
 
@@ -69,6 +71,40 @@ class Dlayer_DesignerTool_FormBuilder_Textarea_Ribbon extends Dlayer_Ribbon_Form
             }
 
             $this->field_data_fetched = true;
+        }
+    }
+
+    /**
+     * Fetch the data required by the preview functions
+     *
+     * @return void
+     */
+    protected function previewData()
+    {
+        if ($this->preview_data_fetched === false && $this->tool['field_id'] !== null) {
+
+            $this->fieldData();
+
+            $this->preview_data = array(
+                'attribute_values' => array(
+                    array(
+                        'element' => '#params-placeholder',
+                        'field_id' => $this->tool['field_id'],
+                        'attribute' => 'placeholder',
+                        'initial_value' => $this->field_data['placeholder'],
+                        'optional' => true
+                    ),
+                    array(
+                        'element' => '#params-rows',
+                        'field_id' => $this->tool['field_id'],
+                        'attribute' => 'rows',
+                        'initial_value' => $this->field_data['rows'],
+                        'optional' => false
+                    )
+                )
+            );
+
+            $this->preview_data_fetched = true;
         }
     }
 }

@@ -234,7 +234,7 @@ var previewContentManager =
         },
 
         /**
-         * Update the text for an element
+         * Update the heading test
          *
          * @param {String} field_title Field title selector
          * @param {String} field_subtitle Field subtitle selector
