@@ -10,6 +10,7 @@ v1.10: In progress
 - Form Builder and Form Builder preview show assigned background colours.
 - Added live preview for changes to all element tools.
 - Added live preview for element sub tools, row background colour.
+- Added ability to re-order form elements. [Feature]
 - Additional tests in test suite. [Tests]
 - Minor fixes and improvements.
 
