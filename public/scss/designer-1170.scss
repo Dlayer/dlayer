@@ -98,6 +98,14 @@ div#designer {
 			div.selected {
 				@include selected-state();
 			}
+
+			div.field-mover {
+				@include mover();
+
+				&:hover {
+					background-color: #e6e6e6;
+				}
+			}
 		}
 	}
 	
