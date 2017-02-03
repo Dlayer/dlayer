@@ -20,7 +20,8 @@ class Dlayer_Form_LayoutDecorator_FormHorizontal extends Dlayer_Form_LayoutDecor
 			array(
 				'Form', 
 				array(
-					'class'=>'form-horizontal'
+					'class'=>'form-horizontal',
+                    'autocomplete' => 'off'
 				)
 			)
 		);

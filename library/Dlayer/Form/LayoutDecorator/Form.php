@@ -20,7 +20,8 @@ class Dlayer_Form_LayoutDecorator_Form extends Dlayer_Form_LayoutDecorator
 			array(
 				'Form', 
 				array(
-					'class'=>'form'
+					'class'=>'form',
+                    'autocomplete' => 'off'
 				)
 			)
 		);
