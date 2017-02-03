@@ -2,38 +2,26 @@
 
 <?php if ($this->edit_mode === true) { ?>
     <script>
-        <?php
-        foreach ($this->data['preview']['attribute_values'] as $attribute) {
-            echo "previewFormBuilder.attributeValue('" . $this->escape($attribute['element']) . "', '";
-            echo $this->escape($attribute['field_id']) . "', '";
-            echo $this->escape($attribute['attribute']) . "', '";
-            echo $this->escape($attribute['initial_value']) . "', ";
-            if ($attribute['optional'] === true) {
-                echo 'true';
-            } else {
-                echo 'false';
-            }
-            echo ");" . PHP_EOL;
-        }
+    <?php
+    foreach ($this->data['preview']['attribute_values'] as $attribute) {
+        echo "previewFormBuilder.attributeValue('" . $this->escape($attribute['element']) . "', '";
+        echo $this->escape($attribute['field_id']) . "', '";
+        echo $this->escape($attribute['attribute']) . "', '";
+        echo $this->escape($attribute['initial_value']) . "', ";
+        echo ($attribute['optional'] === true) ? 'true' : 'false';
+        echo ");" . PHP_EOL;
+    }
 
-        foreach ($this->data['preview']['element_values'] as $attribute) {
-            echo "previewFormBuilder.elementValue('" . $this->escape($attribute['element']) . "', '";
-            echo $this->escape($attribute['field_id']) . "', '";
-            echo $attribute['ui-element'] . "', '";
-            echo $this->escape($attribute['initial_value']) . "', ";
-            if ($attribute['nl2br'] === true) {
-                echo 'true, ';
-            } else {
-                echo 'false, ';
-            }
-            if ($attribute['optional'] === true) {
-                echo 'true';
-            } else {
-                echo 'false';
-            }
-            echo ");" . PHP_EOL;
-        }
-        ?>
+    foreach ($this->data['preview']['element_values'] as $attribute) {
+        echo "previewFormBuilder.elementValue('" . $this->escape($attribute['element']) . "', '";
+        echo $this->escape($attribute['field_id']) . "', '";
+        echo $attribute['ui-element'] . "', '";
+        echo $this->escape($attribute['initial_value']) . "', ";
+        echo ($attribute['nl2br'] === true) ? 'true, ' : 'false, ';
+        echo ($attribute['optional'] === true) ? 'true' : 'false';
+        echo ");" . PHP_EOL;
+    }
+    ?>
     </script>
 <?php } ?>
 

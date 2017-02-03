@@ -94,6 +94,24 @@ class Dlayer_DesignerTool_FormBuilder_Email_Ribbon extends Dlayer_Ribbon_Form
                         'initial_value' => $this->field_data['placeholder'],
                         'optional' => true
                     )
+                ),
+                'element_values' => array(
+                    array(
+                        'element' => '#params-label',
+                        'field_id' => $this->tool['field_id'],
+                        'ui-element' => 'div.row_' . $this->tool['field_id'] . ' > label',
+                        'initial_value' => $this->field_data['label'],
+                        'nl2br' => false,
+                        'optional' => false
+                    ),
+                    array(
+                        'element' => '#params-description',
+                        'field_id' => $this->tool['field_id'],
+                        'ui-element' => 'div.row_' . $this->tool['field_id'] . ' > p.help-block',
+                        'initial_value' => $this->field_data['label'],
+                        'nl2br' => true,
+                        'optional' => true
+                    )
                 )
             );
 
