@@ -92,5 +92,96 @@ var previewFormBuilder =
 
                 previewFormBuilder.setAndAnimateBackgroundColor(selector, new_value);
             });
+        },
+
+        /**
+         * Update an element attribute
+         *
+         * @param {String} element Element to attach event to
+         * @param {String} field_id Field selector
+         * @param {String} attribute Attribute
+         * @param {String} initial_value Initial value
+         * @param {Boolean} optional Is the value optional
+         */
+        attributeValue: function(element, field_id, attribute, initial_value, optional)
+        {
+            var selector = '#field_' + field_id;
+
+            $(element).bind("keyup change", function()
+            {
+                if (this.value.trim().length > 0) {
+                    if (this.value.trim() !== initial_value) {
+                        $(selector).attr(attribute, this.value.trim());
+
+                        previewFormBuilder.changed = true;
+                    }
+                } else {
+                    if (optional === true) {
+                        $(selector).removeAttr(attribute);
+
+                        previewFormBuilder.changed = true;
+                    } else {
+                        $(selector).attr(attribute, initial_value);
+                        $(element).val(initial_value);
+                    }
+                }
+
+                previewFormBuilder.unsaved();
+            });
+
+            $(element).blur(function()
+            {
+                if (previewFormBuilder.changed === true) {
+                    previewFormBuilder.highlight = true;
+                    previewFormBuilder.highlightItem(selector);
+                }
+            });
+        },
+
+        /**
+         * Update an element attribute
+         *
+         * @param {String} element Element to attach event to
+         * @param {String} field_id Field selector
+         * @param {String} ui_element The UI element to change
+         * @param {String} initial_value Initial value
+         * @param {Boolean} nl2br Apply nl2br
+         * @param {Boolean} optional Is the value optional
+         */
+        elementValue: function(element, field_id, ui_element, initial_value, nl2br, optional)
+        {
+            $(element).bind("keyup change", function()
+            {
+                if (this.value.trim().length > 0) {
+                    if (this.value.trim() !== initial_value) {
+                        if (nl2br === true) {
+                            $(ui_element).html(previewFormBuilder.nl2br(this.value.trim()));
+                        } else {
+                            $(ui_element).html(this.value.trim());
+                        }
+
+                        previewFormBuilder.changed = true;
+                    }
+                } else {
+                    if (optional === true) {
+                        $(ui_element).html("");
+
+                        previewFormBuilder.changed = true;
+                    } else {
+                        $(ui_element).html(initial_value);
+                        $(element).val(initial_value);
+                    }
+                }
+
+                previewFormBuilder.unsaved();
+            });
+
+            $(element).blur(function()
+            {
+                if (previewFormBuilder.changed === true) {
+                    previewFormBuilder.highlight = true;
+                    previewFormBuilder.highlightItem(ui_element);
+                }
+            });
         }
     };

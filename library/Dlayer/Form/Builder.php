@@ -262,6 +262,7 @@ class Dlayer_Form_Builder extends Zend_Form
         $input->setLabel($form_field['attributes']['label']);
         $input->setDescription($form_field['attributes']['description']);
         $input->setAttribs($form_field['attributes']);
+        $input->setValue(' ');
 
         $this->elements['field_' . $form_field['id']] = $input;
     }
@@ -278,6 +279,7 @@ class Dlayer_Form_Builder extends Zend_Form
         $input->setLabel($form_field['attributes']['label']);
         $input->setDescription($form_field['attributes']['description']);
         $input->setAttribs($form_field['attributes']);
+        $input->setValue(' ');
 
         $this->elements['field_' . $form_field['id']] = $input;
     }

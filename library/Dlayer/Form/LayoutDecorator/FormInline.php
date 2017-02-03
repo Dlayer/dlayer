@@ -20,7 +20,8 @@ class Dlayer_Form_LayoutDecorator_FormInline extends Dlayer_Form_LayoutDecorator
 			array(
 				'Form', 
 				array(
-					'class'=>'form-inline'
+					'class'=>'form-inline',
+                    'autocomplete' => 'off'
 				)
 			)
 		);

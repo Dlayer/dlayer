@@ -72,6 +72,9 @@ class Dlayer_Model_View_Form extends Zend_Db_Table_Abstract
             } else {
                 $row['attributes'] = array();
             }
+
+            $row['attributes']['autocomplete'] = 'off';
+
             $fields[] = $row;
         }
 

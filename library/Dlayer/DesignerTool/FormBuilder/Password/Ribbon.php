@@ -21,13 +21,15 @@ class Dlayer_DesignerTool_FormBuilder_Password_Ribbon extends Dlayer_Ribbon_Form
         $this->tool = $tool;
 
         $this->fieldData();
+        $this->previewData();
 
         return array(
             'form' => new Dlayer_DesignerTool_FormBuilder_Password_Form(
                 $tool,
                 $this->field_data,
                 array()
-            )
+            ),
+            'preview' => $this->preview_data
         );
     }
 
@@ -69,6 +71,51 @@ class Dlayer_DesignerTool_FormBuilder_Password_Ribbon extends Dlayer_Ribbon_Form
             }
 
             $this->field_data_fetched = true;
+        }
+    }
+
+    /**
+     * Fetch the data required by the preview functions
+     *
+     * @return void
+     */
+    protected function previewData()
+    {
+        if ($this->preview_data_fetched === false && $this->tool['field_id'] !== null) {
+
+            $this->fieldData();
+
+            $this->preview_data = array(
+                'attribute_values' => array(
+                    array(
+                        'element' => '#params-placeholder',
+                        'field_id' => $this->tool['field_id'],
+                        'attribute' => 'placeholder',
+                        'initial_value' => $this->field_data['placeholder'],
+                        'optional' => true
+                    )
+                ),
+                'element_values' => array(
+                    array(
+                        'element' => '#params-label',
+                        'field_id' => $this->tool['field_id'],
+                        'ui-element' => 'div.row_' . $this->tool['field_id'] . ' > label',
+                        'initial_value' => $this->field_data['label'],
+                        'nl2br' => false,
+                        'optional' => false
+                    ),
+                    array(
+                        'element' => '#params-description',
+                        'field_id' => $this->tool['field_id'],
+                        'ui-element' => 'div.row_' . $this->tool['field_id'] . ' > p.help-block',
+                        'initial_value' => $this->field_data['label'],
+                        'nl2br' => true,
+                        'optional' => true
+                    )
+                )
+            );
+
+            $this->preview_data_fetched = true;
         }
     }
 }

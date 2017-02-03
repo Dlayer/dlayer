@@ -117,6 +117,7 @@ class Dlayer_DesignerTool_FormBuilder_Textarea_Form extends Dlayer_Form_Tool_For
         $rows = new Dlayer_Form_Element_Number('rows');
         $rows->setBelongsTo('params');
         $rows->setLabel('Rows');
+        $rows->setRequired();
         $rows->setAttribs(
             array(
                 'min' => 1,
