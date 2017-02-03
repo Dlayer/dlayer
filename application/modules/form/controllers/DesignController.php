@@ -482,4 +482,27 @@ class Form_DesignController extends Zend_Controller_Action
             'history' => $model_palettes->lastNColors($this->site_id),
         );
     }
+
+    /**
+     * Move the form fields
+     *
+     * @return void
+     */
+    public function moveAction()
+    {
+        $this->_helper->disableLayout(false);
+
+        $direction = Dlayer_Helper::getParamAsString('direction');
+        $field_id = Dlayer_Helper::getParamAsString('id');
+
+        $model_form = new Dlayer_Model_Form_Form();
+
+        if ($model_form->fieldValid($this->session->formId(), $this->site_id, $this->session->fieldId()) === true &&
+            in_array($direction, array('up', 'down')) === true) {
+
+            $model_form->moveField($this->session->formId(), $this->site_id, $this->session->fieldId(), $direction);
+        }
+
+        $this->redirect('/form/design/');
+    }
 }
