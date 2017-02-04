@@ -42,7 +42,7 @@ class Dlayer_Session_Form extends Zend_Session_Namespace
     /**
      * Set the id for the selected field
      *
-     * @todo This should check validity
+     * @todo This should check validity and whether field deleted
      * @param integer $id
      *
      * @return boolean

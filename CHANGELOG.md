@@ -11,6 +11,7 @@ v1.10: In progress
 - Added live preview for changes to all element tools.
 - Added live preview for element sub tools, row background colour.
 - Added ability to re-order form elements. [Feature]
+- Added ability to delete elements from a form. [Feature]
 - Additional tests in test suite. [Tests]
 - Minor fixes and improvements.
 
