@@ -36,7 +36,7 @@ class Dlayer_Model_View_Form extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Fetch all the form fields that have been added to the requested form
+     * Fetch all the active form fields that have been added to the requested form
      *
      * @return array Array of the forms field
      */
@@ -54,7 +54,8 @@ class Dlayer_Model_View_Form extends Zend_Db_Table_Abstract
 				        `uff`.`field_type_id` = `fft`.`id` 
 				WHERE 
 				    `uff`.`site_id` = :site_id AND 
-				    `uff`.`form_id` = :form_id
+				    `uff`.`form_id` = :form_id AND 
+				    `uff`.`deleted` = 0 
 				ORDER BY 
 				    `uff`.`sort_order` ASC";
         $stmt = $this->_db->prepare($sql);

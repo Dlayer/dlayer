@@ -41,8 +41,9 @@ abstract class Dlayer_Ribbon_Form
     abstract public function viewData(array $tool);
 
     /**
-     * Fetch the data array for the content item, if in edit mode mode populate the values otherwise every value is
-     * set to FALSE, the tool form can simply check to see if the value is FALSe or not and then set the existing value
+     * Fetch the data array for the field, if in edit mode mode populate the values otherwise every value is
+     * set to false, the tool form can simply check to see if the value is false or not and then set the
+     * existing value
      *
      * @return array
      */

@@ -194,7 +194,7 @@ class Form_ProcessController extends Zend_Controller_Action
 
             $return_ids = $tool->process();
 
-            if ($return_ids !== false) {
+            if ($return_ids !== false && is_array($return_ids) === true) {
                 $this->setEnvironmentIds($return_ids);
                 $this->returnToDesigner(true);
             } else {
@@ -229,7 +229,7 @@ class Form_ProcessController extends Zend_Controller_Action
 
             $return_ids = $tool->processAuto();
 
-            if ($return_ids !== false) {
+            if ($return_ids !== false && is_array($return_ids) === true) {
                 $this->setEnvironmentIds($return_ids);
 
                 /**

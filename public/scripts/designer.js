@@ -84,7 +84,7 @@ dlayerDesigner = {
 						$(this).siblings('.color-picker').attr('id').replace('picker-', '');
 
 					$('.ribbon #picker-' + element).css(
-						'background-color', 'inherit');
+						'background-color', '#FFFFFF');
 					$('#' + element).val('').trigger('change');
 
 					return false;
