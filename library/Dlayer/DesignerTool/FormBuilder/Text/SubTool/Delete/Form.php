@@ -19,6 +19,9 @@ class Dlayer_DesignerTool_FormBuilder_Text_SubTool_Delete_Form extends Dlayer_Fo
      */
     public function __construct(array $tool, array $data, array $element_data, $options = null)
     {
+        $this->field_type = 'Text';
+        $this->sub_tool_model = 'Delete';
+
         parent::__construct($tool, $data, $element_data, $options);
     }
 
