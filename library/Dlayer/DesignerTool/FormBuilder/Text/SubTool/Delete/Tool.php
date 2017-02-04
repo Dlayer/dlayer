@@ -100,6 +100,10 @@ class Dlayer_DesignerTool_FormBuilder_Text_SubTool_Delete_Tool extends Dlayer_To
 
         $deleted = $model->setDeleted($this->site_id, $this->form_id, $this->field_id);
 
+        if ($deleted === true) {
+            $model->reorderFields($this->site_id, $this->form_id);
+        }
+
         return true; // Want to cancel request as field no longer exists, not calling returnIds()
     }
 }
