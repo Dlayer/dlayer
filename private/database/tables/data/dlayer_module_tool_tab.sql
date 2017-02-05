@@ -51,4 +51,10 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (NULL,3,15,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
     (NULL,3,16,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
     (NULL,3,17,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,3,14,'Delete','delete','Delete','remove',NULL,0,1,0,3,1);
+    (NULL,3,14,'Delete','delete','Delete','remove',NULL,0,1,0,3,1),
+    (NULL,3,18,'Stacked','stacked-layout',NULL,'remove',NULL,1,0,1,1,1),
+    (NULL,3,18,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
+    (NULL,3,19,'Horizontal','horizontal-layout',NULL,'remove',NULL,1,0,1,1,1),
+    (NULL,3,19,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
+    (NULL,3,20,'Inline','inline-layout',NULL,'remove',NULL,1,0,1,1,1),
+    (NULL,3,20,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1);
