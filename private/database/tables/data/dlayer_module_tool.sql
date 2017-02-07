@@ -18,6 +18,8 @@ insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`group_id`,`so
     (16, 3, 'Email', 'Email', 2, 3, 1),
     (17, 3, 'Password', 'Password', 2, 4, 1),
     (18, 3, 'Stacked layout', 'StackedLayout', 1, 1, 1),
-    (19, 3, 'Inline layout', 'InlineLayout', 1, 1, 1),
-    (20, 3, 'Horizontal layout', 'HorizontalLayout', 1, 1, 1);
+    (19, 3, 'Inline layout', 'InlineLayout', 1, 2, 1),
+    (20, 3, 'Horizontal layout', 'HorizontalLayout', 1, 3, 1),
+    (21, 3, 'Title', 'Title', 1, 4, 1),
+    (22, 3, 'Buttons', 'Button', 1, 5, 1);
 

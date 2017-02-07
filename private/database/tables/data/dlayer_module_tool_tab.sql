@@ -57,4 +57,8 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (NULL,3,19,'Inline','inline-layout',NULL,'blackboard',NULL,1,0,1,1,1),
     (NULL,3,19,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
     (NULL,3,20,'Horizontal','horizontal-layout',NULL,'blackboard',NULL,1,0,1,1,1),
-    (NULL,3,20,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1);
+    (NULL,3,20,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
+    (NULL,3,21,'Title','title',NULL,'header',NULL,1,0,1,1,1),
+    (NULL,3,21,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
+    (NULL,3,22,'Buttons','button',NULL,'text-background',NULL,1,0,1,1,1),
+    (NULL,3,22,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1);
