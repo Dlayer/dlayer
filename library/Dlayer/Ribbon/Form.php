@@ -32,6 +32,16 @@ abstract class Dlayer_Ribbon_Form
     protected $preview_data = array();
 
     /**
+     * @var boolean Has the element input data already been requested
+     */
+    protected $element_data_fetched = false;
+
+    /**
+     * @var array Element data array
+     */
+    protected $element_data = array();
+
+    /**
      * Fetch the view data for the current tool tab, typically the returned array will have at least two indexes,
      * one for the form and another with the data required by the preview functions
      *

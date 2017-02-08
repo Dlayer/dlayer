@@ -48,7 +48,9 @@ class Dlayer_DesignerTool_FormBuilder_InlineLayout_Form extends Dlayer_Form_Tool
         $inline->setBelongsTo('params');
         $inline->setDescription('Enable the inline layout for this form; labels and elements will 
             site inline, flowing left to right.');
-        $inline->setValue(2);
+        if ($this->element_data['layout'] !== false) {
+            $inline->setValue($this->element_data['layout']);
+        } // Will have null value if layout index false, won't pass validation
 
         $this->elements['inline'] = $inline;
     }

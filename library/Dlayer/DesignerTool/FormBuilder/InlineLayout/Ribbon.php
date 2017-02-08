@@ -20,11 +20,13 @@ class Dlayer_DesignerTool_FormBuilder_InlineLayout_Ribbon extends Dlayer_Ribbon_
     {
         $this->tool = $tool;
 
+        $this->elementData();
+
         return array(
             'form' => new Dlayer_DesignerTool_FormBuilder_InlineLayout_Form(
                 $tool,
                 array(),
-                array('layout' => 2)
+                $this->element_data
             )
         );
     }
@@ -39,5 +41,29 @@ class Dlayer_DesignerTool_FormBuilder_InlineLayout_Ribbon extends Dlayer_Ribbon_
     protected function fieldData()
     {
         // TODO: Implement fieldData() method.
+    }
+
+    /**
+     * Fetch any element data required to build the form elements
+     *
+     * @return void
+     */
+    protected function elementData()
+    {
+        if ($this->element_data_fetched === false) {
+
+            $this->element_data = array(
+                'layout' => false
+            );
+
+            $model = new Dlayer_DesignerTool_FormBuilder_InlineLayout_Model();
+            $layout_id = $model->layoutId('form-inline');
+
+            if ($layout_id !== false) {
+                $this->element_data['layout'] = $layout_id;
+            }
+
+            $this->element_data_fetched = true;
+        }
     }
 }
