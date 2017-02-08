@@ -4,7 +4,14 @@ Changelog
 
 Full changelog for Dlayer since the v1.00 release.
 
-v1.10: In progress
+v1.11: In progress
+--------
+- Added layout tools, for can now use stacked, inline or horizontal layout. [Feature]
+- Code for text element delete sub tool now shared.
+- Additional tests in test suite. [Tests]
+- Minor fixes and improvements.
+
+v1.10: 4th February 2017
 --------
 - Added a styling sub tool to the Text, Textarea, Email and password element tools, row background colour can be set. [Feature]
 - Form Builder and Form Builder preview show assigned background colours.
