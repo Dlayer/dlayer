@@ -52,7 +52,7 @@ class Form_DesignController extends Zend_Controller_Action
      * @var array Buttons for the tools section of control bar
      */
     private $control_bar_tools = array(
-        'settings' => array(),
+        'layout' => array(),
         'preset' => array(),
         'standard' => array()
     );
@@ -205,6 +205,11 @@ class Form_DesignController extends Zend_Controller_Action
             foreach ($tool_group as $tool) {
 
                 switch ($tool['group_id']) {
+                    case 1:
+                        $show = true;
+                        $group = 'layout';
+                        break;
+
                     case 2:
                         $show = true;
                         $group = 'standard';

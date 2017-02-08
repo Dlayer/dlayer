@@ -83,6 +83,26 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $this->password($tool, $tab);
                 break;
 
+            case 'InlineLayout':
+                $data = $this->inlineLayout($tool, $tab);
+                break;
+
+            case 'StackedLayout':
+                $data = $this->stackedLayout($tool, $tab);
+                break;
+
+            case 'HorizontalLayout':
+                $data = $this->horizontalLayout($tool, $tab);
+                break;
+
+            case 'Title':
+                $data = $this->title($tool, $tab);
+                break;
+
+            case 'Button':
+                $data = $this->button($tool, $tab);
+                break;
+
             default:
                 $data = false;
                 break;
@@ -224,6 +244,131 @@ class Dlayer_Ribbon_Handler_Form
             case 'styling':
                 $ribbon_password = new Dlayer_DesignerTool_FormBuilder_Password_SubTool_Styling_Ribbon();
                 $data = $ribbon_password->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the Inline layout tool, returns an array containing the form and
+     * any additional data required for the view
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function inlineLayout($tool, $tab)
+    {
+        switch ($tab) {
+            case 'inline-layout':
+                $ribbon_layout = new Dlayer_DesignerTool_FormBuilder_InlineLayout_Ribbon();
+                $data = $ribbon_layout->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the stacked layout tool, returns an array containing the form and
+     * any additional data required for the view
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function stackedLayout($tool, $tab)
+    {
+        switch ($tab) {
+            case 'stacked-layout':
+                $ribbon_layout = new Dlayer_DesignerTool_FormBuilder_StackedLayout_Ribbon();
+                $data = $ribbon_layout->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the horizontal layout tool, returns an array containing the form and
+     * any additional data required for the view
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function horizontalLayout($tool, $tab)
+    {
+        switch ($tab) {
+            case 'horizontal-layout':
+                $ribbon_layout = new Dlayer_DesignerTool_FormBuilder_HorizontalLayout_Ribbon();
+                $data = $ribbon_layout->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the title tool, returns an array containing the form and
+     * any additional data required for the view
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function title($tool, $tab)
+    {
+        switch ($tab) {
+            case 'title':
+                $ribbon_title = new Dlayer_DesignerTool_FormBuilder_Title_Ribbon();
+                $data = $ribbon_title->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the button tool, returns an array containing the form and
+     * any additional data required for the view
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function button($tool, $tab)
+    {
+        switch ($tab) {
+            case 'button':
+                $ribbon_button = new Dlayer_DesignerTool_FormBuilder_Button_Ribbon();
+                $data = $ribbon_button->viewData($this->toolParams($tool));
                 break;
 
             default:

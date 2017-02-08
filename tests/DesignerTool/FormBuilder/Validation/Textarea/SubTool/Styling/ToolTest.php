@@ -8,7 +8,7 @@ final class DesignerTool_FormBuilder_Validation_Textarea_SubTool_Styling_ToolTes
     private $field_type;
 
     /**
-     * @var Dlayer_Tool_Content
+     * @var Dlayer_Tool_Form
      */
     private $tool;
 

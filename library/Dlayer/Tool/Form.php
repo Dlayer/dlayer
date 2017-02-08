@@ -72,7 +72,7 @@ abstract class Dlayer_Tool_Form
 
         if ($this->paramsExist($params) === true && $this->paramsValid($params) === true) {
             $this->validated_auto = true;
-            $this->paramsAssign($params, false);
+            $this->paramsAssignAuto($params);
 
             return true;
         } else {
@@ -100,10 +100,17 @@ abstract class Dlayer_Tool_Form
      * Prepare the posted params, convert them to the required types and assign to the $this->params property
      *
      * @param array $params
-     * @param boolean $manual_tool Are the values to be assigned to $this->params or $this->params_auto
      * @return void
      */
-    abstract protected function paramsAssign(array $params, $manual_tool = true);
+    abstract protected function paramsAssign(array $params);
+
+    /**
+     * Prepare the posted params, convert them to the required types and assign to the $this->params_auto property
+     *
+     * @param array $params
+     * @return void
+     */
+    abstract protected function paramsAssignAuto(array $params);
 
     /**
      * Process the request for a manual tool, this will either add a new item/setting or edit the details for an

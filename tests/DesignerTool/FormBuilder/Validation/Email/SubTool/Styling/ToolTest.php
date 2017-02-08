@@ -8,7 +8,7 @@ final class DesignerTool_FormBuilder_Validation_Email_SubTool_Styling_ToolTest e
     private $field_type;
 
     /**
-     * @var Dlayer_Tool_Content
+     * @var Dlayer_Tool_Form
      */
     private $tool;
 
