@@ -8,6 +8,7 @@ v1.11: In progress
 --------
 - Added layout tools, for can now use stacked, inline or horizontal layout. [Feature]
 - Code for text element delete sub tool now shared.
+- Added the delete sub tool to the Password, Email and Textarea elements. 
 - Additional tests in test suite. [Tests]
 - Minor fixes and improvements.
 
