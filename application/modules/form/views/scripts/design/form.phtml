@@ -13,5 +13,7 @@
 </style>
 
 <div class="form-builder">
+    <h2><?php echo $this->escape($this->layout_options['title']); ?>
+    <?php if (strlen($this->layout_options['subtitle']) > 0) { echo ' <small>' . $this->escape($this->layout_options['subtitle'])  . '</small>'; } ?></h2>
     <?php echo $this->form; ?>
 </div>

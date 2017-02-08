@@ -58,6 +58,26 @@ class Dlayer_Designer_Form
     }
 
     /**
+     * Fetch the form titles and buttons
+     *
+     * @return array
+     */
+    public function layoutOptions()
+    {
+        $layoutOptions = $this->model_form->layoutOptions();
+        if ($layoutOptions !== false) {
+            return $layoutOptions;
+        } else {
+            return array(
+                'title' => Dlayer_Config::FORM_DEFAULT_TITLE,
+                'subtitle' => Dlayer_Config::FORM_DEFAULT_SUBTITLE,
+                'submit_label' => Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL,
+                'reset_label' => Dlayer_Config::FORM_DEFAULT_RESET_LABEL
+            );
+        }
+    }
+
+    /**
      * Fetch all the fields that have assigned to the form, will include all the attributes for each field
      *
      * @return array

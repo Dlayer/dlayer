@@ -162,4 +162,31 @@ class Dlayer_Model_View_Form extends Zend_Db_Table_Abstract
 
         return $attributes;
     }
+
+    /**
+     * Fetch the defined titles and buttons for the form
+     *
+     * @return array|false
+     */
+    public function layoutOptions()
+    {
+        $sql = "SELECT 
+                    `title`, 
+                    `sub_title` AS `subtitle`, 
+                    `submit_label`, 
+                    `reset_label`
+                FROM 
+                    `user_site_form_layout` 
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `form_id` = :form_id 
+                LIMIT 
+                    1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $this->id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
 }
