@@ -317,7 +317,7 @@ class Dlayer_Ribbon_Handler_Form
     {
         switch ($tab) {
             case 'horizontal-layout':
-                $ribbon_layout = new Dlayer_DesignerTool_FormBuilder_HorizontalLayout_Form();
+                $ribbon_layout = new Dlayer_DesignerTool_FormBuilder_HorizontalLayout_Ribbon();
                 $data = $ribbon_layout->viewData($this->toolParams($tool));
                 break;
 

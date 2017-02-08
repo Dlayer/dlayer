@@ -89,7 +89,7 @@ class Dlayer_DesignerTool_FormBuilder_HorizontalLayout_Form extends Dlayer_Form_
         if (array_key_exists('element_width', $this->data) && $this->data['element_width'] !== false) {
             $element_width->setValue($this->data['element_width']);
         } else {
-            $element_width->setValue(3);
+            $element_width->setValue(9);
         }
 
         $this->elements['element_width'] = $element_width;
