@@ -42,11 +42,11 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (NULL,3,14,'Text','text',NULL,'pencil',NULL,1,0,1,1,1),
     (NULL,3,14,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
     (NULL,3,15,'Textarea','textarea',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,3,15,'Help','help',NULL,'info-sign',NULL,0,0,0,3,1),
+    (NULL,3,15,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
     (NULL,3,16,'Email','email',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,3,16,'Help','help',NULL,'info-sign',NULL,0,0,0,3,1),
+    (NULL,3,16,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
     (NULL,3,17,'Password','password',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,3,17,'Help','help',NULL,'info-sign',NULL,0,0,0,3,1),
+    (NULL,3,17,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
     (NULL,3,14,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
     (NULL,3,15,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
     (NULL,3,16,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
@@ -61,4 +61,7 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (NULL,3,21,'Title','title',NULL,'header',NULL,1,0,1,1,1),
     (NULL,3,21,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
     (NULL,3,22,'Buttons','button',NULL,'text-background',NULL,1,0,1,1,1),
-    (NULL,3,22,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1);
+    (NULL,3,22,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
+    (NULL,3,15,'Delete','delete','Delete','remove',NULL,0,1,0,3,1),
+	(NULL,3,16,'Delete','delete','Delete','remove',NULL,0,1,0,3,1),
+	(NULL,3,17,'Delete','delete','Delete','remove',NULL,0,1,0,3,1);
