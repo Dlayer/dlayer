@@ -107,4 +107,16 @@ class Dlayer_DesignerTool_FormBuilder_Password_Tool extends Dlayer_DesignerTool_
             )
         );
     }
+
+    /**
+     * Prepare the posted params, convert them to the required types and assign to the $this->params_auto property
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    protected function paramsAssignAuto(array $params)
+    {
+        // TODO: Implement paramsAssignAuto() method.
+    }
 }

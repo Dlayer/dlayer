@@ -106,4 +106,16 @@ class Dlayer_DesignerTool_FormBuilder_Text_SubTool_Delete_Tool extends Dlayer_To
 
         return true; // Want to cancel request as field no longer exists, not calling returnIds()
     }
+
+    /**
+     * Prepare the posted params, convert them to the required types and assign to the $this->params_auto property
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    protected function paramsAssignAuto(array $params)
+    {
+        // TODO: Implement paramsAssignAuto() method.
+    }
 }
