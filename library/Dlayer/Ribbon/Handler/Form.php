@@ -186,6 +186,11 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $ribbon_textarea->viewData($this->toolParams($tool));
                 break;
 
+            case 'delete':
+                $ribbon_textarea = new Dlayer_DesignerTool_FormBuilder_Textarea_SubTool_Delete_Ribbon();
+                $data = $ribbon_textarea->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;
@@ -216,6 +221,11 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $ribbon_email->viewData($this->toolParams($tool));
                 break;
 
+            case 'delete':
+                $ribbon_email = new Dlayer_DesignerTool_FormBuilder_Email_SubTool_Delete_Ribbon();
+                $data = $ribbon_email->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;
@@ -243,6 +253,11 @@ class Dlayer_Ribbon_Handler_Form
 
             case 'styling':
                 $ribbon_password = new Dlayer_DesignerTool_FormBuilder_Password_SubTool_Styling_Ribbon();
+                $data = $ribbon_password->viewData($this->toolParams($tool));
+                break;
+
+            case 'delete':
+                $ribbon_password = new Dlayer_DesignerTool_FormBuilder_Password_SubTool_Delete_Ribbon();
                 $data = $ribbon_password->viewData($this->toolParams($tool));
                 break;
 
