@@ -48,7 +48,9 @@ class Dlayer_DesignerTool_FormBuilder_StackedLayout_Form extends Dlayer_Form_Too
         $stacked->setBelongsTo('params');
         $stacked->setDescription('Enable the stacked layout for this form; labels will appear above the 
             elements.');
-        $stacked->setValue(1);
+        if ($this->element_data['layout'] !== false) {
+            $stacked->setValue($this->element_data['layout']);
+        } // Will have null value if layout index false, won't pass validation
 
         $this->elements['stacked'] = $stacked;
     }

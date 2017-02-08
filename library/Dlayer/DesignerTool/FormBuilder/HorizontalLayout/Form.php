@@ -29,7 +29,7 @@ class Dlayer_DesignerTool_FormBuilder_HorizontalLayout_Form extends Dlayer_Form_
      */
     public function init()
     {
-        $this->setAction('/form/process/tool');
+        $this->setAction('/form/process/tool-auto');
 
         $this->setMethod('post');
 
@@ -48,7 +48,9 @@ class Dlayer_DesignerTool_FormBuilder_HorizontalLayout_Form extends Dlayer_Form_
         $horizontal->setBelongsTo('params');
         $horizontal->setDescription('Enable the horizontal layout for this form; labels and elemenets 
             will appear on the same row using the width values defined below:');
-        $horizontal->setValue(3);
+        if ($this->element_data['layout'] !== false) {
+            $horizontal->setValue($this->element_data['layout']);
+        } // Will have null value if layout index false, won't pass validation
 
         $this->elements['horizontal'] = $horizontal;
 
