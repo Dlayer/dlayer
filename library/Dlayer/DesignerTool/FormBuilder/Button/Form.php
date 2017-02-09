@@ -29,7 +29,7 @@ class Dlayer_DesignerTool_FormBuilder_Button_Form extends Dlayer_Form_Tool_Form
      */
     public function init()
     {
-        $this->setAction('/form/process/tool');
+        $this->setAction('/form/process/tool-auto');
 
         $this->setMethod('post');
 
