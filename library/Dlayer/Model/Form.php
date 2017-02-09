@@ -23,7 +23,8 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
                     `user_site_form`.`id`, 
                     `user_site_form`.`name`,
                     `user_site_form_layout`.`title`, 
-                    `designer_form_layout`.`layout`
+                    `designer_form_layout`.`layout`, 
+                    COUNT(`user_site_form_field`.`id`) AS `elements`
 				FROM 
 				    `user_site_form` 
                 INNER JOIN 
@@ -31,9 +32,15 @@ class Dlayer_Model_Form extends Zend_Db_Table_Abstract
                         `user_site_form`.`id` = `user_site_form_layout`.`form_id`  
                 INNER JOIN 
                     `designer_form_layout` ON 
-                        `user_site_form_layout`.`layout_id` = `designer_form_layout`.`id`
+                        `user_site_form_layout`.`layout_id` = `designer_form_layout`.`id` 
+                LEFT JOIN 
+                    `user_site_form_field` ON 
+                        `user_site_form`.`id` = `user_site_form_field`.`form_id` AND 
+                        `user_site_form_field`.`deleted` = 0 
 				WHERE 
-				    `user_site_form`.`site_id` = :site_id
+				    `user_site_form`.`site_id` = :site_id 
+                GROUP BY 
+                    `user_site_form`.`id`
 				ORDER BY 
 				    `user_site_form`.`name` ASC";
         $stmt = $this->_db->prepare($sql);

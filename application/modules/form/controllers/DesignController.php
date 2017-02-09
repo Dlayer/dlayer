@@ -245,6 +245,7 @@ class Form_DesignController extends Zend_Controller_Action
     {
         $form = new Dlayer_Designer_Form($this->site_id, $this->form_id, true, $this->session->fieldId());
 
+        $this->view->layout_options = $form->layoutOptions();
         $this->view->form = $form->form();
         $this->view->row_styling = $form->rowStyles();
 

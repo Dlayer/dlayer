@@ -29,7 +29,7 @@
 		                    <ul class="list-group">
 		                        <li class="list-group-item"><strong>Title:</strong> <?php echo $this->escape($form['title']); ?></li>
 		                        <li class="list-group-item"><strong>Layout:</strong> <?php echo $this->escape($form['layout']); ?></li>
-                                <li class="list-group-item"><strong>Elements:</strong> [No. Elements]</li>
+                                <li class="list-group-item"><strong>Elements:</strong> <?php echo $this->escape($form['elements']); ?></li>
 		                        <li class="list-group-item">
                                     <a href="/form/design" class="btn btn-success btn-xs">Form Builder</a>
 			                        <a href="/form/admin/edit" class="btn btn-default btn-xs">Edit</a>
@@ -48,7 +48,7 @@
 		                    <ul class="list-group">
 		                        <li class="list-group-item"><strong>Title:</strong> <?php echo $this->escape($form['title']); ?></li>
 		                        <li class="list-group-item"><strong>Layout:</strong> <?php echo $this->escape($form['layout']); ?></li>
-                                <li class="list-group-item"><strong>Elements:</strong> [No. Elements]</li>
+                                <li class="list-group-item"><strong>Elements:</strong> <?php echo $this->escape($form['elements']); ?></li>
 		                        <li class="list-group-item">
 			                        <a href="/form/admin/activate/id/<?php echo $this->escape($form['id']); ?>" class="btn btn-primary btn-xs">Select</a>
 	                            </li>

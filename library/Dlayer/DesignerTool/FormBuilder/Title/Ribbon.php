@@ -20,17 +20,19 @@ class Dlayer_DesignerTool_FormBuilder_Title_Ribbon extends Dlayer_Ribbon_Form
     {
         $this->tool = $tool;
 
+        $this->fieldData();
+
         return array(
             'form' => new Dlayer_DesignerTool_FormBuilder_Title_Form(
                 $tool,
-                array(),
+                $this->field_data,
                 array()
             )
         );
     }
 
     /**
-     * Fetch the data array for the field, if in edit mode mode populate the values otherwise every value is
+     * Fetch the data array for the field/item, if in edit mode mode populate the values otherwise every value is
      * set to false, the tool form can simply check to see if the value is false or not and then set the
      * existing value
      *
@@ -38,6 +40,21 @@ class Dlayer_DesignerTool_FormBuilder_Title_Ribbon extends Dlayer_Ribbon_Form
      */
     protected function fieldData()
     {
-        // TODO: Implement fieldData() method.
+        if ($this->field_data_fetched === false) {
+            $this->field_data = array(
+                'form_title' => false,
+                'form_subtitle' => false
+            );
+
+            $model = new Dlayer_DesignerTool_FormBuilder_Title_Model();
+            $titles = $model->titles($this->tool['site_id'], $this->tool['form_id']);
+
+            if ($titles !== false) {
+                $this->field_data['form_title'] = $titles['title'];
+                $this->field_data['form_subtitle'] = $titles['subtitle'];
+            }
+
+            $this->field_data_fetched = true;
+        }
     }
 }
