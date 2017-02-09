@@ -90,5 +90,19 @@ var formBuilder =
         {
             return '<div class="' + moverClass + ' ' + moverClass + '-' + id + '" data-move="' + direction +
                 '" data-id="' + id + '">' + text + '</div>';
+        },
+
+        /**
+         * Set element value dependant on sibling value
+         *
+         * @param {String} element
+         * @param {String} sibling_element
+         * @param {Number} combined_limit
+         */
+        setSiblingValueBasedOnCombinedLimit: function(element, sibling_element, combined_limit)
+        {
+            $(element).change(function() {
+                $(sibling_element).val((combined_limit - Number(this.value)).toString());
+            });
         }
     };
