@@ -19,7 +19,9 @@ class Dlayer_DesignerTool_FormBuilder_Title_Tool extends Dlayer_Tool_Form
     protected function paramsExist(array $params)
     {
         $valid = false;
-        if (array_key_exists('title', $params) === true && array_key_exists('subtitle', $params) === true ) {
+        if (array_key_exists('form_title', $params) === true &&
+            array_key_exists('form_subtitle', $params) === true ) {
+
             $valid = true;
         }
 
@@ -35,7 +37,7 @@ class Dlayer_DesignerTool_FormBuilder_Title_Tool extends Dlayer_Tool_Form
     protected function paramsValid(array $params)
     {
         $valid = false;
-        if (strlen(trim($params['title'])) > 0 && strlen(trim($params['subtitle'])) >= 0) {
+        if (strlen(trim($params['form_title'])) > 0 && strlen(trim($params['form_subtitle'])) >= 0) {
             $valid = true;
         }
 
@@ -62,8 +64,8 @@ class Dlayer_DesignerTool_FormBuilder_Title_Tool extends Dlayer_Tool_Form
     protected function paramsAssignAuto(array $params)
     {
         $this->params_auto = array(
-            'title' => trim($params['title']),
-            'subtitle' => (strlen(trim($params['subtitle'])) > 0) ? trim($params['subtitle']) : null
+            'title' => trim($params['form_title']),
+            'subtitle' => (strlen(trim($params['form_subtitle'])) > 0) ? trim($params['form_subtitle']) : null
         );
     }
 
@@ -95,7 +97,20 @@ class Dlayer_DesignerTool_FormBuilder_Title_Tool extends Dlayer_Tool_Form
      */
     protected function structure()
     {
-        // TODO: Implement structure() method.
+        $model = new Dlayer_DesignerTool_FormBuilder_Title_Model();
+
+        $result = $model->updateTitles(
+            $this->site_id,
+            $this->form_id,
+            $this->params_auto['title'],
+            $this->params_auto['subtitle']
+        );
+
+        if ($result === true) {
+            return $this->returnIds();
+        } else {
+            return false;
+        }
     }
 
     /**
