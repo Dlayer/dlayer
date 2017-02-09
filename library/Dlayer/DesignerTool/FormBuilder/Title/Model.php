@@ -39,4 +39,31 @@ class Dlayer_DesignerTool_FormBuilder_Title_Model extends Zend_Db_Table_Abstract
 
         return $stmt->execute();
     }
+
+    /**
+     * Fetch the currently assigned titles
+     *
+     * @param integer $site_id
+     * @param integer $form_id
+     *
+     * @return array|false
+     */
+    public function titles($site_id, $form_id)
+    {
+        $sql = "SELECT 
+                    `title`, 
+                    `sub_title` AS `subtitle` 
+                FROM 
+                    `user_site_form_layout` 
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `form_id` = :form_id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
 }
