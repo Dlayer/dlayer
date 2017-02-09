@@ -104,5 +104,16 @@ var formBuilder =
             $(element).change(function() {
                 $(sibling_element).val((combined_limit - Number(this.value)).toString());
             });
+        },
+
+        /**
+         * Set preview width
+         */
+        setPreviewAtWidth: function() {
+            console.log('loaded');
+            $('.preview_at').click(function() {
+                console.log('hghghghg');
+                 $('div.preview-form').removeClass('col-md-12 col-md-9 col-md-6 col-md-3').addClass('col-md-' + $(this).data('cols'));
+            });
         }
     };

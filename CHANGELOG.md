@@ -11,6 +11,7 @@ v1.11: In progress
 - Added the delete sub tool to the Password, Email and Textarea elements. [Feature]
 - Added titles tool to the Form Builder, the title and subtitle can now be set. [Feature]
 - Added button tool to the Form Builder, allows the labels for the submit and reset buttons to be defined. [Feature]
+- Added controls to preview form at full width, three quarter width, half width and quarter width. [Feature]
 - Additional tests added to the test suite. [Tests]
 - Minor fixes and improvements.
 
