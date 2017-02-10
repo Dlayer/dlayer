@@ -111,6 +111,14 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $this->presetEmail($tool, $tab);
                 break;
 
+            case 'PresetAddress':
+                $data = $this->presetAddress($tool, $tab);
+                break;
+
+            case 'PresetComment':
+                $data = $this->presetComment($tool, $tab);
+                break;
+
             default:
                 $data = false;
                 break;
@@ -441,6 +449,56 @@ class Dlayer_Ribbon_Handler_Form
         switch ($tab) {
             case 'preset-email':
                 $ribbon_preset = new Dlayer_DesignerTool_FormBuilder_PresetEmail_Ribbon();
+                $data = $ribbon_preset->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the preset address tools, returns an array containing the form and the data for
+     * the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|FALSE
+     */
+    private function presetAddress($tool, $tab)
+    {
+        switch ($tab) {
+            case 'preset-address':
+                $ribbon_preset = new Dlayer_DesignerTool_FormBuilder_PresetAddress_Ribbon();
+                $data = $ribbon_preset->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the preset comment tools, returns an array containing the form and the data for
+     * the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|FALSE
+     */
+    private function presetComment($tool, $tab)
+    {
+        switch ($tab) {
+            case 'preset-comment':
+                $ribbon_preset = new Dlayer_DesignerTool_FormBuilder_PresetComment_Ribbon();
                 $data = $ribbon_preset->viewData($this->toolParams($tool));
                 break;
 

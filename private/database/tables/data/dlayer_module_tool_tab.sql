@@ -69,9 +69,7 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
     (NULL,3,23,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
 	(NULL,3,24,'Email','preset-email',NULL,'pencil',NULL,0,0,1,1,1),
 	(NULL,3,24,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-	(NULL,3,25,'Password','preset-password',NULL,'pencil',NULL,0,0,1,1,1),
+	(NULL,3,25,'Address','preset-address',NULL,'pencil',NULL,0,0,1,1,1),
 	(NULL,3,25,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-	(NULL,3,26,'Address','preset-address',NULL,'pencil',NULL,0,0,1,1,1),
-	(NULL,3,26,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-	(NULL,3,27,'Comment','preset-comment',NULL,'pencil',NULL,0,0,1,1,1),
-	(NULL,3,27,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1);
+	(NULL,3,26,'Comment','preset-comment',NULL,'pencil',NULL,0,0,1,1,1),
+	(NULL,3,26,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1);
