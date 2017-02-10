@@ -15,6 +15,8 @@ abstract class Dlayer_Form_Tool_Form extends Dlayer_Form
     protected $data = array();
     protected $element_data = array();
 
+    protected $preset = null;
+
     /**
      * Set the properties for the form
      *
@@ -57,6 +59,13 @@ abstract class Dlayer_Form_Tool_Form extends Dlayer_Form
             $field_type->setValue($this->field_type);
 
             $this->elements['field_type'] = $field_type;
+        }
+
+        if (isset($this->preset) && $this->preset === 1) {
+            $preset = new Zend_Form_Element_Hidden('preset');
+            $preset->setValue($this->preset);
+
+            $this->elements['preset'] = $preset;
         }
 
         $multi_use = new Zend_Form_Element_Hidden('multi_use');

@@ -2,6 +2,8 @@
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg)](https://php.net/)
 [![Build Status](https://travis-ci.org/Dlayer/dlayer.svg?branch=master)](https://travis-ci.org/Dlayer/dlayer)
 
+![Dlayer_Logo](public/images/favicon-192x192.png)
+
 Dlayer
 ======
 
@@ -11,7 +13,7 @@ Over the next few weeks, I am going to continue to polish the core of the Conten
 
 Latest stable release 
 --------
-v1.09 - Released 30th January 2017
+v1.11 - Released 10th February 2017
  
 Overview
 --------

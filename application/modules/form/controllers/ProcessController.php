@@ -64,7 +64,10 @@ class Form_ProcessController extends Zend_Controller_Action
                 $session->fieldId() === null
             ) &&
             $session_designer->tool('form') !== false &&
-            $session_designer->tool('form')['tool'] === Dlayer_Helper::getParamAsString('tool')
+            (
+                $session_designer->tool('form')['tool'] === Dlayer_Helper::getParamAsString('tool') ||
+                Dlayer_Helper::getParamAsInteger('preset') === 1
+            )
         ) {
             return true;
         } else {
@@ -75,6 +78,7 @@ class Form_ProcessController extends Zend_Controller_Action
                 Dlayer_Helper::getParamAsInteger('field_id'));
             Dlayer_Helper::sendToErrorLog('- Session tool: ' . $session_designer->tool('form')['tool'] .
                 ' POSTed tool: ' . Dlayer_Helper::getParamAsString('tool'));
+            Dlayer_Helper::sendToErrorLog('- Preset: ' . Dlayer_Helper::getParamAsInteger('preset'));
 
             return false;
         }
@@ -116,13 +120,11 @@ class Form_ProcessController extends Zend_Controller_Action
      */
     private function toolClass($sub_tool_model = null)
     {
-        $session_designer = new Dlayer_Session_Designer();
-
         if ($sub_tool_model !== null) {
-            $class_name = 'Dlayer_DesignerTool_FormBuilder_' . $session_designer->tool('form')['tool'] .
+            $class_name = 'Dlayer_DesignerTool_FormBuilder_' . Dlayer_Helper::getParamAsString('tool') .
                 '_SubTool_' . $sub_tool_model . '_Tool';
         } else {
-            $class_name = 'Dlayer_DesignerTool_FormBuilder_' . $session_designer->tool('form')['tool'] .
+            $class_name = 'Dlayer_DesignerTool_FormBuilder_' . Dlayer_Helper::getParamAsString('tool') .
                 '_Tool';
         }
 
