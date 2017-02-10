@@ -39,7 +39,7 @@ class Dlayer_DesignerTool_FormBuilder_PresetComment_Form extends Dlayer_Form_Too
 
         $this->generateFormElements();
 
-        $this->addElementsToForm('address', 'Address element', $this->elements);
+        $this->addElementsToForm('address', 'Comment element', $this->elements);
 
         $this->addDefaultElementDecorators();
 

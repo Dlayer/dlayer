@@ -4,14 +4,15 @@ Changelog
 
 Full changelog for Dlayer since the v1.00 release.
 
-v1.11: In progress
+v1.11: 10th February 2017
 --------
 - Added layout tools to the Form Builder, forms can now use stacked, inline or horizontal layouts. [Feature]
 - I have moved the code for the delete element sub tool into the shared section for Form Builder tools.
 - Added the delete sub tool to the Password, Email and Textarea elements. [Feature]
 - Added titles tool to the Form Builder, the title and subtitle can now be set. [Feature]
 - Added button tool to the Form Builder, allows the labels for the submit and reset buttons to be defined. [Feature]
-- Added controls to preview form at full width, three quarter width, half width and quarter width. [Feature]
+- Added controls to preview form at full width, three-quarter width, half width and quarter width. [Feature]
+- Added four preset element tools to Form Builder, name, email, comment and address. They are standard elements with the values prefilled to assist with creating a new form. [Feature]
 - Additional tests added to the test suite. [Tests]
 - Minor fixes and improvements.
 
