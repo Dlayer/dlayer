@@ -215,6 +215,11 @@ class Form_DesignController extends Zend_Controller_Action
                         $group = 'standard';
                         break;
 
+                    case 3:
+                        $show = true;
+                        $group = 'preset';
+                        break;
+
                     default:
                         $show = false; // Don't include cancel tool
                         $group = null;
