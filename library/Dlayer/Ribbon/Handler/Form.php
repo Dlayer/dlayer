@@ -107,6 +107,10 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $this->presetName($tool, $tab);
                 break;
 
+            case 'PresetEmail':
+                $data = $this->presetEmail($tool, $tab);
+                break;
+
             default:
                 $data = false;
                 break;
@@ -412,6 +416,31 @@ class Dlayer_Ribbon_Handler_Form
         switch ($tab) {
             case 'preset-name':
                 $ribbon_preset = new Dlayer_DesignerTool_FormBuilder_PresetName_Ribbon();
+                $data = $ribbon_preset->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the preset email tools, returns an array containing the form and the data for
+     * the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|FALSE
+     */
+    private function presetEmail($tool, $tab)
+    {
+        switch ($tab) {
+            case 'preset-email':
+                $ribbon_preset = new Dlayer_DesignerTool_FormBuilder_PresetEmail_Ribbon();
                 $data = $ribbon_preset->viewData($this->toolParams($tool));
                 break;
 
