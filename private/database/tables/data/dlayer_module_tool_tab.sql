@@ -47,7 +47,7 @@ values
     (NULL,4,6,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
     (NULL,4,12,'HTML','html',NULL,'pencil',NULL,1,0,1,1,1),
     (NULL,4,12,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,4,12,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
+    (NULL,4,12,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
     (NULL,4,3,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
     (NULL,4,6,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
     (NULL,4,8,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
@@ -93,4 +93,5 @@ values
 	(NULL,4,3,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
 	(NULL,4,4,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
 	(NULL,4,6,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
-	(NULL,4,8,'Delete','delete','Delete','remove',NULL,0,1,0,4,1);
+	(NULL,4,8,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
+	(NULL,4,12,'Delete','delete','Delete','remove',NULL,0,1,0,4,1);
