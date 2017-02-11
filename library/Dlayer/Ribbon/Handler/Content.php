@@ -234,6 +234,11 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_typography->viewData($this->toolParams($tool));
                 break;
 
+            case 'delete':
+                $ribbon_delete = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Delete_Ribbon();
+                $data = $ribbon_delete->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;

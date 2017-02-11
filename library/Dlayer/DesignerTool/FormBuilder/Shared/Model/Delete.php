@@ -75,7 +75,7 @@ class Dlayer_DesignerTool_FormBuilder_Shared_Model_Delete extends Zend_Db_Table_
                     `form_id` = :form_id AND 
                     `site_id` = :site_id 
                 ORDER BY 
-                    `site_id` ASC";
+                    `sort_order` ASC";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
