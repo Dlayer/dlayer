@@ -17,4 +17,8 @@ previewContentManager.headingType('#params-heading_type', '.content[data-content
 		echo $this->data['form'];
 	}
 	?>
+
+    <?php if($this->data['instances'] > 1) { ?>
+		<p><small>* The instances count includes deleted items</small></p>
+    <?php } ?>
 </div>

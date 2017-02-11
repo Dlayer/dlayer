@@ -69,7 +69,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Form extends Dlayer_Form_Tool_C
 		{
 			$instances = new Zend_Form_Element_Select('instances');
 			$instances->setLabel('Update shared content?');
-			$instances->setDescription("The content below is used {$this->instances} times on your web site, do you 
+			$instances->setDescription("The content below is used {$this->instances} times* on your web site, do you 
 				want to update the text for this heading only or all headings?");
 			$instances->setMultiOptions(
 				array(

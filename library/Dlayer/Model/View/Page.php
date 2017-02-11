@@ -166,15 +166,27 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      */
     public function content()
     {
-        $sql = 'SELECT uspsc.id AS content_id, uspsc.column_id, dct.name AS content_type 
-                FROM user_site_page_structure_content uspsc
-                JOIN designer_content_type dct ON uspsc.content_type = dct.id
-                JOIN user_site_page_structure_column uspscol ON uspsc.column_id = uspscol.id 
-                    AND uspscol.site_id = :site_id 
-                    AND uspscol.page_id = :page_id 
-                WHERE uspsc.site_id = :site_id
-                AND uspsc.page_id = :page_id  
-                ORDER BY uspscol.sort_order, uspsc.sort_order';
+        $sql = "SELECT 
+                    `uspsc`.`id` AS `content_id`, 
+                    `uspsc`.`column_id`, 
+                    `dct`.`name` AS `content_type` 
+                FROM 
+                    `user_site_page_structure_content` `uspsc`
+                INNER JOIN 
+                    `designer_content_type` `dct` ON 
+                        `uspsc`.`content_type` = `dct`.`id`
+                INNER JOIN 
+                    `user_site_page_structure_column` `uspscol` ON 
+                        `uspsc`.`column_id` = uspscol.id AND 
+                        `uspscol`.`site_id` = :site_id AND 
+                        `uspscol`.`page_id` = :page_id 
+                WHERE 
+                    `uspsc`.`site_id` = :site_id AND 
+                    `uspsc`.`page_id` = :page_id AND 
+                    `uspsc`.`deleted` = 0 
+                ORDER BY 
+                    `uspscol`.`sort_order`, 
+                    `uspsc`.`sort_order`";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);

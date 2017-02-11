@@ -221,15 +221,12 @@ class Content_ProcessController extends Zend_Controller_Action
 		{
 			$return_ids = $tool->process();
 
-			if($return_ids !== FALSE)
-			{
-				$this->setEnvironmentIds($return_ids);
-				$this->returnToDesigner(TRUE);
-			}
-			else
-			{
-				$this->returnToDesigner(FALSE);
-			}
+            if ($return_ids !== false && is_array($return_ids) === true) {
+                $this->setEnvironmentIds($return_ids);
+                $this->returnToDesigner(true);
+            } else {
+                $this->returnToDesigner(false);
+            }
 		}
 	}
 

@@ -66,7 +66,7 @@ class Dlayer_DesignerTool_ContentManager_Html_Form extends Dlayer_Form_Tool_Cont
         {
             $instances = new Zend_Form_Element_Select('instances');
             $instances->setLabel('Update shared content?');
-            $instances->setDescription("The HTML snippet below is used {$this->instances} times on your web site, do you 
+            $instances->setDescription("The HTML snippet below is used {$this->instances} times* on your web site, do you 
 				want to update the HTML for this snippet only or all snippets?");
             $instances->setMultiOptions(
                 array(

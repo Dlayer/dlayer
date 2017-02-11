@@ -22,15 +22,17 @@ class Dlayer_DesignerTool_ContentManager_Image_Ribbon extends Dlayer_Ribbon_Cont
 		$this->tool = $tool;
 
 		$this->contentData();
+		$this->instancesOfData();
 
 		return array(
 			'form' => new Dlayer_DesignerTool_ContentManager_Image_Form(
 			    $tool,
                 $this->content_data,
-				$this->instancesOfData(),
+				$this->instances_of,
                 array()
             ),
-            'image' => $this->selectedImage()
+            'image' => $this->selectedImage(),
+            'instances' => $this->instances_of
 		);
 	}
 
@@ -126,12 +128,10 @@ class Dlayer_DesignerTool_ContentManager_Image_Ribbon extends Dlayer_Ribbon_Cont
 	/**
 	 * Fetch the number of instances for the content items data
 	 *
-	 * @return integer
+	 * @return void
 	 */
 	protected function instancesOfData()
 	{
-		$instances = 0;
-
-		return $instances;
+		$this->instances_of = 0;
 	}
 }

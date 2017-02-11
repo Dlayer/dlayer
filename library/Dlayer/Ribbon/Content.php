@@ -28,6 +28,11 @@ abstract class Dlayer_Ribbon_Content
     protected $preview_data_fetched = false;
 
     /**
+     * @var boolean Has the instances data been fetched
+     */
+    protected $instances_of_fetched = false;
+
+    /**
      * @var array The data for the content item/structure item
      */
     protected $content_data = array();
@@ -41,6 +46,11 @@ abstract class Dlayer_Ribbon_Content
      * @var array Preview data
      */
     protected $preview_data = array();
+
+    /**
+     * @var integer
+     */
+    protected $instances_of = 0;
 
 	/**
 	 * Fetch the view data for the current tool tab, typically the returned array will have at least two indexes,

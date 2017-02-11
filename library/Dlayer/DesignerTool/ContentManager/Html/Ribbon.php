@@ -21,14 +21,16 @@ class Dlayer_DesignerTool_ContentManager_Html_Ribbon extends Dlayer_Ribbon_Conte
         $this->tool = $tool;
 
         $this->contentData();
+        $this->instancesOfData();
 
         return array(
             'form' => new Dlayer_DesignerTool_ContentManager_Html_Form(
                 $tool,
                 $this->content_data,
-                $this->instancesOfData(),
+                $this->instances_of,
                 array()
-            )
+            ),
+            'instances' => $this->instances_of
         );
     }
 
@@ -62,18 +64,20 @@ class Dlayer_DesignerTool_ContentManager_Html_Ribbon extends Dlayer_Ribbon_Conte
     /**
      * Fetch the number of instances for the content item data
      *
-     * @return integer
+     * @return void
      */
     protected function instancesOfData()
     {
-        $instances = 0;
+        if ($this->instances_of_fetched === false) {
 
-        if($this->tool['content_id'] !== NULL)
-        {
-            $model = new Dlayer_DesignerTool_ContentManager_Html_Model();
-            $instances = $model->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
+            $this->instances_of = 0;
+
+            if ($this->tool['content_id'] !== null) {
+                $model = new Dlayer_DesignerTool_ContentManager_Html_Model();
+                $this->instances_of = $model->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
+            }
+
+            $this->instances_of_fetched = true;
         }
-
-        return $instances;
     }
 }

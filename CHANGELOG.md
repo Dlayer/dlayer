@@ -4,6 +4,13 @@ Changelog
 
 Full changelog for Dlayer since the v1.00 release.
 
+v1.12: In Progress
+--------
+
+- Added a delete sub tool to each of the content items. [Feature]
+- The Content Manager does not display deleted content items; data remains pending feature to restore.
+- The re-order code which runs after an element is deleted in the Form Builder was sorting incorrectly. [Bugfix]
+
 v1.11: 10th February 2017
 --------
 - Added layout tools to the Form Builder, forms can now use stacked, inline or horizontal layouts. [Feature]
