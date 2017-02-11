@@ -1,20 +1,36 @@
 
-insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`,`model`,`glyph`,`glyph_style`,`multi_use`,`edit_mode`,`default`,`sort_order`,`enabled`) values
+insert  into `dlayer_module_tool_tab`
+(
+	`id`,
+	`module_id`,
+	`tool_id`,
+	`name`,
+	`script`,
+	`model`,
+	`glyph`,
+	`glyph_style`,
+	`multi_use`,
+	`edit_mode`,
+	`default`,
+	`sort_order`,
+	`enabled`
+)
+values
     (NULL,4,2,'Text','text',NULL,'pencil',NULL,1,0,1,1,1),
     (NULL,4,3,'Heading','heading',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,2,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
-    (NULL,4,3,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
+    (NULL,4,2,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
+    (NULL,4,3,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
     (NULL,4,4,'Form','form',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,4,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
+    (NULL,4,4,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
     (NULL,4,2,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
     (NULL,4,2,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
     (NULL,4,5,'Row','add-row',NULL,'align-justify',NULL,0,0,1,1,1),
     (NULL,4,5,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
     (NULL,4,6,'Jumbotron','jumbotron',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,6,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
+    (NULL,4,6,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
     (NULL,4,7,'Row','row',NULL,'align-justify',NULL,0,0,1,1,1),
     (NULL,4,8,'Image','image',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,8,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
+    (NULL,4,8,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
     (NULL,4,7,'Help','help',NULL,'info-sign',NULL,0,0,0,3,1),
     (NULL,4,9,'Page','page',NULL,'file',NULL,0,0,1,1,1),
     (NULL,4,9,'Help','help',NULL,'info-sign',NULL,0,0,0,3,1),
@@ -72,4 +88,9 @@ insert  into `dlayer_module_tool_tab`(`id`,`module_id`,`tool_id`,`name`,`script`
 	(NULL,3,25,'Address','preset-address',NULL,'pencil',NULL,0,0,1,1,1),
 	(NULL,3,25,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
 	(NULL,3,26,'Comment','preset-comment',NULL,'pencil',NULL,0,0,1,1,1),
-	(NULL,3,26,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1);
+	(NULL,3,26,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
+    (NULL,4,2,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
+	(NULL,4,3,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
+	(NULL,4,4,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
+	(NULL,4,6,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
+	(NULL,4,8,'Delete','delete','Delete','remove',NULL,0,1,0,4,1);
