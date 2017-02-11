@@ -23,15 +23,17 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
 
 		$this->contentData();
 		$this->previewData();
+		$this->instancesOfData();
 
 		return array(
 			'form' => new Dlayer_DesignerTool_ContentManager_Jumbotron_Form(
 			    $tool,
                 $this->content_data,
-				$this->instancesOfData(),
+				$this->instances_of,
                 array()
             ),
-            'preview' => $this->previewData()
+            'preview' => $this->preview_data,
+            'instances' => $this->instances_of
 		);
 	}
 
@@ -81,23 +83,25 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
         }
 	}
 
-	/**
-	 * Fetch the number of instances for the content items data
-	 *
-	 * @return integer
-	 */
-	protected function instancesOfData()
-	{
-		$instances = 0;
+    /**
+     * Fetch the number of instances for the content item data
+     *
+     * @return void
+     */
+    protected function instancesOfData()
+    {
+        if ($this->instances_of_fetched === false) {
 
-		if($this->tool['content_id'] !== NULL)
-		{
-			$model_jumbotron = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
-			$instances = $model_jumbotron->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
-		}
+            $this->instances_of = 0;
 
-		return $instances;
-	}
+            if ($this->tool['content_id'] !== null) {
+                $model = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
+                $this->instances_of = $model->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
+            }
+
+            $this->instances_of_fetched = true;
+        }
+    }
 
     /**
      * Fetch the data required by the preview functions
