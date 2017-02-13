@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Model_Form_Form extends Zend_Db_Table_Abstract
+class Dlayer_Model_Form extends Zend_Db_Table_Abstract
 {
     /**
      * Check to see if the given form field is valid, needs to belong to both the site and form
