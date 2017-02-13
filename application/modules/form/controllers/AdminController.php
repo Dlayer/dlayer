@@ -99,7 +99,7 @@ class Form_AdminController extends Zend_Controller_Action
     public function editAction()
     {
         $model_sites = new Dlayer_Model_Site();
-        $model_forms = new Dlayer_Model_Form();
+        $model_forms = new Dlayer_Model_Admin_Form();
 
         $form_id = $this->session->formId();
 
@@ -134,8 +134,8 @@ class Form_AdminController extends Zend_Controller_Action
 
         if ($this->form->isValid($post)) {
 
-            $model_form = new Dlayer_Model_Form();
-            $form_id = $model_form->saveForm($this->site_id, $post['name'], $post['title']);
+            $model = new Dlayer_Model_Admin_Form();
+            $form_id = $model->saveForm($this->site_id, $post['name'], $post['title']);
 
             if ($form_id !== false) {
                 $this->session->clearAll(true);
@@ -157,8 +157,8 @@ class Form_AdminController extends Zend_Controller_Action
 
         if ($this->form->isValid($post)) {
 
-            $model_form = new Dlayer_Model_Form();
-            $form_id = $model_form->saveForm(
+            $model = new Dlayer_Model_Admin_Form();
+            $form_id = $model->saveForm(
                 $this->site_id,
                 $post['name'],
                 $post['title'],
@@ -180,7 +180,7 @@ class Form_AdminController extends Zend_Controller_Action
     {
         $this->_helper->disableLayout(false);
 
-        $model = new Dlayer_Model_Form();
+        $model = new Dlayer_Model_Admin_Form();
         $form_id = Dlayer_Helper::getParamAsInteger('id');
 
         if ($form_id !== null && $model->valid($this->site_id, $form_id) === true) {

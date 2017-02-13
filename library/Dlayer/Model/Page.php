@@ -1,310 +1,796 @@
 <?php
 
 /**
- * Page model
- *
- * In the content module the user creates pages by adding content blocks, a page
- * begins as a reference to a template
+ * Page content model, handles all structural changes to the page not covered by tools
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
- * @category Model
  */
 class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 {
     /**
-     * Check to see if the given page id is valid. It needs to exist in the
-     * database and belong to the requested site.
+     * Calculate the sort order for the new content item that is about to be created in the specified row, fetch the
+     * current MAX and then adds one
      *
-     * Currently there is no status indicator, this will be added later when I
-     * have fleshed out the modules and got the interlinking working
+     * @since 0.99
      *
+     * @param integer $site_id
      * @param integer $page_id
-     * @param integer $site_id
-     * @return boolean TRUE if the page id is valid
+     * @param integer $column_id
+     *
+     * @return integer|FALSE The new sort order
      */
-    public function valid($page_id, $site_id)
+    private function sortOrderForNewContentItem($site_id, $page_id, $column_id)
     {
-        $sql = "SELECT id
-				FROM user_site_page
+        $sql = "SELECT IFNULL(MAX(sort_order), 0) + 1 AS sort_order
+				FROM user_site_page_structure_content 
 				WHERE site_id = :site_id
-				AND id = :page_id";
+				AND page_id = :page_id 
+				AND column_id = :column_id";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
         $stmt->execute();
-
-        if ($stmt->fetch() != false) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Fetch all the pages that have been defined for the requested site.
-     *
-     * Initially a user will have 2 sample sites which will contain sample
-     * pages, when a new site is created from scracth there will be no pages,
-     * it is therefore entirely possible that there will be no pages for the
-     * requested site
-     *
-     * @param integer $site_id
-     * @return array Array of the pages for the site, includes the name of the
-     *               template to create the page
-     */
-
-    /**
-     * Fetch all the pages that have been added to the requested site
-     *
-     * The method should only be called after the validateSiteId(); action helper, the helper checks that the
-     * site id exists and belongs to the currently logged in user
-     *
-     * @param integer $site_id
-     * @return array If there are no pages and empty array is returned
-     */
-    public function pages($site_id)
-    {
-        $sql = "SELECT 
-                    `usp`.`id`, 
-                    `usp`.`name`,
-                    `uspm`.`title`,
-                    `uspm`.`description`
-				FROM 
-				    `user_site_page` `usp` 
-                INNER JOIN 
-                    `user_site_page_meta` `uspm` ON 
-                        `usp`.`id` = `uspm`.`page_id`
-				WHERE 
-				    `usp`.`site_id` = :site_id 
-				ORDER BY 
-				    `usp`.`name` ASC";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
-
-    /**
-     * Fetch the data for the selected content page, array contains the combined data for user_site_page table and
-     * user_site_page_meta table
-     *
-     * @param $page_id
-     * @return array|FALSE
-     */
-    public function page($page_id)
-    {
-        $sql = 'SELECT usp.`name`, uspm.title, uspm.description 
- 				FROM user_site_page usp 
- 				JOIN user_site_page_meta uspm ON uspm.page_id = usp.id
- 				WHERE uspm.id = :page_id';
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetch();
-    }
-
-    /**
-     * Check to see if the given page name if unique for the site, optionally a page id can be defined which will be
-     * excluded from the check
-     *
-     * @param string $name Name to check
-     * @param integer $site_id Site id to check against
-     * @param null $page_id Page id to exclude from the check
-     * @return boolean TRUE if the name is unique
-     */
-    public function nameUnique($name, $site_id, $page_id = null)
-    {
-        $where = null;
-
-        if ($page_id != null) {
-            $where = 'AND id != :page_id ';
-        }
-
-        $sql = "SELECT id
-				FROM user_site_page
-				WHERE UPPER(`name`) = :name
-				AND site_id = :site_id ";
-        $sql .= $where;
-        $sql .= "LIMIT 1";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':name', strtoupper($name), PDO::PARAM_STR);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        if ($page_id != null) {
-            $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-        }
-        $stmt->execute();
-
         $result = $stmt->fetch();
 
-        if ($result == false) {
-            return true;
+        if ($result !== false) {
+            return intval($result['sort_order']);
         } else {
             return false;
         }
     }
 
     /**
-     * Save the content page, either inserts a new record or updates the given record
+     * Add a new content items to the content structure table, also adds the entry to the table for the content item
+     * type
+     *
+     * @since 0.99
      *
      * @param integer $site_id
-     * @param string $name Name of page within Dlayer
-     * @param string $title Page title
-     * @param string $description Page description
-     * @param integer|NULL $id Page id for edit
-     * @return integer|FALSE Either the page id or FALSE upon failure
-     */
-    public function savePage($site_id, $name, $title, $description, $id = null)
-    {
-        if ($id === null) {
-            $id = $this->addPage($site_id, $name);
-
-            if ($id !== false) {
-                $this->savePageMeta($id, $title, $description);
-            } else {
-                $id = false;
-            }
-        } else {
-            if ($this->editPage($id, $name) !== false) {
-                $this->savePageMeta($id, $title, $description);
-            } else {
-                $id = false;
-            }
-        }
-
-        return $id;
-    }
-
-    /**
-     * Save the page meta data, either inserts a new record or updates the details for the record matching the given
-     * Page Id
-     *
      * @param integer $page_id
-     * @param string $title Page title
-     * @param string $description Page description
-     * @return void
-     */
-    private function savePageMeta($page_id, $title, $description)
-    {
-        $id = $this->pageMetaExists($page_id);
-
-        if ($id === false) {
-            $this->addPageMeta($page_id, $title, $description);
-        } else {
-            $this->editPageMeta($id, $title, $description);
-        }
-    }
-
-    /**
-     * Insert a new page record
+     * @param integer $column_id
+     * @param string $content_type
+     * @param array $params
      *
-     * @param integer $site_id Site the page belongs to
-     * @param string $name Name of the page within Dlayer
-     * @return integer|FALSE Either the id of the new page or FALSE upon failure
+     * @return integer|FALSE
      */
-    private function addPage($site_id, $name)
+    public function addContentItem($site_id, $page_id, $column_id, $content_type, array $params)
     {
-        $sql = "INSERT INTO user_site_page 
-				(site_id, `name`) 
-				VALUES
-				(:site_id, :name)";
+        $content_id = false;
+
+        $sort_order = $this->sortOrderForNewContentItem($site_id, $page_id, $column_id);
+        if ($sort_order === false) {
+            $sort_order = 1;
+        }
+
+        $sql = "INSERT INTO user_site_page_structure_content 
+				(site_id, page_id, column_id, content_type, sort_order) 
+				VALUES 
+				(:site_id, :page_id, :column_id, 
+				(SELECT id FROM designer_content_type WHERE `name` = :content_type LIMIT 1), 
+				:sort_order)";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->bindValue(':content_type', $content_type, PDO::PARAM_STR);
+        $stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
         $result = $stmt->execute();
 
         if ($result === true) {
-            return intval($this->_db->lastInsertId('user_site_page'));
-        } else {
-            return false;
+            $content_id = intval($this->_db->lastInsertId('user_site_page_structure_content'));
         }
+
+        return $content_id;
     }
 
     /**
-     * Edit the details for a page
+     * Check to see if the requested content item is valid, needs to exist in the given location and also be of the
+     * correct type
      *
-     * @param integer $id
-     * @param string $name
-     * @return boolean
-     */
-    private function editPage($id, $name)
-    {
-        $sql = 'UPDATE user_site_page 
-				SET `name` = :name  
-				WHERE id = :id 
-				LIMIT 1';
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-        return $stmt->execute();
-    }
-
-    /**
-     * Add the meta data for a content page
+     * @since 0.99
      *
+     * @param integer $content_id
+     * @param integer $site_id
      * @param integer $page_id
-     * @param string $title
-     * @param string $description
+     * @param integer $column_id
+     * @param string $content_type
+     *
      * @return boolean
      */
-    private function addPageMeta($page_id, $title, $description)
+    public function validItem($content_id, $site_id, $page_id, $column_id, $content_type)
     {
-        $sql = "INSERT INTO user_site_page_meta  
-				(page_id, title, description) 
-				VALUES
-				(:page_id, :title, :description)";
+        $sql = "SELECT id 
+		        FROM user_site_page_structure_content
+		        WHERE id = :content_id 
+		        AND site_id = :site_id 
+		        AND page_id = :page_id 
+		        AND column_id = :column_id 
+		        AND content_type = (
+		            SELECT id 
+		            FROM designer_content_type 
+		            WHERE `name` = :content_type 
+		            LIMIT 1
+		        )";
         $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
-        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
-        return $stmt->execute();
-    }
-
-    /**
-     * Edit the meta entry for a page
-     *
-     * @param integer $id
-     * @param string $title
-     * @param string $description
-     * @return boolean
-     */
-    private function editPageMeta($id, $title, $description)
-    {
-        $sql = 'UPDATE user_site_page_meta 
-				SET title = :title, description = :description 
-				WHERE id = :id 
-				LIMIT 1';
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
-        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
-    }
-
-    /**
-     * Check to see if a meta entry exists for the current page
-     *
-     * @param integer $page_id
-     * @return integer|FALSE Either the id of the row in the meta table or FALSE if no entry
-     */
-    private function pageMetaExists($page_id)
-    {
-        $sql = 'SELECT id 
-				FROM user_site_page_meta 
-				WHERE page_id = :page_id';
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->bindValue(':content_type', $content_type, PDO::PARAM_STR);
         $stmt->execute();
 
         $result = $stmt->fetch();
 
         if ($result !== false) {
-            return $result['id'];
+            return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Fetch the sort order for the requested row
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer|NULL $column_id
+     * @param integer $row_id
+     *
+     * @return integer|FALSE The sort order for the requested row or FALSE upon failure
+     */
+    private function rowSortOrder($site_id, $page_id, $column_id, $row_id)
+    {
+        $column_id = ($column_id !== null) ? $column_id : 0;
+
+        $sql = 'SELECT sort_order 
+				FROM user_site_page_structure_row 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id
+				AND column_id = :column_id 
+				AND id = :row_id 
+				LIMIT 1';
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['sort_order']);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Fetch the sort order for the requested column
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $row_id
+     * @param integer $column_id
+     *
+     * @return integer|FALSE The sort order for the requested column or FALSE upon failure
+     */
+    private function columnSortOrder($site_id, $page_id, $row_id, $column_id)
+    {
+        $sql = 'SELECT sort_order 
+				FROM user_site_page_structure_column 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id
+				AND row_id = :row_id 
+				AND id = :column_id 
+				LIMIT 1';
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['sort_order']);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Fetch the sort order for the requested content item
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $column_id
+     * @param integer $id
+     *
+     * @return integer|FALSE The sort order for the requested content item or FALSE upon failure
+     */
+    private function contentSortOrder($site_id, $page_id, $column_id, $id)
+    {
+        $sql = 'SELECT sort_order 
+				FROM user_site_page_structure_content 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id
+				AND column_id = :column_id 
+				AND id = :content_id 
+				LIMIT 1';
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['sort_order']);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Fetch a row by its position on the page and current sort order
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $column_id
+     * @param integer $sort_order
+     *
+     * @return integer The sort order of the requested item ot FALSE if the row doesn't exist
+     */
+    private function getRowIdBySortOrder($site_id, $page_id, $column_id, $sort_order)
+    {
+        $sql = "SELECT id 
+				FROM user_site_page_structure_row 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND column_id = :column_id 
+				AND sort_order = :sort_order 
+				LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['id']);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Fetch a column by its position on the page and current sort order
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $row_id
+     * @param integer $sort_order
+     *
+     * @return integer The sort order of the requested item ot FALSE if the column doesn't exist
+     */
+    private function getColumnIdBySortOrder($site_id, $page_id, $row_id, $sort_order)
+    {
+        $sql = "SELECT id 
+				FROM user_site_page_structure_column 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND row_id = :row_id 
+				AND sort_order = :sort_order 
+				LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
+        $stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['id']);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Fetch a content item by its position in a column
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $column_id
+     * @param integer $sort_order
+     *
+     * @return integer The sort order of the requested content item ot FALSE if the content item doesn't exist
+     */
+    private function getContentIdBySortOrder($site_id, $page_id, $column_id, $sort_order)
+    {
+        $sql = "SELECT id 
+				FROM user_site_page_structure_content 
+				WHERE site_id = :site_id 
+				AND page_id = :page_id 
+				AND column_id = :column_id 
+				AND sort_order = :sort_order 
+				LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['id']);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Set the sort order for the selected row
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $column_id
+     * @param integer $row_id
+     * @param integer $sort_order
+     *
+     * @return void
+     */
+    private function setRowSortOrder($site_id, $page_id, $column_id, $row_id, $sort_order)
+    {
+        $sql = "UPDATE user_site_page_structure_row 
+				SET sort_order = :sort_order 
+				WHERE id = :row_id 
+				AND site_id = :site_id 
+				AND page_id = :page_id 
+				AND column_id = :column_id 
+				LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
+        $stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    /**
+     * Set the sort order for the selected column
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $row_id
+     * @param integer $column_id
+     * @param integer $sort_order
+     *
+     * @return void
+     */
+    private function setColumnSortOrder($site_id, $page_id, $row_id, $column_id, $sort_order)
+    {
+        $sql = "UPDATE user_site_page_structure_column 
+				SET sort_order = :sort_order 
+				WHERE id = :column_id  
+				AND site_id = :site_id 
+				AND page_id = :page_id 
+				AND row_id = :row_id 
+				LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    /**
+     * Set the sort order for the selected content item
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $column_id
+     * @param integer $id
+     * @param integer $sort_order
+     *
+     * @return void
+     */
+    private function setContentSortOrder($site_id, $page_id, $column_id, $id, $sort_order)
+    {
+        $sql = "UPDATE user_site_page_structure_content  
+				SET sort_order = :sort_order 
+				WHERE id = :content_id  
+				AND site_id = :site_id 
+				AND page_id = :page_id 
+				AND column_id = :column_id 
+				LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':sort_order', $sort_order, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    /**
+     * Move the row in the requested direction
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $column_id
+     * @param integer $row_id
+     * @param string $direction
+     *
+     * @return void
+     */
+    public function moveRow($site_id, $page_id, $column_id, $row_id, $direction)
+    {
+        $current_sort_order = $this->rowSortOrder($site_id, $page_id, $column_id, $row_id);
+        $new_sort_order = false;
+        $sibling_row_id = false;
+        $sibling_sort_order = false;
+
+        if ($current_sort_order !== false) {
+            switch ($direction) {
+                case 'up':
+                    if ($current_sort_order > 0) {
+                        $sibling_row_id = $this->getRowIdBySortOrder($site_id, $page_id, $column_id,
+                            ($current_sort_order - 1));
+
+                        if ($sibling_row_id !== false) {
+                            $new_sort_order = $current_sort_order - 1;
+                            $sibling_sort_order = $current_sort_order;
+                        }
+                    }
+                    break;
+
+                case 'down':
+                    if ($current_sort_order > 0) {
+                        $sibling_row_id = $this->getRowIdBySortOrder($site_id, $page_id, $column_id,
+                            ($current_sort_order + 1));
+
+                        if ($sibling_row_id !== false) {
+                            $new_sort_order = $current_sort_order + 1;
+                            $sibling_sort_order = $current_sort_order;
+                        }
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        if ($new_sort_order !== false && $sibling_row_id !== false && $sibling_sort_order !== false) {
+            $this->setRowSortOrder($site_id, $page_id, $column_id, $row_id, $new_sort_order);
+            $this->setRowSortOrder($site_id, $page_id, $column_id, $sibling_row_id, $sibling_sort_order);
+        }
+    }
+
+    /**
+     * Move the column in the requested direction
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $row_id
+     * @param integer $column_id
+     * @param string $direction
+     *
+     * @return void
+     */
+    public function moveColumn($site_id, $page_id, $row_id, $column_id, $direction)
+    {
+        $current_sort_order = $this->columnSortOrder($site_id, $page_id, $row_id, $column_id);
+        $new_sort_order = false;
+        $sibling_column_id = false;
+        $sibling_sort_order = false;
+
+        if ($current_sort_order !== false) {
+            switch ($direction) {
+                case 'up':
+                    if ($current_sort_order > 0) {
+                        $sibling_column_id = $this->getColumnIdBySortOrder($site_id, $page_id, $row_id,
+                            ($current_sort_order - 1));
+
+                        if ($sibling_column_id !== false) {
+                            $new_sort_order = $current_sort_order - 1;
+                            $sibling_sort_order = $current_sort_order;
+                        }
+                    }
+                    break;
+
+                case 'down':
+                    if ($current_sort_order > 0) {
+                        $sibling_column_id = $this->getColumnIdBySortOrder($site_id, $page_id, $row_id,
+                            ($current_sort_order + 1));
+
+                        if ($sibling_column_id !== false) {
+                            $new_sort_order = $current_sort_order + 1;
+                            $sibling_sort_order = $current_sort_order;
+                        }
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        if ($new_sort_order !== false && $sibling_column_id !== false && $sibling_sort_order !== false) {
+            $this->setColumnSortOrder($site_id, $page_id, $row_id, $column_id, $new_sort_order);
+            $this->setColumnSortOrder($site_id, $page_id, $row_id, $sibling_column_id, $sibling_sort_order);
+        }
+    }
+
+    /**
+     * Move the content in the requested direction
+     *
+     * @since 0.99
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $column_id
+     * @param integer $id
+     * @param string $direction
+     *
+     * @return void
+     */
+    public function moveContent($site_id, $page_id, $column_id, $id, $direction)
+    {
+        $current_sort_order = $this->contentSortOrder($site_id, $page_id, $column_id, $id);
+        $new_sort_order = false;
+        $sibling_content_id = false;
+        $sibling_sort_order = false;
+
+        if ($current_sort_order !== false) {
+            switch ($direction) {
+                case 'up':
+                    if ($current_sort_order > 0) {
+                        $sibling_content_id = $this->getContentIdBySortOrder($site_id, $page_id, $column_id,
+                            ($current_sort_order - 1));
+
+                        if ($sibling_content_id !== false) {
+                            $new_sort_order = $current_sort_order - 1;
+                            $sibling_sort_order = $current_sort_order;
+                        }
+                    }
+                    break;
+
+                case 'down':
+                    if ($current_sort_order > 0) {
+                        $sibling_content_id = $this->getContentIdBySortOrder($site_id, $page_id, $column_id,
+                            ($current_sort_order + 1));
+
+                        if ($sibling_content_id !== false) {
+                            $new_sort_order = $current_sort_order + 1;
+                            $sibling_sort_order = $current_sort_order;
+                        }
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        if ($new_sort_order !== false && $sibling_content_id !== false && $sibling_sort_order !== false) {
+            $this->setContentSortOrder($site_id, $page_id, $column_id, $id, $new_sort_order);
+            $this->setContentSortOrder($site_id, $page_id, $column_id, $sibling_content_id, $sibling_sort_order);
+        }
+    }
+
+    /**
+     * Fetch the parent id for a column
+     *
+     * @param integer $column_id
+     * @return integer|false
+     */
+    public function parentRowId($column_id)
+    {
+        $sql = "SELECT 
+                    `row_id` 
+                FROM 
+                    `user_site_page_structure_column` 
+                WHERE 
+                    `id` = :column_id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['row_id']);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Fetch the parent id for a row
+     *
+     * @param integer $row_id
+     * @return integer|false
+     */
+    public function parentColumnId($row_id)
+    {
+        $sql = "SELECT 
+                    `column_id` 
+                FROM 
+                    `user_site_page_structure_row` 
+                WHERE 
+                    `id` = :row_id 
+                LIMIT 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['column_id']);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Check to see if the selected column has any child row
+     *
+     * @param integer $column_id
+     * @return boolean
+     */
+    public function columnContainsRows($column_id)
+    {
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `user_site_page_structure_row` 
+                WHERE 
+                    `column_id` = :column_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if (count($stmt->fetchAll()) === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Check to see if the selected column has any content
+     *
+     * @param integer $column_id
+     * @return boolean
+     */
+    public function columnContainsContent($column_id)
+    {
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `user_site_page_structure_content` 
+                WHERE 
+                    `column_id` = :column_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if (count($stmt->fetchAll()) === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Content item siblings for next and previous selection buttons
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $column_id
+     * @param integer $content_id
+     * @return array
+     */
+    public function contentSiblings($site_id, $page_id, $column_id, $content_id)
+    {
+        $sql = "SELECT 
+                    `uspsc`.`id`, 
+                    `dct`.`name` AS `content_type`, 
+	                `dmt`.`model` AS `tool` 
+                FROM 
+                    `user_site_page_structure_content` `uspsc` 
+                INNER JOIN 
+	                `designer_content_type` `dct` ON 
+		                `uspsc`.`content_type` = `dct`.`id` 
+                INNER JOIN 
+                    `dlayer_module_tool` `dmt` ON  
+		                `dct`.`tool_id` = `dmt`.`id`
+                WHERE 
+                    `uspsc`.`site_id` = :site_id AND 
+                    `uspsc`.`page_id` = :page_id AND 
+                    `uspsc`.`column_id` = :column_id 
+                ORDER BY 
+                    `uspsc`.`sort_order` ASC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $content = array();
+        $data = array();
+        foreach ($stmt->fetchAll() as $row) {
+            $content[] = intval($row['id']);
+            $data[] = array(
+                'tool' => $row['tool'],
+                'content_type' => $row['content_type']
+            );
+        }
+
+        $result = array(
+            'previous' => false,
+            'next' => false
+        );
+
+        if (count($result) > 1) {
+            $key = array_search($content_id, $content);
+
+            if ($key > 0) {
+                if (array_key_exists(($key-1), $content) === true) {
+                    $result['previous'] = $content[($key-1)];
+                    $result['previous_data'] = $data[($key-1)];
+                }
+            }
+
+            if (array_key_exists(($key+1), $content) === true) {
+                $result['next'] = $content[($key+1)];
+                $result['next_data'] = $data[($key+1)];
+            }
+        }
+
+        return $result;
     }
 }

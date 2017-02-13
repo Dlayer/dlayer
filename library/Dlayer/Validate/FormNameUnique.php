@@ -41,8 +41,8 @@ class Dlayer_Validate_FormNameUnique extends Zend_Validate_Abstract
     {
         $this->_setValue($value);
 
-        $model_forms = new Dlayer_Model_Form();
-        if ($model_forms->nameUnique($value, $this->site_id, $this->form_id) === true) {
+        $model = new Dlayer_Model_Admin_Form();
+        if ($model->nameUnique($value, $this->site_id, $this->form_id) === true) {
             return true;
         } else {
             $this->_error(self::FORM_NAME_UNIQUE);

@@ -30,7 +30,7 @@
                                     <li class="list-group-item"><strong>Desc.:</strong> <?php echo $this->trimToLength($page['description'], 30); ?></li>
                                     <li class="list-group-item">
                                         <a href="/content/design" class="btn btn-success btn-xs">Content Manager</a>
-                                        <a href="/content/index/edit-page" class="btn btn-default btn-xs">Edit</a>
+                                        <a href="/content/admin/edit" class="btn btn-default btn-xs">Edit</a>
                                         <a href="#" class="btn btn-default btn-xs disabled" disabled="disabled">Copy</a>
                                     </li>
                                 </ul>
@@ -56,7 +56,7 @@
                 <?php } ?>
             </div>
         <?php } else { ?>
-            <p class="lead">You haven't created any pages for this website, start <a href="/content/index/new-page">here</a> to create a new web page.</p>
+            <p class="lead">You haven't created any pages for this website, start <a href="/content/admin/new">here</a> to create a new web page.</p>
         <?php } ?>
 	</div>
 </div>

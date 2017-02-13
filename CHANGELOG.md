@@ -10,6 +10,8 @@ v1.12: In Progress
 - Added a delete sub tool to each of the content items. [Feature]
 - The Content Manager does not display deleted content items; data remains pending feature to restore.
 - The re-order code which runs after an element is deleted in the Form Builder was sorting incorrectly. [Bugfix]
+- Added an admin controller to the Content Manager. [Refactoring]
+- Model cleanup [Refactoring]
 
 v1.11: 10th February 2017
 --------
