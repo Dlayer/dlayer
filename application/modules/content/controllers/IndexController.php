@@ -104,7 +104,7 @@ class Content_IndexController extends Zend_Controller_Action
                 'name' => 'Dashboard'
             ),
             array(
-                'uri'=>'/content/index/new-page',
+                'uri'=>'/content/admin/new',
                 'class' => 'primary',
                 'name'=>'New page'
             )
@@ -165,28 +165,6 @@ class Content_IndexController extends Zend_Controller_Action
     }
 
     /**
-     * Handle add content page, if successful the user is redirected after the ids for the new page has been set in
-     * the session
-     *
-     * @return void
-     */
-    private function handleAddContentPage()
-    {
-        $post = $this->getRequest()->getPost();
-
-        if ($this->content_page_form->isValid($post)) {
-            $model_pages = new Dlayer_Model_Page();
-            $page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description']);
-
-            if ($page_id !== false) {
-                $this->session_content->clearAll(true);
-                $this->session_content->setPageId($page_id);
-                $this->redirect('/content');
-            }
-        }
-    }
-
-    /**
      * Handle edit content page, if successful the user is redirected back to Content manager root
      *
      * @return void
@@ -204,32 +182,6 @@ class Content_IndexController extends Zend_Controller_Action
                 $this->redirect('/content');
             }
         }
-    }
-
-    /**
-     * Create a new content page for the currently selected site, users needs to enter a name to identify the
-     * page within Dlayer as well as the title and description for the html
-     *
-     * @return void
-     */
-    public function newPageAction()
-    {
-        $model_sites = new Dlayer_Model_Site();
-
-        $this->content_page_form = new Dlayer_Form_Site_ContentPage('/content/index/new-page', $this->site_id);
-
-        if ($this->getRequest()->isPost()) {
-            $this->handleAddContentPage();
-        }
-
-        $this->view->form = $this->content_page_form;
-        $this->view->site = $model_sites->site($this->site_id);
-
-        $session_dlayer = new Dlayer_Session();
-        $this->controlBar($session_dlayer->identityId(), $this->site_id);
-
-        $this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
-            array(), 'Dlayer.com - New content page');
     }
 
     /**
