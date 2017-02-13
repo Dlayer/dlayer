@@ -65,7 +65,7 @@ class Dlayer_AdminController extends Zend_Controller_Action
      */
     private function controlBar($identity_id, $site_id)
     {
-        $model_sites = new Dlayer_Model_Site();
+        $model = new Dlayer_Model_Admin_Site();
 
         $control_bar_buttons = array(
             array(
@@ -84,7 +84,7 @@ class Dlayer_AdminController extends Zend_Controller_Action
             array(
                 'name' => 'Your websites',
                 'class' => 'default',
-                'buttons' => $model_sites->sitesForControlBar($identity_id, $site_id)
+                'buttons' => $model->sitesForControlBar($identity_id, $site_id)
             )
         );
 
@@ -107,7 +107,7 @@ class Dlayer_AdminController extends Zend_Controller_Action
             $this->handleAdd();
         }
 
-        $model_sites = new Dlayer_Model_Site();
+        $model_sites = new Dlayer_Model_Admin_Site();
         $this->view->site = $model_sites->site($this->site_id);
         $this->view->form = $this->form;
 
@@ -128,8 +128,52 @@ class Dlayer_AdminController extends Zend_Controller_Action
         $post = $this->getRequest()->getPost();
 
         if ($this->form->isValid($post)) {
-            $model_sites = new Dlayer_Model_Site();
-            $site_id = $model_sites->saveSite($post['name']);
+            $model = new Dlayer_Model_Admin_Site();
+            $site_id = $model->saveSite($post['name']);
+
+            if ($site_id !== false) {
+                $this->redirect('/dlayer/index/home');
+            }
+        }
+    }
+
+    /**
+     * Edit the selected web site
+     *
+     * @return void
+     */
+    public function editAction()
+    {
+        $this->_helper->authenticate();
+
+        $this->form = new Dlayer_Form_Site_Site('/dlayer/admin/edit', $this->site_id);
+
+        if ($this->getRequest()->isPost()) {
+            $this->handleEdit();
+        }
+
+        $model = new Dlayer_Model_Admin_Site();
+        $this->view->site = $model->site($this->site_id);
+        $this->view->form = $this->form;
+
+        $this->controlBar($this->identity_id, $this->site_id);
+
+        $this->_helper->setLayoutProperties($this->nav_bar_items, '/dlayer/index/home', array('css/dlayer.css'),
+            array(), 'Dlayer.com - Edit website');
+    }
+
+    /**
+     * Handle edit web site, if successful the user is redirected back to app root
+     *
+     * @return void
+     */
+    private function handleEdit()
+    {
+        $post = $this->getRequest()->getPost();
+
+        if ($this->form->isValid($post)) {
+            $model = new Dlayer_Model_Admin_Site();
+            $site_id = $model->saveSite($post['name'], $this->site_id);
 
             if ($site_id !== false) {
                 $this->redirect('/dlayer/index/home');

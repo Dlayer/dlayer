@@ -74,7 +74,7 @@ class Content_AdminController extends Zend_Controller_Action
      */
     public function newAction()
     {
-        $model_sites = new Dlayer_Model_Site();
+        $model_sites = new Dlayer_Model_Admin_Site();
 
         $this->form = new Dlayer_Form_Site_ContentPage('/content/admin/new', $this->site_id);
 
@@ -123,7 +123,7 @@ class Content_AdminController extends Zend_Controller_Action
      */
     private function controlBar($identity_id, $site_id)
     {
-        $model_sites = new Dlayer_Model_Site();
+        $model = new Dlayer_Model_Admin_Site();
 
         $control_bar_buttons = array(
             array(
@@ -142,7 +142,7 @@ class Content_AdminController extends Zend_Controller_Action
             array(
                 'name' => 'Your websites',
                 'class' => 'default',
-                'buttons' => $model_sites->sitesForControlBar($identity_id, $site_id)
+                'buttons' => $model->sitesForControlBar($identity_id, $site_id)
             )
         );
 
@@ -156,7 +156,7 @@ class Content_AdminController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $model_sites = new Dlayer_Model_Site();
+        $model_sites = new Dlayer_Model_Admin_Site();
 
         $this->form = new Dlayer_Form_Site_ContentPage('/content/admin/edit', $this->site_id,
             $this->session->pageId());
