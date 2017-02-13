@@ -139,7 +139,7 @@ class Content_DesignController extends Zend_Controller_Action
      */
     private function controlBar()
     {
-        $model_page = new Dlayer_Model_Content_Page();
+        $model_page = new Dlayer_Model_Page();
 
         $column_id = $this->session_content->columnId();
         $row_id = $this->session_content->rowId();
@@ -275,7 +275,7 @@ class Content_DesignController extends Zend_Controller_Action
 
         if ($tool !== null && $tab !== null) {
             $model_tool = new Dlayer_Model_Tool();
-            $model_page = new Dlayer_Model_Content_Page();
+            $model_page = new Dlayer_Model_Page();
 
             $exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
 
@@ -551,7 +551,7 @@ class Content_DesignController extends Zend_Controller_Action
         $page_id = $this->session_content->pageId();
         $column_id = $this->session_content->columnId();
 
-        $model_page_content = new Dlayer_Model_Content_Page();
+        $model_page_content = new Dlayer_Model_Page();
         $model_page_content->moveRow($this->site_id, $page_id, $column_id, $row_id, $direction);
 
         $this->redirect('/content/design');
@@ -571,7 +571,7 @@ class Content_DesignController extends Zend_Controller_Action
         $page_id = $this->session_content->pageId();
         $row_id = $this->session_content->rowId();
 
-        $model_page_content = new Dlayer_Model_Content_Page();
+        $model_page_content = new Dlayer_Model_Page();
         $model_page_content->moveColumn($this->site_id, $page_id, $row_id, $column_id, $direction);
 
         $this->redirect('/content/design');
@@ -594,7 +594,7 @@ class Content_DesignController extends Zend_Controller_Action
         $page_id = $this->session_content->pageId();
         $column_id = $this->session_content->columnId();
 
-        $model_page_content = new Dlayer_Model_Content_Page();
+        $model_page_content = new Dlayer_Model_Page();
         $model_page_content->moveContent($this->site_id, $page_id, $column_id, $content_id, $direction);
 
         $this->redirect('/content/design/');
@@ -683,7 +683,7 @@ class Content_DesignController extends Zend_Controller_Action
     private function controlBarTools($page_selected, $column_id, $row_id, $content_id)
     {
         $model_tool = new Dlayer_Model_Tool();
-        $model_page = new Dlayer_Model_Content_Page();
+        $model_page = new Dlayer_Model_Page();
 
         $column_contains_content = $model_page->columnContainsContent($column_id);
         $column_contains_rows = $model_page->columnContainsRows($column_id);

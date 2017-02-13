@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Page content model, handles all structural changes to the page
+ * Page content model, handles all structural changes to the page not covered by tools
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Model_Content_Page extends Zend_Db_Table_Abstract
+class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 {
     /**
      * Calculate the sort order for the new content item that is about to be created in the specified row, fetch the
