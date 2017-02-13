@@ -5,11 +5,11 @@
 		<h1>Dlayer Demo <small>Web development simplified</small></h1>
 
 		<h2><span class="label label-default">Website: <?php echo $this->escape($this->site['name']); ?></span>
-			<small>[<a href="/dlayer/index/edit-site">Edit</a>]</small></h2>
+			<small>[<a href="/dlayer/admin/edit">Edit</a>]</small></h2>
 		
 		<h3>Welcome to Dlayer</h3>
 
-		<p>I have one very simple goal for this demo; I want to showcase the fundamental idea behind Dlayer,
+		<p class="lead">I have one very simple goal for this demo; I want to showcase the fundamental idea behind Dlayer,
 			to show how simple the process of creating a custom responsive website can and should be.</p>
 
 		<p>Dlayer is in active development, the enabled modules are liable to change, please keep an eye on the
@@ -35,7 +35,7 @@
 
                     <ul class="list-group">
                         <li class="list-group-item">Pages in site: <a href="/content"><?php if ($this->active_items !== false) { echo $this->escape($this->active_items['pages']); } else { echo 0; } ?></a></li>
-                        <li class="list-group-item">Add a <a href="/content/index/new-page">new page</a></li>
+                        <li class="list-group-item">Add a <a href="/content/admin/new">new page</a></li>
                         <li class="list-group-item">Recent: [TITLE HERE]</li>
                     </ul>
                 </div>

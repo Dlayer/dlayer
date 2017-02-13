@@ -21,11 +21,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
     /**
      * @var Zend_Form
      */
-    private $site_form;
-
-    /**
-     * @var Zend_Form
-     */
     private $login_form;
 
     /**
@@ -128,7 +123,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
         $session_dlayer = new Dlayer_Session();
 
-        $model_sites = new Dlayer_Model_Site();
+        $model_sites = new Dlayer_Model_Admin_Site();
         $model_modules = new Dlayer_Model_Module();
 
         $last_accessed = $model_sites->lastAccessedSite($session_dlayer->identityId());
@@ -156,11 +151,11 @@ class Dlayer_IndexController extends Zend_Controller_Action
      */
     private function controlBar($identity_id, $site_id)
     {
-        $model_sites = new Dlayer_Model_Site();
+        $model = new Dlayer_Model_Admin_Site();
 
         $control_bar_buttons = array(
             array(
-                'uri'=>'/dlayer/index/new-site',
+                'uri'=>'/dlayer/admin/new',
                 'class' => 'primary',
                 'name'=>'New website'
             )
@@ -168,9 +163,9 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
         $control_bar_drops = array(
             array(
-                'name' => 'Your sites',
+                'name' => 'Your Websites',
                 'class' => 'default',
-                'buttons' => $model_sites->sitesForControlBar($identity_id, $site_id)
+                'buttons' => $model->sitesForControlBar($identity_id, $site_id)
             )
         );
 
@@ -208,7 +203,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
         $site_id = Dlayer_Helper::getParamAsInteger('site');
 
         if ($site_id != null) {
-            $model_sites = new Dlayer_Model_Site();
+            $model_sites = new Dlayer_Model_Admin_Site();
             $session_dlayer = new Dlayer_Session();
 
             if ($model_sites->valid($site_id, $session_dlayer->identityId()) == true) {
@@ -218,63 +213,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
         }
 
         $this->redirect('/dlayer/index/home');
-    }
-
-    /**
-     * Create a new website, at the moment a user only needs to define the name they want to use, later there
-     * will be an updated to set additional data as well as some Dlayer options
-     *
-     * @return void
-     */
-    public function newSiteAction()
-    {
-        $this->_helper->authenticate();
-
-        $session_dlayer = new Dlayer_Session();
-
-        $this->site_form = new Dlayer_Form_Site_Site('/dlayer/index/new-site');
-
-        if ($this->getRequest()->isPost()) {
-            $this->handleAddSite();
-        }
-
-        $model_sites = new Dlayer_Model_Site();
-        $this->view->site = $model_sites->site($session_dlayer->siteId());
-        $this->view->form = $this->site_form;
-
-        $this->controlBar($session_dlayer->identityId(), $session_dlayer->siteId());
-
-        $this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
-            array(), 'Dlayer.com - New website');
-    }
-
-    /**
-     * Edit the selected web site
-     *
-     * @return void
-     */
-    public function editSiteAction()
-    {
-        $this->_helper->authenticate();
-
-        $session_dlayer = new Dlayer_Session();
-
-        $this->site_form = new Dlayer_Form_Site_Site('/dlayer/index/edit-site', $session_dlayer->siteId());
-
-        if ($this->getRequest()
-            ->isPost()
-        ) {
-            $this->handleEditSite();
-        }
-
-        $model_sites = new Dlayer_Model_Site();
-        $this->view->site = $model_sites->site($session_dlayer->siteId());
-        $this->view->form = $this->site_form;
-
-        $this->controlBar($session_dlayer->identityId(), $session_dlayer->siteId());
-
-        $this->_helper->setLayoutProperties($this->nav_bar_items_private, '/dlayer/index/home', array('css/dlayer.css'),
-            array(), 'Dlayer.com - Edit web site');
     }
 
     /**
@@ -304,49 +242,6 @@ class Dlayer_IndexController extends Zend_Controller_Action
         }
 
         $this->handleLogout();
-    }
-
-    /**
-     * Handle add web site, if successful the user is redirected back to app root, site is not automatically activate
-     * done by a different action because it is more involved than just setting an id
-     *
-     * @return void
-     */
-    private function handleAddSite()
-    {
-        $post = $this->getRequest()
-            ->getPost();
-
-        if ($this->site_form->isValid($post)) {
-            $model_sites = new Dlayer_Model_Site();
-            $site_id = $model_sites->saveSite($post['name']);
-
-            if ($site_id !== false) {
-                $this->redirect('/dlayer/index/home');
-            }
-        }
-    }
-
-    /**
-     * Handle edit web site, if successful the user is redirected back to app root
-     *
-     * @return void
-     */
-    private function handleEditSite()
-    {
-        $post = $this->getRequest()
-            ->getPost();
-
-        if ($this->site_form->isValid($post)) {
-            $session_dlayer = new Dlayer_Session();
-
-            $model_sites = new Dlayer_Model_Site();
-            $site_id = $model_sites->saveSite($post['name'], $session_dlayer->siteId());
-
-            if ($site_id !== false) {
-                $this->redirect('/dlayer/index/home');
-            }
-        }
     }
 
     /**

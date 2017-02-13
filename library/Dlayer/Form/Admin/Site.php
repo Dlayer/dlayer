@@ -6,7 +6,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Form_Site_Site extends Dlayer_Form_Site
+class Dlayer_Form_Admin_Site extends Dlayer_Form_Site
 {
 	/**
 	 * @var string
@@ -79,8 +79,8 @@ class Dlayer_Form_Site_Site extends Dlayer_Form_Site
 	{
 		if($this->site_id !== NULL)
 		{
-			$model_sites = new Dlayer_Model_Site();
-			$site = $model_sites->site($this->site_id);
+			$model = new Dlayer_Model_Admin_Site();
+			$site = $model->site($this->site_id);
 
 			if($site !== false)
 			{

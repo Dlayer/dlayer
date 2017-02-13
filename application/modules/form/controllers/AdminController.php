@@ -74,9 +74,9 @@ class Form_AdminController extends Zend_Controller_Action
      */
     public function newAction()
     {
-        $model_sites = new Dlayer_Model_Site();
+        $model_sites = new Dlayer_Model_Admin_Site();
 
-        $this->form = new Dlayer_Form_Site_Form('/form/admin/new', $this->site_id);
+        $this->form = new Dlayer_Form_Admin_Form('/form/admin/new', $this->site_id);
 
         if ($this->getRequest()->isPost()) {
             $this->processAddForm();
@@ -98,12 +98,12 @@ class Form_AdminController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $model_sites = new Dlayer_Model_Site();
+        $model_sites = new Dlayer_Model_Admin_Site();
         $model_forms = new Dlayer_Model_Admin_Form();
 
         $form_id = $this->session->formId();
 
-        $this->form = new Dlayer_Form_Site_Form(
+        $this->form = new Dlayer_Form_Admin_Form(
             '/form/admin/edit',
             $this->site_id,
             $form_id,
@@ -201,7 +201,7 @@ class Form_AdminController extends Zend_Controller_Action
      */
     private function controlBar($identity_id, $site_id)
     {
-        $model_sites = new Dlayer_Model_Site();
+        $model = new Dlayer_Model_Admin_Site();
 
         $control_bar_buttons = array(
             array(
@@ -220,7 +220,7 @@ class Form_AdminController extends Zend_Controller_Action
             array(
                 'name' => 'Your websites',
                 'class' => 'default',
-                'buttons' => $model_sites->sitesForControlBar($identity_id, $site_id)
+                'buttons' => $model->sitesForControlBar($identity_id, $site_id)
             )
         );
 

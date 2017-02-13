@@ -65,7 +65,7 @@ class Dlayer_Model_Module extends Zend_Db_Table_Abstract
                     FROM 
                         `user_site_page` 
                     WHERE 
-                        `user_site_page`.`site_id` = 1
+                        `user_site_page`.`site_id` = :site_id 
                 ) AS `pages`, 
                 (
                     SELECT 
@@ -73,7 +73,7 @@ class Dlayer_Model_Module extends Zend_Db_Table_Abstract
                     FROM 
                         `user_site_form` 
                     WHERE 
-                        `user_site_form`.`site_id` = 1
+                        `user_site_form`.`site_id` = :site_id 
                 ) AS `forms`";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
