@@ -150,6 +150,52 @@ class Content_AdminController extends Zend_Controller_Action
     }
 
     /**
+     * Edit the selected content page
+     *
+     * @return void
+     */
+    public function editAction()
+    {
+        $model_sites = new Dlayer_Model_Site();
+
+        $this->form = new Dlayer_Form_Site_ContentPage('/content/admin/edit', $this->site_id,
+            $this->session->pageId());
+
+        if ($this->getRequest()->isPost()) {
+            $this->handleEditContentPage();
+        }
+
+        $this->view->form = $this->form;
+        $this->view->site = $model_sites->site($this->site_id);
+
+        $session_dlayer = new Dlayer_Session();
+        $this->controlBar($session_dlayer->identityId(), $this->site_id);
+
+        $this->_helper->setLayoutProperties($this->nav_bar_items, '/content/index/index', array('css/dlayer.css'),
+            array(), 'Dlayer.com - Edit content page');
+    }
+
+    /**
+     * Handle edit content page, if successful the user is redirected back to Content manager root
+     *
+     * @return void
+     */
+    private function handleEditContentPage()
+    {
+        $post = $this->getRequest()->getPost();
+
+        if ($this->form->isValid($post)) {
+            $model_pages = new Dlayer_Model_Page();
+            $page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description'],
+                $this->session->pageId());
+
+            if ($page_id !== false) {
+                $this->redirect('/content');
+            }
+        }
+    }
+
+    /**
      * Assign control bar buttons
      *
      * @param array $buttons
