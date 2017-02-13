@@ -163,7 +163,7 @@ class Dlayer_IndexController extends Zend_Controller_Action
 
         $control_bar_drops = array(
             array(
-                'name' => 'Your sites',
+                'name' => 'Your Websites',
                 'class' => 'default',
                 'buttons' => $model->sitesForControlBar($identity_id, $site_id)
             )

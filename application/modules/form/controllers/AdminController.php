@@ -76,7 +76,7 @@ class Form_AdminController extends Zend_Controller_Action
     {
         $model_sites = new Dlayer_Model_Admin_Site();
 
-        $this->form = new Dlayer_Form_Site_Form('/form/admin/new', $this->site_id);
+        $this->form = new Dlayer_Form_Admin_Form('/form/admin/new', $this->site_id);
 
         if ($this->getRequest()->isPost()) {
             $this->processAddForm();
@@ -103,7 +103,7 @@ class Form_AdminController extends Zend_Controller_Action
 
         $form_id = $this->session->formId();
 
-        $this->form = new Dlayer_Form_Site_Form(
+        $this->form = new Dlayer_Form_Admin_Form(
             '/form/admin/edit',
             $this->site_id,
             $form_id,

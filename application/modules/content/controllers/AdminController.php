@@ -76,7 +76,7 @@ class Content_AdminController extends Zend_Controller_Action
     {
         $model_sites = new Dlayer_Model_Admin_Site();
 
-        $this->form = new Dlayer_Form_Site_ContentPage('/content/admin/new', $this->site_id);
+        $this->form = new Dlayer_Form_Admin_Page('/content/admin/new', $this->site_id);
 
         if ($this->getRequest()->isPost()) {
             $this->handleAddPage();
@@ -158,7 +158,7 @@ class Content_AdminController extends Zend_Controller_Action
     {
         $model_sites = new Dlayer_Model_Admin_Site();
 
-        $this->form = new Dlayer_Form_Site_ContentPage('/content/admin/edit', $this->site_id,
+        $this->form = new Dlayer_Form_Admin_Page('/content/admin/edit', $this->site_id,
             $this->session->pageId());
 
         if ($this->getRequest()->isPost()) {

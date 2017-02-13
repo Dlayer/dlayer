@@ -101,7 +101,7 @@ class Dlayer_AdminController extends Zend_Controller_Action
     {
         $this->_helper->authenticate();
 
-        $this->form = new Dlayer_Form_Site_Site('/dlayer/admin/new');
+        $this->form = new Dlayer_Form_Admin_Site('/dlayer/admin/new');
 
         if ($this->getRequest()->isPost()) {
             $this->handleAdd();
@@ -146,7 +146,7 @@ class Dlayer_AdminController extends Zend_Controller_Action
     {
         $this->_helper->authenticate();
 
-        $this->form = new Dlayer_Form_Site_Site('/dlayer/admin/edit', $this->site_id);
+        $this->form = new Dlayer_Form_Admin_Site('/dlayer/admin/edit', $this->site_id);
 
         if ($this->getRequest()->isPost()) {
             $this->handleEdit();

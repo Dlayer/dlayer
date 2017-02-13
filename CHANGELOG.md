@@ -12,7 +12,8 @@ v1.12: In Progress
 - The re-order code which runs after an element is deleted in the Form Builder was sorting incorrectly. [Bugfix]
 - Added an admin controller to the Content Manager. [Refactoring]
 - Added an admin controller to the default module. [Refactoring]
-- Model cleanup [Refactoring]
+- Model cleanup. [Refactoring]
+- Minor fixes and improvements.
 
 v1.11: 10th February 2017
 --------
