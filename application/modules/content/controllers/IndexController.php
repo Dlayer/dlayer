@@ -66,7 +66,7 @@ class Content_IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         $model_sites = new Dlayer_Model_Site();
-        $model_pages = new Dlayer_Model_Page();
+        $model_pages = new Dlayer_Model_Admin_Page();
         
         $pages = $model_pages->pages($this->site_id);
 
@@ -148,12 +148,12 @@ class Content_IndexController extends Zend_Controller_Action
     {
         $this->_helper->disableLayout(false);
 
-        $model_pages = new Dlayer_Model_Page();
+        $model = new Dlayer_Model_Admin_Page();
 
         $page_id = Dlayer_Helper::getParamAsInteger('page-id');
 
-        if ($page_id !== null && $model_pages->valid($page_id, $this->site_id) == true) {
-            $page = $model_pages->page($page_id);
+        if ($page_id !== null && $model->valid($page_id, $this->site_id) == true) {
+            $page = $model->page($page_id);
 
             if ($page !== false) {
                 $this->session_content->clearAll();

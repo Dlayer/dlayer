@@ -102,8 +102,8 @@ class Content_AdminController extends Zend_Controller_Action
         $post = $this->getRequest()->getPost();
 
         if ($this->form->isValid($post)) {
-            $model_pages = new Dlayer_Model_Page();
-            $page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description']);
+            $model = new Dlayer_Model_Admin_Page();
+            $page_id = $model->savePage($this->site_id, $post['name'], $post['title'], $post['description']);
 
             if ($page_id !== false) {
                 $this->session->clearAll(true);
@@ -162,7 +162,7 @@ class Content_AdminController extends Zend_Controller_Action
             $this->session->pageId());
 
         if ($this->getRequest()->isPost()) {
-            $this->handleEditContentPage();
+            $this->handleEditPage();
         }
 
         $this->view->form = $this->form;
@@ -180,13 +180,13 @@ class Content_AdminController extends Zend_Controller_Action
      *
      * @return void
      */
-    private function handleEditContentPage()
+    private function handleEditPage()
     {
         $post = $this->getRequest()->getPost();
 
         if ($this->form->isValid($post)) {
-            $model_pages = new Dlayer_Model_Page();
-            $page_id = $model_pages->savePage($this->site_id, $post['name'], $post['title'], $post['description'],
+            $model = new Dlayer_Model_Admin_Page();
+            $page_id = $model->savePage($this->site_id, $post['name'], $post['title'], $post['description'],
                 $this->session->pageId());
 
             if ($page_id !== false) {

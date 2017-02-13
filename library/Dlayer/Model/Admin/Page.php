@@ -1,17 +1,14 @@
 <?php
 
 /**
- * Page model
- *
- * In the content module the user creates pages by adding content blocks, a page
- * begins as a reference to a template
+ * Page management model
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  * @category Model
  */
-class Dlayer_Model_Page extends Zend_Db_Table_Abstract
+class Dlayer_Model_Admin_Page extends Zend_Db_Table_Abstract
 {
     /**
      * Check to see if the given page id is valid. It needs to exist in the
@@ -41,19 +38,6 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
             return false;
         }
     }
-
-    /**
-     * Fetch all the pages that have been defined for the requested site.
-     *
-     * Initially a user will have 2 sample sites which will contain sample
-     * pages, when a new site is created from scracth there will be no pages,
-     * it is therefore entirely possible that there will be no pages for the
-     * requested site
-     *
-     * @param integer $site_id
-     * @return array Array of the pages for the site, includes the name of the
-     *               template to create the page
-     */
 
     /**
      * Fetch all the pages that have been added to the requested site
