@@ -12,6 +12,8 @@ v1.12: In Progress
 - The re-order code which runs after an element is deleted in the Form Builder was sorting incorrectly. [Bugfix]
 - Added an admin controller to the Content Manager. [Refactoring]
 - Added an admin controller to the default module. [Refactoring]
+- Added the control bar to the Form Builder and Content Manager previews. There is a button to return to the Designer/Manager and in the Form Builder an option to set the width of the preview. [Feature]
+- The Form Builder displays the assigned title and subtitle. [Bugfix]
 - Model cleanup. [Refactoring]
 - Minor fixes and improvements.
 

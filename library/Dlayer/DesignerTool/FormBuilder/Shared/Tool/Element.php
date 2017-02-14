@@ -23,6 +23,11 @@ abstract class Dlayer_DesignerTool_FormBuilder_Shared_Tool_Element extends Dlaye
 
         if ($field_id !== false) {
             $continue = $model->addAttributes($this->site_id, $this->form_id, $field_id, $this->params, $this->field_type);
+
+            // Remove field if attributes not added
+            if ($continue === false) {
+                $model->deleteField($this->site_id, $this->form_id, $field_id);
+            }
         }
 
         if ($field_id !== false && $continue === true) {

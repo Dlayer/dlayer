@@ -41,5 +41,37 @@
 	</head>
 	<body>
 		<?php echo $this->layout()->content; ?>
+        <?php if ($this->layout()->show_control_bar === true) { ?>
+            <nav class="navbar navbar-default navbar-fixed-bottom">
+                <div class="container">
+                    <?php foreach ($this->layout()->control_bar_buttons as $button) { ?>
+                        <a href="<?php echo $this->escape($button['uri']); ?>" class="navbar-btn btn btn-<?php echo $this->escape($button['class']); ?>"><?php echo $this->escape($button['name']); ?></a>
+                    <?php } ?>
+                    <?php foreach ($this->layout()->control_bar_drops as $drop) { ?>
+                        <div class="btn-group dropup">
+                            <button type="button" class="btn btn-<?php echo $this->escape($drop['class']); ?> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php echo $this->escape($drop['name']); ?> <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($drop['buttons'] as $button) { ?>
+                                    <li><a href="<?php echo $this->escape($button['uri']); ?>"><?php echo $this->escape($button['name']); ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    <?php } ?>
+                    <?php if ($this->layout()->preview_at === true) { ?>
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Preview @ <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="preview_at" data-cols="12">Full width</a></li>
+                            <li><a href="#" class="preview_at" data-cols="9">Three quarter width</a></li>
+                            <li><a href="#" class="preview_at" data-cols="6">Half width</a></li>
+                            <li><a href="#" class="preview_at" data-cols="3">Quarter width</a></li>
+                        </ul>
+                    </div>
+                    <?php } ?>
+                </div>
+            </nav>
+        <?php } ?>
 	</body>
 </html>

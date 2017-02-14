@@ -20,7 +20,6 @@ class Dlayer_DesignerTool_FormBuilder_Password_Tool extends Dlayer_DesignerTool_
         $valid = false;
         if (array_key_exists('label', $params) === true &&
             array_key_exists('description', $params) === true &&
-            array_key_exists('placeholder', $params) === true &&
             array_key_exists('size', $params) === true &&
             array_key_exists('maxlength', $params) === true) {
 
@@ -41,7 +40,6 @@ class Dlayer_DesignerTool_FormBuilder_Password_Tool extends Dlayer_DesignerTool_
         $valid = false;
         if (strlen(trim($params['label'])) > 0 &&
             strlen(trim($params['description'])) >= 0 &&
-            strlen(trim($params['placeholder'])) >= 0 &&
             intval($params['size']) > 0 &&
             intval($params['maxlength']) > 0) {
 
@@ -63,7 +61,6 @@ class Dlayer_DesignerTool_FormBuilder_Password_Tool extends Dlayer_DesignerTool_
         $this->params = array(
             'label' => trim($params['label']),
             'description' => trim($params['description']),
-            'placeholder' => trim($params['placeholder']),
             'size' => intval($params['size']),
             'maxlength' => intval($params['maxlength'])
         );

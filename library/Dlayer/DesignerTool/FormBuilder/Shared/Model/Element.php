@@ -111,6 +111,33 @@ class Dlayer_DesignerTool_FormBuilder_Shared_Model_Element extends Zend_Db_Table
     }
 
     /**
+     * Delete the form field
+     *
+     * @param integer $site_id
+     * @param integer $form_id
+     * @param integer $id
+     *
+     * @return boolean
+     */
+    public function deleteField($site_id, $form_id, $id)
+    {
+        $sql = "DELETE FROM 
+                    `user_site_form_field` 
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `form_id` = :form_id AND 
+                    `id` = :field_id 
+                LIMIT 
+                    1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':form_id', $form_id, PDO::PARAM_INT);
+        $stmt->bindValue(':field_id', $id, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    /**
      * Calculate the sort order for the new form field
      *
      * @param integer $site_id

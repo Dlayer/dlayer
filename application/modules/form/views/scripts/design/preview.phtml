@@ -14,8 +14,15 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <?php echo $this->form; ?>
+        <div class="col-md-12 preview-form">
+            <?php echo $this->html; ?>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function()
+    {
+        formBuilder.setPreviewAtWidth();
+    });
+</script>

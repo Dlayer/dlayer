@@ -392,6 +392,16 @@ class Content_DesignController extends Zend_Controller_Action
         $this->view->styling_rows = $designer_page->rowStyles();
         $this->view->styling_page = $designer_page->pageStyles();
 
+        $control_bar_buttons = array(
+            array(
+                'uri' => '/content/design/index',
+                'class' => 'primary',
+                'name' => 'Return to Content Manager'
+            )
+        );
+
+        $this->_helper->populateControlBar($control_bar_buttons, array());
+
         return $this->view->render("design/page-preview.phtml");
     }
 
