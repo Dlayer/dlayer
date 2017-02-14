@@ -44,7 +44,6 @@ class Dlayer_DesignerTool_FormBuilder_Password_Ribbon extends Dlayer_Ribbon_Form
             $this->field_data = array(
                 'label' => false,
                 'description' => false,
-                'placeholder' => false,
                 'size' => false,
                 'maxlength' => false
             );
@@ -86,15 +85,6 @@ class Dlayer_DesignerTool_FormBuilder_Password_Ribbon extends Dlayer_Ribbon_Form
             $this->fieldData();
 
             $this->preview_data = array(
-                'attribute_values' => array(
-                    array(
-                        'element' => '#params-placeholder',
-                        'field_id' => $this->tool['field_id'],
-                        'attribute' => 'placeholder',
-                        'initial_value' => $this->field_data['placeholder'],
-                        'optional' => true
-                    )
-                ),
                 'element_values' => array(
                     array(
                         'element' => '#params-label',

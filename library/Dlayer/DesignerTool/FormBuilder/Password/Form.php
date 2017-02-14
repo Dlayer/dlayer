@@ -85,25 +85,6 @@ class Dlayer_DesignerTool_FormBuilder_Password_Form extends Dlayer_Form_Tool_For
 
         $this->elements['description'] = $description;
 
-        $placeholder = new Zend_Form_Element_Text('placeholder');
-        $placeholder->setLabel('Placeholder');
-        $placeholder->setAttribs(
-            array(
-                'maxlength'=>255,
-                'placeholder'=>'e.g., ********',
-                'class'=>'form-control input-sm'
-            )
-        );
-        $placeholder->setDescription('Please enter the text which appears inside the element when it is empty, typically 
-            this will be an example of expected input');
-        $placeholder->setBelongsTo('params');
-
-        if (array_key_exists('placeholder', $this->data) && $this->data['placeholder'] !== false) {
-            $placeholder->setValue($this->data['placeholder']);
-        }
-
-        $this->elements['placeholder'] = $placeholder;
-
         $size = new Zend_Form_Element_Hidden('size');
         $size->setBelongsTo('params');
         $size->setValue(50);
