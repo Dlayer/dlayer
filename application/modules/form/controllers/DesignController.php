@@ -269,6 +269,16 @@ class Form_DesignController extends Zend_Controller_Action
         $this->view->form = $form->form();
         $this->view->row_styling = $form->rowStyles();
 
+        $control_bar_buttons = array(
+            array(
+                'uri' => '/form/design/index',
+                'class' => 'primary',
+                'name' => 'Return to Form Builder'
+            )
+        );
+
+        $this->_helper->populateControlBar($control_bar_buttons, array());
+
         return $this->view->render("design/preview.phtml");
     }
 
