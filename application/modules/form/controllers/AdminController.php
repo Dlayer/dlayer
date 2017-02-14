@@ -224,23 +224,6 @@ class Form_AdminController extends Zend_Controller_Action
             )
         );
 
-        $this->assignToControlBar($control_bar_buttons, $control_bar_drops);
-    }
-
-    /**
-     * Assign control bar buttons
-     *
-     * @param array $buttons
-     * @param array $drops
-     *
-     * @todo Move this into an action helper
-     * @return void
-     */
-    private function assignToControlBar(array $buttons, array $drops)
-    {
-        $layout = Zend_Layout::getMvcInstance();
-        $layout->assign('show_control_bar', true);
-        $layout->assign('control_bar_buttons', $buttons);
-        $layout->assign('control_bar_drops', $drops);
+        $this->_helper->populateControlBar($control_bar_buttons, $control_bar_drops);
     }
 }

@@ -100,4 +100,15 @@ class Dlayer_Action_CodeHinting extends Zend_Controller_Action_Helper_Abstract
 		array $js_includes, $title, $preview_uri = '', $signed_in = TRUE)
 	{
 	}
+
+    /**
+     * Pass the control bar options to the layout
+     *
+     * @param array $buttons Buttons for control bar
+     * @param array $dropdowns Drop down data array for control bar
+     * @return Dlayer_Action_PopulateControlBar
+     */
+    public function populateControlBar(array $buttons, array $dropdowns)
+    {
+    }
 }
