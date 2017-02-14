@@ -103,7 +103,7 @@ class Form_DesignController extends Zend_Controller_Action
 
         $this->controlBar();
 
-        $this->view->form = $this->form();
+        $this->view->design_html = $this->form();
         $this->view->ribbon = $this->ribbon();
 
         $this->view->module = $this->getRequest()->getModuleName();
@@ -134,11 +134,15 @@ class Form_DesignController extends Zend_Controller_Action
     {
         $this->_helper->setLayout('preview');
 
-        $this->view->form = $this->formPreview();
+        $this->view->html = $this->formPreview();
 
         $layout = Zend_Layout::getMvcInstance();
         $layout->assign('css_include', array('css/dlayer.css'));
-        $layout->assign('js_include', array());
+        $layout->assign('js_include',
+            array(
+                'scripts/form-builder.js'
+            )
+        );
         $layout->assign('title', 'Dlayer.com - Form preview');
     }
 
@@ -266,6 +270,7 @@ class Form_DesignController extends Zend_Controller_Action
     {
         $form = new Dlayer_Designer_Form($this->site_id, $this->form_id);
 
+        $this->view->layout_options = $form->layoutOptions();
         $this->view->form = $form->form();
         $this->view->row_styling = $form->rowStyles();
 
@@ -279,7 +284,7 @@ class Form_DesignController extends Zend_Controller_Action
 
         $this->_helper->populateControlBar($control_bar_buttons, array());
 
-        return $this->view->render("design/preview.phtml");
+        return $this->view->render("design/form-preview.phtml");
     }
 
     /**
