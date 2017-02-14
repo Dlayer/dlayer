@@ -282,6 +282,9 @@ class Form_DesignController extends Zend_Controller_Action
             )
         );
 
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->assign('preview_at', true);
+
         $this->_helper->populateControlBar($control_bar_buttons, array());
 
         return $this->view->render("design/form-preview.phtml");

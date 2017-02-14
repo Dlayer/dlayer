@@ -71,7 +71,7 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
      *
      * @param array $responsive_column_widths
      *
-     * @return Dlayer_View_ContentPage
+     * @return Dlayer_View_ContentPagePreview
      */
     public function setResponsiveOptions(array $responsive_column_widths)
     {
@@ -90,7 +90,7 @@ class Dlayer_View_ContentPagePreview extends Zend_View_Helper_Abstract
 	{
 		$this->view->rowPreview()->setColumnId(0);
 
-		$this->html = '<div class="container" ' . $this->view->stylingPage()->setPage($this->page_id) . '>';
+		$this->html = '<div class="preview-page container" ' . $this->view->stylingPage()->setPage($this->page_id) . '>';
 		$this->html .= $this->view->rowPreview()->render();
 		$this->html .= '</div>';
 

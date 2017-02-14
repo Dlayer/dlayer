@@ -58,6 +58,7 @@
                             </ul>
                         </div>
                     <?php } ?>
+                    <?php if ($this->layout()->preview_at === true) { ?>
                     <div class="btn-group dropup">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Preview @ <span class="caret"></span></button>
@@ -68,6 +69,7 @@
                             <li><a href="#" class="preview_at" data-cols="3">Quarter width</a></li>
                         </ul>
                     </div>
+                    <?php } ?>
                 </div>
             </nav>
         <?php } ?>
