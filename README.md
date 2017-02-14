@@ -9,11 +9,11 @@ Dlayer
 
 Thank you for taking the time to look at Dlayer, I've been working on this project for many years including the inevitable restarts, it has taken an inordinate amount of work to finally get here, now that I have a stable base I'm hoping to grow the project.
 
-Over the next few weeks, I am going to continue to polish the core of the Content manager, work on the set-up process and then start reintegrating the removed designers, first on the list is the Form builder.
+I am working towards reinstating the Website Manager and the Media Library. As soon as they are back into the app, I can move towards making Dlayer create a website and then its main selling point, widgets.
 
 Latest stable release 
 --------
-v1.11 - Released 10th February 2017
+v1.12 - Released 14th February 2017
  
 Overview
 --------
@@ -36,12 +36,12 @@ Requirements
 Documentation 
 ---------
 
-Please check the documentation at http://www.dlayer.com/docs/ the documentation is currently a little sparse, I am in the progress of moving it to http://dlayer.github.io/dlayer/
+Please check the documentation at http://www.dlayer.com/docs/ - the documentation is currently a little sparse, I am in the progress of moving it to http://dlayer.github.io/dlayer/
 
 Setup
 ---------
 
-I am working towards improving the set-up/reset process for Dlayer, until then please follow the steps below.
+I am working towards improving the set-up/reset process for Dlayer, until then, please follow the steps below.
 
 * Set-up your development environment. I have written a blog post on setting up a suitable environment on a Linux machine, http://www.deanblackborough.com/2016/04/30/ubuntu-install-apache-php-mysql-sass-bower-and-phpstorm-for-local-development/
 * I will assume your local environment is at http://dlayer.dev
