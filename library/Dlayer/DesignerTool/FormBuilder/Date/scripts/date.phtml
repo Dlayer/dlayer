@@ -1,0 +1,38 @@
+<?php /** @var $this Dlayer_View_Codehinting */?>
+
+<?php if ($this->edit_mode === true) { ?>
+    <script>
+        <?php
+        foreach ($this->data['preview']['attribute_values'] as $attribute) {
+            echo "previewFormBuilder.attributeValue('" . $this->escape($attribute['element']) . "', '";
+            echo $this->escape($attribute['field_id']) . "', '";
+            echo $this->escape($attribute['attribute']) . "', '";
+            echo $this->escape($attribute['initial_value']) . "', ";
+            echo ($attribute['optional'] === true) ? 'true' : 'false';
+            echo ");" . PHP_EOL;
+        }
+
+        foreach ($this->data['preview']['element_values'] as $attribute) {
+            echo "previewFormBuilder.elementValue('" . $this->escape($attribute['element']) . "', '";
+            echo $this->escape($attribute['field_id']) . "', '";
+            echo $attribute['ui-element'] . "', '";
+            echo $this->escape($attribute['initial_value']) . "', ";
+            echo ($attribute['nl2br'] === true) ? 'true, ' : 'false, ';
+            echo ($attribute['optional'] === true) ? 'true' : 'false';
+            echo ");" . PHP_EOL;
+        }
+        ?>
+    </script>
+<?php } ?>
+
+<div class="col-md-12 col-sm-12">
+    <p class="dev-note bg-danger unsaved">Data has been modified!</p>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <?php
+    if($this->data !== false) {
+        echo $this->data['form'];
+    }
+    ?>
+</div>

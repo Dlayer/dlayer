@@ -83,6 +83,10 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $this->password($tool, $tab);
                 break;
 
+            case 'Date':
+                $data = $this->date($tool, $tab);
+                break;
+
             case 'InlineLayout':
                 $data = $this->inlineLayout($tool, $tab);
                 break;
@@ -500,6 +504,41 @@ class Dlayer_Ribbon_Handler_Form
             case 'preset-comment':
                 $ribbon_preset = new Dlayer_DesignerTool_FormBuilder_PresetComment_Ribbon();
                 $data = $ribbon_preset->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the Date element tool, returns an array containing the form and any additional
+     * data required for the view
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function date($tool, $tab)
+    {
+        switch ($tab) {
+            case 'date':
+                $ribbon_date = new Dlayer_DesignerTool_FormBuilder_Date_Ribbon();
+                $data = $ribbon_date->viewData($this->toolParams($tool));
+                break;
+
+            case 'styling':
+                $ribbon_date = new Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Ribbon();
+                $data = $ribbon_date->viewData($this->toolParams($tool));
+                break;
+
+            case 'delete':
+                $ribbon_date = new Dlayer_DesignerTool_FormBuilder_Text_SubTool_Delete_Ribbon();
+                $data = $ribbon_date->viewData($this->toolParams($tool));
                 break;
 
             default:

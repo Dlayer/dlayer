@@ -133,6 +133,10 @@ class Dlayer_Form_Builder extends Zend_Form
                     $this->passwordInput($form_field);
                     break;
 
+                case 'Date':
+                    $this->dateInput($form_field);
+                    break;
+
                 default:
                     throw new Exception('Field type: ' . $form_field['type'] .
                         ' does not exist in form builder switch statement');
@@ -293,6 +297,22 @@ class Dlayer_Form_Builder extends Zend_Form
     private function textAreaInput(array $form_field)
     {
         $input = new Zend_Form_Element_Textarea('field_' . $form_field['id']);
+        $input->setLabel($form_field['attributes']['label']);
+        $input->setDescription($form_field['attributes']['description']);
+        $input->setAttribs($form_field['attributes']);
+
+        $this->elements['field_' . $form_field['id']] = $input;
+    }
+
+    /**
+     * Create the date input and assign to the elements array
+     *
+     * @param array $form_field Form field data array
+     * @return void
+     */
+    private function dateInput(array $form_field)
+    {
+        $input = new Dlayer_Form_Element_Date('field_' . $form_field['id']);
         $input->setLabel($form_field['attributes']['label']);
         $input->setDescription($form_field['attributes']['description']);
         $input->setAttribs($form_field['attributes']);
