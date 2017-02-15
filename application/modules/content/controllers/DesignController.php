@@ -129,6 +129,7 @@ class Content_DesignController extends Zend_Controller_Action
                 'scripts/dlayer.js',
                 'scripts/designer.js',
                 'scripts/content-manager.js',
+                'scripts/preview.js',
                 'scripts/preview-content-manager.js'
             ),
             'Dlayer.com - Content Manager', '/content/design/preview');

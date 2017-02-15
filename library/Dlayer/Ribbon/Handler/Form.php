@@ -531,6 +531,16 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $ribbon_date->viewData($this->toolParams($tool));
                 break;
 
+            case 'styling':
+                $ribbon_date = new Dlayer_DesignerTool_FormBuilder_Text_SubTool_Styling_Ribbon();
+                $data = $ribbon_date->viewData($this->toolParams($tool));
+                break;
+
+            case 'delete':
+                $ribbon_date = new Dlayer_DesignerTool_FormBuilder_Text_SubTool_Delete_Ribbon();
+                $data = $ribbon_date->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;

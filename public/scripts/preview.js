@@ -18,10 +18,10 @@ var preview =
          */
         unsaved: function()
         {
-            if (previewContentManager.visible === false) {
-                if (previewContentManager.changed === true) {
+            if (preview.visible === false) {
+                if (preview.changed === true) {
                     $('p.unsaved').show('medium');
-                    previewContentManager.visible = true;
+                    preview.visible = true;
                     dlayerDesigner.tabs.reload = true;
                 }
             }
@@ -47,10 +47,10 @@ var preview =
         highlightItem: function(selector, effect_length)
         {
             if (typeof effect_length == 'undefined') {
-                effect_length = previewContentManager.highlightDuration;
+                effect_length = preview.highlightDuration;
             }
 
-            if (previewContentManager.highlight === true) {
+            if (preview.highlight === true) {
                 $(selector).effect("highlight", {}, effect_length);
             }
         },
@@ -64,17 +64,17 @@ var preview =
         setAndAnimateBackgroundColor: function(selector, new_value)
         {
             if (new_value.length === 7) {
-                $(selector).animate({'backgroundColor': new_value}, previewContentManager.animateDuration);
+                $(selector).animate({'backgroundColor': new_value}, preview.animateDuration);
 
-                previewContentManager.changed = true;
+                preview.changed = true;
             }
             else {
                 if (new_value.length === 0) {
                     $(selector).css('background-color', 'inherit');
-                    previewContentManager.changed = true;
+                    preview.changed = true;
                 }
             }
 
-            previewContentManager.unsaved();
+            preview.unsaved();
         }
     };
