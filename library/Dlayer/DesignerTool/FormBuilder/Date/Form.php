@@ -51,7 +51,7 @@ class Dlayer_DesignerTool_FormBuilder_Date_Form extends Dlayer_Form_Tool_Form
         $label->setAttribs(
             array(
                 'maxlength'=>255,
-                'placeholder'=>'e.g., Your date of birth',
+                'placeholder'=>'e.g., Date of birth',
                 'class'=>'form-control input-sm'
             )
         );
