@@ -22,6 +22,7 @@ var previewContentManager =
                 if (previewContentManager.changed === true) {
                     $('p.unsaved').show('medium');
                     previewContentManager.visible = true;
+                    dlayerDesigner.tabs.reload = true;
                 }
             }
         },

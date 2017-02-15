@@ -22,6 +22,7 @@ var previewFormBuilder =
                 if (previewFormBuilder.changed === true) {
                     $('p.unsaved').show('medium');
                     previewFormBuilder.visible = true;
+                    dlayerDesigner.tabs.reload = true;
                 }
             }
         },
