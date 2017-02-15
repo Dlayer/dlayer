@@ -144,7 +144,7 @@ class Content_DesignController extends Zend_Controller_Action
         $column_id = $this->session_content->columnId();
         $row_id = $this->session_content->rowId();
         $content_id = $this->session_content->contentId();
-        $parent_column_id = $model_page->parentColumnId($row_id);
+        $parent_column_id = $model_page->parentColumnId($row_id, $content_id);
         $parent_row_id = $model_page->parentRowId($column_id);
 
         $siblings = false;

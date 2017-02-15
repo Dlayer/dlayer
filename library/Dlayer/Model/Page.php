@@ -648,22 +648,36 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Fetch the parent id for a row
+     * Fetch the parent id for a row or content item, if the content item is set we return that
+     * otherwise the column for the row
      *
      * @param integer $row_id
+     * @param integer|null $content_id
      * @return integer|false
      */
-    public function parentColumnId($row_id)
+    public function parentColumnId($row_id, $content_id = null)
     {
-        $sql = "SELECT 
-                    `column_id` 
-                FROM 
-                    `user_site_page_structure_row` 
-                WHERE 
-                    `id` = :row_id 
-                LIMIT 1";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
+        if ($content_id === null) {
+            $sql = "SELECT 
+                        `column_id` 
+                    FROM 
+                        `user_site_page_structure_row` 
+                    WHERE 
+                        `id` = :row_id 
+                    LIMIT 1";
+            $stmt = $this->_db->prepare($sql);
+            $stmt->bindValue(':row_id', $row_id, PDO::PARAM_INT);
+        } else {
+            $sql = "SELECT 
+                        `column_id` 
+                    FROM 
+                        `user_site_page_structure_content` 
+                    WHERE 
+                        `id` = :content_id 
+                    LIMIT 1";
+            $stmt = $this->_db->prepare($sql);
+            $stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+        }
         $stmt->execute();
 
         $result = $stmt->fetch();
