@@ -7,76 +7,6 @@
  */
 var previewFormBuilder =
     {
-        highlight: false,
-        changed: false,
-        visible: false,
-        animateDuration: 800,
-        highlightDuration: 400,
-
-        /**
-         * Display a message if any data has changed and not yet been saved
-         */
-        unsaved: function ()
-        {
-            if (previewFormBuilder.visible === false) {
-                if (previewFormBuilder.changed === true) {
-                    $('p.unsaved').show('medium');
-                    previewFormBuilder.visible = true;
-                }
-            }
-        },
-
-        /**
-         * Convert new lines to line breaks
-         *
-         * @param {String} value
-         * @returns {XML|string|void}
-         */
-        nl2br: function (value)
-        {
-            return value.replace(/\n/g, "<br />");
-        },
-
-        /**
-         * Add a slight highlight to the item that has just been changed
-         *
-         * @param {String} selector Element selector
-         * @param {Number} effect_length Length for effect, defaults to highlightDuration if not set
-         */
-        highlightItem: function (selector, effect_length)
-        {
-            if (typeof effect_length == 'undefined') {
-                effect_length = previewFormBuilder.highlightDuration;
-            }
-
-            if (previewFormBuilder.highlight === true) {
-                $(selector).effect("highlight", {}, effect_length);
-            }
-        },
-
-        /**
-         * Set and animate the new background color
-         *
-         * @param {String} selector
-         * @param {String} new_value
-         */
-        setAndAnimateBackgroundColor: function (selector, new_value)
-        {
-            if (new_value.length === 7) {
-                $(selector).animate({'backgroundColor': new_value}, previewFormBuilder.animateDuration);
-
-                previewFormBuilder.changed = true;
-            }
-            else {
-                if (new_value.length === 0) {
-                    $(selector).css('background-color', 'inherit');
-                    previewFormBuilder.changed = true;
-                }
-            }
-
-            previewFormBuilder.unsaved();
-        },
-
         /**
          * Preview function for an field rows background color
          *
@@ -90,7 +20,7 @@ var previewFormBuilder =
                 var new_value = this.value;
                 var selector = '.field_row[data-id="' + field_id + '"]';
 
-                previewFormBuilder.setAndAnimateBackgroundColor(selector, new_value);
+                preview.setAndAnimateBackgroundColor(selector, new_value);
             });
         },
 
@@ -113,27 +43,27 @@ var previewFormBuilder =
                     if (this.value.trim() !== initial_value) {
                         $(selector).attr(attribute, this.value.trim());
 
-                        previewFormBuilder.changed = true;
+                        preview.changed = true;
                     }
                 } else {
                     if (optional === true) {
                         $(selector).removeAttr(attribute);
 
-                        previewFormBuilder.changed = true;
+                        previewForm.changed = true;
                     } else {
                         $(selector).attr(attribute, initial_value);
                         $(element).val(initial_value);
                     }
                 }
 
-                previewFormBuilder.unsaved();
+                preview.unsaved();
             });
 
             $(element).blur(function()
             {
-                if (previewFormBuilder.changed === true) {
-                    previewFormBuilder.highlight = true;
-                    previewFormBuilder.highlightItem(selector);
+                if (preview.changed === true) {
+                    preview.highlight = true;
+                    preview.highlightItem(selector);
                 }
             });
         },
@@ -155,32 +85,32 @@ var previewFormBuilder =
                 if (this.value.trim().length > 0) {
                     if (this.value.trim() !== initial_value) {
                         if (nl2br === true) {
-                            $(ui_element).html(previewFormBuilder.nl2br(this.value.trim()));
+                            $(ui_element).html(preview.nl2br(this.value.trim()));
                         } else {
                             $(ui_element).html(this.value.trim());
                         }
 
-                        previewFormBuilder.changed = true;
+                        preview.changed = true;
                     }
                 } else {
                     if (optional === true) {
                         $(ui_element).html("");
 
-                        previewFormBuilder.changed = true;
+                        preview.changed = true;
                     } else {
                         $(ui_element).html(initial_value);
                         $(element).val(initial_value);
                     }
                 }
 
-                previewFormBuilder.unsaved();
+                preview.unsaved();
             });
 
             $(element).blur(function()
             {
-                if (previewFormBuilder.changed === true) {
-                    previewFormBuilder.highlight = true;
-                    previewFormBuilder.highlightItem(ui_element);
+                if (preview.changed === true) {
+                    preview.highlight = true;
+                    preview.highlightItem(ui_element);
                 }
             });
         }

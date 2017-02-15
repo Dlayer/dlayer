@@ -7,76 +7,6 @@
  */
 var previewContentManager =
     {
-        highlight: false,
-        changed: false,
-        visible: false,
-        animateDuration: 800,
-        highlightDuration: 400,
-
-        /**
-         * Display a message if any data has changed and not yet been saved
-         */
-        unsaved: function()
-        {
-            if (previewContentManager.visible === false) {
-                if (previewContentManager.changed === true) {
-                    $('p.unsaved').show('medium');
-                    previewContentManager.visible = true;
-                }
-            }
-        },
-
-        /**
-         * Convert new lines to line breaks
-         *
-         * @param {String} value
-         * @returns {XML|string|void}
-         */
-        nl2br: function(value)
-        {
-            return value.replace(/\n/g, "<br />");
-        },
-
-        /**
-         * Add a slight highlight to the item that has just been changed
-         *
-         * @param {String} selector Element selector
-         * @param {Number} effect_length Length for effect, defaults to highlightDuration if not set
-         */
-        highlightItem: function(selector, effect_length)
-        {
-            if (typeof effect_length == 'undefined') {
-                effect_length = previewContentManager.highlightDuration;
-            }
-
-            if (previewContentManager.highlight === true) {
-                $(selector).effect("highlight", {}, effect_length);
-            }
-        },
-
-        /**
-         * Set an animate the new background color
-         *
-         * @param {String} selector
-         * @param {String} new_value
-         */
-        setAndAnimateBackgroundColor: function(selector, new_value)
-        {
-            if (new_value.length === 7) {
-                $(selector).animate({'backgroundColor': new_value}, previewContentManager.animateDuration);
-
-                previewContentManager.changed = true;
-            }
-            else {
-                if (new_value.length === 0) {
-                    $(selector).css('background-color', 'inherit');
-                    previewContentManager.changed = true;
-                }
-            }
-
-            previewContentManager.unsaved();
-        },
-
         /**
          * Preview function for an elements background color, updates the item with the passed in value
          *
@@ -90,7 +20,7 @@ var previewContentManager =
                 var new_value = this.value;
                 var selector = '.content[data-content-id="' + content_id + '"]';
 
-                previewContentManager.setAndAnimateBackgroundColor(selector, new_value);
+                preview.setAndAnimateBackgroundColor(selector, new_value);
             });
         },
 
@@ -107,7 +37,7 @@ var previewContentManager =
                 var new_value = this.value;
                 var selector = '.column[data-column-id="' + column_id + '"]';
 
-                previewContentManager.setAndAnimateBackgroundColor(selector, new_value);
+                preview.setAndAnimateBackgroundColor(selector, new_value);
             });
         },
 
@@ -124,7 +54,7 @@ var previewContentManager =
                 var new_value = this.value;
                 var selector = '.row[data-row-id="' + row_id + '"]';
 
-                previewContentManager.setAndAnimateBackgroundColor(selector, new_value);
+                preview.setAndAnimateBackgroundColor(selector, new_value);
 
             });
         },
@@ -141,7 +71,7 @@ var previewContentManager =
                 var new_value = this.value;
                 var selector = '.container-fluid.selected';
 
-                previewContentManager.setAndAnimateBackgroundColor(selector, new_value);
+                preview.setAndAnimateBackgroundColor(selector, new_value);
             });
         },
 
@@ -160,10 +90,10 @@ var previewContentManager =
                 if ($(this).val() in font_families) {
                     $(selector).css('font-family', font_families[$(this).val()]);
 
-                    previewContentManager.changed = true;
+                    preview.changed = true;
                 }
 
-                previewContentManager.unsaved();
+                preview.unsaved();
             });
         },
 
@@ -182,10 +112,10 @@ var previewContentManager =
                 if ($(this).val() in text_weights) {
                     $(selector).css('font-weight', text_weights[$(this).val()]);
 
-                    previewContentManager.changed = true;
+                    preview.changed = true;
                 }
 
-                previewContentManager.unsaved();
+                preview.unsaved();
             });
         },
 
@@ -204,31 +134,31 @@ var previewContentManager =
             {
                 if (this.value.trim().length > 0) {
                     if (nl2br === true) {
-                        $(content).html(previewContentManager.nl2br(this.value.trim()));
+                        $(content).html(preview.nl2br(this.value.trim()));
                     } else {
                         $(content).html(this.value.trim());
                     }
 
-                    previewContentManager.changed = true;
+                    preview.changed = true;
                 } else {
                     if (optional === true) {
                         $(content).html('');
 
-                        previewContentManager.changed = true;
+                        preview.changed = true;
                     } else {
-                        $(content).html(previewContentManager.nl2br(initial_value));
+                        $(content).html(preview.nl2br(initial_value));
                         $(field).val(initial_value);
                     }
                 }
 
-                previewContentManager.unsaved();
+                preview.unsaved();
             });
 
             $(field).blur(function()
             {
-                if (previewContentManager.changed === true) {
-                    previewContentManager.highlight = true;
-                    previewContentManager.highlightItem(content);
+                if (preview.changed === true) {
+                    preview.highlight = true;
+                    preview.highlightItem(content);
                 }
             });
         },
@@ -251,12 +181,12 @@ var previewContentManager =
                     $(content).html(this.value.trim() + ' <small>' +
                         $(field_subtitle).val() + '</small>');
 
-                    previewContentManager.changed = true;
+                    preview.changed = true;
                 } else {
                     if (optional === true) {
                         $(content).html('');
 
-                        previewContentManager.changed = true;
+                        preview.changed = true;
                     } else {
                         $(content).html(initial_title + ' <small>' +
                             $(field_subtitle).val() + '</small>');
@@ -264,7 +194,7 @@ var previewContentManager =
                     }
                 }
 
-                previewContentManager.unsaved();
+                preview.unsaved();
             });
 
             $(field_subtitle).keyup(function()
@@ -273,29 +203,29 @@ var previewContentManager =
                     $(content).html($(field_title).val() + ' <small>' +
                         this.value.trim() + '</small>');
 
-                    previewContentManager.changed = true;
+                    preview.changed = true;
                 } else {
                     $(content + ' > small').html('');
 
-                    previewContentManager.changed = true;
+                    preview.changed = true;
                 }
 
-                previewContentManager.unsaved();
+                preview.unsaved();
             });
 
             $(field_title).blur(function()
             {
-                if (previewContentManager.changed === true) {
-                    previewContentManager.highlight = true;
-                    previewContentManager.highlightItem(content);
+                if (preview.changed === true) {
+                    preview.highlight = true;
+                    preview.highlightItem(content);
                 }
             });
 
             $(field_subtitle).blur(function()
             {
-                if (previewContentManager.changed === true) {
-                    previewContentManager.highlight = true;
-                    previewContentManager.highlightItem(content);
+                if (preview.changed === true) {
+                    preview.highlight = true;
+                    preview.highlightItem(content);
                 }
             });
         },
@@ -318,10 +248,10 @@ var previewContentManager =
                     html(heading.replace('<h' + tag, '<h' + this.value).
                     replace('</h' + tag, '</h' + this.value));
 
-                previewContentManager.changed = true;
-                previewContentManager.highlight = true;
-                previewContentManager.highlightItem(content);
-                previewContentManager.unsaved();
+                preview.changed = true;
+                preview.highlight = true;
+                preview.highlightItem(content);
+                preview.unsaved();
             });
         }
     };

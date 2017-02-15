@@ -4,9 +4,14 @@ Changelog
 
 Full changelog for Dlayer since the v1.00 release.
 
-v1.12: In Progress
+v1.13: In Progress
 --------
+- Switching to a new sub tool clears any unsaved changes displaying in the designer. [Bugfix]
+- Select parent row code looks at whether a content item is selected and returns the column that is relevant to the current environment status. [Bugfix]
+- Refactoring
 
+v1.12: 14th February 2017
+--------
 - Added a delete sub tool to each of the content items. [Feature]
 - The Content Manager does not display deleted content items; data remains pending feature to restore.
 - The re-order code which runs after an element is deleted in the Form Builder was sorting incorrectly. [Bugfix]

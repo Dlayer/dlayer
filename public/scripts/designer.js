@@ -435,6 +435,8 @@ dlayerDesigner = {
 	 */
 	tabs: {
 
+	    reload: false,
+
 		/**
 		 * Add the click events
 		 */
@@ -460,7 +462,7 @@ dlayerDesigner = {
 			})
 		},
 
-		load: function(module, tool, sub_tool, tab, reload)
+		load: function(module, tool, sub_tool, tab)
 		{
 			var data = {
 				tool: tool,
@@ -474,8 +476,9 @@ dlayerDesigner = {
 				data,
 				function(data) {
 					$('.ribbon > div.content[data-tab-content="' + tab + '"]').html(data).addClass('open');
-					//$('#color_picker').hide();
-					//if(reload == true) { window.location.replace('/' + module + '/design/'); }
+					if (dlayerDesigner.tabs.reload === true) {
+						window.location.replace('/' + module + '/design/');
+					}
 				},
 				'html'
 			)
