@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -95,15 +96,11 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Form extends Dlayer_Form_To
 
         $this->elements['heading'] = $heading;
 
-        $heading_type = new Zend_Form_Element_Select('heading_type');
+        $heading_type = new Zend_Form_Element_Select('type');
         $heading_type->setLabel('Heading type');
-        if(array_key_exists('heading_type', $this->element_data) &&
-            is_array($this->element_data['heading_type']) === TRUE)
-        {
-            $heading_type->setMultiOptions($this->element_data['heading_type']);
-        }
-        else
-        {
+        if(array_key_exists('type', $this->element_data) && is_array($this->element_data['type']) === true) {
+            $heading_type->setMultiOptions($this->element_data['type']);
+        } else {
             $heading_type->setMultiOptions(array());
         }
         $heading_type->setDescription('Choose a heading type.');
@@ -111,12 +108,11 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Form extends Dlayer_Form_To
         $heading_type->setBelongsTo('params');
         $heading_type->setRequired();
 
-        if(array_key_exists('heading_type', $this->data) === TRUE && $this->data['heading_type'] !== FALSE)
-        {
-            $heading_type->setValue($this->data['heading_type']);
+        if(array_key_exists('type', $this->data) === true && $this->data['type'] !== FALSE) {
+            $heading_type->setValue($this->data['type']);
         }
 
-        $this->elements['heading_type'] = $heading_type;
+        $this->elements['type'] = $heading_type;
 
         $date = new Dlayer_Form_Element_Date('date');
         $date->setLabel('Date');
@@ -129,5 +125,30 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Form extends Dlayer_Form_To
         $date->setDescription('Enter the date for your heading.');
         $date->setBelongsTo('params');
         $date->setRequired();
+
+        $this->elements['date'] = $date;
+
+        $format = new Zend_Form_Element_Select('format');
+        $format->setLabel('Date format');
+        $format->setAttribs(
+            array(
+                'class'=>'form-control input-sm'
+            )
+        );
+        $format->setDescription('Choose the format for the date.');
+        $format->setBelongsTo('params');
+        $format->setRequired();
+
+        if (array_key_exists('format', $this->element_data) === true && is_array($this->element_data['format']) === true) {
+            $format->setMultiOptions($this->element_data['format']);
+        } else {
+            $format->setMultiOptions(array());
+        }
+
+        if(array_key_exists('format', $this->data) === true && $this->data['format'] !== false) {
+            $format->setValue($this->data['format']);
+        }
+
+        $this->elements['format'] = $format;
     }
 }

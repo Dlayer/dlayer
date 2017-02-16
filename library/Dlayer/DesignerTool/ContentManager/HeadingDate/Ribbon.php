@@ -48,12 +48,14 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Ribbon extends Dlayer_Ribbo
         if ($this->element_data_fetched === false) {
             $this->element_data = array();
 
-            $model_heading = new Dlayer_DesignerTool_ContentManager_Heading_Model();
-            $heading_types = $model_heading->headingTypesForSelect();
+            $model = new Dlayer_DesignerTool_ContentManager_HeadingDate_Model();
+            $heading_types = $model->headingTypes();
 
             if (count($heading_types) > 0) {
-                $this->element_data['heading_type'] = $heading_types;
+                $this->element_data['type'] = $heading_types;
             }
+
+            $this->element_data['format'] = $model->formats();
 
             $this->element_data_fetched = true;
         }
@@ -72,7 +74,9 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Ribbon extends Dlayer_Ribbo
                 'name' => false,
                 'heading' => false,
                 'date' => false,
-                'heading_type' => false
+                'type' => false,
+                'date' => false,
+                'format' => false
             );
 
             $this->content_fetched = true;
