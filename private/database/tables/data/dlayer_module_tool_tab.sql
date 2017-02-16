@@ -98,4 +98,9 @@ values
     (NULL,3,27,'Date','date',NULL,'pencil',NULL,1,0,1,1,1),
     (NULL,3,27,'Styling','styling','Styling','tint',NULL,1,0,0,2,1),
     (NULL,3,27,'Delete','delete','Delete','remove',NULL,1,0,0,3,1),
-    (NULL,3,27,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1);
+    (NULL,3,27,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
+    (NULL,4,28,'Heading & Date','heading-date',NULL,'pencil',NULL,1,0,1,1,1),
+    (NULL,4,28,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
+    (NULL,4,28,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
+    (NULL,4,28,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
+    (NULL,4,28,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1);

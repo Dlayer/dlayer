@@ -1,0 +1,17 @@
+<?php /** @var $this Dlayer_View_Codehinting */?>
+
+<div class="col-md-12 col-sm-12">
+	<p class="dev-note bg-danger unsaved">Data has been modified!</p>
+</div>
+
+<div class="col-md-12 col-sm-12">
+	<?php
+    if($this->data != FALSE) {
+        echo $this->data['form'];
+    }
+    ?>
+
+    <?php if($this->data['instances'] > 1) { ?>
+        <p><small>* The instances count includes deleted items</small></p>
+    <?php } ?>
+</div>

@@ -104,6 +104,10 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $this->heading($tool, $tab);
                 break;
 
+            case 'HeadingDate':
+                $data = $this->headingDate($tool, $tab);
+                break;
+
             case 'Html':
                 $data = $this->html($tool, $tab);
                 break;
@@ -514,6 +518,31 @@ class Dlayer_Ribbon_Handler_Content
             case 'styling':
                 $ribbon_styling = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Ribbon();
                 $data = $ribbon_styling->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the Heading & Date tool, returns an array containing the form and the data for
+     * the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|FALSE
+     */
+    private function headingDate($tool, $tab)
+    {
+        switch ($tab) {
+            case 'heading-date':
+                $ribbon_heading_date = new Dlayer_DesignerTool_ContentManager_HeadingDate_Ribbon();
+                $data = $ribbon_heading_date->viewData($this->toolParams($tool));
                 break;
 
             default:
