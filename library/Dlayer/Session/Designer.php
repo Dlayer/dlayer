@@ -158,6 +158,7 @@ class Dlayer_Session_Designer extends Zend_Session_Namespace
 	{
 		$this->clearAllImagePicker();
 		$this->clearAllTool('content');
+		$this->clearAllTool('form');
 	}
 
 	/**
