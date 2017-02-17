@@ -3,7 +3,8 @@
 /**
  * Responsible for fetching all the data that makes up the structure of a content page as well as the content itself
  *
- * @category View model: These models are used to generate the data in the designers, the user data and later the web site
+ * @category View model: These models are used to generate the data in the designers, the user data and later the web
+ *     site
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
@@ -206,6 +207,10 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
                     $content_item = $this->heading($row['content_id']);
                     break;
 
+                case 'heading-date':
+                    $content_item = $this->headingDate($row['content_id']);
+                    break;
+
                 case 'form':
                     $content_item = $this->form($row['content_id']);
 
@@ -237,7 +242,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
                     'column_id' => intval($row['column_id']),
                     'content_id' => intval($row['content_id']),
                     'type' => $row['content_type'],
-                    'data' => $content_item
+                    'data' => $content_item,
                 );
             }
         }
@@ -249,6 +254,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      * Fetch all the data for a 'text' based content item
      *
      * @param integer $id Id of the content item
+     *
      * @return array|FALSE Either an array of the data for the content item or FALSE upon error
      */
     private function text($id)
@@ -262,6 +268,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      * Fetch all the data for a 'jumbotron' based content item
      *
      * @param integer $id Id of the content item
+     *
      * @return array|FALSE Either an array of the data for the content item or FALSE upon error
      */
     private function jumbotron($id)
@@ -275,6 +282,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      * Fetch all the data for a 'html' snippet
      *
      * @param integer $id Id of the content item
+     *
      * @return array|FALSE Either an array of the data for the content item or FALSE upon error
      */
     private function html($id)
@@ -288,6 +296,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      * Fetch all the data for a 'heading' based content item
      *
      * @param integer $id Id of the content item
+     *
      * @return array|FALSE Either an array of the data for the content item or FALSE upon error
      */
     private function image($id)
@@ -301,6 +310,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      * Fetch all the data for a 'heading' based content item
      *
      * @param integer $id Id of the content item
+     *
      * @return array|FALSE Either an array of the data for the content item or FALSE upon error
      */
     private function heading($id)
@@ -311,9 +321,24 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
     }
 
     /**
+     * Fetch all the data for a 'heading-date' based content item
+     *
+     * @param integer $id Id of the content item
+     *
+     * @return array|false Either an array of the data for the content item or FALSE upon error
+     */
+    private function headingDate($id)
+    {
+        $model = new Dlayer_Model_View_Page_Item_HeadingDate();
+
+        return $model->data($this->site_id, $this->page_id, $id);
+    }
+
+    /**
      * Fetch all the data for a 'form' based content item
      *
      * @param integer $id Id of the content item
+     *
      * @return array|FALSE Either an array of the data for the content item or FALSE upon error
      */
     private function form($id)
