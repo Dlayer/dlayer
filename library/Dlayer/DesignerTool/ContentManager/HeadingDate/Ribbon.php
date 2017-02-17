@@ -73,7 +73,6 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Ribbon extends Dlayer_Ribbo
             $this->content_data = array(
                 'name' => false,
                 'heading' => false,
-                'date' => false,
                 'type' => false,
                 'date' => false,
                 'format' => false
@@ -93,6 +92,11 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Ribbon extends Dlayer_Ribbo
         if ($this->instances_of_fetched === false) {
 
             $this->instances_of = 0;
+
+            if ($this->tool['content_id'] !== null) {
+                $model = new Dlayer_DesignerTool_ContentManager_HeadingDate_Model();
+                $this->instances_of = $model->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
+            }
 
             $this->instances_of_fetched = true;
         }

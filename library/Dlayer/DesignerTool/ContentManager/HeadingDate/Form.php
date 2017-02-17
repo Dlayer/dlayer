@@ -118,7 +118,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Form extends Dlayer_Form_To
         $date->setLabel('Date');
         $date->setAttribs(
             array(
-                'placeholder'=>'dd/mm/yyyy',
+                'placeholder'=>'dd-mm-yyyy',
                 'class'=>'form-control input-sm'
             )
         );
