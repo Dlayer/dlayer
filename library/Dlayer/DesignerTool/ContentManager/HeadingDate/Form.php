@@ -126,6 +126,10 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Form extends Dlayer_Form_To
         $date->setBelongsTo('params');
         $date->setRequired();
 
+        if(array_key_exists('date', $this->data) === true && $this->data['date'] !== false) {
+            $date->setValue($this->data['date']);
+        }
+
         $this->elements['date'] = $date;
 
         $format = new Zend_Form_Element_Select('format');

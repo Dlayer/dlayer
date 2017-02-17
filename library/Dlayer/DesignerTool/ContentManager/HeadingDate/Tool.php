@@ -47,7 +47,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Tool extends Dlayer_Tool_Co
 
         $validator = new Zend_Validate_Date(
             array(
-                'format' => 'yyyy-mm-dd'
+                'format' => 'yyyy-mm-dd',
             )
         );
 
@@ -56,7 +56,8 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Tool extends Dlayer_Tool_Co
             (intval($params['type']) > 0 && intval($params['type']) < 7) &&
             strlen(trim($params['date'])) === 10 &&
             $validator->isValid(trim($params['date'])) === true &&
-            strlen(trim($params['format'])) > 0) {
+            strlen(trim($params['format'])) > 0
+        ) {
 
             $valid = true;
         }
@@ -79,7 +80,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Tool extends Dlayer_Tool_Co
             'heading' => trim($params['heading']),
             'type' => intval($params['type']),
             'date' => trim($params['date']),
-            'format' => trim($params['format'])
+            'format' => trim($params['format']),
         );
     }
 
@@ -106,40 +107,48 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Tool extends Dlayer_Tool_Co
     /**
      * Add a new content item or setting
      *
-     * @return array|FALSE Ids for new environment vars or FALSE if the request failed
+     * @return array|false Ids for new environment vars or FALSE if the request failed
      */
     protected function add()
     {
-        $data_added = FALSE;
+        $data_added = false;
         $content_id = $this->addContentItem('heading-date');
 
-        if($content_id !== false) {
+        if ($content_id !== false) {
             $model = new Dlayer_DesignerTool_ContentManager_HeadingDate_Model();
             $data_added = $model->add($this->site_id, $this->page_id, $content_id, $this->params);
         }
 
-        if($content_id !== FALSE && $data_added === TRUE)
-        {
-            Dlayer_Helper::sendToInfoLog('Heading added to site id: '. $this->site_id . ' page id: ' . $this->page_id .
-                ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
+        if ($content_id !== false && $data_added === true) {
+            Dlayer_Helper::sendToInfoLog('Heading & date added to site id: ' . $this->site_id . ' page id: ' .
+                $this->page_id . ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
 
             return $this->returnIds($content_id);
-        }
-        else
-        {
-            return FALSE;
+        } else {
+            return false;
         }
     }
 
     /**
-     * Edit a new content item or setting
+     * Edit content item or setting
      *
-     * @return array|FALSE Ids for new environment vars or FALSE if the request failed
+     * @return array|false Ids for new environment vars or FALSE if the request failed
      * @throws Exception
      */
     protected function edit()
     {
-        // TODO: Implement edit() method.
+        $model = new Dlayer_DesignerTool_ContentManager_HeadingDate_Model();
+        try {
+            $edit = $model->edit($this->site_id, $this->page_id, $this->content_id, $this->params);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
+        }
+
+        if ($edit === true) {
+            return $this->returnIds();
+        } else {
+            return false;
+        }
     }
 
     /**

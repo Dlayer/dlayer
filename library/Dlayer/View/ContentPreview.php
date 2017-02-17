@@ -83,6 +83,10 @@ class Dlayer_View_ContentPreview extends Zend_View_Helper_Abstract
                         $html .= $this->view->headingPreview($content['data']);
                         break;
 
+                    case 'heading-date':
+                        $html .= $this->view->headingDatePreview($content['data']);
+                        break;
+
                     case 'text':
                         $html .= $this->view->textPreview($content['data']);
                         break;

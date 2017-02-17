@@ -78,6 +78,21 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Ribbon extends Dlayer_Ribbo
                 'format' => false
             );
 
+            if ($this->tool['content_id'] !== null) {
+                $model = new Dlayer_DesignerTool_ContentManager_HeadingDate_Model();
+                $existing_data = $model->existingData($this->tool['site_id'], $this->tool['content_id']);
+
+                if ($existing_data !== false) {
+                    $content_bits = explode(Dlayer_Config::CONTENT_DELIMITER, $existing_data['content']);
+
+                    $this->content_data['name'] = $existing_data['name'];
+                    $this->content_data['heading'] = $content_bits[0];
+                    $this->content_data['date'] = $content_bits[1];
+                    $this->content_data['format'] = $existing_data['format'];
+                    $this->content_data['type'] = intval($existing_data['heading_id']);
+                }
+            }
+
             $this->content_fetched = true;
         }
     }
