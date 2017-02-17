@@ -26,5 +26,6 @@ insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`group_id`,`so
 	(24, 3, 'Email', 'PresetEmail', 3, 2, 1),
 	(25, 3, 'Address', 'PresetAddress', 3, 3, 1),
 	(26, 3, 'Comment', 'PresetComment', 3, 4, 1),
-    (27, 3, 'Date', 'Date', 2, 5, 1);
+    (27, 3, 'Date', 'Date', 2, 5, 1),
+    (28, 4, 'Heading & Date', 'HeadingDate', 4, 5, 1);
 

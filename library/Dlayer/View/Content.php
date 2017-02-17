@@ -133,6 +133,10 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
                         $html .= $this->view->heading($content['data'], $selectable, $selected);
                         break;
 
+                    case 'heading-date':
+                        $html .= $this->view->headingDate($content['data'], $selectable, $selected);
+                        break;
+
                     case 'text':
                         $html .= $this->view->text($content['data'], $selectable, $selected);
                         break;

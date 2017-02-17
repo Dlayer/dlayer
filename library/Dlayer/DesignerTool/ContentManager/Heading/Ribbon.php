@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Text content item ribbon data class
+ * Heading content item ribbon data class
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited

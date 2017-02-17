@@ -222,6 +222,19 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     }
 
     /**
+     * Heading & date content item view helper
+     *
+     * @param array $data Content item data array
+     * @param boolean $selectable
+     * @param boolean $selected
+     *
+     * @return Dlayer_View_HeadingDate
+     */
+    public function headingDate(array $data, $selectable = false, $selected = false)
+    {
+    }
+
+    /**
      * Image content item view helper, image may include a link to expand and a caption
      *
      * @param array $data Content item data array
@@ -373,6 +386,16 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
      * @return Dlayer_View_HeadingPreview
      */
     public function headingPreview(array $data)
+    {
+    }
+
+    /**
+     * Preview version of the heading & date content item view helper
+     *
+     * @param array $data Content item data array
+     * @return Dlayer_View_HeadingDatePreview
+     */
+    public function headingDatePreview(array $data)
     {
     }
 
