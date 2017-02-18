@@ -545,6 +545,11 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_heading_date->viewData($this->toolParams($tool));
                 break;
 
+            case 'styling':
+                $ribbon_heading_date = new Dlayer_DesignerTool_ContentManager_HeadingDate_SubTool_Styling_Ribbon();
+                $data = $ribbon_heading_date->viewData($this->toolParams($tool));
+                break;
+
             default:
                 $data = false;
                 break;

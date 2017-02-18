@@ -77,7 +77,7 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 	* @param boolean $custom
 	* @return Dlayer_View_ColorPicker
 	*/
-	public function picker($palettes, $history, $custom=TRUE) 
+	public function picker($palettes, $history, $custom = true)
 	{
 		// Start color picker container
 		$this->html = '<div class="color-picker-tool panel panel-default">';
@@ -134,9 +134,7 @@ class Dlayer_View_ColorPicker extends Zend_View_Helper_Abstract
 					}
 					
 					$html .= $colors;
-					
-					//$html .= '<hr />';
-					
+
 					$html .= '</div>';
 				}
 			} else {
