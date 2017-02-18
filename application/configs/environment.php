@@ -16,4 +16,4 @@ $environment = 'production';
 // Version number for current release
 $version_no = 'v1.13';
 // Release date for current release
-$version_release_date = 'In progress';
+$version_release_date = '18th February 2017';

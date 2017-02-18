@@ -128,7 +128,10 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Ribbon extends Dlayer_Ribbo
 
             $this->contentData();
 
-            $this->preview_data = array();
+            $this->preview_data = array(
+                'heading' => $this->content_data['heading'],
+                'date' => date($this->content_data['format'], strtotime($this->content_data['date']))
+            );
 
             $this->preview_data_fetched = true;
         }
