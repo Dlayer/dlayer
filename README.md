@@ -13,7 +13,7 @@ I am working towards reinstating the Website Manager and the Media Library. As s
 
 Latest stable release 
 --------
-v1.12 - Released 14th February 2017
+v1.13 - Released 18th February 2017
  
 Overview
 --------

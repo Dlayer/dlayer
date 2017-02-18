@@ -9,7 +9,7 @@ v1.13: In Progress
 - Switching to a new sub tool clears any unsaved changes displaying in the designer. [Bugfix]
 - Select parent row code looks at whether a content item is selected and returns the column that is relevant to the current environment status. [Bugfix]
 - Added a Date Element tool to the Form Builder along with the Styling and Delete sub tools. [Feature]
-- Added a Heading & Date content item to the Content Manager. [Feature]
+- Added a Heading & Date content item to the Content Manager along with the Styling, Typography and Delete sub tools. [Feature]
 - Clear the selected tool for the Form Builder upon logout. [Bugfix]
 - Refactoring
 
