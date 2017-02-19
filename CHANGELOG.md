@@ -5,7 +5,8 @@ Full changelog for Dlayer since the v1.00 release.
 
 ## v1.14: In progress
 
-* Nothing yet
+* The New and Edit forms in the Form Builder expose the layout options visible within the Form Builder. [Feature]
+* The import SQL files don't define the module or tool ids. [Setup]
 
 ## v1.13: 18th February 2017
 
