@@ -1,106 +1,812 @@
-
-insert  into `dlayer_module_tool_tab`
+INSERT INTO `dlayer_module_tool_tab`
 (
-	`id`,
-	`module_id`,
-	`tool_id`,
-	`name`,
-	`script`,
-	`model`,
-	`glyph`,
-	`glyph_style`,
-	`multi_use`,
-	`edit_mode`,
-	`default`,
-	`sort_order`,
-	`enabled`
+    `id`,
+    `module_id`,
+    `tool_id`,
+    `name`,
+    `script`,
+    `model`,
+    `glyph`,
+    `glyph_style`,
+    `multi_use`,
+    `edit_mode`,
+    `default`,
+    `sort_order`,
+    `enabled`
 )
-values
-    (NULL,4,2,'Text','text',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,3,'Heading','heading',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,2,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
-    (NULL,4,3,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
-    (NULL,4,4,'Form','form',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,4,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
-    (NULL,4,2,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,4,2,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
-    (NULL,4,5,'Row','add-row',NULL,'align-justify',NULL,0,0,1,1,1),
-    (NULL,4,5,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-    (NULL,4,6,'Jumbotron','jumbotron',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,6,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
-    (NULL,4,7,'Row','row',NULL,'align-justify',NULL,0,0,1,1,1),
-    (NULL,4,8,'Image','image',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,8,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
-    (NULL,4,7,'Help','help',NULL,'info-sign',NULL,0,0,0,3,1),
-    (NULL,4,9,'Page','page',NULL,'file',NULL,0,0,1,1,1),
-    (NULL,4,9,'Help','help',NULL,'info-sign',NULL,0,0,0,3,1),
-    (NULL,4,10,'Column','column',NULL,'align-justify',"transform: rotate(90deg);",0,0,1,1,1),
-    (NULL,4,10,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
-    (NULL,4,11,'Add Column','add-column',NULL,'align-justify',"transform: rotate(90deg);",0,0,1,1,1),
-    (NULL,4,11,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-    (NULL,4,3,'Styles','styling','Styling','tint',NULL,1,1,0,3,1),
-    (NULL,4,10,'Styles','styling','Styling','tint',NULL,1,0,0,4,1),
-    (NULL,4,7,'Styles','styling','Styling','tint',NULL,1,0,0,2,1),
-    (NULL,4,9,'Styles','styling','Styling','tint',NULL,1,0,0,2,1),
-    (NULL,4,4,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,4,8,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,4,6,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,4,12,'HTML','html',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,12,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,4,12,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1),
-    (NULL,4,3,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
-    (NULL,4,6,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
-    (NULL,4,8,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
-    (NULL,4,4,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
-    (NULL,4,12,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
-    (NULL,4,10,'Settings','settings','Settings','cog',NULL,1,0,0,2,1),
-    (NULL,4,10,'Responsive','responsive','Responsive','equalizer',"transform: rotate(90deg);",1,0,0,3,1),
-    (NULL,3,14,'Text','text',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,3,14,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
-    (NULL,3,15,'Textarea','textarea',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,3,15,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
-    (NULL,3,16,'Email','email',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,3,16,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
-    (NULL,3,17,'Password','password',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,3,17,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
-    (NULL,3,14,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,3,15,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,3,16,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,3,17,'Styling','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,3,14,'Delete','delete','Delete','remove',NULL,0,1,0,3,1),
-    (NULL,3,18,'Stacked','stacked-layout',NULL,'blackboard',NULL,0,0,1,1,1),
-    (NULL,3,18,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-    (NULL,3,19,'Inline','inline-layout',NULL,'blackboard',NULL,0,0,1,1,1),
-    (NULL,3,19,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-    (NULL,3,20,'Horizontal','horizontal-layout',NULL,'blackboard',NULL,0,0,1,1,1),
-    (NULL,3,20,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-    (NULL,3,21,'Title','title',NULL,'header',NULL,1,0,1,1,1),
-    (NULL,3,21,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-    (NULL,3,22,'Buttons','button',NULL,'text-background',NULL,1,0,1,1,1),
-    (NULL,3,22,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-    (NULL,3,15,'Delete','delete','Delete','remove',NULL,0,1,0,3,1),
-	(NULL,3,16,'Delete','delete','Delete','remove',NULL,0,1,0,3,1),
-	(NULL,3,17,'Delete','delete','Delete','remove',NULL,0,1,0,3,1),
-    (NULL,3,23,'Name','preset-name',NULL,'pencil',NULL,0,0,1,1,1),
-    (NULL,3,23,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-	(NULL,3,24,'Email','preset-email',NULL,'pencil',NULL,0,0,1,1,1),
-	(NULL,3,24,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-	(NULL,3,25,'Address','preset-address',NULL,'pencil',NULL,0,0,1,1,1),
-	(NULL,3,25,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-	(NULL,3,26,'Comment','preset-comment',NULL,'pencil',NULL,0,0,1,1,1),
-	(NULL,3,26,'Help','help',NULL,'info-sign',NULL,0,0,0,2,1),
-    (NULL,4,2,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
-	(NULL,4,3,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
-	(NULL,4,4,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
-	(NULL,4,6,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
-	(NULL,4,8,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
-	(NULL,4,12,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
-    (NULL,3,27,'Date','date',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,3,27,'Styling','styling','Styling','tint',NULL,1,0,0,2,1),
-    (NULL,3,27,'Delete','delete','Delete','remove',NULL,1,0,0,3,1),
-    (NULL,3,27,'Help','help',NULL,'info-sign',NULL,0,0,0,4,1),
-    (NULL,4,28,'Heading & Date','heading-date',NULL,'pencil',NULL,1,0,1,1,1),
-    (NULL,4,28,'Styles','styling','Styling','tint',NULL,1,1,0,2,1),
-    (NULL,4,28,'Typography','typography','Typography','font',NULL,1,1,0,3,1),
-    (NULL,4,28,'Delete','delete','Delete','remove',NULL,0,1,0,4,1),
-    (NULL,4,28,'Help','help',NULL,'info-sign',NULL,0,0,0,5,1);
+VALUES
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'Text'), 'Text', 'text', NULL, 'pencil',
+           NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Heading'), 'Heading', 'heading', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Text'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Heading'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Form'), 'Form', 'form', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Form'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Text'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Text'), 'Typography', 'typography', 'Typography', 'font', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'AddRow'), 'Row', 'add-row', NULL, 'align-justify', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'AddRow'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Jumbotron'), 'Jumbotron', 'jumbotron', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Jumbotron'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Row'), 'Row', 'row', NULL, 'align-justify', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Image'), 'Image', 'image', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Image'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Row'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Page'), 'Page', 'page', NULL, 'file', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Page'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` =
+                  'content'), (SELECT `dlayer_module_tool`.`id`
+                               FROM `dlayer_module_tool`
+                                   INNER JOIN `dlayer_module`
+                                       ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                          `dlayer_module`.`name` = 'content'
+                               WHERE `dlayer_module_tool`.`model` =
+                                     'Column'), 'Column', 'column', NULL, 'align-justify', "transform: rotate(90deg);", 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Column'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` =
+                  'content'), (SELECT `dlayer_module_tool`.`id`
+                               FROM `dlayer_module_tool`
+                                   INNER JOIN `dlayer_module`
+                                       ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                          `dlayer_module`.`name` = 'content'
+                               WHERE `dlayer_module_tool`.`model` =
+                                     'AddColumn'), 'Add Column', 'add-column', NULL, 'align-justify', "transform: rotate(90deg);", 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'AddColumn'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Heading'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Column'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Row'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Page'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Form'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Image'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Jumbotron'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Html'), 'HTML', 'html', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Html'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Html'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Heading'), 'Typography', 'typography', 'Typography', 'font', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Jumbotron'), 'Typography', 'typography', 'Typography', 'font', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Image'), 'Typography', 'typography', 'Typography', 'font', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Form'), 'Typography', 'typography', 'Typography', 'font', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Html'), 'Typography', 'typography', 'Typography', 'font', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Column'), 'Settings', 'settings', 'Settings', 'cog', NULL, 1, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` =
+                  'content'), (SELECT `dlayer_module_tool`.`id`
+                               FROM `dlayer_module_tool`
+                                   INNER JOIN `dlayer_module`
+                                       ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                          `dlayer_module`.`name` = 'content'
+                               WHERE `dlayer_module_tool`.`model` =
+                                     'Column'), 'Responsive', 'responsive', 'Responsive', 'equalizer', "transform: rotate(90deg);", 1, 0, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Text'), 'Text', 'text', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Text'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Textarea'), 'Textarea', 'textarea', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Textarea'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Email'), 'Email', 'email', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Email'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Password'), 'Password', 'password', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Password'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Text'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Textarea'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Email'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Password'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Text'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'StackedLayout'), 'Stacked', 'stacked-layout', NULL, 'blackboard', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'StackedLayout'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'InlineLayout'), 'Inline', 'inline-layout', NULL, 'blackboard', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'InlineLayout'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'HorizontalLayout'), 'Horizontal', 'horizontal-layout', NULL, 'blackboard', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'HorizontalLayout'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'TItle'), 'Title', 'title', NULL, 'header', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'TItle'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Button'), 'Buttons', 'button', NULL, 'text-background', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Button'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Textarea'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Email'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Password'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'PresetName'), 'Name', 'preset-name', NULL, 'pencil', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'PresetName'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'PresetEmail'), 'Email', 'preset-email', NULL, 'pencil', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'PresetEmail'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'PresetAddress'), 'Address', 'preset-address', NULL, 'pencil', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'PresetAddress'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'PresetComment'), 'Comment', 'preset-comment', NULL, 'pencil', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'PresetComment'), 'Help', 'help', NULL, 'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Text'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Heading'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Form'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Jumbotron'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Image'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Html'), 'Delete', 'delete', 'Delete', 'remove', NULL, 0, 1, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Date'), 'Date', 'date', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` =
+                                              'Date'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` = 'Date'), 'Delete', 'delete', 'Delete',
+           'remove', NULL, 1, 0, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` = 'Date'), 'Help', 'help', NULL, 'info-sign',
+           NULL, 0, 0, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'HeadingDate'), 'Heading & Date',
+           'heading-date', NULL, 'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'HeadingDate'), 'Styles', 'styling',
+           'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'HeadingDate'), 'Typography', 'typography',
+           'Typography', 'font', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'HeadingDate'), 'Delete', 'delete',
+           'Delete', 'remove', NULL, 0, 1, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'HeadingDate'), 'Help', 'help', NULL,
+           'info-sign', NULL, 0, 0, 0, 5, 1);
