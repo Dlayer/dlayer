@@ -101,12 +101,12 @@ class Dlayer_Form_Admin_Form extends Dlayer_Form_Site
         $this->elements['name'] = $name;
 
         $title = new Zend_Form_Element_Text('title');
-        $title->setLabel('Form title');
+        $title->setLabel('Title');
         $title->setDescription("Enter a title, this will be displayed above the form.");
         $title->setAttribs(array(
             'size' => 50,
             'maxlength' => 255,
-            'placeholder' => "e.g., Contact me'",
+            'placeholder' => "e.g., Contact us",
             'class' => 'form-control'
         ));
         $title->setRequired();
@@ -115,6 +115,75 @@ class Dlayer_Form_Admin_Form extends Dlayer_Form_Site
         }
 
         $this->elements['title'] = $title;
+
+        $subtitle = new Zend_Form_Element_Text('subtitle');
+        $subtitle->setLabel('Subtitle');
+        $subtitle->setDescription('Enter a sub title, this appears in a smaller font to the right of the title.');
+        $subtitle->setAttribs(
+            array(
+                'size' => 50,
+                'maxlength' => 255,
+                'placeholder' => "e.g., Feedback form",
+                'class' => 'form-control'
+            )
+        );
+        if ($this->form_id !== null && array_key_exists('subtitle', $this->form)) {
+            $subtitle->setValue($this->form['subtitle']);
+        }
+
+        $this->elements['subtitle'] = $subtitle;
+
+        $layout = new Zend_Form_Element_Select('layout');
+        $layout->setLabel('Layout style');
+        $layout->setDescription('Choose the layout style to use for your form.');
+        $layout->setAttribs(
+            array(
+                'class' => 'form-control'
+            )
+        );
+        $layout->setMultiOptions(
+            array(
+                1 => 'Stacked',
+                2 => 'Inline',
+                3 => 'Horizontal'
+            )
+        );
+        if ($this->form_id !== null && array_key_exists('layout', $this->form)) {
+            $layout->setValue($this->form['layout']);
+        }
+
+        $this->elements['layout'] = $layout;
+
+        $submit_label = new Zend_Form_Element_Text('submit_label');
+        $submit_label->setLabel('Submit button label');
+        $submit_label->setDescription("Enter the label for the submit button.");
+        $submit_label->setRequired();
+        $submit_label->setAttribs(array(
+            'size' => 50,
+            'maxlength' => 255,
+            'placeholder' => "e.g., Send",
+            'class' => 'form-control'
+        ));
+        if ($this->form_id !== null && array_key_exists('submit_label', $this->form)) {
+            $submit_label->setValue($this->form['submit_label']);
+        }
+
+        $this->elements['submit_label'] = $submit_label;
+
+        $reset_label = new Zend_Form_Element_Text('reset_label');
+        $reset_label->setLabel('Reset button label');
+        $reset_label->setDescription("Enter the optional label for the reset button, if not set the reset button will not be added to your form.");
+        $reset_label->setAttribs(array(
+            'size' => 50,
+            'maxlength' => 255,
+            'placeholder' => "e.g., Reset",
+            'class' => 'form-control'
+        ));
+        if ($this->form_id !== null && array_key_exists('reset_label', $this->form)) {
+            $reset_label->setValue($this->form['reset_label']);
+        }
+
+        $this->elements['reset_label'] = $reset_label;
 
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Save');

@@ -135,7 +135,7 @@ class Form_AdminController extends Zend_Controller_Action
         if ($this->form->isValid($post)) {
 
             $model = new Dlayer_Model_Admin_Form();
-            $form_id = $model->saveForm($this->site_id, $post['name'], $post['title']);
+            $form_id = $model->saveForm($this->site_id, $post);
 
             if ($form_id !== false) {
                 $this->session->clearAll(true);
@@ -158,12 +158,7 @@ class Form_AdminController extends Zend_Controller_Action
         if ($this->form->isValid($post)) {
 
             $model = new Dlayer_Model_Admin_Form();
-            $form_id = $model->saveForm(
-                $this->site_id,
-                $post['name'],
-                $post['title'],
-                $form_id
-            );
+            $form_id = $model->saveForm($this->site_id, $post, $form_id);
 
             if ($form_id !== false) {
                 $this->redirect('/form');

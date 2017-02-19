@@ -14,12 +14,11 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
      * Add a new form to Dlayer
      *
      * @param integer $site_id Site the form belongs to
-     * @param string $name Name of the form within Dlayer
-     * @param string $title Title for form
+     * @param array $params
      *
      * @return integer|false Either the id of the new form of false upon failure
      */
-    private function addForm($site_id, $name, $title)
+    private function addForm($site_id, $params)
     {
         $sql = "INSERT INTO `user_site_form` 
 				(
@@ -33,12 +32,12 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
 				)";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':name', $params['name'], PDO::PARAM_STR);
 
         if ($stmt->execute() === true) {
             $id = intval($this->_db->lastInsertId('user_site_form'));
 
-            if ($this->setDefaultLayout($site_id, $id, $title) === true) {
+            if ($this->setDefaultLayout($site_id, $id, $params) === true) {
                 return $id;
             } else {
                 return false;
@@ -74,24 +73,23 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
      * Save the form
      *
      * @param integer $site_id
-     * @param string $name Name of form within Dlayer
-     * @param string $title |NULL Form title/legend
+     * @param array $params
      * @param integer|null $id Form id when editing
      *
      * @return integer|false Either the form id or false
      */
-    public function saveForm($site_id, $name, $title, $id = null)
+    public function saveForm($site_id, $params, $id = null)
     {
         if ($id === null) {
-            $id = $this->addForm($site_id, $name, $title);
+            $id = $this->addForm($site_id, $params);
             if ($id !== false) {
                 return $id;
             } else {
                 return false;
             }
         } else {
-            if ($this->editForm($id, $name) === true) {
-                if ($this->editTitle($id, $title) === true) {
+            if ($this->editForm($id, $params['name']) === true) {
+                if ($this->editLayout($id, $params) === true) {
                     return $id;
                 } else {
                     return false;
@@ -103,25 +101,33 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Update the title for the selected form
+     * Update the layout options for the form
      *
      * @param integer $id
-     * @param string $title
+     * @param array $params
      *
      * @return boolean
      */
-    private function editTitle($id, $title)
+    private function editLayout($id, array $params)
     {
         $sql = "UPDATE 
                     `user_site_form_layout` 
                 SET 
-                    `title` = :title 
+                    `title` = :title, 
+                    `sub_title` = :subtitle, 
+                    `submit_label` = :submit_label,
+                    `reset_label` = :reset_label,
+                    `layout_id` = :layout
                 WHERE 
                     `form_id` = :form_id 
                 LIMIT 
                     1";
         $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':title', $params['title'], PDO::PARAM_STR);
+        $stmt->bindValue(':subtitle', $params['subtitle'], PDO::PARAM_STR);
+        $stmt->bindValue(':submit_label', $params['submit_label'], PDO::PARAM_STR);
+        $stmt->bindValue(':reset_label', $params['reset_label'], PDO::PARAM_STR);
+        $stmt->bindValue(':layout', $params['layout'], PDO::PARAM_STR);
         $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
 
         return $stmt->execute();
@@ -132,18 +138,20 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
      *
      * @param integer $site_id
      * @param integer $id
-     * @param integer $title
+     * @param array $params
      *
      * @return boolean
      */
-    private function setDefaultLayout($site_id, $id, $title)
+    private function setDefaultLayout($site_id, $id, array $params)
     {
         $sql = "INSERT INTO `user_site_form_layout` 
                 (
                     `site_id`, 
                     `form_id`,
-                    `title`, 
+                    `title`,
+                    `sub_title`,
                     `submit_label`,
+                    `reset_label`,
                     `layout_id`,
                     `horizontal_width_label`,
                     `horizontal_width_field`
@@ -153,7 +161,9 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
                     :site_id, 
                     :form_id,
                     :title, 
+                    :subtitle,
                     :submit_label, 
+                    :reset_label,
                     :layout_id, 
                     :horizontal_width_label,
                     :horizontal_width_field
@@ -161,9 +171,11 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':form_id', $id, PDO::PARAM_INT);
-        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
-        $stmt->bindValue(':submit_label', Dlayer_Config::FORM_DEFAULT_SUBMIT_LABEL, PDO::PARAM_STR);
-        $stmt->bindValue(':layout_id', Dlayer_Config::FORM_DEFAULT_LAYOUT_ID, PDO::PARAM_INT);
+        $stmt->bindValue(':title', $params['title'], PDO::PARAM_STR);
+        $stmt->bindValue(':subtitle', (strlen($params['subtitle']) > 0) ? $params['subtitle'] : null, PDO::PARAM_STR);
+        $stmt->bindValue(':submit_label', $params['submit_label'], PDO::PARAM_STR);
+        $stmt->bindValue(':reset_label', strlen($params['reset_label'] > 0) ? $params['reset_label'] : null, PDO::PARAM_STR);
+        $stmt->bindValue(':layout_id', $params['layout'], PDO::PARAM_INT);
         $stmt->bindValue(':horizontal_width_label', Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_LABEL, PDO::PARAM_INT);
         $stmt->bindValue(':horizontal_width_field', Dlayer_Config::FORM_DEFAULT_HORIZONTAL_WIDTH_FIELD, PDO::PARAM_INT);
         return $stmt->execute();
@@ -252,7 +264,11 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
     {
         $sql = "SELECT 
                     `user_site_form`.`name`,
-                    `user_site_form_layout`.`title` 
+                    `user_site_form_layout`.`title`,
+                    `user_site_form_layout`.`sub_title` AS `subtitle`,
+                    `user_site_form_layout`.`submit_label`,
+                    `user_site_form_layout`.`reset_label`,
+                    `user_site_form_layout`.`layout_id` AS `layout`
 				FROM 
 				    `user_site_form` 
                 INNER JOIN 
