@@ -1,31 +1,86 @@
-
-insert  into `dlayer_module_tool`(`id`,`module_id`,`name`,`model`,`group_id`,`sort_order`,`enabled`) values
-    (1, 4, 'Cancel', 'Cancel', 1, 1, 1),
-    (2, 4, 'Text', 'Text', 4, 2, 1),
-    (3, 4, 'Heading', 'Heading', 4, 1, 1),
-    (4, 4, 'Form', 'Form', 5, 1, 1),
-    (5, 4, 'Add row(s)', 'AddRow', 3, 2, 1),
-    (6, 4, 'Jumbotron', 'Jumbotron', 4, 3, 1),
-    (7, 4, 'Row', 'Row', 3, 1, 1),
-    (8, 4, 'Image', 'Image', 5, 2, 1),
-    (9, 4, 'Page', 'Page', 99, 1, 1),
-    (10, 4, 'Column', 'Column', 3, 3, 1),
-    (11, 4, 'Add column(s)', 'AddColumn', 3, 4, 1),
-    (12, 4, 'HTML', 'Html', 4, 4, 1),
-    (13, 3, 'Cancel', 'Cancel', 0, 1, 1),
-    (14, 3, 'Text', 'Text', 2, 1, 1),
-    (15, 3, 'Textarea', 'Textarea', 2, 2, 1),
-    (16, 3, 'Email', 'Email', 2, 3, 1),
-    (17, 3, 'Password', 'Password', 2, 4, 1),
-    (18, 3, 'Stacked layout', 'StackedLayout', 1, 1, 1),
-    (19, 3, 'Inline layout', 'InlineLayout', 1, 2, 1),
-    (20, 3, 'Horizontal layout', 'HorizontalLayout', 1, 3, 1),
-    (21, 3, 'Titles', 'Title', 1, 4, 1),
-    (22, 3, 'Buttons', 'Button', 1, 5, 1),
-	(23, 3, 'Name', 'PresetName', 3, 1, 1),
-	(24, 3, 'Email', 'PresetEmail', 3, 2, 1),
-	(25, 3, 'Address', 'PresetAddress', 3, 3, 1),
-	(26, 3, 'Comment', 'PresetComment', 3, 4, 1),
-    (27, 3, 'Date', 'Date', 2, 5, 1),
-    (28, 4, 'Heading & Date', 'HeadingDate', 4, 5, 1);
+INSERT INTO `dlayer_module_tool` (`id`, `module_id`, `name`, `model`, `group_id`, `sort_order`, `enabled`) VALUES
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Cancel', 'Cancel', 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Text', 'Text', 4, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Heading', 'Heading', 4, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Form', 'Form', 5, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Add row(s)', 'AddRow', 3, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Jumbotron', 'Jumbotron', 4, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Row', 'Row', 3, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Image', 'Image', 5, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Page', 'Page', 99, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Column', 'Column', 3, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Add column(s)', 'AddColumn', 3, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'HTML', 'Html', 4, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Cancel', 'Cancel', 0, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Text', 'Text', 2, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Textarea', 'Textarea', 2, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Email', 'Email', 2, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Password', 'Password', 2, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Stacked layout', 'StackedLayout', 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Inline layout', 'InlineLayout', 1, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Horizontal layout', 'HorizontalLayout', 1, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Titles', 'Title', 1, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Buttons', 'Button', 1, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Name', 'PresetName', 3, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Email', 'PresetEmail', 3, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Address', 'PresetAddress', 3, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Comment', 'PresetComment', 3, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), 'Date', 'Date', 2, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Heading & Date', 'HeadingDate', 4, 5, 1);
 

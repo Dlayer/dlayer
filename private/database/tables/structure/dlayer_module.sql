@@ -10,4 +10,4 @@ CREATE TABLE `dlayer_module` (
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `name` (`name`),
 	KEY `enabled` (`enabled`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
