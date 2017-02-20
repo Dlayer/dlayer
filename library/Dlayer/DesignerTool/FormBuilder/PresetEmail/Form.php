@@ -39,7 +39,7 @@ class Dlayer_DesignerTool_FormBuilder_PresetEmail_Form extends Dlayer_Form_Tool_
 
         $this->generateFormElements();
 
-        $this->addElementsToForm('email', 'Email element', $this->elements);
+        $this->addElementsToForm('email', 'Email address', $this->elements);
 
         $this->addDefaultElementDecorators();
 

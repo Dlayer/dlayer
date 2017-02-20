@@ -39,7 +39,7 @@ class Dlayer_DesignerTool_FormBuilder_PresetName_Form extends Dlayer_Form_Tool_F
 
         $this->generateFormElements();
 
-        $this->addElementsToForm('name', 'Name element', $this->elements);
+        $this->addElementsToForm('name', 'Name', $this->elements);
 
         $this->addDefaultElementDecorators();
 

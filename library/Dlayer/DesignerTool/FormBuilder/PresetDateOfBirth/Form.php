@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Form for the preset comment tool
+ * Form for the preset date of birth 'date' element tool
  *
  * @author Dean Blackborough
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_FormBuilder_PresetComment_Form extends Dlayer_Form_Tool_Form
+class Dlayer_DesignerTool_FormBuilder_PresetDateOfBirth_Form extends Dlayer_Form_Tool_Form
 {
     /**
      * Set the properties for the form
@@ -19,8 +19,8 @@ class Dlayer_DesignerTool_FormBuilder_PresetComment_Form extends Dlayer_Form_Too
      */
     public function __construct(array $tool, array $data, array $element_data, $options=NULL)
     {
-        $tool['name'] = 'Textarea'; // Override the tool
-        $this->field_type = 'Textarea';
+        $tool['name'] = 'Date';
+        $this->field_type = 'Date';
         $this->preset = 1;
 
         parent::__construct($tool, $data, $element_data, $options);
@@ -39,7 +39,7 @@ class Dlayer_DesignerTool_FormBuilder_PresetComment_Form extends Dlayer_Form_Too
 
         $this->generateFormElements();
 
-        $this->addElementsToForm('address', 'Comment', $this->elements);
+        $this->addElementsToForm('date_of_birth', 'Date of Birth', $this->elements);
 
         $this->addDefaultElementDecorators();
 
@@ -49,9 +49,11 @@ class Dlayer_DesignerTool_FormBuilder_PresetComment_Form extends Dlayer_Form_Too
     protected function generateUserElements()
     {
         $label = new Zend_Form_Element_Hidden('label');
-        $label->setBelongsTo('params');
-        $label->setDescription('Click <mark>save</mark> to quickly add a comment element to your form, all 
+        $label->setDescription('Click <mark>save</mark> to quickly add a date of birth element to your form, all 
             the options and values have been preset for you, if necessary, you can alter them by editing the element.');
+        $label->setBelongsTo('params');
+        $label->setRequired();
+
         if (array_key_exists('label', $this->data) && $this->data['label'] !== false) {
             $label->setValue($this->data['label']);
         }
@@ -60,35 +62,33 @@ class Dlayer_DesignerTool_FormBuilder_PresetComment_Form extends Dlayer_Form_Too
 
         $description = new Zend_Form_Element_Hidden('description');
         $description->setBelongsTo('params');
+
         if (array_key_exists('description', $this->data) && $this->data['description'] !== false) {
             $description->setValue($this->data['description']);
         }
 
         $this->elements['description'] = $description;
 
-        $placeHolder = new Zend_Form_Element_Hidden('placeholder');
-        $placeHolder->setBelongsTo('params');
+        $placeholder = new Zend_Form_Element_Hidden('placeholder');
+        $placeholder->setBelongsTo('params');
+
         if (array_key_exists('placeholder', $this->data) && $this->data['placeholder'] !== false) {
-            $placeHolder->setValue($this->data['placeholder']);
+            $placeholder->setValue($this->data['placeholder']);
         }
 
-        $this->elements['placeholder'] = $placeHolder;
+        $this->elements['placeholder'] = $placeholder;
 
-        $rows = new Zend_Form_Element_Hidden('rows');
-        $rows->setBelongsTo('params');
-        if (array_key_exists('rows', $this->data) && $this->data['rows'] !== false) {
-            $rows->setValue($this->data['rows']);
-        }
+        $size = new Zend_Form_Element_Hidden('size');
+        $size->setBelongsTo('params');
+        $size->setValue(50);
 
-        $this->elements['rows'] = $rows;
+        $this->elements['size'] = $size;
 
-        $cols = new Zend_Form_Element_Hidden('cols');
-        $cols->setBelongsTo('params');
-        if (array_key_exists('cols', $this->data) && $this->data['cols'] !== false) {
-            $cols->setValue($this->data['cols']);
-        }
+        $maxLength = new Zend_Form_Element_Hidden('maxlength');
+        $maxLength->setBelongsTo('params');
+        $maxLength->setValue(255);
 
-        $this->elements['cols'] = $cols;
+        $this->elements['maxlength'] = $maxLength;
     }
 
     protected function addCustomElementDecorators()

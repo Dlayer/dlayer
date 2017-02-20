@@ -809,4 +809,40 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` = 'HeadingDate'), 'Help', 'help', NULL,
-           'info-sign', NULL, 0, 0, 0, 5, 1);
+           'info-sign', NULL, 0, 0, 0, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'form'
+                                        WHERE `dlayer_module_tool`.`model` = 'PresetDateOfBirth'), 'Date of Birth', 'preset-date-of-birth', NULL,
+           'pencil', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                     FROM `dlayer_module_tool`
+                                         INNER JOIN `dlayer_module`
+                                             ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                `dlayer_module`.`name` = 'form'
+                                     WHERE `dlayer_module_tool`.`model` = 'PresetDateOfBirth'), 'Help', 'help', NULL,
+           'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                     FROM `dlayer_module_tool`
+                                         INNER JOIN `dlayer_module`
+                                             ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                `dlayer_module`.`name` = 'form'
+                                     WHERE `dlayer_module_tool`.`model` = 'StylingAlternateRow'), 'Alternate row', 'alternate-row', NULL,
+           'tint', NULL, 0, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'form'), (SELECT `dlayer_module_tool`.`id`
+                                     FROM `dlayer_module_tool`
+                                         INNER JOIN `dlayer_module`
+                                             ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                `dlayer_module`.`name` = 'form'
+                                     WHERE `dlayer_module_tool`.`model` = 'StylingAlternateRow'), 'Help', 'help', NULL,
+           'info-sign', NULL, 0, 0, 0, 2, 1);

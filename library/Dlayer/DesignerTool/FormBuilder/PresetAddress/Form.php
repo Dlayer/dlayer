@@ -39,7 +39,7 @@ class Dlayer_DesignerTool_FormBuilder_PresetAddress_Form extends Dlayer_Form_Too
 
         $this->generateFormElements();
 
-        $this->addElementsToForm('address', 'Address element', $this->elements);
+        $this->addElementsToForm('address', 'Address', $this->elements);
 
         $this->addDefaultElementDecorators();
 
