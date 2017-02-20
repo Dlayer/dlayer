@@ -54,7 +54,8 @@ class Form_DesignController extends Zend_Controller_Action
     private $control_bar_tools = array(
         'layout' => array(),
         'preset' => array(),
-        'standard' => array()
+        'standard' => array(),
+        'styling' => array()
     );
 
     /**
@@ -223,6 +224,11 @@ class Form_DesignController extends Zend_Controller_Action
                     case 3:
                         $show = true;
                         $group = 'preset';
+                        break;
+
+                    case 4:
+                        $show = true;
+                        $group = 'styling';
                         break;
 
                     default:

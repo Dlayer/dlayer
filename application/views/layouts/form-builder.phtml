@@ -67,8 +67,8 @@
                         </ul>
                     </div>
                     <?php } ?>
-                    <?php $labels = array('layout' => 'Layout', 'standard' => 'Standard Elements', 'preset' => 'Preset elements'); ?>
-                    <?php foreach(array('layout', 'preset', 'standard') as $group) { ?>
+                    <?php $labels = array('layout' => 'Layout', 'preset' => 'Preset elements', 'standard' => 'Standard Elements', 'styling' => 'Quick styles'); ?>
+                    <?php foreach(array('layout', 'preset', 'standard', 'styling') as $group) { ?>
                         <?php if (count($this->layout()->control_bar_tools[$group]) > 0) { ?>
                             <div class="btn-group dropup">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

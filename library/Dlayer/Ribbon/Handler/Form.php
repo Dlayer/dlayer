@@ -127,6 +127,10 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $this->presetDateOfBirth($tool, $tab);
                 break;
 
+            case 'StylingAlternateRow':
+                $data = $this->stylingAlternateRow($tool, $tab);
+                break;
+
             default:
                 $data = false;
                 break;
@@ -568,6 +572,31 @@ class Dlayer_Ribbon_Handler_Form
             case 'preset-date-of-birth':
                 $ribbon_preset = new Dlayer_DesignerTool_FormBuilder_PresetDateOfBirth_Ribbon();
                 $data = $ribbon_preset->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the alter row styling tool, returns an array containing the form and the data for
+     * the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|FALSE
+     */
+    private function stylingAlternateRow($tool, $tab)
+    {
+        switch ($tab) {
+            case 'alternate-row':
+                $ribbon_styling = new Dlayer_DesignerTool_FormBuilder_StylingAlternateRow_Ribbon();
+                $data = $ribbon_styling->viewData($this->toolParams($tool));
                 break;
 
             default:
