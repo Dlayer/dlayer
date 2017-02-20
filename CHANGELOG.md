@@ -7,6 +7,8 @@ Full changelog for Dlayer since the v1.00 release.
 
 * The New and Edit forms in the Form Builder expose the layout options visible within the Form Builder. [Feature]
 * The import SQL files don't define the module or tool ids. [Setup]
+* Added a preset 'Date of Birth' element tool to the Form Builder. [Feature]
+* Minor fixes and improvements.
 
 ## v1.13: 18th February 2017
 

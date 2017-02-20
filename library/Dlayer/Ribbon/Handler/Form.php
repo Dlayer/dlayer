@@ -123,6 +123,10 @@ class Dlayer_Ribbon_Handler_Form
                 $data = $this->presetComment($tool, $tab);
                 break;
 
+            case 'PresetDateOfBirth':
+                $data = $this->presetDateOfBirth($tool, $tab);
+                break;
+
             default:
                 $data = false;
                 break;
@@ -539,6 +543,31 @@ class Dlayer_Ribbon_Handler_Form
             case 'delete':
                 $ribbon_date = new Dlayer_DesignerTool_FormBuilder_Text_SubTool_Delete_Ribbon();
                 $data = $ribbon_date->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the preset date of birth tools, returns an array containing the form and the data for
+     * the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|FALSE
+     */
+    private function presetDateOfBirth($tool, $tab)
+    {
+        switch ($tab) {
+            case 'preset-date-of-birth':
+                $ribbon_preset = new Dlayer_DesignerTool_FormBuilder_PresetDateOfBirth_Ribbon();
+                $data = $ribbon_preset->viewData($this->toolParams($tool));
                 break;
 
             default:
