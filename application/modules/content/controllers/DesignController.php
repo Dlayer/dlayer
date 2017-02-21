@@ -305,6 +305,7 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->content_id = $this->session_content->contentId();
                 $this->view->column_contains_content = $column_contains_content;
                 $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
+                $this->view->row_contains_columns = $model_page->rowContainsColumns($this->session_content->rowId());
 
                 if ($sub_tool === null) {
                     $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .

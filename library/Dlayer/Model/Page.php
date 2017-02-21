@@ -715,6 +715,32 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
     }
 
     /**
+     * Check to see if the selected row has any child columns
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function rowContainsColumns($id)
+    {
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `user_site_page_structure_column` 
+                WHERE 
+                    `row_id` = :row_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':row_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if (count($stmt->fetchAll()) === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    /**
      * Check to see if the selected column has any content
      *
      * @param integer $column_id
@@ -835,9 +861,9 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
                         `dct`.`tool_id` = `dmt`.`id` AND 
                         `dmt`.`enabled` = 1 
                 WHERE 
-                    `uspsc`.`site_id` = 1 AND 
-                    `uspsc`.`page_id` = 1 AND 
-                    `uspsc`.`column_id` = 3 AND 
+                    `uspsc`.`site_id` = :site_id AND 
+                    `uspsc`.`page_id` = :page_id AND 
+                    `uspsc`.`column_id` = :column_id AND 
                     `uspsc`.`deleted` = 0 
                 ORDER BY 
                     `uspsc`.`sort_order` ASC";
