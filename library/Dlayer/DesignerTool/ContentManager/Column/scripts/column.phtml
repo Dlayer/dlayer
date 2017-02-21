@@ -4,67 +4,90 @@
 	<h3>Column selected</h3>
 
 	<?php if ($this->column_contains_content === false) { ?>
-
-	<a href="#collapse-add-row" role="button" data-toggle="collapse" aria-controls="collapse-add-row" aria-expanded="true">
-		<h5>
+        <h4>
 			<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Add a row
-		</h5>
-	</a>
-
-	<div class="collapse.in" id="collapse-add-row">
+		</h4>
 		<p>To add a new row please select the 'add row' tool.</p>
-	</div>
 
-	<a href="#collapse-select-row" role="button" data-toggle="collapse" aria-controls="collapse-select-row" aria-expanded="true">
-		<h5>
+		<h4>
 			<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Select a row
-		</h5>
-	</a>
-
-	<div class="collapse.in" id="collapse-select-row">
+		</h4>
 		<p>If a row is selectable it will highlight when you hover your cursor over it, to select the row, click.</p>
-	</div>
 
 	<?php } ?>
 
 	<?php if ($this->column_contains_content === false && $this->column_contains_rows === false) { ?>
 
-	<h5>Or...</h5>
+	<h4>Or...</h4>
 
 	<?php } ?>
 
 	<?php if ($this->column_contains_rows === false) { ?>
 			
-	<a href="#collapse-add-item" role="button" data-toggle="collapse" aria-controls="collapse-add-item" aria-expanded="true">
-		<h5>
+		<h4>
 			<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Add a content item
-		</h5>
-	</a>
+		</h4>
 
-	<div class="collapse.in" id="collapse-add-item">
-		<p>To add a new content item select the tool that corresponds to the content item you want to create.</p>
-	</div>
+        <p>To add a new content item select the tool that corresponds to the content item you want to create.</p>
 
-	<a href="#collapse-edit-item" role="button" data-toggle="collapse" aria-controls="collapse-edit-item" aria-expanded="true">
-		<h5>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="btn-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Create tools <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <?php foreach($this->layout()->control_bar_tools['create'] as $button) { ?>
+                            <li><a href="<?php echo $this->escape($button['uri']); ?>"><?php echo $this->escape($button['name']); ?></a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Import tools <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <?php foreach($this->layout()->control_bar_tools['import'] as $button) { ?>
+                            <li><a href="<?php echo $this->escape($button['uri']); ?>"><?php echo $this->escape($button['name']); ?></a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+
+		<h4>
 			<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Edit an existing content item
-		</h5>
-	</a>
+		</h4>
 
-	<div class="collapse.in" id="collapse-edit-item">
 		<p>If a content item is selectable it will highlight when you hover your cursor over it, to select the content
-		item, click.</p>
-	</div>
+		item, click, alternatively, you select the content item using the button below:</p>
 
-	<a href="#collapse-edit-column" role="button" data-toggle="collapse" aria-controls="collapse-edit-column" aria-expanded="true">
-		<h5>
+        <p>Note: Only show this section when content items exist.</p>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Content items <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="">Item 1</a></li>
+                            <li><a href="">Item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<h4>
 			<span class="glyphicon glyphicon-play" aria-hidden="true"></span> Edit the column
-		</h5>
-	</a>
+		</h4>
 
-	<div class="collapse.in" id="collapse-edit-column">
 		<p>To edit the properties for the column select a tab above.</p>
-	</div>
 
 	<?php } ?>
 </div>

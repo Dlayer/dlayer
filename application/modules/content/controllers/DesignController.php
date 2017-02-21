@@ -269,6 +269,8 @@ class Content_DesignController extends Zend_Controller_Action
     {
         $this->_helper->disableLayout();
 
+        $this->controlBar();
+
         $module = $this->getRequest()->getModuleName();
         $tool = Dlayer_Helper::getParamAsString('tool');
         $sub_tool = Dlayer_Helper::getParamAsString('sub_tool');
