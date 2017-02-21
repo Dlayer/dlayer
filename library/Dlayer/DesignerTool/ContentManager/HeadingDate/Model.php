@@ -232,9 +232,10 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends
          * @var false|integer If not false delete the data for this data id
          */
         $delete = false;
+        $content_type = 'heading-date';
 
         // Fetch the current data id, validity check, no real reason to fail
-        $assigned_data_id = $this->assignedContentDataId($site_id, $page_id, $content_id, 'heading-date');
+        $assigned_data_id = $this->assignedContentDataId($site_id, $page_id, $content_id, $content_type);
         if($assigned_data_id === false) {
             throw new Exception('Error fetching the existing data id for content id: ' . $content_id);
         }
@@ -243,17 +244,17 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends
         $content = $params['heading'] . Dlayer_Config::CONTENT_DELIMITER . $params['date'];
 
         // Get the data id for the content string ignoring the existing item
-        $data_id_by_content_id = $this->existingDataIdOrFalse($site_id, $content, 'heading-date', $assigned_data_id);
+        $data_id_by_content_id = $this->existingDataIdOrFalse($site_id, $content, $content_type, $assigned_data_id);
 
         if (array_key_exists('instances', $params) === true) {
             if ($params['instances'] === 1) {
                 // Update all instances of the data
                 if ($data_id_by_content_id === false) {
-                    if ($this->updateDataTable($site_id, $assigned_data_id, $params['name'], $content, 'heading-date') === false) {
+                    if ($this->updateDataTable($site_id, $assigned_data_id, $params['name'], $content, $content_type) === false) {
                         throw new Exception('Error updating the data for content id: ' . $content_id);
                     }
                 } else {
-                    if ($this->assignNewDataIdToContentItems($site_id, $data_id_by_content_id, $assigned_data_id, 'heading-date') === FALSE) {
+                    if ($this->assignNewDataIdToContentItems($site_id, $data_id_by_content_id, $assigned_data_id, $content_type) === FALSE) {
                         throw new Exception('Error updating data id for text content items using data id: ' . $assigned_data_id);
                     }
 
@@ -265,15 +266,15 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends
                     $data_id_by_content_id = $this->addData($site_id, $params['name'], $content);
                 }
 
-                $this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id, 'heading-date');
+                $this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id, $content_type);
             }
         } else {
             if ($data_id_by_content_id === false) {
-                if ($this->updateDataTable($site_id, $assigned_data_id, $params['name'], $content, 'heading-date') === false) {
+                if ($this->updateDataTable($site_id, $assigned_data_id, $params['name'], $content, $content_type) === false) {
                     throw new Exception('Error updating the data for content id: ' . $content_id);
                 }
             } else {
-                if ($this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id, 'heading-date') === false) {
+                if ($this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id, $content_type) === false) {
                     throw new Exception('Error updating data id for content id: ' . $content_id);
                 }
 
@@ -284,7 +285,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends
 
         // Delete redundant data if necessary
         if ($delete !== false) {
-            $this->deleteDataId($site_id, $delete, 'heading-date');
+            $this->deleteDataId($site_id, $delete, $content_type);
         }
 
         // Update content data table if necessary
