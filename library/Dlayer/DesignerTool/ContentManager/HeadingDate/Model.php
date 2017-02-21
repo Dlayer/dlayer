@@ -109,7 +109,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
 
         $content = $params['heading'] . Dlayer_Config::CONTENT_DELIMITER . $params['date'];
 
-        $data_id = $this->existingDataId($site_id, $content);
+        $data_id = $this->existingDataIdOrFalse($site_id, $content, 'heading-date');
 
         if ($data_id === false) {
             $data_id = $this->addData($site_id, $params['name'], $content);
@@ -152,16 +152,20 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
      *
      * @param integer $site_id
      * @param string $content
+     * @param string $content_type
      * @param integer|null $ignore_id
      *
      * @return integer|false Id of the existing data array or FALSE if a new content item
+     * @throws Exception
      */
-    private function existingDataId($site_id, $content, $ignore_id = null)
+    protected function existingDataIdOrFalse($site_id, $content, $content_type, $ignore_id = null)
     {
+        $table = $this->contentItemDataTable($content_type);
+
         $sql = "SELECT 
                     `id` 
                 FROM 
-                    `user_site_content_heading_date` 
+                    `{$table}` 
                 WHERE 
                     `site_id` = :site_id AND 
                     UPPER(`content`) = :content";
@@ -272,59 +276,62 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
          */
         $delete = false;
 
-        $assigned_data_id = $this->assignedDataId($site_id, $page_id, $content_id);
-        if($assigned_data_id === false)
-        {
+        // Fetch the current data id, validity check, no real reason to fail
+        $assigned_data_id = $this->assignedContentDataId($site_id, $page_id, $content_id, 'heading-date');
+        if($assigned_data_id === false) {
             throw new Exception('Error fetching the existing data id for content id: ' . $content_id);
         }
 
+        // Build the new? content string
         $content = $params['heading'] . Dlayer_Config::CONTENT_DELIMITER . $params['date'];
 
-        $data_id_by_content_id = $this->existingDataId($site_id, $content, $assigned_data_id);
+        // Get the data id for the content string ignoring the existing item
+        $data_id_by_content_id = $this->existingDataIdOrFalse($site_id, $content, 'heading-date', $assigned_data_id);
 
-        if (array_key_exists('instances', $params) === TRUE)
-        {
-            if ($params['instances'] === 1)
-            {
+        if (array_key_exists('instances', $params) === true) {
+            if ($params['instances'] === 1) {
+                // Update all instances of the data
                 if ($data_id_by_content_id === false) {
-                    if ($this->updateData($site_id, $data_id_by_content_id, $params['name'], $content) === false) {
+                    if ($this->updateDataTable($site_id, $assigned_data_id, $params['name'], $content, 'heading-date') === false) {
                         throw new Exception('Error updating the data for content id: ' . $content_id);
                     }
                 } else {
-                    if ($this->assignNewDataId($site_id, $data_id_by_content_id, $assigned_data_id) === FALSE) {
+                    if ($this->assignNewDataIdToContentItems($site_id, $data_id_by_content_id, $assigned_data_id, 'heading-date') === FALSE) {
                         throw new Exception('Error updating data id for text content items using data id: ' . $assigned_data_id);
                     }
 
                     $delete = $assigned_data_id;
                 }
             } else {
+                // Only update the current instance
                 if ($data_id_by_content_id === false) {
                     $data_id_by_content_id = $this->addData($site_id, $params['name'], $content);
                 }
 
-                $this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id);
+                $this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id, 'heading-date');
             }
-        }
-        else
-        {
+        } else {
             if ($data_id_by_content_id === false) {
-                if ($this->updateData($site_id, $assigned_data_id, $params['name'], $content) === false) {
+                if ($this->updateDataTable($site_id, $assigned_data_id, $params['name'], $content, 'heading-date') === false) {
                     throw new Exception('Error updating the data for content id: ' . $content_id);
                 }
             } else {
-                if($this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id) === false) {
+                if ($this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id, 'heading-date') === false) {
                     throw new Exception('Error updating data id for content id: ' . $content_id);
                 }
 
-                $delete = $data_id_by_content_id;
+                // $delete = $assigned_data_id;
+                // @todo Not safe to delete, may be in use
             }
         }
 
+        // Delete redundant data if necessary
         if ($delete !== false) {
-            $this->deleteDataId($site_id, $delete);
+            $this->deleteDataId($site_id, $delete, 'heading-date');
         }
 
-        if ($this->updateContentItem($site_id, $page_id, $content_id, $params) === TRUE) {
+        // Update content data table if necessary
+        if ($this->updateContentItem($site_id, $page_id, $content_id, $params) === true) {
             return true;
         } else {
             return false;
@@ -337,16 +344,19 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
      * @param integer $site_id
      * @param integer $page_id
      * @param integer $content_id
+     * @param string $content_type
      *
-     * @todo This is a standard query, move into base class
-     * @return integer|false Should only return false if the query failed for some reason
+     * @return false|int Should only return false if the query failed for some reason
+     * @throws Exception
      */
-    private function assignedDataId($site_id, $page_id, $content_id)
+    protected function assignedContentDataId($site_id, $page_id, $content_id, $content_type)
     {
+        $table = $this->contentItemTable($content_type);
+
         $sql = "SELECT 
                     `data_id`
 				FROM 
-				    `user_site_page_content_item_heading_date` 
+				    `{$table}` 
 				WHERE 
 				    `site_id` = :site_id AND 
 				    `page_id` = :page_id AND 
@@ -375,14 +385,17 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
      * @param integer $id
      * @param string $name
      * @param string $content
+     * @param string $content_type
      *
-     * @todo This is a standard query, move into base class
      * @return boolean
+     * @throws Exception
      */
-    private function updateData($site_id, $id, $name, $content)
+    protected function updateDataTable($site_id, $id, $name, $content, $content_type)
     {
+        $table = $this->contentItemDataTable($content_type);
+
         $sql = "UPDATE 
-                    `user_site_content_heading_date`
+                    `{$table}`
                 SET 
                     `name` = :name, 
                     `content` = :content 
@@ -407,14 +420,17 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
      * @param integer $site_id
      * @param integer $new_data_id
      * @param integer $content_id
+     * @param string $content_type
      *
-     * @todo This is a standard query, move into base class
      * @return boolean
+     * @throws Exception
      */
-    private function assignNewDataIdToContentItem($site_id, $new_data_id, $content_id)
+    protected function assignNewDataIdToContentItem($site_id, $new_data_id, $content_id, $content_type)
     {
+        $table = $this->contentItemTable($content_type);
+
         $sql = "UPDATE 
-                    `user_site_page_content_item_heading_date`  
+                    `{$table}`  
 				SET 
 				    `data_id` = :new_data_id
 			    WHERE 
@@ -434,14 +450,17 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
      *
      * @param integer $site_id
      * @param integer $id
+     * @param string $content_type
      *
-     * @todo This is a standard query, move into base class
-     * @return void
+     * @return boolean
+     * @throws Exception
      */
-    private function deleteDataId($site_id, $id)
+    protected function deleteDataId($site_id, $id, $content_type)
     {
+        $table = $this->contentItemDataTable($content_type);
+
         $sql = "DELETE FROM 
-                    `user_site_content_jumbotron`
+                    `{$table}`
                 WHERE 
                     `site_id` = :site_id AND 
                     `id` = :delete_id";
@@ -491,13 +510,17 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
      * @param integer $site_id
      * @param integer $new_data_id
      * @param integer $current_data_id
+     * @param string $content_type
      *
      * @return boolean
+     * @throws Exception
      */
-    private function assignNewDataId($site_id, $new_data_id, $current_data_id)
+    protected function assignNewDataIdToContentItems($site_id, $new_data_id, $current_data_id, $content_type)
     {
+        $table = $this->contentItemTable($content_type);
+
         $sql = "UPDATE 
-                    `user_site_page_content_item_heading_date`  
+                    `{$table}`  
 				SET 
 				    `data_id` = :new_data_id
 				WHERE 
@@ -510,5 +533,51 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
         $result = $stmt->execute();
 
         return $result;
+    }
+
+    /**
+     * Fetch the name of the content item table for the given content type
+     *
+     * @param $content_type
+     *
+     * @return string
+     * @throws Exception
+     */
+    protected function contentItemTable($content_type)
+    {
+        switch ($content_type) {
+            case 'heading-date':
+                $table = 'user_site_page_content_item_heading_date';
+                break;
+
+            default:
+                throw new Exception('Content type now supported: ' . $content_type);
+                break;
+        }
+
+        return $table;
+    }
+
+    /**
+     * Fetch the name of the content item data table for the given content type
+     *
+     * @param string $content_type
+     *
+     * @return string
+     * @throws Exception
+     */
+    protected function contentItemDataTable($content_type)
+    {
+        switch ($content_type) {
+            case 'heading-date':
+                $table = 'user_site_content_heading_date';
+                break;
+
+            default:
+                throw new Exception('Content type now supported: ' . $content_type);
+                break;
+        }
+
+        return $table;
     }
 }

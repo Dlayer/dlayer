@@ -197,6 +197,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
                                         <li><a href=\"/content/design/set-tool/tool/Text\">Text</a></li>
                                         <li><a href=\"/content/design/set-tool/tool/Jumbotron\">Jumbotron</a></li>
                                         <li><a href=\"/content/design/set-tool/tool/Html\">HTML</a></li>
+                                        <li><a href=\"/content/design/set-tool/tool/HeadingDate\">Heading & Date</a></li>
                                         <li role=\"separator\" class=\"divider\"></li>
                                         <li><a href=\"/content/design/set-tool/tool/Form\">Form</a></li>
                                         <li><a href=\"/content/design/set-tool/tool/Image\">Image</a></li>
