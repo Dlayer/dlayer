@@ -296,9 +296,14 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
                 $column_id = $this->session_content->columnId();
+                $column_contains_content = $model_page->columnContainsContent($column_id);
+
+                if ($column_contains_content === true) {
+                    $this->view->column_content = $model_page->columnContent($this->site_id, $this->page_id, $column_id);
+                }
 
                 $this->view->content_id = $this->session_content->contentId();
-                $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
+                $this->view->column_contains_content = $column_contains_content;
                 $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
 
                 if ($sub_tool === null) {

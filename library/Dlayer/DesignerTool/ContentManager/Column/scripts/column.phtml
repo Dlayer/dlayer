@@ -76,8 +76,9 @@
                             Content items <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="">Item 1</a></li>
-                            <li><a href="">Item 2</a></li>
+                            <?php foreach ($this->column_content as $content) { ?>
+                            <li><a href="/content/design/set-selected-content/content-type/<?php echo $this->escape($content['content_type']); ?>/tool/<?php echo $this->escape($content['tool']); ?>/id/<?php echo $this->escape($content['content_id']); ?>"><?php echo $this->escape($content['content_item_type']); ?></a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
