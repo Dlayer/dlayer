@@ -9,6 +9,9 @@ Full changelog for Dlayer since the v1.00 release.
 * The import SQL files don't define the module or tool ids. [Setup]
 * Added a preset 'Date of Birth' element tool to the Form Builder. [Feature]
 * Added alternate rows quick styling tool. [Feature]
+* Updated the text for the Column, Row and Page tools, more conditional, aware of designer or design state. [UX]
+* Added shortcut buttons to Column, Row and Page tools. [UX]
+* The column contains content query only looks at enabled content. [Bugfix]
 * Minor fixes and improvements.
 
 ## v1.13: 18th February 2017

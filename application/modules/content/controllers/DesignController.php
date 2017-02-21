@@ -269,6 +269,8 @@ class Content_DesignController extends Zend_Controller_Action
     {
         $this->_helper->disableLayout();
 
+        $this->controlBar();
+
         $module = $this->getRequest()->getModuleName();
         $tool = Dlayer_Helper::getParamAsString('tool');
         $sub_tool = Dlayer_Helper::getParamAsString('sub_tool');
@@ -294,10 +296,16 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->view->data = $this->toolTabViewData($tool, $tab, $multi_use, $edit_mode);
 
                 $column_id = $this->session_content->columnId();
+                $column_contains_content = $model_page->columnContainsContent($column_id);
+
+                if ($column_contains_content === true) {
+                    $this->view->column_content = $model_page->columnContent($this->site_id, $this->page_id, $column_id);
+                }
 
                 $this->view->content_id = $this->session_content->contentId();
-                $this->view->column_contains_content = $model_page->columnContainsContent($column_id);
+                $this->view->column_contains_content = $column_contains_content;
                 $this->view->column_contains_rows = $model_page->columnContainsRows($column_id);
+                $this->view->row_contains_columns = $model_page->rowContainsColumns($this->session_content->rowId());
 
                 if ($sub_tool === null) {
                     $this->view->addScriptPath(DLAYER_LIBRARY_PATH . "/Dlayer/DesignerTool/ContentManager/" .

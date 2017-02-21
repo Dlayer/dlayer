@@ -715,6 +715,32 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
     }
 
     /**
+     * Check to see if the selected row has any child columns
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function rowContainsColumns($id)
+    {
+        $sql = "SELECT 
+                    `id` 
+                FROM 
+                    `user_site_page_structure_column` 
+                WHERE 
+                    `row_id` = :row_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':row_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if (count($stmt->fetchAll()) === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    /**
      * Check to see if the selected column has any content
      *
      * @param integer $column_id
@@ -727,7 +753,8 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
                 FROM 
                     `user_site_page_structure_content` 
                 WHERE 
-                    `column_id` = :column_id";
+                    `column_id` = :column_id AND 
+                    `deleted` = 0";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':column_id', $column_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -806,5 +833,46 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * Column content
+     *
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param integer $id
+     *
+     * @return array
+     */
+    public function columnContent($site_id, $page_id, $id)
+    {
+        $sql = "SELECT 
+                    `uspsc`.`id` AS `content_id`, 
+                    `dct`.`name` AS `content_type`, 
+                    `dct`.`description` AS `content_item_type`,
+                    `dmt`.`name` AS `tool`
+                FROM 
+                    `user_site_page_structure_content` `uspsc` 
+                INNER JOIN 
+                    `designer_content_type` `dct` ON 
+                        `uspsc`.`content_type` = `dct`.`id` 
+                INNER JOIN 
+                    `dlayer_module_tool` `dmt` ON 
+                        `dct`.`tool_id` = `dmt`.`id` AND 
+                        `dmt`.`enabled` = 1 
+                WHERE 
+                    `uspsc`.`site_id` = :site_id AND 
+                    `uspsc`.`page_id` = :page_id AND 
+                    `uspsc`.`column_id` = :column_id AND 
+                    `uspsc`.`deleted` = 0 
+                ORDER BY 
+                    `uspsc`.`sort_order` ASC";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':column_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 }
