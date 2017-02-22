@@ -8,7 +8,8 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table_Abstract
+class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends
+    Dlayer_DesignerTool_ContentManager_Shared_Model_Content
 {
     /**
      * Fetch all the heading types supported by Dlayer
@@ -109,7 +110,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
 
         $content = $params['heading'] . Dlayer_Config::CONTENT_DELIMITER . $params['date'];
 
-        $data_id = $this->existingDataId($site_id, $content);
+        $data_id = $this->existingDataIdOrFalse($site_id, $content, 'heading-date');
 
         if ($data_id === false) {
             $data_id = $this->addData($site_id, $params['name'], $content);
@@ -145,46 +146,6 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
         }
 
         return $result;
-    }
-
-    /**
-     * Check to see if the content exists in the data tables, if so we re-use the content
-     *
-     * @param integer $site_id
-     * @param string $content
-     * @param integer|null $ignore_id
-     *
-     * @return integer|false Id of the existing data array or FALSE if a new content item
-     */
-    private function existingDataId($site_id, $content, $ignore_id = null)
-    {
-        $sql = "SELECT 
-                    `id` 
-                FROM 
-                    `user_site_content_heading_date` 
-                WHERE 
-                    `site_id` = :site_id AND 
-                    UPPER(`content`) = :content";
-        if ($ignore_id !== null) {
-            $sql .= " AND `id` != :ignore_id LIMIT 1";
-        } else {
-            $sql .= " LIMIT 1";
-        }
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':content', strtoupper($content), PDO::PARAM_STR);
-        if ($ignore_id !== null) {
-            $stmt->bindValue(':ignore_id', $ignore_id, PDO::PARAM_INT);
-        }
-        $stmt->execute();
-
-        $result = $stmt->fetch();
-
-        if ($result !== false) {
-            return intval($result['id']);
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -271,184 +232,68 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
          * @var false|integer If not false delete the data for this data id
          */
         $delete = false;
+        $content_type = 'heading-date';
 
-        $assigned_data_id = $this->assignedDataId($site_id, $page_id, $content_id);
-        if($assigned_data_id === false)
-        {
+        // Fetch the current data id, validity check, no real reason to fail
+        $assigned_data_id = $this->assignedContentDataId($site_id, $page_id, $content_id, $content_type);
+        if($assigned_data_id === false) {
             throw new Exception('Error fetching the existing data id for content id: ' . $content_id);
         }
 
+        // Build the new? content string
         $content = $params['heading'] . Dlayer_Config::CONTENT_DELIMITER . $params['date'];
 
-        $data_id_by_content_id = $this->existingDataId($site_id, $content, $assigned_data_id);
+        // Get the data id for the content string ignoring the existing item
+        $data_id_by_content_id = $this->existingDataIdOrFalse($site_id, $content, $content_type, $assigned_data_id);
 
-        if (array_key_exists('instances', $params) === TRUE)
-        {
-            if ($params['instances'] === 1)
-            {
+        if (array_key_exists('instances', $params) === true) {
+            if ($params['instances'] === 1) {
+                // Update all instances of the data
                 if ($data_id_by_content_id === false) {
-                    if ($this->updateData($site_id, $data_id_by_content_id, $params['name'], $content) === false) {
+                    if ($this->updateDataTable($site_id, $assigned_data_id, $params['name'], $content, $content_type) === false) {
                         throw new Exception('Error updating the data for content id: ' . $content_id);
                     }
                 } else {
-                    if ($this->assignNewDataId($site_id, $data_id_by_content_id, $assigned_data_id) === FALSE) {
+                    if ($this->assignNewDataIdToContentItems($site_id, $data_id_by_content_id, $assigned_data_id, $content_type) === FALSE) {
                         throw new Exception('Error updating data id for text content items using data id: ' . $assigned_data_id);
                     }
 
                     $delete = $assigned_data_id;
                 }
             } else {
+                // Only update the current instance
                 if ($data_id_by_content_id === false) {
                     $data_id_by_content_id = $this->addData($site_id, $params['name'], $content);
                 }
 
-                $this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id);
+                $this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id, $content_type);
             }
-        }
-        else
-        {
+        } else {
             if ($data_id_by_content_id === false) {
-                if ($this->updateData($site_id, $assigned_data_id, $params['name'], $content) === false) {
+                if ($this->updateDataTable($site_id, $assigned_data_id, $params['name'], $content, $content_type) === false) {
                     throw new Exception('Error updating the data for content id: ' . $content_id);
                 }
             } else {
-                if($this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id) === false) {
+                if ($this->assignNewDataIdToContentItem($site_id, $data_id_by_content_id, $content_id, $content_type) === false) {
                     throw new Exception('Error updating data id for content id: ' . $content_id);
                 }
 
-                $delete = $data_id_by_content_id;
+                // $delete = $assigned_data_id;
+                // @todo Not safe to delete, may be in use
             }
         }
 
+        // Delete redundant data if necessary
         if ($delete !== false) {
-            $this->deleteDataId($site_id, $delete);
+            $this->deleteDataId($site_id, $delete, $content_type);
         }
 
-        if ($this->updateContentItem($site_id, $page_id, $content_id, $params) === TRUE) {
+        // Update content data table if necessary
+        if ($this->updateContentItem($site_id, $page_id, $content_id, $params) === true) {
             return true;
         } else {
             return false;
         }
-    }
-
-    /**
-     * Fetch the current data id for a content item
-     *
-     * @param integer $site_id
-     * @param integer $page_id
-     * @param integer $content_id
-     *
-     * @todo This is a standard query, move into base class
-     * @return integer|false Should only return false if the query failed for some reason
-     */
-    private function assignedDataId($site_id, $page_id, $content_id)
-    {
-        $sql = "SELECT 
-                    `data_id`
-				FROM 
-				    `user_site_page_content_item_heading_date` 
-				WHERE 
-				    `site_id` = :site_id AND 
-				    `page_id` = :page_id AND 
-				    `content_id` = :content_id 
-				LIMIT 
-				    1";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
-        $stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        $result = $stmt->fetch();
-
-        if ($result !== FALSE) {
-            return intval($result['data_id']);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Update the content for the given data id
-     *
-     * @param integer $site_id
-     * @param integer $id
-     * @param string $name
-     * @param string $content
-     *
-     * @todo This is a standard query, move into base class
-     * @return boolean
-     */
-    private function updateData($site_id, $id, $name, $content)
-    {
-        $sql = "UPDATE 
-                    `user_site_content_heading_date`
-                SET 
-                    `name` = :name, 
-                    `content` = :content 
-				WHERE 
-				    `site_id` = :site_id AND 
-				    `id` = :data_id 
-				LIMIT 
-				    1";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':data_id', $id, PDO::PARAM_INT);
-        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
-        $stmt->bindValue(':content', $content, PDO::PARAM_STR);
-        $result = $stmt->execute();
-
-        return $result;
-    }
-
-    /**
-     * Assign a new data id to a content item
-     *
-     * @param integer $site_id
-     * @param integer $new_data_id
-     * @param integer $content_id
-     *
-     * @todo This is a standard query, move into base class
-     * @return boolean
-     */
-    private function assignNewDataIdToContentItem($site_id, $new_data_id, $content_id)
-    {
-        $sql = "UPDATE 
-                    `user_site_page_content_item_heading_date`  
-				SET 
-				    `data_id` = :new_data_id
-			    WHERE 
-			        `site_id` = :site_id AND 
-			        `content_id` = :content_id";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':new_data_id', $new_data_id, PDO::PARAM_INT);
-        $stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-        $result = $stmt->execute();
-
-        return $result;
-    }
-
-    /**
-     * Delete data id
-     *
-     * @param integer $site_id
-     * @param integer $id
-     *
-     * @todo This is a standard query, move into base class
-     * @return void
-     */
-    private function deleteDataId($site_id, $id)
-    {
-        $sql = "DELETE FROM 
-                    `user_site_content_jumbotron`
-                WHERE 
-                    `site_id` = :site_id AND 
-                    `id` = :delete_id";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':delete_id', $id, PDO::PARAM_INT);
-        $stmt->execute();
     }
 
     /**
@@ -480,33 +325,6 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Model extends Zend_Db_Table
         $stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
         $stmt->bindValue(':format', $params['format'], PDO::PARAM_STR);
         $stmt->bindValue(':type', $params['type'], PDO::PARAM_INT);
-        $result = $stmt->execute();
-
-        return $result;
-    }
-
-    /**
-     * Assign a new data id to the content items that use the supplied data id
-     *
-     * @param integer $site_id
-     * @param integer $new_data_id
-     * @param integer $current_data_id
-     *
-     * @return boolean
-     */
-    private function assignNewDataId($site_id, $new_data_id, $current_data_id)
-    {
-        $sql = "UPDATE 
-                    `user_site_page_content_item_heading_date`  
-				SET 
-				    `data_id` = :new_data_id
-				WHERE 
-				    `site_id` = :site_id AND 
-				    `data_id` = :current_data_id";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':new_data_id', $new_data_id, PDO::PARAM_INT);
-        $stmt->bindValue(':current_data_id', $current_data_id, PDO::PARAM_INT);
         $result = $stmt->execute();
 
         return $result;

@@ -259,7 +259,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      */
     private function text($id)
     {
-        $model_text = new Dlayer_Model_View_Page_Item_Text();
+        $model_text = new Dlayer_Model_View_Page_Content_Text();
 
         return $model_text->data($this->site_id, $this->page_id, $id);
     }
@@ -273,7 +273,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      */
     private function jumbotron($id)
     {
-        $model_jumbotron = new Dlayer_Model_View_Page_Item_Jumbotron();
+        $model_jumbotron = new Dlayer_Model_View_Page_Content_Jumbotron();
 
         return $model_jumbotron->data($this->site_id, $this->page_id, $id);
     }
@@ -287,7 +287,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      */
     private function html($id)
     {
-        $model_html = new Dlayer_Model_View_Page_Item_Html();
+        $model_html = new Dlayer_Model_View_Page_Content_Html();
 
         return $model_html->data($this->site_id, $this->page_id, $id);
     }
@@ -301,7 +301,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      */
     private function image($id)
     {
-        $model_image = new Dlayer_Model_View_Page_Item_Image();
+        $model_image = new Dlayer_Model_View_Page_Content_Image();
 
         return $model_image->data($this->site_id, $this->page_id, $id);
     }
@@ -315,7 +315,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      */
     private function heading($id)
     {
-        $model_heading = new Dlayer_Model_View_Page_Item_Heading();
+        $model_heading = new Dlayer_Model_View_Page_Content_Heading();
 
         return $model_heading->data($this->site_id, $this->page_id, $id);
     }
@@ -329,7 +329,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      */
     private function headingDate($id)
     {
-        $model = new Dlayer_Model_View_Page_Item_HeadingDate();
+        $model = new Dlayer_Model_View_Page_Content_HeadingDate();
 
         return $model->data($this->site_id, $this->page_id, $id);
     }
@@ -343,7 +343,7 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
      */
     private function form($id)
     {
-        $model_form = new Dlayer_Model_View_Page_Item_Form();
+        $model_form = new Dlayer_Model_View_Page_Content_Form();
 
         return $model_form->data($this->site_id, $this->page_id, $id);
     }

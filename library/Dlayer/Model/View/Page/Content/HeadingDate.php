@@ -9,7 +9,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_Model_View_Page_Item_HeadingDate extends Zend_Db_Table_Abstract
+class Dlayer_Model_View_Page_Content_HeadingDate extends Zend_Db_Table_Abstract
 {
     /**
      * Fetch the core data needed to create a 'heading' based content item
@@ -20,7 +20,7 @@ class Dlayer_Model_View_Page_Item_HeadingDate extends Zend_Db_Table_Abstract
      *
      * @return array|false Either the content item data array or FALSE upon error
      */
-    private function baseItemData($site_id, $page_id, $id)
+    public function data($site_id, $page_id, $id)
     {
         $sql = "SELECT 
                     `uspcihd`.`content_id`, 
@@ -55,22 +55,5 @@ class Dlayer_Model_View_Page_Item_HeadingDate extends Zend_Db_Table_Abstract
         }
 
         return $result;
-    }
-
-    /**
-     * Fetch the data needed to create a 'heading-date' based content item, this will include all the data that may
-     * have been defined by any sub tools
-     *
-     * @param integer $site_id
-     * @param integer $page_id
-     * @param integer $id Id of the content item
-     *
-     * @return array|false Either the content item data or false upon error
-     */
-    public function data($site_id, $page_id, $id)
-    {
-        $content_item = $this->baseItemData($site_id, $page_id, $id);
-
-        return $content_item;
     }
 }
