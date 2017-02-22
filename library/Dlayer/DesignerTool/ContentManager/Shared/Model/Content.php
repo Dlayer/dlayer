@@ -235,6 +235,10 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
                 $table = 'user_site_page_content_item_heading';
                 break;
 
+            case 'text':
+                $table = 'user_site_page_content_item_text';
+                break;
+
             default:
                 throw new Exception('Content type now supported: ' . $content_type);
                 break;
@@ -260,6 +264,10 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
 
             case 'heading':
                 $table = 'user_site_content_heading';
+                break;
+
+            case 'text':
+                $table = 'user_site_content_text';
                 break;
 
             default:
