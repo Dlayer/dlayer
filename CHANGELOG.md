@@ -12,6 +12,7 @@ Full changelog for Dlayer since the v1.00 release.
 * Updated the text for the Column, Row and Page tools, more conditional, aware of designer or design state. [UX]
 * Added shortcut buttons to Column, Row and Page tools. [UX]
 * The column contains content query only looks at enabled content. [Bugfix]
+* Added a toggle ribbon button to the right side of the control bar, it expands the ribbon to open up the form. [UX]
 * Refactoring.
 * Minor fixes and improvements.
 
