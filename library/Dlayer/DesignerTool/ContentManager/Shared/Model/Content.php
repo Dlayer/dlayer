@@ -243,6 +243,10 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
                 $table = 'user_site_page_content_item_html';
                 break;
 
+            case 'jumbotron':
+                $table = 'user_site_page_content_item_jumbotron';
+                break;
+
             default:
                 throw new Exception('Content type now supported: ' . $content_type);
                 break;
@@ -276,6 +280,10 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
 
             case 'html':
                 $table = 'user_site_content_html';
+                break;
+
+            case 'jumbotron':
+                $table = 'user_site_content_jumbotron';
                 break;
 
             default:
