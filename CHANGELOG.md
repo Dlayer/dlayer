@@ -14,6 +14,7 @@ Full changelog for Dlayer since the v1.00 release.
 * The column contains content query only looks at enabled content. [Bugfix]
 * Added a toggle ribbon button to the right side of the control bar, it expands the ribbon to open up the form. [UX]
 * Refactoring.
+* Control bar padding left and right set to 15px, was 0. [Bugfix] 
 * Minor fixes and improvements.
 
 ## v1.13: 18th February 2017
