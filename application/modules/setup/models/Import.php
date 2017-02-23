@@ -65,6 +65,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'user_site_page_content_item_html',
         'user_site_page_content_item_image',
         'user_site_page_content_item_jumbotron',
+        'user_site_page_content_item_richtext',
         'user_site_page_content_item_text',
         'user_site_page_meta',
         'user_site_page_structure_column',

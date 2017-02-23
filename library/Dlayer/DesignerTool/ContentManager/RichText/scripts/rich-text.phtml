@@ -28,4 +28,9 @@
         placeholder: 'Compose an epic...',
         theme: 'snow'
     });
+
+    $('.form').submit(function() {
+        $('#params-content').val(JSON.stringify(quill.getContents()));
+        return true;
+    });
 </script>

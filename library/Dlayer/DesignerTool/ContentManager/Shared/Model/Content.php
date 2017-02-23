@@ -239,6 +239,10 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
                 $table = 'user_site_page_content_item_text';
                 break;
 
+            case 'rich-text':
+                $table = 'user_site_page_content_item_richtext';
+                break;
+
             case 'html':
                 $table = 'user_site_page_content_item_html';
                 break;
@@ -276,6 +280,10 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
 
             case 'text':
                 $table = 'user_site_content_text';
+                break;
+
+            case 'rich-text':
+                $table = 'user_site_content_richtext';
                 break;
 
             case 'html':
