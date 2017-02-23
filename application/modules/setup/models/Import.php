@@ -44,6 +44,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'user_site_content_html',
         'user_site_content_jumbotron',
         'user_site_content_text',
+        'user_site_content_richtext',
         'user_site_form',
         'user_site_form_field',
         'user_site_form_field_attribute',
