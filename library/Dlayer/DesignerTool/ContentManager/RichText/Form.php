@@ -18,7 +18,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Form extends Dlayer_Form_Tool_
      * @param array $element_data
      * @param array|NULL $options Zend form options
      */
-    public function __construct(array $tool, array $data, $instances, array $element_data, $options=NULL)
+    public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
     {
         $this->content_type = 'rich-text';
 
@@ -49,21 +49,23 @@ class Dlayer_DesignerTool_ContentManager_RichText_Form extends Dlayer_Form_Tool_
     {
         $name = new Zend_Form_Element_Text('name');
         $name->setLabel('Name');
-        $name->setAttribs(array('size'=>50, 'maxlength'=>255, 'placeholder'=>'e.g., Intro for contact page',
-            'class'=>'form-control input-sm'));
+        $name->setAttribs(array(
+            'size' => 50,
+            'maxlength' => 255,
+            'placeholder' => 'e.g., Intro for contact page',
+            'class' => 'form-control input-sm'
+        ));
         $name->setDescription('Give the content item a name, this will allow you to recreate it again later.');
         $name->setBelongsTo('params');
         $name->setRequired();
 
-        if(array_key_exists('name', $this->data) === TRUE && $this->data['name'] !== FALSE)
-        {
+        if (array_key_exists('name', $this->data) === true && $this->data['name'] !== false) {
             $name->setValue($this->data['name']);
         }
 
         $this->elements['name'] = $name;
 
-        if($this->tool['content_id'] !== NULL && $this->instances > 1)
-        {
+        if ($this->tool['content_id'] !== null && $this->instances > 1) {
             $instances = new Zend_Form_Element_Select('instances');
             $instances->setLabel('Update shared content?');
             $instances->setDescription("The content below is used {$this->instances} times* on your web site, do you 
@@ -85,11 +87,6 @@ class Dlayer_DesignerTool_ContentManager_RichText_Form extends Dlayer_Form_Tool_
         $content->setDescription('Enter your content.');
         $content->setBelongsTo('params');
         $content->setRequired();
-
-        if(array_key_exists('content', $this->data) === TRUE && $this->data['content'] !== FALSE)
-        {
-            $content->setValue($this->data['content']);
-        }
 
         $this->elements['content'] = $content;
     }

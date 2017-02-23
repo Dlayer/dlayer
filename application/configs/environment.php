@@ -10,10 +10,10 @@
 * production, development, testing or staging
 */
 
-//$environment = 'production';
-$environment = 'development';
+$environment = 'production';
+//$environment = 'development';
 
 // Version number for current release
 $version_no = 'v1.14';
 // Release date for current release
-$version_release_date = 'In Progress';
+$version_release_date = '23rd February 2017';

@@ -50,6 +50,15 @@ class Dlayer_DesignerTool_ContentManager_RichText_Ribbon extends Dlayer_Ribbon_C
                 'content' => false
             );
 
+            if ($this->tool['content_id'] !== null) {
+                $model = new Dlayer_DesignerTool_ContentManager_RichText_Model();
+                $existing_data = $model->existingData($this->tool['site_id'], $this->tool['content_id']);
+                if ($existing_data !== false) {
+                    $this->content_data['name'] = $existing_data['name'];
+                    $this->content_data['content'] = $existing_data['content'];
+                }
+            }
+
             $this->content_fetched = true;
         }
     }
@@ -80,7 +89,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Ribbon extends Dlayer_Ribbon_C
             $this->contentData();
 
             $this->preview_data = array(
-                'text' => ''
+                'text' => $this->content_data['content']
             );
 
             $this->preview_data_fetched = true;

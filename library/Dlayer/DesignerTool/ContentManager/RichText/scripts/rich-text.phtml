@@ -33,4 +33,8 @@
         $('#params-content').val(JSON.stringify(quill.getContents()));
         return true;
     });
+
+    <?php if ($this->content_id !== null) { ?>
+    quill.setContents(<?php echo $this->data['preview']['text']; ?>)
+    <?php } ?>
 </script>
