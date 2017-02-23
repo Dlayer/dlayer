@@ -107,6 +107,10 @@ class Dlayer_View_ContentPreview extends Zend_View_Helper_Abstract
                         $html .= $this->view->htmlPreview($content['data']);
                         break;
 
+                    case 'rich-text':
+                        $html .= $this->view->richTextPreview($content['data']);
+                        break;
+
                     default:
                         break;
                 }

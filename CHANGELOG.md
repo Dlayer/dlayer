@@ -13,8 +13,9 @@ Full changelog for Dlayer since the v1.00 release.
 * Added shortcut buttons to Column, Row and Page tools. [UX]
 * The column contains content query only looks at enabled content. [Bugfix]
 * Added a toggle ribbon button to the right side of the control bar, it expands the ribbon to open up the form. [UX]
+* Control bar padding left and right set to 15px, was 0. [Bugfix]
+* Added a rich text content item to the Content Manager (disabled until I add a renderer for quill). [Disabled Feature]
 * Refactoring.
-* Control bar padding left and right set to 15px, was 0. [Bugfix] 
 * Minor fixes and improvements.
 
 ## v1.13: 18th February 2017

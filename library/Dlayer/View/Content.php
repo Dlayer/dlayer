@@ -157,6 +157,10 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
                         $html .= $this->view->html($content['data'], $selectable, $selected);
                         break;
 
+                    case 'rich-text':
+                        $html .= $this->view->richText($content['data'], $selectable, $selected);
+                        break;
+
                     default:
                         break;
                 }
