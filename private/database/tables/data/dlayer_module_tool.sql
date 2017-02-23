@@ -88,4 +88,7 @@ INSERT INTO `dlayer_module_tool` (`id`, `module_id`, `name`, `model`, `group_id`
             WHERE `name` = 'form'), 'Date of Birth', 'PresetDateOfBirth', 3, 5, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
-            WHERE `name` = 'form'), 'Alternate rows', 'StylingAlternateRow', 4, 1, 1);
+            WHERE `name` = 'form'), 'Alternate rows', 'StylingAlternateRow', 4, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Rich text', 'RichText', 4, 6, 1);

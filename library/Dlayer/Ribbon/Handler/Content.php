@@ -57,11 +57,11 @@ class Dlayer_Ribbon_Handler_Content
      * @param string $tab
      * @param integer $multi_use
      * @param boolean $edit_mode
-     * @param integer|NULL $row_id
-     * @param integer|NULL $column_id
-     * @param integer|NULL $content_id
+     * @param integer|null $row_id
+     * @param integer|null $column_id
+     * @param integer|null $content_id
      *
-     * @return array|FALSE Returns an array of the data necessary to create the tool tab for the tool or FALSE if
+     * @return array|false Returns an array of the data necessary to create the tool tab for the tool or FALSE if
      * there is no data or something went wrong
      */
     public function viewData(
@@ -130,6 +130,10 @@ class Dlayer_Ribbon_Handler_Content
 
             case 'Text':
                 $data = $this->text($tool, $tab);
+                break;
+
+            case 'RichText':
+                $data = $this->richText($tool, $tab);
                 break;
 
             default:
@@ -561,6 +565,31 @@ class Dlayer_Ribbon_Handler_Content
                 break;
 
             default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the Rich text tool, returns an array containing the form and the data for
+     * the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function richText($tool, $tab)
+    {
+        switch ($tab) {
+            case 'rich-text':
+                $ribbon_rich_text = new Dlayer_DesignerTool_ContentManager_RichText_Ribbon();
+                $data = $ribbon_rich_text->viewData($this->toolParams($tool));
+                break;
+
+                default:
                 $data = false;
                 break;
         }

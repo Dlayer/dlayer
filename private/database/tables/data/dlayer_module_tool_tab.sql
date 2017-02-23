@@ -845,4 +845,22 @@ VALUES
                                              ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                 `dlayer_module`.`name` = 'form'
                                      WHERE `dlayer_module_tool`.`model` = 'StylingAlternateRow'), 'Help', 'help', NULL,
+           'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                     FROM `dlayer_module_tool`
+                                         INNER JOIN `dlayer_module`
+                                             ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                `dlayer_module`.`name` = 'content'
+                                     WHERE `dlayer_module_tool`.`model` = 'RichText'), 'Rich text', 'rich-text', NULL,
+           'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'RichText'), 'Help', 'help', NULL,
            'info-sign', NULL, 0, 0, 0, 2, 1);
