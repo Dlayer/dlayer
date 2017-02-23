@@ -471,4 +471,27 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     public function trimToLength($string, $length = 50)
     {
     }
+
+    /**
+     * Rich text content item view helper
+     *
+     * @param array $data Content item data array
+     * @param boolean $selectable
+     * @param boolean $selected
+     *
+     * @return Dlayer_View_RichText
+     */
+    public function richText(array $data, $selectable = false, $selected = false)
+    {
+    }
+
+    /**
+     * Preview version of the rich text content item view helper
+     *
+     * @param array $data Content item data array
+     * @return Dlayer_View_RichTextPreview
+     */
+    public function richTextPreview(array $data)
+    {
+    }
 }

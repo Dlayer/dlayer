@@ -232,6 +232,10 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
                     $content_item = $this->html($row['content_id']);
                     break;
 
+                case 'rich-text':
+                    $content_item = $this->richText($row['content_id']);
+                    break;
+
                 default:
                     $content_item = false;
                     break;
@@ -346,5 +350,19 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
         $model_form = new Dlayer_Model_View_Page_Content_Form();
 
         return $model_form->data($this->site_id, $this->page_id, $id);
+    }
+
+    /**
+     * Fetch all the data for a 'rich-text' content item
+     *
+     * @param integer $id Id of the content item
+     *
+     * @return array|false Either an array of the data for the content item or false upon error
+     */
+    private function richText($id)
+    {
+        $model = new Dlayer_Model_View_Page_Content_RichText();
+
+        return $model->data($this->site_id, $this->page_id, $id);
     }
 }
