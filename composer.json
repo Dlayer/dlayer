@@ -1,0 +1,9 @@
+{
+    "name": "dlayer/dlayer",
+    "description": "Dlayer: Web Development Simplified",
+    "license": "MIT",
+    "homepage": "http://dlayer.com/",
+    "require": {
+        "deanblackborough/php-quill-renderer": "dev-master"
+    }
+}
