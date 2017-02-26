@@ -4,7 +4,7 @@ INSERT INTO `dlayer_module_tool` (`id`, `module_id`, `name`, `model`, `group_id`
             WHERE `name` = 'content'), 'Cancel', 'Cancel', 1, 1, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
-            WHERE `name` = 'content'), 'Text', 'Text', 4, 2, 1),
+            WHERE `name` = 'content'), 'Plain text', 'Text', 4, 6, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), 'Heading', 'Heading', 4, 1, 1),
@@ -16,7 +16,7 @@ INSERT INTO `dlayer_module_tool` (`id`, `module_id`, `name`, `model`, `group_id`
             WHERE `name` = 'content'), 'Add row(s)', 'AddRow', 3, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
-            WHERE `name` = 'content'), 'Jumbotron', 'Jumbotron', 4, 3, 1),
+            WHERE `name` = 'content'), 'Jumbotron', 'Jumbotron', 4, 4, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), 'Row', 'Row', 3, 1, 1),
@@ -34,7 +34,7 @@ INSERT INTO `dlayer_module_tool` (`id`, `module_id`, `name`, `model`, `group_id`
             WHERE `name` = 'content'), 'Add column(s)', 'AddColumn', 3, 4, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
-            WHERE `name` = 'content'), 'HTML', 'Html', 4, 4, 1),
+            WHERE `name` = 'content'), 'HTML', 'Html', 4, 5, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'form'), 'Cancel', 'Cancel', 0, 1, 1),
@@ -82,7 +82,7 @@ INSERT INTO `dlayer_module_tool` (`id`, `module_id`, `name`, `model`, `group_id`
             WHERE `name` = 'form'), 'Date', 'Date', 2, 5, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
-            WHERE `name` = 'content'), 'Heading & Date', 'HeadingDate', 4, 5, 1),
+            WHERE `name` = 'content'), 'Heading & Date', 'HeadingDate', 4, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'form'), 'Date of Birth', 'PresetDateOfBirth', 3, 5, 1),
@@ -91,4 +91,4 @@ INSERT INTO `dlayer_module_tool` (`id`, `module_id`, `name`, `model`, `group_id`
             WHERE `name` = 'form'), 'Alternate rows', 'StylingAlternateRow', 4, 1, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
-            WHERE `name` = 'content'), 'Rich text', 'RichText', 4, 6, 0);
+            WHERE `name` = 'content'), 'Text', 'RichText', 4, 3, 1);
