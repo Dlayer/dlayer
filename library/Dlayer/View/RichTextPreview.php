@@ -54,7 +54,8 @@ class Dlayer_View_RichTextPreview extends Zend_View_Helper_Abstract
      */
     private function render()
     {
-        $html = '<div ' . $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>' . $this->view->escape($this->data['content']) . '</div>';
+        $html = '<div ' . $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>' .
+            $this->data['content'] . '</div>';
 
         return $html;
     }

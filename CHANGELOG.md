@@ -3,7 +3,11 @@
 
 Full changelog for Dlayer since the v1.00 release.
 
-## v1.14: In progress
+## v1.15: In Progress
+* Enabled the rich text content item and renamed as text. [Feature]
+* Text content item becomes plain text.
+
+## v1.14: 23rd February 2017
 
 * The New and Edit forms in the Form Builder expose the layout options visible within the Form Builder. [Feature]
 * The import SQL files don't define the module or tool ids. [Setup]

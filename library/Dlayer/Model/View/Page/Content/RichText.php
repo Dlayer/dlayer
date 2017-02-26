@@ -40,6 +40,19 @@ class Dlayer_Model_View_Page_Content_RichText extends Zend_Db_Table_Abstract
         $stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            $renderer = new \DBlackborough\Quill\Renderer();
+
+            if ($renderer->load($result['content']) === true) {
+                $result['content'] = $renderer->toHtml();
+                return $result;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }

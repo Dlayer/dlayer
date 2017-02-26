@@ -22,7 +22,7 @@ VALUES
                                             INNER JOIN `dlayer_module`
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
-                                        WHERE `dlayer_module_tool`.`model` = 'Text'), 'Text', 'text', NULL, 'pencil',
+                                        WHERE `dlayer_module_tool`.`model` = 'Text'), 'Plain text', 'text', NULL, 'pencil',
            NULL, 1, 0, 1, 1, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
@@ -853,7 +853,7 @@ VALUES
                                          INNER JOIN `dlayer_module`
                                              ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                 `dlayer_module`.`name` = 'content'
-                                     WHERE `dlayer_module_tool`.`model` = 'RichText'), 'Rich text', 'rich-text', NULL,
+                                     WHERE `dlayer_module_tool`.`model` = 'RichText'), 'Text', 'rich-text', NULL,
            'pencil', NULL, 1, 0, 1, 1, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`

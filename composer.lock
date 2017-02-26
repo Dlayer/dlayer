@@ -1,0 +1,46 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "534ec11cdc3159603869b9e487fd1491",
+    "packages": [
+        {
+            "name": "deanblackborough/php-quill-renderer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deanblackborough/php-quill-renderer.git",
+                "reference": "844dcc893dbbf44b8105df6954581e0e7a9f0f7c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/844dcc893dbbf44b8105df6954581e0e7a9f0f7c",
+                "reference": "844dcc893dbbf44b8105df6954581e0e7a9f0f7c",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "DBlackborough\\Quill": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2017-02-25 16:33:47"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "deanblackborough/php-quill-renderer": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

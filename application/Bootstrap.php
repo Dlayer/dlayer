@@ -220,4 +220,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         Zend_Registry::set('log-error', $logger);
     }
+
+    /**
+     * Require the composer autoloader for any vendor packages
+     */
+    protected function _initComposerAutoLoader()
+    {
+        require '../vendor/autoload.php';
+    }
 }
