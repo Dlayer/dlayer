@@ -136,6 +136,10 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $this->richText($tool, $tab);
                 break;
 
+            case 'BlogPost':
+                $data = $this->blogPost($tool, $tab);
+                break;
+
             default:
                 $data = false;
                 break;
@@ -590,6 +594,31 @@ class Dlayer_Ribbon_Handler_Content
                 break;
 
                 default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the blog post tool, returns an array containing the form and the data for
+     * the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function blogPost($tool, $tab)
+    {
+        switch ($tab) {
+            case 'blog-post':
+                $ribbon_blog_post = new Dlayer_DesignerTool_ContentManager_BlogPost_Ribbon();
+                $data = $ribbon_blog_post->viewData($this->toolParams($tool));
+                break;
+
+            default:
                 $data = false;
                 break;
         }
