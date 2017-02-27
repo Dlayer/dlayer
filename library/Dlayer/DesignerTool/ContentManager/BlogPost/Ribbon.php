@@ -23,17 +23,41 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Ribbon extends Dlayer_Ribbon_C
         $this->contentData();
         $this->previewData();
         $this->instancesOfData();
+        $this->elementData();
 
         return array(
             'form' => new Dlayer_DesignerTool_ContentManager_BlogPost_Form(
                 $tool,
                 $this->content_data,
                 $this->instances_of,
-                array()
+                $this->element_data
             ),
             'preview' => $this->preview_data,
             'instances' => $this->instances_of
         );
+    }
+
+    /**
+     * Fetch the data required to build the elements
+     *
+     * @return array
+     */
+    protected function elementData()
+    {
+        if ($this->element_data_fetched === false) {
+            $this->element_data = array();
+
+            $model = new Dlayer_DesignerTool_ContentManager_BlogPost_Model();
+            $heading_types = $model->headingTypes();
+
+            if (count($heading_types) > 0) {
+                $this->element_data['type'] = $heading_types;
+            }
+
+            $this->element_data['format'] = $model->formats();
+
+            $this->element_data_fetched = true;
+        }
     }
 
     /**

@@ -82,20 +82,12 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Form extends Dlayer_Form_Tool_
             $this->elements['instances'] = $instances;
         }
 
-        $content = new Dlayer_Form_Element_Quill('content');
-        $content->setLabel('Content');
-        $content->setDescription('Enter your content.');
-        $content->setBelongsTo('params');
-        $content->setRequired();
-
-        $this->elements['content'] = $content;
-
         $heading = new Zend_Form_Element_Textarea('heading');
         $heading->setLabel('Heading');
         $heading->setAttribs(array(
             'cols' => 50,
             'rows' => 2,
-            'placeholder' => 'e.g., Our projects',
+            'placeholder' => 'e.g., My first post',
             'class' => 'form-control input-sm'
         ));
         $heading->setDescription('Enter your heading.');
@@ -107,6 +99,14 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Form extends Dlayer_Form_Tool_
         }
 
         $this->elements['heading'] = $heading;
+
+        $content = new Dlayer_Form_Element_Quill('content');
+        $content->setLabel('Content');
+        $content->setDescription('Enter your content.');
+        $content->setBelongsTo('params');
+        $content->setRequired();
+
+        $this->elements['content'] = $content;
 
         $type = new Zend_Form_Element_Select('type');
         $type->setLabel('Heading type');
