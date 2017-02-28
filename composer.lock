@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8d295e7372deff02fa3186cfafc9e15",
+    "content-hash": "98b6450493fb88cf001372c6903dd800",
     "packages": [
         {
             "name": "deanblackborough/php-quill-renderer",
-            "version": "v0.10",
+            "version": "v0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deanblackborough/php-quill-renderer.git",
-                "reference": "f164d5225a472882aa60f89f5f0defe2206043c5"
+                "reference": "5ca1c7bbccec75e4d1451459827dbbf83858fc6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/f164d5225a472882aa60f89f5f0defe2206043c5",
-                "reference": "f164d5225a472882aa60f89f5f0defe2206043c5",
+                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/5ca1c7bbccec75e4d1451459827dbbf83858fc6a",
+                "reference": "5ca1c7bbccec75e4d1451459827dbbf83858fc6a",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "quill",
                 "renderer"
             ],
-            "time": "2017-02-26T14:49:09+00:00"
+            "time": "2017-02-28T15:59:18+00:00"
         }
     ],
     "packages-dev": [],

@@ -4,6 +4,6 @@
     "license": "MIT",
     "homepage": "http://dlayer.com/",
     "require": {
-        "deanblackborough/php-quill-renderer": "v0.10"
+        "deanblackborough/php-quill-renderer": "v0.20"
     }
 }
