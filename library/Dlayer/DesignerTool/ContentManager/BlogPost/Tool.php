@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Rich text content item tool
+ * Blog post content item tool
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_RichText_Tool extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_BlogPost_Tool extends Dlayer_Tool_Content
 {
     /**
      * Check that the required params have been submitted, check the keys in the params array
@@ -18,7 +18,13 @@ class Dlayer_DesignerTool_ContentManager_RichText_Tool extends Dlayer_Tool_Conte
     protected function paramsExist(array $params)
     {
         $valid = false;
-        if (array_key_exists('name', $params) === true && array_key_exists('content', $params) === true) {
+        if (array_key_exists('name', $params) === true &&
+            array_key_exists('content', $params) === true &&
+            array_key_exists('heading', $params) === true &&
+            array_key_exists('type', $params) === true &&
+            array_key_exists('date', $params) === true &&
+            array_key_exists('format', $params) === true) {
+
             $valid = true;
         }
 
@@ -33,8 +39,19 @@ class Dlayer_DesignerTool_ContentManager_RichText_Tool extends Dlayer_Tool_Conte
      */
     protected function paramsValid(array $params)
     {
+        $validator = new Zend_Validate_Date(
+            array(
+                'format' => 'yyyy-mm-dd',
+            )
+        );
         $valid = false;
-        if (strlen(trim($params['name'])) > 0 && strlen(trim($params['content'])) > 0) {
+        if (strlen(trim($params['name'])) > 0 &&
+            strlen(trim($params['content'])) > 0 &&
+            (intval($params['type']) > 0 && intval($params['type']) < 7) &&
+            strlen(trim($params['date'])) === 10 &&
+            $validator->isValid(trim($params['date'])) === true &&
+            strlen(trim($params['format'])) > 0) {
+
             $valid = true;
         }
         return $valid;
@@ -51,7 +68,11 @@ class Dlayer_DesignerTool_ContentManager_RichText_Tool extends Dlayer_Tool_Conte
     {
         $this->params = array(
             'name' => trim($params['name']),
-            'content' => trim($params['content'])
+            'content' => trim($params['content']),
+            'heading' => trim($params['heading']),
+            'type' => intval($params['type']),
+            'date' => trim($params['date']),
+            'format' => trim($params['format']),
         );
     }
 
@@ -63,15 +84,15 @@ class Dlayer_DesignerTool_ContentManager_RichText_Tool extends Dlayer_Tool_Conte
     protected function add()
     {
         $data_added = false;
-        $content_id = $this->addContentItem('rich-text');
+        $content_id = $this->addContentItem('blog-post');
 
         if ($content_id !== false) {
-            $model = new Dlayer_DesignerTool_ContentManager_RichText_Model();
+            $model = new Dlayer_DesignerTool_ContentManager_BlogPost_Model();
             $data_added = $model->add($this->site_id, $this->page_id, $content_id, $this->params);
         }
 
         if ($content_id !== false && $data_added === true) {
-            Dlayer_Helper::sendToInfoLog('Rich text added to site id: ' . $this->site_id . ' page id: ' . $this->page_id .
+            Dlayer_Helper::sendToInfoLog('Blog post added to site id: ' . $this->site_id . ' page id: ' . $this->page_id .
                 ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
 
             return $this->returnIds($content_id);
@@ -140,12 +161,12 @@ class Dlayer_DesignerTool_ContentManager_RichText_Tool extends Dlayer_Tool_Conte
             ),
             array(
                 'type' => 'tool',
-                'id' => 'RichText',
+                'id' => 'BlogPost',
             ),
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'rich-text'
+                'content_type' => 'blog-post'
             )
         );
     }
@@ -159,7 +180,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Tool extends Dlayer_Tool_Conte
      */
     protected function validateInstances($site_id, $content_id)
     {
-        $model = new Dlayer_DesignerTool_ContentManager_RichText_Model();
+        $model = new Dlayer_DesignerTool_ContentManager_BlogPost_Model();
         $instances = $model->instancesOfData($site_id, $content_id);
 
         if ($instances > 1) {

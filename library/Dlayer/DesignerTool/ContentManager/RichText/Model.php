@@ -24,7 +24,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
     {
         $result = false;
 
-        $data_id = $this->existingDataIdOrFalse($site_id, $params['content'], 'text');
+        $data_id = $this->existingDataIdOrFalse($site_id, $params['content'], 'rich-text');
 
         if ($data_id === false) {
             $data_id = $this->addData($site_id, $params['name'], $params['content']);
@@ -57,7 +57,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
     }
 
     /**
-     * Add the new content item data into the content table for text items
+     * Add the new content item data into the content table for rich text items
      *
      * @param integer $site_id
      * @param string $name
@@ -86,7 +86,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
 
         if($result === TRUE)
         {
-            return intval($this->_db->lastInsertId('user_site_content_text'));
+            return intval($this->_db->lastInsertId('user_site_content_richtext'));
         }
         else
         {

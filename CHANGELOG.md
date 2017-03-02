@@ -5,7 +5,8 @@ Full changelog for Dlayer since the v1.00 release.
 
 ## v1.15: In Progress
 * Enabled the rich text content item and renamed as text. [Feature]
-* Text content item becomes plain text.
+* Text content item renamed to plain text.
+* Minor fixes and improvements.
 
 ## v1.14: 23rd February 2017
 
