@@ -199,23 +199,11 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
         foreach ($result as $row) {
             switch ($row['content_type']) {
-                case 'blog-post':
+                case 'BlogPost':
                     $content_item = $this->blogPost($row['content_id']);
                     break;
 
-                case 'text':
-                    $content_item = $this->text($row['content_id']);
-                    break;
-
-                case 'heading':
-                    $content_item = $this->heading($row['content_id']);
-                    break;
-
-                case 'heading-date':
-                    $content_item = $this->headingDate($row['content_id']);
-                    break;
-
-                case 'form':
+                case 'Form':
                     $content_item = $this->form($row['content_id']);
 
                     if ($content_item !== false) {
@@ -224,20 +212,32 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
                     }
                     break;
 
-                case 'jumbotron':
-                    $content_item = $this->jumbotron($row['content_id']);
+                case 'Heading':
+                    $content_item = $this->heading($row['content_id']);
                     break;
 
-                case 'image':
-                    $content_item = $this->image($row['content_id']);
+                case 'HeadingDate':
+                    $content_item = $this->headingDate($row['content_id']);
                     break;
 
-                case 'html':
+                case 'Html':
                     $content_item = $this->html($row['content_id']);
                     break;
 
-                case 'rich-text':
+                case 'Image':
+                    $content_item = $this->image($row['content_id']);
+                    break;
+
+                case 'Jumbotron':
+                    $content_item = $this->jumbotron($row['content_id']);
+                    break;
+
+                case 'RichText':
                     $content_item = $this->richText($row['content_id']);
+                    break;
+
+                case 'Text':
+                    $content_item = $this->text($row['content_id']);
                     break;
 
                 default:

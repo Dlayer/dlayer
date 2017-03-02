@@ -94,7 +94,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 	protected function add()
 	{
 		$data_added = FALSE;
-		$content_id = $this->addContentItem('jumbotron');
+		$content_id = $this->addContentItem('Jumbotron');
 
 		if($content_id !== FALSE)
 		{
@@ -187,7 +187,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Tool extends Dlayer_Tool_Cont
 			array(
 				'type' => 'content_id',
 				'id' => $this->content_id,
-				'content_type' => 'jumbotron'
+				'content_type' => 'Jumbotron'
 			)
 		);
 	}

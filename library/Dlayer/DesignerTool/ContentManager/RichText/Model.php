@@ -24,7 +24,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
     {
         $result = false;
 
-        $data_id = $this->existingDataIdOrFalse($site_id, $params['content'], 'rich-text');
+        $data_id = $this->existingDataIdOrFalse($site_id, $params['content'], 'RichText');
 
         if ($data_id === false) {
             $data_id = $this->addData($site_id, $params['name'], $params['content']);
@@ -141,7 +141,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
          * @var false|integer If not false delete the data for this data id
          */
         $delete = false;
-        $content_type = 'rich-text';
+        $content_type = 'RichText';
 
         // Fetch the current data id, validity check, no real reason to fail
         $assigned_data_id = $this->assignedContentDataId($site_id, $page_id, $content_id, $content_type);

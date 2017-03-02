@@ -21,7 +21,7 @@ class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Form extends
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
     {
-        $this->content_type = 'text';
+        $this->content_type = 'Text';
         $this->sub_tool_model = 'Styling';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);

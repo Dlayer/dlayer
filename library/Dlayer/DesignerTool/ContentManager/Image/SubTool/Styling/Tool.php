@@ -42,7 +42,7 @@ class Dlayer_DesignerTool_ContentManager_Image_SubTool_Styling_Tool extends
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'image'
+                'content_type' => 'Image'
             )
         );
     }

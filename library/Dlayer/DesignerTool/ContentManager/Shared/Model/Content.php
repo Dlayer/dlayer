@@ -296,7 +296,7 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
                 break;
 
             case 'RichText':
-                $table = 'user_site_content_richtext';
+                $table = 'user_site_content_rich_text';
                 break;
 
             case 'Text':

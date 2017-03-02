@@ -63,7 +63,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
     protected function add()
     {
         $data_added = false;
-        $content_id = $this->addContentItem('text');
+        $content_id = $this->addContentItem('Text');
 
         if ($content_id !== false) {
             $model_text = new Dlayer_DesignerTool_ContentManager_Text_Model();
@@ -145,7 +145,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'text'
+                'content_type' => 'Text'
             )
         );
     }
