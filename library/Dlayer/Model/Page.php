@@ -90,8 +90,6 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
      * Check to see if the requested content item is valid, needs to exist in the given location and also be of the
      * correct type
      *
-     * @since 0.99
-     *
      * @param integer $content_id
      * @param integer $site_id
      * @param integer $page_id

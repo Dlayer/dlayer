@@ -199,6 +199,10 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
 
         foreach ($result as $row) {
             switch ($row['content_type']) {
+                case 'blog-post':
+                    $content_item = $this->blogPost($row['content_id']);
+                    break;
+
                 case 'text':
                     $content_item = $this->text($row['content_id']);
                     break;
@@ -362,6 +366,20 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
     private function richText($id)
     {
         $model = new Dlayer_Model_View_Page_Content_RichText();
+
+        return $model->data($this->site_id, $this->page_id, $id);
+    }
+
+    /**
+     * Fetch all the data for a 'blog post' content item
+     *
+     * @param integer $id Id of the content item
+     *
+     * @return array|false Either an array of the data for the content item or false upon error
+     */
+    private function blogPost($id)
+    {
+        $model = new Dlayer_Model_View_Page_Content_BlogPost();
 
         return $model->data($this->site_id, $this->page_id, $id);
     }

@@ -9,7 +9,7 @@
  */
 class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Table_Abstract
 {
-  /**
+    /**
      * Check to see if the content exists in the data tables, if so we re-use the content
      *
      * @param integer $site_id
@@ -78,6 +78,7 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
 				    `content_id` = :content_id 
 				LIMIT 
 				    1";
+
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
@@ -86,7 +87,7 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
 
         $result = $stmt->fetch();
 
-        if ($result !== FALSE) {
+        if ($result !== false) {
             return intval($result['data_id']);
         } else {
             return false;
@@ -227,20 +228,16 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
     protected function contentItemTable($content_type)
     {
         switch ($content_type) {
+            case 'blog-post':
+                $table = 'user_site_page_content_item_blog_post';
+                break;
+
             case 'heading-date':
                 $table = 'user_site_page_content_item_heading_date';
                 break;
 
             case 'heading':
                 $table = 'user_site_page_content_item_heading';
-                break;
-
-            case 'text':
-                $table = 'user_site_page_content_item_text';
-                break;
-
-            case 'rich-text':
-                $table = 'user_site_page_content_item_richtext';
                 break;
 
             case 'html':
@@ -251,8 +248,16 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
                 $table = 'user_site_page_content_item_jumbotron';
                 break;
 
+            case 'rich-text':
+                $table = 'user_site_page_content_item_richtext';
+                break;
+
+            case 'text':
+                $table = 'user_site_page_content_item_text';
+                break;
+
             default:
-                throw new Exception('Content type now supported: ' . $content_type);
+                throw new Exception('Shared_Model::contentItemTable Content type not supported: ' . $content_type);
                 break;
         }
 
@@ -270,20 +275,16 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
     protected function contentItemDataTable($content_type)
     {
         switch ($content_type) {
+            case 'blog-post':
+                $table = 'user_site_content_blog_post';
+                break;
+
             case 'heading-date':
                 $table = 'user_site_content_heading_date';
                 break;
 
             case 'heading':
                 $table = 'user_site_content_heading';
-                break;
-
-            case 'text':
-                $table = 'user_site_content_text';
-                break;
-
-            case 'rich-text':
-                $table = 'user_site_content_richtext';
                 break;
 
             case 'html':
@@ -294,8 +295,16 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
                 $table = 'user_site_content_jumbotron';
                 break;
 
+            case 'rich-text':
+                $table = 'user_site_content_richtext';
+                break;
+
+            case 'text':
+                $table = 'user_site_content_text';
+                break;
+
             default:
-                throw new Exception('Content type now supported: ' . $content_type);
+                throw new Exception('Shared_Model::contentItemDataTable Content type not supported: ' . $content_type);
                 break;
         }
 

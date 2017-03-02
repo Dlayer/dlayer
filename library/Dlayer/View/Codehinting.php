@@ -494,4 +494,28 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     public function richTextPreview(array $data)
     {
     }
+
+    /**
+     * Blog post content item view helper
+     *
+     * @param array $data Content item data array
+     * @param boolean $selectable
+     * @param boolean $selected
+     *
+     * @return Dlayer_View_BlogPost
+     */
+    public function blogPost(array $data, $selectable = false, $selected = false)
+    {
+    }
+
+    /**
+     * Preview version of the blog post content item view helper
+     *
+     * @param array $data Content item data array
+     *
+     * @return Dlayer_View_BlogPostPreview
+     */
+    public function blogPostPreview(array $data)
+    {
+    }
 }

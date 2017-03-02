@@ -4,8 +4,12 @@
 Full changelog for Dlayer since the v1.00 release.
 
 ## v1.15: In Progress
-* Enabled the rich text content item and renamed as text. [Feature]
-* Text content item becomes plain text.
+
+* Enabled the rich text content item tool. [Feature]
+* Added a blog post content item [Feature]
+* Original text content item renamed to 'plain text'.
+* Added PHP Quill HTML renderer, used by the tools which have rich content areas.
+* Minor fixes and improvements.
 
 ## v1.14: 23rd February 2017
 

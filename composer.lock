@@ -4,21 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "534ec11cdc3159603869b9e487fd1491",
+    "content-hash": "332eb4a619bc153c736ffa4368df8c12",
     "packages": [
         {
             "name": "deanblackborough/php-quill-renderer",
-            "version": "dev-master",
+            "version": "v0.20.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deanblackborough/php-quill-renderer.git",
-                "reference": "844dcc893dbbf44b8105df6954581e0e7a9f0f7c"
+                "reference": "14561220e1bf908dfd21c497abd09b4ba5c7fd45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/844dcc893dbbf44b8105df6954581e0e7a9f0f7c",
-                "reference": "844dcc893dbbf44b8105df6954581e0e7a9f0f7c",
+                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/14561220e1bf908dfd21c497abd09b4ba5c7fd45",
+                "reference": "14561220e1bf908dfd21c497abd09b4ba5c7fd45",
                 "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.4"
             },
             "type": "library",
             "autoload": {
@@ -30,15 +36,26 @@
             "license": [
                 "MIT"
             ],
-            "time": "2017-02-25 16:33:47"
+            "authors": [
+                {
+                    "name": "Dean Blackborough",
+                    "email": "dean@g3d-development.com"
+                }
+            ],
+            "description": "Render quill insert deltas to HTML",
+            "homepage": "https://github.com/deanblackborough/php-quill-renderer",
+            "keywords": [
+                "html",
+                "quill",
+                "renderer"
+            ],
+            "time": "2017-03-02T10:42:45+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "deanblackborough/php-quill-renderer": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
