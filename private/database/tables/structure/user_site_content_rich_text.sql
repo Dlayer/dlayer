@@ -1,5 +1,5 @@
 
-CREATE TABLE `user_site_content_richtext` (
+CREATE TABLE `user_site_content_rich_text` (
     `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `site_id` INT(11) UNSIGNED NOT NULL,
     `name` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Name so user can identity content',
