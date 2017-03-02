@@ -5,6 +5,7 @@ Full changelog for Dlayer since the v1.00 release.
 
 ## v1.15: In Progress
 * Enabled the rich text content item and renamed as text. [Feature]
+* Added PHP Quill HTML Renderer, required by all rich text tools to convert deltas to HTML.
 * Text content item renamed to plain text.
 * Minor fixes and improvements.
 

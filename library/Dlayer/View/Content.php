@@ -129,6 +129,10 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
                 }
 
                 switch ($content['type']) {
+                    case 'blog-post':
+                        $html .= $this->view->blogPost($content['data'], $selectable, $selected);
+                        break;
+
                     case 'heading':
                         $html .= $this->view->heading($content['data'], $selectable, $selected);
                         break;

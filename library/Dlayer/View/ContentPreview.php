@@ -79,6 +79,10 @@ class Dlayer_View_ContentPreview extends Zend_View_Helper_Abstract
         if (array_key_exists($this->column_id, $this->content) === true) {
             foreach ($this->content[$this->column_id] as $content) {
                 switch ($content['type']) {
+                    case 'blog-post':
+                        $html .= $this->view->blogPostPreview($content['data']);
+                        break;
+
                     case 'heading':
                         $html .= $this->view->headingPreview($content['data']);
                         break;
