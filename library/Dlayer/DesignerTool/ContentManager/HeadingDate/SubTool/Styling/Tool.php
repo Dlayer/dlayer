@@ -42,7 +42,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_SubTool_Styling_Tool extend
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'heading-date'
+                'content_type' => 'HeadingDate'
             )
         );
     }

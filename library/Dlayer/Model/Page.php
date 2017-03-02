@@ -786,7 +786,8 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
 		                `uspsc`.`content_type` = `dct`.`id` 
                 INNER JOIN 
                     `dlayer_module_tool` `dmt` ON  
-		                `dct`.`tool_id` = `dmt`.`id`
+		                `dct`.`name` = `dmt`.`model` AND 
+		                `dmt`.`enabled` = 1 
                 WHERE 
                     `uspsc`.`site_id` = :site_id AND 
                     `uspsc`.`page_id` = :page_id AND 
@@ -856,7 +857,7 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
                         `uspsc`.`content_type` = `dct`.`id` 
                 INNER JOIN 
                     `dlayer_module_tool` `dmt` ON 
-                        `dct`.`tool_id` = `dmt`.`id` AND 
+                        `dct`.`name` = `dmt`.`model` AND 
                         `dmt`.`enabled` = 1 
                 WHERE 
                     `uspsc`.`site_id` = :site_id AND 

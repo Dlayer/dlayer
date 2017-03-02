@@ -23,7 +23,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Form extends Dlayer_Form_Tool_C
 	 */
 	public function __construct(array $tool, array $data, $instances, array $element_data, $options=NULL)
 	{
-		$this->content_type = 'heading';
+		$this->content_type = 'Heading';
 
 		parent::__construct($tool, $data, $instances, $element_data, $options);
 	}

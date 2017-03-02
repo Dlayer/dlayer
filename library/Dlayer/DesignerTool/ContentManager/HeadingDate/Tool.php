@@ -112,7 +112,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Tool extends Dlayer_Tool_Co
     protected function add()
     {
         $data_added = false;
-        $content_id = $this->addContentItem('heading-date');
+        $content_id = $this->addContentItem('HeadingDate');
 
         if ($content_id !== false) {
             $model = new Dlayer_DesignerTool_ContentManager_HeadingDate_Model();
@@ -194,7 +194,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Tool extends Dlayer_Tool_Co
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'heading-date',
+                'content_type' => 'HeadingDate',
             ),
         );
     }

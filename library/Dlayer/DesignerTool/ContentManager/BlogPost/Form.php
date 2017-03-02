@@ -20,7 +20,7 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Form extends Dlayer_Form_Tool_
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
     {
-        $this->content_type = 'blog-post';
+        $this->content_type = 'BlogPost';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);
     }

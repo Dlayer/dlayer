@@ -228,31 +228,31 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
     protected function contentItemTable($content_type)
     {
         switch ($content_type) {
-            case 'blog-post':
+            case 'BlogPost':
                 $table = 'user_site_page_content_item_blog_post';
                 break;
 
-            case 'heading-date':
+            case 'HeadingDate':
                 $table = 'user_site_page_content_item_heading_date';
                 break;
 
-            case 'heading':
+            case 'Heading':
                 $table = 'user_site_page_content_item_heading';
                 break;
 
-            case 'html':
+            case 'Html':
                 $table = 'user_site_page_content_item_html';
                 break;
 
-            case 'jumbotron':
+            case 'Jumbotron':
                 $table = 'user_site_page_content_item_jumbotron';
                 break;
 
-            case 'rich-text':
+            case 'RichText':
                 $table = 'user_site_page_content_item_richtext';
                 break;
 
-            case 'text':
+            case 'Text':
                 $table = 'user_site_page_content_item_text';
                 break;
 
@@ -275,31 +275,31 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
     protected function contentItemDataTable($content_type)
     {
         switch ($content_type) {
-            case 'blog-post':
+            case 'BlogPost':
                 $table = 'user_site_content_blog_post';
                 break;
 
-            case 'heading-date':
+            case 'HeadingDate':
                 $table = 'user_site_content_heading_date';
                 break;
 
-            case 'heading':
+            case 'Heading':
                 $table = 'user_site_content_heading';
                 break;
 
-            case 'html':
+            case 'Html':
                 $table = 'user_site_content_html';
                 break;
 
-            case 'jumbotron':
+            case 'Jumbotron':
                 $table = 'user_site_content_jumbotron';
                 break;
 
-            case 'rich-text':
+            case 'RichText':
                 $table = 'user_site_content_richtext';
                 break;
 
-            case 'text':
+            case 'Text':
                 $table = 'user_site_content_text';
                 break;
 

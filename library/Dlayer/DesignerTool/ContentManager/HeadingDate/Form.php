@@ -21,7 +21,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Form extends Dlayer_Form_To
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options=NULL)
     {
-        $this->content_type = 'heading-date';
+        $this->content_type = 'HeadingDate';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);
     }

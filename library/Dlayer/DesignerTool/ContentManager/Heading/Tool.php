@@ -94,7 +94,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 	protected function add()
 	{
 		$data_added = FALSE;
-		$content_id = $this->addContentItem('heading');
+		$content_id = $this->addContentItem('Heading');
 
 		if($content_id !== FALSE)
 		{
@@ -187,7 +187,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_Tool extends Dlayer_Tool_Conten
 			array(
 				'type' => 'content_id',
 				'id' => $this->content_id,
-				'content_type' => 'heading'
+				'content_type' => 'Heading'
 			)
 		);
 	}

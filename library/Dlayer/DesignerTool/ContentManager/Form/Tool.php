@@ -82,7 +82,7 @@ class Dlayer_DesignerTool_ContentManager_Form_Tool extends Dlayer_Tool_Content
 	protected function add()
 	{
 		$data_added = FALSE;
-		$content_id = $this->addContentItem('form');
+		$content_id = $this->addContentItem('Form');
 
 		if($content_id !== FALSE)
 		{
@@ -175,7 +175,7 @@ class Dlayer_DesignerTool_ContentManager_Form_Tool extends Dlayer_Tool_Content
 			array(
 				'type' => 'content_id',
 				'id' => $this->content_id,
-				'content_type' => 'form'
+				'content_type' => 'Form'
 			)
 		);
 	}

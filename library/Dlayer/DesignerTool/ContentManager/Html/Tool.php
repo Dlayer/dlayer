@@ -65,7 +65,7 @@ class Dlayer_DesignerTool_ContentManager_Html_Tool extends Dlayer_Tool_Content
     protected function add()
     {
         $data_added = FALSE;
-        $content_id = $this->addContentItem('html');
+        $content_id = $this->addContentItem('Html');
 
         if($content_id !== FALSE)
         {
@@ -158,7 +158,7 @@ class Dlayer_DesignerTool_ContentManager_Html_Tool extends Dlayer_Tool_Content
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'html'
+                'content_type' => 'Html'
             )
         );
     }

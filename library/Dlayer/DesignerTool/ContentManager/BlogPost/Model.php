@@ -108,7 +108,7 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Model extends
         $content = $params['heading'] . Dlayer_Config::CONTENT_DELIMITER .
             $params['date'] . Dlayer_Config::CONTENT_DELIMITER . $params['content'];
 
-        $data_id = $this->existingDataIdOrFalse($site_id, $content, 'blog-post');
+        $data_id = $this->existingDataIdOrFalse($site_id, $content, 'BlogPost');
 
         if ($data_id === false) {
             $data_id = $this->addData($site_id, $params['name'], $content);
@@ -233,7 +233,7 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Model extends
          * @var false|integer If not false delete the data for this data id
          */
         $delete = false;
-        $content_type = 'blog-post';
+        $content_type = 'BlogPost';
 
         // Fetch the current data id, validity check, no real reason to fail
         $assigned_data_id = $this->assignedContentDataId($site_id, $page_id, $content_id, $content_type);

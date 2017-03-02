@@ -84,7 +84,7 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Tool extends Dlayer_Tool_Conte
     protected function add()
     {
         $data_added = false;
-        $content_id = $this->addContentItem('blog-post');
+        $content_id = $this->addContentItem('BlogPost');
 
         if ($content_id !== false) {
             $model = new Dlayer_DesignerTool_ContentManager_BlogPost_Model();
@@ -166,7 +166,7 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Tool extends Dlayer_Tool_Conte
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'blog-post'
+                'content_type' => 'BlogPost'
             )
         );
     }
