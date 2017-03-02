@@ -100,22 +100,22 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
      * @param integer $site_id
      * @param integer $id
      *
-     * @return array|FALSE The data array for the content item or FALSE upon failure
+     * @return array|false The data array for the content item or false upon failure
      */
     public function existingData($site_id, $id)
     {
         $sql = "SELECT 
-                    `uscrt`.`name`, 
-                    `uscrt`.`content`
+                    `uscbp`.`name`, 
+                    `uscbp`.`content`
 				FROM 
-				    `user_site_page_content_item_richtext` `uspcirt` 
+				    `user_site_page_content_item_blog_post` `uspcibp` 
 				INNER JOIN 
-				    `user_site_content_richtext` `uscrt` ON 
-				        `uspcirt`.`data_id` = uscrt.id AND 
-				        `uscrt`.`site_id` = :site_id 
+				    `user_site_content_blog_post` `uscbp` ON 
+				        `uspcibp`.`data_id` = uscbp.id AND 
+				        `uscbp`.`site_id` = :site_id 
 				WHERE 
-				    `uspcirt`.`site_id` = :site_id AND 
-				    `uspcirt`.`content_id` = :content_id";
+				    `uspcibp`.`site_id` = :site_id AND 
+				    `uspcibp`.`content_id` = :content_id";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':content_id', $id, PDO::PARAM_INT);

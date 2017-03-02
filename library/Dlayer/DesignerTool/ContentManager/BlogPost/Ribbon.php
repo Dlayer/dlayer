@@ -78,6 +78,23 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Ribbon extends Dlayer_Ribbon_C
                 'format' => false
             );
 
+            if ($this->tool['content_id'] !== null) {
+                $model = new Dlayer_DesignerTool_ContentManager_BlogPost_Model();
+                $existing_data = $model->existingData($this->tool['site_id'], $this->tool['content_id']);
+                if ($existing_data !== false) {
+
+                    $bits = explode(Dlayer_Config::CONTENT_DELIMITER, $existing_data['content']);
+                    if (count($bits) === 3) {
+                        $this->content_data['name'] = $existing_data['name'];
+                        $this->content_data['content'] = $bits[2];
+                        $this->content_data['format'] = $existing_data['format'];
+                        $this->content_data['type'] = $existing_data['heading_id'];
+                        $this->content_data['date'] = $bits[1];
+                        $this->content_data['heading'] = $bits[0];
+                    }
+                }
+            }
+
             $this->content_fetched = true;
         }
     }

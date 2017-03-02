@@ -109,7 +109,7 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Tool extends Dlayer_Tool_Conte
      */
     protected function edit()
     {
-        $model = new Dlayer_DesignerTool_ContentManager_RichText_Model();
+        $model = new Dlayer_DesignerTool_ContentManager_BlogPost_Model();
 
         try {
             $edit = $model->edit($this->site_id, $this->page_id, $this->content_id, $this->params);

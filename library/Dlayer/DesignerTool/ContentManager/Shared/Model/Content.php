@@ -78,6 +78,7 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
 				    `content_id` = :content_id 
 				LIMIT 
 				    1";
+
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_id', $page_id, PDO::PARAM_INT);
@@ -228,7 +229,7 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
     {
         switch ($content_type) {
             case 'blog-post':
-                $table = 'user_site_page_content_item_blog-post';
+                $table = 'user_site_page_content_item_blog_post';
                 break;
 
             case 'heading-date':
