@@ -908,7 +908,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` = 'RichText'), 'Delete', 'delete', 'Delete',
-           'tint', NULL, 1, 0, 0, 4, 1),
+           'remove', NULL, 1, 0, 0, 4, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -935,4 +935,4 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` = 'BlogPost'), 'Delete', 'delete', 'Delete',
-           'tint', NULL, 1, 0, 0, 4, 1);
+           'remove', NULL, 1, 0, 0, 4, 1);
