@@ -190,7 +190,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
                     } else {
                         if ($this->selected_column_id === $column['id']) {
 
-                            $content = '<p><div class="btn-group"><div class="btn-group dropup">
+                            $content = '<p><div class="btn-group"><div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Create tools <span class="caret"></span></button>
                                 <ul class="dropdown-menu">';
@@ -199,7 +199,7 @@ class Dlayer_View_Column extends Zend_View_Helper_Abstract
                                     $this->view->escape($button['name']) . "</a></li>";
                             }
                             $content .= '</ul></div>';
-                            $content .= '<div class="btn-group dropup">
+                            $content .= '<div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Import tools <span class="caret"></span></button>
                                 <ul class="dropdown-menu">';
