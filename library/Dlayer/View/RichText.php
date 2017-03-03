@@ -83,7 +83,7 @@ class Dlayer_View_RichText extends Zend_View_Helper_Abstract
 
         $html = '<div class="' . $class . '" data-content-id="' .
             $this->view->escape($this->data['content_id']) .
-            '" data-content-type="rich-text" data-tool="RichText"' .
+            '" data-content-type="RichText" data-tool="RichText"' .
             $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>' .
             $this->data['content'] . '</div>';
 

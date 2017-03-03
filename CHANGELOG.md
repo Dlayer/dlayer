@@ -3,12 +3,15 @@
 
 Full changelog for Dlayer since the v1.00 release.
 
-## v1.15: In Progress
+## v1.15: 3rd Match 2017
 
 * Enabled the rich text content item tool. [Feature]
 * Added a blog post content item [Feature]
+* Added styling, typography and delete sub tools to rich text and blog post content items. [Feature]
 * Original text content item renamed to 'plain text'.
 * Added PHP Quill HTML renderer, used by the tools which have rich content areas.
+* Tool links inside an empty column dynamic. 
+* Refactoring.
 * Minor fixes and improvements.
 
 ## v1.14: 23rd February 2017

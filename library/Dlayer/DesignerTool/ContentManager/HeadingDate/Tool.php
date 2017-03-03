@@ -94,8 +94,8 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_Tool extends Dlayer_Tool_Co
      */
     protected function validateInstances($site_id, $content_id)
     {
-        $model = new Dlayer_DesignerTool_ContentManager_HeadingDate_Model();
-        $instances = $model->instancesOfData($site_id, $content_id);
+        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content();
+        $instances = $model->instancesOfData($site_id, $content_id, 'HeadingDate');
 
         if ($instances > 1) {
             return true;

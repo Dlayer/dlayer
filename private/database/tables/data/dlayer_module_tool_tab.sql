@@ -77,7 +77,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` =
-                                              'Text'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+                                              'Text'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -223,7 +223,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` =
-                                              'Heading'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 3, 1),
+                                              'Heading'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 3, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -232,7 +232,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` =
-                                              'Column'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 4, 1),
+                                              'Column'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 4, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -241,7 +241,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` =
-                                              'Row'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 2, 1),
+                                              'Row'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -250,7 +250,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` =
-                                              'Page'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 2, 1),
+                                              'Page'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 0, 0, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -259,7 +259,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` =
-                                              'Form'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+                                              'Form'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -268,7 +268,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` =
-                                              'Image'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+                                              'Image'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -277,7 +277,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` =
-                                              'Jumbotron'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+                                              'Jumbotron'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -295,7 +295,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` =
-                                              'Html'), 'Styles', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
+                                              'Html'), 'Styling', 'styling', 'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -781,7 +781,7 @@ VALUES
                                             INNER JOIN `dlayer_module`
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
-                                        WHERE `dlayer_module_tool`.`model` = 'HeadingDate'), 'Styles', 'styling',
+                                        WHERE `dlayer_module_tool`.`model` = 'HeadingDate'), 'Styling', 'styling',
            'Styling', 'tint', NULL, 1, 1, 0, 2, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
@@ -863,7 +863,7 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` = 'RichText'), 'Help', 'help', NULL,
-           'info-sign', NULL, 0, 0, 0, 2, 1),
+           'info-sign', NULL, 0, 0, 0, 5, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
             WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
@@ -881,4 +881,58 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` = 'BlogPost'), 'Help', 'help', NULL,
-           'info-sign', NULL, 0, 0, 0, 2, 1);
+           'info-sign', NULL, 0, 0, 0, 5, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'RichText'), 'Styling', 'styling', 'Styling',
+           'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'RichText'), 'Typography', 'typography', 'Typography',
+           'font', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'RichText'), 'Delete', 'delete', 'Delete',
+           'remove', NULL, 1, 0, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'BlogPost'), 'Styling', 'styling', 'Styling',
+           'tint', NULL, 1, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'BlogPost'), 'Typography', 'typography', 'Typography',
+           'font', NULL, 1, 1, 0, 3, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'BlogPost'), 'Delete', 'delete', 'Delete',
+           'remove', NULL, 1, 0, 0, 4, 1);

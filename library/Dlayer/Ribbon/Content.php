@@ -75,4 +75,28 @@ abstract class Dlayer_Ribbon_Content
 	 * @return integer
 	 */
 	abstract protected function instancesOfData();
+
+    /**
+     * Return the number of instances foir the content item
+     *
+     * @param string $content_type
+     */
+	protected function instancesOfDataForBaseTool($content_type)
+    {
+        if ($this->instances_of_fetched === false) {
+
+            $this->instances_of = 0;
+
+            if ($this->tool['content_id'] !== null) {
+                $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content();
+                $this->instances_of = $model->instancesOfData(
+                    $this->tool['site_id'],
+                    $this->tool['content_id'],
+                    $content_type
+                );
+            }
+
+            $this->instances_of_fetched = true;
+        }
+    }
 }

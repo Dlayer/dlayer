@@ -57,7 +57,7 @@ class Dlayer_View_BlogPostPreview extends Zend_View_Helper_Abstract
     {
         $tag = $this->view->escape($this->data['tag']);
 
-        return '<' . $tag . '>' . $this->view->escape($this->data['heading']) .
+        return '<div><' . $tag . '>' . $this->view->escape($this->data['heading']) .
             ' <small>' . $this->view->escape($this->data['date']) . '</small></' .
             $tag . '>' . $this->data['content'] . '</div>';
     }

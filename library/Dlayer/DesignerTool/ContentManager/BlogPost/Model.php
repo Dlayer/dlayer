@@ -53,45 +53,6 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Model extends
     }
 
     /**
-     * Check to see how many instances there are of the content item data within the site
-     *
-     * @param integer $site_id
-     * @param integer $content_id
-     *
-     * @return integer Number of instances
-     */
-    public function instancesOfData($site_id, $content_id)
-    {
-        $sql = "SELECT 
-                    COUNT(`content`.`id`) AS `instances`
-				FROM 
-				    `user_site_page_content_item_blog_post` `content`
-				WHERE 
-				    `content`.`data_id` = (
-				        SELECT 
-				            `uspcibp`.`data_id`
-				        FROM 
-				            `user_site_page_content_item_blog_post` `uspcibp`
-				        WHERE 
-				            `uspcibp`.`site_id` = :site_id AND 
-				            `uspcibp`.`content_id` = :content_id 
-					LIMIT 
-					    1)";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        $result = $stmt->fetch();
-
-        if ($result !== false) {
-            return intval($result['instances']);
-        } else {
-            return 0;
-        }
-    }
-
-    /**
      * Add a new blog post content item
      *
      * @param integer $site_id

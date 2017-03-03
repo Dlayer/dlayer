@@ -593,7 +593,22 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $ribbon_rich_text->viewData($this->toolParams($tool));
                 break;
 
-                default:
+            case 'styling':
+                $ribbon_rich_text = new Dlayer_DesignerTool_ContentManager_RichText_SubTool_Styling_Ribbon();
+                $data = $ribbon_rich_text->viewData($this->toolParams($tool));
+                break;
+
+            case 'typography':
+                $ribbon_rich_text = new Dlayer_DesignerTool_ContentManager_RichText_SubTool_Typography_Ribbon();
+                $data = $ribbon_rich_text->viewData($this->toolParams($tool));
+                break;
+
+            case 'delete':
+                $ribbon_rich_text = new Dlayer_DesignerTool_ContentManager_RichText_SubTool_Delete_Ribbon();
+                $data = $ribbon_rich_text->viewData($this->toolParams($tool));
+                break;
+
+            default:
                 $data = false;
                 break;
         }
@@ -615,6 +630,21 @@ class Dlayer_Ribbon_Handler_Content
         switch ($tab) {
             case 'blog-post':
                 $ribbon_blog_post = new Dlayer_DesignerTool_ContentManager_BlogPost_Ribbon();
+                $data = $ribbon_blog_post->viewData($this->toolParams($tool));
+                break;
+
+            case 'styling':
+                $ribbon_blog_post = new Dlayer_DesignerTool_ContentManager_BlogPost_SubTool_Styling_Ribbon();
+                $data = $ribbon_blog_post->viewData($this->toolParams($tool));
+                break;
+
+            case 'typography':
+                $ribbon_blog_post = new Dlayer_DesignerTool_ContentManager_BlogPost_SubTool_Typography_Ribbon();
+                $data = $ribbon_blog_post->viewData($this->toolParams($tool));
+                break;
+
+            case 'delete':
+                $ribbon_blog_post = new Dlayer_DesignerTool_ContentManager_BlogPost_SubTool_Delete_Ribbon();
                 $data = $ribbon_blog_post->viewData($this->toolParams($tool));
                 break;
 

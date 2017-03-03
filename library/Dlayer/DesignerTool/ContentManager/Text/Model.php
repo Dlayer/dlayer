@@ -207,43 +207,4 @@ class Dlayer_DesignerTool_ContentManager_Text_Model extends Dlayer_DesignerTool_
 
         return true;
     }
-
-    /**
-     * Check to see how many instances there are of the content item data within the site
-     *
-     * @param integer $site_id
-     * @param integer $content_id
-     *
-     * @return integer Number of instances
-     */
-    public function instancesOfData($site_id, $content_id)
-    {
-        $sql = "SELECT 
-                    COUNT(`content`.`id`) AS `instances`
-				FROM 
-				    `user_site_page_content_item_text` `content`
-				WHERE 
-				    `content`.`data_id` = (
-				        SELECT 
-				            `uspcit`.`data_id`
-				        FROM 
-				            `user_site_page_content_item_text` `uspcit`
-				        WHERE 
-				            `uspcit`.`site_id` = :site_id AND 
-				            `uspcit`.`content_id` = :content_id 
-					LIMIT 
-					    1)";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        $result = $stmt->fetch();
-
-        if ($result !== false) {
-            return intval($result['instances']);
-        } else {
-            return 0;
-        }
-    }
 }

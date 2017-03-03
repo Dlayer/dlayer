@@ -249,7 +249,7 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
                 break;
 
             case 'RichText':
-                $table = 'user_site_page_content_item_richtext';
+                $table = 'user_site_page_content_item_rich_text';
                 break;
 
             case 'Text':
@@ -309,5 +309,47 @@ class Dlayer_DesignerTool_ContentManager_Shared_Model_Content extends Zend_Db_Ta
         }
 
         return $table;
+    }
+
+    /**
+     * Check to see how many instances there are of the requested content item
+     *
+     * @param integer $site_id
+     * @param integer $content_id
+     * @param string $content_type
+     *
+     * @return integer The number of instances
+     */
+    public function instancesOfData($site_id, $content_id, $content_type)
+    {
+        $table = $this->contentItemTable($content_type);
+
+        $sql = "SELECT 
+                    COUNT(`content`.`id`) AS `instances`
+				FROM 
+				    `{$table}` `content`
+				WHERE 
+				    `content`.`data_id` = (
+				        SELECT 
+				            `content_instances`.`data_id`
+				        FROM 
+				            `{$table}` `content_instances`
+				        WHERE 
+				            `content_instances`.`site_id` = :site_id AND 
+				            `content_instances`.`content_id` = :content_id 
+					LIMIT 
+					    1)";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result !== false) {
+            return intval($result['instances']);
+        } else {
+            return 0;
+        }
     }
 }

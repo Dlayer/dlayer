@@ -84,7 +84,7 @@ class Dlayer_View_Heading extends Zend_View_Helper_Abstract
 		}
 
 		$html = '<' . $tag . ' class="' . $class . '" data-content-id="' .
-			$this->view->escape($this->data['content_id']) . '" data-content-type="heading" data-tool="Heading"' .
+			$this->view->escape($this->data['content_id']) . '" data-content-type="Heading" data-tool="Heading"' .
             $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>' .
 			$this->view->escape($this->data['heading']);
 

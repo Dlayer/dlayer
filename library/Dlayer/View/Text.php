@@ -83,7 +83,7 @@ class Dlayer_View_Text extends Zend_View_Helper_Abstract
 
 		$html = '<p class="' . $class . '" data-content-id="' .
             $this->view->escape($this->data['content_id']) .
-			'" data-content-type="text" data-tool="Text"' .
+			'" data-content-type="Text" data-tool="Text"' .
             $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>' .
 			nl2br($this->view->escape($this->data['content']), TRUE) . '</p>';
 
