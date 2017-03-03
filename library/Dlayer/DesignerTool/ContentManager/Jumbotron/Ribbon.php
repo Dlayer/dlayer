@@ -90,17 +90,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_Ribbon extends Dlayer_Ribbon_
      */
     protected function instancesOfData()
     {
-        if ($this->instances_of_fetched === false) {
-
-            $this->instances_of = 0;
-
-            if ($this->tool['content_id'] !== null) {
-                $model = new Dlayer_DesignerTool_ContentManager_Jumbotron_Model();
-                $this->instances_of = $model->instancesOfData($this->tool['site_id'], $this->tool['content_id']);
-            }
-
-            $this->instances_of_fetched = true;
-        }
+        $this->instancesOfDataForBaseTool('Jumbotron');
     }
 
     /**
