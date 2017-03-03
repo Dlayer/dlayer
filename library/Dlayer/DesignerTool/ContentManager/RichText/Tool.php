@@ -63,7 +63,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Tool extends Dlayer_Tool_Conte
     protected function add()
     {
         $data_added = false;
-        $content_id = $this->addContentItem('rich-text');
+        $content_id = $this->addContentItem('RichText');
 
         if ($content_id !== false) {
             $model = new Dlayer_DesignerTool_ContentManager_RichText_Model();
@@ -145,7 +145,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Tool extends Dlayer_Tool_Conte
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'rich-text'
+                'content_type' => 'RichText'
             )
         );
     }

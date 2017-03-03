@@ -21,7 +21,7 @@ class Dlayer_DesignerTool_ContentManager_Image_SubTool_Typography_Form extends
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
     {
-        $this->content_type = 'image';
+        $this->content_type = 'Image';
         $this->sub_tool_model = 'Typography';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);

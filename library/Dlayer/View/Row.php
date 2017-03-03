@@ -164,7 +164,7 @@ class Dlayer_View_Row extends Zend_View_Helper_Abstract
                     $class .= ' empty';
 
                     if ($this->selected_row_id === $row['id']) {
-                        $content = '<p><a href="/content/design/set-tool/tool/AddColumn" class="btn btn-primary">Add Column(s)</a></p>';
+                        $content = '<p><a href="/content/design/set-tool/tool/AddColumn" class="btn btn-default">Add Column(s)</a></p>';
                     } else {
                         $content = '<p class="text-muted"><em>Empty row</em></p>';
                     }

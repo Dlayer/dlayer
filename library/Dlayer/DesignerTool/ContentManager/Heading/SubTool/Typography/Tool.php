@@ -42,7 +42,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Typography_Tool extends
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'heading'
+                'content_type' => 'Heading'
             )
         );
     }

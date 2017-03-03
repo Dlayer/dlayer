@@ -21,7 +21,7 @@ class Dlayer_DesignerTool_ContentManager_Heading_SubTool_Delete_Form extends
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
     {
-        $this->content_type = 'heading';
+        $this->content_type = 'Heading';
         $this->sub_tool_model = 'Delete';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);

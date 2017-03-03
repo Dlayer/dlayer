@@ -79,40 +79,40 @@ class Dlayer_View_ContentPreview extends Zend_View_Helper_Abstract
         if (array_key_exists($this->column_id, $this->content) === true) {
             foreach ($this->content[$this->column_id] as $content) {
                 switch ($content['type']) {
-                    case 'blog-post':
+                    case 'BlogPost':
                         $html .= $this->view->blogPostPreview($content['data']);
                         break;
 
-                    case 'heading':
-                        $html .= $this->view->headingPreview($content['data']);
-                        break;
-
-                    case 'heading-date':
-                        $html .= $this->view->headingDatePreview($content['data']);
-                        break;
-
-                    case 'text':
-                        $html .= $this->view->textPreview($content['data']);
-                        break;
-
-                    case 'jumbotron':
-                        $html .= $this->view->jumbotronPreview($content['data']);
-                        break;
-
-                    case 'image':
-                        $html .= $this->view->imagePreview($content['data']);
-                        break;
-
-                    case 'form':
+                    case 'Form':
                         $html .= $this->view->importedFormPreview($content['data']);
                         break;
 
-                    case 'html':
+                    case 'Heading':
+                        $html .= $this->view->headingPreview($content['data']);
+                        break;
+
+                    case 'HeadingDate':
+                        $html .= $this->view->headingDatePreview($content['data']);
+                        break;
+
+                    case 'Html':
                         $html .= $this->view->htmlPreview($content['data']);
                         break;
 
-                    case 'rich-text':
+                    case 'Image':
+                        $html .= $this->view->imagePreview($content['data']);
+                        break;
+
+                    case 'Jumbotron':
+                        $html .= $this->view->jumbotronPreview($content['data']);
+                        break;
+
+                    case 'RichText':
                         $html .= $this->view->richTextPreview($content['data']);
+                        break;
+
+                    case 'Text':
+                        $html .= $this->view->textPreview($content['data']);
                         break;
 
                     default:

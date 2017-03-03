@@ -21,7 +21,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_SubTool_Styling_Form extends
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
     {
-        $this->content_type = 'jumbotron';
+        $this->content_type = 'Jumbotron';
         $this->sub_tool_model = 'Styling';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);

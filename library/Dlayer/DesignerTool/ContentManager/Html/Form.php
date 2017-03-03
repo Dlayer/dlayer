@@ -20,7 +20,7 @@ class Dlayer_DesignerTool_ContentManager_Html_Form extends Dlayer_Form_Tool_Cont
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options=NULL)
     {
-        $this->content_type = 'html';
+        $this->content_type = 'Html';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);
     }

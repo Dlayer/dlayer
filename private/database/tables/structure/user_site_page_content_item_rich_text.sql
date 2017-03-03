@@ -1,5 +1,5 @@
 
-CREATE TABLE `user_site_page_content_item_richtext` (
+CREATE TABLE `user_site_page_content_item_rich_text` (
     `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
     `site_id` int(11) unsigned NOT NULL,
     `page_id` int(11) unsigned NOT NULL,

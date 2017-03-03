@@ -87,7 +87,7 @@ class Dlayer_DesignerTool_ContentManager_Image_Tool extends Dlayer_Tool_Content
 	protected function add()
 	{
 		$data_added = FALSE;
-		$content_id = $this->addContentItem('image');
+		$content_id = $this->addContentItem('Image');
 
 		if($content_id !== FALSE)
 		{
@@ -180,7 +180,7 @@ class Dlayer_DesignerTool_ContentManager_Image_Tool extends Dlayer_Tool_Content
 			array(
 				'type' => 'content_id',
 				'id' => $this->content_id,
-				'content_type' => 'image'
+				'content_type' => 'Image'
 			)
 		);
 	}

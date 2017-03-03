@@ -24,14 +24,14 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
     {
         $result = false;
 
-        $data_id = $this->existingDataIdOrFalse($site_id, $params['content'], 'rich-text');
+        $data_id = $this->existingDataIdOrFalse($site_id, $params['content'], 'RichText');
 
         if ($data_id === false) {
             $data_id = $this->addData($site_id, $params['name'], $params['content']);
         }
 
         if ($data_id !== false) {
-            $sql = "INSERT INTO `user_site_page_content_item_richtext` 
+            $sql = "INSERT INTO `user_site_page_content_item_rich_text` 
                     (
                         `site_id`, 
                         `page_id`, 
@@ -66,7 +66,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
      */
     private function addData($site_id, $name, $content)
     {
-        $sql = "INSERT INTO `user_site_content_richtext` 
+        $sql = "INSERT INTO `user_site_content_rich_text` 
 				(
 				    `site_id`, 
 				    `name`, 
@@ -86,7 +86,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
 
         if($result === TRUE)
         {
-            return intval($this->_db->lastInsertId('user_site_content_richtext'));
+            return intval($this->_db->lastInsertId('user_site_content_rich_text'));
         }
         else
         {
@@ -141,7 +141,7 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
          * @var false|integer If not false delete the data for this data id
          */
         $delete = false;
-        $content_type = 'rich-text';
+        $content_type = 'RichText';
 
         // Fetch the current data id, validity check, no real reason to fail
         $assigned_data_id = $this->assignedContentDataId($site_id, $page_id, $content_id, $content_type);
@@ -222,13 +222,13 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
         $sql = "SELECT 
                     COUNT(`content`.`id`) AS `instances`
 				FROM 
-				    `user_site_page_content_item_richtext` `content`
+				    `user_site_page_content_item_rich_text` `content`
 				WHERE 
 				    `content`.`data_id` = (
 				        SELECT 
 				            `uspcirt`.`data_id`
 				        FROM 
-				            `user_site_page_content_item_richtext` `uspcirt`
+				            `user_site_page_content_item_rich_text` `uspcirt`
 				        WHERE 
 				            `uspcirt`.`site_id` = :site_id AND 
 				            `uspcirt`.`content_id` = :content_id 

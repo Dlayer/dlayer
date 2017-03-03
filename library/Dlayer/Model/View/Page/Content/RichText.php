@@ -25,9 +25,9 @@ class Dlayer_Model_View_Page_Content_RichText extends Zend_Db_Table_Abstract
                     `uspcirt`.`content_id`, 
                     `uscrt`.`content`  
 				FROM 
-				    `user_site_page_content_item_richtext` `uspcirt` 
+				    `user_site_page_content_item_rich_text` `uspcirt` 
 				INNER JOIN 
-				    `user_site_content_richtext` `uscrt`	ON 
+				    `user_site_content_rich_text` `uscrt`	ON 
 				        `uspcirt`.`data_id` = uscrt.id AND 
 				        `uscrt`.`site_id` = :site_id 
 				WHERE 

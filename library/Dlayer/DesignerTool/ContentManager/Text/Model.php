@@ -23,7 +23,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Model extends Dlayer_DesignerTool_
     {
         $result = false;
 
-        $data_id = $this->existingDataIdOrFalse($site_id, $params['content'], 'text');
+        $data_id = $this->existingDataIdOrFalse($site_id, $params['content'], 'Text');
 
         if ($data_id === false) {
             $data_id = $this->addData($site_id, $params['name'], $params['content']);
@@ -140,7 +140,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Model extends Dlayer_DesignerTool_
          * @var false|integer If not false delete the data for this data id
          */
         $delete = false;
-        $content_type = 'text';
+        $content_type = 'Text';
 
         // Fetch the current data id, validity check, no real reason to fail
         $assigned_data_id = $this->assignedContentDataId($site_id, $page_id, $content_id, $content_type);

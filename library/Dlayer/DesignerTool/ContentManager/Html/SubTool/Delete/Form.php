@@ -21,7 +21,7 @@ class Dlayer_DesignerTool_ContentManager_Html_SubTool_Delete_Form extends
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
     {
-        $this->content_type = 'html';
+        $this->content_type = 'Html';
         $this->sub_tool_model = 'Delete';
 
         parent::__construct($tool, $data, $instances, $element_data, $options);

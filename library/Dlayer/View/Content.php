@@ -129,40 +129,40 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
                 }
 
                 switch ($content['type']) {
-                    case 'blog-post':
+                    case 'BlogPost':
                         $html .= $this->view->blogPost($content['data'], $selectable, $selected);
                         break;
 
-                    case 'heading':
-                        $html .= $this->view->heading($content['data'], $selectable, $selected);
-                        break;
-
-                    case 'heading-date':
-                        $html .= $this->view->headingDate($content['data'], $selectable, $selected);
-                        break;
-
-                    case 'text':
-                        $html .= $this->view->text($content['data'], $selectable, $selected);
-                        break;
-
-                    case 'jumbotron':
-                        $html .= $this->view->jumbotron($content['data'], $selectable, $selected);
-                        break;
-
-                    case 'image':
-                        $html .= $this->view->image($content['data'], $selectable, $selected);
-                        break;
-
-                    case 'form':
+                    case 'Form':
                         $html .= $this->view->importedForm($content['data'], $selectable, $selected);
                         break;
 
-                    case 'html':
+                    case 'Heading':
+                        $html .= $this->view->heading($content['data'], $selectable, $selected);
+                        break;
+
+                    case 'HeadingDate':
+                        $html .= $this->view->headingDate($content['data'], $selectable, $selected);
+                        break;
+
+                    case 'Html':
                         $html .= $this->view->html($content['data'], $selectable, $selected);
                         break;
 
-                    case 'rich-text':
+                    case 'Image':
+                        $html .= $this->view->image($content['data'], $selectable, $selected);
+                        break;
+
+                    case 'Jumbotron':
+                        $html .= $this->view->jumbotron($content['data'], $selectable, $selected);
+                        break;
+
+                    case 'RichText':
                         $html .= $this->view->richText($content['data'], $selectable, $selected);
+                        break;
+
+                    case 'Text':
+                        $html .= $this->view->text($content['data'], $selectable, $selected);
                         break;
 
                     default:
