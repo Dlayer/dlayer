@@ -83,7 +83,7 @@ class Dlayer_View_Html extends Zend_View_Helper_Abstract
 
 		$html = '<div class="' . $class . '" data-content-id="' .
             $this->view->escape($this->data['content_id']) .
-			'" data-content-type="html" data-tool="Html"' .
+			'" data-content-type="Html" data-tool="Html"' .
             $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>' .
 			$this->data['content'] . '</div>';
 

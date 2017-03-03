@@ -83,7 +83,7 @@ class Dlayer_View_HeadingDate extends Zend_View_Helper_Abstract
         }
 
         $html = '<' . $tag . ' class="' . $class . '" data-content-id="' .
-            $this->view->escape($this->data['content_id']) . '" data-content-type="heading-date" data-tool="HeadingDate"' .
+            $this->view->escape($this->data['content_id']) . '" data-content-type="HeadingDate" data-tool="HeadingDate"' .
             $this->view->stylingContentItem()
                 ->setContentItem($this->data['content_id']) . '>' .
             $this->view->escape($this->data['heading']) .

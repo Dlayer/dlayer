@@ -82,7 +82,7 @@ class Dlayer_View_BlogPost extends Zend_View_Helper_Abstract
 
         $html = '<div class="' . $class . '" data-content-id="' .
             $this->view->escape($this->data['content_id']) .
-            '" data-content-type="blog-post" data-tool="BlogPost"' .
+            '" data-content-type="BlogPost" data-tool="BlogPost"' .
             $this->view->stylingContentItem()->setContentItem($this->data['content_id']) . '>' .
             '<' . $tag . '>' . $this->view->escape($this->data['heading']) .
             ' <small>' . $this->view->escape($this->data['date']) . '</small></' .

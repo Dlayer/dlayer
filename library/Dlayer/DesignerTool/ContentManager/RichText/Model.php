@@ -105,17 +105,17 @@ class Dlayer_DesignerTool_ContentManager_RichText_Model extends
     public function existingData($site_id, $id)
     {
         $sql = "SELECT 
-                    `uscbp`.`name`, 
-                    `uscbp`.`content`
+                    `uscrt`.`name`, 
+                    `uscrt`.`content`
 				FROM 
-				    `user_site_page_content_item_blog_post` `uspcibp` 
+				    `user_site_page_content_item_rich_text` `uspcirt` 
 				INNER JOIN 
-				    `user_site_content_blog_post` `uscbp` ON 
-				        `uspcibp`.`data_id` = uscbp.id AND 
-				        `uscbp`.`site_id` = :site_id 
+				    `user_site_content_rich_text` `uscrt` ON 
+				        `uspcirt`.`data_id` = uscrt.id AND 
+				        `uscrt`.`site_id` = :site_id 
 				WHERE 
-				    `uspcibp`.`site_id` = :site_id AND 
-				    `uspcibp`.`content_id` = :content_id";
+				    `uspcirt`.`site_id` = :site_id AND 
+				    `uspcirt`.`content_id` = :content_id";
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
         $stmt->bindValue(':content_id', $id, PDO::PARAM_INT);
