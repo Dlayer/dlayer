@@ -28,10 +28,11 @@ Dlayer is a responsive web development tool aimed primarily at users that don't 
 Requirements
 ---------
 
-* Bower (Installs Jquery and Bootstrap)
+* Jquery and Bootstrap 3 (Bower)
 * SASS
-* Zend Framework 1.12 (Included) 
+* Zend Framework 1.12 (Included in Library) 
 * MySQL
+* PHP MySQL Quill Renderer (via Composer) https://github.com/deanblackborough/php-quill-renderer
 
 Documentation 
 ---------
