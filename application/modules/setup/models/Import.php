@@ -53,6 +53,7 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'user_site_form_layout',
         'user_site_form_setting',
         'user_site_history',
+        'user_site_html_styling',
         'user_site_image_library',
         'user_site_image_library_category',
         'user_site_image_library_link',
