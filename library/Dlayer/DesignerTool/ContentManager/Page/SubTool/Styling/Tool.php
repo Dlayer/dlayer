@@ -19,7 +19,7 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     protected function paramsExist(array $params)
     {
         $valid = false;
-        if (array_key_exists('background_color', $params) === true) {
+        if (array_key_exists('content_background_color', $params) === true) {
             $valid = true;
         }
 
@@ -36,9 +36,9 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     protected function paramsValid(array $params)
     {
         $valid = false;
-        if (strlen(trim($params['background_color'])) === 0 ||
-            (strlen(trim($params['background_color'])) === 7 &&
-                Dlayer_Validate::colorHex($params['background_color']) === true)
+        if (strlen(trim($params['content_background_color'])) === 0 ||
+            (strlen(trim($params['content_background_color'])) === 7 &&
+                Dlayer_Validate::colorHex($params['content_background_color']) === true)
         ) {
             $valid = true;
         }
@@ -56,8 +56,8 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
      */
     protected function paramsAssign(array $params, $manual_tool = true)
     {
-        if (array_key_exists('background_color', $params) === true) {
-            $this->params['background_color'] = trim($params['background_color']);
+        if (array_key_exists('content_background_color', $params) === true) {
+            $this->params['content_background_color'] = trim($params['content_background_color']);
         }
     }
 
@@ -101,22 +101,25 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
      * @return void
      * @throws Exception
      */
-    protected function backgroundColor()
+    protected function contentBackgroundColor()
     {
+        /**
+         * @todo Add a check to see if current matches new, if so we don't need to do any of the below
+         */
         $model_styling = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
         $model_palette = new Dlayer_Model_Palette();
 
-        $id = $model_styling->existingBackgroundColor($this->site_id, $this->page_id);
+        $id = $model_styling->existingContentBackgroundColorId($this->site_id, $this->page_id);
 
         if ($id === false) {
             try {
-                $model_styling->addBackgroundColor(
+                $model_styling->addContentBackgroundColor(
                     $this->site_id,
                     $this->page_id,
-                    $this->params['background_color']
+                    $this->params['content_background_color']
                 );
 
-                $model_palette->addToHistory($this->site_id, $this->params['background_color']);
+                $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
 
                 Dlayer_Helper::sendToInfoLog('Set background colour for page: ' . $this->content_id .
                     ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id);
@@ -125,9 +128,9 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
             }
         } else {
             try {
-                $model_styling->editBackgroundColor($id, $this->params['background_color']);
-                if ($this->params['background_color'] !== null && strlen($this->params['background_color']) === 7) {
-                    $model_palette->addToHistory($this->site_id, $this->params['background_color']);
+                $model_styling->editContentBackgroundColor($id, $this->params['content_background_color']);
+                if ($this->params['content_background_color'] !== null && strlen($this->params['content_background_color']) === 7) {
+                    $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
 
                     Dlayer_Helper::sendToInfoLog('Set background colour for page: ' . $this->content_id .
                         ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id);
@@ -145,7 +148,7 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
      */
     protected function structure()
     {
-        $this->backgroundColor();
+        $this->contentBackgroundColor();
 
         return $this->returnIds();
     }

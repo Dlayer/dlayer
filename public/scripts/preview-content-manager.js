@@ -66,7 +66,7 @@ var previewContentManager =
          */
         pageBackgroundColor: function(value)
         {
-            $('#params-background_color').change(function()
+            $('#params-content_background_color').change(function()
             {
                 var new_value = this.value;
                 var selector = '.container-fluid.selected';

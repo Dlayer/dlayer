@@ -3,6 +3,12 @@
 
 Full changelog for Dlayer since the v1.00 release.
 
+## v1.16: 
+
+* I have changed the name of the background colour property on the page styling sub tool; it is now called content background colour which is more accurate.
+* I have made improvements to the styling code, less duplication of both data and code. [Refactoring]
+* New table to manage any styling attributes defined on the content container. [Database]
+
 ## v1.15: 3rd Match 2017
 
 * Enabled the rich text content item tool. [Feature]

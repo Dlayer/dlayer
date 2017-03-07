@@ -79,7 +79,6 @@ class Setup_Model_Import extends Zend_Db_Table_Abstract
         'user_site_page_styling_column_background_color',
         'user_site_page_styling_content_item_background_color',
         'user_site_page_styling_content_item_typography',
-        'user_site_page_styling_page_background_color',
         'user_site_page_styling_row_background_color'
     );
 
