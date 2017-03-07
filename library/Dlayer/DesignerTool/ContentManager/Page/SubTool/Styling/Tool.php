@@ -19,7 +19,8 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     protected function paramsExist(array $params)
     {
         $valid = false;
-        if (array_key_exists('content_background_color', $params) === true) {
+        if (array_key_exists('content_background_color', $params) === true &&
+            array_key_exists('html_background_color', $params) === true) {
             $valid = true;
         }
 
@@ -36,9 +37,18 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     protected function paramsValid(array $params)
     {
         $valid = false;
-        if (strlen(trim($params['content_background_color'])) === 0 ||
-            (strlen(trim($params['content_background_color'])) === 7 &&
-                Dlayer_Validate::colorHex($params['content_background_color']) === true)
+
+        if (
+            (
+                strlen(trim($params['content_background_color'])) === 0 ||
+                (strlen(trim($params['content_background_color'])) === 7 &&
+                    Dlayer_Validate::colorHex($params['content_background_color']) === true)
+            ) &&
+            (
+                strlen(trim($params['html_background_color'])) === 0 ||
+                (strlen(trim($params['html_background_color'])) === 7 &&
+                    Dlayer_Validate::colorHex($params['html_background_color']) === true)
+            )
         ) {
             $valid = true;
         }
@@ -58,6 +68,9 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     {
         if (array_key_exists('content_background_color', $params) === true) {
             $this->params['content_background_color'] = trim($params['content_background_color']);
+        }
+        if (array_key_exists('html_background_color', $params) === true) {
+            $this->params['html_background_color'] = trim($params['html_background_color']);
         }
     }
 
@@ -96,7 +109,7 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     }
 
     /**
-     * Manage the background color for the selected item
+     * Manage the content background colour
      *
      * @return void
      * @throws Exception
@@ -106,37 +119,34 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
         /**
          * @todo Add a check to see if current matches new, if so we don't need to do any of the below
          */
-        $model_styling = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
-        $model_palette = new Dlayer_Model_Palette();
+        $model = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
 
-        $id = $model_styling->existingContentBackgroundColorId($this->site_id, $this->page_id);
+        $log_property = 'content background color';
+        $id = $model->existingContentBackgroundColorId($this->site_id, $this->page_id);
 
         if ($id === false) {
-            try {
-                $model_styling->addContentBackgroundColor(
-                    $this->site_id,
-                    $this->page_id,
-                    $this->params['content_background_color']
-                );
+            $result = $model->addContentBackgroundColor(
+                $this->site_id,
+                $this->page_id,
+                $this->params['content_background_color']
+            );
 
-                $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
-
-                Dlayer_Helper::sendToInfoLog('Set background colour for page: ' . $this->content_id .
-                    ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id);
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            if ($result === true) {
+                $this->addToColorHistory($this->params['content_background_color']);
+                $this->logChange($log_property, $this->params['content_background_color']);
+            } else {
+                throw new Exception('Unable to set new content background color');
             }
         } else {
-            try {
-                $model_styling->editContentBackgroundColor($id, $this->params['content_background_color']);
-                if ($this->params['content_background_color'] !== null && strlen($this->params['content_background_color']) === 7) {
-                    $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
+            $result = $model->editContentBackgroundColor($id, $this->params['content_background_color']);
 
-                    Dlayer_Helper::sendToInfoLog('Set background colour for page: ' . $this->content_id .
-                        ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id);
+            if ($result === true) {
+                if ($this->params['content_background_color'] !== null) {
+                    $this->addToColorHistory($this->params['content_background_color']);
                 }
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
+                $this->logChange($log_property, $this->params['content_background_color']);
+            } else {
+                throw new Exception('Unable to update the content container background color');
             }
         }
     }
@@ -144,11 +154,16 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     /**
      * Make a structural change to the page
      *
-     * @return array|FALSE An array of the environment vars to set or FALSE upon error
+     * @return array|false An array of the environment vars to set or FALSE upon error
      */
     protected function structure()
     {
-        $this->contentBackgroundColor();
+        try {
+            $this->contentBackgroundColor();
+        } catch (Exception $e) {
+            // Do nothing, log error for now
+            Dlayer_Helper::sendToErrorLog($e->getMessage());
+        }
 
         return $this->returnIds();
     }
@@ -175,5 +190,32 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
                 'sub_tool' => 'Styling'
             )
         );
+    }
+
+    /**
+     * Add the used colour to the colour history table
+     *
+     * @param string $color
+     *
+     * @return void
+     */
+    protected function addToColorHistory($color)
+    {
+        $model_palette = new Dlayer_Model_Palette();
+        $model_palette->addToHistory($this->site_id, $color);
+    }
+
+    /**
+     * Log change
+     *
+     * @param string $property
+     * @param string $value
+     *
+     * @return void
+     */
+    protected function logChange($property, $value)
+    {
+        Dlayer_Helper::sendToInfoLog("Set {$property} for page: " . $this->page_id .
+            ' site_id: ' . $this->site_id . ' new value: ' . $value);
     }
 }
