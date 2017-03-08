@@ -94,4 +94,7 @@ INSERT INTO `dlayer_module_tool` (`id`, `module_id`, `name`, `model`, `group_id`
             WHERE `name` = 'content'), 'Text', 'RichText', 4, 3, 1),
     (NULL, (SELECT `id`
             FROM `dlayer_module`
-            WHERE `name` = 'content'), 'Blog post', 'BlogPost', 4, 4, 1);
+            WHERE `name` = 'content'), 'Blog post', 'BlogPost', 4, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), 'Horizontal rule', 'HorizontalRule', 6, 1, 1);
