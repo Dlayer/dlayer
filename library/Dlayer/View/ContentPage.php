@@ -93,7 +93,7 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
     /**
      * Pass in the styling data for the page
      *
-     * @param array $page_styles
+     * @param array $content_container_styles
      * @param array $row_styles
      * @param array $column_styles
      * @param array $content_item_styles
@@ -101,12 +101,12 @@ class Dlayer_View_ContentPage extends Zend_View_Helper_Abstract
      * @return Dlayer_View_ContentPage
      */
     public function setStyles(
-        array $page_styles,
+        array $content_container_styles,
         array $row_styles,
         array $column_styles,
         array $content_item_styles)
     {
-        $this->view->stylingPage()->setStyles($page_styles);
+        $this->view->stylingPage()->setStyles($content_container_styles);
         $this->view->stylingColumn()->setStyles($column_styles);
         $this->view->stylingRow()->setStyles($row_styles);
         $this->view->stylingContentItem()->setStyles($content_item_styles);

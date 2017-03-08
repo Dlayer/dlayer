@@ -77,7 +77,20 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Return the page styles, grouped by styling group and then page id, contains all the data for the selected
+     * Return the content container styles, grouped by styling group and then page id, contains all the data for the
+     * selected page content container
+     *
+     * @return array
+     */
+    public function contentContainer()
+    {
+        return array(
+            'background_color' => $this->contentContainerBackgroundColors()
+        );
+    }
+
+    /**
+     * Return the HTML styles, grouped by styling group and then page id, contains all the data for the selected
      * page
      *
      * @return array
@@ -85,7 +98,20 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
     public function page()
     {
         return array(
-            'background_color' => $this->pageBackgroundColors()
+            'background_color' => $this->contentContainerBackgroundColors()
+        );
+    }
+
+    /**
+     * Return the HTML styles, grouped by styling group and then page id, contains all the data for the selected
+     * page
+     *
+     * @return array
+     */
+    public function html()
+    {
+        return array(
+            'background_color' => $this->htmlBackgroundColor()
         );
     }
 
@@ -229,11 +255,11 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Fetch the background color styles for a page
+     * Fetch the background color styles for the content container
      *
      * @return array
      */
-    private function pageBackgroundColors()
+    private function contentContainerBackgroundColors()
     {
         $sql = "SELECT 
                     `page_id`, 
@@ -257,5 +283,33 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
         }
 
         return $styles;
+    }
+
+    /**
+     * Fetch the background color styles for HTML/page
+     *
+     * @return string|false
+     */
+    private function htmlBackgroundColor()
+    {
+        $sql = "SELECT 
+                    `value` 
+                FROM 
+                    `user_site_html_styling` 
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `attribute` = :attribute";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':attribute', 'background-color', PDO::PARAM_STR);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result != false) {
+            return $result['value'];
+        } else {
+            return false;
+        }
     }
 }

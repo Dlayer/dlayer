@@ -17,7 +17,7 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
     public $view;
 
     /**
-     * @var string The complete style attribute
+     * @var array The complete style array
      */
     private $styles;
 
