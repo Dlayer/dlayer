@@ -124,9 +124,6 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     {
         $this->model();
 
-        /**
-         * @todo Add a check to see if current matches new, if so we don't need to do any of the below
-         */
         $log_property = 'content background color';
         $id = $this->model->existingContentBackgroundColorId($this->site_id, $this->page_id);
 
@@ -144,15 +141,20 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
                 throw new Exception('Unable to set new content background color');
             }
         } else {
-            $result = $this->model->editContentBackgroundColor($id, $this->params['content_background_color']);
+            $background_color = $this->model->contentBackgroundColor($this->site_id, $this->page_id);
 
-            if ($result === true) {
-                if ($this->params['content_background_color'] !== null) {
-                    $this->addToColorHistory($this->params['content_background_color']);
+            if ($background_color !== $this->params['content_background_color']) {
+
+                $result = $this->model->editContentBackgroundColor($id, $this->params['content_background_color']);
+
+                if ($result === true) {
+                    if ($this->params['content_background_color'] !== null) {
+                        $this->addToColorHistory($this->params['content_background_color']);
+                    }
+                    $this->logChange($log_property, $this->params['content_background_color']);
+                } else {
+                    throw new Exception('Unable to update the content container background color');
                 }
-                $this->logChange($log_property, $this->params['content_background_color']);
-            } else {
-                throw new Exception('Unable to update the content container background color');
             }
         }
     }
@@ -167,9 +169,6 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     {
         $this->model();
 
-        /**
-         * @todo Add a check to see if current matches new, if so we don't need to do any of the below
-         */
         $log_property = 'html background color';
         $id = $this->model->existingHtmlBackgroundColorId($this->site_id);
 
@@ -186,15 +185,19 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
                 throw new Exception('Unable to set new html/page background color');
             }
         } else {
-            $result = $this->model->editHtmlBackgroundColor($id, $this->params['html_background_color']);
+            $background_color = $this->model->contentBackgroundColor($this->site_id, $this->page_id);
 
-            if ($result === true) {
-                if ($this->params['html_background_color'] !== null) {
-                    $this->addToColorHistory($this->params['html_background_color']);
+            if ($background_color !== $this->params['html_background_color']) {
+                $result = $this->model->editHtmlBackgroundColor($id, $this->params['html_background_color']);
+
+                if ($result === true) {
+                    if ($this->params['html_background_color'] !== null) {
+                        $this->addToColorHistory($this->params['html_background_color']);
+                    }
+                    $this->logChange($log_property, $this->params['html_background_color']);
+                } else {
+                    throw new Exception('Unable to update the html/page container background color');
                 }
-                $this->logChange($log_property, $this->params['html_background_color']);
-            } else {
-                throw new Exception('Unable to update the html/page container background color');
             }
         }
     }
