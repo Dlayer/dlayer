@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Shared styling form class
+ * Form for the horizontal rule tool
  *
  * @author Dean Blackborough
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Shared_Form_Styling extends Dlayer_Form_Tool_Content
+class Dlayer_DesignerTool_ContentManager_HorizontalRule_Form extends Dlayer_Form_Tool_Content
 {
     /**
      * Set the properties for the form
@@ -20,6 +20,8 @@ class Dlayer_DesignerTool_ContentManager_Shared_Form_Styling extends Dlayer_Form
      */
     public function __construct(array $tool, array $data, $instances, array $element_data, $options = null)
     {
+        $this->content_type = 'HorizontalRule';
+
         parent::__construct($tool, $data, $instances, $element_data, $options);
     }
 
@@ -36,32 +38,25 @@ class Dlayer_DesignerTool_ContentManager_Shared_Form_Styling extends Dlayer_Form
 
         $this->generateFormElements();
 
-        $this->addElementsToForm('styling', 'Styling', $this->elements);
+        $this->addElementsToForm('horizontal_rule', 'Horizontal rule', $this->elements);
 
         $this->addDefaultElementDecorators();
 
         $this->addCustomElementDecorators();
     }
 
-    /**
-     * Generate the tool elements that the user interacts with
-     *
-     * @return void
-     */
     protected function generateUserElements()
     {
-        $content_background_color = new Dlayer_Form_Element_ColorPicker('content_background_color');
-        $content_background_color->setLabel('Content item background color');
-        $content_background_color->setDescription('Set the background colour for the selected content item.');
-        $content_background_color->setBelongsTo('params');
-        $content_background_color->addClearLink();
+        $rule_color = new Dlayer_Form_Element_ColorPicker('color');
+        $rule_color->setLabel('Custom rule color');
+        $rule_color->setDescription('Set a custom horizontal rule colour or use the default.');
+        $rule_color->setBelongsTo('params');
+        $rule_color->addClearLink();
 
-        if (array_key_exists('content_background_color', $this->data) === true &&
-            $this->data['content_background_color'] !== false
-        ) {
-            $content_background_color->setValue($this->data['content_background_color']);
+        if (array_key_exists('color', $this->data) === true && $this->data['color'] !== false) {
+            $rule_color->setValue($this->data['color']);
         }
 
-        $this->elements['content_background_color'] = $content_background_color;
+        $this->elements['color'] = $rule_color;
     }
 }
