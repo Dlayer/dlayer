@@ -9,6 +9,7 @@ Full changelog for Dlayer since the v1.00 release.
 * I have added the ability to define the background colour for your website (Page background colour, in the future this will be configurable per template). [Feature]
 * I have made improvements to the styling code, less duplication of both data and code. [Refactoring]
 * New table to manage any styling attributes defined on the content container. [Database]
+* Control bar improvements. [UX]
 * General fixes and improvements.
 
 ## v1.15: 3rd Match 2017
