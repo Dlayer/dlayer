@@ -9,11 +9,13 @@
  */
 class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model
 {
-    private $model;
+    private $model_page;
+    private $model_html;
 
     public function __construct()
     {
-        $this->model = new Dlayer_Model_DesignerTool_ContentManager_PageStyling();
+        $this->model_page = new Dlayer_Model_DesignerTool_ContentManager_PageStyling();
+        $this->model_html = new Dlayer_Model_DesignerTool_ContentManager_HtmlStyling();
     }
 
     /**
@@ -26,7 +28,7 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model
      */
     public function contentBackgroundColor($site_id, $page_id)
     {
-        return $this->model->getContentAttributeValue($site_id, $page_id, 'background-color');
+        return $this->model_page->getAttributeValue($site_id, $page_id, 'background-color');
     }
 
     /**
@@ -38,7 +40,7 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model
      */
     public function htmlBackgroundColor($site_id)
     {
-        return $this->model->getHtmlAttributeValue($site_id, 'background-color');
+        return $this->model_html->getAttributeValue($site_id, 'background-color');
     }
 
     /**
@@ -51,7 +53,19 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model
      */
     public function existingContentBackgroundColorId($site_id, $page_id)
     {
-        return $this->model->existingContentAttributeId($site_id, $page_id, 'background-color');
+        return $this->model_page->existingAttributeId($site_id, $page_id, 'background-color');
+    }
+
+    /**
+     * Check to see if there is an existing background colour defined for the pahe/html
+     *
+     * @param integer $site_id
+     *
+     * @return integer|false
+     */
+    public function existingHtmlBackgroundColorId($site_id)
+    {
+        return $this->model_html->existingAttributeId($site_id, 'background-color');
     }
 
     /**
@@ -65,7 +79,20 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model
      */
     public function addContentBackgroundColor($site_id, $page_id, $color)
     {
-        return $this->model->addContentAttributeValue($site_id, $page_id, 'background-color', $color);
+        return $this->model_page->addAttributeValue($site_id, $page_id, 'background-color', $color);
+    }
+
+    /**
+     * Add a new background color for the html/page
+     *
+     * @param integer $site_id
+     * @param string $color
+     *
+     * @return boolean
+     */
+    public function addHtmlBackgroundColor($site_id, $color)
+    {
+        return $this->model_html->addAttributeValue($site_id, 'background-color', $color);
     }
 
     /**
@@ -78,6 +105,19 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model
      */
     public function editContentBackgroundColor($id, $color)
     {
-        return $this->model->editContentAttributeValue($id, $color);
+        return $this->model_page->editAttributeValue($id, $color);
+    }
+
+    /**
+     * Edit the background color for the page/html, optionally delete any existing value
+     *
+     * @param integer $id
+     * @param string $color
+     *
+     * @return boolean
+     */
+    public function editHtmlBackgroundColor($id, $color)
+    {
+        return $this->model_html->editAttributeValue($id, $color);
     }
 }

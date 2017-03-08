@@ -10,6 +10,11 @@
 class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlayer_Tool_Content
 {
     /**
+     * @var Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model
+     */
+    private $model;
+
+    /**
      * Check that the required params have been submitted, check the keys in the params array
      *
      * @param array $params
@@ -50,6 +55,7 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
                     Dlayer_Validate::colorHex($params['html_background_color']) === true)
             )
         ) {
+            $this->model();
             $valid = true;
         }
 
@@ -116,16 +122,16 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
      */
     protected function contentBackgroundColor()
     {
+        $this->model();
+
         /**
          * @todo Add a check to see if current matches new, if so we don't need to do any of the below
          */
-        $model = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
-
         $log_property = 'content background color';
-        $id = $model->existingContentBackgroundColorId($this->site_id, $this->page_id);
+        $id = $this->model->existingContentBackgroundColorId($this->site_id, $this->page_id);
 
         if ($id === false) {
-            $result = $model->addContentBackgroundColor(
+            $result = $this->model->addContentBackgroundColor(
                 $this->site_id,
                 $this->page_id,
                 $this->params['content_background_color']
@@ -138,7 +144,7 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
                 throw new Exception('Unable to set new content background color');
             }
         } else {
-            $result = $model->editContentBackgroundColor($id, $this->params['content_background_color']);
+            $result = $this->model->editContentBackgroundColor($id, $this->params['content_background_color']);
 
             if ($result === true) {
                 if ($this->params['content_background_color'] !== null) {
@@ -152,6 +158,48 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     }
 
     /**
+     * Manage the html/page background colour
+     *
+     * @return void
+     * @throws Exception
+     */
+    protected function htmlBackgroundColor()
+    {
+        $this->model();
+
+        /**
+         * @todo Add a check to see if current matches new, if so we don't need to do any of the below
+         */
+        $log_property = 'html background color';
+        $id = $this->model->existingHtmlBackgroundColorId($this->site_id);
+
+        if ($id === false) {
+            $result = $this->model->addHtmlBackgroundColor(
+                $this->site_id,
+                $this->params['html_background_color']
+            );
+
+            if ($result === true) {
+                $this->addToColorHistory($this->params['html_background_color']);
+                $this->logChange($log_property, $this->params['html_background_color']);
+            } else {
+                throw new Exception('Unable to set new html/page background color');
+            }
+        } else {
+            $result = $this->model->editHtmlBackgroundColor($id, $this->params['html_background_color']);
+
+            if ($result === true) {
+                if ($this->params['html_background_color'] !== null) {
+                    $this->addToColorHistory($this->params['html_background_color']);
+                }
+                $this->logChange($log_property, $this->params['html_background_color']);
+            } else {
+                throw new Exception('Unable to update the html/page container background color');
+            }
+        }
+    }
+
+    /**
      * Make a structural change to the page
      *
      * @return array|false An array of the environment vars to set or FALSE upon error
@@ -160,6 +208,13 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     {
         try {
             $this->contentBackgroundColor();
+        } catch (Exception $e) {
+            // Do nothing, log error for now
+            Dlayer_Helper::sendToErrorLog($e->getMessage());
+        }
+
+        try {
+            $this->htmlBackgroundColor();
         } catch (Exception $e) {
             // Do nothing, log error for now
             Dlayer_Helper::sendToErrorLog($e->getMessage());
@@ -218,4 +273,17 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
         Dlayer_Helper::sendToInfoLog("Set {$property} for page: " . $this->page_id .
             ' site_id: ' . $this->site_id . ' new value: ' . $value);
     }
+
+    /**
+     * Setup the model
+     *
+     * @return void
+     */
+    protected function model()
+    {
+        if ($this->model === null) {
+            $this->model = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
+        }
+    }
+
 }
