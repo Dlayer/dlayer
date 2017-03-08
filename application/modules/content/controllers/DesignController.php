@@ -1,7 +1,9 @@
 <?php
 
 /**
- * The design controller is the UI for the for Content manager, all processing is handled by the process controller, the Content manager attempts to show a live, responsive, visually accurate versions of the content page being worked upon
+ * The design controller is the UI for the for Content manager, all processing is handled by the process controller,
+ * the Content manager attempts to show a live, responsive, visually accurate versions of the content page being worked
+ * upon
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
@@ -32,7 +34,8 @@ class Content_DesignController extends Zend_Controller_Action
     private $session_content;
 
     /**
-     * @var Dlayer_Session_Designer Designer session, manages state of shared designer tools, the colour picker and image picker
+     * @var Dlayer_Session_Designer Designer session, manages state of shared designer tools, the colour picker and
+     *     image picker
      */
     private $session_designer;
 
@@ -52,7 +55,7 @@ class Content_DesignController extends Zend_Controller_Action
     private $control_bar_tools = array(
         'layout' => array(),
         'create' => array(),
-        'import' => array()
+        'import' => array(),
     );
 
     /**
@@ -62,7 +65,7 @@ class Content_DesignController extends Zend_Controller_Action
         array(
             'uri' => '/dlayer/index/home',
             'name' => 'Dlayer Demo',
-            'title' => 'Dlayer.com: Web development simplified'
+            'title' => 'Dlayer.com: Web development simplified',
         ),
         array('uri' => '/content/index/index', 'name' => 'Content Manager', 'title' => 'Content Manager'),
         array('uri' => 'http://www.dlayer.com/docs/', 'name' => 'Docs', 'title' => 'Read the Docs for Dlayer'),
@@ -111,7 +114,8 @@ class Content_DesignController extends Zend_Controller_Action
         $this->view->page = $this->page();
         $this->view->ribbon = $this->ribbon();
 
-        $this->view->module = $this->getRequest()->getModuleName();
+        $this->view->module = $this->getRequest()
+            ->getModuleName();
         $this->view->page_selected = $this->session_content->pageSelected();
         $this->view->row_id = $this->session_content->rowId();
         $this->view->content_id = $this->session_content->contentId();
@@ -123,14 +127,14 @@ class Content_DesignController extends Zend_Controller_Action
             array(
                 'css/dlayer.css',
                 'css/designer-shared.css',
-                'css/designer-1170.css'
+                'css/designer-1170.css',
             ),
             array(
                 'scripts/dlayer.js',
                 'scripts/designer.js',
                 'scripts/content-manager.js',
                 'scripts/preview.js',
-                'scripts/preview-content-manager.js'
+                'scripts/preview-content-manager.js',
             ),
             'Dlayer.com - Content Manager', '/content/design/preview');
     }
@@ -153,7 +157,7 @@ class Content_DesignController extends Zend_Controller_Action
             $siblings = $model_page->contentSiblings($this->site_id, $this->page_id, $column_id, $content_id);
         }
 
-        $this->controlBarBase($column_id, $parent_row_id, $parent_column_id, $row_id, $content_id);
+        $this->controlBarNavigate($column_id, $parent_row_id, $parent_column_id, $row_id, $content_id);
 
         $this->contractBarSIblings($siblings);
 
@@ -210,6 +214,7 @@ class Content_DesignController extends Zend_Controller_Action
      * @param string $tool
      * @param string $tab
      * @param string|NULL $sub_tool
+     *
      * @return string
      */
     private function dlayerRibbonHtml($tool, $tab, $sub_tool = null)
@@ -271,7 +276,8 @@ class Content_DesignController extends Zend_Controller_Action
 
         $this->controlBar();
 
-        $module = $this->getRequest()->getModuleName();
+        $module = $this->getRequest()
+            ->getModuleName();
         $tool = Dlayer_Helper::getParamAsString('tool');
         $sub_tool = Dlayer_Helper::getParamAsString('sub_tool');
         $tab = Dlayer_Helper::getParamAsString('tab');
@@ -280,7 +286,8 @@ class Content_DesignController extends Zend_Controller_Action
             $model_tool = new Dlayer_Model_Tool();
             $model_page = new Dlayer_Model_Page();
 
-            $exists = $model_tool->tabExists($this->getRequest()->getModuleName(), $tool, $tab);
+            $exists = $model_tool->tabExists($this->getRequest()
+                ->getModuleName(), $tool, $tab);
 
             if ($exists === true) {
                 if ($this->session_content->contentId() !== null) {
@@ -299,7 +306,8 @@ class Content_DesignController extends Zend_Controller_Action
                 $column_contains_content = $model_page->columnContainsContent($column_id);
 
                 if ($column_contains_content === true) {
-                    $this->view->column_content = $model_page->columnContent($this->site_id, $this->page_id, $column_id);
+                    $this->view->column_content =
+                        $model_page->columnContent($this->site_id, $this->page_id, $column_id);
                 }
 
                 $this->view->content_id = $this->session_content->contentId();
@@ -333,6 +341,7 @@ class Content_DesignController extends Zend_Controller_Action
      * @param string $tab
      * @param integer $multi_use
      * @param boolean $edit_mode
+     *
      * @return string
      */
     private function toolTabViewData($tool, $tab, $multi_use, $edit_mode)
@@ -406,8 +415,8 @@ class Content_DesignController extends Zend_Controller_Action
             array(
                 'uri' => '/content/design/index',
                 'class' => 'primary',
-                'name' => 'Return to Content Manager'
-            )
+                'name' => 'Return to Content Manager',
+            ),
         );
 
         $this->_helper->populateControlBar($control_bar_buttons, array());
@@ -418,19 +427,24 @@ class Content_DesignController extends Zend_Controller_Action
     /**
      * Set the id for the selected row
      *
-     * @todo Add a check to ensure id is valid, check needs to look at set column (page). Not sure yet if check is best in this controller, an action helper ot in the session class, review
+     * @todo Add a check to ensure id is valid, check needs to look at set column (page). Not sure yet if check is best
+     *     in this controller, an action helper ot in the session class, review
      * @return void
      */
     public function setSelectedRowAction()
     {
         $this->_helper->disableLayout(false);
 
-        $id = $this->getRequest()->getParam('id');
+        $id = $this->getRequest()
+            ->getParam('id');
         if ($this->session_designer->setTool('content', 'row') === true) {
             $this->session_content->setRowId($id);
 
-            if ($this->getRequest()->getParam('column') !== null) {
-                $this->session_content->setColumnId($this->getRequest()->getParam('column'));
+            if ($this->getRequest()
+                    ->getParam('column') !== null
+            ) {
+                $this->session_content->setColumnId($this->getRequest()
+                    ->getParam('column'));
             }
         }
 
@@ -447,13 +461,17 @@ class Content_DesignController extends Zend_Controller_Action
     {
         $this->_helper->disableLayout(false);
 
-        $id = $this->getRequest()->getParam('id');
+        $id = $this->getRequest()
+            ->getParam('id');
 
         if ($this->session_designer->setTool('content', 'column') === true) {
             $this->session_content->setColumnId($id);
 
-            if ($this->getRequest()->getParam('row') !== null) {
-                $this->session_content->setRowId($this->getRequest()->getParam('row'));
+            if ($this->getRequest()
+                    ->getParam('row') !== null
+            ) {
+                $this->session_content->setRowId($this->getRequest()
+                    ->getParam('row'));
             }
         }
 
@@ -464,7 +482,8 @@ class Content_DesignController extends Zend_Controller_Action
     /**
      * Set the current page as selected in the designer
      *
-     * @todo Add a check to ensure id is valid, check needs to ensure page is valid for user. Not sure yet if check is best in this controller, an action helper ot in the session class, review
+     * @todo Add a check to ensure id is valid, check needs to ensure page is valid for user. Not sure yet if check is
+     *     best in this controller, an action helper ot in the session class, review
      * @return void
      */
     public function setPageSelectedAction()
@@ -516,12 +535,14 @@ class Content_DesignController extends Zend_Controller_Action
     {
         $this->_helper->disableLayout(false);
 
-        $tool = $this->getRequest()->getParam('tool');
+        $tool = $this->getRequest()
+            ->getParam('tool');
 
         if ($tool !== null && strlen($tool) > 0) {
             if ($tool !== 'Cancel') {
                 if ($this->session_designer->setTool('content', $tool) === true) {
-                    $reset = $this->getRequest()->getParam('reset');
+                    $reset = $this->getRequest()
+                        ->getParam('reset');
 
                     if ($reset !== null && intval($reset) === 1) {
                         $this->session_content->clearContentId();
@@ -609,8 +630,10 @@ class Content_DesignController extends Zend_Controller_Action
     {
         $this->_helper->disableLayout(false);
 
-        $direction = $this->getRequest()->getParam('direction');
-        $content_id = $this->getRequest()->getParam('id');
+        $direction = $this->getRequest()
+            ->getParam('direction');
+        $content_id = $this->getRequest()
+            ->getParam('id');
         $page_id = $this->session_content->pageId();
         $column_id = $this->session_content->columnId();
 
@@ -631,26 +654,20 @@ class Content_DesignController extends Zend_Controller_Action
      *
      * @return void
      */
-    private function controlBarBase($column_id, $parent_row_id, $parent_column_id, $row_id, $content_id)
+    private function controlBarNavigate($column_id, $parent_row_id, $parent_column_id, $row_id, $content_id)
     {
-        $this->control_bar[] = array(
-            'name' => 'Cancel',
-            'class' => 'btn-danger',
-            'uri' => '/content/design/set-tool/Cancel/reset/1'
-        );
-
         if ($column_id !== null) {
             if ($content_id !== null) {
                 $this->control_bar[] = array(
                     'name' => 'Select parent row',
                     'class' => 'btn-default',
-                    'uri' => '/content/design/set-selected-row/id/' . $row_id . '/column/' . $parent_column_id
+                    'uri' => '/content/design/set-selected-row/id/' . $row_id . '/column/' . $parent_column_id,
                 );
             } else {
                 $this->control_bar[] = array(
                     'name' => 'Select parent row',
                     'class' => 'btn-default',
-                    'uri' => '/content/design/set-selected-row/id/' . $row_id . '/column/' . $parent_column_id
+                    'uri' => '/content/design/set-selected-row/id/' . $row_id . '/column/' . $parent_column_id,
                 );
             }
         }
@@ -660,13 +677,13 @@ class Content_DesignController extends Zend_Controller_Action
                 $this->control_bar[] = array(
                     'name' => 'Select parent column',
                     'class' => 'btn-default',
-                    'uri' => '/content/design/set-selected-column/id/' . $column_id . '/row/' . $row_id
+                    'uri' => '/content/design/set-selected-column/id/' . $column_id . '/row/' . $row_id,
                 );
             } else {
                 $this->control_bar[] = array(
                     'name' => 'Select parent column',
                     'class' => 'btn-default',
-                    'uri' => '/content/design/set-selected-column/id/' . $parent_column_id . '/row/' . $parent_row_id
+                    'uri' => '/content/design/set-selected-column/id/' . $parent_column_id . '/row/' . $parent_row_id,
                 );
             }
         }
@@ -676,21 +693,24 @@ class Content_DesignController extends Zend_Controller_Action
      * Control bar content item sibling movement controls
      *
      * @param $siblings
+     *
      * @return void
      */
     private function contractBarSiblings($siblings)
     {
         if ($siblings !== false && $siblings['previous'] !== false) {
             $this->control_bar_siblings[] = array(
-                'name' => 'Previous',
-                'uri' => '/content/design/set-selected-content/id/' . $siblings['previous'] . '/tool/' . $siblings['previous_data']['tool'] . '/content-type/' . $siblings['previous_data']['content_type'],
+                'name' => 'Previous content item',
+                'uri' => '/content/design/set-selected-content/id/' . $siblings['previous'] . '/tool/' .
+                    $siblings['previous_data']['tool'] . '/content-type/' . $siblings['previous_data']['content_type'],
             );
         }
 
         if ($siblings !== false && $siblings['next'] !== false) {
             $this->control_bar_siblings[] = array(
-                'name' => 'Next',
-                'uri' => '/content/design/set-selected-content/id/' . $siblings['next'] . '/tool/' . $siblings['next_data']['tool'] . '/content-type/' . $siblings['next_data']['content_type'],
+                'name' => 'Next content item',
+                'uri' => '/content/design/set-selected-content/id/' . $siblings['next'] . '/tool/' .
+                    $siblings['next_data']['tool'] . '/content-type/' . $siblings['next_data']['content_type'],
             );
         }
     }
@@ -708,7 +728,8 @@ class Content_DesignController extends Zend_Controller_Action
         $column_contains_content = $model_page->columnContainsContent($column_id);
         $column_contains_rows = $model_page->columnContainsRows($column_id);
 
-        $tools = $model_tool->tools($this->getRequest()->getModuleName());
+        $tools = $model_tool->tools($this->getRequest()
+            ->getModuleName());
         $current_tool = $this->session_designer->tool('content');
 
         foreach ($tools as $group_id => $group) {
@@ -751,7 +772,9 @@ class Content_DesignController extends Zend_Controller_Action
                         }
 
                         // Hide column tool
-                        if ($tool['model'] === 'AddColumn' && $current_tool !== false && $current_tool['tool'] === 'Column') {
+                        if ($tool['model'] === 'AddColumn' && $current_tool !== false &&
+                            $current_tool['tool'] === 'Column'
+                        ) {
                             $show = false;
                         }
                         break;
@@ -778,6 +801,17 @@ class Content_DesignController extends Zend_Controller_Action
                         }
                         break;
 
+                    case 6: // Content layout
+                        $group = 'content-layout';
+
+                        if ($page_selected === true && $row_id !== null &&
+                            ($column_id !== null && $column_id !== 0) &&
+                            $column_contains_rows === false
+                        ) {
+                            $show = true;
+                        }
+                        break;
+
                     default:
                         break;
                 }
@@ -790,7 +824,7 @@ class Content_DesignController extends Zend_Controller_Action
                 if ($show === true) {
                     $this->control_bar_tools[$group][] = array(
                         'name' => $tool['name'],
-                        'uri' => '/content/design/set-tool/tool/' . $tool['model'] . $reset
+                        'uri' => '/content/design/set-tool/tool/' . $tool['model'] . $reset,
                     );
                 }
             }
