@@ -120,6 +120,7 @@ class Dlayer_Model_Palette extends Zend_Db_Table_Abstract
      * Add a new entry into the colour history table for the given site
      *
      * @todo Probably wise to get it to check for duplicates before adding history data
+     * @todo Add in a check to see what is passing empty values
      *
      * @param integer $site_id
      * @param string $color_hex
@@ -127,13 +128,17 @@ class Dlayer_Model_Palette extends Zend_Db_Table_Abstract
      */
     public function addToHistory($site_id, $color_hex)
     {
-        $sql = "INSERT INTO user_setting_color_history
-				(site_id, color_hex)
-				VALUES
-				(:site_id, :color_hex)";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
-        $stmt->bindValue(':color_hex', $color_hex, PDO::PARAM_STR);
-        return $stmt->execute();
+        if (strlen($color_hex) === 7) {
+            $sql = "INSERT INTO user_setting_color_history
+                    (site_id, color_hex)
+                    VALUES
+                    (:site_id, :color_hex)";
+            $stmt = $this->_db->prepare($sql);
+            $stmt->bindValue(':site_id', $site_id, PDO::PARAM_INT);
+            $stmt->bindValue(':color_hex', $color_hex, PDO::PARAM_STR);
+            return $stmt->execute();
+        } else {
+            return true;
+        }
     }
 }

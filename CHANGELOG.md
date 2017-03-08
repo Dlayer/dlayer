@@ -3,6 +3,16 @@
 
 Full changelog for Dlayer since the v1.00 release.
 
+## v1.16: 
+
+* Enabled link support in Quill rich text fields.
+* I have changed the name of the background colour property on the page styling sub tool; it is now called content background colour which is more accurate.
+* I have added the ability to define the background colour for your website (Page background colour, in the future this will be configurable per template). [Feature]
+* I have made improvements to the styling code, less duplication of both data and code. [Refactoring]
+* New table to manage any styling attributes defined on the content container. [Database]
+* Control bar improvements. [UX]
+* General fixes and improvements.
+
 ## v1.15: 3rd Match 2017
 
 * Enabled the rich text content item tool. [Feature]

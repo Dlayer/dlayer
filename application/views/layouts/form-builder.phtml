@@ -52,12 +52,12 @@
             <div class="container container-1170">
                 <?php if (count($this->layout()->control_bar) > 0) { ?>
                     <?php foreach($this->layout()->control_bar as $button) { ?>
-                        <a href="<?php echo $this->escape($button['uri']); ?>" class="navbar-btn btn <?php echo $this->escape($button['class']); ?>"><?php echo $this->escape($button['name']); ?></a>
+                        <a href="<?php echo $this->escape($button['uri']); ?>" class="navbar-btn btn-sm btn <?php echo $this->escape($button['class']); ?>" style="margin-right: 1rem;"><?php echo $this->escape($button['name']); ?></a>
                     <?php } ?>
                 <?php } ?>
                 <?php if (count($this->layout()->control_bar_siblings) > 0) { ?>
-                    <div class="btn-group dropup">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="btn-group dropup" style="margin: 0 1rem;">
+                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Select sibling content items <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <?php foreach($this->layout()->control_bar_siblings as $button) { ?>
@@ -70,7 +70,7 @@
                 <?php foreach(array('layout', 'preset', 'standard', 'styling') as $group) { ?>
                     <?php if (count($this->layout()->control_bar_tools[$group]) > 0) { ?>
                         <div class="btn-group dropup">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php echo $labels[$group]; ?> <span class="caret"></span></button>
                             <ul class="dropdown-menu">
                                 <?php foreach($this->layout()->control_bar_tools[$group] as $button) { ?>
@@ -80,8 +80,8 @@
                         </div>
                     <?php } ?>
                 <?php } ?>
-                <div class="btn-group dropup">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="btn-group dropup" style="margin-left: 1rem;">
+                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Preview form @ <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li><a href="#" class="preview_at" data-cols="12">Full width</a></li>
@@ -90,7 +90,7 @@
                         <li><a href="#" class="preview_at" data-cols="3">Quarter width</a></li>
                     </ul>
                 </div>
-                <a href="#" class="pull-right visible-lg expand-ribbon navbar-btn btn btn-info"><span class="glyphicon glyphicon-indent-right" aria-hidden="true"></span>  Toggle ribbon</a>
+                <a href="#" class="pull-right visible-lg expand-ribbon navbar-btn btn btn-sm btn-info"><span class="glyphicon glyphicon-indent-right" aria-hidden="true"></span>  Toggle ribbon</a>
             </div>
         </nav>
 	</body>

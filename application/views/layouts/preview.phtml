@@ -39,7 +39,7 @@
 
         </script>
 	</head>
-	<body>
+	<body <?php echo $this->stylingHtml(); ?>>
 		<?php echo $this->layout()->content; ?>
         <?php if ($this->layout()->show_control_bar === true) { ?>
             <nav class="navbar navbar-default navbar-fixed-bottom">

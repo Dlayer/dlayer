@@ -52,18 +52,33 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Form extends Dlaye
      */
     protected function generateUserElements()
     {
-        $background_color = new Dlayer_Form_Element_ColorPicker('background_color');
-        $background_color->setLabel('Page background color');
-        $background_color->setDescription('Set the background colour for the page.');
-        $background_color->setBelongsTo('params');
-        $background_color->addClearLink();
+        $html_background_color = new Dlayer_Form_Element_ColorPicker('html_background_color');
+        $html_background_color->setLabel('Page background color');
+        $html_background_color->setDescription('Set the background colour for the page, the background colour will be 
+            visible when looking at the preview.');
+        $html_background_color->setBelongsTo('params');
+        $html_background_color->addClearLink();
 
-        if (array_key_exists('background_color', $this->data) === true &&
-            $this->data['background_color'] !== false
+        if (array_key_exists('html_background_color', $this->data) === true &&
+            $this->data['html_background_color'] !== false
         ) {
-            $background_color->setValue($this->data['background_color']);
+            $html_background_color->setValue($this->data['html_background_color']);
         }
 
-        $this->elements['background_color'] = $background_color;
+        $this->elements['html_background_color'] = $html_background_color;
+
+        $content_background_color = new Dlayer_Form_Element_ColorPicker('content_background_color');
+        $content_background_color->setLabel('Content background color');
+        $content_background_color->setDescription('Set the background colour for the content area.');
+        $content_background_color->setBelongsTo('params');
+        $content_background_color->addClearLink();
+
+        if (array_key_exists('content_background_color', $this->data) === true &&
+            $this->data['content_background_color'] !== false
+        ) {
+            $content_background_color->setValue($this->data['content_background_color']);
+        }
+
+        $this->elements['content_background_color'] = $content_background_color;
     }
 }

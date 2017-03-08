@@ -101,13 +101,23 @@ class Dlayer_Designer_Page
     }
 
     /**
+     * Fetch all the styles for the HTML/page
+     *
+     * @return array
+     */
+    public function htmlStyles()
+    {
+        return $this->model_styling->html();
+    }
+
+    /**
      * Fetch all the styles for the page itself
      *
      * @return array
      */
-    public function pageStyles()
+    public function contentContainerStyles()
     {
-        return $this->model_styling->page();
+        return $this->model_styling->contentContainer();
     }
 
     /**

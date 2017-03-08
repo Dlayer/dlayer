@@ -44,17 +44,24 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Ribbon extends Dla
     {
         if ($this->content_fetched === false) {
             $this->content_data = array(
-                'background_color' => false,
+                'html_background_color' => false,
+                'content_background_color' => false
             );
 
-            $model_styling = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
-            $background_color = $model_styling->backgroundColor(
+            $model = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
+            $content_background_color = $model->contentBackgroundColor(
                 $this->tool['site_id'],
                 $this->tool['page_id']
             );
+            $html_background_color = $model->htmlBackgroundColor(
+                $this->tool['site_id']
+            );
 
-            if ($background_color !== false) {
-                $this->content_data['background_color'] = $background_color;
+            if ($content_background_color !== false) {
+                $this->content_data['content_background_color'] = $content_background_color;
+            }
+            if ($html_background_color !== false) {
+                $this->content_data['html_background_color'] = $html_background_color;
             }
 
             $this->content_fetched = true;
@@ -72,7 +79,8 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Ribbon extends Dla
 
         return array(
             'id' => $this->tool['row_id'],
-            'background_color' => $this->content_data['background_color']
+            'content_background_color' => $this->content_data['content_background_color'],
+            'html_background_color' => $this->content_data['html_background_color']
         );
     }
 

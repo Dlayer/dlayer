@@ -1,147 +1,123 @@
 <?php
 
 /**
- * Data model for the styling sub tool
+ * Model class for styling sub tool, no direct database access calls utility model class.
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model extends Zend_Db_Table_Abstract
+class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model
 {
-    /**
-     * Fetch the background color assigned to the content page
-     *
-     * @param integer $site_id
-     * @param integer $id
-     *
-     * @return string|false
-     */
-    public function backgroundColor($site_id, $id)
+    private $model_page;
+    private $model_html;
+
+    public function __construct()
     {
-        $sql = "SELECT background_color 
-                FROM user_site_page_styling_page_background_color
-                WHERE site_id = :site_id 
-                AND page_id = :page_id 
-                LIMIT 1";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id);
-        $stmt->bindValue(':page_id', $id);
-        $stmt->execute();
-
-        $result = $stmt->fetch();
-
-        if ($result !== false) {
-            return $result['background_color'];
-        } else {
-            return false;
-        }
+        $this->model_page = new Dlayer_Model_DesignerTool_ContentManager_PageStyling();
+        $this->model_html = new Dlayer_Model_DesignerTool_ContentManager_HtmlStyling();
     }
 
     /**
-     * Check to see if there is an existing background colour defined for the page
+     * Fetch the background colour assigned to the content section of the page
      *
      * @param integer $site_id
-     * @param integer $id
+     * @param integer $page_id
+     *
+     * @return array|false
+     */
+    public function contentBackgroundColor($site_id, $page_id)
+    {
+        return $this->model_page->getAttributeValue($site_id, $page_id, 'background-color');
+    }
+
+    /**
+     * Fetch the background colour assigned to the html
+     *
+     * @param integer $site_id
+     *
+     * @return array|false
+     */
+    public function htmlBackgroundColor($site_id)
+    {
+        return $this->model_html->getAttributeValue($site_id, 'background-color');
+    }
+
+    /**
+     * Check to see if there is an existing background colour defined for the content container
+     *
+     * @param integer $site_id
+     * @param integer $page_id
      *
      * @return integer|false
      */
-    public function existingBackgroundColor($site_id, $id)
+    public function existingContentBackgroundColorId($site_id, $page_id)
     {
-        $sql = "SELECT id 
-                FROM user_site_page_styling_page_background_color 
-                WHERE site_id = :site_id 
-                AND page_id = :page_id 
-                LIMIT 1";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id);
-        $stmt->bindValue(':page_id', $id);
-        $stmt->execute();
-
-        $result = $stmt->fetch();
-        if ($result !== false) {
-            return intval($result['id']);
-        } else {
-            return false;
-        }
+        return $this->model_page->existingAttributeId($site_id, $page_id, 'background-color');
     }
 
     /**
-     * Add a new background color to the page
+     * Check to see if there is an existing background colour defined for the pahe/html
      *
      * @param integer $site_id
-     * @param integer $id
-     * @param string $color_hex
      *
-     * @return boolean
+     * @return integer|false
      */
-    public function addBackgroundColor($site_id, $id, $color_hex)
+    public function existingHtmlBackgroundColorId($site_id)
     {
-        $sql = "INSERT INTO user_site_page_styling_page_background_color 
-                (site_id, page_id, background_color) 
-                VALUES 
-                (:site_id, :page_id, :background_color)";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $site_id);
-        $stmt->bindValue(':page_id', $id);
-        $stmt->bindValue(':background_color', $color_hex);
-
-        return $stmt->execute();
+        return $this->model_html->existingAttributeId($site_id, 'background-color');
     }
 
     /**
-     * Edit the background color for the page, optionally delete any set values
+     * Add a new background color for the content container
      *
-     * @param integer $id
-     * @param string $color_hex
+     * @param integer $site_id
+     * @param integer $page_id
+     * @param string $color
      *
      * @return boolean
      */
-    public function editBackgroundColor($id, $color_hex)
+    public function addContentBackgroundColor($site_id, $page_id, $color)
     {
-        if (strlen($color_hex) !== 0) {
-            return $this->updateBackgroundColor($id, $color_hex);
-        } else {
-            return $this->deleteBackgroundColor($id);
-        }
+        return $this->model_page->addAttributeValue($site_id, $page_id, 'background-color', $color);
     }
 
     /**
-     * Update the background colour for the row
+     * Add a new background color for the html/page
      *
-     * @param integer $id
-     * @param string $color_hex
+     * @param integer $site_id
+     * @param string $color
      *
      * @return boolean
      */
-    protected function updateBackgroundColor($id, $color_hex)
+    public function addHtmlBackgroundColor($site_id, $color)
     {
-        $sql = "UPDATE user_site_page_styling_page_background_color 
-                SET background_color = :background_color 
-                WHERE id = :id 
-                LIMIT 1";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':background_color', $color_hex);
-
-        return $stmt->execute();
+        return $this->model_html->addAttributeValue($site_id, 'background-color', $color);
     }
 
     /**
-     * Remove a background colour for the selected row
+     * Edit the background color for the content page, optionally delete any existing value
      *
      * @param integer $id
+     * @param string $color
      *
      * @return boolean
      */
-    protected function deleteBackgroundColor($id)
+    public function editContentBackgroundColor($id, $color)
     {
-        $sql = "DELETE FROM user_site_page_styling_page_background_color 
-                WHERE id = :id 
-                LIMIT 1";
-        $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':id', $id);
+        return $this->model_page->editAttributeValue($id, $color);
+    }
 
-        return $stmt->execute();
+    /**
+     * Edit the background color for the page/html, optionally delete any existing value
+     *
+     * @param integer $id
+     * @param string $color
+     *
+     * @return boolean
+     */
+    public function editHtmlBackgroundColor($id, $color)
+    {
+        return $this->model_html->editAttributeValue($id, $color);
     }
 }
