@@ -48,7 +48,7 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Form extends Dlayer_Form
     protected function generateUserElements()
     {
         $rule_color = new Dlayer_Form_Element_ColorPicker('color');
-        $rule_color->setLabel('Custom rule color');
+        $rule_color->setLabel('Colour');
         $rule_color->setDescription('Set a custom horizontal rule colour or reset to use the default.');
         $rule_color->setBelongsTo('params');
         $rule_color->addClearLink();
