@@ -527,4 +527,28 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     public function blogPostPreview(array $data)
     {
     }
+
+    /**
+     * Horizontal rule view helper
+     *
+     * @param array $data Content item data array
+     * @param boolean $selectable
+     * @param boolean $selected
+     *
+     * @return Dlayer_View_HorizontalRule
+     */
+    public function horizontalRule(array $data, $selectable = false, $selected = false)
+    {
+    }
+
+    /**
+     * Preview version of the horizontal rule view helper
+     *
+     * @param array $data Content item data array
+     *
+     * @return Dlayer_View_HorizontalRulePreview
+     */
+    public function horizontalRulePreview(array $data)
+    {
+    }
 }

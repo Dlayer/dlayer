@@ -145,6 +145,10 @@ class Dlayer_View_Content extends Zend_View_Helper_Abstract
                         $html .= $this->view->headingDate($content['data'], $selectable, $selected);
                         break;
 
+                    case 'HorizontalRule':
+                        $html .= $this->view->horizontalRule($content['data'], $selectable, $selected);
+                        break;
+
                     case 'Html':
                         $html .= $this->view->html($content['data'], $selectable, $selected);
                         break;

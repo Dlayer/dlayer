@@ -52,6 +52,10 @@ div#designer {
 				@include selected-state();
 			}
 
+			div.column.selected > hr {
+				height: 60px;
+			}
+
 			div.column > h1.selected, h2.selected, h3.selected, h4.selected, h5.selected, h6.selected {
 				@include selected-state();
 			}

@@ -220,6 +220,10 @@ class Dlayer_Model_View_Page extends Zend_Db_Table_Abstract
                     $content_item = $this->headingDate($row['content_id']);
                     break;
 
+                case 'HorizontalRule':
+                    $content_item = array('content_id' => $row['content_id']);
+                    break;
+
                 case 'Html':
                     $content_item = $this->html($row['content_id']);
                     break;
