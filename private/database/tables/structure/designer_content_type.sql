@@ -4,4 +4,4 @@ CREATE TABLE `designer_content_type` (
 	`name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
 	`description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

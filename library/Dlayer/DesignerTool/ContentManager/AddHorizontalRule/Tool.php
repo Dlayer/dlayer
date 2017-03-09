@@ -62,7 +62,6 @@ class Dlayer_DesignerTool_ContentManager_AddHorizontalRule_Tool extends Dlayer_T
      */
     protected function add()
     {
-        $data_added = false;
         $content_id = $this->addContentItem('HorizontalRule');
 
         if ($content_id !== false) {

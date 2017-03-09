@@ -51,11 +51,7 @@ class Dlayer_DesignerTool_ContentManager_AddHorizontalRule_Form extends Dlayer_F
         $name->setDescription("To add a horizontal rule, please click the 'save' button.");
         $name->setBelongsTo('params');
         $name->setRequired();
-
-        if(array_key_exists('name', $this->data) === TRUE && $this->data['name'] !== FALSE)
-        {
-            $name->setValue($this->data['name']);
-        }
+        $name->setValue('Horizontal rule');
 
         $this->elements['name'] = $name;
     }
