@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_HorizontalRule_Form extends Dlayer_Form_Tool_Content
+class Dlayer_DesignerTool_ContentManager_AddHorizontalRule_Form extends Dlayer_Form_Tool_Content
 {
     /**
      * Set the properties for the form
@@ -47,16 +47,16 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Form extends Dlayer_Form
 
     protected function generateUserElements()
     {
-        $rule_color = new Dlayer_Form_Element_ColorPicker('color');
-        $rule_color->setLabel('Custom rule color');
-        $rule_color->setDescription('Set a custom horizontal rule colour or reset to use the default.');
-        $rule_color->setBelongsTo('params');
-        $rule_color->addClearLink();
+        $name = new Zend_Form_Element_Hidden('name');
+        $name->setDescription("To add a horizontal rule, please click the 'save' button.");
+        $name->setBelongsTo('params');
+        $name->setRequired();
 
-        if (array_key_exists('color', $this->data) === true && $this->data['color'] !== false) {
-            $rule_color->setValue($this->data['color']);
+        if(array_key_exists('name', $this->data) === TRUE && $this->data['name'] !== FALSE)
+        {
+            $name->setValue($this->data['name']);
         }
 
-        $this->elements['color'] = $rule_color;
+        $this->elements['name'] = $name;
     }
 }

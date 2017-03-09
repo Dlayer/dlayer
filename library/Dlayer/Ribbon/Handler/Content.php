@@ -88,6 +88,10 @@ class Dlayer_Ribbon_Handler_Content
                 $data = $this->addColumn($tool, $tab);
                 break;
 
+            case 'AddHorizontalRule':
+                $data = $this->addHorizontalRule($tool, $tab);
+                break;
+
             case 'AddRow':
                 $data = $this->addRow($tool, $tab);
                 break;
@@ -669,10 +673,35 @@ class Dlayer_Ribbon_Handler_Content
      *
      * @return array|false
      */
-    private function horizontalRule($tool, $tab)
+    private function addHorizontalRule($tool, $tab)
     {
         switch ($tab) {
             case 'horizontal-rule':
+                $ribbon_rule = new Dlayer_DesignerTool_ContentManager_AddHorizontalRule_Ribbon();
+                $data = $ribbon_rule->viewData($this->toolParams($tool));
+                break;
+
+            default:
+                $data = false;
+                break;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch the view tab data for the horizontal rule tool, returns an array containing the form and the data for
+     * the tool
+     *
+     * @param string $tool The tool name
+     * @param string $tab The tool tab name
+     *
+     * @return array|false
+     */
+    private function horizontalRule($tool, $tab)
+    {
+        switch ($tab) {
+            case 'styling':
                 $ribbon_rule = new Dlayer_DesignerTool_ContentManager_HorizontalRule_Ribbon();
                 $data = $ribbon_rule->viewData($this->toolParams($tool));
                 break;

@@ -1,25 +1,24 @@
 <?php
 
 /**
- * Horizontal rule content item tool
+ * Add a Horizontal rule content item tool
  *
  * @author Dean Blackborough <dean@g3d-development.com>
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_HorizontalRule_Tool extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_AddHorizontalRule_Tool extends Dlayer_Tool_Content
 {
     /**
      * Check that the required params have been submitted, check the keys in the params array
      *
      * @param array $params
-     *
      * @return boolean
      */
     protected function paramsExist(array $params)
     {
         $valid = false;
-        if (array_key_exists('color', $params) === true) {
+        if (array_key_exists('name', $params) === true) {
             $valid = true;
         }
 
@@ -30,16 +29,12 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Tool extends Dlayer_Tool
      * Check to ensure the posted params are of the correct type and optionally within range
      *
      * @param array $params
-     *
      * @return boolean
      */
     protected function paramsValid(array $params)
     {
         $valid = false;
-        if (strlen(trim($params['color'])) === 0 ||
-            (strlen(trim($params['color'])) === 7 &&
-                Dlayer_Validate::colorHex($params['color']) === true)
-        ) {
+        if (strlen(trim($params['name'])) > 0) {
             $valid = true;
         }
 
@@ -51,13 +46,12 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Tool extends Dlayer_Tool
      *
      * @param array $params
      * @param boolean $manual_tool Are the values to be assigned to $this->params or $this->params_auto
-     *
      * @return void
      */
     protected function paramsAssign(array $params, $manual_tool = true)
     {
         $this->params = array(
-            'color' => trim($params['color']),
+            'name' => trim($params['name'])
         );
     }
 
@@ -68,7 +62,17 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Tool extends Dlayer_Tool
      */
     protected function add()
     {
-        // Not required by tool
+        $data_added = false;
+        $content_id = $this->addContentItem('HorizontalRule');
+
+        if ($content_id !== false) {
+            Dlayer_Helper::sendToInfoLog('Horizontal rule added to site id: ' . $this->site_id . ' page id: ' .
+                $this->page_id . ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
+
+            return $this->returnIds($content_id);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -79,7 +83,7 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Tool extends Dlayer_Tool
      */
     protected function edit()
     {
-        // Not implemented yet
+        // Not required by tool
     }
 
     /**
@@ -96,7 +100,6 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Tool extends Dlayer_Tool
      * Generate the return ids array
      *
      * @param integer|NULL Set content id or use the class property
-     *
      * @return array
      */
     protected function returnIds($content_id = null)
@@ -125,8 +128,8 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Tool extends Dlayer_Tool
             array(
                 'type' => 'content_id',
                 'id' => $this->content_id,
-                'content_type' => 'HorizontalRule',
-            ),
+                'content_type' => 'HorizontalRule'
+            )
         );
     }
 
@@ -135,7 +138,6 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Tool extends Dlayer_Tool
      *
      * @param integer $site_id
      * @param integer $content_id
-     *
      * @return boolean
      */
     protected function validateInstances($site_id, $content_id)

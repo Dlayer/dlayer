@@ -46,17 +46,14 @@ class Dlayer_Model_Page extends Zend_Db_Table_Abstract
      * Add a new content items to the content structure table, also adds the entry to the table for the content item
      * type
      *
-     * @since 0.99
-     *
      * @param integer $site_id
      * @param integer $page_id
      * @param integer $column_id
      * @param string $content_type
-     * @param array $params
      *
      * @return integer|FALSE
      */
-    public function addContentItem($site_id, $page_id, $column_id, $content_type, array $params)
+    public function addContentItem($site_id, $page_id, $column_id, $content_type)
     {
         $content_id = false;
 

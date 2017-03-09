@@ -199,8 +199,7 @@ abstract class Dlayer_Tool_Content
 	{
 		$model_content = new Dlayer_Model_Page();
 
-		return $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, $content_type,
-			$this->params);
+		return $model_content->addContentItem($this->site_id, $this->page_id, $this->column_id, $content_type);
 	}
 
 	/**
