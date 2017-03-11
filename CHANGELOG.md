@@ -5,7 +5,8 @@ Full changelog for Dlayer since the v1.00 release.
 
 ## v1.16: 
 
-* Enabled link support in Quill rich text fields.
+* Enabled link support in Quill rich text fields. [v0.30.0 of PHP Quill renderer]
+* Enabled superscript and subscript support in Quill rich text fields. [v0.40.0 of PHP Quill renderer]
 * I have changed the name of the background colour property on the page styling sub tool; it is now called content background colour which is more accurate.
 * I have added the ability to define the background colour for your website (Page background colour, in the future this will be configurable per template). [Feature]
 * I have made improvements to the styling code, less duplication of both data and code. [Refactoring]
