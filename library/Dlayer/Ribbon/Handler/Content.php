@@ -701,6 +701,11 @@ class Dlayer_Ribbon_Handler_Content
     private function horizontalRule($tool, $tab)
     {
         switch ($tab) {
+            case 'delete':
+                $ribbon_rule = new Dlayer_DesignerTool_ContentManager_HorizontalRule_SubTool_Delete_Ribbon();
+                $data = $ribbon_rule->viewData($this->toolParams($tool));
+                break;
+
             case 'styling':
                 $ribbon_rule = new Dlayer_DesignerTool_ContentManager_HorizontalRule_Ribbon();
                 $data = $ribbon_rule->viewData($this->toolParams($tool));
