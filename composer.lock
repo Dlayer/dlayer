@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "deanblackborough/php-quill-renderer",
-            "version": "v0.30.0",
+            "version": "v0.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deanblackborough/php-quill-renderer.git",
-                "reference": "352a4d0412442c0bd8f26ac92ea524cba0df1cf1"
+                "reference": "56dc37c6a69c098bac918684d8e6376f91318612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/352a4d0412442c0bd8f26ac92ea524cba0df1cf1",
-                "reference": "352a4d0412442c0bd8f26ac92ea524cba0df1cf1",
+                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/56dc37c6a69c098bac918684d8e6376f91318612",
+                "reference": "56dc37c6a69c098bac918684d8e6376f91318612",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "quill",
                 "renderer"
             ],
-            "time": "2017-03-06T00:52:00+00:00"
+            "time": "2017-03-10T17:08:52+00:00"
         }
     ],
     "packages-dev": [],

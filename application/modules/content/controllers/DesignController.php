@@ -56,6 +56,7 @@ class Content_DesignController extends Zend_Controller_Action
         'layout' => array(),
         'create' => array(),
         'import' => array(),
+        'content-layout' => array()
     );
 
     /**

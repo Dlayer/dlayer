@@ -45,6 +45,7 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
     {
         return array(
             'background_color' => $this->contentItemBackgroundColors(),
+            'border_top' => $this->contentItemsBorderTop(),
             'font_family' => $this->contentItemFontFamilies(),
             'text_weight' => $this->contentItemTextWeights()
         );
@@ -135,6 +136,36 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
 
         foreach ($stmt->fetchAll() as $row) {
             $styles[intval($row['content_id'])] = $row['background_color'];
+        }
+
+        return $styles;
+    }
+
+    /**
+     * Fetch the border top styles for the content items indexed by content id
+     *
+     * @todo This is how the rest of the styling code needs to work
+     * @return array
+     */
+    private function contentItemsBorderTop()
+    {
+        $sql = "SELECT 
+                    `content_id`, 
+                    `value` 
+                FROM 
+                    `user_site_content_styling` 
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `page_id` = :page_id";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindValue(':site_id', $this->site_id);
+        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->execute();
+
+        $styles = array();
+
+        foreach ($stmt->fetchAll() as $row) {
+            $styles[intval($row['content_id'])] = $row['value'];
         }
 
         return $styles;

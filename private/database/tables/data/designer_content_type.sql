@@ -1,11 +1,12 @@
 
-insert  into `designer_content_type`(`id`,`name`,`description`) values
-    (1,'Text','Text block'),
-    (2,'Heading','Heading'),
-    (3,'Form','Form'),
-    (4,'Jumbotron','Jumbotron'),
-    (5,'Image','Image'),
-    (6,'Html','Raw html'),
-    (7,'HeadingDate','Heading & Date'),
-    (8,'RichText', 'Rich text'),
-    (9,'BlogPost', 'Blog post');
+insert  into `designer_content_type`(`name`,`description`) values
+    ('Text','Text block'),
+    ('Heading','Heading'),
+    ('Form','Form'),
+    ('Jumbotron','Jumbotron'),
+    ('Image','Image'),
+    ('Html','Raw html'),
+    ('HeadingDate','Heading & Date'),
+    ('RichText', 'Rich text'),
+    ('BlogPost', 'Blog post'),
+    ('HorizontalRule', 'Horizontal rule');

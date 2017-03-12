@@ -935,4 +935,49 @@ VALUES
                                                 ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
                                                    `dlayer_module`.`name` = 'content'
                                         WHERE `dlayer_module_tool`.`model` = 'BlogPost'), 'Delete', 'delete', 'Delete',
-           'remove', NULL, 1, 0, 0, 4, 1);
+           'remove', NULL, 1, 0, 0, 4, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'AddHorizontalRule'), 'Horizontal Rule', 'horizontal-rule', NULL,
+           'pencil', NULL, 1, 0, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'AddHorizontalRule'), 'Help', 'help', NULL,
+           'info-sign', NULL, 0, 0, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'HorizontalRule'), 'Styling', 'styling', NULL,
+           'tint', NULL, 0, 1, 1, 1, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'HorizontalRule'), 'Delete', 'delete', 'Delete',
+           'remove', NULL, 0, 1, 0, 2, 1),
+    (NULL, (SELECT `id`
+            FROM `dlayer_module`
+            WHERE `name` = 'content'), (SELECT `dlayer_module_tool`.`id`
+                                        FROM `dlayer_module_tool`
+                                            INNER JOIN `dlayer_module`
+                                                ON `dlayer_module_tool`.`module_id` = `dlayer_module`.`id` AND
+                                                   `dlayer_module`.`name` = 'content'
+                                        WHERE `dlayer_module_tool`.`model` = 'HorizontalRule'), 'Help', 'help', null,
+           'info-sign', NULL, 0, 1, 0, 3, 1);
