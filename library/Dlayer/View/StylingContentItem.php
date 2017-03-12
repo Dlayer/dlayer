@@ -92,6 +92,12 @@ class Dlayer_View_StylingContentItem extends Zend_View_Helper_Abstract
                 $styles .= $this->view->stylingAttributeBackgroundColor($this->styles['background_color'][$this->id]);
             }
 
+            if (array_key_exists('border_top', $this->styles) === true &&
+                array_key_exists($this->id, $this->styles['border_top']) === true
+            ) {
+                $styles .= $this->view->stylingAttributeBorderTop($this->styles['border_top'][$this->id]);
+            }
+
             if (array_key_exists('font_family', $this->styles) === true &&
                 array_key_exists($this->id, $this->styles['font_family']) === true
             ) {

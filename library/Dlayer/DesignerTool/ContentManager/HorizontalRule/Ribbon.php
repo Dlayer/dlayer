@@ -49,6 +49,17 @@ class Dlayer_DesignerTool_ContentManager_HorizontalRule_Ribbon extends Dlayer_Ri
                 'color' => false
             );
 
+            $model = new Dlayer_DesignerTool_ContentManager_HorizontalRule_Model();
+            $color = $model->borderTopColor(
+                $this->tool['site_id'],
+                $this->tool['page_id'],
+                $this->tool['content_id']
+            );
+
+            if ($color !== false) {
+                $this->content_data['color'] = str_replace('1px solid ', '', $color);
+            }
+
             $this->content_fetched = true;
         }
     }

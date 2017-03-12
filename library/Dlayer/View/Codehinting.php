@@ -304,6 +304,17 @@ class Dlayer_View_Codehinting extends Zend_View_Helper_Abstract
     }
 
     /**
+     * Border top style attribute
+     *
+     * @param string $border The border value
+     *
+     * @return Dlayer_View_StylingAttributeBorderTop
+     */
+    public function stylingAttributeBorderTop($border)
+    {
+    }
+
+    /**
      * Font family style attribute
      *
      * @param string $font_family The font family setting
