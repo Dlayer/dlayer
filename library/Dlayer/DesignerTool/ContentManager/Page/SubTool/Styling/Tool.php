@@ -205,22 +205,22 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
     /**
      * Make a structural change to the page
      *
-     * @return array|false An array of the environment vars to set or FALSE upon error
+     * @return array|false An array of the environment vars to set or false upon error
      */
     protected function structure()
     {
         try {
             $this->contentBackgroundColor();
         } catch (Exception $e) {
-            // Do nothing, log error for now
             Dlayer_Helper::sendToErrorLog($e->getMessage());
+            return false;
         }
 
         try {
             $this->htmlBackgroundColor();
         } catch (Exception $e) {
-            // Do nothing, log error for now
             Dlayer_Helper::sendToErrorLog($e->getMessage());
+            return false;
         }
 
         return $this->returnIds();
@@ -288,5 +288,4 @@ class Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Tool extends Dlaye
             $this->model = new Dlayer_DesignerTool_ContentManager_Page_SubTool_Styling_Model();
         }
     }
-
 }

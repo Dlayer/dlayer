@@ -52,6 +52,11 @@ div#designer {
 				@include selected-state();
 			}
 
+            div.column > hr.selected {
+                background-color: #e1dc50;
+                height: 5px;
+            }
+
 			div.column.selected > hr {
 				height: 60px;
 			}
