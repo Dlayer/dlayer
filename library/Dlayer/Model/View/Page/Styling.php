@@ -126,19 +126,25 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
      */
     private function contentItemBackgroundColors()
     {
-        $sql = "SELECT content_id, background_color 
-                FROM user_site_page_styling_content_item_background_color 
-                WHERE site_id = :site_id 
-                AND page_id = :page_id";
+        $sql = "SELECT 
+                    `content_id`, 
+                    `value` 
+                FROM 
+                    `user_site_content_styling` 
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `page_id` = :page_id AND 
+                    `attribute` = :attribute";
         $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $this->site_id);
-        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':attribute', 'background-color', PDO::PARAM_STR);
         $stmt->execute();
 
         $styles = array();
 
         foreach ($stmt->fetchAll() as $row) {
-            $styles[intval($row['content_id'])] = $row['background_color'];
+            $styles[intval($row['content_id'])] = $row['value'];
         }
 
         return $styles;
@@ -159,10 +165,12 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
                     `user_site_content_styling` 
                 WHERE 
                     `site_id` = :site_id AND 
-                    `page_id` = :page_id";
+                    `page_id` = :page_id AND 
+                    `attribute` = :attribute";
         $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $this->site_id);
-        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':attribute', 'border-top', PDO::PARAM_STR);
         $stmt->execute();
 
         $styles = array();
