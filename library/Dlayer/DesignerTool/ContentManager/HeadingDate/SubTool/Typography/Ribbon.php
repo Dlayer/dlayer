@@ -52,22 +52,26 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_SubTool_Typography_Ribbon e
             );
 
             if ($this->tool['content_id'] !== null) {
-                $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
+                $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Typography();
 
-                $font_and_text_values = $model->fontAndTextValues(
+                $font_weight = $model->fontWeight(
                     $this->tool['site_id'],
                     $this->tool['page_id'],
                     $this->tool['content_id']
                 );
 
-                if ($font_and_text_values !== false) {
-                    if ($font_and_text_values['text_weight_id'] !== null) {
-                        $this->content_data['text_weight_id'] = $font_and_text_values['text_weight_id'];
-                    }
+                $font_family = $model->fontFamily(
+                    $this->tool['site_id'],
+                    $this->tool['page_id'],
+                    $this->tool['content_id']
+                );
 
-                    if ($font_and_text_values['font_family_id'] !== null) {
-                        $this->content_data['font_family_id'] = $font_and_text_values['font_family_id'];
-                    }
+                if ($font_weight !== false) {
+                    $this->content_data['text_weight_id'] = $font_weight;
+                }
+
+                if ($font_family !== false) {
+                    $this->content_data['font_family_id'] = $font_family;
                 }
             }
 
@@ -89,14 +93,14 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_SubTool_Typography_Ribbon e
                 'text_weights' => false
             );
 
-            $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
+            $model = new Dlayer_Model_DesignerTool_ContentManager_Typography();
 
             $font_families = $model->fontFamiliesForSelect();
             if ($font_families !== false) {
                 $this->element_data['font_families'] = $font_families;
             }
 
-            $text_weights = $model->textWeightsForSelect();
+            $text_weights = $model->fontWeightsForSelect();
             if ($text_weights !== false) {
                 $this->element_data['text_weights'] = $text_weights;
             }
@@ -123,19 +127,17 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_SubTool_Typography_Ribbon e
                 'text_weights' => false
             );
 
-            $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
+            $model = new Dlayer_Model_DesignerTool_ContentManager_Typography();
 
             $font_families = $model->fontFamiliesForPreview();
             if ($font_families !== false) {
                 $this->preview_data['font_families'] = $font_families;
             }
 
-            $text_weights = $model->textWeightsForPreview();
+            $text_weights = $model->fontWeightsForPreview();
             if ($text_weights !== false) {
                 $this->preview_data['text_weights'] = $text_weights;
             }
-
-            $this->preview_data_fetched = true;
         }
     }
 

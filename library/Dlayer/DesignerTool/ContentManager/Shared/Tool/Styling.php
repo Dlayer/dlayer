@@ -10,7 +10,7 @@
 class Dlayer_DesignerTool_ContentManager_Shared_Tool_Styling extends Dlayer_Tool_Content
 {
     /**
-     * @var Dlayer_DesignerTool_ContentManager_Shared_Model_Styling
+     * @var Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Styling
      */
     protected $model;
 
@@ -199,7 +199,7 @@ class Dlayer_DesignerTool_ContentManager_Shared_Tool_Styling extends Dlayer_Tool
     protected function model()
     {
         if ($this->model === null) {
-            $this->model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Styling();
+            $this->model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Styling();
         }
     }
 }

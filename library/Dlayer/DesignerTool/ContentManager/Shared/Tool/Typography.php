@@ -10,6 +10,11 @@
 class Dlayer_DesignerTool_ContentManager_Shared_Tool_Typography extends Dlayer_Tool_Content
 {
     /**
+     * @var Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Typography
+     */
+    protected $model;
+
+    /**
      * Check that the required params have been submitted, check the keys in the params array
      *
      * @param array $params
@@ -39,10 +44,10 @@ class Dlayer_DesignerTool_ContentManager_Shared_Tool_Typography extends Dlayer_T
     {
         $valid = false;
 
-        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
+        $model = new Dlayer_Model_DesignerTool_ContentManager_Typography();
 
         if ($model->fontFamilyIdValid($params['font_family_id']) === true &&
-            $model->textWeightIdValid($params['text_weight_id']) === true) {
+            $model->fontWeightIdValid($params['text_weight_id']) === true) {
             $valid = true;
         }
 
@@ -94,15 +99,24 @@ class Dlayer_DesignerTool_ContentManager_Shared_Tool_Typography extends Dlayer_T
     /**
      * Edit a content item or setting
      *
-     * @return array|FALSE Ids for new environment vars or FALSE if the request failed
+     * @return array|false Ids for new environment vars or false if the request failed
      * @throws Exception
      */
     protected function edit()
     {
-        $this->fontFamily();
-        $this->textWeight();
+        try {
+            $this->fontFamily();
+        } catch (Exception $e) {
+            Dlayer_Helper::sendToErrorLog($e->getMessage());
+            return false;
+        }
 
-        $this->cleanUp();
+        try {
+            $this->fontWeight();
+        } catch (Exception $e) {
+            Dlayer_Helper::sendToErrorLog($e->getMessage());
+            return false;
+        }
 
         return $this->returnIds();
     }
@@ -115,78 +129,80 @@ class Dlayer_DesignerTool_ContentManager_Shared_Tool_Typography extends Dlayer_T
      */
     protected function fontFamily()
     {
-        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
+        $this->model();
 
-        $id = $model->existingFontAndTextValues($this->site_id, $this->page_id, $this->content_id);
+        $log_property = 'font family';
+        $id = $this->model->existingFontFamilyId($this->site_id, $this->page_id, $this->content_id);
 
-        if ($id === false && $this->params['font_family_id'] !== DEFAULT_FONT_FAMILY_FOR_MODULE) {
-            try {
-                $model->addFontFamily(
-                    $this->site_id,
-                    $this->page_id,
-                    $this->content_id,
-                    $this->params['font_family_id']
-                );
+        if ($id === false) {
+            $result = $this->model->addFontFamily(
+                $this->site_id,
+                $this->page_id,
+                $this->content_id,
+                $this->params['font_family_id']
+            );
 
-                Dlayer_Helper::sendToInfoLog('Set font family for content item: ' . $this->content_id .
-                    ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
-                    ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            if ($result === true) {
+                $this->logChange($log_property, $this->params['font_family_id']);
+            } else {
+                throw new Exception('Unable to set new font family on content item');
             }
         } else {
-            try {
-                $model->editFontFamily($id, $this->params['font_family_id']);
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            $family_id = $this->model->fontWeight($this->site_id, $this->page_id, $this->content_id);
+
+            if ($family_id !== $this->params['font_family_id']) {
+
+                $result = $this->model->editFontWeight($id, $this->params['font_family_id']);
+
+                if ($result === true) {
+                    $this->logChange($log_property, $this->params['font_family_id']);
+                } else {
+                    throw new Exception('Unable to update the font family on content item');
+                }
             }
         }
     }
 
     /**
-     * Manage the text weight for a content item
+     * Manage the font weight for a content item
      *
      * @return void
      * @throws Exception
      */
-    protected function textWeight()
+    protected function fontWeight()
     {
-        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
+        $this->model();
 
-        $id = $model->existingFontAndTextValues($this->site_id, $this->page_id, $this->content_id);
+        $log_property = 'font weight';
+        $id = $this->model->existingFontWeightId($this->site_id, $this->page_id, $this->content_id);
 
-        if ($id === false && $this->params['text_weight_id'] !== DEFAULT_TEXT_WEIGHT_FOR_MODULE)  {
-            try {
-                $model->addTextWeight(
-                    $this->site_id,
-                    $this->page_id,
-                    $this->content_id,
-                    $this->params['text_weight_id']
-                );
+        if ($id === false) {
+            $result = $this->model->addFontWeight(
+                $this->site_id,
+                $this->page_id,
+                $this->content_id,
+                $this->params['text_weight_id']
+            );
 
-                Dlayer_Helper::sendToInfoLog('Set text weight content item: ' . $this->content_id .
-                    ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
-                    ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            if ($result === true) {
+                $this->logChange($log_property, $this->params['text_weight_id']);
+            } else {
+                throw new Exception('Unable to set new text weight on content item');
             }
         } else {
-            try {
-                $model->editTextWeight($id, $this->params['text_weight_id']);
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            $weight_id = $this->model->fontWeight($this->site_id, $this->page_id, $this->content_id);
+
+            if ($weight_id !== $this->params['text_weight_id']) {
+
+                $result = $this->model->editFontWeight($id, $this->params['text_weight_id']);
+
+                if ($result === true) {
+                    $this->logChange($log_property, $this->params['text_weight_id']);
+                } else {
+                    throw new Exception('Unable to update the font weight on content item');
+                }
             }
         }
-    }
-
-    /**
-     * Clean up the typography table if required, don't want null values stored if not necessary
-     */
-    protected function cleanUp()
-    {
-        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Typography();
-
-        $model->cleanUp($this->site_id, $this->page_id, $this->content_id);
     }
 
     /**
@@ -197,5 +213,45 @@ class Dlayer_DesignerTool_ContentManager_Shared_Tool_Typography extends Dlayer_T
     protected function structure()
     {
         // TODO: Implement structure() method.
+    }
+
+    /**
+     * Add the used colour to the colour history table
+     *
+     * @param string $color
+     *
+     * @return void
+     */
+    protected function addToColorHistory($color)
+    {
+        $model_palette = new Dlayer_Model_Palette();
+        $model_palette->addToHistory($this->site_id, $color);
+    }
+
+    /**
+     * Log change
+     *
+     * @param string $property
+     * @param string $value
+     *
+     * @return void
+     */
+    protected function logChange($property, $value)
+    {
+        Dlayer_Helper::sendToInfoLog("Set {$property} on content item - content_id: " . $this->content_id .
+            ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id . ' row id: ' . $this->row_id .
+            ' column id: ' . $this->column_id . ' new value: ' . $value);
+    }
+
+    /**
+     * Setup the model
+     *
+     * @return void
+     */
+    protected function model()
+    {
+        if ($this->model === null) {
+            $this->model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Typography();
+        }
     }
 }

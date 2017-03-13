@@ -50,7 +50,7 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
             'background_color' => $this->contentItemBackgroundColors(),
             'border_top' => $this->contentItemsBorderTop(),
             'font_family' => $this->contentItemFontFamilies(),
-            'text_weight' => $this->contentItemTextWeights()
+            'text_weight' => $this->contentItemFontWeights()
         );
     }
 
@@ -190,19 +190,21 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
     private function contentItemFontFamilies()
     {
         $sql = "SELECT 
-                    `uspscit`.`content_id`, 
+                    `uscs`.`content_id`, 
                     `dcff`.`css` 
                 FROM 
-                    `user_site_page_styling_content_item_typography` `uspscit` 
-                JOIN 
+                    `user_site_content_styling` `uscs`
+                INNER JOIN 
                     `designer_css_font_family` `dcff` ON 
-                        `uspscit`.`font_family_id` = `dcff`.`id` 
+                        `uscs`.`value` = `dcff`.`id` 
                 WHERE 
-                    `uspscit`.`site_id` = :site_id AND 
-                    `uspscit`.`page_id` = :page_id";
+                    `site_id` = :site_id AND 
+                    `page_id` = :page_id AND 
+                    `attribute` = :attribute";
         $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $this->site_id);
-        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':attribute', 'font-family', PDO::PARAM_STR);
         $stmt->execute();
 
         $styles = array();
@@ -215,32 +217,34 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Fetch the defined text weights indexed by content id
+     * Fetch the defined font weights indexed by content id
      *
      * @return array
      */
-    private function contentItemTextWeights()
+    private function contentItemFontWeights()
     {
         $sql = "SELECT 
-                    `uspscit`.`content_id`, 
+                    `uscs`.`content_id`, 
                     `dctw`.`css` 
                 FROM 
-                    `user_site_page_styling_content_item_typography` `uspscit` 
-                JOIN 
+                    `user_site_content_styling` `uscs`
+                INNER JOIN 
                     `designer_css_text_weight` `dctw` ON 
-                        `uspscit`.`text_weight_id` = `dctw`.`id` 
+                        `uscs`.`value` = `dctw`.`id` 
                 WHERE 
-                    `uspscit`.`site_id` = :site_id AND 
-                    `uspscit`.`page_id` = :page_id";
+                    `site_id` = :site_id AND 
+                    `page_id` = :page_id AND 
+                    `attribute` = :attribute";
         $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $this->site_id);
-        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':attribute', 'font-weight', PDO::PARAM_STR);
         $stmt->execute();
 
         $styles = array();
 
         foreach ($stmt->fetchAll() as $row) {
-            $styles[intval($row['content_id'])] = intval($row['css']);
+            $styles[intval($row['content_id'])] = $row['css'];
         }
 
         return $styles;
