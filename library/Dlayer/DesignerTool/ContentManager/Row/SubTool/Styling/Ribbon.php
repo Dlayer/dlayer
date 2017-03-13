@@ -47,8 +47,8 @@ class Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Ribbon extends Dlay
                 'background_color' => false,
             );
 
-            $model_styling = new Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Model();
-            $background_color = $model_styling->backgroundColor(
+            $model = new Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Model();
+            $background_color = $model->backgroundColor(
                 $this->tool['site_id'],
                 $this->tool['page_id'],
                 $this->tool['row_id']

@@ -10,6 +10,11 @@
 class Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Tool extends Dlayer_Tool_Content
 {
     /**
+     * @var Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Model
+     */
+    protected $model;
+
+    /**
      * Check that the required params have been submitted, check the keys in the params array
      *
      * @param array $params
@@ -103,40 +108,40 @@ class Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Tool extends Dlayer
      */
     protected function backgroundColor()
     {
-        $model_row = new Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Model();
-        $model_palette = new Dlayer_Model_Palette();
+        $this->model();
 
-        $id = $model_row->existingBackgroundColor($this->site_id, $this->page_id, $this->row_id);
+        $log_property = 'background color';
+        $id = $this->model->existingBackgroundColorId($this->site_id, $this->page_id, $this->row_id);
 
         if ($id === false) {
-            try {
-                $model_row->addBackgroundColor(
-                    $this->site_id,
-                    $this->page_id,
-                    $this->row_id,
-                    $this->params['background_color']
-                );
+            $result = $this->model->addBackgroundColor(
+                $this->site_id,
+                $this->page_id,
+                $this->row_id,
+                $this->params['background_color']
+            );
 
-                $model_palette->addToHistory($this->site_id, $this->params['background_color']);
-
-                Dlayer_Helper::sendToInfoLog('Set background colour for row: ' . $this->content_id .
-                    ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
-                    ' row id: ' . $this->row_id);
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            if ($result === true) {
+                $this->addToColorHistory($this->params['background_color']);
+                $this->logChange($log_property, $this->params['background_color']);
+            } else {
+                throw new Exception('Unable to set new background color on row');
             }
         } else {
-            try {
-                $model_row->editBackgroundColor($id, $this->params['background_color']);
-                if ($this->params['background_color'] !== null && strlen($this->params['background_color']) === 7) {
-                    $model_palette->addToHistory($this->site_id, $this->params['background_color']);
+            $color = $this->model->backgroundColor($this->site_id, $this->page_id, $this->row_id);
 
-                    Dlayer_Helper::sendToInfoLog('Set background colour for row: ' . $this->content_id .
-                        ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
-                        ' row id: ' . $this->row_id);
+            if ($color !== $this->params['background_color']) {
+
+                $result = $this->model->editBackgroundColor($id, $this->params['background_color']);
+
+                if ($result === true) {
+                    if ($this->params['background_color'] !== null) {
+                        $this->addToColorHistory($this->params['color']);
+                    }
+                    $this->logChange($log_property, $this->params['background_color']);
+                } else {
+                    throw new Exception('Unable to update the background color on a row');
                 }
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
         }
     }
@@ -144,11 +149,16 @@ class Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Tool extends Dlayer
     /**
      * Make a structural change to the page
      *
-     * @return array|FALSE An array of the environment vars to set or FALSE upon error
+     * @return array|false An array of the environment vars to set or false upon error
      */
     protected function structure()
     {
-        $this->backgroundColor();
+        try {
+            $this->backgroundColor();
+        } catch (Exception $e) {
+            Dlayer_Helper::sendToErrorLog($e->getMessage());
+            return false;
+        }
 
         return $this->returnIds();
     }
@@ -183,5 +193,44 @@ class Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Tool extends Dlayer
                 'sub_tool' => 'Styling'
             )
         );
+    }
+
+    /**
+     * Add the used colour to the colour history table
+     *
+     * @param string $color
+     *
+     * @return void
+     */
+    protected function addToColorHistory($color)
+    {
+        $model_palette = new Dlayer_Model_Palette();
+        $model_palette->addToHistory($this->site_id, $color);
+    }
+
+    /**
+     * Log change
+     *
+     * @param string $property
+     * @param string $value
+     *
+     * @return void
+     */
+    protected function logChange($property, $value)
+    {
+        Dlayer_Helper::sendToInfoLog("Set {$property} for row - site_id: " . $this->site_id . ' page id: ' .
+            $this->page_id . ' row id: ' . $this->row_id . ' new value: ' . $value);
+    }
+
+    /**
+     * Setup the model
+     *
+     * @return void
+     */
+    protected function model()
+    {
+        if ($this->model === null) {
+            $this->model = new Dlayer_DesignerTool_ContentManager_Row_SubTool_Styling_Model();
+        }
     }
 }

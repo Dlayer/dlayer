@@ -43,6 +43,9 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
      */
     public function contentItems()
     {
+        /**
+         * @todo Once we have transferred all styling to new tables this could be done in a single query, no need for four
+         */
         return array(
             'background_color' => $this->contentItemBackgroundColors(),
             'border_top' => $this->contentItemsBorderTop(),
@@ -242,19 +245,25 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
      */
     private function columnBackgroundColors()
     {
-        $sql = "SELECT column_id, background_color 
-                FROM user_site_page_styling_column_background_color 
-                WHERE site_id = :site_id 
-                AND page_id = :page_id";
+        $sql = "SELECT 
+                    `column_id`, 
+                    `value` 
+                FROM 
+                    `user_site_column_styling`  
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `page_id` = :page_id AND 
+                    `attribute` = :attribute";
         $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $this->site_id);
-        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':attribute', 'background-color', PDO::PARAM_STR);
         $stmt->execute();
 
         $styles = array();
 
         foreach ($stmt->fetchAll() as $row) {
-            $styles[intval($row['column_id'])] = $row['background_color'];
+            $styles[intval($row['column_id'])] = $row['value'];
         }
 
         return $styles;
@@ -267,19 +276,25 @@ class Dlayer_Model_View_Page_Styling extends Zend_Db_Table_Abstract
      */
     private function rowBackgroundColors()
     {
-        $sql = "SELECT row_id, background_color 
-                FROM user_site_page_styling_row_background_color 
-                WHERE site_id = :site_id 
-                AND page_id = :page_id";
+        $sql = "SELECT 
+                    `row_id`, 
+                    `value` 
+                FROM 
+                    `user_site_row_styling` 
+                WHERE 
+                    `site_id` = :site_id AND 
+                    `page_id` = :page_id AND 
+                    `attribute` = :attribute";
         $stmt = $this->_db->prepare($sql);
-        $stmt->bindValue(':site_id', $this->site_id);
-        $stmt->bindValue(':page_id', $this->page_id);
+        $stmt->bindValue(':site_id', $this->site_id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_id', $this->page_id, PDO::PARAM_INT);
+        $stmt->bindValue(':attribute', 'background-color', PDO::PARAM_STR);
         $stmt->execute();
 
         $styles = array();
 
         foreach ($stmt->fetchAll() as $row) {
-            $styles[intval($row['row_id'])] = $row['background_color'];
+            $styles[intval($row['row_id'])] = $row['value'];
         }
 
         return $styles;
