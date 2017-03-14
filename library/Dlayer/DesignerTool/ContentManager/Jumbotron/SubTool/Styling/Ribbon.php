@@ -49,15 +49,15 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_SubTool_Styling_Ribbon extend
             );
 
             if ($this->tool['content_id'] !== null) {
-                $model_styling = new Dlayer_DesignerTool_ContentManager_Jumbotron_SubTool_Styling_Model();
-                $content_background_color = $model_styling->backgroundColor(
+                $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Styling();
+                $background_color = $model->backgroundColor(
                     $this->tool['site_id'],
                     $this->tool['page_id'],
                     $this->tool['content_id']
                 );
 
-                if ($content_background_color !== false) {
-                    $this->content_data['content_background_color'] = $content_background_color;
+                if ($background_color !== false) {
+                    $this->content_data['content_background_color'] = $background_color;
                 }
             }
 

@@ -6,7 +6,7 @@
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
 class Dlayer_DesignerTool_ContentManager_BlogPost_SubTool_Delete_Tool extends
-    Dlayer_DesignerTool_ContentManager_Shared_Tool_Delete
+    Dlayer_DesignerTool_ContentManager_Shared_Tool_Content_Delete
 {
     // No custom logic required
 }

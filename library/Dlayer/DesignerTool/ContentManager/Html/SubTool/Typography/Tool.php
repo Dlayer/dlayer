@@ -8,7 +8,7 @@
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
 class Dlayer_DesignerTool_ContentManager_Html_SubTool_Typography_Tool extends
-    Dlayer_DesignerTool_ContentManager_Shared_Tool_Typography
+    Dlayer_DesignerTool_ContentManager_Shared_Tool_Content_Typography
 {
     /**
      * Generate the return ids array

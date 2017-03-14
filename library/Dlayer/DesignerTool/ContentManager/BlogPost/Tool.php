@@ -180,7 +180,7 @@ class Dlayer_DesignerTool_ContentManager_BlogPost_Tool extends Dlayer_Tool_Conte
      */
     protected function validateInstances($site_id, $content_id)
     {
-        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content();
+        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Item();
         $instances = $model->instancesOfData($site_id, $content_id, 'BlogPost');
 
         if ($instances > 1) {

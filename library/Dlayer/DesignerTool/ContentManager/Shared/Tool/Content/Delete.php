@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Shared_Tool_Delete extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Shared_Tool_Content_Delete extends Dlayer_Tool_Content
 {
     /**
      * Check that the required params have been submitted, check the keys in the params array
@@ -73,7 +73,7 @@ class Dlayer_DesignerTool_ContentManager_Shared_Tool_Delete extends Dlayer_Tool_
      */
     protected function edit()
     {
-        $model = new Dlayer_DesignerTool_ContentManager_Text_SubTool_Delete_Model();
+        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Delete();
 
         $deleted = $model->setDeleted($this->site_id, $this->page_id, $this->column_id, $this->content_id);
 

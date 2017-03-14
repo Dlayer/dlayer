@@ -7,8 +7,13 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Shared_Tool_Styling extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Shared_Tool_Content_Styling extends Dlayer_Tool_Content
 {
+    /**
+     * @var Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Styling
+     */
+    protected $model;
+
     /**
      * Check that the required params have been submitted, check the keys in the params array
      *
@@ -92,7 +97,12 @@ class Dlayer_DesignerTool_ContentManager_Shared_Tool_Styling extends Dlayer_Tool
      */
     protected function edit()
     {
-        $this->backgroundColorContentItem();
+        try {
+            $this->backgroundColor();
+        } catch (Exception $e) {
+            Dlayer_Helper::sendToErrorLog($e->getMessage());
+            return false;
+        }
 
         return $this->returnIds();
     }
@@ -103,41 +113,42 @@ class Dlayer_DesignerTool_ContentManager_Shared_Tool_Styling extends Dlayer_Tool
      * @return void
      * @throws Exception
      */
-    protected function backgroundColorContentItem()
+    protected function backgroundColor()
     {
-        $model_heading = new Dlayer_DesignerTool_ContentManager_Shared_Model_Styling();
-        $model_palette = new Dlayer_Model_Palette();
+        $this->model();
 
-        $id = $model_heading->existingBackgroundColor($this->site_id, $this->page_id, $this->content_id);
+        $log_property = 'background color';
+        $id = $this->model->existingBackgroundColorId($this->site_id, $this->page_id, $this->content_id);
 
         if ($id === false) {
-            try {
-                $model_heading->addBackgroundColor(
-                    $this->site_id,
-                    $this->page_id,
-                    $this->content_id,
-                    $this->params['content_background_color']
-                );
-                $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
+            $result = $this->model->addBackgroundColor(
+                $this->site_id,
+                $this->page_id,
+                $this->content_id,
+                $this->params['content_background_color']
+            );
 
-                Dlayer_Helper::sendToInfoLog('Set background colour for image content item: ' . $this->content_id .
-                    ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
-                    ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
+            if ($result === true) {
+                $this->addToColorHistory($this->params['content_background_color']);
+                $this->logChange($log_property, $this->params['content_background_color']);
+            } else {
+                throw new Exception('Unable to set new background color on content item');
             }
         } else {
-            try {
-                $model_heading->editBackgroundColor($id, $this->params['content_background_color']);
-                if ($this->params['content_background_color'] !== null && strlen($this->params['content_background_color']) === 7) {
-                    $model_palette->addToHistory($this->site_id, $this->params['content_background_color']);
+            $color = $this->model->backgroundColor($this->site_id, $this->page_id, $this->content_id);
 
-                    Dlayer_Helper::sendToInfoLog('Set background colour for image content item: ' . $this->content_id .
-                        ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id .
-                        ' row id: ' . $this->row_id . ' column id: ' . $this->column_id);
+            if ($color !== $this->params['content_background_color']) {
+
+                $result = $this->model->editBackgroundColor($id, $this->params['content_background_color']);
+
+                if ($result === true) {
+                    if ($this->params['content_background_color'] !== null) {
+                        $this->addToColorHistory($this->params['content_background_color']);
+                    }
+                    $this->logChange($log_property, $this->params['content_background_color']);
+                } else {
+                    throw new Exception('Unable to update the background color on content item');
                 }
-            } catch (Exception $e) {
-                throw new Exception($e->getMessage(), $e->getCode(), $e);
             }
         }
     }
@@ -150,5 +161,45 @@ class Dlayer_DesignerTool_ContentManager_Shared_Tool_Styling extends Dlayer_Tool
     protected function structure()
     {
         // TODO: Implement structure() method.
+    }
+
+    /**
+     * Add the used colour to the colour history table
+     *
+     * @param string $color
+     *
+     * @return void
+     */
+    protected function addToColorHistory($color)
+    {
+        $model_palette = new Dlayer_Model_Palette();
+        $model_palette->addToHistory($this->site_id, $color);
+    }
+
+    /**
+     * Log change
+     *
+     * @param string $property
+     * @param string $value
+     *
+     * @return void
+     */
+    protected function logChange($property, $value)
+    {
+        Dlayer_Helper::sendToInfoLog("Set {$property} on content item - content_id: " . $this->content_id .
+            ' site_id: ' . $this->site_id . ' page id: ' . $this->page_id . ' row id: ' . $this->row_id .
+            ' column id: ' . $this->column_id . ' new value: ' . $value);
+    }
+
+    /**
+     * Setup the model
+     *
+     * @return void
+     */
+    protected function model()
+    {
+        if ($this->model === null) {
+            $this->model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Styling();
+        }
     }
 }

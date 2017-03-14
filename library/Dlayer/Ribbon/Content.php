@@ -88,7 +88,7 @@ abstract class Dlayer_Ribbon_Content
             $this->instances_of = 0;
 
             if ($this->tool['content_id'] !== null) {
-                $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content();
+                $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Item();
                 $this->instances_of = $model->instancesOfData(
                     $this->tool['site_id'],
                     $this->tool['content_id'],

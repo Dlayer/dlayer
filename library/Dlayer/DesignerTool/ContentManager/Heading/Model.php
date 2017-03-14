@@ -9,7 +9,7 @@
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
 class Dlayer_DesignerTool_ContentManager_Heading_Model extends
-    Dlayer_DesignerTool_ContentManager_Shared_Model_Content
+    Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Item
 {
     /**
      * Add a new heading content item

@@ -8,7 +8,7 @@
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
 class Dlayer_DesignerTool_ContentManager_Image_SubTool_Styling_Form extends
-    Dlayer_DesignerTool_ContentManager_Shared_Form_Styling
+    Dlayer_DesignerTool_ContentManager_Shared_Form_Content_Styling
 {
     /**
      * Set the properties for the form
