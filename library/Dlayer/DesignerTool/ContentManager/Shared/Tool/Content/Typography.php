@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Shared_Tool_Typography extends Dlayer_Tool_Content
+class Dlayer_DesignerTool_ContentManager_Shared_Tool_Content_Typography extends Dlayer_Tool_Content
 {
     /**
      * @var Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Typography

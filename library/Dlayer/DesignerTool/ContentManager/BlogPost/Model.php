@@ -8,7 +8,7 @@
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
 class Dlayer_DesignerTool_ContentManager_BlogPost_Model extends
-    Dlayer_DesignerTool_ContentManager_Shared_Model_Content
+    Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Item
 {
     /**
      * Fetch all the heading types supported by Dlayer

@@ -8,7 +8,7 @@
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
 class Dlayer_DesignerTool_ContentManager_Text_SubTool_Typography_Form extends
-    Dlayer_DesignerTool_ContentManager_Shared_Form_Typography
+    Dlayer_DesignerTool_ContentManager_Shared_Form_Content_Typography
 {
     /**
      * Set the properties for the form

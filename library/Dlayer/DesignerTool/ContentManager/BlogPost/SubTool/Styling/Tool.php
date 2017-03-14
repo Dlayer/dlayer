@@ -6,7 +6,7 @@
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
 class Dlayer_DesignerTool_ContentManager_Text_SubTool_Styling_Tool extends
-    Dlayer_DesignerTool_ContentManager_Shared_Tool_Styling
+    Dlayer_DesignerTool_ContentManager_Shared_Tool_Content_Styling
 {
     /**
      * Generate the return ids array

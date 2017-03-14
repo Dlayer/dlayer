@@ -7,7 +7,7 @@
  * @copyright G3D Development Limited
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
-class Dlayer_DesignerTool_ContentManager_Shared_Model_Delete extends Zend_Db_Table_Abstract
+class Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Delete extends Zend_Db_Table_Abstract
 {
     /**
      * Set the deleted flag

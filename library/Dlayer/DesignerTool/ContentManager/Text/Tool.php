@@ -159,7 +159,7 @@ class Dlayer_DesignerTool_ContentManager_Text_Tool extends Dlayer_Tool_Content
      */
     protected function validateInstances($site_id, $content_id)
     {
-        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content();
+        $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Item();
         $instances = $model->instancesOfData($site_id, $content_id, 'Text');
 
         if ($instances > 1) {

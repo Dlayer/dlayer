@@ -8,7 +8,7 @@
  * @license https://github.com/Dlayer/dlayer/blob/master/LICENSE
  */
 class Dlayer_DesignerTool_ContentManager_Text_SubTool_Delete_Form extends
-    Dlayer_DesignerTool_ContentManager_Shared_Form_Delete
+    Dlayer_DesignerTool_ContentManager_Shared_Form_Content_Delete
 {
     /**
      * Set the properties for the form
