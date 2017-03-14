@@ -49,7 +49,7 @@ class Dlayer_DesignerTool_ContentManager_Jumbotron_SubTool_Styling_Ribbon extend
             );
 
             if ($this->tool['content_id'] !== null) {
-                $model = new Dlayer_DesignerTool_ContentManager_Jumbotron_SubTool_Styling_Model();
+                $model = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Styling();
                 $background_color = $model->backgroundColor(
                     $this->tool['site_id'],
                     $this->tool['page_id'],

@@ -6,7 +6,7 @@ Full changelog for Dlayer since the v1.00 release.
 ## v1.17: 
 
 * New styling table for content items, stores all defined styles, no need for a table per styling group. [Refactoring]
-* Cleaned up tools, removed redundant model classes. [Refactoring]
+* Cleaned up tools, removed redundant model classes and moved around shared classes, now more apparent if they relate to content or not. [Refactoring]
 
 ## v1.16: 12th March 2017
 

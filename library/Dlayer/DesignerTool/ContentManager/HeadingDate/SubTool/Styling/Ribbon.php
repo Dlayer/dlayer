@@ -49,7 +49,7 @@ class Dlayer_DesignerTool_ContentManager_HeadingDate_SubTool_Styling_Ribbon exte
             );
 
             if ($this->tool['content_id'] !== null) {
-                $model_styling = new Dlayer_DesignerTool_ContentManager_HeadingDate_SubTool_Styling_Model();
+                $model_styling = new Dlayer_DesignerTool_ContentManager_Shared_Model_Content_Styling();
                 $content_background_color = $model_styling->backgroundColor(
                     $this->tool['site_id'],
                     $this->tool['page_id'],
