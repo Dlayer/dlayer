@@ -57,12 +57,11 @@ class Dlayer_Model_View_Page_Content_BlogPost extends Zend_Db_Table_Abstract
                 $result['date'] = date($result['format'], strtotime($bits['1']));
                 $result['content'] = $bits[2];
 
-                $renderer = new \DBlackborough\Quill\Renderer\Html();
-
-                if ($renderer->load($result['content']) === true) {
-                    $result['content'] = $renderer->render();
+                try {
+                    $quill = new \DBlackborough\Quill\Render($result['content'], 'HTML');
+                    $result['content'] = $quill->render();
                     return $result;
-                } else {
+                } catch (\Exception $e) {
                     return false;
                 }
             } else {
