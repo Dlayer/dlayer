@@ -4,32 +4,32 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "332eb4a619bc153c736ffa4368df8c12",
+    "content-hash": "f1f5ecf89015904e6a8bf42498d831f4",
     "packages": [
         {
             "name": "deanblackborough/php-quill-renderer",
-            "version": "v0.40.0",
+            "version": "v1.01.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deanblackborough/php-quill-renderer.git",
-                "reference": "56dc37c6a69c098bac918684d8e6376f91318612"
+                "reference": "2fd6880b9a596f6ad06aaec98d5b88c69263bb74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/56dc37c6a69c098bac918684d8e6376f91318612",
-                "reference": "56dc37c6a69c098bac918684d8e6376f91318612",
+                "url": "https://api.github.com/repos/deanblackborough/php-quill-renderer/zipball/2fd6880b9a596f6ad06aaec98d5b88c69263bb74",
+                "reference": "2fd6880b9a596f6ad06aaec98d5b88c69263bb74",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.4"
+                "phpunit/phpunit": "^6"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "DBlackborough\\Quill": "src"
+                "psr-4": {
+                    "DBlackborough\\Quill\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -42,14 +42,17 @@
                     "email": "dean@g3d-development.com"
                 }
             ],
-            "description": "Render quill insert deltas to HTML",
+            "description": "Render quill insert deltas to HTML and soon markdown",
             "homepage": "https://github.com/deanblackborough/php-quill-renderer",
             "keywords": [
+                "delta",
                 "html",
+                "parse",
                 "quill",
+                "quilljs",
                 "renderer"
             ],
-            "time": "2017-03-10T17:08:52+00:00"
+            "time": "2017-09-04T18:39:25+00:00"
         }
     ],
     "packages-dev": [],

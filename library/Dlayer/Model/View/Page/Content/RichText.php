@@ -43,12 +43,11 @@ class Dlayer_Model_View_Page_Content_RichText extends Zend_Db_Table_Abstract
         $result = $stmt->fetch();
 
         if ($result !== false) {
-            $renderer = new \DBlackborough\Quill\Renderer\Html();
-
-            if ($renderer->load($result['content']) === true) {
-                $result['content'] = $renderer->render();
+            try {
+                $quill = new \DBlackborough\Quill\Render($result['content'], 'HTML');
+                $result['content'] = $quill->render();
                 return $result;
-            } else {
+            } catch (\Exception $e) {
                 return false;
             }
         } else {
