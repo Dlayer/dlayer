@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "e6044a7ca542310f0fd9407b2ebbaf8b",
     "content-hash": "f1f5ecf89015904e6a8bf42498d831f4",
     "packages": [
         {
@@ -52,7 +53,7 @@
                 "quilljs",
                 "renderer"
             ],
-            "time": "2017-09-11T14:00:03+00:00"
+            "time": "2017-09-11 14:00:03"
         }
     ],
     "packages-dev": [],
