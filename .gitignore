@@ -6,3 +6,4 @@ public/css/*.css
 public/css/*.css.map
 vendor/
 *.log
+app/mysql/data
