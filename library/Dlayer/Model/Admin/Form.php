@@ -300,7 +300,12 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
                     `user_site_form`.`name`,
                     `user_site_form_layout`.`title`, 
                     `designer_form_layout`.`layout`, 
-                    COUNT(`user_site_form_field`.`id`) AS `elements`
+                    (
+                      SELECT COUNT(`elements`.`id`)
+                      FROM `user_site_form_field` AS `elements`
+                      WHERE elements.`site_id` = :site_id AND 
+                      `elements`.`form_id` = `user_site_form`.`id`
+                    ) AS `elements`
 				FROM 
 				    `user_site_form` 
                 INNER JOIN 
@@ -315,8 +320,6 @@ class Dlayer_Model_Admin_Form extends Zend_Db_Table_Abstract
                         `user_site_form_field`.`deleted` = 0 
 				WHERE 
 				    `user_site_form`.`site_id` = :site_id 
-                GROUP BY 
-                    `user_site_form`.`id`
 				ORDER BY 
 				    `user_site_form`.`name` ASC";
         $stmt = $this->_db->prepare($sql);

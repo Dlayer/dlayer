@@ -105,7 +105,7 @@ class Dlayer_Model_Palette extends Zend_Db_Table_Abstract
         $sql = "SELECT color_hex
 				FROM user_setting_color_history
 				WHERE site_id = :site_id
-				GROUP BY color_hex
+				GROUP BY color_hex, id
 				ORDER BY id DESC
 				LIMIT :limit";
         $stmt = $this->_db->prepare($sql);

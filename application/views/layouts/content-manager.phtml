@@ -58,14 +58,14 @@
 		            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Navigate page <span class="caret"></span></button>
 		            <ul class="dropdown-menu">
-	                <?php if (count($this->layout()->control_bar) > 0) { ?>
+	                <?php if (is_array($this->layout()->control_bar) && count($this->layout()->control_bar) > 0) { ?>
 	                    <?php foreach($this->layout()->control_bar as $button) { ?>
 			                <li><a href="<?php echo $this->escape($button['uri']); ?>"><?php echo $this->escape($button['name']); ?></a></li>
 	                    <?php } ?>
 	                <?php } ?>
 		            </ul>
 	            </div>
-                <?php if (count($this->layout()->control_bar_siblings) > 0) { ?>
+                <?php if (is_array($this->layout()->control_bar_siblings) && count($this->layout()->control_bar_siblings) > 0) { ?>
                 <div class="btn-group dropup" style="margin-right: 1rem;">
                     <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Select siblings <span class="caret"></span></button>
