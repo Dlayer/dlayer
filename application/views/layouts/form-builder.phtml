@@ -50,12 +50,12 @@
 		</div>
         <nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="container container-1170">
-                <?php if (count($this->layout()->control_bar) > 0) { ?>
+                <?php if (is_array($this->layout()->control_bar) && count($this->layout()->control_bar) > 0) { ?>
                     <?php foreach($this->layout()->control_bar as $button) { ?>
                         <a href="<?php echo $this->escape($button['uri']); ?>" class="navbar-btn btn-sm btn <?php echo $this->escape($button['class']); ?>" style="margin-right: 1rem;"><?php echo $this->escape($button['name']); ?></a>
                     <?php } ?>
                 <?php } ?>
-                <?php if (count($this->layout()->control_bar_siblings) > 0) { ?>
+                <?php if (is_array($this->layout()->control_bar_siblings) && count($this->layout()->control_bar_siblings) > 0) { ?>
                     <div class="btn-group dropup" style="margin: 0 1rem;">
                     <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Select sibling content items <span class="caret"></span></button>
